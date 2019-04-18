@@ -1,2 +1,10 @@
 @tailwind preflight;
 @tailwind utilities;
+
+body {
+  @apply p-6;
+}
+
+a {
+  @apply no-underline;
+}

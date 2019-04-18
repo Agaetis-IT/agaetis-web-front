@@ -72,6 +72,10 @@ let colors = {
   'orange-lighter': '#fcd9b6',
   'orange-lightest': '#fff5eb',
 
+  'agaetis': '#FF7F40',
+
+
+
   'yellow-darkest': '#453411',
   'yellow-darker': '#684f1d',
   'yellow-dark': '#f2d024',
