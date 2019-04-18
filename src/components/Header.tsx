@@ -3,8 +3,10 @@ import Navigation from '../components/Navigation'
 
 export default function Header() {
   return (
-    <header className="bg-agaetis">
-      <Navigation />
+    <header className="bg-black p-8">
+      <div className="w-50%">
+        <Navigation />
+      </div>
     </header>
   )
 }

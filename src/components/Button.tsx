@@ -5,7 +5,11 @@ export default function Button(props: any) {
     <div>
       <a
         href="#"
-        className="bg-black inline-block text-xs px-6 py-3 leading-none rounded-full uppercase text-white mt-4 lg:mt-0"
+        className={
+          'bg-' +
+          props.color +
+          ' inline-block text-xs px-6 py-3 leading-none rounded-full uppercase text-white mt-4 lg:mt-0'
+        }
       >
         {props.children}
       </a>
