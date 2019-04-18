@@ -1,12 +1,10 @@
 import React from 'react'
-import Navigation from '../components/Navigation'
+import Navigation from './Navigation'
 
 export default function Header() {
   return (
-    <header className="bg-black p-8">
-      <div className="w-50%">
-        <Navigation />
-      </div>
+    <header className="bg-transparent md:bg-black p-0 md:p-8">
+      <Navigation />
     </header>
   )
 }
