@@ -1,12 +1,6 @@
 @tailwind preflight;
 @tailwind utilities;
-
+@import url('./normalize.css');
 a {
   @apply no-underline;
-}
-
-.title-center {
-  position: absolute;
-  left: 50%;
-  transform: translatey(-50%);
 }

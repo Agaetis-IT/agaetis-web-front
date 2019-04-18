@@ -3,7 +3,7 @@ import Navigation from './Navigation'
 
 export default function Header() {
   return (
-    <header className="bg-transparent md:bg-black p-0 md:p-8">
+    <header className="md:bg-black p-0 md:p-8">
       <Navigation />
     </header>
   )

@@ -1,9 +1,9 @@
 import Button from './Button'
 import Link from 'next/link'
-import React from 'react'
+import React, { useState } from 'react'
 
 export default function Navigation() {
-  // const [links, setLinks] = useState(['Agaetis', 'Idées', 'Solutions', 'Jobs'])
+  const [pages, setPages] = useState(['Agaetis', 'Idées', 'Solutions', 'Jobs'])
   return (
     <nav className="flex flex-col md:flex-row item-start md:items-center flex-wrap justify-between md:justify-center">
       {/*Site logo + Hamburger icon */}
@@ -31,21 +31,16 @@ export default function Navigation() {
       {/*Main menu + button + language */}
       <div className="block bg-agaetis md:bg-transparent sm:flex-grow md:flex-no-grow md:flex md:items-center md:w-auto p-4 md:p-0">
         <div className="text-xs font-medium md:flex-grow">
-          <Link href="#responsive-header">
-            <a className="block md:inline-block text-white md:mt-0 md:mr-4 p-2 md:p-0">Agaetis</a>
-          </Link>
-          <Link href="#responsive-header">
-            <a className="block md:inline-block text-white md:mt-0 md:mr-4 md:ml-1 p-2 md:p-0">Idées</a>
-          </Link>
-          <Link href="#responsive-header">
-            <a className="block md:inline-block text-white md:mt-0 md:mr-4 md:ml-1 p-2 md:p-0">Solutions</a>
-          </Link>
-          <Link href="#responsive-header">
-            <a className="block md:inline-block text-white md:mt-0 md:mr-16 md:ml-1 p-2 md:p-0">Jobs</a>
-          </Link>
+          {pages.map(page => {
+            return (
+              <Link key={page} href="#responsive-header">
+                <a className="block md:inline-block text-white p-2 md:p-3">{page}</a>
+              </Link>
+            )
+          })}
         </div>
         {/* if md/lg screen => Button else => simple link*/}
-        <div className="hidden md:inline">
+        <div className="hidden md:inline md:ml-16">
           <Button color="agaetis" url="#">
             Contact
           </Button>
@@ -55,6 +50,7 @@ export default function Navigation() {
             <a className="block md:inline-block text-white md:mt-0 md:mr-16 md:ml-1 p-2 md:p-0">Contact</a>
           </Link>
         </div>
+        {/*Languages selection */}
         <div className="text-xs md:ml-4 flex flex-row">
           <Link href="#">
             <a className="block md:inline-block text-white md:mt-0 mr-1 p-2 pr-0 md:p-0">EN</a>
