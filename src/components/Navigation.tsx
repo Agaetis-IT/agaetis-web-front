@@ -11,9 +11,10 @@ export default function Navigation() {
   return (
     <nav className="flex flex-col md:flex-row item-start md:items-center flex-wrap justify-between md:justify-center">
       {/*Site logo + Hamburger icon */}
-      <div className="flex items-center flex-no-shrink text-agaetis md:text-white mb-1 md:mb-0">
+      <div className="flex items-center flex-no-shrink text-orange md:text-white mb-1 md:mb-0">
+        <div className="logo" />
         <Link href="/">
-          <a className="text-agaetis md:text-white ml-auto mr-auto md:ml-0 md:mr-16 flex items-center">
+          <a className="text-orange md:text-white ml-auto mr-auto md:ml-0 md:mr-16 flex items-center">
             <svg
               className="fill-current h-8 w-8 mr-2"
               width="54"
@@ -28,7 +29,7 @@ export default function Navigation() {
         </Link>
 
         <button
-          className="md:hidden px-3 py-2 font-semibold text-agaetis m-0 float-right flex flex-col items-center focus:border-black"
+          className="md:hidden px-3 py-2 font-semibold text-orange m-0 float-right flex flex-col items-center focus:border-black"
           onClick={navMenu.onClick}
         >
           <svg className="fill-current h-5 w-5" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -66,5 +67,5 @@ function useWindowWidth() {
     })
     return width
   }
-  return 0
+  return 768
 }
