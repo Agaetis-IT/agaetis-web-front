@@ -1,0 +1,12 @@
+@tailwind preflight;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+
+body {
+  font-family: 'Poppins';
+}
+
+a {
+  @apply no-underline;
+}
