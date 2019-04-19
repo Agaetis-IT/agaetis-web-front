@@ -1,46 +1,41 @@
+import clsx from 'clsx'
+import Link from 'next/link'
 import React from 'react'
 
-import { Color } from './common'
+import { Color } from './type'
 
 interface Props {
   href?: string
-  color: Color
+  color?: Color
   children: string
-  onClick?(e: Event): void
+  className?: string
+  onClick?(e: React.MouseEvent): void
 }
 
-function getBgClass(colorProp: Color): string {
-  let classBG = 'bg-transparent'
+function getBgClass(colorProp?: Color): string {
   switch (colorProp) {
-    case 'agaetis': {
-      classBG = 'bg-agaetis'
-      break
-    }
+    case 'orange':
+      return 'bg-orange'
+    default:
+      return ''
   }
-  return classBG
 }
 
-export default function Button({ href, color, children, onClick }: Props) {
-  let button
-  if (href !== undefined) {
-    button = (
-      <a
-        href={href}
-        className={
-          getBgClass(color) +
-          ' inline-block text-xs px-6 py-3 leading-none rounded-full uppercase text-white mt-4 md:mt-0'
-        }
-      >
-        {children}
-      </a>
-    )
-  } else {
-    button = (
-      <div color={color} onClick={onClick}>
-        {children}
-      </div>
-    )
-  }
+export default function Button({ href, color, children, onClick, className }: Props) {
+  const Component = !href ? 'button' : 'a'
+  const baseComponent = (
+    <Component
+      href={href}
+      onClick={onClick}
+      className={clsx(className, getBgClass(color), 'block md:inline-block text-xs text-white')}
+    >
+      {children}
+    </Component>
+  )
 
-  return <>{button}</>
+  if (!href) {
+    return baseComponent
+  } else {
+    return <Link href={href}>{baseComponent}</Link>
+  }
 }
