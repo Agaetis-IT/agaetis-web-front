@@ -1,18 +1,46 @@
 import React from 'react'
 
-export default function Button(props: any) {
-  return (
-    <div>
+import { Color } from './common'
+
+interface Props {
+  href?: string
+  color: Color
+  children: string
+  onClick?(e: Event): void
+}
+
+function getBgClass(colorProp: Color): string {
+  let classBG = 'bg-transparent'
+  switch (colorProp) {
+    case 'agaetis': {
+      classBG = 'bg-agaetis'
+      break
+    }
+  }
+  return classBG
+}
+
+export default function Button({ href, color, children, onClick }: Props) {
+  let button
+  if (href !== undefined) {
+    button = (
       <a
-        href={props.url}
+        href={href}
         className={
-          'bg-' +
-          props.color +
+          getBgClass(color) +
           ' inline-block text-xs px-6 py-3 leading-none rounded-full uppercase text-white mt-4 md:mt-0'
         }
       >
-        {props.children}
+        {children}
       </a>
-    </div>
-  )
+    )
+  } else {
+    button = (
+      <div color={color} onClick={onClick}>
+        {children}
+      </div>
+    )
+  }
+
+  return <>{button}</>
 }
