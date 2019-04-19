@@ -1,9 +1,13 @@
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import NavigationMenu from './NavigationMenu'
 
 export default function Navigation() {
+  const navMenu = useNavMenu()
+
+  const width = useWindowWidth()
+
   return (
     <nav className="flex flex-col md:flex-row item-start md:items-center flex-wrap justify-between md:justify-center">
       {/*Site logo + Hamburger icon */}
@@ -23,7 +27,10 @@ export default function Navigation() {
           </a>
         </Link>
 
-        <button className="md:hidden px-3 py-2 font-semibold text-agaetis m-0 float-right flex flex-col items-center">
+        <button
+          className="md:hidden px-3 py-2 font-semibold text-agaetis m-0 float-right flex flex-col items-center focus:border-black"
+          onClick={navMenu.onClick}
+        >
           <svg className="fill-current h-5 w-5" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
             <title className="text-black">Menu</title>
             <path d="M0 0h20v2H0V3zm0 8h20v2H0V9zm0 8h20v2H0v-2z" />
@@ -31,7 +38,33 @@ export default function Navigation() {
           <span className="uppercase text-black text-xxs pt-1">Menu</span>
         </button>
       </div>
-      <NavigationMenu />
+      <div className={navMenu.navState && width < 768 ? 'hidden' : ''}>
+        <NavigationMenu />
+      </div>
     </nav>
   )
+}
+
+function useNavMenu() {
+  const [navState, setNavState] = useState(true)
+  function handleToggleMenu(e: React.MouseEvent): void {
+    e.preventDefault()
+    setNavState(!navState)
+  }
+  return { navState, onClick: handleToggleMenu }
+}
+
+function useWindowWidth() {
+  if (typeof window !== 'undefined') {
+    const [width, setWidth] = useState(window.innerWidth)
+    useEffect(() => {
+      const handleResize = () => setWidth(window.innerWidth)
+      window.addEventListener('resize', handleResize)
+      return () => {
+        window.removeEventListener('resize', handleResize)
+      }
+    })
+    return width
+  }
+  return 0
 }

@@ -4,3 +4,7 @@
 a {
   @apply no-underline;
 }
+
+button:focus {
+  outline: 0;
+}
