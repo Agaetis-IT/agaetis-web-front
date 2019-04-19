@@ -9,7 +9,7 @@ export default function Navigation() {
       {/*Site logo + Hamburger icon */}
       <div className="flex items-center flex-no-shrink text-agaetis md:text-white mb-1 md:mb-0">
         <Link href="/">
-          <a className="text-white ml-auto mr-auto md:ml-0 md:mr-16 flex items-center">
+          <a className="text-agaetis md:text-white ml-auto mr-auto md:ml-0 md:mr-16 flex items-center">
             <svg
               className="fill-current h-8 w-8 mr-2"
               width="54"
