@@ -8,7 +8,7 @@ export default function NavigationMenu() {
   const pages = ['Agaetis', 'Idées', 'Solutions', 'Jobs']
   const btnColor: Color = 'agaetis'
   return (
-    <div className="block bg-agaetis md:bg-transparent sm:flex-grow md:flex-no-grow md:flex md:items-center md:w-auto p-4 md:p-0">
+    <div className="block bg-agaetis md:bg-transparent flex-grow md:flex-no-grow md:flex md:items-center md:w-auto p-4 md:p-0">
       <div className="text-xs font-medium md:flex-grow">
         {pages.map(page => {
           return (
