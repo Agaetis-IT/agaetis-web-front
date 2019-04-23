@@ -4,3 +4,9 @@
   background-attachment: fixed;
   background-position: center center;
 }
+
+@media (min-width: 800px) {
+  #main_nav {
+    @apply inline;
+  }
+}
