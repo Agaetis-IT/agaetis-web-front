@@ -1,10 +1,18 @@
 import Link from 'next/link'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 import Button from './Button'
 
 const pages = ['Agaetis', 'Idées', 'Solutions', 'Jobs']
 export default function NavigationMenu() {
+  const { t, i18n } = useTranslation()
+  function onLanguageChange(language: string) {
+    return (e: React.MouseEvent) => {
+      e.preventDefault()
+      i18n.changeLanguage(language)
+    }
+  }
   return (
     <div className="block bg-orange md:bg-transparent flex-grow md:flex-no-grow md:flex md:items-center md:w-auto p-4 md:p-0">
       <div className="text-xs font-medium md:flex-grow">
@@ -35,12 +43,12 @@ export default function NavigationMenu() {
       </div>
       {/*Languages selection */}
       <div className="text-xs md:ml-4 flex flex-row items-center p-2 md:p-0">
-        <Button href="#" className="mr-1 text-white text-xss">
+        <Button href="#" className="mr-1 text-white text-xss" onClick={onLanguageChange('en')}>
           EN
         </Button>
         <span className="text-white mr-1 hidden md:inline align-middle leading-none text-xss"> - </span>
         <span className="text-white mr-1 block md:hidden align-middle leading-none text-xss">|</span>
-        <Button href="#" className="text-white text-xss">
+        <Button href="#" className="text-white text-xss" onClick={onLanguageChange('fr')}>
           FR
         </Button>
       </div>
