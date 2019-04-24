@@ -1,8 +1,17 @@
+import clsx from 'clsx'
+import i18next from 'i18next'
 import Link from 'next/link'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import Button from './Button'
+
+function styleLanguageSelected(language: string) {
+  if (i18next.languages[0] === language) {
+    return 'text-orange'
+  }
+  return ''
+}
 
 const pages = ['Agaetis', 'Idées', 'Solutions', 'Jobs']
 export default function NavigationMenu() {
@@ -11,6 +20,7 @@ export default function NavigationMenu() {
     return (e: React.MouseEvent) => {
       e.preventDefault()
       i18n.changeLanguage(language)
+      window.alert(i18next.languages)
     }
   }
   return (
@@ -43,14 +53,23 @@ export default function NavigationMenu() {
       </div>
       {/*Languages selection */}
       <div className="text-xs md:ml-4 flex flex-row items-center p-2 md:p-0">
-        <Button href="#" className="mr-1 text-white text-xss" onClick={onLanguageChange('en')}>
+        <Button
+          href="#"
+          className={clsx(styleLanguageSelected('en-en'), 'mr-1 text-white text-xss')}
+          onClick={onLanguageChange('en-en')}
+        >
           EN
         </Button>
         <span className="text-white mr-1 hidden md:inline align-middle leading-none text-xss"> - </span>
         <span className="text-white mr-1 block md:hidden align-middle leading-none text-xss">|</span>
-        <Button href="#" className="text-white text-xss" onClick={onLanguageChange('fr')}>
+        <Button
+          href="#"
+          className={clsx(styleLanguageSelected('fr-fr'), 'text-white text-xss')}
+          onClick={onLanguageChange('fr-fr')}
+        >
           FR
         </Button>
+        <p>{t('title')}</p>
       </div>
     </div>
   )
