@@ -1,13 +1,15 @@
 import Link from 'next/link'
 import React, { useState } from 'react'
 
+import logoAgaetisMobile from '../images/logo-agaetis-hor-p164-rgb-150.png'
+import logoAgaetisDesktop from '../images/logo-agaetis-hor-white-rgb-150.png'
+
 import './Header.css'
 import NavigationMenu from './NavigationMenu'
-
 export default function Header() {
-  const [navState, setNavState] = useState(true)
+  const [isMenuOpen, setMenuOpen] = useState(false)
   function handleToggleMenu(): void {
-    setNavState(!navState)
+    setMenuOpen(!isMenuOpen)
   }
 
   return (
@@ -18,14 +20,8 @@ export default function Header() {
         <div className="flex items-center flex-no-shrink text-orange md:text-white mb-1 md:mb-0">
           <Link href="/">
             <a className="ml-auto mr-auto md:ml-0 md:mr-10 flex items-center">
-              <img
-                className="logoAgaetis hidden md:inline"
-                src={require('../static/assets/logo-agaetis-hor-white-rgb-150.png')}
-              />
-              <img
-                className="logoAgaetis inline md:hidden"
-                src={require('../static/assets/logo-agaetis-hor-p164-rgb-150.png')}
-              />
+              <img className="logoAgaetis hidden md:inline" src={logoAgaetisDesktop} />
+              <img className="logoAgaetis inline md:hidden" src={logoAgaetisMobile} />
             </a>
           </Link>
           <button
@@ -39,7 +35,7 @@ export default function Header() {
             <span className="uppercase text-black text-xxs pt-1">Menu</span>
           </button>
         </div>
-        <div id="main_nav" className={navState ? 'hidden' : ''}>
+        <div id="main_nav" className={!isMenuOpen ? 'hidden md:inline' : ''}>
           <NavigationMenu />
         </div>
       </nav>
