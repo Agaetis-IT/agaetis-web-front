@@ -2,11 +2,16 @@
 @tailwind utilities;
 
 @import url('https://fonts.googleapis.com/css?family=Poppins');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
 
 body {
-  font-family: 'Poppins';
+  font-family: 'Open Sans';
 }
 
 a {
   @apply no-underline;
+}
+
+button:focus {
+  outline: 0;
 }
