@@ -2,6 +2,7 @@ import Link from 'next/link'
 import React from 'react'
 
 import Button from './Button'
+
 const pages = ['Agaetis', 'Idées', 'Solutions', 'Jobs']
 export default function NavigationMenu() {
   return (
