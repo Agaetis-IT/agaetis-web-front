@@ -1,0 +1,15 @@
+.languageActive {
+  color: white;
+  font-weight: 700;
+  border-bottom: 2px solid white;
+  padding-bottom: 3px;
+}
+
+@media (min-width: 800px) {
+  .languageActive {
+    color: #ff7f40;
+    font-weight: 700;
+    border-bottom: 2px solid #ff7f40;
+    padding-bottom: 3px;
+  }
+}
