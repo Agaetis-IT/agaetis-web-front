@@ -1,9 +1,16 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 import Button from './Button'
 
-const links = ['FAQ', 'Cookies', 'Données personnelles', 'Plan du site']
 export default function BottomNav() {
+  const { t } = useTranslation()
+  const links = [
+    t('footer.navigation.links.faq'),
+    t('footer.navigation.links.cookies'),
+    t('footer.navigation.links.data'),
+    t('footer.navigation.links.sitemap'),
+  ]
   return (
     <nav className="flex flex-col md:flex-row text-center justify-center">
       {links.map(link => (
