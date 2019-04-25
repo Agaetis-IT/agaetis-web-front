@@ -1,6 +1,8 @@
 .Button-language--active {
   color: white;
   font-weight: 700;
+  border-top: 2px solid rgba(0, 0, 0, 0);
+  padding-top: 3px;
   border-bottom: 2px solid white;
   padding-bottom: 3px;
 }
@@ -9,6 +11,8 @@
   .Button-language--active {
     color: #ff7f40;
     font-weight: 700;
+    border-top: 2px solid rgba(0, 0, 0, 0);
+    padding-top: 3px;
     border-bottom: 2px solid #ff7f40;
     padding-bottom: 3px;
   }
