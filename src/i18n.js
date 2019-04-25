@@ -30,8 +30,6 @@ i18n
       default: ['en'],
     },
 
-    keySeparator: false,
-
     interpolation: {
       escapeValue: false,
     },
