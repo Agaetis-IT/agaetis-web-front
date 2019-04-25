@@ -10,7 +10,7 @@ interface Agency {
 
 export default function Address(address: Agency) {
   return (
-    <div className="text-xs mr-12">
+    <div className="text-xs md:mr-12 mb-4 md:mb-0">
       <b>{address.agency}</b>
       <br />
       {address.address}
