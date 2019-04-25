@@ -1,0 +1,11 @@
+{
+  "navigation": {
+    "pages": {
+      "agaetis": "Agaetis",
+      "ideas": "Idées",
+      "solutions": "Solutions",
+      "jobs": "Jobs"
+    },
+    "contact": "Contact"
+  }
+}

@@ -1,5 +1,6 @@
 import React from 'react'
 
+import '../i18n'
 import '../index.css'
 
 import Header from './Header'

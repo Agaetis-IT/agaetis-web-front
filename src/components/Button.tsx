@@ -20,7 +20,7 @@ export default function Button({ href, children, component, onClick, className }
   }
 
   return (
-    <ComponentProp href={href} onClick={onClick} className={clsx(className, 'block md:inline-block')}>
+    <ComponentProp href={href} onClick={onClick} className={clsx(className, 'block md:inline-block cursor-pointer')}>
       {children}
     </ComponentProp>
   )
