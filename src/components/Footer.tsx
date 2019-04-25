@@ -12,32 +12,32 @@ const addresses = [
 
 export default function Footer() {
   return (
-    <footer>
+    <footer className="p-4">
       <div className="flex flex-col md:flex-row justify-center text-center md:text-left">
-        <div className="p-4">
+        <div className="p-4 md:pl-0">
           <h2 className="text-xs">Nos adresses</h2>
-          <div className="flex flex-col md:flex-row mt-4 justify-center">
+          <div className="flex flex-col md:flex-row mt-4 justify-center font-thin">
             {addresses.map(address => (
               <Address key={address.agency} {...address} />
             ))}
           </div>
         </div>
-        <div className="p-4 pt-0 md:p-4">
+        <div className="p-4 py-0 md:py-4 md:px-0">
           <h2 className="text-xs">Suivez-nous</h2>
           <div className="flex flex-row my-4 justify-center md:justify-start">
-            <Button href="#" className="mr-4">
+            <Button href="#" className="mr-4 w-4">
               <img src={require('../static/icons/facebook.png')} />
             </Button>
-            <Button href="#" className="mr-4">
+            <Button href="#" className="mr-4 w-4">
               <img src={require('../static/icons/linkedin.png')} />
             </Button>
-            <Button href="#">
+            <Button href="#" className="w-4">
               <img src={require('../static/icons/twitter.png')} />
             </Button>
           </div>
         </div>
       </div>
-      <hr />
+      <hr className="md:mt-8" />
       <BottomNav />
       <hr />
     </footer>
