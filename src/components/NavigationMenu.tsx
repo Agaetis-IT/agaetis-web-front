@@ -8,10 +8,7 @@ import Button from './Button'
 import './Navigationmenu.css'
 
 function isLanguageSelected(language: string) {
-  if (i18next.languages[0] === language) {
-    return true
-  }
-  return false
+  return i18next.languages[0] === language
 }
 
 export default function NavigationMenu() {
