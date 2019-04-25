@@ -1,4 +1,4 @@
-.languageActive {
+.Button-language--active {
   color: white;
   font-weight: 700;
   border-bottom: 2px solid white;
@@ -6,7 +6,7 @@
 }
 
 @media (min-width: 800px) {
-  .languageActive {
+  .Button-language--active {
     color: #ff7f40;
     font-weight: 700;
     border-bottom: 2px solid #ff7f40;
