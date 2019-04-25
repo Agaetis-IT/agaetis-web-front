@@ -7,5 +7,21 @@
       "jobs": "Jobs"
     },
     "contact": "Contact"
+  },
+  "footer": {
+    "addresses": {
+      "title": "Our addresses"
+    },
+    "social": {
+      "title": "Follow us"
+    },
+    "navigation": {
+      "links": {
+        "faq": "FAQ",
+        "cookies": "Cookies",
+        "data": "Personal data",
+        "sitemap": "Sitemap"
+      }
+    }
   }
 }
