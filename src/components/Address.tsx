@@ -10,14 +10,14 @@ interface Agency {
 
 export default function Address(address: Agency) {
   return (
-    <div className="text-xs md:mr-12 mb-4 md:mb-0">
-      <b>{address.agency}</b>
+    <div className="text-xs md:mr-12 md:pr-1 mb-4 md:mb-0">
+      <b className="font-bold">{address.agency}</b>
       <br />
       {address.address}
       <br />
       {address.zipcode} {address.city}
       <br />
-      {address.tel}
+      {address.tel !== '' ? 'Tél. ' + address.tel : ''}
     </div>
   )
 }
