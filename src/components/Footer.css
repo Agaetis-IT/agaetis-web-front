@@ -1,4 +1,5 @@
-.facebook {
-  background-image: url('../static/icons/facebook.png');
-  width: 20px;
+hr {
+  height: 1px;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.034);
 }
