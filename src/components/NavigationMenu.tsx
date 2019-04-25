@@ -7,11 +7,11 @@ import { useTranslation } from 'react-i18next'
 import Button from './Button'
 import './Navigationmenu.css'
 
-function styleLanguageSelected(language: string) {
+function isLanguageSelected(language: string) {
   if (i18next.languages[0] === language) {
-    return 'languageActive'
+    return true
   }
-  return ''
+  return false
 }
 
 export default function NavigationMenu() {
@@ -60,7 +60,10 @@ export default function NavigationMenu() {
       <div className="text-xs md:ml-4 flex flex-row items-center p-2 md:p-0">
         <Button
           href="#"
-          className={clsx(styleLanguageSelected('en'), 'mr-1 text-black md:text-white text-xss')}
+          className={clsx(
+            { 'Button-language--active': isLanguageSelected('en') },
+            'mr-1 text-black md:text-white text-xss'
+          )}
           onClick={onLanguageChange('en')}
         >
           EN
@@ -69,7 +72,7 @@ export default function NavigationMenu() {
         <span className="text-black mr-1 block md:hidden align-middle leading-none text-xss">|</span>
         <Button
           href="#"
-          className={clsx(styleLanguageSelected('fr'), 'text-black md:text-white text-xss')}
+          className={clsx({ 'Button-language--active': isLanguageSelected('fr') }, 'text-black md:text-white text-xss')}
           onClick={onLanguageChange('fr')}
         >
           FR
