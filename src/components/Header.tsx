@@ -19,7 +19,7 @@ export default function Header({ isHome }: Props) {
   }
 
   return (
-    <header className={clsx('md:bg-black p-0 md:p-8')}>
+    <header className={clsx(isHome ? 'md:bg-black' : '', 'p-0 md:p-8')}>
       <nav className="flex flex-col md:flex-row item-start md:items-center flex-wrap justify-between md:justify-center">
         {/*Site logo + Hamburger icon */}
 
