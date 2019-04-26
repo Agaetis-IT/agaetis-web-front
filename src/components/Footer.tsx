@@ -47,6 +47,7 @@ export default function Footer() {
       <hr className="md:mt-8" />
       <BottomNav />
       <hr />
+      <div className="text-xss text-center opacity-25 py-2">&copy;AGAETIS - {t('footer.copyright')}</div>
     </footer>
   )
 }
