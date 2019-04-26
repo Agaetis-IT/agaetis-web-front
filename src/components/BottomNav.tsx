@@ -5,12 +5,7 @@ import Button from './Button'
 
 export default function BottomNav() {
   const { t } = useTranslation()
-  const links = [
-    t('footer.navigation.links.faq'),
-    t('footer.navigation.links.cookies'),
-    t('footer.navigation.links.data'),
-    t('footer.navigation.links.sitemap'),
-  ]
+  const links = [t('footer.faq'), t('footer.cookies'), t('footer.data'), t('footer.sitemap')]
   return (
     <nav className="flex flex-col md:flex-row text-center justify-center">
       {links.map(link => (
