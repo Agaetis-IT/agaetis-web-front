@@ -1,3 +1,4 @@
+import clsx from 'clsx'
 import Link from 'next/link'
 import React, { useState } from 'react'
 
@@ -6,22 +7,27 @@ import logoAgaetisDesktop from '../images/logo-agaetis-hor-white-rgb-150.png'
 
 import './Header.css'
 import NavigationMenu from './NavigationMenu'
-export default function Header() {
+
+interface Props {
+  isHome: boolean
+}
+
+export default function Header({ isHome }: Props) {
   const [isMenuOpen, setMenuOpen] = useState(false)
   function handleToggleMenu(): void {
     setMenuOpen(!isMenuOpen)
   }
 
   return (
-    <header className="md:bg-black p-0 md:p-8">
+    <header className={clsx('md:bg-black p-0 md:p-8')}>
       <nav className="flex flex-col md:flex-row item-start md:items-center flex-wrap justify-between md:justify-center">
         {/*Site logo + Hamburger icon */}
 
         <div className="flex items-center flex-no-shrink text-orange md:text-white mb-1 md:mb-0">
           <Link href="/">
             <a className="ml-auto mr-auto md:ml-0 md:mr-10 flex items-center">
-              <img className="logoAgaetis hidden md:inline" src={logoAgaetisDesktop} />
-              <img className="logoAgaetis inline md:hidden" src={logoAgaetisMobile} />
+              <img className={clsx(!isHome ? 'hidden' : 'hidden md:inline', 'logoAgaetis ')} src={logoAgaetisDesktop} />
+              <img className={clsx(!isHome ? 'inline' : 'md:hidden', 'logoAgaetis')} src={logoAgaetisMobile} />
             </a>
           </Link>
           <button
@@ -36,7 +42,7 @@ export default function Header() {
           </button>
         </div>
         <div id="main_nav" className={!isMenuOpen ? 'hidden md:inline' : ''}>
-          <NavigationMenu />
+          <NavigationMenu isHome={isHome} />
         </div>
       </nav>
     </header>

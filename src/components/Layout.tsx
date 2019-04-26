@@ -7,13 +7,14 @@ import Footer from './Footer'
 import Header from './Header'
 
 interface Props {
-  children?: string
+  isHome: boolean
+  children?: string | React.ReactElement
 }
 
-export default function Layout({ children }: Props) {
+export default function Layout({ isHome, children }: Props) {
   return (
     <div className="p-3 md:p-6">
-      <Header />
+      <Header isHome={isHome} />
       {children}
       <Footer />
     </div>

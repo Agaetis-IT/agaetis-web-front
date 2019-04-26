@@ -11,7 +11,11 @@ function isLanguageSelected(language: string) {
   return i18next.languages[0] === language
 }
 
-export default function NavigationMenu() {
+interface Props {
+  isHome: boolean
+}
+
+export default function NavigationMenu({ isHome }: Props) {
   const { t, i18n } = useTranslation()
   const pages = [t('navigation.agaetis'), t('navigation.ideas'), t('navigation.solutions'), t('navigation.jobs')]
   function onLanguageChange(language: string) {
@@ -25,7 +29,10 @@ export default function NavigationMenu() {
       <div className="text-xs font-medium md:flex-grow">
         {pages.map(page => (
           <Link key={page} href="#">
-            <Button href="#responsive-header" className="p-2 md:p-3 text-white text-xs font-semibold">
+            <Button
+              href="#"
+              className={clsx(isHome ? 'text-white' : 'text-white md:text-black', 'p-2 md:p-3 text-xs font-semibold')}
+            >
               {page}
             </Button>
           </Link>
@@ -49,22 +56,29 @@ export default function NavigationMenu() {
         </Link>
       </div>
       {/*Languages selection */}
-      <div className="text-xs md:ml-4 flex flex-row items-center p-2 md:p-0">
+      <div
+        className={clsx(isHome ? 'text-white' : 'text-black', 'text-xs md:ml-4 flex flex-row items-center p-2 md:p-0 ')}
+      >
         <Button
           href="#"
           className={clsx(
-            { 'Button-language--active': isLanguageSelected('en') },
-            'mr-1 text-black md:text-white text-xss'
+            isLanguageSelected('en') ? 'Button-language--active' : '',
+            !isHome ? 'text-black' : 'text-black md:text-white',
+            'mr-1 text-xss'
           )}
           onClick={onLanguageChange('en')}
         >
           EN
         </Button>
-        <span className="text-white mr-1 hidden md:inline align-middle leading-none text-xss"> - </span>
+        <span className="mr-1 hidden md:inline align-middle leading-none text-xss"> - </span>
         <span className="text-black mr-1 block md:hidden align-middle leading-none text-xss">|</span>
         <Button
           href="#"
-          className={clsx({ 'Button-language--active': isLanguageSelected('fr') }, 'text-black md:text-white text-xss')}
+          className={clsx(
+            isLanguageSelected('fr') ? 'Button-language--active' : '',
+            !isHome ? 'text-black' : 'text-black md:text-white',
+            'text-xss'
+          )}
           onClick={onLanguageChange('fr')}
         >
           FR
