@@ -5,5 +5,5 @@ import Layout from '../components/Layout'
 import './index.css'
 
 export default function Index() {
-  return <Layout isHome={true} />
+  return <Layout headerProps={{ invertColors: true }} />
 }
