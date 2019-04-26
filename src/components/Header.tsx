@@ -19,15 +19,21 @@ export default function Header({ isHome }: Props) {
   }
 
   return (
-    <header className={clsx(isHome ? 'md:bg-black' : '', 'p-0 md:p-8')}>
+    <header className={clsx({ 'md:bg-black': isHome }, 'p-0 md:p-8')}>
       <nav className="flex flex-col md:flex-row item-start md:items-center flex-wrap justify-between md:justify-center">
         {/*Site logo + Hamburger icon */}
 
         <div className="flex items-center flex-no-shrink text-orange md:text-white mb-1 md:mb-0">
           <Link href="/">
             <a className="ml-auto mr-auto md:ml-0 md:mr-10 flex items-center">
-              <img className={clsx(!isHome ? 'hidden' : 'hidden md:inline', 'logoAgaetis ')} src={logoAgaetisDesktop} />
-              <img className={clsx(!isHome ? 'inline' : 'md:hidden', 'logoAgaetis')} src={logoAgaetisMobile} />
+              <img
+                className={clsx({ hidden: !isHome }, { 'hidden md:inline': isHome }, 'logoAgaetis ')}
+                src={logoAgaetisDesktop}
+              />
+              <img
+                className={clsx({ inline: !isHome }, { 'md:hidden': isHome }, 'logoAgaetis')}
+                src={logoAgaetisMobile}
+              />
             </a>
           </Link>
           <button
@@ -41,7 +47,7 @@ export default function Header({ isHome }: Props) {
             <span className="uppercase text-black text-xxs pt-1">Menu</span>
           </button>
         </div>
-        <div id="main_nav" className={!isMenuOpen ? 'hidden md:inline' : ''}>
+        <div id="main_nav" className={clsx({ 'hidden md:inline': !isMenuOpen })}>
           <NavigationMenu isHome={isHome} />
         </div>
       </nav>

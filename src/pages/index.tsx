@@ -5,9 +5,5 @@ import Layout from '../components/Layout'
 import './index.css'
 
 export default function Index() {
-  return (
-    <Layout isHome={true}>
-      <div className="test">Text</div>
-    </Layout>
-  )
+  return <Layout isHome={true} />
 }

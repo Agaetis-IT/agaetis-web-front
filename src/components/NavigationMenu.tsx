@@ -31,7 +31,11 @@ export default function NavigationMenu({ isHome }: Props) {
           <Link key={page} href="#">
             <Button
               href="#"
-              className={clsx(isHome ? 'text-white' : 'text-white md:text-black', 'p-2 md:p-3 text-xs font-semibold')}
+              className={clsx(
+                { 'text-white': isHome },
+                { 'text-white md:text-black': !isHome },
+                'p-2 md:p-3 text-xs font-semibold'
+              )}
             >
               {page}
             </Button>
@@ -57,13 +61,18 @@ export default function NavigationMenu({ isHome }: Props) {
       </div>
       {/*Languages selection */}
       <div
-        className={clsx(isHome ? 'text-white' : 'text-black', 'text-xs md:ml-4 flex flex-row items-center p-2 md:p-0 ')}
+        className={clsx(
+          { 'text-white': isHome },
+          { 'text-black': !isHome },
+          'text-xs md:ml-4 flex flex-row items-center p-2 md:p-0 '
+        )}
       >
         <Button
           href="#"
           className={clsx(
-            isLanguageSelected('en') ? 'Button-language--active' : '',
-            !isHome ? 'text-black' : 'text-black md:text-white',
+            { 'Button-language--active': isLanguageSelected('en') },
+            { 'text-black': !isHome },
+            { 'text-black md:text-white': isHome },
             'mr-1 text-xss'
           )}
           onClick={onLanguageChange('en')}
@@ -75,8 +84,9 @@ export default function NavigationMenu({ isHome }: Props) {
         <Button
           href="#"
           className={clsx(
-            isLanguageSelected('fr') ? 'Button-language--active' : '',
-            !isHome ? 'text-black' : 'text-black md:text-white',
+            { 'Button-language--active': isLanguageSelected('fr') },
+            { 'text-black': !isHome },
+            { 'text-black md:text-white': isHome },
             'text-xss'
           )}
           onClick={onLanguageChange('fr')}
