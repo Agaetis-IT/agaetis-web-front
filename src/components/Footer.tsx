@@ -63,7 +63,7 @@ export default function Footer() {
       </div>
       <hr className="md:mt-8 Footer-separator" />
       <BottomNav />
-      <hr />
+      <hr className="Footer-separator" />
       <div className="text-xss text-center opacity-25 py-2"> {t('footer.copyright')}</div>
     </footer>
   )
