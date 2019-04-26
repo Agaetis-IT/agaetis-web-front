@@ -17,7 +17,7 @@ const addresses = [
 ]
 
 export default function Footer() {
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
   return (
     <footer className="p-4">
       <div className="flex flex-col md:flex-row justify-center text-center md:text-left">
@@ -44,7 +44,7 @@ export default function Footer() {
           </div>
         </div>
       </div>
-      <hr className="md:mt-8" />
+      <hr className="md:mt-8 Footer-separator" />
       <BottomNav />
       <hr />
       <div className="text-xss text-center opacity-25 py-2">&copy;AGAETIS - {t('footer.copyright')}</div>
