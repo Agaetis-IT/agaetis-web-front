@@ -1,6 +1,6 @@
 import React from 'react'
 
-interface Agency {
+interface Props {
   agency: string
   address: string
   zipcode: string
@@ -8,16 +8,16 @@ interface Agency {
   tel: string
 }
 
-export default function Address(address: Agency) {
+export default function Address({ agency, address, zipcode, city, tel }: Props) {
   return (
     <div className="text-xs md:mr-12 md:pr-1 mb-4 md:mb-0">
-      <b className="font-bold">{address.agency}</b>
+      <b className="font-bold">{agency}</b>
       <br />
-      {address.address}
+      {address}
       <br />
-      {address.zipcode} {address.city}
+      {zipcode} {city}
       <br />
-      {address.tel !== '' ? 'Tél. ' + address.tel : ''}
+      {tel !== '' ? 'Tél. ' + tel : ''}
     </div>
   )
 }
