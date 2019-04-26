@@ -1,8 +1,8 @@
 {
-  "name": "blogAgaetis",
+  "name": "agaetis-web-front",
   "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT",
+  "author": "contact@agaetis.fr",
+  "license": "GPL-3.0+",
   "dependencies": {
     "@fullhuman/postcss-purgecss": "^1.1.0",
     "@zeit/next-css": "^1.0.1",
