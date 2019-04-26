@@ -3,12 +3,11 @@ import React from 'react'
 
 interface Props {
   href?: string
-  children: string
   component?: React.ReactType
+  children?: string | React.ReactElement
   className?: string
   onClick?(e: React.MouseEvent): void
 }
-
 export default function Button({ href, children, component, onClick, className }: Props) {
   let ComponentProp
   if (component) {

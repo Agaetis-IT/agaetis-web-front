@@ -1,11 +1,33 @@
 {
   "navigation": {
-    "pages": {
-      "agaetis": "Agaetis",
-      "ideas": "Ideas",
-      "solutions": "Solutions",
-      "jobs": "Jobs"
-    },
+    "agaetis": "Agaetis",
+    "ideas": "Ideas",
+    "solutions": "Solutions",
+    "jobs": "Jobs",
     "contact": "Contact"
+  },
+  "footer": {
+    "address-title": "Our addresses",
+    "clermont": "Clermont",
+    "clermont-address": "9, allée Evariste Gallois",
+    "clermont-zipcode": "63170",
+    "clermont-city": "Aubière",
+    "clermont-tel": "04 73 35 47 51",
+    "paris": "Paris",
+    "paris-address": "21, rue de la banque",
+    "paris-zipcode": "75002",
+    "paris-city": "Paris",
+    "paris-tel": "01 44 63 53 13",
+    "lyon": "Lyon",
+    "lyon-address": "52, Quai Rambaud",
+    "lyon-zipcode": "69002",
+    "lyon-city": "Lyon",
+    "lyon-tel": "",
+    "social-title": "Follow us",
+    "faq": "FAQ",
+    "cookies": "Cookies",
+    "data": "Personal data",
+    "sitemap": "Sitemap",
+    "copyright": "©AGAETIS - All rights reserved"
   }
 }

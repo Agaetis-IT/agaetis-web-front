@@ -13,12 +13,7 @@ function isLanguageSelected(language: string) {
 
 export default function NavigationMenu() {
   const { t, i18n } = useTranslation()
-  const pages = [
-    t('navigation.pages.agaetis'),
-    t('navigation.pages.ideas'),
-    t('navigation.pages.solutions'),
-    t('navigation.pages.jobs'),
-  ]
+  const pages = [t('navigation.agaetis'), t('navigation.ideas'), t('navigation.solutions'), t('navigation.jobs')]
   function onLanguageChange(language: string) {
     return (e: React.MouseEvent) => {
       e.preventDefault()
