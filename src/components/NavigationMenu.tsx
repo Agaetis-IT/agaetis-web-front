@@ -37,9 +37,8 @@ export default function NavigationMenu({ invertColors }: Props) {
             <Button
               href={page[1]}
               className={clsx(
-                { 'text-white': invertColors },
-                { 'text-white md:text-black': !invertColors },
-                'p-2 md:p-3 text-xs font-semibold'
+                !invertColors ? ' md:text-black' : 'text-white',
+                'p-2 md:p-3 text-xs font-semibold text-white'
               )}
             >
               {page[0]}
@@ -74,9 +73,8 @@ export default function NavigationMenu({ invertColors }: Props) {
         <Button
           href="#"
           className={clsx(
-            { 'Button-language--active': isLanguageSelected('en') },
-            { 'md:text-white': invertColors },
-            'mr-1 text-xss text-black'
+            isLanguageSelected('en') ? 'Button-language--active' : invertColors ? 'md:text-white' : 'text-black',
+            'mr-1 text-xss'
           )}
           onClick={onLanguageChange('en')}
         >
@@ -87,9 +85,7 @@ export default function NavigationMenu({ invertColors }: Props) {
         <Button
           href="#"
           className={clsx(
-            { 'Button-language--active': isLanguageSelected('fr') },
-            { 'text-black': !invertColors },
-            { 'text-black md:text-white': invertColors },
+            isLanguageSelected('fr') ? 'Button-language--active' : invertColors ? 'md:text-white' : 'text-black',
             'text-xss'
           )}
           onClick={onLanguageChange('fr')}
