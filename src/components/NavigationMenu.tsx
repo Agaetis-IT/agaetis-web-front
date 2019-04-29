@@ -36,7 +36,10 @@ export default function NavigationMenu({ invertColors }: Props) {
           <Link key={page[0]} href={page[1]}>
             <Button
               href={page[1]}
-              className={clsx({ 'md:text-black': !invertColors }, 'p-2 md:p-3 text-xs font-semibold text-white')}
+              className={clsx(
+                { 'md:text-black': !invertColors },
+                'block md:inline-block p-2 py-3 md:p-3 text-xs font-semibold text-white'
+              )}
             >
               {page[0]}
             </Button>
@@ -47,7 +50,7 @@ export default function NavigationMenu({ invertColors }: Props) {
         <Link href="#">
           <Button
             href="#"
-            className="px-6 py-3 leading-none rounded-full uppercase mt-4 md:mt-0 bg-orange text-white text-xs font-semibold"
+            className="block md:inline-block px-6 py-3 leading-none rounded-full uppercase mt-4 md:mt-0 bg-orange text-white text-xs font-semibold"
           >
             {t('navigation.contact')}
           </Button>
@@ -55,7 +58,10 @@ export default function NavigationMenu({ invertColors }: Props) {
       </div>
       <div className="inline md:hidden text-xs font-medium md:flex-grow">
         <Link href="#">
-          <Button href="#" className="md:mt-0 md:mr-16 md:ml-1 p-2 md:p-0 text-white text-xs font-semibold">
+          <Button
+            href="#"
+            className="block md:inline-block block md:mt-0 md:mr-16 md:ml-1 p-2 py-3 md:p-0 text-white text-xs font-semibold"
+          >
             {t('navigation.contact')}
           </Button>
         </Link>
