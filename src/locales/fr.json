@@ -38,6 +38,11 @@
     "explore": "Explorer",
     "valorize": "Valoriser",
     "innovate": "Innover",
-    "hero-description": "Nous transformons le meilleur des innovations en nouveaux gisements de valeur : nous sommes les architectes d'une technologie responsable."
+    "hero-description": "Nous transformons le meilleur des innovations en nouveaux gisements de valeur : nous sommes les architectes d'une technologie responsable.",
+    "whoarewe": "Qui sommes-nous ?",
+    "whoarewe-desc": "Depuis 2007, nous aidons les entreprises à relever les défis des nouvelles technologies informatiques. Parce que ce domaine doit allier passion et réalité économique, notre équipe relète l'image des nouvelles organisations mélangeant experts techniques, data scientists, coachs en organisation, service designers et spécialistes métier. Notre culture apporte à nos clients des clés de succès dans cette période de transition économique et sociétale.",
+    "ideas": "Nos idées",
+    "ideas-desc": "Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, explicabo. Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos, qui ratione voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum",
+    "learnmore-btn": "En savoir plus"
   }
 }
