@@ -7,6 +7,12 @@
   padding-bottom: 3px;
 }
 
+.nav-menu {
+  position: absolute;
+  left: 0.75rem;
+  right: 0.75rem;
+}
+
 @media (min-width: 800px) {
   .Button-language--active {
     color: #ff7f40;
@@ -15,5 +21,11 @@
     padding-top: 3px;
     border-bottom: 2px solid #ff7f40;
     padding-bottom: 3px;
+  }
+
+  .nav-menu {
+    position: relative;
+    left: 0;
+    right: 0;
   }
 }

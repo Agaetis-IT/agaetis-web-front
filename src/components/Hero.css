@@ -1,0 +1,9 @@
+.hero {
+  background-image: url('../static/images/homeBG.jpg');
+  background-attachment: fixed;
+  background-position: center;
+}
+
+.darkener {
+  background: rgba(0, 0, 0, 0.6);
+}
