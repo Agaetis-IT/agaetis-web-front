@@ -22,7 +22,7 @@ export default function Header({ invertColors, className }: Props) {
   }
 
   return (
-    <header className={clsx({ 'md:bg-black': invertColors }, 'p-0 md:p-8', className)}>
+    <header className={clsx('p-0 md:py-8', className)}>
       <nav className="flex flex-col md:flex-row item-start md:items-center flex-wrap justify-between md:justify-center">
         {/*Site logo + Hamburger icon */}
 
@@ -44,7 +44,7 @@ export default function Header({ invertColors, className }: Props) {
             <span className="uppercase text-black text-xxs pt-1">Menu</span>
           </button>
         </div>
-        <div id="main_nav" className={clsx({ 'hidden md:inline': !isMenuOpen })}>
+        <div id="main_nav" className={clsx({ 'hidden md:inline': !isMenuOpen }, 'w-100')}>
           <NavigationMenu invertColors={invertColors} />
         </div>
       </nav>
