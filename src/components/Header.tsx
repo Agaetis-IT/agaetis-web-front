@@ -26,7 +26,7 @@ export default function Header({ invertColors, className }: Props) {
       <nav className="flex flex-col md:flex-row item-start md:items-center flex-wrap justify-between md:justify-center">
         {/*Site logo + Hamburger icon */}
 
-        <div className="flex items-center flex-no-shrink text-orange md:text-white mb-1 md:mb-0">
+        <div className="flex items-center flex-no-shrink text-orange md:text-white mb-3 md:mb-0">
           <Link href="/">
             <a className="ml-auto mr-auto md:ml-0 md:mr-10 flex items-center">
               <img className={clsx({ 'md:inline': invertColors }, 'logoAgaetis hidden')} src={logoAgaetisDesktop} />
