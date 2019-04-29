@@ -1,21 +1,13 @@
 {
   "navigation": {
-    "agaetis": {
-      "name": "Agaetis",
-      "href": "/agaetis"
-    },
-    "ideas": {
-      "name": "Idées",
-      "href": "/ideas"
-    },
-    "solutions": {
-      "name": "Solutions",
-      "href": "/solutions"
-    },
-    "jobs": {
-      "name": "Jobs",
-      "href": "/jobs"
-    },
+    "agaetis-name": "Agaetis",
+    "agaetis-href": "/agaetis",
+    "ideas-name": "Ideas",
+    "ideas-href": "/ideas",
+    "solutions-name": "Solutions",
+    "solutions-href": "/solutions",
+    "jobs-name": "Jobs",
+    "jobs-href": "/jobs",
     "contact": "Contact"
   },
   "footer": {
@@ -41,5 +33,11 @@
     "data": "Personal data",
     "sitemap": "Sitemap",
     "copyright": "©AGAETIS - All rights reserved"
+  },
+  "index": {
+    "explore": "Explore",
+    "valorize": "Valorize",
+    "innovate": "Innovate",
+    "hero-description": "We transform the best of innovations into new deposits of value: we are the architects of responsible technology."
   }
 }
