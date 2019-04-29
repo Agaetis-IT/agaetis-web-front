@@ -17,7 +17,12 @@ interface Props {
 
 export default function NavigationMenu({ invertColors }: Props) {
   const { t, i18n } = useTranslation()
-  const pages = [t('navigation.agaetis'), t('navigation.ideas'), t('navigation.solutions'), t('navigation.jobs')]
+  const pages = [
+    [t('navigation.agaetis.name'), t('navigation.agaetis.href')],
+    [t('navigation.ideas.name'), t('navigation.ideas.href')],
+    [t('navigation.solutions.name'), t('navigation.solutions.href')],
+    [t('navigation.jobs.name'), t('navigation.jobs.href')],
+  ]
   function onLanguageChange(language: string) {
     return (e: React.MouseEvent) => {
       e.preventDefault()
@@ -25,19 +30,19 @@ export default function NavigationMenu({ invertColors }: Props) {
     }
   }
   return (
-    <div className="block bg-orange md:bg-transparent flex-grow md:flex-no-grow md:flex md:items-center md:w-auto p-4 md:p-0">
+    <div className="block bg-orange md:bg-transparent flex-grow md:flex-no-grow md:flex md-flex-no-shrink md:items-center md:w-auto p-4 md:p-0 nav-menu">
       <div className="text-xs font-medium md:flex-grow">
         {pages.map(page => (
-          <Link key={page} href="#">
+          <Link key={page[0]} href={page[1]}>
             <Button
-              href="#"
+              href={page[1]}
               className={clsx(
                 { 'text-white': invertColors },
                 { 'text-white md:text-black': !invertColors },
                 'p-2 md:p-3 text-xs font-semibold'
               )}
             >
-              {page}
+              {page[0]}
             </Button>
           </Link>
         ))}

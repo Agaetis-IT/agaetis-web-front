@@ -1,9 +1,9 @@
 {
   "navigation": {
-    "agaetis": "Agaetis",
-    "ideas": "Idées",
-    "solutions": "Solutions",
-    "jobs": "Jobs",
+    "agaetis": { "name": "Agaetis", "href": "/agaetis" },
+    "ideas": { "name": "Idées", "href": "/ideas" },
+    "solutions": { "name": "Solutions", "href": "/solutions" },
+    "jobs": { "name": "Jobs", "href": "/jobs" },
     "contact": "Contact"
   },
   "footer": {
