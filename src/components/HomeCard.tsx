@@ -20,7 +20,7 @@ export default function HomeCard({ className, title, description, buttonContent,
     <div className={className}>
       <div className={descBlockClass}>
         <h2 className="pb-4">{title}</h2>
-        <p className="text-xs leading-tight">{description}</p>
+        <p className="text-xss leading-tight">{description}</p>
         <Link href="/agaetis">
           <Button
             href="/agaetis"
@@ -30,7 +30,7 @@ export default function HomeCard({ className, title, description, buttonContent,
           </Button>
         </Link>
       </div>
-      <div className={clsx(imgClass, 'home-img')} />
+      <div className={clsx(imgClass, 'home-img mx-auto md:mx-0')} />
     </div>
   )
 }
