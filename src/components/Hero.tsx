@@ -1,22 +1,22 @@
+import i18next from 'i18next'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 import './Hero.css'
 export default function Hero() {
+  const { t } = useTranslation()
   return (
     <div className="hero m-0">
       <div className="darkener flex justify-center">
-        <div className="p-4 md:py-32 max-w-md text-white mx-auto md:pr-32">
+        <div className="p-4 md:p-8 py-16 md:py-32 max-w-sm md:max-w-md text-white mx-auto pr-12 md:pr-32">
           <h1>
-            Explorer
+            {t('index.explore')}
             <br />
-            Valoriser
+            {t('index.valorize')}
             <br />
-            Innover
+            {t('index.innovate')}
           </h1>
-          <p className=" text-xs text-justify md:pr-3 pt-2">
-            Nous transformons le meilleur des innovations en nouveaux gisements de valeur : nous sommes les architectes
-            d'une technologie responsable.
-          </p>
+          <p className=" text-xs md:pr-3 pt-2 leading-normal">{t('index.hero-description')}</p>
         </div>
       </div>
     </div>

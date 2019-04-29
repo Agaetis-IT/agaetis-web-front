@@ -18,10 +18,10 @@ interface Props {
 export default function NavigationMenu({ invertColors }: Props) {
   const { t, i18n } = useTranslation()
   const pages = [
-    [t('navigation.agaetis.name'), t('navigation.agaetis.href')],
-    [t('navigation.ideas.name'), t('navigation.ideas.href')],
-    [t('navigation.solutions.name'), t('navigation.solutions.href')],
-    [t('navigation.jobs.name'), t('navigation.jobs.href')],
+    [t('navigation.agaetis-name'), t('navigation.agaetis-href')],
+    [t('navigation.ideas-name'), t('navigation.ideas-href')],
+    [t('navigation.solutions-name'), t('navigation.solutions-href')],
+    [t('navigation.jobs-name'), t('navigation.jobs-href')],
   ]
   function onLanguageChange(language: string) {
     return (e: React.MouseEvent) => {
