@@ -28,7 +28,7 @@ export default function Header({ invertColors, className }: Props) {
 
         <div className="flex items-center flex-no-shrink text-orange md:text-white mb-3 md:mb-0">
           <Link href="/">
-            <a className="ml-auto mr-auto md:ml-0 md:mr-10 flex items-center">
+            <a className="ml-auto mr-auto md:ml-0 md:mr-12 flex items-center">
               <img className={clsx({ 'md:inline': invertColors }, 'logoAgaetis hidden')} src={logoAgaetisDesktop} />
               <img className={clsx(invertColors ? 'md:hidden' : 'inline', 'logoAgaetis')} src={logoAgaetisMobile} />
             </a>

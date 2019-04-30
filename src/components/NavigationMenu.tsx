@@ -38,7 +38,7 @@ export default function NavigationMenu({ invertColors }: Props) {
               href={page[1]}
               className={clsx(
                 { 'md:text-black': !invertColors },
-                'block md:inline-block p-2 py-3 md:p-3 text-xs font-semibold text-white'
+                'block md:inline-block p-2 py-3 md:p-3 md:px-4 text-xs font-semibold text-white'
               )}
             >
               {page[0]}
@@ -46,7 +46,7 @@ export default function NavigationMenu({ invertColors }: Props) {
           </Link>
         ))}
       </div>
-      <div className="hidden md:inline md:ml-12">
+      <div className="hidden md:inline md:ml-14">
         <Link href="#">
           <Button
             href="#"
