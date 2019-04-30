@@ -23,3 +23,7 @@
 .join-us-img {
   background-image: url('../static/images/jobs.png');
 }
+
+.justify-fix {
+  text-justify: distribute;
+}

@@ -17,10 +17,10 @@ interface Props {
 
 export default function HomeCard({ className, title, description, buttonContent, descBlockClass, imgClass }: Props) {
   return (
-    <div className={className}>
-      <div className={descBlockClass}>
+    <div className={clsx('flex flex-col my-6 md:my-12 justify-between md:p-8 mx-auto md:max-w-md', className)}>
+      <div className={clsx('max-w-xs mx-4 md:mx-0 self-center', descBlockClass)}>
         <h2 className="pb-4">{title}</h2>
-        <p className="text-xss leading-tight">{description}</p>
+        <p className="text-xss leading-normal text-justify justify-fix">{description}</p>
         <Link href="/agaetis">
           <Button
             href="/agaetis"

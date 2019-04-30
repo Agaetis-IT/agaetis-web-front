@@ -22,11 +22,11 @@ export default function Header({ invertColors, className }: Props) {
   }
 
   return (
-    <header className={clsx('p-0 md:py-8', className)}>
+    <header className={clsx('p-3 md:py-8', className)}>
       <nav className="flex flex-col md:flex-row item-start md:items-center flex-wrap justify-between md:justify-center">
         {/*Site logo + Hamburger icon */}
 
-        <div className="flex items-center flex-no-shrink text-orange md:text-white mb-3 md:mb-0">
+        <div className="flex items-center flex-no-shrink text-orange md:text-white">
           <Link href="/">
             <a className="ml-auto mr-auto md:ml-0 md:mr-12 flex items-center">
               <img className={clsx({ 'md:inline': invertColors }, 'logoAgaetis hidden')} src={logoAgaetisDesktop} />
