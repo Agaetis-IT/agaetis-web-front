@@ -13,7 +13,7 @@ interface Props {
 
 export default function Layout({ headerProps, children }: Props) {
   return (
-    <div className="p-3 md:p-6">
+    <div className=" md:p-0">
       <Header {...headerProps} />
       {children}
       <Footer />

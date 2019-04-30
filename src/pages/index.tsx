@@ -11,42 +11,44 @@ export default function Index() {
     <Layout headerProps={{ invertColors: true, className: 'header md:absolute md:mx-auto' }}>
       <>
         <Hero />
-        <HomeCard
-          className="flex flex-col md:flex-row my-6 md:my-12 md:max-w-md md:p-6 mx-auto"
-          title={t('index.whoarewe')}
-          description={t('index.whoarewe-desc')}
-          href="/agaetis"
-          buttonContent={t('index.learnmore-btn')}
-          descBlockClass="max-w-xs mx-4 md:mx-0 md:pr-12 self-center"
-          imgClass="agaetis-img"
-        />
-        <HomeCard
-          className="flex flex-col md:flex-row-reverse my-6 md:my-12 md:max-w-md py-4 md:p-6 mx-auto bg-grey"
-          title={t('index.ideas')}
-          description={t('index.ideas-desc')}
-          href="/ideas"
-          buttonContent={t('index.learnmore-btn')}
-          descBlockClass="max-w-xs mx-4 md:mx-0 md:pl-12 self-center"
-          imgClass="ideas-img"
-        />
-        <HomeCard
-          className="flex flex-col md:flex-row my-6 md:my-12 md:max-w-md md:p-6 mx-auto"
-          title={t('index.solutions')}
-          description={t('index.solutions-desc')}
-          href="/solutions"
-          buttonContent={t('index.learnmore-btn')}
-          descBlockClass="max-w-xs mx-4 md:mx-0 md:pr-12 self-center"
-          imgClass="solutions-img"
-        />
-        <HomeCard
-          className="flex flex-col md:flex-row-reverse my-6 md:my-12 md:max-w-md py-4 md:p-6 mx-auto bg-grey"
-          title={t('index.join-us')}
-          description={t('index.join-us-desc')}
-          href="/jobs"
-          buttonContent={t('index.learnmore-btn')}
-          descBlockClass="max-w-xs mx-4 md:mx-0 md:pl-12 self-center"
-          imgClass="join-us-img"
-        />
+        <div className="p-3">
+          <HomeCard
+            className="md:flex-row"
+            title={t('index.whoarewe')}
+            description={t('index.whoarewe-desc')}
+            href="/agaetis"
+            buttonContent={t('index.learnmore-btn')}
+            descBlockClass="md:pr-6"
+            imgClass="agaetis-img"
+          />
+          <HomeCard
+            className="md:flex-row-reverse py-4 bg-grey"
+            title={t('index.ideas')}
+            description={t('index.ideas-desc')}
+            href="/ideas"
+            buttonContent={t('index.learnmore-btn')}
+            descBlockClass="md:pl-6"
+            imgClass="ideas-img"
+          />
+          <HomeCard
+            className="md:flex-row"
+            title={t('index.solutions')}
+            description={t('index.solutions-desc')}
+            href="/solutions"
+            buttonContent={t('index.learnmore-btn')}
+            descBlockClass="md:pr-10"
+            imgClass="solutions-img"
+          />
+          <HomeCard
+            className="md:flex-row-reverse py-4 bg-grey"
+            title={t('index.join-us')}
+            description={t('index.join-us-desc')}
+            href="/jobs"
+            buttonContent={t('index.learnmore-btn')}
+            descBlockClass="md:pl-10"
+            imgClass="join-us-img"
+          />
+        </div>
       </>
     </Layout>
   )

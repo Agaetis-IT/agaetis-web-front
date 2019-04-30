@@ -164,7 +164,7 @@ module.exports = {
 
   textSizes: {
     xxs: '.4rem',
-    xss: '.6rem',
+    xss: '.7rem',
     xs: '.75rem', // 12px
     sm: '.875rem', // 14px
     base: '1rem', // 16px
@@ -512,7 +512,7 @@ module.exports = {
   maxWidth: {
     xs: '20rem',
     sm: '30rem',
-    md: '40rem',
+    md: '45rem',
     lg: '50rem',
     xl: '60rem',
     '2xl': '70rem',
@@ -574,6 +574,7 @@ module.exports = {
     '20': '5rem',
     '24': '6rem',
     '32': '8rem',
+    '40': '10rem',
   },
 
   /*
