@@ -1,5 +1,3 @@
-import clsx from 'clsx'
-import i18next from 'i18next'
 import Link from 'next/link'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
@@ -7,19 +5,21 @@ import { useTranslation } from 'react-i18next'
 import Button from './Button'
 import './Navigationmenu.css'
 
-function isLanguageSelected(language: string) {
-  return i18next.languages[0] === language
-}
+// function isLanguageSelected(language: string) {
+//   return i18next.languages[0] === language
+// }
 
 export default function NavigationMenu() {
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
   const pages = [t('navigation.agaetis'), t('navigation.ideas'), t('navigation.solutions'), t('navigation.jobs')]
-  function onLanguageChange(language: string) {
-    return (e: React.MouseEvent) => {
-      e.preventDefault()
-      i18n.changeLanguage(language)
-    }
-  }
+
+  // function onLanguageChange(language: string) {
+  //   return (e: React.MouseEvent) => {
+  //     e.preventDefault()
+  //     i18n.changeLanguage(language)
+  //   }
+  // }
+
   return (
     <div className="block bg-orange md:bg-transparent flex-grow md:flex-no-grow md:flex md:items-center md:w-auto p-4 md:p-0">
       <div className="text-xs font-medium md:flex-grow">
@@ -49,7 +49,7 @@ export default function NavigationMenu() {
         </Link>
       </div>
       {/*Languages selection */}
-      <div className="text-xs md:ml-4 flex flex-row items-center p-2 md:p-0">
+      {/* <div className="text-xs md:ml-4 flex flex-row items-center p-2 md:p-0">
         <Button
           href="#"
           className={clsx(
@@ -69,7 +69,7 @@ export default function NavigationMenu() {
         >
           FR
         </Button>
-      </div>
+      </div> */}
     </div>
   )
 }
