@@ -12,10 +12,10 @@ interface Props {
   description: string
   descBlockClass: string
   buttonContent: string
-  imgClass: string
+  imgUrl: string
 }
 
-export default function HomeCard({ className, title, description, buttonContent, descBlockClass, imgClass }: Props) {
+export default function HomeCard({ className, title, description, buttonContent, descBlockClass, imgUrl }: Props) {
   return (
     <div className={clsx('flex flex-col my-6 md:my-12 justify-between md:p-8 mx-auto md:max-w-md', className)}>
       <div className={clsx('md:max-w-xs mx-4 md:mx-0 self-center', descBlockClass)}>
@@ -30,7 +30,7 @@ export default function HomeCard({ className, title, description, buttonContent,
           </Button>
         </Link>
       </div>
-      <div className={clsx(imgClass, 'home-img mx-auto md:mx-0')} />
+      <img className="home-img mx-auto md:mx-0" src={imgUrl} />
     </div>
   )
 }
