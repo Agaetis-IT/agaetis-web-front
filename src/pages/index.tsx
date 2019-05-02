@@ -1,18 +1,17 @@
-import axios from 'axios'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import Hero from '../components/Hero'
 import HomeCard from '../components/HomeCard'
 import Layout from '../components/Layout'
+import getData from '../Services/GetData'
 
 interface Props {
   initialData: any
 }
 
 Index.getInitialProps = async () => {
-  const fetchData = await axios.get('http://localhost/blogAgaetis/wp-json/wp/v2/pages/13')
-  const initialData = await fetchData.data
+  const initialData = await getData('http://localhost/blogAgaetis/wp-json/wp/v2/pages/13')
   return { initialData }
 }
 
@@ -22,7 +21,7 @@ function Index({ initialData }: Props) {
     <Layout headerProps={{ invertColors: true, className: 'header md:absolute md:mx-auto' }}>
       <>
         <Hero />
-        <div className="p-3">
+        <div className="px-2 md:px-6">
           <HomeCard
             className="md:flex-row"
             title={initialData.acf.agaetis_desc_title}
