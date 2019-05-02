@@ -47,7 +47,7 @@ function Index({ initialData }: Props) {
             description={initialData.acf.solutions_desc}
             href="/solutions"
             buttonContent={t('index.learnmore-btn')}
-            descBlockClass="md:pr-10"
+            descBlockClass="md:pr-6"
             imgUrl={initialData.acf.solutions_desc_img}
           />
           <HomeCard
@@ -56,7 +56,7 @@ function Index({ initialData }: Props) {
             description={initialData.acf.jobs_desc}
             href="/jobs"
             buttonContent={t('index.learnmore-btn')}
-            descBlockClass="md:pl-10"
+            descBlockClass="md:pl-6"
             imgUrl={initialData.acf.jobs_desc_img}
           />
         </div>
