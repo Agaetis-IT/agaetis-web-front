@@ -1,6 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
+import ContactSection from '../components/ContactSection'
 import Hero from '../components/Hero'
 import HomeCard from '../components/HomeCard'
 import Layout from '../components/Layout'
@@ -59,6 +60,7 @@ function Index({ pageContent: pageContent }: Props) {
             descBlockClass="md:pl-6"
             imgUrl={pageContent.jobs_desc_img}
           />
+          <ContactSection />
         </div>
       </>
     </Layout>

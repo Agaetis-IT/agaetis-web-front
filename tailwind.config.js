@@ -50,6 +50,7 @@ let colors = {
   white: '#ffffff',
 
   orange: '#ff7f40',
+  'dark-blue': '#12283A',
 }
 
 module.exports = {
@@ -510,7 +511,7 @@ module.exports = {
   */
 
   maxWidth: {
-    xs: '20rem',
+    xs: '25rem',
     sm: '30rem',
     md: '45rem',
     lg: '50rem',
@@ -570,6 +571,7 @@ module.exports = {
     '8': '2rem',
     '10': '2.5rem',
     '12': '3rem',
+    '14': '3.5rem',
     '16': '4rem',
     '20': '5rem',
     '24': '6rem',
