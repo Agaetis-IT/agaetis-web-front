@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -5,7 +6,17 @@ import Hero from '../components/Hero'
 import HomeCard from '../components/HomeCard'
 import Layout from '../components/Layout'
 
-export default function Index() {
+interface Props {
+  initialData: any
+}
+
+Index.getInitialProps = async () => {
+  const fetchData = await axios.get('http://localhost/blogAgaetis/wp-json/wp/v2/pages/13')
+  const initialData = await fetchData.data
+  return { initialData }
+}
+
+function Index({ initialData }: Props) {
   const { t } = useTranslation()
   return (
     <Layout headerProps={{ invertColors: true, className: 'header md:absolute md:mx-auto' }}>
@@ -14,42 +25,44 @@ export default function Index() {
         <div className="p-3">
           <HomeCard
             className="md:flex-row"
-            title={t('index.whoarewe')}
-            description={t('index.whoarewe-desc')}
+            title={initialData.acf.agaetis_desc_title}
+            description={initialData.acf.agaetis_desc}
             href="/agaetis"
             buttonContent={t('index.learnmore-btn')}
             descBlockClass="md:pr-6"
-            imgClass="agaetis-img"
+            imgUrl={initialData.acf.agaetis_desc_img}
           />
           <HomeCard
             className="md:flex-row-reverse py-4 bg-grey"
-            title={t('index.ideas')}
-            description={t('index.ideas-desc')}
+            title={initialData.acf.ideas_desc_title}
+            description={initialData.acf.ideas_desc}
             href="/ideas"
             buttonContent={t('index.learnmore-btn')}
             descBlockClass="md:pl-6"
-            imgClass="ideas-img"
+            imgUrl={initialData.acf.ideas_desc_img}
           />
           <HomeCard
             className="md:flex-row"
-            title={t('index.solutions')}
-            description={t('index.solutions-desc')}
+            title={initialData.acf.solutions_desc_title}
+            description={initialData.acf.solutions_desc}
             href="/solutions"
             buttonContent={t('index.learnmore-btn')}
             descBlockClass="md:pr-10"
-            imgClass="solutions-img"
+            imgUrl={initialData.acf.solutions_desc_img}
           />
           <HomeCard
             className="md:flex-row-reverse py-4 bg-grey"
-            title={t('index.join-us')}
-            description={t('index.join-us-desc')}
+            title={initialData.acf.jobs_desc_title}
+            description={initialData.acf.jobs_desc}
             href="/jobs"
             buttonContent={t('index.learnmore-btn')}
             descBlockClass="md:pl-10"
-            imgClass="join-us-img"
+            imgUrl={initialData.acf.jobs_desc_img}
           />
         </div>
       </>
     </Layout>
   )
 }
+
+export default Index
