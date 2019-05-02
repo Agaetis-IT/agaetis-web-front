@@ -13,9 +13,9 @@ export default function ContactSection() {
           Pour toute demande de renseignements, n'hésitez pas à nous contacter, nous vous répondrons dans les plus brefs
           délais.
         </p>
-        <Link href="#">
+        <Link href="/contact">
           <Button
-            href="#"
+            href="/contact"
             className="px-6 py-2 leading-none rounded-full uppercase mt-4 bg-dark-blue text-white text-xss font-semibold inline-block"
           >
             En savoir plus
