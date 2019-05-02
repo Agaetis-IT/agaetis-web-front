@@ -47,9 +47,9 @@ export default function NavigationMenu({ invertColors }: Props) {
         ))}
       </div>
       <div className="hidden md:inline md:ml-14">
-        <Link href="#">
+        <Link href="/contact">
           <Button
-            href="#"
+            href="/contact"
             className="block md:inline-block px-6 py-3 leading-none rounded-full uppercase mt-4 md:mt-0 bg-orange text-white text-xs font-semibold"
           >
             {t('navigation.contact')}
@@ -57,9 +57,9 @@ export default function NavigationMenu({ invertColors }: Props) {
         </Link>
       </div>
       <div className="inline md:hidden text-xs font-medium md:flex-grow">
-        <Link href="#">
+        <Link href="/contact">
           <Button
-            href="#"
+            href="/contact"
             className="block md:inline-block block md:mt-0 md:mr-16 md:ml-1 p-2 py-3 md:p-0 text-white text-xs font-semibold"
           >
             {t('navigation.contact')}
