@@ -41,55 +41,111 @@ export default function contact() {
           </div>
         </div>
         <div className="border border-white md:max-w-md mx-auto px-4">
-          <div className={clsx({ hidden: currentIndex !== 0 }, 'bg-grey md:p-12')}>
-            <h2 className="text-center">Votre demande concerne...</h2>
-            <form className="flex flex-col md:flex-row justify-center mt-4">
-              <div className="my-2 md:m-0">
-                <input type="radio" name="radio" id="radio1" className="hidden" />
-                <Button
-                  className="border-2 border-blue w-40 text-center py-2 align-middle block mx-4 cursor-pointer text-blue font-semibold text-xss uppercase radio"
-                  htmlFor="radio1"
-                >
-                  Un projet ?
-                </Button>
+          <div className="bg-grey md:p-12 flex flex-col justify-center">
+            <h2 className={clsx({ hidden: currentIndex !== 0 }, 'text-center text-lg md:text-2xl mt-8 md:mt-0')}>
+              Votre demande concerne...
+            </h2>
+            <h2 className={clsx({ hidden: currentIndex !== 1 }, 'text-center text-lg md:text-2xl mt-8 md:mt-0')}>
+              Saisissez vos coordonnées :
+            </h2>
+            <form className="mt-4">
+              <div className="flex flex-col md:flex-row justify-center">
+                <div className={clsx({ hidden: currentIndex !== 0 }, 'my-2 md:m-0')}>
+                  <input type="radio" name="radio" id="radio1" className="hidden" />
+                  <Button
+                    className="border-2 border-blue rounded w-40 text-center py-2 align-middle block mx-auto md:mx-4 cursor-pointer text-blue font-semibold text-xss uppercase radio"
+                    htmlFor="radio1"
+                  >
+                    Un projet ?
+                  </Button>
+                </div>
+                <div className={clsx({ hidden: currentIndex !== 0 }, 'my-2 md:m-0')}>
+                  <input type="radio" name="radio" id="radio2" className="hidden" />
+                  <Button
+                    className="border-2 border-blue rounded w-40 text-center py-2 align-middle block mx-auto md:mx-4 cursor-pointer text-blue font-semibold text-xss uppercase radio"
+                    htmlFor="radio2"
+                  >
+                    Une candidature ?
+                  </Button>
+                </div>
+                <div className={clsx({ hidden: currentIndex !== 0 }, 'my-2 md:m-0')}>
+                  <input type="radio" name="radio" id="radio3" className="hidden" />
+                  <Button
+                    className="border-2 border-blue rounded w-40 text-center py-2 align-middle block mx-auto md:mx-4 cursor-pointer text-blue font-semibold text-xss uppercase radio"
+                    htmlFor="radio3"
+                  >
+                    Un café ?
+                  </Button>
+                </div>
               </div>
-              <div className="my-2 md:m-0">
-                <input type="radio" name="radio" id="radio2" className="hidden" />
-                <Button
-                  className="border-2 border-blue w-40 text-center py-2 align-middle block mx-4 cursor-pointer text-blue font-semibold text-xss uppercase radio"
-                  htmlFor="radio2"
-                >
-                  Une candidature ?
-                </Button>
-              </div>
-              <div className="my-2 md:m-0">
-                <input type="radio" name="radio" id="radio3" className="hidden" />
-                <Button
-                  className="border-2 border-blue w-40 text-center py-2 align-middle block mx-4 cursor-pointer text-blue font-semibold text-xss uppercase radio"
-                  htmlFor="radio3"
-                >
-                  Un café ?
-                </Button>
+              <div className={clsx({ hidden: currentIndex !== 1 }, 'block w-full')}>
+                <div className="p-2">
+                  <label className="block text-xss font-bold mb-2" htmlFor="firstname">
+                    Prénom
+                  </label>
+                  <input
+                    className="shadow appearance-none rounded-sm text-xs w-full py-2 px-3 text-dark-grey leading-tight"
+                    id="firstname"
+                    type="text"
+                    placeholder="Votre prénom"
+                  />
+                </div>
+                <div className="p-2">
+                  <label className="block text-xss font-bold mb-2" htmlFor="lastname">
+                    Nom
+                  </label>
+                  <input
+                    className="shadow appearance-none rounded-sm text-xs w-full py-2 px-3 text-dark-grey leading-tight"
+                    id="lastname"
+                    type="text"
+                    placeholder="Votre nom"
+                  />
+                </div>
+                <div className="p-2">
+                  <label className="block text-xss font-bold mb-2" htmlFor="mail">
+                    E-mail
+                  </label>
+                  <input
+                    className="shadow appearance-none rounded-sm text-xs w-full py-2 px-3 text-dark-grey leading-tight"
+                    id="mail"
+                    type="mail"
+                    placeholder="name@example.com"
+                  />
+                </div>
+                <div className="p-2">
+                  <label className="block text-xss font-bold mb-2" htmlFor="tel">
+                    Téléphone
+                  </label>
+                  <input
+                    className="shadow appearance-none rounded-sm text-xs w-full py-2 px-3 text-dark-grey leading-tight"
+                    id="tel"
+                    type="text"
+                    placeholder="Votre téléphone"
+                  />
+                </div>
+                <div className="p-2">
+                  <label className="block text-xss font-bold mb-2" htmlFor="company">
+                    Société
+                  </label>
+                  <input
+                    className="shadow appearance-none rounded-sm text-xs w-full py-2 px-3 text-dark-grey leading-tight"
+                    id="company"
+                    type="text"
+                    placeholder="Votre société"
+                  />
+                </div>
+                <div className="p-2 flex flex-row align-middle">
+                  <input className="opacity-75" id="cgu" type="checkbox" />
+                  <label className="block text-cgu ml-1" htmlFor="cgu">
+                    En soumettant ce formulaire et conformément à la politique de traitement des données personnelles,
+                    j'accepte que les informations saisies soient exploitées afin d'être contacté par les équipes
+                    d'agaetis.
+                  </label>
+                </div>
               </div>
             </form>
             <Button
-              className="px-6 py-2 leading-none rounded-full uppercase mx-auto mt-4 mb-6 md:mb-0 bg-orange text-white text-xs font-semibold inline-block"
-              onClick={handleNext}
-            >
-              Poursuivre
-            </Button>
-          </div>
-          <div className={clsx({ hidden: currentIndex !== 1 }, 'bg-grey')}>
-            <Button
-              className="px-6 py-2 leading-none rounded-full uppercase mt-4 mb-6 md:mb-0 bg-orange text-white text-xs font-semibold inline-block"
-              onClick={handleNext}
-            >
-              Poursuivre
-            </Button>
-          </div>
-          <div className={clsx({ hidden: currentIndex !== 2 }, 'bg-grey')}>
-            <Button
-              className="px-6 py-2 leading-none rounded-full uppercase mt-4 mb-6 md:mb-0 bg-orange text-white text-xs font-semibold inline-block"
+              className="w-32 py-2 leading-none rounded-full uppercase mx-auto mt-4 mb-6 md:mb-0 bg-orange text-white text-xs font-semibold inline-block"
               onClick={handleNext}
             >
               Poursuivre
