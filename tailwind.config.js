@@ -47,8 +47,10 @@ let colors = {
 
   black: '#22292f',
   grey: '#f5f6f7',
-  white: '#ffffff',
+  'dark-grey': '#B8C2CC',
 
+  white: '#ffffff',
+  blue: '#3F7EC9',
   orange: '#ff7f40',
   'dark-blue': '#12283A',
 }
@@ -400,6 +402,7 @@ module.exports = {
     '24': '6rem',
     '32': '8rem',
     '48': '12rem',
+    '56': '14rem',
     '64': '16rem',
     '1/2': '50%',
     '1/3': '33.33333%',
