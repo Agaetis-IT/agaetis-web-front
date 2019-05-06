@@ -19,12 +19,18 @@ export default function contact() {
           sunt in culpa, qui officia deserunt mollitia animi, id est laborum et dolorum fuga
         </p>
         <div className="flex flex-row md:max-w-md mx-auto px-4">
-          <div className="text-xs uppercase text-center text-white w-1/3 py-4 bg-blue border border-white font-semibold">
+          <div
+            className={clsx(
+              currentIndex === 0 ? 'text-white' : 'text-dark-grey',
+              'text-xs uppercase text-center w-1/3 py-4 bg-blue border border-white font-semibold'
+            )}
+          >
             1. Votre profil
           </div>
           <div
             className={clsx(
-              currentIndex > 0 ? 'bg-blue text-white' : 'bg-grey text-dark-grey',
+              currentIndex > 0 ? 'bg-blue' : 'bg-grey',
+              currentIndex === 1 ? 'text-white' : 'text-dark-grey',
               'text-xs uppercase text-center w-1/3 py-4 border border-white font-semibold'
             )}
           >
@@ -32,7 +38,7 @@ export default function contact() {
           </div>
           <div
             className={clsx(
-              currentIndex > 1 ? 'bg-blue text-white' : 'bg-grey text-dark-grey',
+              currentIndex === 2 ? 'bg-blue text-white' : 'bg-grey text-dark-grey',
               'text-xs uppercase text-center w-1/3 py-4 border border-white font-semibold'
             )}
           >
@@ -47,6 +53,9 @@ export default function contact() {
             </h2>
             <h2 className={clsx({ hidden: currentIndex !== 1 }, 'text-center text-lg md:text-2xl mt-8 md:mt-0')}>
               Saisissez vos coordonnées :
+            </h2>
+            <h2 className={clsx({ hidden: currentIndex !== 2 }, 'text-center text-lg md:text-2xl mt-8 md:mt-0')}>
+              Saisissez votre message :
             </h2>
             <form className="mt-4">
               <div className="flex flex-col md:flex-row justify-center">
@@ -78,7 +87,7 @@ export default function contact() {
                   </Button>
                 </div>
               </div>
-              <div className={clsx({ hidden: currentIndex !== 1 }, 'block w-full')}>
+              <div className={clsx({ hidden: currentIndex !== 1 }, 'block w-full justify-center')}>
                 <div className="p-2">
                   <label className="block text-xss font-bold mb-2" htmlFor="firstname">
                     Prénom
@@ -143,12 +152,35 @@ export default function contact() {
                   </label>
                 </div>
               </div>
+              <div className={clsx({ hidden: currentIndex !== 2 }, 'p-2')}>
+                <label className="block text-xss font-bold mb-2" htmlFor="message">
+                  Message
+                </label>
+                <textarea
+                  className="shadow appearance-none rounded-sm text-xs w-full h-32 overflow-y-scroll py-2 px-3 text-dark-grey leading-tight"
+                  id="message"
+                  defaultValue="Votre message"
+                />
+              </div>
             </form>
             <Button
-              className="w-32 py-2 leading-none rounded-full uppercase mx-auto mt-4 mb-6 md:mb-0 bg-orange text-white text-xs font-semibold inline-block"
+              href="#"
+              className={clsx(
+                { hidden: currentIndex === 2 },
+                'w-32 py-2 leading-none rounded-full uppercase mx-auto text-center mt-4 mb-6 md:mb-0 bg-orange text-white text-xs font-semibold inline-block'
+              )}
               onClick={handleNext}
             >
               Poursuivre
+            </Button>
+            <Button
+              href="/contact"
+              className={clsx(
+                { hidden: currentIndex !== 2 },
+                'w-32 py-2 leading-none rounded-full uppercase mx-auto mt-4 mb-6 md:mb-0 bg-orange text-white text-xs text-center font-semibold inline-block'
+              )}
+            >
+              Valider
             </Button>
           </div>
         </div>
