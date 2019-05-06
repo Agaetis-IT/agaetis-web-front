@@ -41,9 +41,39 @@ export default function contact() {
           </div>
         </div>
         <div className="border border-white md:max-w-md mx-auto px-4">
-          <div className={clsx({ hidden: currentIndex !== 0 }, 'bg-grey')}>
+          <div className={clsx({ hidden: currentIndex !== 0 }, 'bg-grey md:p-12')}>
+            <h2 className="text-center">Votre demande concerne...</h2>
+            <form className="flex flex-col md:flex-row justify-center mt-4">
+              <div className="my-2 md:m-0">
+                <input type="radio" name="radio" id="radio1" className="hidden" />
+                <Button
+                  className="border-2 border-blue w-40 text-center py-2 align-middle block mx-4 cursor-pointer text-blue font-semibold text-xss uppercase radio"
+                  htmlFor="radio1"
+                >
+                  Un projet ?
+                </Button>
+              </div>
+              <div className="my-2 md:m-0">
+                <input type="radio" name="radio" id="radio2" className="hidden" />
+                <Button
+                  className="border-2 border-blue w-40 text-center py-2 align-middle block mx-4 cursor-pointer text-blue font-semibold text-xss uppercase radio"
+                  htmlFor="radio2"
+                >
+                  Une candidature ?
+                </Button>
+              </div>
+              <div className="my-2 md:m-0">
+                <input type="radio" name="radio" id="radio3" className="hidden" />
+                <Button
+                  className="border-2 border-blue w-40 text-center py-2 align-middle block mx-4 cursor-pointer text-blue font-semibold text-xss uppercase radio"
+                  htmlFor="radio3"
+                >
+                  Un café ?
+                </Button>
+              </div>
+            </form>
             <Button
-              className="px-6 py-2 leading-none rounded-full uppercase mt-4 mb-6 md:mb-0 bg-orange text-white text-xs font-semibold inline-block"
+              className="px-6 py-2 leading-none rounded-full uppercase mx-auto mt-4 mb-6 md:mb-0 bg-orange text-white text-xs font-semibold inline-block"
               onClick={handleNext}
             >
               Poursuivre
