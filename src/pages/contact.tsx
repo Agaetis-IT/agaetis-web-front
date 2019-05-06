@@ -4,6 +4,8 @@ import React, { useState } from 'react'
 import Button from '../components/Button'
 import Layout from '../components/Layout'
 
+import './contact.css'
+
 export default function contact() {
   const [currentIndex, setCurrentIndex] = useState(0)
   function handleNext() {
@@ -21,29 +23,40 @@ export default function contact() {
         <div className="flex flex-row md:max-w-md mx-auto px-4">
           <div
             className={clsx(
-              currentIndex === 0 ? 'text-white' : 'text-dark-grey',
-              'text-xs uppercase text-center w-1/3 py-4 bg-blue border border-white font-semibold'
+              currentIndex === 0
+                ? 'text-white w-2/3'
+                : currentIndex === 2
+                ? 'text-dark-grey hidden'
+                : 'w-1/6 text-blue md:text-dark-grey whitespace-no-wrap overflow-hidden px-4',
+              'text-xs uppercase text-center md:w-1/3 py-4 md:inline bg-blue border border-white font-semibold self-center'
             )}
           >
-            1. Votre profil
+            Votre profil
           </div>
           <div
             className={clsx(
               currentIndex > 0 ? 'bg-blue' : 'bg-grey',
-              currentIndex === 1 ? 'text-white' : 'text-dark-grey',
-              'text-xs uppercase text-center w-1/3 py-4 border border-white font-semibold'
+              currentIndex === 1
+                ? 'text-white w-2/3'
+                : currentIndex === 2
+                ? 'w-1/3 text-dark-grey whitespace-no-wrap overflow-hidden px-4 reverseText'
+                : 'w-1/3 text-dark-grey whitespace-no-wrap overflow-hidden px-4',
+              'text-xs uppercase text-center md:w-1/3 py-4 border border-white font-semibold self-center'
             )}
           >
-            2. Vos coordonnées
+            Vos coordonnées
           </div>
           <div
             className={clsx(
-              currentIndex === 2 ? 'bg-blue text-white' : 'bg-grey text-dark-grey',
-              'text-xs uppercase text-center w-1/3 py-4 border border-white font-semibold'
+              currentIndex === 2
+                ? 'bg-blue text-white w-2/3'
+                : currentIndex === 1
+                ? 'bg-grey text-dark-grey w-1/6 whitespace-no-wrap overflow-hidden px-4'
+                : 'bg-grey text-dark-grey hidden',
+              'text-xs uppercase text-center md:w-1/3 md:inline py-4 border border-white font-semibold self-center'
             )}
           >
-            {' '}
-            3. Votre message
+            Votre message
           </div>
         </div>
         <div className="border border-white md:max-w-md mx-auto px-4">
