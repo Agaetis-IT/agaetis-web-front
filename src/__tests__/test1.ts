@@ -1,3 +1,40 @@
+import { validateMail, validatePhoneNumber } from '../Services/VerifForm'
+
 test('test of test', () => {
   expect(4).toBe(4)
+})
+
+test('validation mail', () => {
+  expect(validateMail('test@example.com')).toBe(true)
+  expect(validateMail('test.test@example.com')).toBe(true)
+  expect(validateMail('test@test.example.com')).toBe(true)
+  expect(validateMail('test@[123.123.123.123]')).toBe(true)
+  expect(validateMail('"email"@example.com')).toBe(true)
+  expect(validateMail('123456789@example.com')).toBe(true)
+  expect(validateMail('____@example.com')).toBe(true)
+  expect(validateMail('test-test@example.com')).toBe(true)
+  expect(validateMail('test')).toBe(false)
+  expect(validateMail('#@%^%#$@#$@#.com')).toBe(false)
+  expect(validateMail('@example.com')).toBe(false)
+  expect(validateMail('Joe Smith <test@example.com>')).toBe(false)
+  expect(validateMail('email.domain.com')).toBe(false)
+  expect(validateMail('email@domain@domain.com')).toBe(false)
+  expect(validateMail('.email@domain.com')).toBe(false)
+  expect(validateMail('email.@domain.com')).toBe(false)
+  expect(validateMail('email..email@domain.com')).toBe(false)
+  expect(validateMail('email@domain.com (Joe Smith)')).toBe(false)
+  expect(validateMail('email@domain')).toBe(false)
+  expect(validateMail('email@111.222.333.44444')).toBe(false)
+  expect(validateMail('email@domain..com')).toBe(false)
+  expect(validateMail('')).toBe(false)
+})
+
+test('validation phone number', () => {
+  expect(validatePhoneNumber('0689912549')).toBe(true)
+  expect(validatePhoneNumber('(541) 754-3010')).toBe(true)
+  expect(validatePhoneNumber('+33 6 79 91 25 49')).toBe(true)
+  expect(validatePhoneNumber('+1-541-754-3010')).toBe(true)
+  expect(validatePhoneNumber('001-541-754-3010')).toBe(true)
+  expect(validatePhoneNumber('01 23 45 67 89')).toBe(true)
+  expect(validatePhoneNumber('')).toBe(false)
 })

@@ -7,9 +7,10 @@ interface Props {
   component?: React.ReactType
   children?: string | React.ReactElement
   className?: string
+  type?: string
   onClick?(e: React.MouseEvent): void
 }
-export default function Button({ href, htmlFor, children, component, onClick, className }: Props) {
+export default function Button({ href, htmlFor, children, component, onClick, className, type }: Props) {
   let ComponentProp
   if (component) {
     ComponentProp = component
@@ -22,7 +23,13 @@ export default function Button({ href, htmlFor, children, component, onClick, cl
   }
 
   return (
-    <ComponentProp href={href} htmlFor={htmlFor} onClick={onClick} className={clsx(className, 'cursor-pointer')}>
+    <ComponentProp
+      href={href}
+      htmlFor={htmlFor}
+      onClick={onClick}
+      type={type}
+      className={clsx(className, 'cursor-pointer')}
+    >
       {children}
     </ComponentProp>
   )
