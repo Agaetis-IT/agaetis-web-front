@@ -1,10 +1,18 @@
 import axios from 'axios'
 
-export default async function postData(url: string, postId: number, name: string, mail: string, content: string) {
+export default async function postData(
+  url: string,
+  postId: number,
+  name: string,
+  mail: string,
+  content: string,
+  date: Date
+) {
   await axios.post(url, {
     post: postId,
     author_name: name,
     author_email: mail,
     content,
+    date,
   })
 }

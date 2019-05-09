@@ -1,10 +1,12 @@
 import clsx from 'clsx'
 import React, { useState } from 'react'
 
+import useFormInput from '../hooks/useForminput'
 import PostData from '../Services/PostData'
 import { validateMail, validatePhoneNumber } from '../Services/VerifForm'
 
 import Button from './Button'
+import FormInput from './FormInput'
 
 function validateForm(firstname: string, lastname: string, mail: string, phone: string, company: string) {
   return firstname !== '' && lastname !== '' && validateMail(mail) && validatePhoneNumber(phone) && company !== ''
@@ -12,7 +14,7 @@ function validateForm(firstname: string, lastname: string, mail: string, phone: 
 
 export default function ContactTab() {
   const [currentIndex, setCurrentIndex] = useState(0)
-  const [isCGUaccepted, setAccepted] = useState(false)
+  const isCGUaccepted = useFormInput(false)
   const message = useFormInput('')
   const firstname = useFormInput('')
   const lastname = useFormInput('')
@@ -31,10 +33,6 @@ export default function ContactTab() {
     }
   }
 
-  function toggleCGU() {
-    setAccepted(!isCGUaccepted)
-  }
-
   async function handleSubmit() {
     if (message.value === '') {
       window.alert('Votre message est vide')
@@ -44,7 +42,8 @@ export default function ContactTab() {
         47,
         firstname.value + ' ' + lastname.value,
         mail.value,
-        message.value
+        message.value,
+        new Date()
       )
     }
   }
@@ -135,74 +134,23 @@ export default function ContactTab() {
               </div>
             </div>
             <div className={clsx({ hidden: currentIndex !== 1 }, 'block w-full justify-center')}>
-              <div className="p-2">
-                <label className="block text-xss font-bold mb-2" htmlFor="firstname">
-                  Prénom
-                </label>
-                <input
-                  className="shadow appearance-none rounded-sm text-xs w-full py-2 px-3 text-dark-grey leading-tight"
-                  id="firstname"
-                  type="text"
-                  placeholder="Votre prénom"
-                  onChange={firstname.onChange}
-                  required
-                />
-              </div>
-
-              <div className="p-2">
-                <label className="block text-xss font-bold mb-2" htmlFor="lastname">
-                  Nom
-                </label>
-                <input
-                  className="shadow appearance-none rounded-sm text-xs w-full py-2 px-3 text-dark-grey leading-tight"
-                  id="lastname"
-                  type="text"
-                  placeholder="Votre nom"
-                  onChange={lastname.onChange}
-                  required
-                />
-              </div>
-              <div className="p-2">
-                <label className="block text-xss font-bold mb-2" htmlFor="email">
-                  E-mail
-                </label>
-                <input
-                  className="shadow appearance-none rounded-sm text-xs w-full py-2 px-3 text-dark-grey leading-tight"
-                  id="email"
-                  type="email"
-                  placeholder="name@example.com"
-                  onChange={mail.onChange}
-                  required
-                />
-              </div>
-              <div className="p-2">
-                <label className="block text-xss font-bold mb-2" htmlFor="tel">
-                  Téléphone
-                </label>
-                <input
-                  className="shadow appearance-none rounded-sm text-xs w-full py-2 px-3 text-dark-grey leading-tight"
-                  id="tel"
-                  type="text"
-                  placeholder="Votre téléphone"
-                  onChange={phone.onChange}
-                  required
-                />
-              </div>
-              <div className="p-2">
-                <label className="block text-xss font-bold mb-2" htmlFor="company">
-                  Société
-                </label>
-                <input
-                  className="shadow appearance-none rounded-sm text-xs w-full py-2 px-3 text-dark-grey leading-tight"
-                  id="company"
-                  type="text"
-                  placeholder="Votre société"
-                  onChange={company.onChange}
-                  required
-                />
-              </div>
+              <FormInput id="firstname" type="text" placeholder="Votre prénom" onChange={firstname.onChange}>
+                Prénom
+              </FormInput>
+              <FormInput id="lastname" type="text" placeholder="Votre nom" onChange={lastname.onChange}>
+                Nom
+              </FormInput>
+              <FormInput id="mail" type="email" placeholder="name@example.com" onChange={mail.onChange}>
+                E-mail
+              </FormInput>
+              <FormInput id="phone" type="text" placeholder="Votre téléphone" onChange={phone.onChange}>
+                Téléphone
+              </FormInput>
+              <FormInput id="company" type="text" placeholder="Votre société" onChange={company.onChange}>
+                Société
+              </FormInput>
               <div className="p-2 flex flex-row align-middle">
-                <input className="opacity-75" id="cgu" type="checkbox" onChange={toggleCGU} required />
+                <input className="opacity-75" id="cgu" type="checkbox" onChange={isCGUaccepted.onChange} required />
                 <label className="block text-cgu ml-1" htmlFor="cgu">
                   En soumettant ce formulaire et conformément à la politique de traitement des données personnelles,
                   j'accepte que les informations saisies soient exploitées afin d'être contacté par les équipes
@@ -247,17 +195,4 @@ export default function ContactTab() {
       </div>
     </div>
   )
-}
-
-function useFormInput(initialValue: string) {
-  const [value, setValue] = useState(initialValue)
-
-  function handleChange(e: any) {
-    setValue(e.target.value)
-  }
-
-  return {
-    value,
-    onChange: handleChange,
-  }
 }
