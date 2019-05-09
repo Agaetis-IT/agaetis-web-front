@@ -4,14 +4,31 @@ import { useTranslation } from 'react-i18next'
 import Hero from '../components/Hero'
 import HomeCard from '../components/HomeCard'
 import Layout from '../components/Layout'
-import getData from '../Services/GetData'
+import getIndexContent from '../Services/GetPageDescription'
 
 interface Props {
-  initialData: any
+  initialData: Content
+}
+
+interface Content {
+  acf: {
+    agaetis_desc_title: string
+    agaetis_desc: string
+    agaetis_desc_img: string
+    ideas_desc_title: string
+    ideas_desc: string
+    ideas_desc_img: string
+    solutions_desc_title: string
+    solutions_desc: string
+    solutions_desc_img: string
+    jobs_desc_title: string
+    jobs_desc: string
+    jobs_desc_img: string
+  }
 }
 
 Index.getInitialProps = async () => {
-  const initialData = await getData('http://localhost/blogAgaetis/wp-json/wp/v2/pages/13')
+  const initialData = await getIndexContent(13)
   return { initialData }
 }
 
