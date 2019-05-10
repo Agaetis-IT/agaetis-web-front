@@ -12,4 +12,13 @@ export async function getIndexContent() {
   return acf
 }
 
-export default { getWordpressPage, getIndexContent }
+export async function sendMessage(url: string, name: string, mail: string, content: string, date: Date) {
+  await axios.post(url, {
+    author_name: name,
+    author_email: mail,
+    content,
+    date,
+  })
+}
+
+export default { getWordpressPage, getIndexContent, sendMessage }
