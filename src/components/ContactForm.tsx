@@ -2,8 +2,8 @@ import clsx from 'clsx'
 import React, { useState } from 'react'
 
 import useFormInput from '../hooks/useForminput'
-import PostData from '../Services/PostData'
 import { validateMail, validatePhoneNumber } from '../Services/VerifForm'
+import { sendMessage } from '../Services/wordpressService'
 
 import Button from './Button'
 import FormInput from './FormInput'
@@ -37,9 +37,8 @@ export default function ContactTab() {
     if (message.value === '') {
       window.alert('Votre message est vide')
     } else {
-      await PostData(
-        'http://localhost/blogAgaetis/wp-json/wp/v2/comments',
-        47,
+      await sendMessage(
+        'http://localhost/blogAgaetis/wp-json/agaetis/api/v1/send',
         firstname.value + ' ' + lastname.value,
         mail.value,
         message.value,
