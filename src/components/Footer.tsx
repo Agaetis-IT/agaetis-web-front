@@ -39,7 +39,7 @@ export default function Footer() {
     <footer className="p-4">
       <div className="flex flex-col md:flex-row justify-center text-center md:text-left">
         <div className="p-4 pt-0 md:p-0 md:pr-4">
-          <h2 className="text-xs">{t('footer.address-title')}</h2>
+          <h4 className="text-xs">{t('footer.address-title')}</h4>
           <div className="flex flex-col md:flex-row mt-4 justify-center font-thin">
             {addresses.map(address => (
               <Address key={address.agency} {...address} />

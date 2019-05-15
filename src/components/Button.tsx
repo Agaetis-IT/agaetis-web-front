@@ -25,6 +25,7 @@ export default function Button({ href, htmlFor, children, component, onClick, cl
   return (
     <ComponentProp
       href={href}
+      title={href}
       htmlFor={htmlFor}
       onClick={onClick}
       type={type}
