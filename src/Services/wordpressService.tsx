@@ -12,8 +12,8 @@ export async function getIndexContent() {
   return acf
 }
 
-export async function sendMessage(url: string, name: string, mail: string, content: string, date: Date) {
-  await axios.post(url, {
+export async function sendMessage(name: string, mail: string, content: string, date: Date) {
+  await axios.post(`http://localhost/blogAgaetis/wp-json/agaetis/api/v1/send`, {
     author_name: name,
     author_email: mail,
     content,

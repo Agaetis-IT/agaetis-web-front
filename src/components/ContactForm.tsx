@@ -1,20 +1,16 @@
 import clsx from 'clsx'
 import React, { useState } from 'react'
 
-import useFormInput from '../hooks/useForminput'
+import useFormInput from '../hooks/useFormInput'
 import { validateMail, validatePhoneNumber } from '../Services/VerifForm'
 import { sendMessage } from '../Services/wordpressService'
 
 import Button from './Button'
 import FormInput from './FormInput'
 
-function validateForm(firstname: string, lastname: string, mail: string, phone: string, company: string) {
-  return firstname !== '' && lastname !== '' && validateMail(mail) && validatePhoneNumber(phone) && company !== ''
-}
-
 export default function ContactTab() {
   const [currentIndex, setCurrentIndex] = useState(0)
-  const isCGUaccepted = useFormInput(false)
+  const cgu = useFormInput(false)
   const message = useFormInput('')
   const firstname = useFormInput('')
   const lastname = useFormInput('')
@@ -23,11 +19,16 @@ export default function ContactTab() {
   const company = useFormInput('')
 
   function handleNext() {
-    if (
-      currentIndex === 1 &&
-      !(isCGUaccepted && validateForm(firstname.value, lastname.value, mail.value, phone.value, company.value))
-    ) {
-      window.alert('Il reste des champs à remplir')
+    if (currentIndex === 1) {
+      const isFNValid = firstname.handleValidation(firstname.value !== '')
+      const isLNValid = lastname.handleValidation(lastname.value !== '')
+      const isMailValid = mail.handleValidation(validateMail(mail.value))
+      const isPhoneValid = phone.handleValidation(validatePhoneNumber(phone.value))
+      const isCompanyValid = company.handleValidation(company.value !== '')
+      const isCGUaccepted = cgu.handleValidation(cgu.value)
+      if (isFNValid && isLNValid && isMailValid && isPhoneValid && isCompanyValid && isCGUaccepted) {
+        setCurrentIndex(currentIndex + 1)
+      }
     } else {
       setCurrentIndex(currentIndex + 1)
     }
@@ -41,8 +42,7 @@ export default function ContactTab() {
         'http://localhost/blogAgaetis/wp-json/agaetis/api/v1/send',
         firstname.value + ' ' + lastname.value,
         mail.value,
-        message.value,
-        new Date()
+        message.value
       )
     }
   }
@@ -133,23 +133,64 @@ export default function ContactTab() {
               </div>
             </div>
             <div className={clsx({ hidden: currentIndex !== 1 }, 'block w-full justify-center')}>
-              <FormInput id="firstname" type="text" placeholder="Votre prénom" onChange={firstname.onChange}>
+              <FormInput
+                id="firstname"
+                type="text"
+                placeholder="Votre prénom"
+                onChange={firstname.onChange}
+                isValid={firstname.isValidField}
+                errorMessage="Ce champ est obligatoire"
+              >
                 Prénom
               </FormInput>
-              <FormInput id="lastname" type="text" placeholder="Votre nom" onChange={lastname.onChange}>
+              <FormInput
+                id="lastname"
+                type="text"
+                placeholder="Votre nom"
+                onChange={lastname.onChange}
+                isValid={lastname.isValidField}
+                errorMessage="Ce champ est obligatoire"
+              >
                 Nom
               </FormInput>
-              <FormInput id="mail" type="email" placeholder="name@example.com" onChange={mail.onChange}>
+              <FormInput
+                id="mail"
+                type="email"
+                placeholder="name@example.com"
+                onChange={mail.onChange}
+                isValid={mail.isValidField}
+                errorMessage="L'adresse entrée est invalide"
+              >
                 E-mail
               </FormInput>
-              <FormInput id="phone" type="text" placeholder="Votre téléphone" onChange={phone.onChange}>
+              <FormInput
+                id="phone"
+                type="text"
+                placeholder="Votre téléphone"
+                onChange={phone.onChange}
+                isValid={phone.isValidField}
+                errorMessage=" Le numéro entré est invalide"
+              >
                 Téléphone
               </FormInput>
-              <FormInput id="company" type="text" placeholder="Votre société" onChange={company.onChange}>
+              <FormInput
+                id="company"
+                type="text"
+                placeholder="Votre société"
+                onChange={company.onChange}
+                isValid={company.isValidField}
+                errorMessage="Ce champ est obligatoire"
+              >
                 Société
               </FormInput>
               <div className="p-2 flex flex-row align-middle">
-                <input className="opacity-75" id="cgu" type="checkbox" onChange={isCGUaccepted.onChange} required />
+                <input
+                  className={clsx({ 'bg-red': cgu.value })}
+                  id="cgu"
+                  type="checkbox"
+                  onChange={cgu.onChange}
+                  required
+                />
                 <label className="block text-cgu ml-1" htmlFor="cgu">
                   En soumettant ce formulaire et conformément à la politique de traitement des données personnelles,
                   j'accepte que les informations saisies soient exploitées afin d'être contacté par les équipes
