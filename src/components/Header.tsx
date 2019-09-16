@@ -1,3 +1,4 @@
+import clsx from 'clsx'
 import Link from 'next/link'
 import React, { useState } from 'react'
 
@@ -6,22 +7,30 @@ import logoAgaetisDesktop from '../images/logo-agaetis-hor-white-rgb-150.png'
 
 import './Header.css'
 import NavigationMenu from './NavigationMenu'
-export default function Header() {
+
+interface Props {
+  invertColors?: boolean
+  className?: string
+}
+
+export type HeaderProps = Props
+
+export default function Header({ invertColors, className }: Props) {
   const [isMenuOpen, setMenuOpen] = useState(false)
   function handleToggleMenu(): void {
     setMenuOpen(!isMenuOpen)
   }
 
   return (
-    <header className="md:bg-black p-0 md:p-8">
+    <header className={clsx('p-3 md:py-8', className)}>
       <nav className="flex flex-col md:flex-row item-start md:items-center flex-wrap justify-between md:justify-center">
         {/*Site logo + Hamburger icon */}
 
-        <div className="flex items-center flex-no-shrink text-orange md:text-white mb-1 md:mb-0">
+        <div className="flex items-center flex-no-shrink text-orange md:text-white">
           <Link href="/">
-            <a className="ml-auto mr-auto md:ml-0 md:mr-10 flex items-center">
-              <img className="logoAgaetis hidden md:inline" src={logoAgaetisDesktop} />
-              <img className="logoAgaetis inline md:hidden" src={logoAgaetisMobile} />
+            <a className="ml-auto mr-auto md:ml-0 md:mr-12 flex items-center">
+              <img className={clsx({ 'md:inline': invertColors }, 'logoAgaetis hidden')} src={logoAgaetisDesktop} />
+              <img className={clsx(invertColors ? 'md:hidden' : 'inline', 'logoAgaetis')} src={logoAgaetisMobile} />
             </a>
           </Link>
           <button
@@ -35,8 +44,8 @@ export default function Header() {
             <span className="uppercase text-black text-xxs pt-1">Menu</span>
           </button>
         </div>
-        <div id="main_nav" className={!isMenuOpen ? 'hidden md:inline' : ''}>
-          <NavigationMenu />
+        <div id="main_nav" className={clsx({ 'hidden md:inline': !isMenuOpen }, 'w-100')}>
+          <NavigationMenu invertColors={invertColors} />
         </div>
       </nav>
     </header>

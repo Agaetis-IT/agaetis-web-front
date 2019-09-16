@@ -1,0 +1,29 @@
+.home-img {
+  background-position: center;
+  background-size: cover;
+  width: 300px;
+  height: 250px;
+  -webkit-box-shadow: -2px 3px 21px -8px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: -2px 3px 21px -8px rgba(0, 0, 0, 0.75);
+  box-shadow: -2px 3px 21px -8px rgba(0, 0, 0, 0.75);
+}
+
+.agaetis-img {
+  background-image: url('../static/images/qui-sommes-nous.png');
+}
+
+.ideas-img {
+  background-image: url('../static/images/Idees.png');
+}
+
+.solutions-img {
+  background-image: url('../static/images/solutions.png');
+}
+
+.join-us-img {
+  background-image: url('../static/images/jobs.png');
+}
+
+.justify-fix {
+  text-justify: distribute;
+}

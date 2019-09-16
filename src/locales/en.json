@@ -1,15 +1,19 @@
 {
   "navigation": {
-    "agaetis": "Agaetis",
-    "ideas": "Ideas",
-    "solutions": "Solutions",
-    "jobs": "Jobs",
+    "agaetis-name": "Agaetis",
+    "agaetis-href": "/agaetis",
+    "ideas-name": "Ideas",
+    "ideas-href": "/ideas",
+    "solutions-name": "Solutions",
+    "solutions-href": "/solutions",
+    "jobs-name": "Jobs",
+    "jobs-href": "/jobs",
     "contact": "Contact"
   },
   "footer": {
     "address-title": "Our addresses",
     "clermont": "Clermont",
-    "clermont-address": "9, allée Evariste Gallois",
+    "clermont-address": "9, allée Evariste Galois",
     "clermont-zipcode": "63170",
     "clermont-city": "Aubière",
     "clermont-tel": "04 73 35 47 51",
@@ -29,5 +33,20 @@
     "data": "Personal data",
     "sitemap": "Sitemap",
     "copyright": "©AGAETIS - All rights reserved"
+  },
+  "index": {
+    "explore": "Explore",
+    "valorize": "Valorize",
+    "innovate": "Innovate",
+    "hero-description": "We transform the best of innovations into new deposits of value: we are the architects of responsible technology.",
+    "whoarewe": "Who are we ?",
+    "whoarewe-desc": "Since 2007, we help companies meet the challenges of new computer technologies. Because this field must combine passion and economic reality, our team relays the image of new organizations mixing technical experts, data scientists, organizational coaches, service designers and business specialists. Our culture provides our clients with keys to success in this period of economic and societal transition.",
+    "ideas": "Our ideas",
+    "ideas-desc": "Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, explicabo. Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos, qui ratione voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum",
+    "solutions": "Our solutions",
+    "solutions-desc": "Since 2007, we help companies meet the challenges of new computer technologies. Because this field must combine passion and economic reality, our team relays the image of new organizations mixing technical experts, data scientists, organizational coaches, service designers and business specialists. Our culture provides our clients with keys to success in this period of economic and societal transition.",
+    "join-us": "Join us",
+    "join-us-desc": "Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, explicabo. Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos, qui ratione voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum",
+    "learnmore-btn": "Learn more"
   }
 }

@@ -4,16 +4,17 @@ import '../i18n'
 import '../index.css'
 
 import Footer from './Footer'
-import Header from './Header'
+import Header, { HeaderProps } from './Header'
 
 interface Props {
-  children?: string
+  headerProps?: HeaderProps
+  children?: string | React.ReactElement
 }
 
-export default function Layout({ children }: Props) {
+export default function Layout({ headerProps, children }: Props) {
   return (
-    <div className="p-3 md:p-6">
-      <Header />
+    <div className=" md:p-0">
+      <Header {...headerProps} />
       {children}
       <Footer />
     </div>
