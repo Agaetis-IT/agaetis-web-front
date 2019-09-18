@@ -10,10 +10,9 @@ app
   .then(() => {
     const server = express()
 
-    server.get('/ideas/:id', (req, res) => {
+    server.get('/:slug', (req, res) => {
       const actualPage = '/idea'
       const queryParams = Object.assign({}, req.params, req.query)
-      console.log(queryParams)
       app.render(req, res, actualPage, queryParams)
     })
 

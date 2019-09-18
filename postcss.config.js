@@ -13,7 +13,7 @@ module.exports = {
     tailwindcss('./tailwind.config.js'),
     purgecss({
       content: ['./src/**/*.tsx'],
-      whitelist: ['html', 'body'],
+      whitelist: ['html', 'body', 'figure'],
       extractors: [
         {
           extractor: TailwindExtractor,

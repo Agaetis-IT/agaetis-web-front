@@ -2,32 +2,41 @@ import { NextContext } from 'next'
 import React from 'react'
 
 import IdeaContent from '../components/IdeaContent'
+import IdeasCard from '../components/IdeasCard'
 import Layout from '../components/Layout'
-import { getIdeaById } from '../Services/wordpressService'
+import { getIdeaBySlug } from '../Services/wordpressService'
 import IdeasContent from '../types/IdeasContent'
 
 interface Props {
   data: IdeasContent
 }
 
-idea.getInitialProps = async ({ query }: NextContext) => {
-  const data = await getIdeaById(parseInt(query.id, 10))
+Idea.getInitialProps = async ({ query }: NextContext) => {
+  const data = await getIdeaBySlug(query.slug)
   return {
     data: {
       title: data.title.rendered,
-      imageUrl: data.acf.idea_image,
+      imageUrl: data.acf.idea_image || '',
       date: data.date,
       author: data._embedded.author[0].name,
       category: data._embedded['wp:term'][0][0].name,
       content: data.content.rendered,
+      related: data.acf.related_ideas || [],
     },
   }
 }
 
-export default function idea({ data }: Props) {
+export default function Idea({ data }: Props) {
   return (
     <Layout>
-      <IdeaContent content={data} />
+      <div>
+        <IdeaContent content={data} />
+        {data.related.map(idea => (
+          <IdeasCard slug={idea.slug} key={idea.id} id={idea.id} title={idea.title} category={idea.category}>
+            {idea.descriptionText}
+          </IdeasCard>
+        ))}
+      </div>
     </Layout>
   )
 }
