@@ -13,7 +13,12 @@ export async function getIndexContent() {
 }
 
 export async function getAllIdeas() {
-  const { data } = await axios.get('http://localhost/blogAgaetis/wp-json/wp/v2/posts')
+  const { data } = await axios.get('http://localhost/blogAgaetis/wp-json/wp/v2/posts?_embed')
+  return data
+}
+
+export async function getIdeaById(id: number) {
+  const { data } = await axios.get(`http://localhost/blogAgaetis/wp-json/wp/v2/posts/${id}?_embed`)
   return data
 }
 

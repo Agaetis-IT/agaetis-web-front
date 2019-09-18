@@ -1,18 +1,19 @@
 const express = require('express')
 const next = require('next')
-
+const axios = require('axios')
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev, dir: './src' })
 const handle = app.getRequestHandler()
-
+const port = process.env.PORT || 3000
 app
   .prepare()
   .then(() => {
     const server = express()
 
-    server.get('/ideas/:slug', (req, res) => {
+    server.get('/ideas/:id', (req, res) => {
       const actualPage = '/idea'
-      const queryParams = { title: req.params.slug }
+      const queryParams = Object.assign({}, req.params, req.query)
+      console.log(queryParams)
       app.render(req, res, actualPage, queryParams)
     })
 
@@ -20,9 +21,9 @@ app
       return handle(req, res)
     })
 
-    server.listen(3000, err => {
+    server.listen(port, err => {
       if (err) throw err
-      console.log('> Ready on http://localhost:3000')
+      console.log('> Ready on http://localhost:' + port)
     })
   })
   .catch(ex => {
