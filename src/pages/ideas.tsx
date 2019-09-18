@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import Button from '../components/Button'
 import CategoryTab from '../components/CategoryTab'
@@ -46,7 +46,18 @@ Ideas.getInitialProps = async () => {
   }
 }
 
+function compareIdeasByDate(idea1: IdeasDesc, idea2: IdeasDesc) {
+  return new Date(idea2.date).getTime() - new Date(idea1.date).getTime()
+}
+
 export default function Ideas({ ideasDescription, categories }: Props) {
+  const sortedIdeas = ideasDescription.sort(compareIdeasByDate)
+  const [isOpenedMoreIdeas, setIsOpenedMoreIdeas] = useState(false)
+
+  function handleToggleMoreIdeas() {
+    setIsOpenedMoreIdeas(!isOpenedMoreIdeas)
+  }
+
   return (
     <Layout headerProps={{ invertColors: false }}>
       <div>
@@ -56,9 +67,12 @@ export default function Ideas({ ideasDescription, categories }: Props) {
           atque corrupti, quos dolores et quas molestias excepturi sint, obcaecati cupiditate non provident, similique
           sunt in culpa, qui officia deserunt mollitia animi, id est laborum et dolorum fuga
         </p>
-        <CategoryTab ideasC={ideasDescription} categories={categories} />
-        <Button className="flex flex-row justify-center uppercase rounded-full bg-orange text-xss py-2 px-6 text-white font-semibold mx-auto">
-          Voir plus d'idées
+        <CategoryTab ideasC={sortedIdeas} categories={categories} toggleMore={isOpenedMoreIdeas} />
+        <Button
+          className="flex flex-row justify-center uppercase rounded-full bg-orange text-xss py-2 px-6 text-white font-semibold mx-auto"
+          onClick={handleToggleMoreIdeas}
+        >
+          {!isOpenedMoreIdeas ? "Voir plus d'idées" : 'Voir moins'}
         </Button>
         <div className="text-center w-full mx-auto p-6 bg-grey my-8 blue-underline">
           <h2 className="text-2xl mt-4">Livres blancs</h2>
