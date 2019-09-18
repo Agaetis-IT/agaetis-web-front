@@ -1,5 +1,6 @@
 import axios from 'axios'
 
+import { IdeasPageContent } from '../types/IdeasContent'
 import IndexContent from '../types/IndexContent'
 
 export async function getWordpressPage<T>(id: number) {
@@ -9,6 +10,11 @@ export async function getWordpressPage<T>(id: number) {
 
 export async function getIndexContent() {
   const { acf } = await getWordpressPage<{ acf: IndexContent }>(13)
+  return acf
+}
+
+export async function getIdeasPageContent() {
+  const { acf } = await getWordpressPage<{ acf: IdeasPageContent }>(6)
   return acf
 }
 
