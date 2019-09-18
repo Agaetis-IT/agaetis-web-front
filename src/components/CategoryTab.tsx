@@ -9,6 +9,7 @@ import IdeasCard from './IdeasCard'
 interface Props {
   ideasC: IdeasDesc[]
   categories: Category[]
+  toggleMore: boolean
 }
 /*
 const ideas = [
@@ -86,7 +87,7 @@ const ideas = [
   },
 ]*/
 
-export default function CategoryTab({ ideasC, categories }: Props) {
+export default function CategoryTab({ ideasC, categories, toggleMore }: Props) {
   const [categoryFilter, setFilter] = useState('All')
 
   function handleFilterChange(category: string) {
@@ -111,7 +112,7 @@ export default function CategoryTab({ ideasC, categories }: Props) {
           <Button
             key={category.categoryId}
             className={clsx(
-              'uppercase font-semibold mx-2 p-2',
+              'uppercase font-semibold mx-1 md:mx-2 p-2',
               category.categoryName === categoryFilter
                 ? 'bg-blue  text-white rounded-sm'
                 : 'underline text-blue font-semibold'
@@ -124,12 +125,22 @@ export default function CategoryTab({ ideasC, categories }: Props) {
       </div>
       <div className="flex flex-col md:flex-row justify-center flex-wrap mt-2">
         {ideasC
+          .slice(0, 8)
           .filter(idea => categoryFilter === 'All' || idea.category === categoryFilter)
           .map(idea => (
             <IdeasCard slug={idea.slug} key={idea.id} id={idea.id} title={idea.title} category={idea.category}>
               {idea.descriptionText}
             </IdeasCard>
           ))}
+        {toggleMore &&
+          ideasC
+            .slice(8)
+            .filter(idea => categoryFilter === 'All' || idea.category === categoryFilter)
+            .map(idea => (
+              <IdeasCard slug={idea.slug} key={idea.id} id={idea.id} title={idea.title} category={idea.category}>
+                {idea.descriptionText}
+              </IdeasCard>
+            ))}
       </div>
     </div>
   )
