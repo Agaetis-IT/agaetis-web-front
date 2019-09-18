@@ -6,48 +6,58 @@ import IdeasCard from './IdeasCard'
 const ideas = [
   {
     id: 0,
+    src: '../static/images/Ideas1.png',
+    alt: 'Ideas1',
+  },
+  {
+    id: 1,
     category: 'Catégorie A',
     title: 'Idée #1 avec un titre qui tient sur deux ou trois lignes',
     description:
       'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores. Donec tincidunt quam augue, a facilisis tortor accumsan enean vel auctor.',
   },
   {
-    id: 1,
+    id: 2,
     category: 'Catégorie B',
     title: 'Idée #2 avec un titre qui tient sur deux ou trois lignes',
     description:
       'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores. Donec tincidunt quam augue, a facilisis tortor accumsan enean vel auctor.',
   },
   {
-    id: 2,
+    id: 4,
     category: 'Catégorie A',
     title: 'Idée #3 avec un titre qui tient sur deux ou trois lignes',
     description:
       'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores. Donec tincidunt quam augue, a facilisis tortor accumsan enean vel auctor.',
   },
   {
-    id: 3,
+    id: 4,
+    src: '../static/images/Ideas2.png',
+    alt: 'Ideas2',
+  },
+  {
+    id: 5,
     category: 'Catégorie C',
     title: 'Idée #4 avec un titre qui tient sur deux ou trois lignes',
     description:
       'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores. Donec tincidunt quam augue, a facilisis tortor accumsan enean vel auctor.',
   },
   {
-    id: 4,
+    id: 6,
     category: 'Catégorie C',
     title: 'Idée #5 avec un titre qui tient sur deux ou trois lignes',
     description:
       'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores. Donec tincidunt quam augue, a facilisis tortor accumsan enean vel auctor.',
   },
   {
-    id: 5,
+    id: 7,
     category: 'Catégorie A',
     title: 'Idée #6 avec un titre qui tient sur deux ou trois lignes',
     description:
       'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores. Donec tincidunt quam augue, a facilisis tortor accumsan enean vel auctor.',
   },
   {
-    id: 6,
+    id: 8,
     category: 'Catégorie B',
     title: 'Idée #7 avec un titre qui tient sur deux ou trois lignes',
     description:
@@ -67,7 +77,10 @@ export default function CategoryTab() {
   return (
     <div className="flex flex-col justify-center md:max-w-md mx-auto p-6">
       <div className="text-cgu">
-        <Button className="bg-blue mx-2 p-2 text-white uppercase font-semibold" onClick={handleFilterChange('All')}>
+        <Button
+          className="bg-blue mx-2 p-2 text-white uppercase font-semibold rounded-sm"
+          onClick={handleFilterChange('All')}
+        >
           Toutes
         </Button>
         <Button
@@ -89,14 +102,21 @@ export default function CategoryTab() {
           Catégorie C
         </Button>
       </div>
-      <div className="flex flex-row flex-wrap">
-        {ideas
-          .filter(idea => categoryFilter === 'All' || idea.category === categoryFilter)
-          .map(idea => (
-            <IdeasCard key={idea.id} title={idea.title} category={idea.category}>
+      <div className="flex flex-col md:flex-row justify-center flex-wrap mt-2">
+        {ideas.map(idea =>
+          idea.src ? (
+            <img
+              key={idea.id}
+              src={idea.src}
+              alt={idea.alt}
+              className="mx-auto md:mx-0 shadow-xl w-ideas md:mx-1 my-2 h-ideas"
+            />
+          ) : (
+            <IdeasCard key={idea.id} id={idea.id} title={idea.title} category={idea.category}>
               {idea.description}
             </IdeasCard>
-          ))}
+          )
+        )}
       </div>
     </div>
   )
