@@ -70,7 +70,7 @@ export default function NavigationMenu({ invertColors }: Props) {
       <div
         className={clsx(
           invertColors ? 'text-white' : 'text-black',
-          'text-xs md:ml-4 flex flex-row items-center p-2 md:p-0 '
+          'text-xs md:mx-4 flex flex-row items-center p-2 md:p-0 '
         )}
       >
         <Button
@@ -87,7 +87,7 @@ export default function NavigationMenu({ invertColors }: Props) {
         <Button
           className={clsx(
             isLanguageSelected('fr') ? 'Button-language--active' : { 'md:text-white': invertColors },
-            'text-xss text-black'
+            'text-xss text-black md:mr-2'
           )}
           onClick={onLanguageChange('fr')}
         >

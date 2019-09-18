@@ -22,6 +22,11 @@ export async function getIdeaById(id: number) {
   return data
 }
 
+export async function getIdeaBySlug(slug: string) {
+  const { data } = await axios.get(`http://localhost/blogAgaetis/wp-json/agaetis/api/v1/posts/${slug}`)
+  return data
+}
+
 export async function getCategories() {
   const { data } = await axios.get(`http://localhost/blogAgaetis/wp-json/wp/v2/categories/`)
   return data
