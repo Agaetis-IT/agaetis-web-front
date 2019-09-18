@@ -4,6 +4,13 @@ import Button from '../components/Button'
 import CategoryTab from '../components/CategoryTab'
 import '../components/Common.css'
 import Layout from '../components/Layout'
+import { getAllIdeas, getCategories } from '../Services/wordpressService'
+import { Category, IdeasDesc } from '../types/IdeasContent'
+
+interface Props {
+  ideasDescription: IdeasDesc[]
+  categories: Category[]
+}
 
 const whiteBooks = [
   {
@@ -23,17 +30,33 @@ const whiteBooks = [
   },
 ]
 
-export default function Ideas() {
+Ideas.getInitialProps = async () => {
+  const ideas = await getAllIdeas()
+  const categories = await getCategories()
+  return {
+    ideasDescription: ideas.map((idea: any) => ({
+      id: idea.id,
+      title: idea.title.rendered,
+      categoriesId: idea.categories,
+      slug: idea.slug,
+      descriptionText: idea.acf.idea_description,
+      date: idea.date,
+    })),
+    categories: categories.map((category: any) => ({ categoryId: category.id, categoryName: category.name })),
+  }
+}
+
+export default function Ideas({ ideasDescription, categories }: Props) {
   return (
     <Layout headerProps={{ invertColors: false }}>
-      <div className="">
+      <div>
         <h1 className="text-center">Idées</h1>
         <p className="md:max-w-md mx-auto text-center p-6 text-xs leading-normal">
           At vero eos et accusamus et iusto odio dignissimos ducimus, qui blanditiis praesentium voluptatum deleniti
           atque corrupti, quos dolores et quas molestias excepturi sint, obcaecati cupiditate non provident, similique
           sunt in culpa, qui officia deserunt mollitia animi, id est laborum et dolorum fuga
         </p>
-        <CategoryTab />
+        <CategoryTab ideasC={ideasDescription} categories={categories} />
         <Button className="flex flex-row justify-center uppercase rounded-full bg-orange text-xss py-2 px-6 text-white font-semibold mx-auto">
           Voir plus d'idées
         </Button>
