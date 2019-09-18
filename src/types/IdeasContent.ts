@@ -12,6 +12,11 @@ export interface Category {
   categoryName: string
 }
 
+export interface IdeasPageContent {
+  titre: string
+  description: string
+}
+
 export default interface IdeasContent {
   title: string
   date: string

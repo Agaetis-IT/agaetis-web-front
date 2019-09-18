@@ -5,12 +5,13 @@ import Button from '../components/Button'
 import CategoryTab from '../components/CategoryTab'
 import '../components/Common.css'
 import Layout from '../components/Layout'
-import { getAllIdeas, getCategories } from '../Services/wordpressService'
-import { Category, IdeasDesc } from '../types/IdeasContent'
+import { getAllIdeas, getCategories, getIdeasPageContent } from '../Services/wordpressService'
+import { Category, IdeasDesc, IdeasPageContent } from '../types/IdeasContent'
 
 interface Props {
   ideasDescription: IdeasDesc[]
   categories: Category[]
+  content: IdeasPageContent
 }
 
 const whiteBooks = [
@@ -34,6 +35,7 @@ const whiteBooks = [
 Ideas.getInitialProps = async () => {
   const ideas = await getAllIdeas()
   const categories = await getCategories()
+  const content = await getIdeasPageContent()
   return {
     ideasDescription: ideas.map((idea: any) => ({
       id: idea.id,
@@ -43,6 +45,7 @@ Ideas.getInitialProps = async () => {
       descriptionText: idea.acf.idea_description,
       date: idea.date,
     })),
+    content,
     categories: categories.map((category: any) => ({ categoryId: category.id, categoryName: category.name })),
   }
 }
@@ -51,7 +54,7 @@ function compareIdeasByDate(idea1: IdeasDesc, idea2: IdeasDesc) {
   return new Date(idea2.date).getTime() - new Date(idea1.date).getTime()
 }
 
-export default function Ideas({ ideasDescription, categories }: Props) {
+export default function Ideas({ ideasDescription, categories, content }: Props) {
   const sortedIdeas = ideasDescription.sort(compareIdeasByDate)
   const [isOpenedMoreIdeas, setIsOpenedMoreIdeas] = useState(false)
 
@@ -62,12 +65,8 @@ export default function Ideas({ ideasDescription, categories }: Props) {
   return (
     <Layout headerProps={{ invertColors: false }}>
       <div>
-        <h1 className="text-center">Idées</h1>
-        <p className="md:max-w-md mx-auto text-center p-6 text-xs leading-normal">
-          At vero eos et accusamus et iusto odio dignissimos ducimus, qui blanditiis praesentium voluptatum deleniti
-          atque corrupti, quos dolores et quas molestias excepturi sint, obcaecati cupiditate non provident, similique
-          sunt in culpa, qui officia deserunt mollitia animi, id est laborum et dolorum fuga
-        </p>
+        <h1 className="text-center">{content.titre}</h1>
+        <p className="md:max-w-md mx-auto text-center p-6 text-xs leading-normal">{content.description}</p>
         <CategoryTab ideasC={sortedIdeas} categories={categories} toggleMore={isOpenedMoreIdeas} />
         <Button
           className="flex flex-row justify-center uppercase rounded-full bg-orange text-xss py-2 px-6 text-white font-semibold mx-auto"

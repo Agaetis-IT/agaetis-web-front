@@ -1,20 +1,34 @@
 const express = require('express')
-const routes = require('./routes')
 const next = require('next')
 const axios = require('axios')
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev, dir: './src' })
-const handle = routes.getRequestHandler(app)
+const handle = app.getRequestHandler()
 const port = process.env.PORT || 3000
 app
   .prepare()
   .then(() => {
     const server = express()
 
+    server.get('/agaetis', (req, res) => {
+      return handle(req, res)
+    })
+
+    server.get('/ideas', (req, res) => {
+      return handle(req, res)
+    })
+
+    server.get('/solutions', (req, res) => {
+      return handle(req, res)
+    })
+
+    server.get('/jobs', (req, res) => {
+      return handle(req, res)
+    })
+
     server.get('/:slug', (req, res) => {
-      const actualPage = '/idea'
       const queryParams = Object.assign({}, req.params, req.query)
-      app.render(req, res, actualPage, queryParams)
+      app.render(req, res, 'idea', queryParams)
     })
 
     server.get('*', (req, res) => {
