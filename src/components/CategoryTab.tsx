@@ -85,11 +85,6 @@ const ideas = [
   },
 ]
 
-function getIdeaCategoryName(idea: IdeasDesc, categories: Category[]) {
-  const ideaCategory = categories.find((category: Category) => idea.categoriesId[0] === category.categoryId)
-  return ideaCategory ? ideaCategory.categoryName : ''
-}
-
 export default function CategoryTab({ ideasC, categories }: Props) {
   const [categoryFilter, setFilter] = useState('All')
 
@@ -156,15 +151,9 @@ export default function CategoryTab({ ideasC, categories }: Props) {
       </div>
       <div className="flex flex-col md:flex-row justify-center flex-wrap mt-2">
         {ideasC
-          .filter(idea => categoryFilter === 'All' || getIdeaCategoryName(idea, categories) === categoryFilter)
+          .filter(idea => categoryFilter === 'All' || idea.category === categoryFilter)
           .map(idea => (
-            <IdeasCard
-              slug={idea.slug}
-              key={idea.id}
-              id={idea.id}
-              title={idea.title}
-              category={getIdeaCategoryName(idea, categories)}
-            >
+            <IdeasCard slug={idea.slug} key={idea.id} id={idea.id} title={idea.title} category={idea.category}>
               {idea.descriptionText}
             </IdeasCard>
           ))}

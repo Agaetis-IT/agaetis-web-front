@@ -12,7 +12,7 @@ interface Props {
 }
 
 function getBgColor(id: number) {
-  return id === 1 || id === 2 || id === 6 ? 'bg-grey' : id === 4 ? 'bg-teal text-white' : id === 5 ? 'bg-pink' : ''
+  return id === 2 || id === 3 || id === 8 ? 'bg-grey' : id === 6 ? 'bg-teal text-white' : id === 7 ? 'bg-pink' : ''
 }
 
 function createMarkup(content: string) {
@@ -22,9 +22,9 @@ function createMarkup(content: string) {
 export default function IdeasCard({ slug, id, title, category, children }: Props) {
   return (
     <div className={clsx(getBgColor(id), 'md:w-ideas md:mx-1 p-4 my-2 md:h-ideas')}>
-      <div className={clsx({ 'text-blue': id !== 4 }, 'font-semibold text-xss')}>{category}</div>
-      <Link href={'/ideas/' + slug}>
-        <a href={'/ideas/' + slug}>
+      <div className={clsx({ 'text-blue': id !== 6 }, 'font-semibold text-xss')}>{category}</div>
+      <Link href={'/ideas/?id=' + id} as={'/ideas/' + id}>
+        <a href={'/ideas/?id=' + id} className={clsx(id !== 6 ? 'text-black' : 'text-white')}>
           <h3 dangerouslySetInnerHTML={createMarkup(title)} className="font-semibold text-xs py-4 text-base" />
         </a>
       </Link>
