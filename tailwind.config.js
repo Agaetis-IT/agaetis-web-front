@@ -44,12 +44,12 @@ let defaultConfig = require('tailwindcss/defaultConfig')()
 
 let colors = {
   transparent: 'transparent',
-
   black: '#22292f',
   grey: '#f5f6f7',
   'dark-grey': '#B8C2CC',
+  teal: '#01B2A9',
+  pink: '#FFE5D9',
   red: '#ff0033',
-  'red-light': '#ff003320',
   white: '#ffffff',
   blue: '#3F7EC9',
   orange: '#ff7f40',
@@ -405,6 +405,7 @@ module.exports = {
     '32': '8rem',
     '40': '10rem',
     '48': '12rem',
+    ideas: '13rem',
     '56': '14rem',
     '64': '16rem',
     '1/2': '50%',
@@ -454,6 +455,7 @@ module.exports = {
     '24': '6rem',
     '32': '8rem',
     '48': '12rem',
+    ideas: '13rem',
     '64': '16rem',
     full: '100%',
     screen: '100vh',
@@ -676,6 +678,7 @@ module.exports = {
     default: '0 2px 4px 0 rgba(0,0,0,0.10)',
     md: '0 4px 8px 0 rgba(0,0,0,0.12), 0 2px 4px 0 rgba(0,0,0,0.08)',
     lg: '0 15px 30px 0 rgba(0,0,0,0.11), 0 5px 15px 0 rgba(0,0,0,0.08)',
+    xl: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
     inner: 'inset 0 2px 4px 0 rgba(0,0,0,0.06)',
     outline: '0 0 0 3px rgba(52,144,220,0.5)',
     none: 'none',
