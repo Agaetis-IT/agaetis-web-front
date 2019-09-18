@@ -125,7 +125,7 @@ export default function CategoryTab({ ideasC, categories, toggleMore }: Props) {
       </div>
       <div className="flex flex-col md:flex-row justify-center flex-wrap mt-2">
         {ideasC
-          .slice(0, 8)
+          .slice(0, 1)
           .filter(idea => categoryFilter === 'All' || idea.category === categoryFilter)
           .map(idea => (
             <IdeasCard slug={idea.slug} key={idea.id} id={idea.id} title={idea.title} category={idea.category}>
@@ -134,7 +134,7 @@ export default function CategoryTab({ ideasC, categories, toggleMore }: Props) {
           ))}
         {toggleMore &&
           ideasC
-            .slice(8)
+            .slice(1)
             .filter(idea => categoryFilter === 'All' || idea.category === categoryFilter)
             .map(idea => (
               <IdeasCard slug={idea.slug} key={idea.id} id={idea.id} title={idea.title} category={idea.category}>

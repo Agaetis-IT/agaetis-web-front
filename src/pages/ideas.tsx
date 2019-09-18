@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React, { useState } from 'react'
 
 import Button from '../components/Button'
@@ -86,9 +87,11 @@ export default function Ideas({ ideasDescription, categories }: Props) {
               <div key={whiteBook.id} className="mb-4 md:m-0">
                 <div className="bg-black-light shadow-xl md:w-ideas h-40 md:h-32 mx-auto" />
                 <h3 className="text-sm px-3 py-4">{whiteBook.title}</h3>
-                <Button className="rounded-full uppercase text-white text-xss md:text-cgu font-semibold bg-orange px-8 py-3 md:px-6 md:py-2">
-                  Télécharger
-                </Button>
+                <Link href="/white-paper">
+                  <Button className="rounded-full uppercase text-white text-xss md:text-cgu font-semibold bg-orange px-8 py-3 md:px-6 md:py-2">
+                    Télécharger
+                  </Button>
+                </Link>
               </div>
             ))}
           </div>
