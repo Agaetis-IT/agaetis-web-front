@@ -65,15 +65,23 @@ export default function Ideas({ ideasDescription, categories, content }: Props) 
   return (
     <Layout headerProps={{ invertColors: false }}>
       <div>
-        <h1 className="text-center">{content.titre}</h1>
-        <p className="md:max-w-md mx-auto text-center p-6 text-xs leading-normal">{content.description}</p>
-        <CategoryTab ideasC={sortedIdeas} categories={categories} toggleMore={isOpenedMoreIdeas} />
-        <Button
-          className="flex flex-row justify-center uppercase rounded-full bg-orange text-xss py-2 px-6 text-white font-semibold mx-auto"
-          onClick={handleToggleMoreIdeas}
-        >
-          {!isOpenedMoreIdeas ? "Voir plus d'idées" : 'Voir moins'}
-        </Button>
+        <div className="md:max-w-md mx-auto px-0 md:px-8">
+          <div className="text-xs px-4 md:px-0">
+            <span className="text-underline">Accueil</span> > <span className="text-underline">Idées</span>
+          </div>
+          <h1 className="text-center text-2xl py-8">{content.titre}</h1>
+          <p className="md:max-w-md mx-auto text-center px-4 md:py-6 md:px-0 text-xs leading-normal">
+            {content.description}
+          </p>
+          <CategoryTab ideasC={sortedIdeas} categories={categories} toggleMore={isOpenedMoreIdeas} />
+          <Button
+            className="flex flex-row justify-center uppercase rounded-full bg-orange text-xss py-2 px-6 text-white font-semibold mx-auto"
+            onClick={handleToggleMoreIdeas}
+          >
+            {!isOpenedMoreIdeas ? "Voir plus d'idées" : 'Voir moins'}
+          </Button>
+        </div>
+
         <div className="text-center w-full mx-auto p-6 bg-grey my-8 blue-underline">
           <h2 className="text-2xl mt-4">Livres blancs</h2>
           <p className="text-xs md:max-w-md md:px-20 py-4 mx-auto">
