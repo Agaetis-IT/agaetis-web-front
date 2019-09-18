@@ -22,11 +22,13 @@ export default function ContactTab() {
         ...JSON.parse(localStorage.getItem('step3')!),
       }
       await sendMessage(
-        'http://localhost/blogAgaetis/wp-json/agaetis/api/v1/send',
         contactInfos.firstName + ' ' + contactInfos.lastName,
         contactInfos.email,
-        contactInfos.message
+        contactInfos.message,
+        new Date()
       )
+      alert('Message envoyé')
+      setCurrentIndex(0)
     }
   }
 

@@ -1,10 +1,11 @@
 import clsx from 'clsx'
-import { ErrorMessage, Field, Form, Formik } from 'formik'
+import { ErrorMessage, Form, Formik } from 'formik'
 import React from 'react'
-import * as Yup from 'yup'
 
 import { step1Schema } from '../../yup/ContactFormValidation'
 import Button from '../Button'
+
+import Radio from './Radio'
 
 interface Props {
   className?: string
@@ -24,45 +25,33 @@ export default function Step1({ className, handleNextStep }: Props) {
         handleNextStep()
       }}
       // tslint:disable-next-line: jsx-no-lambda
-      render={() => (
+      render={({ values }) => (
         <Form className={clsx(className, 'justify-center mt-4')}>
           <div className="flex flex-col md:flex-row justify-center">
-            <div className={clsx('my-2 md:m-0')}>
-              <Field component="input" type="radio" name="objet" id="radio1" value="Un projet ?" className="hidden" />
-
-              <Button
-                className="border bg-transparent border-blue rounded w-40 text-center py-2 align-middle block mx-auto md:mx-4 cursor-pointer text-blue font-semibold text-xss uppercase radio"
-                htmlFor="radio1"
-              >
-                Un projet ?
-              </Button>
-            </div>
-
-            <div className={clsx('my-2 md:m-0')}>
-              <Field
-                component="input"
-                type="radio"
-                name="objet"
-                id="radio2"
-                value="Une candidature ?"
-                className="hidden"
-              />
-              <Button
-                className="border border-blue rounded w-40 text-center py-2 align-middle block mx-auto md:mx-4 cursor-pointer text-blue font-semibold text-xss uppercase radio"
-                htmlFor="radio2"
-              >
-                Une candidature ?
-              </Button>
-            </div>
-            <div className={clsx('my-2 md:m-0')}>
-              <Field component="input" type="radio" name="objet" id="radio3" value="Un cafe ?" className="hidden" />
-              <Button
-                className="border border-blue rounded w-40 text-center py-2 align-middle block mx-auto md:mx-4 cursor-pointer text-blue font-semibold text-xss uppercase radio"
-                htmlFor="radio3"
-              >
-                Un café ?
-              </Button>
-            </div>
+            <Radio
+              isSelected={values.objet === 'Un projet ?'}
+              className="my-2 md:m-0"
+              name="objet"
+              id="radio1"
+              value="Un projet ?"
+              label="Un projet ?"
+            />
+            <Radio
+              isSelected={values.objet === 'Une candidature ?'}
+              className="my-2 md:m-0"
+              name="objet"
+              id="radio2"
+              value="Une candidature ?"
+              label="Une candidature ?"
+            />
+            <Radio
+              isSelected={values.objet === 'Un cafe ?'}
+              className="my-2 md:m-0"
+              name="objet"
+              id="radio3"
+              value="Un cafe ?"
+              label="Un café ?"
+            />
           </div>
           <ErrorMessage name="objet" component="div" className="text-cgu text-center py-4 font-semibold text-red" />
           <Button
