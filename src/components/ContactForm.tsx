@@ -1,48 +1,31 @@
 import clsx from 'clsx'
 import React, { useState } from 'react'
 
-import useFormInput from '../hooks/useFormInput'
-import { validateMail, validatePhoneNumber } from '../Services/VerifForm'
 import { sendMessage } from '../Services/wordpressService'
 
-import Button from './Button'
-import FormInput from './FormInput'
+import Step1 from './form/Step1'
+import Step2 from './form/Step2'
+import Step3 from './form/Step3'
 
 export default function ContactTab() {
   const [currentIndex, setCurrentIndex] = useState(0)
-  const cgu = useFormInput(false)
-  const message = useFormInput('')
-  const firstname = useFormInput('')
-  const lastname = useFormInput('')
-  const mail = useFormInput('')
-  const phone = useFormInput('')
-  const company = useFormInput('')
 
   function handleNext() {
-    if (currentIndex === 1) {
-      const isFNValid = firstname.handleValidation(firstname.value !== '')
-      const isLNValid = lastname.handleValidation(lastname.value !== '')
-      const isMailValid = mail.handleValidation(validateMail(mail.value))
-      const isPhoneValid = phone.handleValidation(validatePhoneNumber(phone.value))
-      const isCompanyValid = company.handleValidation(company.value !== '')
-      const isCGUaccepted = cgu.handleValidation(cgu.value)
-      if (isFNValid && isLNValid && isMailValid && isPhoneValid && isCompanyValid && isCGUaccepted) {
-        setCurrentIndex(currentIndex + 1)
-      }
-    } else {
-      setCurrentIndex(currentIndex + 1)
-    }
+    setCurrentIndex(currentIndex + 1)
   }
 
   async function handleSubmit() {
-    if (message.value === '') {
-      window.alert('Votre message est vide')
-    } else {
+    if (localStorage.getItem('step1') && localStorage.getItem('step2') && localStorage.getItem('step3')) {
+      const contactInfos = {
+        ...JSON.parse(localStorage.getItem('step1')!),
+        ...JSON.parse(localStorage.getItem('step2')!),
+        ...JSON.parse(localStorage.getItem('step3')!),
+      }
       await sendMessage(
         'http://localhost/blogAgaetis/wp-json/agaetis/api/v1/send',
-        firstname.value + ' ' + lastname.value,
-        mail.value,
-        message.value
+        contactInfos.firstName + ' ' + contactInfos.lastName,
+        contactInfos.email,
+        contactInfos.message
       )
     }
   }
@@ -99,138 +82,9 @@ export default function ContactTab() {
           <h2 className={clsx({ hidden: currentIndex !== 2 }, 'text-center text-lg md:text-2xl md:mt-0')}>
             Saisissez votre message :
           </h2>
-          <form className="mt-4" onSubmit={handleSubmit}>
-            <div className="flex flex-col md:flex-row justify-center">
-              <div className={clsx({ hidden: currentIndex !== 0 }, 'my-2 md:m-0')}>
-                <input type="radio" name="radio" id="radio1" value="Un projet ?" className="hidden" />
-                <Button
-                  className="border border-blue rounded w-40 text-center py-2 align-middle block mx-auto md:mx-4 cursor-pointer text-blue font-semibold text-xss uppercase radio"
-                  htmlFor="radio1"
-                  onClick={handleNext}
-                >
-                  Un projet ?
-                </Button>
-              </div>
-              <div className={clsx({ hidden: currentIndex !== 0 }, 'my-2 md:m-0')}>
-                <input type="radio" name="radio" id="radio2" value="Une candidature ?" className="hidden" />
-                <Button
-                  className="border border-blue rounded w-40 text-center py-2 align-middle block mx-auto md:mx-4 cursor-pointer text-blue font-semibold text-xss uppercase radio"
-                  htmlFor="radio2"
-                  onClick={handleNext}
-                >
-                  Une candidature ?
-                </Button>
-              </div>
-              <div className={clsx({ hidden: currentIndex !== 0 }, 'my-2 md:m-0')}>
-                <input type="radio" name="radio" id="radio3" value="Un cafe ?" className="hidden" />
-                <Button
-                  className="border border-blue rounded w-40 text-center py-2 align-middle block mx-auto md:mx-4 cursor-pointer text-blue font-semibold text-xss uppercase radio"
-                  htmlFor="radio3"
-                  onClick={handleNext}
-                >
-                  Un café ?
-                </Button>
-              </div>
-            </div>
-            <div className={clsx({ hidden: currentIndex !== 1 }, 'block w-full justify-center')}>
-              <FormInput
-                id="firstname"
-                type="text"
-                placeholder="Votre prénom"
-                onChange={firstname.onChange}
-                isValid={firstname.isValidField}
-                errorMessage="Ce champ est obligatoire"
-              >
-                Prénom
-              </FormInput>
-              <FormInput
-                id="lastname"
-                type="text"
-                placeholder="Votre nom"
-                onChange={lastname.onChange}
-                isValid={lastname.isValidField}
-                errorMessage="Ce champ est obligatoire"
-              >
-                Nom
-              </FormInput>
-              <FormInput
-                id="mail"
-                type="email"
-                placeholder="name@example.com"
-                onChange={mail.onChange}
-                isValid={mail.isValidField}
-                errorMessage="L'adresse entrée est invalide"
-              >
-                E-mail
-              </FormInput>
-              <FormInput
-                id="phone"
-                type="text"
-                placeholder="Votre téléphone"
-                onChange={phone.onChange}
-                isValid={phone.isValidField}
-                errorMessage=" Le numéro entré est invalide"
-              >
-                Téléphone
-              </FormInput>
-              <FormInput
-                id="company"
-                type="text"
-                placeholder="Votre société"
-                onChange={company.onChange}
-                isValid={company.isValidField}
-                errorMessage="Ce champ est obligatoire"
-              >
-                Société
-              </FormInput>
-              <div className="p-2 flex flex-row align-middle">
-                <input
-                  className={clsx({ 'bg-red': cgu.value })}
-                  id="cgu"
-                  type="checkbox"
-                  onChange={cgu.onChange}
-                  required
-                />
-                <label className="block text-cgu ml-1" htmlFor="cgu">
-                  En soumettant ce formulaire et conformément à la politique de traitement des données personnelles,
-                  j'accepte que les informations saisies soient exploitées afin d'être contacté par les équipes
-                  d'agaetis.
-                </label>
-              </div>
-            </div>
-            <div className={clsx({ hidden: currentIndex !== 2 }, 'p-2')}>
-              <label className="block text-xss font-bold mb-2" htmlFor="message">
-                Message
-              </label>
-              <textarea
-                className="shadow appearance-none rounded-sm text-xs w-full h-32 overflow-y-scroll py-2 px-3 text-dark-grey leading-tight"
-                id="message"
-                placeholder="Votre message"
-                onChange={message.onChange}
-              />
-            </div>
-            <div className="flex flex-col justify-center">
-              <Button
-                href="#"
-                className={clsx(
-                  { hidden: currentIndex !== 1 },
-                  'w-32 py-2 leading-none rounded-full uppercase mx-auto text-center mt-4 mb-6 md:mb-0 bg-orange text-white text-xs font-semibold inline-block'
-                )}
-                onClick={handleNext}
-              >
-                Poursuivre
-              </Button>
-              <Button
-                type="submit"
-                className={clsx(
-                  { hidden: currentIndex !== 2 },
-                  'w-32 py-2 leading-none rounded-full uppercase mx-auto mt-4 mb-6 md:mb-0 bg-orange text-white text-xs text-center font-semibold inline-block'
-                )}
-              >
-                Valider
-              </Button>
-            </div>
-          </form>
+          <Step1 className={clsx(currentIndex === 0 ? 'flex flex-col' : 'hidden')} handleNextStep={handleNext} />
+          <Step2 className={clsx(currentIndex === 1 ? 'flex flex-col' : 'hidden')} handleNextStep={handleNext} />
+          <Step3 className={clsx(currentIndex === 2 ? 'flex flex-col' : 'hidden')} handleNextStep={handleSubmit} />
         </div>
       </div>
     </div>
