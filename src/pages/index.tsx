@@ -60,8 +60,8 @@ function Index({ pageContent: pageContent }: Props) {
             descBlockClass="md:pl-6"
             imgUrl={pageContent.jobs_desc_img}
           />
-          <ContactSection />
         </div>
+        <ContactSection />
       </>
     </Layout>
   )

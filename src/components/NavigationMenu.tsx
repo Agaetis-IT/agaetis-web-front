@@ -74,7 +74,6 @@ export default function NavigationMenu({ invertColors }: Props) {
         )}
       >
         <Button
-          href="#"
           className={clsx(
             isLanguageSelected('en') ? 'Button-language--active' : { 'md:text-white': invertColors },
             'mr-1 text-xss text-black'
@@ -86,7 +85,6 @@ export default function NavigationMenu({ invertColors }: Props) {
         <span className="mr-1 hidden md:inline align-middle leading-none text-xss"> - </span>
         <span className="text-black mr-1 block md:hidden align-middle leading-none text-xss">|</span>
         <Button
-          href="#"
           className={clsx(
             isLanguageSelected('fr') ? 'Button-language--active' : { 'md:text-white': invertColors },
             'text-xss text-black'
