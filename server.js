@@ -10,25 +10,12 @@ app
   .then(() => {
     const server = express()
 
-    server.get('/agaetis', (req, res) => {
-      return handle(req, res)
-    })
-
-    server.get('/ideas', (req, res) => {
-      return handle(req, res)
-    })
-
-    server.get('/solutions', (req, res) => {
-      return handle(req, res)
-    })
-
-    server.get('/jobs', (req, res) => {
-      return handle(req, res)
-    })
-
     server.get('/:slug', (req, res) => {
       const queryParams = Object.assign({}, req.params, req.query)
-      app.render(req, res, 'idea', queryParams)
+      if (['solutions', 'ideas', 'agaetis', 'jobs', 'white-paper', 'contact'].includes(queryParams.slug))
+        return handle(req, res)
+
+      app.render(req, res, '/idea', queryParams)
     })
 
     server.get('*', (req, res) => {

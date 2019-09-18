@@ -97,7 +97,7 @@ export default function CategoryTab({ ideasC, categories, toggleMore }: Props) {
   }
 
   return (
-    <div className="flex flex-col justify-center md:max-w-md mx-auto p-6">
+    <div className="flex flex-col justify-center md:max-w-md mx-auto px-2 py-6 md:p-6">
       <div className="text-cgu ml-2">
         <Button
           className={clsx(
@@ -125,22 +125,24 @@ export default function CategoryTab({ ideasC, categories, toggleMore }: Props) {
       </div>
       <div className="flex flex-col md:flex-row justify-center flex-wrap mt-2">
         {ideasC
-          .slice(0, 1)
+
           .filter(idea => categoryFilter === 'All' || idea.category === categoryFilter)
           .map(idea => (
             <IdeasCard slug={idea.slug} key={idea.id} id={idea.id} title={idea.title} category={idea.category}>
               {idea.descriptionText}
             </IdeasCard>
-          ))}
+          ))
+          .slice(0, 1)}
         {toggleMore &&
           ideasC
-            .slice(1)
+
             .filter(idea => categoryFilter === 'All' || idea.category === categoryFilter)
             .map(idea => (
               <IdeasCard slug={idea.slug} key={idea.id} id={idea.id} title={idea.title} category={idea.category}>
                 {idea.descriptionText}
               </IdeasCard>
-            ))}
+            ))
+            .slice(1)}
       </div>
     </div>
   )
