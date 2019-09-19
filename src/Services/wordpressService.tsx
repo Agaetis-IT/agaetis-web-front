@@ -2,20 +2,31 @@ import axios from 'axios'
 
 import { IdeasPageContent } from '../types/IdeasContent'
 import IndexContent from '../types/IndexContent'
+import SolutionsContentAPI, { convertContentAPItoContent } from '../types/SolutionsContent'
 
 export async function getWordpressPage<T>(id: number) {
   const { data } = await axios.get<T>(`http://localhost/blogAgaetis/wp-json/wp/v2/pages/${id}`)
   return data
 }
 
+export async function getWordpressPageBySlug<T>(slug: string) {
+  const { data } = await axios.get<T>(`http://localhost/blogAgaetis/wp-json/agaetis/api/v1/pages/${slug}`)
+  return data
+}
+
 export async function getIndexContent() {
-  const { acf } = await getWordpressPage<{ acf: IndexContent }>(13)
+  const { acf } = await getWordpressPageBySlug<{ acf: IndexContent }>('index')
   return acf
 }
 
 export async function getIdeasPageContent() {
-  const { acf } = await getWordpressPage<{ acf: IdeasPageContent }>(6)
+  const { acf } = await getWordpressPageBySlug<{ acf: IdeasPageContent }>('idees')
   return acf
+}
+
+export async function getSolutionsPageContent() {
+  const { acf } = await getWordpressPageBySlug<{ acf: SolutionsContentAPI }>('solutions')
+  return convertContentAPItoContent(acf)
 }
 
 export async function getAllIdeas() {
