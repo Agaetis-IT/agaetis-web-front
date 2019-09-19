@@ -1,5 +1,11 @@
 import React from 'react'
 
+import Layout from '../components/Layout'
+
 export default function jobs() {
-  return <div>ok</div>
+  return (
+    <Layout>
+      <div>ok</div>
+    </Layout>
+  )
 }
