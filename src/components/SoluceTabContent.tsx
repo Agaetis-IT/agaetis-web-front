@@ -14,13 +14,25 @@ interface Props {
 export default function SoluceTabContent({ content, className }: Props) {
   return (
     <div className={clsx(className, 'p-4')}>
-      <div className={clsx('w-1/2')}>
-        <h2 className="text-xl font-semibold py-4 text-center">{content.sections[0].title}</h2>
-        <p className="text-xs">{content.sections[0].content}</p>
+      <div className={clsx('w-1/2 pr-4')}>
+        <h2
+          className="text-xl font-semibold py-4 text-center"
+          dangerouslySetInnerHTML={{ __html: content.sections[0].title }}
+        />
+        <p
+          className="text-xs text-justify leading-normal"
+          dangerouslySetInnerHTML={{ __html: content.sections[0].content }}
+        />
       </div>
-      <div className={clsx('w-1/2')}>
-        <h2 className="text-xl font-semibold py-4 text-center">{content.sections[1].title}</h2>
-        <p className="text-xs">{content.sections[1].content}</p>
+      <div className={clsx('w-1/2 pl-4')}>
+        <h2
+          className="text-xl font-semibold py-4 text-center"
+          dangerouslySetInnerHTML={{ __html: content.sections[1].title }}
+        />
+        <p
+          className="text-xs text-justify leading-normal"
+          dangerouslySetInnerHTML={{ __html: content.sections[1].content }}
+        />
       </div>
     </div>
   )
