@@ -1,4 +1,3 @@
-import { withRouter } from 'next/router'
 import React from 'react'
 
 import IdeasContent from '../types/IdeasContent'
@@ -38,4 +37,4 @@ function IdeaContent({ content }: Props) {
   )
 }
 
-export default withRouter(IdeaContent)
+export default IdeaContent

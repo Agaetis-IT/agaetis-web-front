@@ -55,6 +55,7 @@ let colors = {
   white: '#ffffff',
   blue: '#3F7EC9',
   orange: '#ff7f40',
+  'orange-light': '#FFE5D9',
   'dark-blue': '#12283A',
 }
 
