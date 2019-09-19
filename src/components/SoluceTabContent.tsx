@@ -14,7 +14,7 @@ interface Props {
 export default function SoluceTabContent({ content, className }: Props) {
   return (
     <div className={clsx(className, 'p-4')}>
-      <div className={clsx('w-1/2 pr-4')}>
+      <div className={clsx('md:w-1/2 md:pr-4')}>
         <h2
           className="text-xl font-semibold py-4 text-center"
           dangerouslySetInnerHTML={{ __html: content.sections[0].title }}
@@ -24,7 +24,7 @@ export default function SoluceTabContent({ content, className }: Props) {
           dangerouslySetInnerHTML={{ __html: content.sections[0].content }}
         />
       </div>
-      <div className={clsx('w-1/2 pl-4')}>
+      <div className={clsx('md:w-1/2 md:pl-4')}>
         <h2
           className="text-xl font-semibold py-4 text-center"
           dangerouslySetInnerHTML={{ __html: content.sections[1].title }}
