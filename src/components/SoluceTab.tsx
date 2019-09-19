@@ -66,11 +66,15 @@ export default function SoluceTab() {
 
   return (
     <>
-      <div className="flex flex-row w-full">
+      <div className="flex flex-row w-full mt-8 md:mt-0">
         <Button
           className={clsx(
-            currentIndex === 0 ? 'text-white bg-blue' : 'text-black bg-grey hover:bg-orange-light',
-            'text-xs uppercase text-center md:w-1/4 py-4  md:inline  border border-white font-semibold self-center'
+            currentIndex === 0
+              ? 'text-white bg-blue w-1/3'
+              : currentIndex === 3
+              ? 'hidden sm:block w-1/3 text-black bg-grey hover:bg-orange-light'
+              : 'text-black bg-grey hover:bg-orange-light w-1/6 sm:w-1/4 whitespace-no-wrap overflow-hidden px-4 reverseText',
+            'text-xs uppercase text-center sm:w-1/4 py-4  md:inline  border border-white font-semibold self-center'
           )}
           onClick={onTabChange(0)}
         >
@@ -79,7 +83,7 @@ export default function SoluceTab() {
         <Button
           className={clsx(
             currentIndex === 1 ? 'text-white bg-blue' : 'text-black bg-grey hover:bg-orange-light',
-            'text-xs uppercase text-center md:w-1/4 py-4  md:inline  border border-white font-semibold self-center'
+            'text-xs uppercase text-center w-1/3 sm:w-1/4 py-4  md:inline  border border-white font-semibold self-center'
           )}
           onClick={onTabChange(1)}
         >
@@ -88,7 +92,7 @@ export default function SoluceTab() {
         <Button
           className={clsx(
             currentIndex === 2 ? 'text-white bg-blue' : 'text-black bg-grey hover:bg-orange-light',
-            'text-xs uppercase text-center md:w-1/4 py-4  md:inline  border border-white font-semibold self-center'
+            'text-xs uppercase text-center w-1/3 sm:w-1/4 py-4  md:inline  border border-white font-semibold self-center'
           )}
           onClick={onTabChange(2)}
         >
@@ -96,8 +100,12 @@ export default function SoluceTab() {
         </Button>
         <Button
           className={clsx(
-            currentIndex === 3 ? 'text-white bg-blue' : 'text-black bg-grey hover:bg-orange-light',
-            'text-xs uppercase text-center md:w-1/4 py-4 md:inline  border border-white font-semibold self-center'
+            currentIndex === 3
+              ? 'text-white bg-blue w-1/3 px-4'
+              : currentIndex === 0
+              ? 'hidden sm:block text-black bg-grey hover:bg-orange-light w-1/3'
+              : 'text-black bg-grey hover:bg-orange-light w-1/6 sm:w-1/4 whitespace-no-wrap overflow-hidden px-4',
+            'text-xs uppercase text-center w-auto sm:w-1/4 py-4 md:inline  border border-white font-semibold self-center'
           )}
           onClick={onTabChange(3)}
         >
@@ -106,7 +114,7 @@ export default function SoluceTab() {
       </div>
 
       <SoluceTabContent
-        className="flex flex-row w-full"
+        className="flex flex-col md:flex-row w-full"
         content={content.filter(tab => currentIndex === tab.index)[0]}
       />
     </>

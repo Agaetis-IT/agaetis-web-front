@@ -31,22 +31,22 @@ export default function solutions() {
           <img className="mt-4 shadow-xl" src={SoluceImg} />
           <div>
             <h2 className="text-2xl font-semibold py-8 text-center">Pourquoi nous ?</h2>
-            <div className="flex flex-row justify-between">
-              <div className="w-1/3 p-2 flex flex-col align-middle">
+            <div className="flex flex-col md:flex-row justify-between">
+              <div className="md:w-1/3 p-2 flex flex-col align-middle">
                 <img className="w-24 h-24 mx-auto text-center mb-4" src={DoctorIcon} />
                 <div>
                   <h3 className="text-lg uppercase text-center">expertise</h3>
                   <p className="text-xs leading-normal text-center py-2">avérée avec des docteurs</p>
                 </div>
               </div>
-              <div className="w-1/3 p-2 flex flex-col align-middle">
+              <div className="md:w-1/3 p-2 flex flex-col align-middle">
                 <img className="w-24 h-24 mx-auto mb-4" src={LaboIcon} />
                 <div>
                   <h3 className="text-lg uppercase text-center">Liens</h3>
                   <p className="text-xs leading-normal text-center py-2">avec de nombreux laboratoires de recherche</p>
                 </div>
               </div>
-              <div className="w-1/3 p-2 flex flex-col align-middle">
+              <div className="md:w-1/3 p-2 flex flex-col align-middle">
                 <img className="w-24 h-24 mx-auto mb-4" src={PlanIcon} />
                 <div>
                   <h3 className="text-lg uppercase text-center">co-construction</h3>
@@ -60,7 +60,7 @@ export default function solutions() {
         </div>
         <div className="bg-grey blue-underline p-8 my-4">
           <h2 className="text-2xl font-semibold text-center">Ils nous font déjà confiance</h2>
-          <div className="flex flex-row justify-center p-4">
+          <div className="flex flex-row flex-wrap justify-center p-4">
             <img className="p-4 logoPVAC" src={LogoPvac} />
             <img className="p-4 logoMich" src={LogoMichelin} />
             <img className="p-4 logoPSF" src={LogoPSF} />
