@@ -52,6 +52,7 @@ let colors = {
   teal: '#01B2A9',
   pink: '#FFE5D9',
   red: '#ff0033',
+  'red-light': '#ff003320',
   white: '#ffffff',
   blue: '#3F7EC9',
   orange: '#ff7f40',

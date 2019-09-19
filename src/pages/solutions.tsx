@@ -29,7 +29,7 @@ export default function solutions({ pageContent }: Props) {
             {pageContent.description}
           </p>
           <SoluceTab tabs={pageContent.tabs} />
-          <img className="mt-4 shadow-xl" src={pageContent.solutions_img} />
+          <img className="mt-4 shadow-xl w-full" src={pageContent.solutions_img} />
           <div>
             <h2 className="text-2xl font-semibold py-8 text-center">{pageContent.why_us.title}</h2>
             <div className="flex flex-col md:flex-row justify-between">
