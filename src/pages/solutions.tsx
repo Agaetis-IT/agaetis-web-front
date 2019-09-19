@@ -7,11 +7,17 @@ import LogoPSF from '../images/PSF.png'
 import LogoPvac from '../images/Pvac.png'
 import SoluceImg from '../images/Soluces.png'
 import LogoSormea from '../images/Sormea.png'
+import { getSolutionsPageContent } from '../Services/wordpressService'
 import DoctorIcon from '../static/icons/doctor.png'
 import LaboIcon from '../static/icons/labo.png'
 import PlanIcon from '../static/icons/plan.png'
 
 import './solutions.css'
+
+solutions.getInitialProps = async () => {
+  const pageContent = await getSolutionsPageContent()
+  return { pageContent }
+}
 
 export default function solutions() {
   return (
@@ -19,7 +25,7 @@ export default function solutions() {
       <>
         <div className="md:max-w-md mx-auto p-0 md:px-8">
           <div className="text-xs px-4 md:px-0">
-            <span className="text-underline">Accueil</span> > <span className="text-underline">Idées</span>
+            <span className="text-underline">Accueil</span> > <span className="text-underline">Solutions</span>
           </div>
           <h1 className="text-center text-2xl py-8">Solutions</h1>
           <p className="md:max-w-md mx-auto text-center px-4 md:py-6 md:px-0 text-xs leading-normal">
