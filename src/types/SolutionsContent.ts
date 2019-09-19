@@ -1,18 +1,22 @@
 export default interface SolutionsContentAPI {
   titre: string
   description: string
+  tab1_header: string
   tab1_titre_section1: string
   tab1_contenu_section1: string
   tab1_titre_section2: string
   tab1_contenu_section2: string
+  tab2_header: string
   tab2_titre_section1: string
   tab2_contenu_section1: string
   tab2_titre_section2: string
   tab2_contenu_section2: string
+  tab3_header: string
   tab3_titre_section1: string
   tab3_contenu_section1: string
   tab3_titre_section2: string
   tab3_contenu_section2: string
+  tab4_header: string
   tab4_titre_section1: string
   tab4_contenu_section1: string
   tab4_titre_section2: string
@@ -27,6 +31,7 @@ export default interface SolutionsContentAPI {
   why_us_section3_icon: string
   why_us_section3_title: string
   why_us_section4_description: string
+  partenaires_title: string
   partenaire1_img: string
   partenaire2_img: string
   partenaire3_img: string
@@ -40,6 +45,7 @@ export interface SolutionsContent {
   solutions_img: string
   tabs: Tab[]
   why_us: WhyUs
+  partnerTitle: string
   partners: string[]
 }
 
@@ -55,6 +61,7 @@ interface WhyUs {
 
 export interface Tab {
   index: number
+  header: string
   sections: Array<{
     index: number
     title: string
@@ -70,6 +77,7 @@ export function convertContentAPItoContent(contentApi: SolutionsContentAPI) {
     title: contentApi.titre,
     description: contentApi.description,
     solutions_img: contentApi.solutions_img,
+    partnerTitle: contentApi.partenaires_title,
     partners: Object.keys(contentApi)
       .filter(key => key.match(regexPartners))
       .map(key => contentApi[key]),
@@ -152,25 +160,21 @@ function createWhyUsObject(contentApi: SolutionsContentAPI, keys: string[]) {
 }
 
 function createTabsArray(contentApi: SolutionsContentAPI, keys: string[]) {
-  const tabs: Array<{
-    index: number
-    sections: Array<{
-      index: number
-      title: string
-      description: string
-    }>
-  }> = []
+  const tabs: Tab[] = []
 
   keys.forEach(key => {
     const tabIndex = tabs.findIndex(tab => tab.index === parseInt(key[3], 10))
     if (!Number.isNaN(parseInt(key[3], 10))) {
       if (tabIndex === -1) {
-        const newTab = Object.create({ index: 0, sections: [] })
+        const newTab = Object.create({ index: 0, header: '', sections: [] })
         newTab.index = parseInt(key[3], 10)
         newTab.sections = []
         tabs.push(newTab)
       }
       const newindex = tabs.findIndex(tab => tab.index === parseInt(key[3], 10))
+      if (key.includes('header')) {
+        tabs[newindex].header = contentApi[key]
+      }
       createTabSections(tabs, newindex, contentApi, key)
     }
   })

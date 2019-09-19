@@ -46,10 +46,10 @@ export default function solutions({ pageContent }: Props) {
           </div>
         </div>
         <div className="bg-grey blue-underline p-8 my-4">
-          <h2 className="text-2xl font-semibold text-center">Ils nous font déjà confiance</h2>
+          <h2 className="text-2xl font-semibold text-center">{pageContent.partnerTitle}</h2>
           <div className="flex flex-row flex-wrap justify-center p-4">
             {pageContent.partners.map(partner => (
-              <img key={partner} className="p-4 w-auto" src={partner} />
+              <img key={partner} className="p-4 w-auto h-auto" src={partner} />
             ))}
           </div>
         </div>

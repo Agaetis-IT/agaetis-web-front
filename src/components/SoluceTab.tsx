@@ -29,12 +29,12 @@ export default function SoluceTab({ tabs }: Props) {
               ? 'text-white bg-blue w-1/3'
               : currentIndex === 3
               ? 'hidden sm:block w-1/3 text-black bg-grey hover:bg-orange-light'
-              : 'text-black bg-grey hover:bg-orange-light w-1/6 whitespace-no-wrap overflow-hidden reverseText',
+              : 'text-black bg-grey hover:bg-orange-light w-1/6 sm:w-1/4 whitespace-no-wrap overflow-hidden reverseText',
             'text-xs uppercase text-center sm:w-1/4 py-4  md:inline  border border-white font-semibold self-center'
           )}
           onClick={onTabChange(0)}
         >
-          Anticiper & Valoriser
+          {tabs[0].header}
         </Button>
         <Button
           className={clsx(
@@ -43,7 +43,7 @@ export default function SoluceTab({ tabs }: Props) {
           )}
           onClick={onTabChange(1)}
         >
-          Tester & Comprendre
+          {tabs[1].header}
         </Button>
         <Button
           className={clsx(
@@ -52,7 +52,7 @@ export default function SoluceTab({ tabs }: Props) {
           )}
           onClick={onTabChange(2)}
         >
-          Rénover & optimiser
+          {tabs[2].header}
         </Button>
         <Button
           className={clsx(
@@ -65,7 +65,7 @@ export default function SoluceTab({ tabs }: Props) {
           )}
           onClick={onTabChange(3)}
         >
-          Guider & révéler
+          {tabs[3].header}
         </Button>
       </div>
 
