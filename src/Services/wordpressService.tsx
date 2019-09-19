@@ -29,6 +29,11 @@ export async function getSolutionsPageContent() {
   return convertContentAPItoContent(acf)
 }
 
+export async function getJobsPageContent() {
+  const { acf } = await getWordpressPageBySlug<{ acf: SolutionsContentAPI }>('jobs')
+  return acf
+}
+
 export async function getAllIdeas() {
   const { data } = await axios.get('http://localhost/blogAgaetis/wp-json/wp/v2/posts?_embed')
   return data
