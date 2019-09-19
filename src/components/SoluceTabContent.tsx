@@ -1,13 +1,10 @@
 import clsx from 'clsx'
 import React from 'react'
 
-interface Soluce {
-  index: number
-  sections: Array<{ title: string; content: string }>
-}
+import { Tab } from '../types/SolutionsContent'
 
 interface Props {
-  content: Soluce
+  content: Tab
   className: string
 }
 
@@ -21,7 +18,7 @@ export default function SoluceTabContent({ content, className }: Props) {
         />
         <p
           className="text-xs text-justify leading-normal"
-          dangerouslySetInnerHTML={{ __html: content.sections[0].content }}
+          dangerouslySetInnerHTML={{ __html: content.sections[0].description }}
         />
       </div>
       <div className={clsx('md:w-1/2 md:pl-4')}>
@@ -31,7 +28,7 @@ export default function SoluceTabContent({ content, className }: Props) {
         />
         <p
           className="text-xs text-justify leading-normal"
-          dangerouslySetInnerHTML={{ __html: content.sections[1].content }}
+          dangerouslySetInnerHTML={{ __html: content.sections[1].description }}
         />
       </div>
     </div>

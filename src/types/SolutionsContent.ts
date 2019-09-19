@@ -53,7 +53,7 @@ interface WhyUs {
   }>
 }
 
-interface Tab {
+export interface Tab {
   index: number
   sections: Array<{
     index: number
@@ -78,6 +78,42 @@ export function convertContentAPItoContent(contentApi: SolutionsContentAPI) {
   }
 }
 
+export function compareWhyUsSection(
+  a: {
+    index: number
+    icon: string
+    title: string
+    description: string
+  },
+  b: {
+    index: number
+    icon: string
+    title: string
+    description: string
+  }
+) {
+  return a.index < b.index ? -1 : 1
+}
+
+export function compareTabsSection(
+  a: {
+    index: number
+    title: string
+    description: string
+  },
+  b: {
+    index: number
+    title: string
+    description: string
+  }
+) {
+  return a.index < b.index ? -1 : 1
+}
+
+export function compareTabs(a: Tab, b: Tab) {
+  return a.index < b.index ? -1 : 1
+}
+
 function createWhyUsObject(contentApi: SolutionsContentAPI, keys: string[]) {
   const sections: Array<{
     index: number
@@ -91,12 +127,15 @@ function createWhyUsObject(contentApi: SolutionsContentAPI, keys: string[]) {
     const index = sections.findIndex(section => section.index === parseInt(key[14], 10))
 
     if (!Number.isNaN(parseInt(key[14], 10))) {
+      // 15th character is the section number
       if (index === -1) {
+        // create the new section
         const newSection = Object.create({ index: 0, icon: '', title: '', description: '' })
         newSection.index = parseInt(key[14], 10)
-        sections.push(newSection)
+        sections.push(newSection) // add to sections tab
       }
       const newindex = sections.findIndex(section => section.index === parseInt(key[14], 10))
+      // Add icon/title/desc to the good section
       if (key.includes('icon')) {
         sections[newindex].icon = contentApi[key]
       }
@@ -135,6 +174,7 @@ function createTabsArray(contentApi: SolutionsContentAPI, keys: string[]) {
       createTabSections(tabs, newindex, contentApi, key)
     }
   })
+  return tabs
 }
 
 function createTabSections(tabs: Tab[], tabIndex: number, content: SolutionsContentAPI, key: string) {
