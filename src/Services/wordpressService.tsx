@@ -2,6 +2,7 @@ import axios from 'axios'
 
 import { IdeasPageContent } from '../types/IdeasContent'
 import IndexContent from '../types/IndexContent'
+import JobsContentAPI, { convertJobsContentAPItoContent } from '../types/JobsContent'
 import SolutionsContentAPI, { convertContentAPItoContent } from '../types/SolutionsContent'
 
 export async function getWordpressPage<T>(id: number) {
@@ -30,8 +31,8 @@ export async function getSolutionsPageContent() {
 }
 
 export async function getJobsPageContent() {
-  const { acf } = await getWordpressPageBySlug<{ acf: SolutionsContentAPI }>('jobs')
-  return acf
+  const { acf } = await getWordpressPageBySlug<{ acf: JobsContentAPI }>('jobs')
+  return convertJobsContentAPItoContent(acf)
 }
 
 export async function getAllIdeas() {
