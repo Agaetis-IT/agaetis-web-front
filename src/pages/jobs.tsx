@@ -1,9 +1,9 @@
-import Link from 'next/link'
 import React from 'react'
 
 import Button from '../components/Button'
 import JobsCarousel from '../components/JobsCarousel'
 import Layout from '../components/Layout'
+import OfferCard from '../components/OfferCard'
 import OfferSection from '../components/OfferSection'
 import JobsMini from '../images/Jobs_miniature.png'
 import { getJobsPageContent } from '../Services/wordpressService'
@@ -98,15 +98,13 @@ export default function jobs({ pageContent }: Props) {
           <h2 className="text-center mb-8" dangerouslySetInnerHTML={{ __html: pageContent.offers_title }} />
           <div className="flex flex-col">
             {offers.map(offer => (
-              <div key={offer.index} className="bg-white md:max-w-md p-4 my-2 self-center">
-                <h4>{offer.title}</h4>
-                <p className="text-xs py-4">{offer.description}</p>
-                <Link href="#">
-                  <a href="#" className="text-blue text-xs blue-underline-thin">
-                    Consulter l'offre
-                  </a>
-                </Link>
-              </div>
+              <OfferCard
+                key={offer.index}
+                title={offer.title}
+                description={offer.description}
+                href="/job"
+                className="bg-white md:max-w-md p-4 my-2 self-center"
+              />
             ))}
           </div>
           <Button className="flex flex-row justify-center uppercase rounded-full bg-orange text-xss py-2 px-6 text-white font-semibold mx-auto mt-4">

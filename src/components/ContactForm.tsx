@@ -33,7 +33,7 @@ export default function ContactTab() {
 
   return (
     <div>
-      <div className="flex flex-row md:max-w-md mx-auto px-4">
+      <div className="flex flex-row md:max-w-md mx-auto md:px-4">
         <div
           className={clsx(
             currentIndex === 0
@@ -72,7 +72,7 @@ export default function ContactTab() {
           Votre message
         </div>
       </div>
-      <div className="border border-white md:max-w-md mx-auto px-4">
+      <div className="border border-white md:max-w-md mx-auto md:px-4">
         <div className="bg-grey py-8 md:p-12 flex flex-col justify-center">
           <h2 className={clsx({ hidden: currentIndex !== 0 }, 'text-center text-lg md:text-2xl md:mt-0')}>
             Votre demande concerne...
@@ -84,8 +84,14 @@ export default function ContactTab() {
             Saisissez votre message :
           </h2>
           <Step1 className={clsx(currentIndex === 0 ? 'flex flex-col' : 'hidden')} handleNextStep={handleNext} />
-          <Step2 className={clsx(currentIndex === 1 ? 'flex flex-col' : 'hidden')} handleNextStep={handleNext} />
-          <Step3 className={clsx(currentIndex === 2 ? 'flex flex-col' : 'hidden')} handleNextStep={handleSubmit} />
+          <Step2
+            className={clsx(currentIndex === 1 ? 'flex flex-col' : 'hidden', 'px-4 md:px-0')}
+            handleNextStep={handleNext}
+          />
+          <Step3
+            className={clsx(currentIndex === 2 ? 'flex flex-col' : 'hidden', 'px-4 md:px-0')}
+            handleNextStep={handleSubmit}
+          />
         </div>
       </div>
     </div>
