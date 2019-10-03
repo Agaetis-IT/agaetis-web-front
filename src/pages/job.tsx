@@ -5,6 +5,8 @@ import Layout from '../components/Layout'
 import OfferCard from '../components/OfferCard'
 import OfferSection from '../components/OfferSection'
 
+import './job.css'
+
 const offers = [
   {
     index: 0,
@@ -35,7 +37,7 @@ export default function job() {
             <span className="text-underline">Accueil</span> >{' '}
             <span className="text-underline">Intitulé du poste #1</span>
           </div>
-          <h1 className="text-center text-2xl py-8">Intitulé du poste #1</h1>
+          <h1 className="text-center text-2xl py-8 md:pb-0">Intitulé du poste #1</h1>
           <p className="md:max-w-md mx-auto text-center px-4 md:py-6 md:px-0 text-xs leading-normal">
             At vero eos et accusamus et iusto odio dignissimos ducimus, qui blanditiis praesentium voluptatum deleniti
             atque corrupti, quos dolores et quas molestias excepturi sint, obcaecati cupiditate non provident, similique
@@ -53,8 +55,8 @@ export default function job() {
             odio, similique facilis doloremque eligendi quos officiis in fuga nihil? Doloremque exercitationem doloribus
             aliquam est ut quam.
           </p>
-          <ul>
-            <li className="mb-3">
+          <ul className="pl-4">
+            <li className=" mb-3">
               Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
               laborum
             </li>

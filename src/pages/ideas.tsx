@@ -69,11 +69,15 @@ export default function Ideas({ ideasDescription, categories, content }: Props) 
           <div className="text-xs px-4 md:px-0">
             <span className="text-underline">Accueil</span> > <span className="text-underline">Idées</span>
           </div>
-          <h1 className="text-center text-2xl py-8">{content.titre}</h1>
+          <h1 className="text-center text-2xl py-8 md:pb-0">{content.titre}</h1>
           <p className="md:max-w-md mx-auto text-center px-4 md:py-6 md:px-0 text-xs leading-normal">
             {content.description}
           </p>
-          <CategoryTab ideasC={sortedIdeas} categories={categories} toggleMore={isOpenedMoreIdeas} />
+          <CategoryTab
+            ideasC={sortedIdeas.filter(idea => idea.category !== 'Jobs')}
+            categories={categories.filter(category => category.categoryName !== 'Jobs')}
+            toggleMore={isOpenedMoreIdeas}
+          />
           <Button
             className="flex flex-row justify-center uppercase rounded-full bg-orange text-xss py-2 px-6 text-white font-semibold mx-auto"
             onClick={handleToggleMoreIdeas}

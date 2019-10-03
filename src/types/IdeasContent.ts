@@ -7,6 +7,13 @@ export interface IdeasDesc {
   date: string
 }
 
+export interface RelatedIdeas {
+  ID: number
+  category: number[]
+  post_title: string
+  post_excerpt: string
+}
+
 export interface Category {
   categoryId: number
   categoryName: string
@@ -24,5 +31,5 @@ export default interface IdeasContent {
   content: string
   imageUrl: string
   category: string
-  related: IdeasDesc[]
+  related: RelatedIdeas[]
 }

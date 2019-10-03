@@ -2,7 +2,6 @@ import { NextContext } from 'next'
 import React from 'react'
 
 import IdeaContent from '../components/IdeaContent'
-import IdeasCard from '../components/IdeasCard'
 import Layout from '../components/Layout'
 import { getIdeaBySlug } from '../Services/wordpressService'
 import IdeasContent from '../types/IdeasContent'
@@ -31,11 +30,17 @@ export default function Idea({ data }: Props) {
     <Layout>
       <div>
         <IdeaContent content={data} />
-        {data.related.map(idea => (
-          <IdeasCard slug={idea.slug} key={idea.id} id={idea.id} title={idea.title} category={idea.category}>
-            {idea.descriptionText}
-          </IdeasCard>
-        ))}
+        <div className="">
+          <h2 className="text-center">Ces idées peuvent vous interesser</h2>
+        </div>
+        <div className='className="flex flex-col md:flex-row"'>
+          {data.related.map(idea => (
+            <div key={idea.ID}>
+              <h3 className="text-sm font-semibold">{idea.post_title}</h3>
+              <p>{idea.post_excerpt}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </Layout>
   )
