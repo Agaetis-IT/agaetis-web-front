@@ -34,6 +34,7 @@ export default interface JobContent {
   offre_list: string[]
   offre_last_paragraph: string
   slug: string
+  image: string
 }
 
 export function convertJobContentAPItoContent(contentApi: JobContentAPI) {
@@ -41,6 +42,7 @@ export function convertJobContentAPItoContent(contentApi: JobContentAPI) {
   return {
     title: contentApi.intitule_job,
     slug: contentApi.slug,
+    image: contentApi.image,
     description: contentApi.description,
     offre_description: contentApi.offre_description,
     offre_last_paragraph: contentApi.offre_last_paragraph,

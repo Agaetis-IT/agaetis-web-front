@@ -37,7 +37,15 @@ export default function jobs({ pageContent, allJobs }: Props) {
           <img className="mx-auto md:mx-0 shadow-xl m-4 w-full" src={JobsMini} alt="miniature" />
           <JobsCarousel slideMax={2} slides={pageContent.slides} />
         </div>
-        <div className="flex flex-col bg-black text-white text-center p-12 px-4 md:px-4 my-8">
+        <div
+          style={{
+            background: pageContent.we_are_agaetis_Img ? 'url(' + pageContent.we_are_agaetis_Img + ')' : 'black',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+          }}
+          className="flex flex-col bg-black text-white text-center p-12 px-4 md:px-4 my-8"
+        >
           <h2 className="" dangerouslySetInnerHTML={{ __html: pageContent.we_are_agaetis_title }} />
           <p
             className="md:max-w-md pt-8 md:p-8 md:pb-0 self-center text-xs leading-normal"
