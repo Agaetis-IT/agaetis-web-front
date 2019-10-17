@@ -41,7 +41,15 @@ export default function job({ pageContent, allJobs }: Props) {
             {pageContent.description}
           </p>
         </div>
-        <div className="bg-black mt-8 md:mt-0 md:mx-8 p-12">
+        <div
+          style={{
+            background: pageContent.image ? 'url(' + pageContent.image + ')' : 'black',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+          }}
+          className="bg-black mt-8 md:mt-0 md:mx-8 p-24"
+        >
           <Button className="flex flex-row justify-center uppercase rounded-full bg-orange text-xss py-2 px-6 text-white font-semibold mx-auto ">
             Postuler
           </Button>
