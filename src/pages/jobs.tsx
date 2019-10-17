@@ -6,40 +6,22 @@ import Layout from '../components/Layout'
 import OfferCard from '../components/OfferCard'
 import OfferSection from '../components/OfferSection'
 import JobsMini from '../images/Jobs_miniature.png'
-import { getJobsPageContent } from '../Services/wordpressService'
+import { getAllJobs, getJobsPageContent } from '../Services/wordpressService'
+import { JobContentLite } from '../types/JobContent'
 import { JobsContent } from '../types/JobsContent'
 
 interface Props {
   pageContent: JobsContent
+  allJobs: JobContentLite[]
 }
 
 jobs.getInitialProps = async () => {
   const pageContent = await getJobsPageContent()
-  return { pageContent }
+  const allJobs = await getAllJobs()
+  return { pageContent, allJobs }
 }
 
-const offers = [
-  {
-    index: 0,
-    title: 'Intitulé du poste #1',
-    description:
-      'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis autre irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-  },
-  {
-    index: 1,
-    title: 'Intitulé du poste #2',
-    description:
-      'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis autre irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-  },
-  {
-    index: 2,
-    title: 'Intitulé du poste #3',
-    description:
-      'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis autre irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-  },
-]
-
-export default function jobs({ pageContent }: Props) {
+export default function jobs({ pageContent, allJobs }: Props) {
   return (
     <Layout>
       <>
@@ -97,12 +79,12 @@ export default function jobs({ pageContent }: Props) {
         <div className="flex flex-col bg-grey py-12 px-4 md:p-12 mt-8">
           <h2 className="text-center mb-8" dangerouslySetInnerHTML={{ __html: pageContent.offers_title }} />
           <div className="flex flex-col">
-            {offers.map(offer => (
+            {allJobs.map(offer => (
               <OfferCard
-                key={offer.index}
-                title={offer.title}
-                description={offer.description}
-                href="/job"
+                key={offer.acf.intitule_job}
+                title={offer.acf.intitule_job}
+                description={offer.acf.description}
+                href={'/jobs/' + offer.slug}
                 className="bg-white md:max-w-md p-4 my-2 self-center"
               />
             ))}
