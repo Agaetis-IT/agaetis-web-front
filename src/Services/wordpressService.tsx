@@ -35,8 +35,18 @@ export async function getJobsPageContent() {
   return convertJobsContentAPItoContent(acf)
 }
 
+export async function getJobContent(slug: string) {
+  const data = getIdeaBySlug(slug)
+  return data
+}
+
 export async function getAllIdeas() {
   const { data } = await axios.get('http://localhost/blogAgaetis/wp-json/wp/v2/posts?_embed')
+  return data
+}
+
+export async function getAllJobs() {
+  const { data } = await axios.get(`http://localhost/blogAgaetis/wp-json/agaetis/api/v1/jobs`)
   return data
 }
 

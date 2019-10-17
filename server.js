@@ -20,6 +20,7 @@ app
 
     server.get('/jobs/:slug', (req, res) => {
       const queryParams = Object.assign({}, req.params, req.query)
+      console.log(queryParams)
       app.render(req, res, '/job', queryParams)
     })
 
