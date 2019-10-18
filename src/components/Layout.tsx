@@ -3,7 +3,7 @@ import React from 'react'
 import '../i18n'
 import '../index.css'
 
-import './common.css'
+import './Common.css'
 import Footer from './Footer'
 import Header, { HeaderProps } from './Header'
 

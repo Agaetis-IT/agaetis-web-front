@@ -5,7 +5,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import Button from './Button'
-import './Navigationmenu.css'
+import './NavigationMenu.css'
 
 function isLanguageSelected(language: string) {
   return i18next.languages[0] === language

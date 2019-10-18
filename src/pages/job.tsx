@@ -16,7 +16,8 @@ interface Props {
 }
 
 job.getInitialProps = async ({ query }: NextContext) => {
-  const data = await getJobContent(query.slug)
+  // tslint:disable-next-line
+  const data = await getJobContent(query.slug!)
   const pageContent = convertJobContentAPItoContent({ ...data.acf, slug: data.slug })
   const allJobs = await getAllJobs()
   return {

@@ -25,10 +25,10 @@ export default function WhitePaperForm({ className, handleNextStep }: Props) {
       }}
       validationSchema={step2Schema}
       // tslint:disable-next-line: jsx-no-lambda
-      onSubmit={fields => {
+      onSubmit={() => {
         handleNextStep()
       }}
-      // tslint:disable-next-line: jsx-no-lambda
+      // tslint:disable-next-line
       render={({ errors, touched }) => (
         <Form className={clsx(className, 'justify-center mt-4')}>
           <TextField

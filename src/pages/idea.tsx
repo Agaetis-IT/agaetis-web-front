@@ -11,6 +11,7 @@ interface Props {
 }
 
 Idea.getInitialProps = async ({ query }: NextContext) => {
+  // tslint:disable-next-line
   const data = await getIdeaBySlug(query.slug)
   return {
     data: {
