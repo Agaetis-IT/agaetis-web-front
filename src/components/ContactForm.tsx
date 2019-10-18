@@ -27,7 +27,6 @@ export default function ContactTab() {
         contactInfos.message,
         new Date()
       )
-      alert('Message envoyé')
       setCurrentIndex(0)
     }
   }
