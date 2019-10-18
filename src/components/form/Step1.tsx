@@ -19,12 +19,10 @@ export default function Step1({ className, handleNextStep }: Props) {
         objet: '',
       }}
       validationSchema={step1Schema}
-      // tslint:disable-next-line: jsx-no-lambda
       onSubmit={fields => {
         localStorage.setItem('step1', JSON.stringify(fields))
         handleNextStep()
       }}
-      // tslint:disable-next-line: jsx-no-lambda
       render={({ values }) => (
         <Form className={clsx(className, 'justify-center mt-4')}>
           <div className="flex flex-col md:flex-row justify-center">
