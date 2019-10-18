@@ -17,12 +17,10 @@ export default function Step3({ className, handleNextStep }: Props) {
         message: '',
       }}
       validationSchema={step3Schema}
-      // tslint:disable-next-line: jsx-no-lambda
       onSubmit={fields => {
         localStorage.setItem('step3', JSON.stringify(fields))
         handleNextStep()
       }}
-      // tslint:disable-next-line: jsx-no-lambda
       render={() => (
         <Form className={clsx(className, 'justify-center mt-4')}>
           <div className="flex flex-col justify-center">

@@ -25,12 +25,10 @@ export default function Step2({ className, handleNextStep }: Props) {
         cgu: false,
       }}
       validationSchema={step2Schema}
-      // tslint:disable-next-line: jsx-no-lambda
       onSubmit={fields => {
         localStorage.setItem('step2', JSON.stringify(fields))
         handleNextStep()
       }}
-      // tslint:disable-next-line: jsx-no-lambda
       render={({ errors, touched }) => (
         <Form className={clsx(className, 'justify-center mt-4')}>
           <TextField
