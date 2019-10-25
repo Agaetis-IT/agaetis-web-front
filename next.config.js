@@ -3,4 +3,21 @@ const withCSS = require('@zeit/next-css')
 const withPurgeCSS = require('next-purgecss')
 const withImages = require('next-images')
 
-module.exports = withCSS(withTypescript(withPurgeCSS(withImages())))
+require('dotenv').config()
+
+const publicRuntimeConfig = Object.keys(process.env).reduce((acc, key) => {
+  if (key.startsWith('NEXT_APP_')) {
+    return { ...acc, [key]: process.env[key] }
+  }
+  return acc
+}, {})
+
+module.exports = withCSS(
+  withTypescript(
+    withPurgeCSS(
+      withImages({
+        publicRuntimeConfig,
+      })
+    )
+  )
+)
