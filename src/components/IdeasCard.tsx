@@ -23,8 +23,8 @@ export default function IdeasCard({ slug, id, title, category, children }: Props
   return (
     <div className={clsx(getBgColor(id), 'md:w-ideas md:mx-1 p-4 my-2 md:h-ideas')}>
       <div className={clsx({ 'text-blue': id !== 6 }, 'font-semibold text-xss')}>{category}</div>
-      <Link href={`/ideas/?slug=${slug}`} as={'/' + slug}>
-        <a href={`/ideas/?slug=${slug}`} className={clsx(id !== 6 ? 'text-black' : 'text-white')}>
+      <Link href={`/ideas/${slug}`} as={'/' + slug}>
+        <a href={`/ideas/${slug}`} className={clsx(id !== 6 ? 'text-black' : 'text-white')}>
           <h3 dangerouslySetInnerHTML={createMarkup(title)} className="font-semibold text-xs py-4 text-base" />
         </a>
       </Link>
