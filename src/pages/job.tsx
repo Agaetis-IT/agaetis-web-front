@@ -39,7 +39,7 @@ export default function job({ pageContent, allJobs }: Props) {
       <>
         <div className="md:max-w-md mx-auto p-0 md:px-8">
           <div className="text-xs px-4 md:px-0">
-            <span className="text-underline">Accueil</span> >{' '}
+            <span className="text-underline">Accueil</span> > <span className="text-underline">Jobs</span> >{' '}
             <span className="text-underline">{pageContent.title}</span>
           </div>
           <h1 className="text-center text-2xl py-8 md:pb-0">{pageContent.title}</h1>
