@@ -82,8 +82,10 @@ export default function jobs({ pageContent, allJobs }: Props) {
           <h2 className="text-center mb-8" dangerouslySetInnerHTML={{ __html: pageContent.profilesSection.title }} />
           <div className="flex flex-col md:flex-row">
             {pageContent.profilesSection.profiles.map(profile => (
-              <div className="text-center flex flex-col mx-2 md:w-1/4 h-48" key={profile.index}>
-                <img className="w-16 h-auto self-center" src={profile.img} />
+              <div className="text-center flex flex-col mx-2 md:w-1/4 " key={profile.index}>
+                <div className="w-auto h-24 flex flex-col justify-end mb-2">
+                  <img className="w-16 h-auto self-center" src={profile.img} />
+                </div>
                 <h3 className="uppercase text-lg font-semibold my-2">{profile.title}</h3>
                 <p className="text-center leading-normal text-xss my-2">{profile.description}</p>
               </div>
