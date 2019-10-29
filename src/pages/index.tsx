@@ -22,7 +22,7 @@ function Index({ pageContent: pageContent }: Props) {
   return (
     <Layout headerProps={{ invertColors: true, className: 'header md:absolute md:mx-auto' }}>
       <>
-        <Hero />
+        <Hero hero={pageContent.hero_img} />
         <div className="px-2 md:px-6">
           <HomeCard
             className="md:flex-row"
