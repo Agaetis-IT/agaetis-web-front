@@ -11,17 +11,13 @@ interface Props {
   slug: string
 }
 
-function getBgColor(id: number) {
-  return id === 2 || id === 3 || id === 8 ? 'bg-grey' : id === 6 ? 'bg-teal text-white' : id === 7 ? 'bg-pink' : ''
-}
-
 function createMarkup(content: string) {
   return { __html: content }
 }
 
-export default function IdeasCard({ slug, id, title, category, children }: Props) {
+export default function IdeasCard({ slug, id, title, category, children, className }: Props) {
   return (
-    <div className={clsx(getBgColor(id), 'md:w-ideas md:mx-1 p-4 my-2 md:h-ideas')}>
+    <div className={clsx('md:w-1/3 p-4 my-2 md:h-ideas', className)}>
       <div className={clsx({ 'text-blue': id !== 6 }, 'font-semibold text-xss')}>{category}</div>
       <Link href={`/ideas/${slug}`} as={'/' + slug}>
         <a href={`/ideas/${slug}`} className={clsx(id !== 6 ? 'text-black' : 'text-white')}>
