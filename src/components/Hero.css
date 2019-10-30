@@ -1,9 +1,3 @@
-.hero {
-  background-attachment: fixed;
-  background-position: center;
-  background-size: cover;
-}
-
 .darkener {
   background: rgba(0, 0, 0, 0.65);
 }
