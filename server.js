@@ -28,6 +28,12 @@ app
       app.render(req, res, '/job', queryParams)
     })
 
+    server.get('/white-papers/:slug', (req, res) => {
+      const queryParams = Object.assign({}, req.params, req.query)
+      console.log(queryParams)
+      app.render(req, res, '/white-paper', queryParams)
+    })
+
     server.get('*', (req, res) => {
       return handle(req, res)
     })
