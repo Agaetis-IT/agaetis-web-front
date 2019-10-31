@@ -36,6 +36,11 @@ export async function getJobContent(slug: string) {
   return data
 }
 
+export async function getWhitePaperContent(slug: string) {
+  const data = getIdeaBySlug(slug)
+  return data
+}
+
 export async function getAllIdeas() {
   const { data } = await axios.get(`${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/wp/v2/posts?_embed`)
   return data
@@ -43,6 +48,11 @@ export async function getAllIdeas() {
 
 export async function getAllJobs() {
   const { data } = await axios.get(`${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/agaetis/api/v1/jobs`)
+  return data
+}
+
+export async function getAllWhitePapers() {
+  const { data } = await axios.get(`${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/agaetis/api/v1/white-paper`)
   return data
 }
 
