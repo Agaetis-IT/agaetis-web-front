@@ -1,5 +1,7 @@
 import * as Yup from 'yup'
 
+import customString from './stringRequiredError'
+
 export interface Step1FormValues {
   objet: string
 }
@@ -20,13 +22,11 @@ export interface Step2FormValues {
 }
 
 export const step2Schema = Yup.object().shape({
-  firstName: Yup.string().required('Ce champ est obligatoire'),
-  lastName: Yup.string().required('Ce champ est obligatoire'),
-  email: Yup.string()
-    .email("L'email saisi n'est pas valide")
-    .required('Ce champ est obligatoire'),
-  phone: Yup.string().required('Ce champ est obligatoire'),
-  company: Yup.string().required('Ce champ est obligatoire'),
+  firstName: customString,
+  lastName: customString,
+  email: customString.email("L'email saisi n'est pas valide"),
+  phone: customString,
+  company: customString,
   cgu: Yup.bool().oneOf(
     [true],
     "Vous devez accepter les conditions générales d'utilisation avant de passer à la prochaine étape"

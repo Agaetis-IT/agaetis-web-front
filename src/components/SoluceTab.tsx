@@ -10,6 +10,16 @@ interface Props {
   tabs: Tab[]
 }
 
+function getTabsClassNames(tabIndex: number, currentIndex: number) {
+  if ((tabIndex === 0 && currentIndex === 3) || (tabIndex === 3 && currentIndex === 0)) {
+    return 'hidden sm:block w-1/3 text-black bg-grey hover:bg-orange-light'
+  }
+  return clsx(
+    'text-black bg-grey hover:bg-orange-light w-1/6 sm:w-1/4 whitespace-no-wrap overflow-hidden' +
+      { reverseText: tabIndex === 0 }
+  )
+}
+
 export default function SoluceTab({ tabs }: Props) {
   const [currentIndex, setCurrentIndex] = useState(0)
 
@@ -25,13 +35,10 @@ export default function SoluceTab({ tabs }: Props) {
       <div className="flex flex-row w-full mt-8 md:mt-0">
         <Button
           className={clsx(
-            currentIndex === 0
-              ? 'text-white bg-blue w-1/3'
-              : currentIndex === 3
-              ? 'hidden sm:block w-1/3 text-black bg-grey hover:bg-orange-light'
-              : 'text-black bg-grey hover:bg-orange-light w-1/6 sm:w-1/4 whitespace-no-wrap overflow-hidden reverseText',
-            'text-xs uppercase text-center sm:w-1/4 py-4  md:inline  border border-white font-semibold self-center'
+            currentIndex === 0 ? 'text-white bg-blue w-1/3' : getTabsClassNames(0, currentIndex),
+            'sm:w-1/4 py-4 '
           )}
+          type="soluceTab"
           onClick={onTabChange(0)}
         >
           {tabs[0].header}
@@ -39,8 +46,9 @@ export default function SoluceTab({ tabs }: Props) {
         <Button
           className={clsx(
             currentIndex === 1 ? 'text-white bg-blue' : 'text-black bg-grey hover:bg-orange-light',
-            'text-xs uppercase text-center w-1/3 sm:w-1/4 py-4  md:inline  border border-white font-semibold self-center'
+            'w-1/3 sm:w-1/4'
           )}
+          type="soluceTab"
           onClick={onTabChange(1)}
         >
           {tabs[1].header}
@@ -48,21 +56,19 @@ export default function SoluceTab({ tabs }: Props) {
         <Button
           className={clsx(
             currentIndex === 2 ? 'text-white bg-blue' : 'text-black bg-grey hover:bg-orange-light',
-            'text-xs uppercase text-center w-1/3 sm:w-1/4 py-4  md:inline  border border-white font-semibold self-center'
+            'w-1/3 sm:w-1/4'
           )}
+          type="soluceTab"
           onClick={onTabChange(2)}
         >
           {tabs[2].header}
         </Button>
         <Button
           className={clsx(
-            currentIndex === 3
-              ? 'text-white bg-blue w-1/3 px-4'
-              : currentIndex === 0
-              ? 'hidden sm:block text-black bg-grey hover:bg-orange-light w-1/3'
-              : 'text-black bg-grey hover:bg-orange-light w-1/6 sm:w-1/4 whitespace-no-wrap overflow-hidden px-4',
-            'text-xs uppercase text-center w-auto sm:w-1/4 py-4 md:inline  border border-white font-semibold self-center'
+            currentIndex === 3 ? 'text-white bg-blue w-1/3 px-4' : getTabsClassNames(3, currentIndex),
+            'w-auto sm:w-1/4'
           )}
+          type="soluceTab"
           onClick={onTabChange(3)}
         >
           {tabs[3].header}
