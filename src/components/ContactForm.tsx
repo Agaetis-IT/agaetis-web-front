@@ -7,22 +7,28 @@ import Step1 from './form/Step1'
 import Step2 from './form/Step2'
 import Step3 from './form/Step3'
 const stepHeaderClassNames =
-  'text-xs uppercase text-center py-4 md:inline border border-white font-semibold self-center'
+  'text-xs uppercase text-center py-4 md:inline border border-white font-semibold self-center md:w-1/3'
 
 function getHeadersClassNames(index: number, currentIndex: number) {
   if (index === 0) {
-    if (currentIndex === 1) {
-      return 'w-1/6 text-blue md:text-dark-grey whitespace-no-wrap overflow-hidden px-4'
+    if (currentIndex === 0) {
+      return 'text-white w-2/3 bg-blue'
     }
-    return 'text-dark-grey hidden'
+    if (currentIndex === 1) {
+      return 'w-1/6 text-blue md:text-dark-grey whitespace-no-wrap overflow-hidden px-4 bg-blue'
+    }
+    return 'text-dark-grey hidden bg-blue'
   } else if (index === 1) {
     if (currentIndex === 1) {
-      return 'text-white w-2/3'
+      return 'text-white w-2/3 bg-blue'
+    } else if (currentIndex === 0) {
+      return 'w-1/3 text-dark-grey whitespace-no-wrap overflow-hidden px-4 bg-grey'
     }
-    return clsx('w-1/3 text-dark-grey whitespace-no-wrap overflow-hidden px-4', {
-      reverseText: currentIndex === 2,
-    })
+    return clsx('w-1/3 text-dark-grey whitespace-no-wrap overflow-hidden px-4 bg-grey reverseText')
   } else {
+    if (currentIndex === 2) {
+      return 'bg-blue text-white w-2/3'
+    }
     if (currentIndex === 1) {
       return 'bg-grey text-dark-grey w-1/6 whitespace-no-wrap overflow-hidden px-4'
     }
@@ -60,34 +66,9 @@ export default function ContactTab() {
   return (
     <div>
       <div className="flex flex-row md:max-w-md mx-auto md:px-4">
-        <div
-          className={clsx(
-            currentIndex === 0 ? 'text-white w-2/3' : getHeadersClassNames(0, currentIndex),
-            ' md:w-1/3 bg-blue ',
-            stepHeaderClassNames
-          )}
-        >
-          Votre profil
-        </div>
-        <div
-          className={clsx(
-            currentIndex > 0 ? 'bg-blue' : 'bg-grey',
-            getHeadersClassNames(1, currentIndex),
-            'md:w-1/3',
-            stepHeaderClassNames
-          )}
-        >
-          Vos coordonnées
-        </div>
-        <div
-          className={clsx(
-            currentIndex === 2 ? 'bg-blue text-white w-2/3' : getHeadersClassNames(2, currentIndex),
-            'md:w-1/3',
-            stepHeaderClassNames
-          )}
-        >
-          Votre message
-        </div>
+        <div className={clsx(getHeadersClassNames(0, currentIndex), stepHeaderClassNames)}>Votre profil</div>
+        <div className={clsx(getHeadersClassNames(1, currentIndex), stepHeaderClassNames)}>Vos coordonnées</div>
+        <div className={clsx(getHeadersClassNames(2, currentIndex), stepHeaderClassNames)}>Votre message</div>
       </div>
       <div className="border border-white md:max-w-md mx-auto md:px-4">
         <div className="bg-grey py-8 md:p-12 flex flex-col justify-center">
