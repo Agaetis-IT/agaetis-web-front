@@ -38,7 +38,7 @@ export default function SoluceTab({ tabs }: Props) {
             currentIndex === 0 ? 'text-white bg-blue w-1/3' : getTabsClassNames(0, currentIndex),
             'sm:w-1/4 py-4 '
           )}
-          type="soluceTab"
+          styleType="tab"
           onClick={onTabChange(0)}
         >
           {tabs[0].header}
@@ -48,7 +48,7 @@ export default function SoluceTab({ tabs }: Props) {
             currentIndex === 1 ? 'text-white bg-blue' : 'text-black bg-grey hover:bg-orange-light',
             'w-1/3 sm:w-1/4'
           )}
-          type="soluceTab"
+          styleType="tab"
           onClick={onTabChange(1)}
         >
           {tabs[1].header}
@@ -58,7 +58,7 @@ export default function SoluceTab({ tabs }: Props) {
             currentIndex === 2 ? 'text-white bg-blue' : 'text-black bg-grey hover:bg-orange-light',
             'w-1/3 sm:w-1/4'
           )}
-          type="soluceTab"
+          styleType="tab"
           onClick={onTabChange(2)}
         >
           {tabs[2].header}
@@ -68,7 +68,7 @@ export default function SoluceTab({ tabs }: Props) {
             currentIndex === 3 ? 'text-white bg-blue w-1/3 px-4' : getTabsClassNames(3, currentIndex),
             'w-auto sm:w-1/4'
           )}
-          type="soluceTab"
+          styleType="tab"
           onClick={onTabChange(3)}
         >
           {tabs[3].header}

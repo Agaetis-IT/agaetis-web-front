@@ -89,6 +89,7 @@ interface Profile {
   description: string
 }
 
+// TODO voir pour refactorer en fonctionnelle
 export function convertJobsContentAPItoContent(contentApi: JobsContentAPI) {
   const regexSlides = /slide[0-9][a-zA-Z0-9_]*/
   const regexJoinUs = /join_us[a-zA-Z0-9_]*/

@@ -8,12 +8,13 @@ interface Props {
   children?: string | React.ReactElement
   className?: string
   type?: string
+  styleType?: string
   onClick?(e: React.MouseEvent): void
 }
 
-const soluceTabClassNames = 'text-xs uppercase text-center py-4 md:inline border border-white font-semibold self-center'
+const tabClassNames = 'text-xs uppercase text-center py-4 md:inline border border-white font-semibold self-center'
 
-export default function Button({ href, htmlFor, children, component, onClick, className, type }: Props) {
+export default function Button({ href, htmlFor, children, component, onClick, className, type, styleType }: Props) {
   let ComponentProp
   if (component) {
     ComponentProp = component
@@ -29,7 +30,8 @@ export default function Button({ href, htmlFor, children, component, onClick, cl
       title={href}
       htmlFor={htmlFor}
       onClick={onClick}
-      className={clsx({ [soluceTabClassNames]: type === 'soluceTab' }, className, 'cursor-pointer')}
+      type={type}
+      className={clsx({ [tabClassNames]: styleType === 'tab' }, className, 'cursor-pointer')}
     >
       {children}
     </ComponentProp>
