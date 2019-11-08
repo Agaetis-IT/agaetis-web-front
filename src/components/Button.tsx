@@ -10,6 +10,9 @@ interface Props {
   type?: string
   onClick?(e: React.MouseEvent): void
 }
+
+const soluceTabClassNames = 'text-xs uppercase text-center py-4 md:inline border border-white font-semibold self-center'
+
 export default function Button({ href, htmlFor, children, component, onClick, className, type }: Props) {
   let ComponentProp
   if (component) {
@@ -26,8 +29,7 @@ export default function Button({ href, htmlFor, children, component, onClick, cl
       title={href}
       htmlFor={htmlFor}
       onClick={onClick}
-      type={type}
-      className={clsx(className, 'cursor-pointer')}
+      className={clsx({ [soluceTabClassNames]: type === 'soluceTab' }, className, 'cursor-pointer')}
     >
       {children}
     </ComponentProp>
