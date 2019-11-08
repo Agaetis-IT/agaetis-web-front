@@ -29,7 +29,6 @@ Idea.getInitialProps = async ({ query }: NextContext) => {
       author: data._embedded.author[0].name,
       category: data._embedded['wp:term'][0][0].name,
       content: data.content.rendered,
-      related: data.acf.related_ideas || [],
     },
     related: related.map(idea => {
       return {

@@ -1,4 +1,5 @@
 import clsx from 'clsx'
+import range from 'lodash/range'
 import React, { useState } from 'react'
 
 import arrowL from '../images/left-arrow.svg'
@@ -56,7 +57,7 @@ export default function JobsCarousel({ slideMax, slides }: Props) {
         ))}
 
         <div className="flex justify-center mt-6">
-          {Array.from(Array(slideMax + 1), (_, index) => (
+          {range(slideMax + 1).map((_, index) => (
             <span
               key={index}
               className={clsx({ 'bg-orange': slideIndex === index }, 'sliderCount border-orange mx-1')}
