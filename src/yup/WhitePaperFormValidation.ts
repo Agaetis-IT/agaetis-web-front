@@ -8,6 +8,14 @@ export interface WhitepaperFormValues {
   cgu: boolean
 }
 
+export const whitePaperInitialValues = {
+  firstName: '',
+  lastName: '',
+  email: '',
+  company: '',
+  cgu: false,
+}
+
 export const whitePaperSchema = Yup.object().shape({
   firstName: Yup.string().required('Ce champ est obligatoire'),
   lastName: Yup.string().required('Ce champ est obligatoire'),

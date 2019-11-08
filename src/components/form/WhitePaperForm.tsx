@@ -2,7 +2,7 @@ import clsx from 'clsx'
 import { Form, Formik } from 'formik'
 import React from 'react'
 
-import step2Schema from '../../yup/ContactFormValidation'
+import { whitePaperInitialValues, whitePaperSchema } from '../../yup/WhitePaperFormValidation'
 import Button from '../Button'
 
 import Checkbox from './Checkbox'
@@ -16,14 +16,8 @@ interface Props {
 export default function WhitePaperForm({ className, handleNextStep }: Props) {
   return (
     <Formik
-      initialValues={{
-        firstName: '',
-        lastName: '',
-        email: '',
-        company: '',
-        cgu: false,
-      }}
-      validationSchema={step2Schema}
+      initialValues={whitePaperInitialValues}
+      validationSchema={whitePaperSchema}
       // tslint:disable-next-line: jsx-no-lambda
       onSubmit={() => {
         handleNextStep()

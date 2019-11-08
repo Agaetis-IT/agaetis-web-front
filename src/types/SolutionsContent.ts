@@ -159,6 +159,7 @@ function createWhyUsObject(contentApi: SolutionsContentAPI, keys: string[]) {
   return whyUs
 }
 
+// TODO voir pour refactorer en fonctionnelle
 function createTabsArray(contentApi: SolutionsContentAPI, keys: string[]) {
   const tabs: Tab[] = []
 

@@ -2,7 +2,7 @@ import clsx from 'clsx'
 import { ErrorMessage, Field, Form, Formik } from 'formik'
 import React from 'react'
 
-import { step3Schema } from '../../yup/ContactFormValidation'
+import { Step3FormValues, step3InitialValues, step3Schema } from '../../yup/ContactFormValidation'
 import Button from '../Button'
 
 interface Props {
@@ -10,17 +10,17 @@ interface Props {
   handleNextStep: () => void
 }
 
+function onSubmit(fields: Step3FormValues, handleNext: () => void) {
+  localStorage.setItem('step3', JSON.stringify(fields))
+  handleNext()
+}
+
 export default function Step3({ className, handleNextStep }: Props) {
   return (
     <Formik
-      initialValues={{
-        message: '',
-      }}
+      initialValues={step3InitialValues}
       validationSchema={step3Schema}
-      onSubmit={fields => {
-        localStorage.setItem('step3', JSON.stringify(fields))
-        handleNextStep()
-      }}
+      onSubmit={fields => onSubmit(fields, handleNextStep)}
       render={() => (
         <Form className={clsx(className, 'justify-center mt-4')}>
           <div className="flex flex-col justify-center">

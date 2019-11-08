@@ -6,6 +6,29 @@ import { sendMessage } from '../Services/wordpressService'
 import Step1 from './form/Step1'
 import Step2 from './form/Step2'
 import Step3 from './form/Step3'
+const stepHeaderClassNames =
+  'text-xs uppercase text-center py-4 md:inline border border-white font-semibold self-center'
+
+function getHeadersClassNames(index: number, currentIndex: number) {
+  if (index === 0) {
+    if (currentIndex === 1) {
+      return 'w-1/6 text-blue md:text-dark-grey whitespace-no-wrap overflow-hidden px-4'
+    }
+    return 'text-dark-grey hidden'
+  } else if (index === 1) {
+    if (currentIndex === 1) {
+      return 'text-white w-2/3'
+    }
+    return clsx('w-1/3 text-dark-grey whitespace-no-wrap overflow-hidden px-4', {
+      reverseText: currentIndex === 2,
+    })
+  } else {
+    if (currentIndex === 1) {
+      return 'bg-grey text-dark-grey w-1/6 whitespace-no-wrap overflow-hidden px-4'
+    }
+    return 'bg-grey text-dark-grey hidden'
+  }
+}
 
 export default function ContactTab() {
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -39,12 +62,9 @@ export default function ContactTab() {
       <div className="flex flex-row md:max-w-md mx-auto md:px-4">
         <div
           className={clsx(
-            currentIndex === 0
-              ? 'text-white w-2/3'
-              : currentIndex === 1
-              ? 'w-1/6 text-blue md:text-dark-grey whitespace-no-wrap overflow-hidden px-4'
-              : 'text-dark-grey hidden',
-            'text-xs uppercase text-center md:w-1/3 py-4 md:inline bg-blue border border-white font-semibold self-center'
+            currentIndex === 0 ? 'text-white w-2/3' : getHeadersClassNames(0, currentIndex),
+            ' md:w-1/3 bg-blue ',
+            stepHeaderClassNames
           )}
         >
           Votre profil
@@ -52,24 +72,18 @@ export default function ContactTab() {
         <div
           className={clsx(
             currentIndex > 0 ? 'bg-blue' : 'bg-grey',
-            currentIndex === 1
-              ? 'text-white w-2/3'
-              : currentIndex === 2
-              ? 'w-1/3 text-dark-grey whitespace-no-wrap overflow-hidden px-4 reverseText'
-              : 'w-1/3 text-dark-grey whitespace-no-wrap overflow-hidden px-4',
-            'text-xs uppercase text-center md:w-1/3 py-4 border border-white font-semibold self-center'
+            getHeadersClassNames(1, currentIndex),
+            'md:w-1/3',
+            stepHeaderClassNames
           )}
         >
           Vos coordonnées
         </div>
         <div
           className={clsx(
-            currentIndex === 2
-              ? 'bg-blue text-white w-2/3'
-              : currentIndex === 1
-              ? 'bg-grey text-dark-grey w-1/6 whitespace-no-wrap overflow-hidden px-4'
-              : 'bg-grey text-dark-grey hidden',
-            'text-xs uppercase text-center md:w-1/3 md:inline py-4 border border-white font-semibold self-center'
+            currentIndex === 2 ? 'bg-blue text-white w-2/3' : getHeadersClassNames(2, currentIndex),
+            'md:w-1/3',
+            stepHeaderClassNames
           )}
         >
           Votre message

@@ -2,7 +2,7 @@ import clsx from 'clsx'
 import { Form, Formik } from 'formik'
 import React from 'react'
 
-import step2Schema from '../../yup/ContactFormValidation'
+import step2Schema, { Step2FormValues, step2InitialValues } from '../../yup/ContactFormValidation'
 import Button from '../Button'
 
 import Checkbox from './Checkbox'
@@ -13,21 +13,18 @@ interface Props {
   handleNextStep(): void
 }
 
+function onSubmit(fields: Step2FormValues, handleNext: () => void) {
+  localStorage.setItem('step2', JSON.stringify(fields))
+  handleNext()
+}
+
 export default function Step2({ className, handleNextStep }: Props) {
   return (
     <Formik
-      initialValues={{
-        firstName: '',
-        lastName: '',
-        email: '',
-        phone: '',
-        company: '',
-        cgu: false,
-      }}
+      initialValues={step2InitialValues}
       validationSchema={step2Schema}
       onSubmit={fields => {
-        localStorage.setItem('step2', JSON.stringify(fields))
-        handleNextStep()
+        onSubmit(fields, handleNextStep)
       }}
       render={({ errors, touched }) => (
         <Form className={clsx(className, 'justify-center mt-4')}>

@@ -6,6 +6,10 @@ export interface Step1FormValues {
   objet: string
 }
 
+export const step1InitialValues = {
+  objet: '',
+}
+
 export const step1Schema = Yup.object().shape({
   objet: Yup.string()
     .required("Vous devez préciser l'objet de votre prise de contact")
@@ -19,6 +23,15 @@ export interface Step2FormValues {
   phone: string
   company: string
   cgu: boolean
+}
+
+export const step2InitialValues = {
+  firstName: '',
+  lastName: '',
+  email: '',
+  phone: '',
+  company: '',
+  cgu: false,
 }
 
 export const step2Schema = Yup.object().shape({
@@ -35,6 +48,10 @@ export const step2Schema = Yup.object().shape({
 
 export interface Step3FormValues {
   message: string
+}
+
+export const step3InitialValues = {
+  message: '',
 }
 
 export const step3Schema = Yup.object().shape({
