@@ -14,9 +14,7 @@ export default function OfferCard({ title, description, href, className }: Props
       <h4>{title}</h4>
       <p className="text-xs py-4">{description}</p>
       <Link href={href}>
-        <a href={href} className="text-blue text-xs blue-underline-thin">
-          Consulter l'offre
-        </a>
+        <a className="text-blue text-xs blue-underline-thin">Consulter l'offre</a>
       </Link>
     </div>
   )

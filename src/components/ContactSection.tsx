@@ -14,10 +14,7 @@ export default function ContactSection() {
           délais.
         </p>
         <Link href="/contact">
-          <Button
-            href="/contact"
-            className="px-6 py-2 leading-none rounded-full uppercase mt-4 bg-dark-blue text-white text-xss font-semibold inline-block"
-          >
+          <Button className="px-6 py-2 leading-none rounded-full uppercase mt-4 bg-dark-blue text-white text-xss font-semibold inline-block">
             En savoir plus
           </Button>
         </Link>

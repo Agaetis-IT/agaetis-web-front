@@ -9,7 +9,6 @@ class TailwindExtractor {
 
 module.exports = {
   plugins: [
-    // ...
     tailwind('./tailwind.config.js'),
     purgecss({
       content: ['./src/**/*.tsx'],
@@ -22,6 +21,5 @@ module.exports = {
       ],
     }),
     require('autoprefixer'),
-    // ...
   ],
 }
