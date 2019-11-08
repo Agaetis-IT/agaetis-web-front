@@ -1,6 +1,10 @@
 import * as Yup from 'yup'
 
-import customString from './stringRequiredError'
+Yup.setLocale({
+  mixed: {
+    required: 'Ce champ est obligatoire',
+  },
+})
 
 export interface Step1FormValues {
   objet: string
@@ -35,11 +39,13 @@ export const step2InitialValues = {
 }
 
 export const step2Schema = Yup.object().shape({
-  firstName: customString,
-  lastName: customString,
-  email: customString.email("L'email saisi n'est pas valide"),
-  phone: customString,
-  company: customString,
+  firstName: Yup.string().required(),
+  lastName: Yup.string().required(),
+  email: Yup.string()
+    .required()
+    .email("L'email saisi n'est pas valide"),
+  phone: Yup.string().required(),
+  company: Yup.string().required(),
   cgu: Yup.bool().oneOf(
     [true],
     "Vous devez accepter les conditions générales d'utilisation avant de passer à la prochaine étape"

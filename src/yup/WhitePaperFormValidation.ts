@@ -1,5 +1,11 @@
 import * as Yup from 'yup'
 
+Yup.setLocale({
+  mixed: {
+    required: 'Ce champ est obligatoire',
+  },
+})
+
 export interface WhitepaperFormValues {
   firstName: string
   lastName: string
@@ -17,12 +23,12 @@ export const whitePaperInitialValues = {
 }
 
 export const whitePaperSchema = Yup.object().shape({
-  firstName: Yup.string().required('Ce champ est obligatoire'),
-  lastName: Yup.string().required('Ce champ est obligatoire'),
+  firstName: Yup.string().required(),
+  lastName: Yup.string().required(),
   email: Yup.string()
     .email("L'email saisi n'est pas valide")
-    .required('Ce champ est obligatoire'),
-  company: Yup.string().required('Ce champ est obligatoire'),
+    .required(),
+  company: Yup.string().required(),
   cgu: Yup.bool().oneOf(
     [true],
     "Vous devez accepter les conditions générales d'utilisation avant de passer à la prochaine étape"
