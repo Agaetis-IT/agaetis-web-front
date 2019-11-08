@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 
 import { Category, IdeasDesc } from '../types/IdeasContent'
 
@@ -14,6 +14,17 @@ interface Props {
 
 export default function CategoryTab({ ideasC, categories, toggleMore }: Props) {
   const [categoryFilter, setFilter] = useState('All')
+  const filteredIdeas = useMemo(
+    () =>
+      ideasC
+        .filter(idea => categoryFilter === 'All' || idea.category === categoryFilter)
+        .map(idea => (
+          <IdeasCard slug={idea.slug} key={idea.id} id={idea.id} title={idea.title} category={idea.category}>
+            {idea.descriptionText}
+          </IdeasCard>
+        )),
+    [categoryFilter]
+  )
 
   function handleFilterChange(category: string) {
     return () => {
@@ -49,25 +60,8 @@ export default function CategoryTab({ ideasC, categories, toggleMore }: Props) {
         ))}
       </div>
       <div className="flex flex-col md:flex-row justify-center flex-wrap mt-2">
-        {ideasC
-
-          .filter(idea => categoryFilter === 'All' || idea.category === categoryFilter)
-          .map(idea => (
-            <IdeasCard slug={idea.slug} key={idea.id} id={idea.id} title={idea.title} category={idea.category}>
-              {idea.descriptionText}
-            </IdeasCard>
-          ))
-          .slice(0, 1)}
-        {toggleMore &&
-          ideasC
-
-            .filter(idea => categoryFilter === 'All' || idea.category === categoryFilter)
-            .map(idea => (
-              <IdeasCard slug={idea.slug} key={idea.id} id={idea.id} title={idea.title} category={idea.category}>
-                {idea.descriptionText}
-              </IdeasCard>
-            ))
-            .slice(1)}
+        {filteredIdeas.slice(0, 1)}
+        {toggleMore && filteredIdeas.slice(1)}
       </div>
     </div>
   )

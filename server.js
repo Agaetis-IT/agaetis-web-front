@@ -10,9 +10,12 @@ app
   .then(() => {
     const server = express()
 
+    /*
+      /:slug : existing ideas url are /:postname, we have to respect this pattern 
+    */
     server.get('/:slug', (req, res) => {
       const queryParams = Object.assign({}, req.params, req.query)
-      if (['solutions', 'ideas', 'agaetis', 'jobs', 'job', 'white-paper', 'contact'].includes(queryParams.slug)) {
+      if (['solutions', 'ideas', 'agaetis', 'jobs', 'white-paper', 'contact'].includes(queryParams.slug)) {
         return handle(req, res)
       }
 

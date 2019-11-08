@@ -31,5 +31,4 @@ export default interface IdeasContent {
   content: string
   imageUrl: string
   category: string
-  related: RelatedIdeas[]
 }

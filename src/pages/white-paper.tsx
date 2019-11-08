@@ -4,6 +4,7 @@ import WhitePaperForm from '../components/form/WhitePaperForm'
 import Layout from '../components/Layout'
 
 function handleSubmit() {
+  // TODO: Send white paper by mail
   alert('ok')
 }
 

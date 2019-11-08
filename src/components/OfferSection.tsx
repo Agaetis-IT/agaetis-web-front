@@ -15,10 +15,7 @@ export default function OfferSection() {
           Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur.
         </p>
         <Link href="#">
-          <Button
-            href="#"
-            className="px-6 py-2 leading-none rounded-full uppercase mt-4 bg-dark-blue text-white text-xss font-semibold inline-block"
-          >
+          <Button className="px-6 py-2 leading-none rounded-full uppercase mt-4 bg-dark-blue text-white text-xss font-semibold inline-block">
             Envoyer ma candidature
           </Button>
         </Link>

@@ -2,7 +2,6 @@ import Link from 'next/link'
 import React from 'react'
 
 import Button from './Button'
-import './Common.css'
 
 export default function ContactSection() {
   return (

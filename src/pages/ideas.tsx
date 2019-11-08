@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 
 import Button from '../components/Button'
 import CategoryTab from '../components/CategoryTab'
-import '../components/Common.css'
 import Layout from '../components/Layout'
 import { getAllIdeas, getCategories, getIdeasPageContent } from '../Services/wordpressService'
 import { Category, IdeasDesc, IdeasPageContent } from '../types/IdeasContent'

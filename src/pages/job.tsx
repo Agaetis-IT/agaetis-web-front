@@ -1,5 +1,5 @@
 import { NextContext } from 'next'
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 
 import Button from '../components/Button'
 import Layout from '../components/Layout'
@@ -30,6 +30,19 @@ job.getInitialProps = async ({ query }: NextContext) => {
 
 export default function job({ pageContent, allJobs }: Props) {
   const [isMoreOffersToggled, setIsMoreOffersToggled] = useState(false)
+  const offers = useMemo(
+    () =>
+      allJobs.map(offer => (
+        <OfferCard
+          key={offer.acf.intitule_job}
+          title={offer.acf.intitule_job}
+          description={offer.acf.description}
+          href={'/jobs/' + offer.slug}
+          className="bg-white md:max-w-md p-4 my-2 self-center"
+        />
+      )),
+    allJobs
+  )
 
   function toggleMoreOffers() {
     setIsMoreOffersToggled(!isMoreOffersToggled)
@@ -79,29 +92,8 @@ export default function job({ pageContent, allJobs }: Props) {
         <div className="flex flex-col bg-grey py-12 px-4 md:p-12">
           <h2 className="text-center mb-8" dangerouslySetInnerHTML={{ __html: 'Nos offres' }} />
           <div className="flex flex-col">
-            {allJobs
-              .map(offer => (
-                <OfferCard
-                  key={offer.acf.intitule_job}
-                  title={offer.acf.intitule_job}
-                  description={offer.acf.description}
-                  href={'/jobs/' + offer.slug}
-                  className="bg-white md:max-w-md p-4 my-2 self-center"
-                />
-              ))
-              .slice(0, 1)}
-            {isMoreOffersToggled &&
-              allJobs
-                .map(offer => (
-                  <OfferCard
-                    key={offer.acf.intitule_job}
-                    title={offer.acf.intitule_job}
-                    description={offer.acf.description}
-                    href={'/jobs/' + offer.slug}
-                    className="bg-white md:max-w-md p-4 my-2 self-center"
-                  />
-                ))
-                .slice(1)}
+            {offers.slice(0, 1)}
+            {isMoreOffersToggled && offers.slice(1)}
           </div>
           <Button
             onClick={toggleMoreOffers}
