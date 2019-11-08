@@ -16,8 +16,6 @@ export default function Button({ href, htmlFor, children, component, onClick, cl
     ComponentProp = component
   } else if (href) {
     ComponentProp = 'a'
-  } else if (htmlFor) {
-    ComponentProp = 'label'
   } else {
     ComponentProp = 'button'
   }

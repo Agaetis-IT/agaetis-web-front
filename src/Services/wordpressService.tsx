@@ -6,11 +6,6 @@ import IndexContent from '../types/IndexContent'
 import JobsContentAPI, { convertJobsContentAPItoContent } from '../types/JobsContent'
 import SolutionsContentAPI, { convertContentAPItoContent } from '../types/SolutionsContent'
 
-export async function getWordpressPage<T>(id: number) {
-  const { data } = await axios.get<T>(`${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/wp/v2/pages/${id}`)
-  return data
-}
-
 export async function getWordpressPageBySlug<T>(slug: string) {
   const { data } = await axios.get<T>(`${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/agaetis/api/v1/pages/${slug}`)
   return data
@@ -75,4 +70,4 @@ export async function sendMessage(name: string, mail: string, content: string, d
   })
 }
 
-export default { getWordpressPage, getIndexContent, sendMessage }
+export default { getIndexContent, sendMessage }

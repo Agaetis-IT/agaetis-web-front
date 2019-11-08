@@ -12,8 +12,9 @@ app
 
     server.get('/:slug', (req, res) => {
       const queryParams = Object.assign({}, req.params, req.query)
-      if (['solutions', 'ideas', 'agaetis', 'jobs', 'job', 'white-paper', 'contact'].includes(queryParams.slug))
+      if (['solutions', 'ideas', 'agaetis', 'jobs', 'job', 'white-paper', 'contact'].includes(queryParams.slug)) {
         return handle(req, res)
+      }
 
       app.render(req, res, '/idea', queryParams)
     })
@@ -29,7 +30,9 @@ app
     })
 
     server.listen(port, err => {
-      if (err) throw err
+      if (err) {
+        throw err
+      }
       console.log('> Ready on http://localhost:' + port)
     })
   })

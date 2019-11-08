@@ -15,11 +15,14 @@ export default function ContactTab() {
   }
 
   async function handleSubmit() {
-    if (localStorage.getItem('step1') && localStorage.getItem('step2') && localStorage.getItem('step3')) {
+    const step1 = localStorage.getItem('step1')
+    const step2 = localStorage.getItem('step1')
+    const step3 = localStorage.getItem('step3')
+    if (step1 && step2 && step3) {
       const contactInfos = {
-        ...JSON.parse(localStorage.getItem('step1')!),
-        ...JSON.parse(localStorage.getItem('step2')!),
-        ...JSON.parse(localStorage.getItem('step3')!),
+        ...JSON.parse(step1),
+        ...JSON.parse(step2),
+        ...JSON.parse(step3),
       }
       await sendMessage(
         contactInfos.firstName + ' ' + contactInfos.lastName,
