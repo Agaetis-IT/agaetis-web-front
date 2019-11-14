@@ -48,23 +48,29 @@ export default function Idea({ data, related }: Props) {
     <Layout>
       <div>
         <IdeaContent content={data} />
-        <div className="">
-          <h2 className="text-center">Ces idées peuvent vous interesser</h2>
-        </div>
-        <div className="md:max-w-md mt-4 px-4 mx-auto flex flex-col md:flex-row justify-center">
-          {related.map(idea => (
-            <IdeasCard
-              slug={idea.slug}
-              key={idea.id}
-              id={idea.id}
-              title={idea.title}
-              category={idea.category}
-              className="bg-grey"
-            >
-              {idea.descriptionText}
-            </IdeasCard>
-          ))}
-        </div>
+        {related.length > 0 && (
+          <>
+            <div className="">
+              <h2 className="text-center">Ces idées peuvent vous interesser</h2>
+            </div>
+
+            <div className="md:max-w-md mt-4 px-4 mx-auto flex flex-col md:flex-row justify-center">
+              {related.map(idea => (
+                <div key={idea.id} className="md:w-1/3 px-2">
+                  <IdeasCard
+                    slug={idea.slug}
+                    id={idea.id}
+                    title={idea.title}
+                    category={idea.category}
+                    className="p-4 my-2 md:h-ideas bg-grey"
+                  >
+                    {idea.descriptionText}
+                  </IdeasCard>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
       </div>
     </Layout>
   )

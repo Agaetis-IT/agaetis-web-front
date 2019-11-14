@@ -19,7 +19,14 @@ export default function CategoryTab({ ideasC, categories, toggleMore }: Props) {
       ideasC
         .filter(idea => categoryFilter === 'All' || idea.category === categoryFilter)
         .map(idea => (
-          <IdeasCard slug={idea.slug} key={idea.id} id={idea.id} title={idea.title} category={idea.category}>
+          <IdeasCard
+            className="md:w-1/3 p-4 my-2 md:h-ideas"
+            slug={idea.slug}
+            key={idea.id}
+            id={idea.id}
+            title={idea.title}
+            category={idea.category}
+          >
             {idea.descriptionText}
           </IdeasCard>
         )),
