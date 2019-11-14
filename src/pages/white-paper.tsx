@@ -29,14 +29,18 @@ export default function whitePaper({ pageContent }: Props) {
       <>
         <div className="md:max-w-md mx-auto p-0 md:px-8">
           <div className="text-xs px-4 md:px-0">
-            <span className="text-underline">Accueil</span> > <span className="text-underline">White-Paper</span>
+            <span className="text-underline">
+              <a href="/">Accueil</a>
+            </span>{' '}
+            > <b>{pageContent.title}</b>
           </div>
           <h1 className="text-center text-2xl py-8 md:pb-0">{pageContent.title}</h1>
           <p className="md:max-w-md mx-auto text-center px-4 md:py-6 md:px-0 text-xs leading-normal">
             {pageContent.description}
           </p>
         </div>
-        <div className="border border-white md:max-w-md mx-auto mb-8 px-4">
+        <img className="md:max-w-md flex shadow-xl justify-center mx-auto my-4 p-0" src={pageContent.image} />
+        <div className="md:max-w-md mx-auto mb-8 px-4">
           <div className=" md:px-12 flex flex-col justify-center">
             <WhitePaperForm handleNextStep={handleSubmit} />
           </div>
