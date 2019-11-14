@@ -2,7 +2,6 @@ const withTypescript = require('@zeit/next-typescript')
 const withCSS = require('@zeit/next-css')
 const withPurgeCSS = require('next-purgecss')
 const withImages = require('next-images')
-const yupConfig = require('./src/config/yupConfig')
 
 require('dotenv').config()
 
@@ -18,7 +17,6 @@ module.exports = withCSS(
     withPurgeCSS(
       withImages({
         publicRuntimeConfig,
-        yupConfig,
       })
     )
   )

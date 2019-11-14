@@ -1,5 +1,7 @@
 import * as Yup from 'yup'
 
+import '../config/yupConfig'
+
 export interface Step1FormValues {
   objet: string
 }

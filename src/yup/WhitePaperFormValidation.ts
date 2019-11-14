@@ -1,5 +1,7 @@
 import * as Yup from 'yup'
 
+import '../config/yupConfig'
+
 export interface WhitepaperFormValues {
   firstName: string
   lastName: string
