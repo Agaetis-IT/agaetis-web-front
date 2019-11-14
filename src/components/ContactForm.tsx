@@ -24,7 +24,7 @@ function getHeadersClassNames(index: number, currentIndex: number) {
     } else if (currentIndex === 0) {
       return 'w-1/3 text-dark-grey whitespace-no-wrap overflow-hidden px-4 bg-grey'
     }
-    return clsx('w-1/3 text-dark-grey whitespace-no-wrap overflow-hidden px-4 bg-grey reverseText')
+    return 'w-1/3 text-dark-grey whitespace-no-wrap overflow-hidden px-4 bg-grey reverseText'
   } else {
     if (currentIndex === 2) {
       return 'bg-blue text-white w-2/3'
