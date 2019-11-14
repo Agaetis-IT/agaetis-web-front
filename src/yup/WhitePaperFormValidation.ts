@@ -1,11 +1,5 @@
 import * as Yup from 'yup'
 
-Yup.setLocale({
-  mixed: {
-    required: 'Ce champ est obligatoire',
-  },
-})
-
 export interface WhitepaperFormValues {
   firstName: string
   lastName: string
