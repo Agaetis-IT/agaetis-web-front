@@ -1,7 +1,7 @@
 export default interface JobsContentAPI {
   titre: string
   description: string
-  jobsImg: string
+  jobsimg: string
   slide1_quote: string
   slide1_quote_author: string
   slide1_quote_author_role: string
@@ -97,7 +97,7 @@ export function convertJobsContentAPItoContent(contentApi: JobsContentAPI) {
   return {
     title: contentApi.titre,
     description: contentApi.description,
-    jobsImg: contentApi.jobsImg,
+    jobsImg: contentApi.jobsimg,
     slides: createSlideArray(contentApi, Object.keys(contentApi).filter(key => key.match(regexSlides))),
     joinUsSection: createJoinUsSectionObject(contentApi, Object.keys(contentApi).filter(key => key.match(regexJoinUs))),
     profilesSection: createProfilesSectionObject(
