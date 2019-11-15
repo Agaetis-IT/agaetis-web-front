@@ -10,6 +10,7 @@
         "grouped-imports": true
       }
     ],
+    "curly": true,
     "object-literal-sort-keys": false,
     "interface-name": false,
     "no-submodule-imports": false,
@@ -18,7 +19,7 @@
     "jsx-boolean-value": false,
     "jsx-key": true,
     "jsx-no-lambda": {
-      "severity": "warning"
+      "severity": "off"
     },
     "jsx-self-close": true,
     "jsx-wrap-multiline": true

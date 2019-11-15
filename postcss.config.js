@@ -1,7 +1,6 @@
-const tailwindcss = require('tailwindcss')
 const purgecss = require('@fullhuman/postcss-purgecss')
-const autoprefixer = require('autoprefixer')
 
+const tailwind = require('tailwindcss')
 class TailwindExtractor {
   static extract(content) {
     return content.match(/[A-Za-z0-9-_:\/]+/g) || []
@@ -10,10 +9,10 @@ class TailwindExtractor {
 
 module.exports = {
   plugins: [
-    tailwindcss('./tailwind.config.js'),
+    tailwind('./tailwind.config.js'),
     purgecss({
       content: ['./src/**/*.tsx'],
-      whitelist: ['html', 'body'],
+      whitelist: ['html', 'body', 'figure'],
       extractors: [
         {
           extractor: TailwindExtractor,
@@ -21,6 +20,6 @@ module.exports = {
         },
       ],
     }),
-    autoprefixer,
+    require('autoprefixer'),
   ],
 }

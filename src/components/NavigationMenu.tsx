@@ -5,7 +5,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import Button from './Button'
-import './Navigationmenu.css'
+import './NavigationMenu.css'
 
 function isLanguageSelected(language: string) {
   return i18next.languages[0] === language
@@ -35,7 +35,6 @@ export default function NavigationMenu({ invertColors }: Props) {
         {pages.map(page => (
           <Link key={page[0]} href={page[1]}>
             <Button
-              href={page[1]}
               className={clsx(
                 { 'md:text-black': !invertColors },
                 'block md:inline-block p-2 py-3 md:p-3 md:px-4 text-xs font-semibold text-white'
@@ -47,21 +46,15 @@ export default function NavigationMenu({ invertColors }: Props) {
         ))}
       </div>
       <div className="hidden md:inline md:ml-14">
-        <Link href="#">
-          <Button
-            href="#"
-            className="block md:inline-block px-6 py-3 leading-none rounded-full uppercase mt-4 md:mt-0 bg-orange text-white text-xs font-semibold"
-          >
+        <Link href="/contact">
+          <Button className="block md:inline-block px-6 py-3 leading-none rounded-full uppercase mt-4 md:mt-0 bg-orange text-white text-xs font-semibold">
             {t('navigation.contact')}
           </Button>
         </Link>
       </div>
       <div className="inline md:hidden text-xs font-medium md:flex-grow">
-        <Link href="#">
-          <Button
-            href="#"
-            className="block md:inline-block block md:mt-0 md:mr-16 md:ml-1 p-2 py-3 md:p-0 text-white text-xs font-semibold"
-          >
+        <Link href="/contact">
+          <Button className="block md:inline-block block md:mt-0 md:mr-16 md:ml-1 p-2 py-3 md:p-0 text-white text-xs font-semibold">
             {t('navigation.contact')}
           </Button>
         </Link>
@@ -70,11 +63,10 @@ export default function NavigationMenu({ invertColors }: Props) {
       <div
         className={clsx(
           invertColors ? 'text-white' : 'text-black',
-          'text-xs md:ml-4 flex flex-row items-center p-2 md:p-0 '
+          'text-xs md:mx-4 flex flex-row items-center p-2 md:p-0 '
         )}
       >
         <Button
-          href="#"
           className={clsx(
             isLanguageSelected('en') ? 'Button-language--active' : { 'md:text-white': invertColors },
             'mr-1 text-xss text-black'
@@ -86,10 +78,9 @@ export default function NavigationMenu({ invertColors }: Props) {
         <span className="mr-1 hidden md:inline align-middle leading-none text-xss"> - </span>
         <span className="text-black mr-1 block md:hidden align-middle leading-none text-xss">|</span>
         <Button
-          href="#"
           className={clsx(
             isLanguageSelected('fr') ? 'Button-language--active' : { 'md:text-white': invertColors },
-            'text-xss text-black'
+            'text-xss text-black md:mr-2'
           )}
           onClick={onLanguageChange('fr')}
         >

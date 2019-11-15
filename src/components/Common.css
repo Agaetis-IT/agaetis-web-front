@@ -1,0 +1,11 @@
+.blue-underline {
+  border-bottom: 4px solid #2779bd;
+}
+
+.text-underline {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.034);
+}
+
+.blue-underline-thin {
+  border-bottom: 1px solid #2779bd;
+}

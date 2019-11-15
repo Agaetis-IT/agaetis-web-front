@@ -44,12 +44,20 @@ let defaultConfig = require('tailwindcss/defaultConfig')()
 
 let colors = {
   transparent: 'transparent',
-
   black: '#22292f',
+  'black-light': '#333F48',
   grey: '#f5f6f7',
+  'dark-grey': '#B8C2CC',
+  'grey-darker': '#3d4852',
+  teal: '#01B2A9',
+  pink: '#FFE5D9',
+  red: '#ff0033',
+  'red-light': '#ff003320',
   white: '#ffffff',
-
+  blue: '#3F7EC9',
   orange: '#ff7f40',
+  'orange-light': '#FFE5D9',
+  'dark-blue': '#12283A',
 }
 
 module.exports = {
@@ -164,6 +172,7 @@ module.exports = {
 
   textSizes: {
     xxs: '.4rem',
+    cgu: '.6rem',
     xss: '.7rem',
     xs: '.75rem', // 12px
     sm: '.875rem', // 14px
@@ -398,12 +407,16 @@ module.exports = {
     '16': '4rem',
     '24': '6rem',
     '32': '8rem',
+    '40': '10rem',
     '48': '12rem',
+    ideas: '13rem',
+    '56': '14rem',
     '64': '16rem',
     '1/2': '50%',
     '1/3': '33.33333%',
     '2/3': '66.66667%',
     '1/4': '25%',
+    '1/8': '12.5%',
     '3/4': '75%',
     '1/5': '20%',
     '2/5': '40%',
@@ -446,7 +459,9 @@ module.exports = {
     '16': '4rem',
     '24': '6rem',
     '32': '8rem',
+    '40': '10rem',
     '48': '12rem',
+    ideas: '13rem',
     '64': '16rem',
     full: '100%',
     screen: '100vh',
@@ -510,7 +525,7 @@ module.exports = {
   */
 
   maxWidth: {
-    xs: '20rem',
+    xs: '22rem',
     sm: '30rem',
     md: '45rem',
     lg: '50rem',
@@ -570,6 +585,7 @@ module.exports = {
     '8': '2rem',
     '10': '2.5rem',
     '12': '3rem',
+    '14': '3.5rem',
     '16': '4rem',
     '20': '5rem',
     '24': '6rem',
@@ -668,6 +684,7 @@ module.exports = {
     default: '0 2px 4px 0 rgba(0,0,0,0.10)',
     md: '0 4px 8px 0 rgba(0,0,0,0.12), 0 2px 4px 0 rgba(0,0,0,0.08)',
     lg: '0 15px 30px 0 rgba(0,0,0,0.11), 0 5px 15px 0 rgba(0,0,0,0.08)',
+    xl: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
     inner: 'inset 0 2px 4px 0 rgba(0,0,0,0.06)',
     outline: '0 0 0 3px rgba(52,144,220,0.5)',
     none: 'none',

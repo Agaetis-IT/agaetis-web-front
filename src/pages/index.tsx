@@ -1,6 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
+import ContactSection from '../components/ContactSection'
 import Hero from '../components/Hero'
 import HomeCard from '../components/HomeCard'
 import Layout from '../components/Layout'
@@ -21,7 +22,7 @@ function Index({ pageContent: pageContent }: Props) {
   return (
     <Layout headerProps={{ invertColors: true, className: 'header md:absolute md:mx-auto' }}>
       <>
-        <Hero />
+        <Hero hero={pageContent.hero_img} />
         <div className="px-2 md:px-6">
           <HomeCard
             className="md:flex-row"
@@ -33,7 +34,7 @@ function Index({ pageContent: pageContent }: Props) {
             imgUrl={pageContent.agaetis_desc_img}
           />
           <HomeCard
-            className="md:flex-row-reverse py-4 bg-grey"
+            className="md:flex-row-reverse py-6 md:py-4 bg-grey"
             title={pageContent.ideas_desc_title}
             description={pageContent.ideas_desc}
             href="/ideas"
@@ -51,7 +52,7 @@ function Index({ pageContent: pageContent }: Props) {
             imgUrl={pageContent.solutions_desc_img}
           />
           <HomeCard
-            className="md:flex-row-reverse py-4 bg-grey"
+            className="md:flex-row-reverse py-6 md:py-4 bg-grey"
             title={pageContent.jobs_desc_title}
             description={pageContent.jobs_desc}
             href="/jobs"
@@ -60,6 +61,7 @@ function Index({ pageContent: pageContent }: Props) {
             imgUrl={pageContent.jobs_desc_img}
           />
         </div>
+        <ContactSection />
       </>
     </Layout>
   )
