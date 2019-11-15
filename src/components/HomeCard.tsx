@@ -39,7 +39,7 @@ export default function HomeCard({
           </Button>
         </Link>
       </div>
-      <img className="home-img mx-auto md:mx-0" src={imgUrl} alt={imgUrl} />
+      <img className="home-img self-center mx-auto md:mx-0" src={imgUrl} alt={imgUrl} />
     </div>
   )
 }

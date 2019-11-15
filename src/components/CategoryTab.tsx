@@ -14,14 +14,14 @@ interface Props {
   ideasImg2: string
 }
 
-function getBgColor(id: number) {
+function getBgColor(id: number, category: string) {
   if (id === 0 || id === 4) {
     return ''
-  } else if (id === 1 || id === 5) {
+  } else if ((id === 1 || id === 5) && category === 'All') {
     return 'bg-white'
-  } else if (id === 6) {
+  } else if (id === 6 && category === 'All') {
     return 'bg-teal'
-  } else if (id === 7) {
+  } else if (id === 7 && category === 'All') {
     return 'bg-pink'
   } else {
     return 'bg-grey'
@@ -63,8 +63,8 @@ export default function CategoryTab({ ideasC, categories, toggleMore, ideasImg1,
             <IdeasCard
               className={clsx(
                 'p-4 my-2 md:h-ideas',
-                { 'shadow-xl': idea.image !== undefined },
-                getBgColor(ideasC.indexOf(idea))
+                { 'shadow-xl w-auto md:h-ideas hidden md:block': idea.image !== undefined },
+                getBgColor(ideasC.indexOf(idea), categoryFilter)
               )}
               slug={idea.slug}
               id={idea.id}
