@@ -5,3 +5,5 @@ Yup.setLocale({
     required: 'Ce champ est obligatoire',
   },
 })
+
+export default Yup

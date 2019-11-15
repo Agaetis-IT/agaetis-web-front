@@ -1,6 +1,4 @@
-import * as Yup from 'yup'
-
-import '../config/yupConfig'
+import Yup from '../config/yupConfig'
 
 export interface Step1FormValues {
   objet: string
