@@ -9,15 +9,29 @@ interface Props {
   children: string
   className?: string
   slug: string
+  image?: string
 }
 
 function createMarkup(content: string) {
   return { __html: content }
 }
 
-export default function IdeasCard({ slug, id, title, category, children, className }: Props) {
+function getStyle(id: number, image?: string) {
+  if (id < 0 && image) {
+    return {
+      background: `url("${image}")`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat',
+    }
+  } else {
+    return {}
+  }
+}
+
+export default function IdeasCard({ slug, id, title, category, children, className, image }: Props) {
   return (
-    <div className={clsx(className)}>
+    <div style={getStyle(id, image)} className={clsx(className)}>
       <div className={clsx({ 'text-blue': id !== 6 }, 'font-semibold text-xss')}>{category}</div>
       <Link href={`/${slug}`}>
         <a className={clsx(id !== 6 ? 'text-black' : 'text-white')}>
