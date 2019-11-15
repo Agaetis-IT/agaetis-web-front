@@ -25,7 +25,7 @@ function IdeaContent({ content }: Props) {
             <a className="text-underline text-black" href="/ideas">
               Idées
             </a>{' '}
-            > <b>{content.title}</b>
+            > <b dangerouslySetInnerHTML={createMarkup(content.title)} />
           </span>
         </div>
         <img className="mx-auto md:mx-0 shadow-xl m-4" src={content.imageUrl} alt={content.imageUrl} />

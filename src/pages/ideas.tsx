@@ -30,6 +30,7 @@ Ideas.getInitialProps = async () => {
       descriptionText: idea.acf.idea_description,
       date: idea.date,
     })),
+
     whitePapers: whitepapers.map((whitepaper: { slug: string; acf: WhitePaper }) => ({
       slug: whitepaper.slug,
       ...whitepaper.acf,
@@ -45,12 +46,12 @@ function compareIdeasByDate(idea1: IdeasDesc, idea2: IdeasDesc) {
 
 export default function Ideas({ ideasDescription, whitePapers, categories, content }: Props) {
   const sortedIdeas = ideasDescription.sort(compareIdeasByDate)
+
   const [isOpenedMoreIdeas, setIsOpenedMoreIdeas] = useState(false)
 
   function handleToggleMoreIdeas() {
     setIsOpenedMoreIdeas(!isOpenedMoreIdeas)
   }
-
   return (
     <Layout headerProps={{ invertColors: false }}>
       <div>
@@ -73,6 +74,8 @@ export default function Ideas({ ideasDescription, whitePapers, categories, conte
               category => category.categoryName !== 'Jobs' && category.categoryName !== 'White-paper'
             )}
             toggleMore={isOpenedMoreIdeas}
+            ideasImg1={content.ideasimg1}
+            ideasImg2={content.ideasimg2}
           />
           <Button
             className="flex flex-row justify-center uppercase rounded-full bg-orange text-xss py-2 px-6 text-white font-semibold mx-auto"

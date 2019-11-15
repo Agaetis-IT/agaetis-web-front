@@ -5,6 +5,7 @@ export interface IdeasDesc {
   category: string
   descriptionText: string
   date: string
+  image?: string
 }
 
 export interface RelatedIdeas {
@@ -22,6 +23,8 @@ export interface Category {
 export interface IdeasPageContent {
   titre: string
   description: string
+  ideasimg1: string
+  ideasimg2: string
 }
 
 export default interface IdeasContent {

@@ -1,5 +1,6 @@
 import React from 'react'
 
+import '../config/yupConfig'
 import '../i18n'
 import '../index.css'
 
