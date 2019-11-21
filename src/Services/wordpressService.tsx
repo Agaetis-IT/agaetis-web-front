@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 import publicRuntimeConfig from '../config/env.config'
+import ContactContentApi from '../types/ContactContentApi'
 import { IdeasPageContent } from '../types/IdeasContent'
 import IndexContent from '../types/IndexContent'
 import JobsContentAPI, { convertJobsContentAPItoContent } from '../types/JobsContent'
@@ -29,6 +30,11 @@ export async function getSolutionsPageContent() {
 export async function getJobsPageContent() {
   const { acf } = await getWordpressPageBySlug<{ acf: JobsContentAPI }>('jobs')
   return convertJobsContentAPItoContent(acf)
+}
+
+export async function getContactPageContent() {
+  const { acf } = await getWordpressPageBySlug<{ acf: ContactContentApi }>('contact')
+  return acf
 }
 
 export async function getJobContent(slug: string) {
