@@ -30,16 +30,16 @@ function Index({ pageContent: pageContent }: Props) {
             description={pageContent.agaetis_desc}
             href="/agaetis"
             buttonContent={t('index.learnmore-btn')}
-            descBlockClass="md:pr-6"
+            descBlockClass=""
             imgUrl={pageContent.agaetis_desc_img}
           />
           <HomeCard
-            className="md:flex-row-reverse py-6 md:py-4 bg-grey"
+            className="md:flex-row-reverse py-6 bg-grey"
             title={pageContent.ideas_desc_title}
             description={pageContent.ideas_desc}
             href="/ideas"
             buttonContent={t('index.learnmore-btn')}
-            descBlockClass="md:pl-6"
+            descBlockClass=""
             imgUrl={pageContent.ideas_desc_img}
           />
           <HomeCard
@@ -48,16 +48,16 @@ function Index({ pageContent: pageContent }: Props) {
             description={pageContent.solutions_desc}
             href="/solutions"
             buttonContent={t('index.learnmore-btn')}
-            descBlockClass="md:pr-6"
+            descBlockClass=""
             imgUrl={pageContent.solutions_desc_img}
           />
           <HomeCard
-            className="md:flex-row-reverse py-6 md:py-4 bg-grey"
+            className="md:flex-row-reverse py-6  bg-grey"
             title={pageContent.jobs_desc_title}
             description={pageContent.jobs_desc}
             href="/jobs"
             buttonContent={t('index.learnmore-btn')}
-            descBlockClass="md:pl-6"
+            descBlockClass=""
             imgUrl={pageContent.jobs_desc_img}
           />
         </div>
