@@ -38,7 +38,7 @@ export default function job({ pageContent, allJobs }: Props) {
           title={offer.acf.intitule_job}
           description={offer.acf.description}
           href={'/jobs/' + offer.slug}
-          className="bg-white md:max-w-md p-4 my-2 self-center"
+          className="bg-white hover:bg-orange-light md:max-w-md p-4 my-2 self-center"
         />
       )),
     allJobs
@@ -75,9 +75,9 @@ export default function job({ pageContent, allJobs }: Props) {
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
           }}
-          className="bg-black mt-8 md:mt-0 md:mx-8 p-24"
+          className="bg-black mt-8 md:mt-0 md:mx-8 p-36"
         >
-          <Button className="flex flex-row justify-center uppercase rounded-full bg-orange text-xss py-2 px-6 text-white font-semibold mx-auto ">
+          <Button className="flex flex-col justify-center  uppercase rounded-full bg-orange text-xss py-2 px-6 text-white font-semibold mx-auto my-auto">
             Postuler
           </Button>
         </div>

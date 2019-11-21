@@ -25,7 +25,7 @@ export default function HomeCard({
   imgUrl,
 }: Props) {
   return (
-    <div className={clsx('flex flex-col my-6 md:my-12 justify-between md:p-8 mx-auto md:max-w-md', className)}>
+    <div className={clsx(' flex flex-col my-6 md:my-10 justify-between md:p-8 mx-auto md:max-w-lg', className)}>
       <div className={clsx('md:max-w-xs mx-4 md:mx-0 self-center', descBlockClass)}>
         <Link href={href}>
           <a title={href}>
@@ -39,7 +39,7 @@ export default function HomeCard({
           </Button>
         </Link>
       </div>
-      <img className="home-img self-center mx-auto md:mx-0" src={imgUrl} alt={imgUrl} />
+      <img className="home-img img-shadow self-center mx-auto md:mx-0" src={imgUrl} alt={imgUrl} />
     </div>
   )
 }
