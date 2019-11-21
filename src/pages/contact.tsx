@@ -2,10 +2,24 @@ import React from 'react'
 
 import ContactTab from '../components/ContactForm'
 import Layout from '../components/Layout'
+import { getContactPageContent } from '../Services/wordpressService'
+import ContactContentApi from '../types/ContactContentApi'
 
 import './contact.css'
 
-export default function contact() {
+interface Props {
+  pageContent: ContactContentApi
+}
+
+contact.getInitialProps = async () => {
+  // tslint:disable-next-line
+  const data = await getContactPageContent()
+  return {
+    pageContent: data,
+  }
+}
+
+export default function contact({ pageContent }: Props) {
   return (
     <Layout headerProps={{ invertColors: false }}>
       <div className="md:max-w-md mx-auto p-0 md:px-4">
@@ -17,12 +31,14 @@ export default function contact() {
             > <b>Contact</b>
           </span>
         </div>
-        <h1 className="text-center text-2xl  md:px-8 py-8 md:pb-0">Contact</h1>
-        <p className="md:max-w-md mx-auto text-center px-4 md:p-6 mb-8 text-xs leading-normal">
-          At vero eos et accusamus et iusto odio dignissimos ducimus, qui blanditiis praesentium voluptatum deleniti
-          atque corrupti, quos dolores et quas molestias excepturi sint, obcaecati cupiditate non provident, similique
-          sunt in culpa, qui officia deserunt mollitia animi, id est laborum et dolorum fuga
-        </p>
+        <h1
+          className="text-center text-2xl md:px-8 py-8 md:pb-0"
+          dangerouslySetInnerHTML={{ __html: pageContent.title }}
+        />
+        <p
+          className="md:max-w-md mx-auto text-center px-4 md:p-6 mb-8 text-xs leading-normal"
+          dangerouslySetInnerHTML={{ __html: pageContent.paragraph }}
+        />
         <ContactTab />
       </div>
     </Layout>
