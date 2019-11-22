@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 import publicRuntimeConfig from '../config/env.config'
+import { AgaetisContentApi } from '../types/AgaetisContent'
 import ContactContentApi from '../types/ContactContentApi'
 import { IdeasPageContent } from '../types/IdeasContent'
 import IndexContent from '../types/IndexContent'
@@ -14,6 +15,11 @@ export async function getWordpressPageBySlug<T>(slug: string) {
 
 export async function getIndexContent() {
   const { acf } = await getWordpressPageBySlug<{ acf: IndexContent }>('index')
+  return acf
+}
+
+export async function getAgaetisContent() {
+  const { acf } = await getWordpressPageBySlug<{ acf: AgaetisContentApi }>('agaetis')
   return acf
 }
 
