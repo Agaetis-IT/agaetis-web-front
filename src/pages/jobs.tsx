@@ -1,3 +1,4 @@
+import Axios from 'axios'
 import React, { useMemo, useState } from 'react'
 
 import Button from '../components/Button'
@@ -5,7 +6,6 @@ import JobsCarousel from '../components/JobsCarousel'
 import Layout from '../components/Layout'
 import OfferCard from '../components/OfferCard'
 import OfferSection from '../components/OfferSection'
-import JobsMini from '../images/Jobs_miniature.png'
 import { getAllJobs, getJobsPageContent } from '../Services/wordpressService'
 import { JobContentLite } from '../types/JobContent'
 import { JobsContent } from '../types/JobsContent'
@@ -17,6 +17,7 @@ interface Props {
 
 jobs.getInitialProps = async () => {
   const pageContent = await getJobsPageContent()
+
   const allJobs = await getAllJobs()
   return { pageContent, allJobs }
 }
@@ -46,14 +47,24 @@ export default function jobs({ pageContent, allJobs }: Props) {
       <>
         <div className="md:max-w-md mx-auto p-0 md:px-8">
           <div className="text-xs px-4 md:px-0">
-            <span className="text-underline">Accueil</span> > <span className="text-underline">Jobs</span>
+            <span>
+              <a className="text-underline text-black" href="/">
+                Accueil
+              </a>{' '}
+              > <b>Jobs</b>
+            </span>
           </div>
           <h1 className="text-center text-2xl py-8 md:pb-0" dangerouslySetInnerHTML={{ __html: pageContent.title }} />
           <p
             className="md:max-w-md mx-auto text-center px-4 md:py-6 md:px-0 text-xs leading-normal"
             dangerouslySetInnerHTML={{ __html: pageContent.description }}
           />
-          <img className="mx-auto md:mx-0 shadow-xl m-4 w-full" src={JobsMini} alt="miniature" />
+          <iframe
+            height="350"
+            className="mx-auto md:mx-0 shadow-xl m-4 w-full"
+            src={pageContent.jobsImg}
+            allow="autoplay; encrypted-media; gyroscope; picture-in-picture;fullscreen"
+          />
           <JobsCarousel slideMax={2} slides={pageContent.slides} />
         </div>
         <div
@@ -95,7 +106,7 @@ export default function jobs({ pageContent, allJobs }: Props) {
           <h2 className="text-center mb-8" dangerouslySetInnerHTML={{ __html: pageContent.profilesSection.title }} />
           <div className="flex flex-col md:flex-row">
             {pageContent.profilesSection.profiles.map(profile => (
-              <div className="text-center flex flex-col mx-2 md:w-1/4 " key={profile.index}>
+              <div className="text-center flex flex-col md:mx-2 px-8 md:px-0 md:w-1/4 " key={profile.index}>
                 <div className="w-auto h-24 flex flex-col justify-end mb-2">
                   <img className="w-16 h-auto self-center" src={profile.img} />
                 </div>

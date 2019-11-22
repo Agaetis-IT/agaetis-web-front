@@ -70,7 +70,10 @@ export default function WhitePaperForm({ className, handleNextStep }: Props) {
           >
             Télécharger
           </Button>
-          <Button className="block border border-blue text-blue px-8 py-2 leading-none rounded-full uppercase mx-auto mt-4  bg-transparent text-black text-xs font-semibold">
+          <Button
+            href="/ideas#whitepapers"
+            className="w-64 block border text-center border-blue text-blue px-8 py-2 leading-none rounded-full uppercase mx-auto mt-4  bg-transparent text-black text-xs font-semibold"
+          >
             Voir les autres livres blancs
           </Button>
         </Form>

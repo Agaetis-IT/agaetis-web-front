@@ -1,6 +1,8 @@
 import axios from 'axios'
 
 import publicRuntimeConfig from '../config/env.config'
+import { AgaetisContentApi } from '../types/AgaetisContent'
+import ContactContentApi from '../types/ContactContentApi'
 import { IdeasPageContent } from '../types/IdeasContent'
 import IndexContent from '../types/IndexContent'
 import JobsContentAPI, { convertJobsContentAPItoContent } from '../types/JobsContent'
@@ -13,6 +15,11 @@ export async function getWordpressPageBySlug<T>(slug: string) {
 
 export async function getIndexContent() {
   const { acf } = await getWordpressPageBySlug<{ acf: IndexContent }>('index')
+  return acf
+}
+
+export async function getAgaetisContent() {
+  const { acf } = await getWordpressPageBySlug<{ acf: AgaetisContentApi }>('agaetis')
   return acf
 }
 
@@ -31,7 +38,17 @@ export async function getJobsPageContent() {
   return convertJobsContentAPItoContent(acf)
 }
 
+export async function getContactPageContent() {
+  const { acf } = await getWordpressPageBySlug<{ acf: ContactContentApi }>('contact')
+  return acf
+}
+
 export async function getJobContent(slug: string) {
+  const data = getIdeaBySlug(slug)
+  return data
+}
+
+export async function getWhitePaperContent(slug: string) {
   const data = getIdeaBySlug(slug)
   return data
 }
@@ -43,6 +60,11 @@ export async function getAllIdeas() {
 
 export async function getAllJobs() {
   const { data } = await axios.get(`${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/agaetis/api/v1/jobs`)
+  return data
+}
+
+export async function getAllWhitePapers() {
+  const { data } = await axios.get(`${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/agaetis/api/v1/white-paper`)
   return data
 }
 

@@ -1,31 +1,46 @@
+import { NextContext } from 'next'
 import React from 'react'
 
 import WhitePaperForm from '../components/form/WhitePaperForm'
 import Layout from '../components/Layout'
+import { getWhitePaperContent } from '../Services/wordpressService'
+import WhitePaper from '../types/WhitePaper'
 
 function handleSubmit() {
   // TODO: Send white paper by mail
   alert('ok')
 }
 
-export default function whitePaper() {
+interface Props {
+  pageContent: WhitePaper
+}
+
+whitePaper.getInitialProps = async ({ query }: NextContext) => {
+  // tslint:disable-next-line
+  const data = await getWhitePaperContent(query.slug!)
+  return {
+    pageContent: data.acf,
+  }
+}
+
+export default function whitePaper({ pageContent }: Props) {
   return (
     <Layout>
       <>
         <div className="md:max-w-md mx-auto p-0 md:px-8">
           <div className="text-xs px-4 md:px-0">
-            <span className="text-underline">Accueil</span> > <span className="text-underline">Solutions</span>
+            <span className="text-underline">
+              <a href="/">Accueil</a>
+            </span>{' '}
+            > <b>{pageContent.title}</b>
           </div>
-          <h1 className="text-center text-2xl py-8 md:pb-0">
-            Titre du livre blanc qui s'affiche sur une ou deux lignes
-          </h1>
+          <h1 className="text-center text-2xl py-8 md:pb-0">{pageContent.title}</h1>
           <p className="md:max-w-md mx-auto text-center px-4 md:py-6 md:px-0 text-xs leading-normal">
-            At vero eos accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque
-            corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in
-            culpa qui officia deserunt mollitia
+            {pageContent.description}
           </p>
         </div>
-        <div className="border border-white md:max-w-md mx-auto mb-8 px-4">
+        <img className="md:max-w-md flex shadow-xl justify-center mx-auto my-4 p-0" src={pageContent.image} />
+        <div className="md:max-w-md mx-auto mb-8 px-4">
           <div className=" md:px-12 flex flex-col justify-center">
             <WhitePaperForm handleNextStep={handleSubmit} />
           </div>

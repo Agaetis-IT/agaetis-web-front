@@ -9,17 +9,31 @@ interface Props {
   children: string
   className?: string
   slug: string
+  image?: string
 }
 
 function createMarkup(content: string) {
   return { __html: content }
 }
 
-export default function IdeasCard({ slug, id, title, category, children, className }: Props) {
+function getStyle(id: number, image?: string) {
+  if (id < 0 && image) {
+    return {
+      background: `url("${image}")`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat',
+    }
+  } else {
+    return {}
+  }
+}
+
+export default function IdeasCard({ slug, id, title, category, children, className, image }: Props) {
   return (
-    <div className={clsx('md:w-1/3 p-4 my-2 md:h-ideas', className)}>
+    <div style={getStyle(id, image)} className={clsx(className)}>
       <div className={clsx({ 'text-blue': id !== 6 }, 'font-semibold text-xss')}>{category}</div>
-      <Link href={`/ideas/${slug}`} as={'/' + slug}>
+      <Link href={`/${slug}`}>
         <a className={clsx(id !== 6 ? 'text-black' : 'text-white')}>
           <h3 dangerouslySetInnerHTML={createMarkup(title)} className="font-semibold text-xs py-4 text-base" />
         </a>

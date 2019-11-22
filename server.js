@@ -19,13 +19,16 @@ app
         return handle(req, res)
       }
 
-      app.render(req, res, '/idea', queryParams)
+      app.render(req, res, '/idea', { ...req.params, ...req.query })
     })
 
     server.get('/jobs/:slug', (req, res) => {
       const queryParams = Object.assign({}, req.params, req.query)
-      console.log(queryParams)
-      app.render(req, res, '/job', queryParams)
+      app.render(req, res, '/job', { ...req.params, ...req.query })
+    })
+
+    server.get('/white-papers/:slug', (req, res) => {
+      app.render(req, res, '/white-paper', { ...req.params, ...req.query })
     })
 
     server.get('*', (req, res) => {

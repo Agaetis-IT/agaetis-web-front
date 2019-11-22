@@ -17,8 +17,16 @@ function IdeaContent({ content }: Props) {
     <div className="flex flex-row justify-center mb-8">
       <div className="md:max-w-md px-4 md:px-8">
         <div className="text-xs">
-          <span className="text-underline">Accueil</span> > <span className="text-underline">Idées</span> >{' '}
-          <b>Idée #1</b>
+          <span>
+            <a className="text-underline text-black" href="/">
+              Accueil
+            </a>{' '}
+            >{' '}
+            <a className="text-underline text-black" href="/ideas">
+              Idées
+            </a>{' '}
+            > <b dangerouslySetInnerHTML={createMarkup(content.title)} />
+          </span>
         </div>
         <img className="mx-auto md:mx-0 shadow-xl m-4" src={content.imageUrl} alt={content.imageUrl} />
         <div className="px-4">

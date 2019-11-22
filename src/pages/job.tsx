@@ -38,7 +38,7 @@ export default function job({ pageContent, allJobs }: Props) {
           title={offer.acf.intitule_job}
           description={offer.acf.description}
           href={'/jobs/' + offer.slug}
-          className="bg-white md:max-w-md p-4 my-2 self-center"
+          className="bg-white hover:bg-orange-light md:max-w-md p-4 my-2 self-center"
         />
       )),
     allJobs
@@ -52,8 +52,16 @@ export default function job({ pageContent, allJobs }: Props) {
       <>
         <div className="md:max-w-md mx-auto p-0 md:px-8">
           <div className="text-xs px-4 md:px-0">
-            <span className="text-underline">Accueil</span> > <span className="text-underline">Jobs</span> >{' '}
-            <span className="text-underline">{pageContent.title}</span>
+            <span>
+              <a className="text-underline text-black" href="/">
+                Accueil
+              </a>{' '}
+              >{' '}
+              <a className="text-underline text-black" href="/jobs">
+                Jobs
+              </a>{' '}
+              > <b>{pageContent.title}</b>{' '}
+            </span>
           </div>
           <h1 className="text-center text-2xl py-8 md:pb-0">{pageContent.title}</h1>
           <p className="md:max-w-md mx-auto text-center px-4 md:py-6 md:px-0 text-xs leading-normal">
@@ -67,9 +75,12 @@ export default function job({ pageContent, allJobs }: Props) {
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
           }}
-          className="bg-black mt-8 md:mt-0 md:mx-8 p-24"
+          className="bg-black mt-8 md:mt-0 md:mx-8 py-36"
         >
-          <Button className="flex flex-row justify-center uppercase rounded-full bg-orange text-xss py-2 px-6 text-white font-semibold mx-auto ">
+          <Button
+            href={'/contact'}
+            className="w-32 flex flex-row justify-center text-center uppercase rounded-full bg-orange text-xss py-2 px-6 text-white font-semibold mx-auto my-auto"
+          >
             Postuler
           </Button>
         </div>
@@ -85,7 +96,10 @@ export default function job({ pageContent, allJobs }: Props) {
               ))}
           </ul>
           <p className="mb-3">{pageContent.offre_last_paragraph}</p>
-          <Button className="flex flex-row justify-center uppercase rounded-full bg-orange text-xss py-2 px-6 text-white font-semibold mx-auto ">
+          <Button
+            href="/contact"
+            className="w-32 flex flex-row justify-center uppercase rounded-full bg-orange text-xss py-2 px-6 text-white font-semibold mx-auto mt-4"
+          >
             Postuler
           </Button>
         </div>
