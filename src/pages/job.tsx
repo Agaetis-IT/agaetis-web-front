@@ -75,9 +75,12 @@ export default function job({ pageContent, allJobs }: Props) {
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
           }}
-          className="bg-black mt-8 md:mt-0 md:mx-8 p-36"
+          className="bg-black mt-8 md:mt-0 md:mx-8 py-36"
         >
-          <Button className="flex flex-col justify-center  uppercase rounded-full bg-orange text-xss py-2 px-6 text-white font-semibold mx-auto my-auto">
+          <Button
+            href={'/contact'}
+            className="w-32 flex flex-row justify-center text-center uppercase rounded-full bg-orange text-xss py-2 px-6 text-white font-semibold mx-auto my-auto"
+          >
             Postuler
           </Button>
         </div>
@@ -93,7 +96,10 @@ export default function job({ pageContent, allJobs }: Props) {
               ))}
           </ul>
           <p className="mb-3">{pageContent.offre_last_paragraph}</p>
-          <Button className="flex flex-row justify-center uppercase rounded-full bg-orange text-xss py-2 px-6 text-white font-semibold mx-auto ">
+          <Button
+            href="/contact"
+            className="w-32 flex flex-row justify-center uppercase rounded-full bg-orange text-xss py-2 px-6 text-white font-semibold mx-auto mt-4"
+          >
             Postuler
           </Button>
         </div>
