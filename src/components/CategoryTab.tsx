@@ -66,11 +66,7 @@ export default function CategoryTab({ ideasC, categories, toggleMore, ideasImg1,
                 { 'shadow-xl w-auto md:h-ideas hidden md:block': idea.image !== undefined },
                 getBgColor(ideasC.indexOf(idea), categoryFilter)
               )}
-              slug={idea.slug}
-              id={idea.id}
-              title={idea.title}
-              category={idea.category}
-              image={idea.image}
+              {...idea}
             >
               {idea.descriptionText}
             </IdeasCard>

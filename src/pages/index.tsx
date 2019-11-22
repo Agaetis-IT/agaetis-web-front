@@ -30,7 +30,6 @@ function Index({ pageContent: pageContent }: Props) {
             description={pageContent.agaetis_desc}
             href="/agaetis"
             buttonContent={t('index.learnmore-btn')}
-            descBlockClass=""
             imgUrl={pageContent.agaetis_desc_img}
           />
           <HomeCard
@@ -39,7 +38,6 @@ function Index({ pageContent: pageContent }: Props) {
             description={pageContent.ideas_desc}
             href="/ideas"
             buttonContent={t('index.learnmore-btn')}
-            descBlockClass=""
             imgUrl={pageContent.ideas_desc_img}
           />
           <HomeCard
@@ -48,7 +46,6 @@ function Index({ pageContent: pageContent }: Props) {
             description={pageContent.solutions_desc}
             href="/solutions"
             buttonContent={t('index.learnmore-btn')}
-            descBlockClass=""
             imgUrl={pageContent.solutions_desc_img}
           />
           <HomeCard
@@ -57,7 +54,6 @@ function Index({ pageContent: pageContent }: Props) {
             description={pageContent.jobs_desc}
             href="/jobs"
             buttonContent={t('index.learnmore-btn')}
-            descBlockClass=""
             imgUrl={pageContent.jobs_desc_img}
           />
         </div>
