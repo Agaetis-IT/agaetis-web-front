@@ -1,16 +1,28 @@
 import React from 'react'
 
 import AgaetisCard from '../components/AgaetisCard'
+import ContactSection from '../components/ContactSection'
 import Layout from '../components/Layout'
+import { getAgaetisContent } from '../Services/wordpressService'
 import ImgH from '../static/images/histoire.png'
 import Img from '../static/images/Idees.png'
 import ImgI from '../static/images/innovation.png'
+import { AgaetisContent, convertAgaetisAPItoContent } from '../types/AgaetisContent'
 
-export default function agaetis() {
+interface Props {
+  pageContent: AgaetisContent
+}
+
+agaetis.getInitialProps = async () => {
+  const pageContent = await getAgaetisContent()
+  return { pageContent: convertAgaetisAPItoContent(pageContent) }
+}
+
+export default function agaetis({ pageContent }: Props) {
   return (
     <Layout headerProps={{ invertColors: false }}>
-      <div className="mx-auto px-0 ">
-        <div className="md:max-w-md mx-auto text-xs md:px-8 md:px-0">
+      <div className="mx-auto px-0">
+        <div className="md:max-w-md mx-auto text-xs px-4 md:px-8 ">
           <span>
             <a className="text-underline text-black" href="/">
               Accueil
@@ -19,38 +31,47 @@ export default function agaetis() {
           </span>
         </div>
         <div className="md:max-w-md mx-auto md:px-8">
-          <h1 className="text-center text-2xl py-8 md:pb-0">Agaetis</h1>
-          <p className=" text-center px-8 md:py-6 md:px-0 text-xs leading-normal">
-            At vero eos et accusamus et iusto odio dignissimos ducimus, qui blanditiis praesentium voluptatum deleniti
-            atque corrupti, quos dolores et quas molestias excepturi sint, obcaecati cupiditate non provident, similique
-            sunt in culpa, qui officia deserunt mollitia animi, id est laborum et dolorum fuga{' '}
-          </p>
+          <h1 className="text-center text-2xl py-8 md:pb-0">{pageContent.title}</h1>
+          <p className=" text-center px-4 md:py-6 md:px-0 text-xs leading-normal">{pageContent.paragraph}</p>
         </div>
-        <div className="px-2 md:px-6">
+        <div className=" md:px-6">
           <AgaetisCard
             className="md:flex-row"
-            title="Vision"
-            description="Les nouvelles technologies ont un rôle important dans les changements sociétaux et sociaux et économiques qui s'opèrent. Mais ces technologies doivent être au service de l'homme et non l'inverse, c'est pour cela que nous travaillons tous nos dispositifs où l'humain est au coeur de la réflexion."
+            title={pageContent.vision_title}
+            description={pageContent.vision_paragraph}
             descBlockClass=""
             imgShadow
-            imgUrl={Img}
+            imgUrl={pageContent.vision_img}
           />
           <AgaetisCard
             className="md:flex-row-reverse py-6 bg-grey"
-            title="Innovation"
-            description="Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecti beatea vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni."
+            title={pageContent.innovation_title}
+            description={pageContent.innovation_paragraph}
             descBlockClass=""
-            imgUrl={ImgI}
+            imgUrl={pageContent.innovation_img}
           />
           <AgaetisCard
             className="md:flex-row"
-            title="Histoire"
-            description="Dès la création en 2007, les fondateurs d'Agaetis d'Agaetis ont la conviction que la data est un enjeu complexe avec des changements profonds. A chaque étape de la vie de la société, nous avons renforcé notre légimité dans ce domaine en développant notre savoir-faire technique, notre management de projet, et notre créativité. Nous avons construit des collaborations importantes avec nos partenaires publics et privés et nos clients. Nous avons recruté les talents et oeuvré au travail en équipe. Chaque jour, l'histoire continue de s'écrire avec une rapidité et une richesse, c'est la notre véritable savoir-faire, et cela n'est que le début de l'histoire."
+            title={pageContent.histoire_title}
+            description={pageContent.histoire_paragraph}
             descBlockClass=""
             imgShadow
-            imgUrl={ImgH}
+            imgUrl={pageContent.histoire_img}
           />
         </div>
+        <div className="mb-8 md:mb-16">
+          <h2 className="text-center mt-12 mb-8">{pageContent.chiffres_title}</h2>
+          <div className="md:max-w-md mx-auto md:px-8 flex flex-col md:flex-row justify-around bg-grey p-8">
+            {pageContent.chiffres.map(chiffre => (
+              <div key={chiffre.title} className="text-center my-6 md:my-0 mx-2">
+                <h3 className="uppercase text-xs ">{chiffre.title}</h3>
+                <h3 className="text-4xl text-orange my-2 md:my-4">{chiffre.data}</h3>
+                <p className="text-xs">{chiffre.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+        <ContactSection />
       </div>
     </Layout>
   )
