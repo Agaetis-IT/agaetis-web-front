@@ -10,23 +10,14 @@ interface Props {
   href: string
   title: string
   description: string
-  descBlockClass: string
   buttonContent: string
   imgUrl: string
 }
 
-export default function HomeCard({
-  className,
-  href,
-  title,
-  description,
-  buttonContent,
-  descBlockClass,
-  imgUrl,
-}: Props) {
+export default function HomeCard({ className, href, title, description, buttonContent, imgUrl }: Props) {
   return (
-    <div className={clsx(' flex flex-col my-6 md:my-10 justify-between md:p-8 mx-auto md:max-w-lg', className)}>
-      <div className={clsx('md:max-w-xs mx-4 md:mx-0 self-center', descBlockClass)}>
+    <div className={clsx('flex flex-col my-6 md:my-10 justify-between md:p-8 mx-auto md:max-w-lg', className)}>
+      <div className={clsx('md:max-w-xs mx-4 md:mx-0 self-center')}>
         <Link href={href}>
           <a title={href}>
             <h2 className="pb-4 text-black">{title}</h2>

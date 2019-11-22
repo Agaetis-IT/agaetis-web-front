@@ -15,7 +15,7 @@ export default interface JobsContentAPI {
   slide3_quote_author_role: string
   slide3_Img: string
   we_are_agaetis_title: string
-  we_are_agaetis_Img: string
+  we_are_agaetis_img: string
   we_are_agaetis_paragraph: string
   join_us_title: string
   join_us_description: string
@@ -104,7 +104,7 @@ export function convertJobsContentAPItoContent(contentApi: JobsContentAPI) {
       contentApi,
       Object.keys(contentApi).filter(key => key.match(regexProfiles))
     ),
-    we_are_agaetis_Img: contentApi.we_are_agaetis_Img,
+    we_are_agaetis_Img: contentApi.we_are_agaetis_img,
     we_are_agaetis_title: contentApi.we_are_agaetis_title,
     we_are_agaetis_paragraph: contentApi.we_are_agaetis_paragraph,
     offers_button: contentApi.offers_button,

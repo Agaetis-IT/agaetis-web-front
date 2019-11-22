@@ -4,9 +4,6 @@ import AgaetisCard from '../components/AgaetisCard'
 import ContactSection from '../components/ContactSection'
 import Layout from '../components/Layout'
 import { getAgaetisContent } from '../Services/wordpressService'
-import ImgH from '../static/images/histoire.png'
-import Img from '../static/images/Idees.png'
-import ImgI from '../static/images/innovation.png'
 import { AgaetisContent, convertAgaetisAPItoContent } from '../types/AgaetisContent'
 
 interface Props {
