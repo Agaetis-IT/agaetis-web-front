@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
+import initReactGA, { trackUrl } from '../analytics/analytics'
 import '../config/yupConfig'
 import '../i18n'
 import '../index.css'
@@ -14,6 +15,12 @@ interface Props {
 }
 
 export default function Layout({ headerProps, children }: Props) {
+  useEffect(() => {
+    if (!window.GoogleAnalyticsObject) {
+      initReactGA()
+    }
+    trackUrl()
+  }, [])
   return (
     <div className=" md:p-0">
       <Header {...headerProps} />
