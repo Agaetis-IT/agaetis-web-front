@@ -8,6 +8,19 @@ export default function initReactGA() {
   })
 }
 
+export function newReactGAEvent(category: string, action: string, label?: string, value?: number) {
+  reactGA.event({
+    category,
+    action,
+    label,
+    value,
+  })
+}
+
 export function trackUrl() {
   reactGA.pageview(window.location.pathname)
+}
+
+export function newReactGACustomVar(dimensionId: number, value: string) {
+  reactGA.ga('set', 'dimension' + dimensionId, value)
 }

@@ -2,6 +2,7 @@ import clsx from 'clsx'
 import { ErrorMessage, Field, Form, Formik } from 'formik'
 import React from 'react'
 
+import { newReactGACustomVar, newReactGAEvent } from '../../analytics/analytics'
 import { Step3FormValues, step3InitialValues, step3Schema } from '../../yup/ContactFormValidation'
 import Button from '../Button'
 
@@ -12,6 +13,8 @@ interface Props {
 
 function onSubmit(fields: Step3FormValues, handleNext: () => void) {
   localStorage.setItem('step3', JSON.stringify(fields))
+  newReactGAEvent('ContactFormState', 'Submit form', 'Done')
+  newReactGACustomVar(1, 'Done')
   handleNext()
 }
 
