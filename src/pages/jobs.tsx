@@ -58,12 +58,13 @@ export default function jobs({ pageContent, allJobs }: Props) {
             className="md:max-w-md mx-auto text-center px-4 md:py-6 md:px-0 text-xs leading-normal"
             dangerouslySetInnerHTML={{ __html: pageContent.description }}
           />
-          <iframe
+          {/*<iframe
             height="350"
             className="mx-auto md:mx-0 shadow-xl m-4 w-full"
             src={pageContent.jobsImg}
             allow="autoplay; encrypted-media; gyroscope; picture-in-picture;fullscreen"
-          />
+          />*/}
+
           <JobsCarousel slideMax={2} slides={pageContent.slides} />
         </div>
         <div
