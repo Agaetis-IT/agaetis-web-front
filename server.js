@@ -15,7 +15,20 @@ app
     */
     server.get('/:slug', (req, res) => {
       const queryParams = Object.assign({}, req.params, req.query)
-      if (['solutions', 'ideas', 'agaetis', 'jobs', 'white-paper', 'contact', 'cookies'].includes(queryParams.slug)) {
+      if (
+        [
+          'solutions',
+          'ideas',
+          'agaetis',
+          'jobs',
+          'white-paper',
+          'contact',
+          'cookies',
+          'faq',
+          'personal-data',
+          'sitemap',
+        ].includes(queryParams.slug)
+      ) {
         return handle(req, res)
       }
 
@@ -23,7 +36,6 @@ app
     })
 
     server.get('/jobs/:slug', (req, res) => {
-      const queryParams = Object.assign({}, req.params, req.query)
       app.render(req, res, '/job', { ...req.params, ...req.query })
     })
 
