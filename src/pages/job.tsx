@@ -82,14 +82,7 @@ export default function job({ pageContent, allJobs, errorCode }: Props) {
             backgroundRepeat: 'no-repeat',
           }}
           className="bg-black mt-8 md:mt-0 md:mx-8 py-36"
-        >
-          <Button
-            href={'/contact'}
-            className="w-32 flex flex-row justify-center text-center uppercase rounded-full bg-orange text-xss py-3 px-6 text-white font-semibold mx-auto my-auto"
-          >
-            Postuler
-          </Button>
-        </div>
+        />
         <div className="w-full md:max-w-md mx-auto p-8 text-xs leading-normal text-justify">
           <p className="mb-3">{pageContent.offre_description}</p>
           <ul className="pl-4">

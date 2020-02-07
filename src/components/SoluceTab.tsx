@@ -49,21 +49,22 @@ export default function SoluceTab({ tabs }: Props) {
 
   return (
     <>
-      <div className="flex flex-row w-full mt-8 md:mt-0">
-        <Button className={getTabsClassNames(0, currentIndex)} styleType="tab" onClick={onTabChange(0)}>
-          {tabs[0].header}
-        </Button>
-        <Button className={getTabsClassNames(1, currentIndex)} styleType="tab" onClick={onTabChange(1)}>
-          {tabs[1].header}
-        </Button>
-        <Button className={getTabsClassNames(2, currentIndex)} styleType="tab" onClick={onTabChange(2)}>
-          {tabs[2].header}
-        </Button>
-        <Button className={getTabsClassNames(3, currentIndex)} styleType="tab" onClick={onTabChange(3)}>
-          {tabs[3].header}
-        </Button>
+      <div className="md:max-w-md mx-auto p-0 md:px-8</div>">
+        <div className="flex flex-row w-full mt-8 md:mt-0">
+          <Button className={getTabsClassNames(0, currentIndex)} styleType="tab" onClick={onTabChange(0)}>
+            {tabs[0].header}
+          </Button>
+          <Button className={getTabsClassNames(1, currentIndex)} styleType="tab" onClick={onTabChange(1)}>
+            {tabs[1].header}
+          </Button>
+          <Button className={getTabsClassNames(2, currentIndex)} styleType="tab" onClick={onTabChange(2)}>
+            {tabs[2].header}
+          </Button>
+          <Button className={getTabsClassNames(3, currentIndex)} styleType="tab" onClick={onTabChange(3)}>
+            {tabs[3].header}
+          </Button>
+        </div>
       </div>
-
       <SoluceTabContent className="flex flex-col md:flex-row w-full" content={tabs.sort(compareTabs)[currentIndex]} />
     </>
   )
