@@ -13,6 +13,7 @@ export default function Error({ statusCode }: Props) {
     <>
       <Head>
         <meta name="robots" content="noindex,nofollow" />
+        <title>Agaetis : Erreur 404</title>
       </Head>
       <Layout>
         <>
