@@ -39,7 +39,7 @@ export default function CategoryTab({ ideasC, categories, toggleMore, ideasImg1,
     slug: '',
     title: '',
     category: '',
-    categories: [],
+    categories: [''],
     descriptionText: '',
     date: '',
     image: ideasImg1,
@@ -49,7 +49,7 @@ export default function CategoryTab({ ideasC, categories, toggleMore, ideasImg1,
     slug: '',
     title: '',
     category: '',
-    categories: [],
+    categories: [''],
     descriptionText: '',
     date: '',
     image: ideasImg2,
@@ -58,10 +58,9 @@ export default function CategoryTab({ ideasC, categories, toggleMore, ideasImg1,
   const filteredIdeas = useMemo(() => {
     const ideas = ideasC.filter(
       idea =>
-        categoryFilter === 'All' ||
-        idea.category === categoryFilter ||
-        idea.category === '' ||
-        idea.categories.includes(categoryFilter)
+        !idea.categories.includes('White-paper') &&
+        !idea.categories.includes('Jobs') &&
+        (categoryFilter === 'All' || idea.categories.includes(categoryFilter) || idea.categories.includes(''))
     )
 
     if (!ideas.find((idea: IdeasDesc) => idea.id === -1)) {

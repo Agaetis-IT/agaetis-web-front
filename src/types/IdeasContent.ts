@@ -2,7 +2,6 @@ export interface IdeasDesc {
   id: number
   slug: string
   title: string
-  category: string
   categories: string[]
   descriptionText: string
   date: string

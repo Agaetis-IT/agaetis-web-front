@@ -27,7 +27,6 @@ Ideas.getInitialProps = async () => {
     ideasDescription: ideas.map((idea: any) => ({
       id: idea.id,
       title: idea.title.rendered,
-      category: idea._embedded['wp:term'][0][0].name,
       categories: idea._embedded['wp:term'][0].map((category: { name: string }) => category.name),
       slug: idea.slug,
       descriptionText: idea.acf.idea_description,

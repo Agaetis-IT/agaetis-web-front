@@ -37,7 +37,6 @@ Idea.getInitialProps = async ({ query }: NextContext) => {
         imageUrl: data.acf.idea_image || '',
         date: data.date,
         author: data._embedded.author[0].name,
-        category: data._embedded['wp:term'][0][0].name,
         categories: data._embedded['wp:term'][0].map((category: { name: string }) => category.name),
         content: data.content.rendered,
         slug: data.slug,
@@ -47,7 +46,6 @@ Idea.getInitialProps = async ({ query }: NextContext) => {
           title: idea.title.rendered,
           id: idea.id,
           date: idea.date,
-          category: idea._embedded['wp:term'][0][0].name,
           categories: data._embedded['wp:term'][0].map((category: { name: string }) => category.name),
           slug: idea.slug,
           descriptionText: idea.acf.idea_description,
@@ -61,7 +59,7 @@ Idea.getInitialProps = async ({ query }: NextContext) => {
       imageUrl: '',
       date: '',
       author: '',
-      category: '',
+      categories: [],
       content: '',
       slug: '',
     },
@@ -69,7 +67,7 @@ Idea.getInitialProps = async ({ query }: NextContext) => {
       title: '',
       id: '',
       date: '',
-      category: '',
+      categories: [],
       slug: '',
       descriptionText: '',
     },
@@ -94,7 +92,6 @@ export default function Idea({ data, related, errorCode }: Props) {
             slug={idea.slug}
             id={idea.id}
             title={idea.title}
-            category={idea.category}
             categories={idea.categories}
             className="p-4 my-2 md:h-ideas bg-light-grey"
           >

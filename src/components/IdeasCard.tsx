@@ -5,7 +5,6 @@ import React from 'react'
 interface Props {
   id: number
   title: string
-  category: string
   categories: string[]
   children: string | React.ReactElement
   className?: string
@@ -30,7 +29,7 @@ function getStyle(id: number, image?: string) {
   }
 }
 
-export default function IdeasCard({ slug, id, title, category, categories, children, className, image }: Props) {
+export default function IdeasCard({ slug, id, title, categories, children, className, image }: Props) {
   return (
     <div style={getStyle(id, image)} className={clsx(className)}>
       <div className={clsx({ 'text-blue': id !== 6 }, 'font-semibold text-xss')}>
