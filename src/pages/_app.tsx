@@ -28,7 +28,7 @@ export default class MyApp extends App {
           <link rel="shortcut icon" type="image/png" href={Favicon} />
         </Head>
         <Container>
-          <LoadingSpinner color="#29D" startPosition={0.3} stopDelayMs={200} height="3" />
+          <LoadingSpinner color="#ff7f40" startPosition={0.3} stopDelayMs={50} height="3" />
           <Component {...pageProps} />
         </Container>
       </>
