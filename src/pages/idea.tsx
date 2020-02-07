@@ -1,5 +1,6 @@
 import clsx from 'clsx'
 import { NextContext } from 'next'
+import Head from 'next/head'
 import React, { useMemo, useState } from 'react'
 
 import Button from '../components/Button'
@@ -37,6 +38,7 @@ Idea.getInitialProps = async ({ query }: NextContext) => {
         author: data._embedded.author[0].name,
         category: data._embedded['wp:term'][0][0].name,
         content: data.content.rendered,
+        slug: data.slug,
       },
       related: related.map(idea => {
         return {
@@ -58,6 +60,7 @@ Idea.getInitialProps = async ({ query }: NextContext) => {
       author: '',
       category: '',
       content: '',
+      slug: '',
     },
     related: {
       title: '',
@@ -100,31 +103,38 @@ export default function Idea({ data, related, errorCode }: Props) {
   }, related)
 
   return (
-    <Layout>
-      <div>
-        <IdeaContent content={data} />
-        {related && related.length > 0 && (
-          <>
-            <div className="pb-12 mb-8 blue-underline">
-              <h2 className="text-center">Ces idées peuvent vous interesser</h2>
+    <>
+      <Head>
+        <title>Agaetis : {data.title}</title>
+        <meta property="og:description" content="Chacun d'entre nous a ses idées et le droit de les défendre" />
+        <link rel="canonical" href={`http://www.agaetis.fr/${data.slug}`} />
+      </Head>
+      <Layout>
+        <div>
+          <IdeaContent content={data} />
+          {related && related.length > 0 && (
+            <>
+              <div className="pb-12 mb-8 blue-underline">
+                <h2 className="text-center">Ces idées peuvent vous interesser</h2>
 
-              <div className="md:max-w-md px-4 mt-8 mx-auto flex flex-col md:flex-row justify-center">
-                {relatedIdeas.slice(0, 3)}
-                {isOpenedMoreIdeas && relatedIdeas.slice(3)}
+                <div className="md:max-w-md px-4 mt-8 mx-auto flex flex-col md:flex-row justify-center">
+                  {relatedIdeas.slice(0, 3)}
+                  {isOpenedMoreIdeas && relatedIdeas.slice(3)}
+                </div>
+                <Button
+                  onClick={handleToggleMoreIdeas}
+                  className={clsx(
+                    related.length < 4 ? 'hidden' : 'flex',
+                    'flex-row justify-center uppercase rounded-full bg-orange text-xss py-2 px-6 mt-8 text-white font-semibold mx-auto'
+                  )}
+                >
+                  {!isOpenedMoreIdeas ? "Voir plus d'idées" : "Voir moins d'idées"}
+                </Button>
               </div>
-              <Button
-                onClick={handleToggleMoreIdeas}
-                className={clsx(
-                  related.length < 4 ? 'hidden' : 'flex',
-                  'flex-row justify-center uppercase rounded-full bg-orange text-xss py-2 px-6 mt-8 text-white font-semibold mx-auto'
-                )}
-              >
-                {!isOpenedMoreIdeas ? "Voir plus d'idées" : "Voir moins d'idées"}
-              </Button>
-            </div>
-          </>
-        )}
-      </div>
-    </Layout>
+            </>
+          )}
+        </div>
+      </Layout>
+    </>
   )
 }
