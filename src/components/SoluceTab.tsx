@@ -1,4 +1,3 @@
-import clsx from 'clsx'
 import React, { useState } from 'react'
 
 import { compareTabs, Tab } from '../types/SolutionsContent'

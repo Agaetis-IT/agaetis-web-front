@@ -1,5 +1,6 @@
 import clsx from 'clsx'
 import { NextContext } from 'next'
+import Error from 'next/error'
 import React, { useMemo, useState } from 'react'
 
 import Button from '../components/Button'
@@ -12,46 +13,70 @@ import IdeasContent, { IdeasDesc } from '../types/IdeasContent'
 interface Props {
   data: IdeasContent
   related: IdeasDesc[]
+  errorCode?: number
 }
 
 Idea.getInitialProps = async ({ query }: NextContext) => {
   // tslint:disable-next-line
   const data = await getIdeaBySlug(query.slug)
-  const related = []
-  for (const idea of data.acf.related_ideas) {
-    const data2 = await getIdeaBySlug(idea.post_name)
-    related.push(data2)
-  }
+  if (!!data.acf) {
+    const related = []
+    for (const idea of data.acf.related_ideas) {
+      const data2 = await getIdeaBySlug(idea.post_name)
+      related.push(data2)
+    }
 
+    return {
+      data: {
+        title: data.title.rendered,
+        imageUrl: data.acf.idea_image || '',
+        date: data.date,
+        author: data._embedded.author[0].name,
+        category: data._embedded['wp:term'][0][0].name,
+        content: data.content.rendered,
+      },
+      related: related.map(idea => {
+        return {
+          title: idea.title.rendered,
+          id: idea.id,
+          date: idea.date,
+          category: idea._embedded['wp:term'][0][0].name,
+          slug: idea.slug,
+          descriptionText: idea.acf.idea_description,
+        }
+      }),
+    }
+  }
   return {
     data: {
-      title: data.title.rendered,
-      imageUrl: data.acf.idea_image || '',
-      date: data.date,
-      author: data._embedded.author[0].name,
-      category: data._embedded['wp:term'][0][0].name,
-      content: data.content.rendered,
+      title: '',
+      imageUrl: '',
+      date: '',
+      author: '',
+      category: '',
+      content: '',
     },
-    related: related.map(idea => {
-      return {
-        title: idea.title.rendered,
-        id: idea.id,
-        date: idea.date,
-        category: idea._embedded['wp:term'][0][0].name,
-        slug: idea.slug,
-        descriptionText: idea.acf.idea_description,
-      }
-    }),
+    related: {
+      title: '',
+      id: '',
+      date: '',
+      category: '',
+      slug: '',
+      descriptionText: '',
+    },
+    errorCode: 404,
   }
 }
 
-export default function Idea({ data, related }: Props) {
+export default function Idea({ data, related, errorCode }: Props) {
   const [isOpenedMoreIdeas, setIsOpenedMoreIdeas] = useState(false)
-
   function handleToggleMoreIdeas() {
     setIsOpenedMoreIdeas(!isOpenedMoreIdeas)
   }
 
+  if (!!errorCode) {
+    return <Error statusCode={404} />
+  }
   const relatedIdeas = useMemo(
     () =>
       related.map(idea => (

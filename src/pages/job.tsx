@@ -1,4 +1,5 @@
 import { NextContext } from 'next'
+import Error from 'next/error'
 import React, { useMemo, useState } from 'react'
 
 import Button from '../components/Button'
@@ -13,6 +14,7 @@ import './job.css'
 interface Props {
   pageContent: JobContent
   allJobs: JobContentLite[]
+  errorCode?: number
 }
 
 job.getInitialProps = async ({ query }: NextContext) => {
@@ -25,11 +27,15 @@ job.getInitialProps = async ({ query }: NextContext) => {
     allJobs: allJobs.filter((offer: JobContentLite) => {
       return offer.slug !== pageContent.slug
     }),
+    errorCode: !!data.acf ? undefined : 404,
   }
 }
 
-export default function job({ pageContent, allJobs }: Props) {
+export default function job({ pageContent, allJobs, errorCode }: Props) {
   const [isMoreOffersToggled, setIsMoreOffersToggled] = useState(false)
+  if (!!errorCode) {
+    return <Error statusCode={404} />
+  }
   const offers = useMemo(
     () =>
       allJobs.map(offer => (

@@ -1,4 +1,5 @@
 import { NextContext } from 'next'
+import Error from 'next/error'
 import React from 'react'
 
 import WhitePaperForm from '../components/form/WhitePaperForm'
@@ -12,18 +13,25 @@ function handleSubmit() {
 }
 
 interface Props {
-  pageContent: WhitePaper
+  pageContent?: WhitePaper
+  errorCode?: number
 }
 
 whitePaper.getInitialProps = async ({ query }: NextContext) => {
   // tslint:disable-next-line
   const data = await getWhitePaperContent(query.slug!)
-  return {
-    pageContent: data.acf,
+  if (!!data.acf) {
+    return {
+      pageContent: data.acf,
+    }
   }
+  return { errorCode: 404 }
 }
 
-export default function whitePaper({ pageContent }: Props) {
+export default function whitePaper({ pageContent, errorCode }: Props) {
+  if (!pageContent && errorCode) {
+    return <Error statusCode={404} />
+  }
   return (
     <Layout>
       <>
