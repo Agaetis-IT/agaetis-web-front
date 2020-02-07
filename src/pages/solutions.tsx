@@ -3,7 +3,7 @@ import React from 'react'
 import Layout from '../components/Layout'
 import SoluceTab from '../components/SoluceTab'
 import { getSolutionsPageContent } from '../Services/wordpressService'
-import { compareWhyUsSection, SolutionsContent } from '../types/SolutionsContent'
+import { SolutionsContent } from '../types/SolutionsContent'
 
 import './solutions.css'
 

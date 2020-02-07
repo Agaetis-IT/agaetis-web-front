@@ -1,3 +1,4 @@
+import clsx from 'clsx'
 import React from 'react'
 
 import AgaetisCard from '../components/AgaetisCard'
@@ -31,30 +32,15 @@ export default function agaetis({ pageContent }: Props) {
           <h1 className="text-center text-2xl py-8 md:pb-0">{pageContent.title}</h1>
           <p className=" text-center px-4 md:py-6 md:px-0 text-xs leading-normal">{pageContent.paragraph}</p>
         </div>
-        <div className=" md:px-6">
-          <AgaetisCard
-            className="md:flex-row"
-            title={pageContent.vision_title}
-            description={pageContent.vision_paragraph}
-            descBlockClass=""
-            imgShadow
-            imgUrl={pageContent.vision_img}
-          />
-          <AgaetisCard
-            className="md:flex-row-reverse py-6 bg-light-grey"
-            title={pageContent.innovation_title}
-            description={pageContent.innovation_paragraph}
-            descBlockClass=""
-            imgUrl={pageContent.innovation_img}
-          />
-          <AgaetisCard
-            className="md:flex-row"
-            title={pageContent.histoire_title}
-            description={pageContent.histoire_paragraph}
-            descBlockClass=""
-            imgShadow
-            imgUrl={pageContent.histoire_img}
-          />
+        <div className="md:max-w-md mx-auto md:py-8">
+          {pageContent.questions.map(question => (
+            <AgaetisCard
+              key={question.index}
+              className={clsx('md:flex-row', { 'bg-light-grey': question.index % 2 === 1 })}
+              title={question.intitule}
+              description={question.reponse}
+            />
+          ))}
         </div>
         <div className="mb-8 md:mb-16">
           <h2 className="text-center mt-12 mb-8">{pageContent.chiffres_title}</h2>
