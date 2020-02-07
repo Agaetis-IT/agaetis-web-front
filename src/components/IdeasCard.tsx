@@ -6,7 +6,7 @@ interface Props {
   id: number
   title: string
   category: string
-  children: string
+  children: string | React.ReactElement
   className?: string
   slug: string
   image?: string
@@ -38,7 +38,7 @@ export default function IdeasCard({ slug, id, title, category, children, classNa
           <h3 dangerouslySetInnerHTML={createMarkup(title)} className="font-semibold text-xs py-4 text-base" />
         </a>
       </Link>
-      <p className="text-cgu text-justify leading-tight h-12 overflow-y-hidden">{children}</p>
+      <div className="text-cgu text-justify leading-tight h-12 overflow-y-hidden">{children}</div>
     </div>
   )
 }
