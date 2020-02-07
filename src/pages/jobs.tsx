@@ -1,4 +1,3 @@
-import Axios from 'axios'
 import React, { useMemo, useState } from 'react'
 
 import Button from '../components/Button'

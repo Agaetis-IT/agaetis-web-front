@@ -1,6 +1,5 @@
 import clsx from 'clsx'
 import { NextContext } from 'next'
-import Error from 'next/error'
 import React, { useMemo, useState } from 'react'
 
 import Button from '../components/Button'
@@ -9,6 +8,8 @@ import IdeasCard from '../components/IdeasCard'
 import Layout from '../components/Layout'
 import { getIdeaBySlug } from '../Services/wordpressService'
 import IdeasContent, { IdeasDesc } from '../types/IdeasContent'
+
+import Error from './_error'
 
 interface Props {
   data: IdeasContent

@@ -40,14 +40,14 @@ export default function Button({
       href={href}
       title={href}
       htmlFor={htmlFor}
-      onClick={() => {
-        if (!disabled) {
-          return onClick
-        }
-        return undefined
-      }}
+      onClick={!disabled ? onClick : undefined}
       type={type}
-      className={clsx({ [tabClassNames]: styleType === 'tab' }, className, { 'text-grey': disabled }, 'cursor-pointer')}
+      className={clsx(
+        { [tabClassNames]: styleType === 'tab' },
+        className,
+        { 'text-grey cursor-default': disabled },
+        { 'cursor-pointer': !disabled }
+      )}
     >
       {children}
     </ComponentProp>
