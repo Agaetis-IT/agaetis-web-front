@@ -79,7 +79,7 @@ export default function job({ pageContent, allJobs }: Props) {
         >
           <Button
             href={'/contact'}
-            className="w-32 flex flex-row justify-center text-center uppercase rounded-full bg-orange text-xss py-2 px-6 text-white font-semibold mx-auto my-auto"
+            className="w-32 flex flex-row justify-center text-center uppercase rounded-full bg-orange text-xss py-3 px-6 text-white font-semibold mx-auto my-auto"
           >
             Postuler
           </Button>
