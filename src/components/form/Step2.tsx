@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import { Form, Formik } from 'formik'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import step2Schema, { Step2FormValues, step2InitialValues } from '../../yup/ContactFormValidation'
 import Button from '../Button'
@@ -19,9 +19,15 @@ function onSubmit(fields: Step2FormValues, handleNext: () => void) {
 }
 
 export default function Step2({ className, handleNextStep }: Props) {
+  const [formValues, setFormValues] = useState(step2InitialValues)
+  useEffect(() => {
+    if (localStorage.getItem('step2')) {
+      setFormValues(JSON.parse(localStorage.getItem('step2')!))
+    }
+  }, [formValues])
   return (
     <Formik
-      initialValues={step2InitialValues}
+      initialValues={formValues}
       validationSchema={step2Schema}
       onSubmit={fields => {
         onSubmit(fields, handleNextStep)

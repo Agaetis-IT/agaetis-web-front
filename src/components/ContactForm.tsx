@@ -7,7 +7,7 @@ import Step1 from './form/Step1'
 import Step2 from './form/Step2'
 import Step3 from './form/Step3'
 const stepHeaderClassNames =
-  'text-xs uppercase text-center py-4 md:inline border border-white font-semibold self-center md:w-1/3'
+  'text-xs uppercase text-center py-4 md:inline border border-white font-semibold self-center md:w-1/3 cursor-pointer'
 
 function getHeadersClassNames(index: number, currentIndex: number) {
   if (index === 0) {
@@ -66,8 +66,26 @@ export default function ContactTab() {
   return (
     <div>
       <div className="flex flex-row md:max-w-md mx-auto md:px-4">
-        <div className={clsx(getHeadersClassNames(0, currentIndex), stepHeaderClassNames)}>Votre profil</div>
-        <div className={clsx(getHeadersClassNames(1, currentIndex), stepHeaderClassNames)}>Vos coordonnées</div>
+        <div
+          className={clsx(getHeadersClassNames(0, currentIndex), stepHeaderClassNames)}
+          onClick={() => {
+            if (currentIndex > 0) {
+              setCurrentIndex(0)
+            }
+          }}
+        >
+          Votre profil
+        </div>
+        <div
+          className={clsx(getHeadersClassNames(1, currentIndex), stepHeaderClassNames)}
+          onClick={() => {
+            if (currentIndex > 1) {
+              setCurrentIndex(1)
+            }
+          }}
+        >
+          Vos coordonnées
+        </div>
         <div className={clsx(getHeadersClassNames(2, currentIndex), stepHeaderClassNames)}>Votre message</div>
       </div>
       <div className="border border-white md:max-w-md mx-auto md:px-4">

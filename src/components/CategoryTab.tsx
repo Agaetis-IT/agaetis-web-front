@@ -57,7 +57,7 @@ export default function CategoryTab({ ideasC, categories, toggleMore, ideasImg1,
   const filteredIdeas = useMemo(
     () =>
       ideasC
-        .filter(idea => categoryFilter === 'All' || idea.category === categoryFilter)
+        .filter(idea => categoryFilter === 'All' || idea.category === categoryFilter || idea.category === '')
         .map(idea => (
           <div key={idea.id} className="md:w-1/3 px-1">
             <IdeasCard

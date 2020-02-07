@@ -5,6 +5,7 @@ const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev, dir: './src' })
 const handle = app.getRequestHandler()
 const port = process.env.PORT || 3000
+
 app
   .prepare()
   .then(() => {
@@ -13,6 +14,7 @@ app
     /*
       /:slug : existing ideas url are /:postname, we have to respect this pattern 
     */
+
     server.get('/:slug', (req, res) => {
       const queryParams = Object.assign({}, req.params, req.query)
       if (
@@ -25,7 +27,7 @@ app
           'contact',
           'cookies',
           'personal-data',
-          'sitemap',
+          'sitemap.xml',
         ].includes(queryParams.slug)
       ) {
         return handle(req, res)
