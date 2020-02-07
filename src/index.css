@@ -40,3 +40,11 @@ textarea::-webkit-scrollbar-thumb {
 [type='textarea'] {
   -webkit-appearance: none;
 }
+
+.fixed2 {
+  position: fixed;
+
+  bottom: 0;
+  left: 0;
+  right: 0;
+}

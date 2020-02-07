@@ -31,7 +31,7 @@ export default function WhitePaperForm({ className, handleNextStep }: Props) {
             label="Prénom"
             isInvalid={!!errors.firstName && !!touched.firstName}
             className="flex flex-col my-2"
-            inputClassName="bg-grey"
+            inputClassName="bg-light-grey"
           />
           <TextField
             name="lastName"
@@ -39,7 +39,7 @@ export default function WhitePaperForm({ className, handleNextStep }: Props) {
             label="Nom"
             isInvalid={!!errors.lastName && !!touched.lastName}
             className="flex flex-col my-2"
-            inputClassName="bg-grey"
+            inputClassName="bg-light-grey"
           />
           <TextField
             name="email"
@@ -47,7 +47,7 @@ export default function WhitePaperForm({ className, handleNextStep }: Props) {
             label="Email"
             isInvalid={!!errors.email && !!touched.email}
             className="flex flex-col my-2"
-            inputClassName="bg-grey"
+            inputClassName="bg-light-grey"
           />
           <TextField
             name="company"
@@ -55,7 +55,7 @@ export default function WhitePaperForm({ className, handleNextStep }: Props) {
             label="Société"
             isInvalid={!!errors.company && !!touched.company}
             className="flex flex-col my-2"
-            inputClassName="bg-grey"
+            inputClassName="bg-light-grey"
           />
           <Checkbox
             className="flex flex-col my-2"

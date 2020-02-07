@@ -37,7 +37,7 @@ function Index({ pageContent: pageContent }: Props) {
             imgUrl={pageContent.agaetis_desc_img}
           />
           <HomeCard
-            className="md:flex-row-reverse py-6 bg-grey"
+            className="md:flex-row-reverse py-6 bg-light-grey"
             title={pageContent.ideas_desc_title}
             description={pageContent.ideas_desc}
             href="/ideas"
@@ -53,7 +53,7 @@ function Index({ pageContent: pageContent }: Props) {
             imgUrl={pageContent.solutions_desc_img}
           />
           <HomeCard
-            className="md:flex-row-reverse py-6  bg-grey"
+            className="md:flex-row-reverse py-6  bg-light-grey"
             title={pageContent.jobs_desc_title}
             description={pageContent.jobs_desc}
             href="/jobs"

@@ -116,7 +116,7 @@ export default function jobs({ pageContent, allJobs }: Props) {
             ))}
           </div>
         </div>
-        <div className="flex flex-col bg-grey py-12 px-4 md:p-12 mt-12">
+        <div className="flex flex-col bg-light-grey py-12 px-4 md:p-12 mt-12">
           <h2 className="text-center mb-8" dangerouslySetInnerHTML={{ __html: pageContent.offers_title }} />
           <div className="flex flex-col">
             {offers.slice(0, 1)}

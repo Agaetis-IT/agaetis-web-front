@@ -41,7 +41,7 @@ export default function agaetis({ pageContent }: Props) {
             imgUrl={pageContent.vision_img}
           />
           <AgaetisCard
-            className="md:flex-row-reverse py-6 bg-grey"
+            className="md:flex-row-reverse py-6 bg-light-grey"
             title={pageContent.innovation_title}
             description={pageContent.innovation_paragraph}
             descBlockClass=""
@@ -58,7 +58,7 @@ export default function agaetis({ pageContent }: Props) {
         </div>
         <div className="mb-8 md:mb-16">
           <h2 className="text-center mt-12 mb-8">{pageContent.chiffres_title}</h2>
-          <div className="md:max-w-md mx-auto md:px-8 flex flex-col md:flex-row justify-around bg-grey p-8">
+          <div className="md:max-w-md mx-auto md:px-8 flex flex-col md:flex-row justify-around bg-light-grey p-8">
             {pageContent.chiffres.map(chiffre => (
               <div key={chiffre.title} className="text-center my-6 md:my-0 mx-2">
                 <h3 className="uppercase text-xs ">{chiffre.title}</h3>

@@ -24,7 +24,7 @@ function getBgColor(id: number, category: string) {
   } else if (id === 7 && category === 'All') {
     return 'bg-pink'
   } else {
-    return 'bg-grey'
+    return 'bg-light-grey'
   }
 }
 

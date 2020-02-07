@@ -45,7 +45,7 @@ export default function Button({
       className={clsx(
         { [tabClassNames]: styleType === 'tab' },
         className,
-        { 'text-grey cursor-default': disabled },
+        { 'text-light-grey cursor-default': disabled },
         { 'cursor-pointer': !disabled }
       )}
     >

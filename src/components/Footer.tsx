@@ -36,7 +36,7 @@ export default function Footer() {
     },
   ]
   return (
-    <footer className="p-4">
+    <footer className="py-4">
       <div className="flex flex-col md:flex-row justify-center text-center md:text-left">
         <div className="p-4 pt-0 md:p-0 md:pr-4">
           <h4 className="text-xs">{t('footer.address-title')}</h4>
@@ -61,9 +61,9 @@ export default function Footer() {
           </div>
         </div>
       </div>
-      <hr className="md:mt-8 Footer-separator" />
+      <hr className="md:mt-8 Footer-separator w-full" />
       <BottomNav />
-      <hr className="Footer-separator" />
+      <hr className="Footer-separator w-full" />
       <div className="text-xss text-center opacity-25 pt-2"> {t('footer.copyright')}</div>
     </footer>
   )

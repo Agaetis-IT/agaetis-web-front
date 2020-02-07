@@ -68,7 +68,7 @@ export default function NavigationMenu({ invertColors }: Props) {
       >
         <Button
           className={clsx(
-            isLanguageSelected('en') ? 'Button-language--active' : { 'md:text-grey': invertColors },
+            isLanguageSelected('en') ? 'Button-language--active' : { 'md:text-light-grey': invertColors },
             'mr-1 text-xss text-black'
           )}
           disabled

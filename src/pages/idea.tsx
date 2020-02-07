@@ -87,7 +87,7 @@ export default function Idea({ data, related, errorCode }: Props) {
             id={idea.id}
             title={idea.title}
             category={idea.category}
-            className="p-4 my-2 md:h-ideas bg-grey"
+            className="p-4 my-2 md:h-ideas bg-light-grey"
           >
             {idea.descriptionText}
           </IdeasCard>

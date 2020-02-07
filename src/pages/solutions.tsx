@@ -50,7 +50,7 @@ export default function solutions({ pageContent }: Props) {
             </div>
           </div>
         </div>
-        <div className="bg-grey blue-underline px-4 py-8 my-4">
+        <div className="bg-light-grey blue-underline px-4 py-8 my-4">
           <h2 className="text-2xl font-semibold text-center">{pageContent.partnerTitle}</h2>
           <div className="flex flex-row flex-wrap justify-center p-4">
             {pageContent.partners.map(partner => (

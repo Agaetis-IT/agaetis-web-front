@@ -85,7 +85,7 @@ export default function Ideas({ ideasDescription, whitePapers, categories, conte
           </Button>
         </div>
 
-        <div id="whitepapers" className="text-center w-full mx-auto p-6 md:py-12 bg-grey my-8 blue-underline">
+        <div id="whitepapers" className="text-center w-full mx-auto p-6 md:py-12 bg-light-grey my-8 blue-underline">
           <h2 className="text-2xl mt-4">Livres blancs</h2>
           <p className="text-xs md:max-w-md md:px-20 py-4 mx-auto">
             Curabitur et elit sed orci consequat dapibus a quis justo. Maecenas ornare fermentum congue. Cras eget ante

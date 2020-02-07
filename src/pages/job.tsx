@@ -109,7 +109,7 @@ export default function job({ pageContent, allJobs, errorCode }: Props) {
             Postuler
           </Button>
         </div>
-        <div className="flex flex-col bg-grey py-12 px-4 md:p-12">
+        <div className="flex flex-col bg-light-grey py-12 px-4 md:p-12">
           <h2 className="text-center mb-8" dangerouslySetInnerHTML={{ __html: 'Nos offres' }} />
           <div className="flex flex-col">
             {offers.slice(0, 1)}
