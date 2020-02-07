@@ -2,6 +2,7 @@ import App, { Container } from 'next/app'
 import Head from 'next/head'
 import React from 'react'
 
+import Favicon from '../images/symbole-agaetis-p164-rgb.png'
 import '../index.css'
 
 export default class MyApp extends App {
@@ -23,6 +24,7 @@ export default class MyApp extends App {
           <meta property="og:description" content={"Agaetis' official website"} />
           <meta name="keywords" content="Agaetis, Data science, Web development, Digital Twin" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <link rel="shortcut icon" type="image/png" href={Favicon} />
         </Head>
         <Container>
           <Component {...pageProps} />
