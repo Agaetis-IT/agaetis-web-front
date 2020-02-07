@@ -9,7 +9,7 @@ export default function BottomNav() {
     // { title: t('footer.faq'), href: '/faq' },
     { title: t('footer.cookies'), href: '/cookies' },
     { title: t('footer.data'), href: '/personal-data' },
-    { title: t('footer.sitemap'), href: '/sitemap' },
+    { title: t('footer.sitemap'), href: '/sitemap.xml' },
   ]
   return (
     <nav className="flex flex-col md:flex-row text-center justify-center">
