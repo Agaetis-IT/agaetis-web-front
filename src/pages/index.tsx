@@ -6,6 +6,7 @@ import ContactSection from '../components/ContactSection'
 import Hero from '../components/Hero'
 import HomeCard from '../components/HomeCard'
 import Layout from '../components/Layout'
+import publicRuntimeConfig from '../config/env.config'
 import { getIndexContent } from '../Services/wordpressService'
 import IndexContent from '../types/IndexContent'
 
@@ -26,7 +27,7 @@ function Index({ pageContent: pageContent }: Props) {
         <title>Agaetis</title>
         <meta property="og:description" content={pageContent.agaetis_desc} />
         <meta name="description" content={pageContent.agaetis_desc} />
-        <link rel="canonical" href="http://www.agaetis.fr/" />
+        <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/`} />
       </Head>
       <Layout headerProps={{ invertColors: true, className: 'header md:absolute md:mx-auto' }}>
         <>

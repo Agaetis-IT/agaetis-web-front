@@ -7,6 +7,7 @@ import Button from '../components/Button'
 import IdeaContent from '../components/IdeaContent'
 import IdeasCard from '../components/IdeasCard'
 import Layout from '../components/Layout'
+import publicRuntimeConfig from '../config/env.config'
 import { getIdeaBySlug } from '../Services/wordpressService'
 import IdeasContent, { IdeasDesc } from '../types/IdeasContent'
 
@@ -108,7 +109,7 @@ export default function Idea({ data, related, errorCode }: Props) {
         <title>Agaetis : {data.title}</title>
         <meta property="og:description" content="Chacun d'entre nous a ses idées et le droit de les défendre" />
         <meta name="description" content="Chacun d'entre nous a ses idées et le droit de les défendre" />
-        <link rel="canonical" href={`http://www.agaetis.fr/${data.slug}`} />
+        <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/${data.slug}`} />
       </Head>
       <Layout>
         <div>

@@ -3,6 +3,7 @@ import React from 'react'
 
 import ContactTab from '../components/ContactForm'
 import Layout from '../components/Layout'
+import publicRuntimeConfig from '../config/env.config'
 import { getContactPageContent } from '../Services/wordpressService'
 import ContactContentApi from '../types/ContactContentApi'
 
@@ -30,7 +31,7 @@ export default function contact({ pageContent }: Props) {
           content="Pour un projet, une candidature ou même pour un café, on peut en parler !"
         />
         <meta name="description" content="Pour un projet, une candidature ou même pour un café, on peut en parler !" />
-        <link rel="canonical" href="http://www.agaetis.fr/contact" />
+        <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/contact`} />
       </Head>
       <Layout headerProps={{ invertColors: false }}>
         <div className="md:max-w-md mx-auto p-0 md:px-4">

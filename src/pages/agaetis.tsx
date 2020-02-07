@@ -5,6 +5,7 @@ import React from 'react'
 import AgaetisCard from '../components/AgaetisCard'
 import ContactSection from '../components/ContactSection'
 import Layout from '../components/Layout'
+import publicRuntimeConfig from '../config/env.config'
 import { getAgaetisContent } from '../Services/wordpressService'
 import { AgaetisContent, convertAgaetisAPItoContent } from '../types/AgaetisContent'
 
@@ -24,7 +25,7 @@ export default function agaetis({ pageContent }: Props) {
         <title>Agaetis : histoire et vision</title>
         <meta property="og:description" content={"Présentation d'Agaetis, de son histoire et de sa vision"} />
         <meta name="description" content={"Présentation d'Agaetis, de son histoire et de sa vision"} />
-        <link rel="canonical" href="http://www.agaetis.fr/agaetis" />
+        <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/agaetis`} />
       </Head>
       <Layout headerProps={{ invertColors: false }}>
         <div className="mx-auto px-0">

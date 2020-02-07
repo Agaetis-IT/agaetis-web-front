@@ -4,6 +4,7 @@ import React from 'react'
 import { getBugsnagClient } from '../bugsnag/bugsnag'
 import Layout from '../components/Layout'
 import SoluceTab from '../components/SoluceTab'
+import publicRuntimeConfig from '../config/env.config'
 import { getSolutionsPageContent } from '../Services/wordpressService'
 import { SolutionsContent } from '../types/SolutionsContent'
 
@@ -31,7 +32,7 @@ export default function solutions({ pageContent }: Props) {
           name="description"
           content="Chaque client a des besoins propres, nous leur apportons des solutions sur mesure"
         />
-        <link rel="canonical" href="http://www.agaetis.fr/solutions" />
+        <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/solutions`} />
       </Head>
       <Layout>
         <>

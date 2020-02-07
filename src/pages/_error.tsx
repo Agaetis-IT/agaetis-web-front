@@ -28,7 +28,7 @@ export default function Error({ statusCode }: Props) {
             </div>
           </div>
           <div className="my-8 flex flex-col mx-auto bg-orange text-white text-center p-20">
-            <h1 className="text-4xl font-semibold ">Page introuvable ({statusCode})</h1>
+            <h1 className="text-4xl font-semibold ">Page introuvable ({statusCode ? statusCode : 404})</h1>
             <h2 className="text-sm font-normal my-6">La page que vous cherchez n'existe pas ou plus</h2>
             <Button
               href="/"

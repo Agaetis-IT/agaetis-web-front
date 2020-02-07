@@ -6,6 +6,7 @@ import Button from '../components/Button'
 import Layout from '../components/Layout'
 import OfferCard from '../components/OfferCard'
 import OfferSection from '../components/OfferSection'
+import publicRuntimeConfig from '../config/env.config'
 import { getAllJobs, getJobContent } from '../Services/wordpressService'
 import JobContent, { convertJobContentAPItoContent, JobContentLite } from '../types/JobContent'
 
@@ -60,7 +61,7 @@ export default function job({ pageContent, allJobs, errorCode }: Props) {
         <title>Agaetis :{pageContent.title}</title>
         <meta property="og:description" content={pageContent.description} />
         <meta name="description" content={pageContent.description} />
-        <link rel="canonical" href={`http://www.agaetis.fr/${pageContent.slug}`} />
+        <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}${pageContent.slug}`} />
       </Head>
       <Layout>
         <>

@@ -4,6 +4,7 @@ import React from 'react'
 
 import WhitePaperForm from '../components/form/WhitePaperForm'
 import Layout from '../components/Layout'
+import publicRuntimeConfig from '../config/env.config'
 import { getWhitePaperContent } from '../Services/wordpressService'
 import WhitePaper from '../types/WhitePaper'
 
@@ -40,7 +41,7 @@ export default function whitePaper({ pageContent, errorCode }: Props) {
         <title>Agaetis : {pageContent.title}</title>
         <meta property="og:description" content={pageContent.description} />
         <meta name="description" content={pageContent.description} />
-        <link rel="canonical" href={`http://www.agaetis.fr/${pageContent.slug}`} />
+        <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/${pageContent.slug}`} />
       </Head>
       <Layout>
         <>

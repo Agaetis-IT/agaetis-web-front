@@ -5,6 +5,7 @@ import React, { useState } from 'react'
 import Button from '../components/Button'
 import CategoryTab from '../components/CategoryTab'
 import Layout from '../components/Layout'
+import publicRuntimeConfig from '../config/env.config'
 import { getAllIdeas, getAllWhitePapers, getCategories, getIdeasPageContent } from '../Services/wordpressService'
 import { Category, IdeasDesc, IdeasPageContent } from '../types/IdeasContent'
 import WhitePaper from '../types/WhitePaper'
@@ -59,7 +60,7 @@ export default function Ideas({ ideasDescription, whitePapers, categories, conte
         <title>Agaetis : nos idées</title>
         <meta property="og:description" content="Chacun d'entre nous a ses idées et le droit de les défendre" />
         <meta name="description" content="Chacun d'entre nous a ses idées et le droit de les défendre" />
-        <link rel="canonical" href="http://www.agaetis.fr/ideas" />
+        <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/ideas`} />
       </Head>
       <Layout headerProps={{ invertColors: false }}>
         <div>

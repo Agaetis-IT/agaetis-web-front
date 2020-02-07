@@ -20,6 +20,10 @@ app
       res.sendFile(path.join(__dirname, '/', 'robots.txt'))
     })
 
+    server.get('/favicon.ico', (req, res) => {
+      res.sendFile(path.join(__dirname, '/', 'symbole-agaetis-p164-rgb.png'))
+    })
+
     server.get('/:slug', (req, res) => {
       const queryParams = Object.assign({}, req.params, req.query)
       if (

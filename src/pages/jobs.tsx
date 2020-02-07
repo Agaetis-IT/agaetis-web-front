@@ -6,6 +6,7 @@ import JobsCarousel from '../components/JobsCarousel'
 import Layout from '../components/Layout'
 import OfferCard from '../components/OfferCard'
 import OfferSection from '../components/OfferSection'
+import publicRuntimeConfig from '../config/env.config'
 import { getAllJobs, getJobsPageContent } from '../Services/wordpressService'
 import { JobContentLite } from '../types/JobContent'
 import { JobsContent } from '../types/JobsContent'
@@ -48,7 +49,7 @@ export default function jobs({ pageContent, allJobs }: Props) {
         <title>Agaetis : rejoignez-nous</title>
         <meta property="og:description" content="Séduits par Agaetis ? Et si vous nous rejoignez ?" />
         <meta name="description" content="Séduits par Agaetis ? Et si vous nous rejoignez ?" />
-        <link rel="canonical" href="http://www.agaetis.fr/jobs" />
+        <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/jobs`} />
       </Head>
       <Layout>
         <>
