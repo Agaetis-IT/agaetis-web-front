@@ -6,6 +6,16 @@
   line-height: 1.5;
 }
 
+.content:nth-child(n) {
+  margin: 15px 0;
+}
+
+.content br {
+  margin-bottom: 20px;
+  display: block;
+  content: ' ';
+}
+
 .content h2 {
   margin: 20px 0;
 }

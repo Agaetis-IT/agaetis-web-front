@@ -37,7 +37,7 @@ function IdeaContent({ content }: Props) {
             <span className="text-blue">| {content.author}</span>
           </div>
           <h2 className="font-semibold" dangerouslySetInnerHTML={createMarkup(content.title)} />
-          <div dangerouslySetInnerHTML={createMarkup(content.content)} className="content text-xs py-4 text-justify" />
+          <div dangerouslySetInnerHTML={createMarkup(content.content)} className="content text-sm py-4 text-justify" />
         </div>
         <hr className="Footer-separator" />
       </div>
