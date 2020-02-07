@@ -4,6 +4,8 @@
   "author": "contact@agaetis.fr",
   "license": "GPL-3.0+",
   "dependencies": {
+    "@bugsnag/js": "^6.5.2",
+    "@bugsnag/plugin-react": "^6.5.0",
     "@fullhuman/postcss-purgecss": "^1.1.0",
     "@types/nprogress": "^0.2.0",
     "@types/yup": "^0.26.26",
