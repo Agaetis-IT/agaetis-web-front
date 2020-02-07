@@ -23,6 +23,7 @@ export default function agaetis({ pageContent }: Props) {
       <Head>
         <title>Agaetis : histoire et vision</title>
         <meta property="og:description" content={"Présentation d'Agaetis, de son histoire et de sa vision"} />
+        <meta name="description" content={"Présentation d'Agaetis, de son histoire et de sa vision"} />
         <link rel="canonical" href="http://www.agaetis.fr/agaetis" />
       </Head>
       <Layout headerProps={{ invertColors: false }}>

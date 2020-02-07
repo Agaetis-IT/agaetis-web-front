@@ -107,6 +107,7 @@ export default function Idea({ data, related, errorCode }: Props) {
       <Head>
         <title>Agaetis : {data.title}</title>
         <meta property="og:description" content="Chacun d'entre nous a ses idées et le droit de les défendre" />
+        <meta name="description" content="Chacun d'entre nous a ses idées et le droit de les défendre" />
         <link rel="canonical" href={`http://www.agaetis.fr/${data.slug}`} />
       </Head>
       <Layout>

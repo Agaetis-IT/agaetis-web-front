@@ -47,6 +47,7 @@ export default function jobs({ pageContent, allJobs }: Props) {
       <Head>
         <title>Agaetis : rejoignez-nous</title>
         <meta property="og:description" content="Séduits par Agaetis ? Et si vous nous rejoignez ?" />
+        <meta name="description" content="Séduits par Agaetis ? Et si vous nous rejoignez ?" />
         <link rel="canonical" href="http://www.agaetis.fr/jobs" />
       </Head>
       <Layout>

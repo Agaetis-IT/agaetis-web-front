@@ -30,6 +30,7 @@ export default class MyApp extends App {
           <Head>
             <title>Agaetis</title>
             <meta property="og:description" content={"Agaetis' official website"} />
+            <meta property="og:image" content={Favicon} />
             <meta name="keywords" content="Agaetis, Data science, Web development, Digital Twin" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             <meta name="Language" content="fr" />

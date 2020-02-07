@@ -27,6 +27,10 @@ export default function solutions({ pageContent }: Props) {
           property="og:description"
           content="Chaque client a des besoins propres, nous leur apportons des solutions sur mesure"
         />
+        <meta
+          name="description"
+          content="Chaque client a des besoins propres, nous leur apportons des solutions sur mesure"
+        />
         <link rel="canonical" href="http://www.agaetis.fr/solutions" />
       </Head>
       <Layout>

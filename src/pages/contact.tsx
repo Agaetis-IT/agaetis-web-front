@@ -29,6 +29,7 @@ export default function contact({ pageContent }: Props) {
           property="og:description"
           content="Pour un projet, une candidature ou même pour un café, on peut en parler !"
         />
+        <meta name="description" content="Pour un projet, une candidature ou même pour un café, on peut en parler !" />
         <link rel="canonical" href="http://www.agaetis.fr/contact" />
       </Head>
       <Layout headerProps={{ invertColors: false }}>

@@ -25,6 +25,7 @@ function Index({ pageContent: pageContent }: Props) {
       <Head>
         <title>Agaetis</title>
         <meta property="og:description" content={pageContent.agaetis_desc} />
+        <meta name="description" content={pageContent.agaetis_desc} />
         <link rel="canonical" href="http://www.agaetis.fr/" />
       </Head>
       <Layout headerProps={{ invertColors: true, className: 'header md:absolute md:mx-auto' }}>
