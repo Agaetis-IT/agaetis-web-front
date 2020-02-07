@@ -22,7 +22,7 @@ export default function Layout({ headerProps, children }: Props) {
     trackUrl()
   }, [])
   return (
-    <div className=" md:p-0 mb-12 md:mb-0">
+    <div className=" md:p-0  md:mb-0">
       <Header {...headerProps} />
       <div className="mt-1 md:mt-0">{children}</div>
       <Footer />

@@ -25,7 +25,7 @@ export default function contact({ pageContent }: Props) {
       <div className="md:max-w-md mx-auto p-0 md:px-4">
         <div className=" text-xs px-4">
           <span>
-            <a className="text-underline" href="/">
+            <a className="text-underline text-black" href="/">
               Accueil
             </a>{' '}
             > <b>Contact</b>
