@@ -9,12 +9,23 @@ interface Props {
   className?: string
   type?: string
   styleType?: string
+  disabled?: boolean
   onClick?(e: React.MouseEvent): void
 }
 
 const tabClassNames = 'text-xs uppercase text-center py-4 md:inline border border-white font-semibold self-center'
 
-export default function Button({ href, htmlFor, children, component, onClick, className, type, styleType }: Props) {
+export default function Button({
+  href,
+  htmlFor,
+  children,
+  component,
+  onClick,
+  className,
+  type,
+  styleType,
+  disabled,
+}: Props) {
   let ComponentProp
   if (component) {
     ComponentProp = component
@@ -29,9 +40,14 @@ export default function Button({ href, htmlFor, children, component, onClick, cl
       href={href}
       title={href}
       htmlFor={htmlFor}
-      onClick={onClick}
+      onClick={() => {
+        if (!disabled) {
+          return onClick
+        }
+        return undefined
+      }}
       type={type}
-      className={clsx({ [tabClassNames]: styleType === 'tab' }, className, 'cursor-pointer')}
+      className={clsx({ [tabClassNames]: styleType === 'tab' }, className, { 'text-grey': disabled }, 'cursor-pointer')}
     >
       {children}
     </ComponentProp>

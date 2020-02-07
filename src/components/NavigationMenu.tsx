@@ -71,6 +71,7 @@ export default function NavigationMenu({ invertColors }: Props) {
             isLanguageSelected('en') ? 'Button-language--active' : { 'md:text-white': invertColors },
             'mr-1 text-xss text-black'
           )}
+          disabled
           onClick={onLanguageChange('en')}
         >
           EN

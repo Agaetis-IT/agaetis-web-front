@@ -29,8 +29,8 @@ whitePaper.getInitialProps = async ({ query }: NextContext) => {
 }
 
 export default function whitePaper({ pageContent, errorCode }: Props) {
-  if (!pageContent && errorCode) {
-    return <Error statusCode={404} />
+  if (!pageContent) {
+    return <Error statusCode={errorCode!} />
   }
   return (
     <Layout>

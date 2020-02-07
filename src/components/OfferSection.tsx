@@ -5,7 +5,7 @@ import Button from './Button'
 
 export default function OfferSection() {
   return (
-    <div className="bg-orange p-8 pt-12 md:pb-14 md:pt-16 flex flex-col md:flex-row justify-center text-white text-center md:text-left blue-underline mb-4">
+    <div className="bg-orange p-8 pt-12 md:pb-20 md:pt-24 flex flex-col md:flex-row justify-center text-white text-center md:text-left blue-underline mb-4">
       <h3 className="text-2xl self-center m-0 md:pb-2">
         Candidature
         <br /> spontanée

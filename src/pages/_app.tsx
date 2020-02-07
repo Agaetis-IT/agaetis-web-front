@@ -1,5 +1,4 @@
 import App, { Container } from 'next/app'
-import Error from 'next/error'
 import React from 'react'
 
 export default class MyApp extends App {

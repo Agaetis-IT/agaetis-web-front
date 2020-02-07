@@ -26,8 +26,8 @@ i18n
       excludeCacheFor: ['cimode'],
     },
     fallbackLng: {
-      'fr-fr': ['fr'],
-      default: ['en'],
+      'en-us': ['en'],
+      default: ['fr'],
     },
 
     interpolation: {
