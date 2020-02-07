@@ -64,6 +64,7 @@ td {
   padding: 5px 0;
 }
 
+.content ul,
 .content ol li ul {
   margin: 20px 0;
 }
