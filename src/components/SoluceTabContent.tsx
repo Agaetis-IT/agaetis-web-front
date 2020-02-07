@@ -3,6 +3,8 @@ import React from 'react'
 
 import { compareWhyUsSection, Tab } from '../types/SolutionsContent'
 
+import './SoluceTabContent.css'
+
 interface Props {
   content: Tab
   className: string
@@ -12,6 +14,7 @@ export default function SoluceTabContent({ content, className }: Props) {
   return (
     <>
       <div className="md:max-w-md mx-auto p-0 md:px-8">
+        <img className="mt-4 soluce-shadow w-full" src={content.solutions_img} />
         <div className={clsx(className, 'p-4')}>
           <div className={clsx('md:w-1/2 md:pr-4')}>
             <h2
@@ -34,7 +37,7 @@ export default function SoluceTabContent({ content, className }: Props) {
             />
           </div>
         </div>
-        <img className="mt-4 shadow-xl w-full" src={content.solutions_img} />
+
         <div>
           <h2 className="text-2xl font-semibold py-8 text-center">{content.whyUs.title}</h2>
           <div className="flex flex-col md:flex-row justify-between">

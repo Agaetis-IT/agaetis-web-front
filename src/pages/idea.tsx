@@ -13,18 +13,20 @@ import Error from './_error'
 
 interface Props {
   data: IdeasContent
-  related: IdeasDesc[]
+  related?: IdeasDesc[]
   errorCode?: number
 }
 
 Idea.getInitialProps = async ({ query }: NextContext) => {
   // tslint:disable-next-line
   const data = await getIdeaBySlug(query.slug)
-  if (!!data.acf) {
+  if (!!data.acf || !!data.content) {
     const related = []
-    for (const idea of data.acf.related_ideas) {
-      const data2 = await getIdeaBySlug(idea.post_name)
-      related.push(data2)
+    if (!!data.acf) {
+      for (const idea of data.acf.related_ideas) {
+        const data2 = await getIdeaBySlug(idea.post_name)
+        related.push(data2)
+      }
     }
 
     return {
@@ -78,9 +80,9 @@ export default function Idea({ data, related, errorCode }: Props) {
   if (!!errorCode) {
     return <Error statusCode={404} />
   }
-  const relatedIdeas = useMemo(
-    () =>
-      related.map(idea => (
+  const relatedIdeas = useMemo(() => {
+    if (!!related) {
+      return related.map(idea => (
         <div key={idea.id} className="md:w-1/3 px-2">
           <IdeasCard
             slug={idea.slug}
@@ -92,15 +94,16 @@ export default function Idea({ data, related, errorCode }: Props) {
             {idea.descriptionText}
           </IdeasCard>
         </div>
-      )),
-    related
-  )
+      ))
+    }
+    return []
+  }, related)
 
   return (
     <Layout>
       <div>
         <IdeaContent content={data} />
-        {related.length > 0 && (
+        {related && related.length > 0 && (
           <>
             <div className="pb-12 mb-8 blue-underline">
               <h2 className="text-center">Ces idées peuvent vous interesser</h2>

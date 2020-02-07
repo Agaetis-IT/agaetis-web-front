@@ -66,7 +66,7 @@ export async function getWhitePaperContent(slug: string) {
 }
 
 export async function getAllIdeas() {
-  const { data } = await axios.get(`${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/wp/v2/posts?_embed`)
+  const { data } = await axios.get(`${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/wp/v2/posts?_embed&per_page=100`)
   return data
 }
 
