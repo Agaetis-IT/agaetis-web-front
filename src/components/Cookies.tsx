@@ -19,7 +19,7 @@ export default function Cookies({ className }: Props) {
   }
 
   return (
-    <div className={clsx('text-white bg-grey p-4 text-xss ', isOpenedCookies ? className : 'none')}>
+    <div className={clsx('text-white bg-grey  text-xss ', isOpenedCookies ? className : 'hidden')}>
       <div className="flex flex-row justify-around max-w-xl mx-auto">
         <p className="text-xss self-center max-w-sm leading-normal">
           Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rel

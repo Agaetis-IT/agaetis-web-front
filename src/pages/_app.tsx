@@ -2,6 +2,7 @@ import App, { Container } from 'next/app'
 import Head from 'next/head'
 import React from 'react'
 
+import LoadingSpinner from '../components/LoadingSpinner'
 import Favicon from '../images/symbole-agaetis-p164-rgb.png'
 import '../index.css'
 
@@ -27,6 +28,7 @@ export default class MyApp extends App {
           <link rel="shortcut icon" type="image/png" href={Favicon} />
         </Head>
         <Container>
+          <LoadingSpinner color="#29D" startPosition={0.3} stopDelayMs={200} height="3" />
           <Component {...pageProps} />
         </Container>
       </>
