@@ -19,7 +19,7 @@ export default function Hero({ hero }: Props) {
       className="m-0"
     >
       <div className=" flex justify-center">
-        <div className="p-6 md:p-10 md:my-6 py-16 md:py-32 max-w-sm md:max-w-md text-white mx-auto md:pr-40 text-justify justify-fix">
+        <div className="p-6 md:p-10 md:my-6 py-16 md:py-48 max-w-sm md:max-w-md text-white mx-auto md:pr-40 text-justify justify-fix">
           <h1 className="md:text-4xl">
             {t('index.explore')}
             <br />

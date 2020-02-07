@@ -74,7 +74,7 @@ export default function jobs({ pageContent, allJobs }: Props) {
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
           }}
-          className="flex flex-col bg-black text-white text-center p-12 px-4 md:px-4 my-8"
+          className="flex flex-col bg-black text-white text-center p-12 px-4 md:py-16 md my-8"
         >
           <h2 className="" dangerouslySetInnerHTML={{ __html: pageContent.we_are_agaetis_title }} />
           <p

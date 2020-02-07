@@ -21,7 +21,7 @@ export default function AgaetisCard({ className, title, description, imgShadow, 
         <p className="text-xs leading-normal text-justify justify-fix">{description}</p>
       </div>
       <img
-        className={clsx({ 'img-shadow': imgShadow }, 'home-img self-center mx-auto mt-6 md:mt-0')}
+        className={clsx({ 'img-shadow': imgShadow }, 'home-img mx-auto md:mx-0 mt-6 md:mt-0')}
         src={imgUrl}
         alt={imgUrl}
       />

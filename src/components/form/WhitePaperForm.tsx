@@ -66,13 +66,13 @@ export default function WhitePaperForm({ className, handleNextStep }: Props) {
 
           <Button
             type="submit"
-            className="block  px-8 py-2 leading-none rounded-full uppercase mx-auto mt-4 md:mt-8 bg-orange text-white text-xs font-semibold"
+            className="block w-64 px-8 py-3 leading-none rounded-full uppercase mx-auto mt-4 md:mt-8 bg-orange text-white text-xs font-semibold"
           >
             Télécharger
           </Button>
           <Button
             href="/ideas#whitepapers"
-            className="w-64 block border text-center border-blue text-blue px-8 py-2 leading-none rounded-full uppercase mx-auto mt-4  bg-transparent text-black text-xs font-semibold"
+            className="w-64 block border text-center border-blue text-blue px-8 py-3 leading-none rounded-full uppercase mx-auto mt-4  bg-transparent text-black text-xs font-semibold"
           >
             Voir les autres livres blancs
           </Button>
