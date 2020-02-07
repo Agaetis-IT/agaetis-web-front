@@ -8,7 +8,7 @@ export default function ContactSection() {
     <div className="bg-orange p-8 pt-12 md:pb-20 md:pt-24 flex flex-col md:flex-row justify-center text-white text-center md:text-left blue-underline mb-4">
       <h3 className="text-2xl self-center m-0 md:pb-2">Contact</h3>
       <div className="md:ml-10 mt-8 md:mt-0">
-        <p className="max-w-xs text-xs leading-normal">
+        <p className="max-w-xs text-xs leading-normal mx-auto">
           Pour toute demande de renseignements, n'hésitez pas à nous contacter, nous vous répondrons dans les plus brefs
           délais.
         </p>

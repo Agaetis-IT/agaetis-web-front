@@ -3,7 +3,6 @@ import React, { useEffect } from 'react'
 import initReactGA, { trackUrl } from '../analytics/analytics'
 import '../config/yupConfig'
 import '../i18n'
-import '../index.css'
 
 import './Common.css'
 import Footer from './Footer'

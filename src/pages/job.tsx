@@ -115,12 +115,14 @@ export default function job({ pageContent, allJobs, errorCode }: Props) {
             {offers.slice(0, 1)}
             {isMoreOffersToggled && offers.slice(1)}
           </div>
-          <Button
-            onClick={toggleMoreOffers}
-            className="flex flex-row justify-center uppercase rounded-full bg-orange text-xss py-2 px-6 text-white font-semibold mx-auto mt-4"
-          >
-            {isMoreOffersToggled ? "Voir moins d'offres" : "Voir plus d'offres"}
-          </Button>
+          {offers.length > 1 && (
+            <Button
+              onClick={toggleMoreOffers}
+              className="flex flex-row justify-center uppercase rounded-full bg-orange text-xss py-2 px-6 text-white font-semibold mx-auto mt-4"
+            >
+              {isMoreOffersToggled ? "Voir moins d'offres" : "Voir plus d'offres"}
+            </Button>
+          )}
         </div>
         <OfferSection />
       </>
