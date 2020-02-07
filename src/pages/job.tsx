@@ -119,7 +119,7 @@ export default function job({ pageContent, allJobs, errorCode }: Props) {
             onClick={toggleMoreOffers}
             className="flex flex-row justify-center uppercase rounded-full bg-orange text-xss py-2 px-6 text-white font-semibold mx-auto mt-4"
           >
-            {isMoreOffersToggled ? 'Voir moins' : "Voir plus d'offres"}
+            {isMoreOffersToggled ? "Voir moins d'offres" : "Voir plus d'offres"}
           </Button>
         </div>
         <OfferSection />

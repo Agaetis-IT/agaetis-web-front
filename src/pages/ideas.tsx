@@ -81,7 +81,7 @@ export default function Ideas({ ideasDescription, whitePapers, categories, conte
             className="flex flex-row justify-center uppercase rounded-full bg-orange text-xss py-2 px-6 text-white font-semibold mx-auto"
             onClick={handleToggleMoreIdeas}
           >
-            {!isOpenedMoreIdeas ? "Voir plus d'idées" : 'Voir moins'}
+            {!isOpenedMoreIdeas ? "Voir plus d'idées" : "Voir moins d'idées"}
           </Button>
         </div>
 
