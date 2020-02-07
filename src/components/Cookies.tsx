@@ -9,18 +9,24 @@ interface Props {
 }
 
 export default function Cookies({ className }: Props) {
-  const [, setIsOpenedCookies] = useState(undefined)
+  const [isOpenedCookies, setIsOpenedCookies] = useState(undefined)
+
   useEffect(() => {
-    setIsOpenedCookies(!localStorage.getItem('cookies'))
+    setIsOpenedCookies(!localStorage.getItem('cookies') || !JSON.parse(localStorage.getItem('cookies')!).All)
   })
 
   function onAcceptAll() {
     setIsOpenedCookies(false)
-    localStorage.setItem('cookies', 'true')
+    if (!localStorage.getItem('cookies')) {
+      localStorage.setItem('cookies', '{}')
+    }
+    const cookiesObject = JSON.parse(localStorage.getItem('cookies')!)
+    cookiesObject.All = true
+    localStorage.setItem('cookies', JSON.stringify(cookiesObject))
   }
 
   return (
-    <div className={clsx('text-white bg-grey text-xss p-4', className)}>
+    <div className={clsx('text-white bg-grey text-xss p-4', className, { hidden: !isOpenedCookies })}>
       <div className="flex flex-col md:flex-row justify-around max-w-xl mx-auto">
         <p className="text-xss self-center max-w-sm leading-normal text-center">
           Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rel

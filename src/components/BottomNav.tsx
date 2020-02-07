@@ -6,7 +6,7 @@ import Button from './Button'
 export default function BottomNav() {
   const { t } = useTranslation()
   const links = [
-    { title: t('footer.faq'), href: '/faq' },
+    // { title: t('footer.faq'), href: '/faq' },
     { title: t('footer.cookies'), href: '/cookies' },
     { title: t('footer.data'), href: '/personal-data' },
     { title: t('footer.sitemap'), href: '/sitemap' },

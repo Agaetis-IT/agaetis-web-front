@@ -24,7 +24,6 @@ app
           'white-papers',
           'contact',
           'cookies',
-          'faq',
           'personal-data',
           'sitemap',
         ].includes(queryParams.slug)
