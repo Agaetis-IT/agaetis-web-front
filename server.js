@@ -21,7 +21,7 @@ app
           'ideas',
           'agaetis',
           'jobs',
-          'white-paper',
+          'white-papers',
           'contact',
           'cookies',
           'faq',

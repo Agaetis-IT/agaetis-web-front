@@ -1,11 +1,12 @@
 import { NextContext } from 'next'
-import Error from 'next/error'
 import React from 'react'
 
 import WhitePaperForm from '../components/form/WhitePaperForm'
 import Layout from '../components/Layout'
 import { getWhitePaperContent } from '../Services/wordpressService'
 import WhitePaper from '../types/WhitePaper'
+
+import Error from './_error'
 
 function handleSubmit() {
   // TODO: Send white paper by mail

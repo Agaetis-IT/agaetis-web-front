@@ -1,5 +1,4 @@
 import { NextContext } from 'next'
-import Error from 'next/error'
 import React, { useMemo, useState } from 'react'
 
 import Button from '../components/Button'
@@ -9,6 +8,7 @@ import OfferSection from '../components/OfferSection'
 import { getAllJobs, getJobContent } from '../Services/wordpressService'
 import JobContent, { convertJobContentAPItoContent, JobContentLite } from '../types/JobContent'
 
+import Error from './_error'
 import './job.css'
 
 interface Props {
