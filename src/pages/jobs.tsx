@@ -102,9 +102,10 @@ export default function jobs({ pageContent, allJobs }: Props) {
               </div>
             ))}
           </div>
-          <hr className="Footer-separator my-8" />
+          <hr className="Footer-separator my-12" />
+
           <h2 className="text-center mb-8" dangerouslySetInnerHTML={{ __html: pageContent.profilesSection.title }} />
-          <div className="flex flex-col md:flex-row">
+          <div className="flex flex-col md:flex-row ">
             {pageContent.profilesSection.profiles.map(profile => (
               <div className="text-center flex flex-col md:mx-2 px-8 md:px-0 md:w-1/4 " key={profile.index}>
                 <div className="w-auto h-24 flex flex-col justify-end mb-2">
@@ -116,7 +117,7 @@ export default function jobs({ pageContent, allJobs }: Props) {
             ))}
           </div>
         </div>
-        <div className="flex flex-col bg-grey py-12 px-4 md:p-12 mt-8">
+        <div className="flex flex-col bg-grey py-12 px-4 md:p-12 mt-12">
           <h2 className="text-center mb-8" dangerouslySetInnerHTML={{ __html: pageContent.offers_title }} />
           <div className="flex flex-col">
             {offers.slice(0, 1)}
