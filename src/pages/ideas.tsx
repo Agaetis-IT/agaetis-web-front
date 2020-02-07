@@ -78,7 +78,9 @@ export default function Ideas({ ideasDescription, whitePapers, categories, conte
               {content.description}
             </p>
             <CategoryTab
-              ideasC={sortedIdeas.filter(idea => idea.category !== 'Jobs' && idea.category !== 'White-paper')}
+              ideasC={sortedIdeas.filter(
+                idea => !idea.categories.includes('White-paper') && !idea.categories.includes('Jobs')
+              )}
               categories={categories.filter(
                 category => category.categoryName !== 'Jobs' && category.categoryName !== 'White-paper'
               )}

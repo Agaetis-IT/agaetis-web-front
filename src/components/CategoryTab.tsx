@@ -57,10 +57,7 @@ export default function CategoryTab({ ideasC, categories, toggleMore, ideasImg1,
 
   const filteredIdeas = useMemo(() => {
     const ideas = ideasC.filter(
-      idea =>
-        !idea.categories.includes('White-paper') &&
-        !idea.categories.includes('Jobs') &&
-        (categoryFilter === 'All' || idea.categories.includes(categoryFilter) || idea.categories.includes(''))
+      idea => categoryFilter === 'All' || idea.categories.includes(categoryFilter) || idea.categories.includes('')
     )
 
     if (!ideas.find((idea: IdeasDesc) => idea.id === -1)) {
