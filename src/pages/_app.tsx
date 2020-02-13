@@ -30,7 +30,6 @@ export default class MyApp extends App {
         <this.ErrorBoundary>
           <Head>
             <title>Agaetis</title>
-            <meta property="og:description" content={"Agaetis' official website"} />
             <meta property="og:image" content={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/favicon.ico`} />
             <meta name="keywords" content="Agaetis, Data science, Web development, Digital Twin" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
