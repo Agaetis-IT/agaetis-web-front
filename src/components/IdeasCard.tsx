@@ -6,7 +6,8 @@ interface Props {
   id: number
   title: string
   category: string
-  children: string
+  categories: string[]
+  children: string | React.ReactElement
   className?: string
   slug: string
   image?: string
@@ -29,16 +30,18 @@ function getStyle(id: number, image?: string) {
   }
 }
 
-export default function IdeasCard({ slug, id, title, category, children, className, image }: Props) {
+export default function IdeasCard({ slug, id, title, category, categories, children, className, image }: Props) {
   return (
     <div style={getStyle(id, image)} className={clsx(className)}>
-      <div className={clsx({ 'text-blue': id !== 6 }, 'font-semibold text-xss')}>{category}</div>
-      <Link href={`/${slug}`}>
+      <div className={clsx({ 'text-blue': id !== 6 }, 'font-semibold text-xss')}>
+        {categories.map((cat: string) => cat + ' ')}
+      </div>
+      <Link href={`/${escape(slug)}`}>
         <a className={clsx(id !== 6 ? 'text-black' : 'text-white')}>
           <h3 dangerouslySetInnerHTML={createMarkup(title)} className="font-semibold text-xs py-4 text-base" />
         </a>
       </Link>
-      <p className="text-cgu text-justify leading-tight">{children}</p>
+      <div className="text-cgu text-justify leading-tight h-12 overflow-y-hidden">{children}</div>
     </div>
   )
 }

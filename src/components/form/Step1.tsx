@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import { ErrorMessage, Form, Formik } from 'formik'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { newReactGACustomVar, newReactGAEvent } from '../../analytics/analytics'
 import { Step1FormValues, step1InitialValues, step1Schema } from '../../yup/ContactFormValidation'
@@ -23,11 +23,18 @@ function onSubmit(fields: Step1FormValues, handleNext: () => void) {
 }
 
 export default function Step1({ className, handleNextStep }: Props) {
+  const [formValues, setFormValues] = useState(step1InitialValues)
+  useEffect(() => {
+    if (localStorage.getItem('step1')) {
+      setFormValues(JSON.parse(localStorage.getItem('step1')!))
+    }
+  }, [formValues])
+
   return (
     <Formik
-      initialValues={step1InitialValues}
+      initialValues={formValues}
       validationSchema={step1Schema}
-      onSubmit={fields => onSubmit(fields, handleNextStep)}
+      onSubmit={fields => onSubmit(fields!, handleNextStep)}
       render={({ values }) => (
         <Form className={clsx(className, 'justify-center mt-4')}>
           <div className="flex flex-col md:flex-row justify-center">

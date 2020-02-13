@@ -36,7 +36,7 @@ export default function Footer() {
     },
   ]
   return (
-    <footer className="p-4">
+    <footer className="py-4">
       <div className="flex flex-col md:flex-row justify-center text-center md:text-left">
         <div className="p-4 pt-0 md:p-0 md:pr-4">
           <h4 className="text-xs">{t('footer.address-title')}</h4>
@@ -49,21 +49,21 @@ export default function Footer() {
         <div className="p-4 py-0 md:py-4 md:px-0">
           <h2 className="text-xs">{t('footer.social-title')}</h2>
           <div className="flex flex-row my-4 justify-center md:justify-start">
-            <Button href="#" className="mr-4 w-4">
+            <Button href="https://fr-fr.facebook.com/AgaetisIT" className="mr-4 w-4">
               <img src={Facebook} />
             </Button>
-            <Button href="#" className="mr-4 w-4">
+            <Button href="https://www.linkedin.com/company/agaetis/" className="mr-4 w-4">
               <img src={Linkedin} />
             </Button>
-            <Button href="#" className="w-4">
+            <Button href="https://twitter.com/agaetisit" className="w-4">
               <img src={Twitter} />
             </Button>
           </div>
         </div>
       </div>
-      <hr className="md:mt-8 Footer-separator" />
+      <hr className="md:mt-8 Footer-separator w-full" />
       <BottomNav />
-      <hr className="Footer-separator" />
+      <hr className="Footer-separator w-full" />
       <div className="text-xss text-center opacity-25 pt-2"> {t('footer.copyright')}</div>
     </footer>
   )

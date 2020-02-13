@@ -18,14 +18,18 @@ function getBgColor(id: number, category: string) {
   if (id === 0 || id === 4) {
     return ''
   } else if ((id === 1 || id === 5) && category === 'All') {
-    return 'bg-white'
+    return 'bg-light-grey md:bg-white'
   } else if (id === 6 && category === 'All') {
-    return 'bg-teal'
+    return 'bg-light-grey md:bg-teal'
   } else if (id === 7 && category === 'All') {
-    return 'bg-pink'
+    return 'bg-light-grey md:bg-pink'
   } else {
-    return 'bg-grey'
+    return 'bg-light-grey'
   }
+}
+
+function createMarkup(content: string) {
+  return { __html: content }
 }
 
 export default function CategoryTab({ ideasC, categories, toggleMore, ideasImg1, ideasImg2 }: Props) {
@@ -35,6 +39,7 @@ export default function CategoryTab({ ideasC, categories, toggleMore, ideasImg1,
     slug: '',
     title: '',
     category: '',
+    categories: [],
     descriptionText: '',
     date: '',
     image: ideasImg1,
@@ -44,36 +49,42 @@ export default function CategoryTab({ ideasC, categories, toggleMore, ideasImg1,
     slug: '',
     title: '',
     category: '',
+    categories: [],
     descriptionText: '',
     date: '',
     image: ideasImg2,
   }
-  if (!ideasC.find((idea: IdeasDesc) => idea.id === -1)) {
-    ideasC.splice(0, 0, fakeIdea1)
-  }
-  if (!ideasC.find((idea: IdeasDesc) => idea.id === -2)) {
-    ideasC.splice(4, 0, fakeIdea2)
-  }
-  const filteredIdeas = useMemo(
-    () =>
-      ideasC
-        .filter(idea => categoryFilter === 'All' || idea.category === categoryFilter)
-        .map(idea => (
-          <div key={idea.id} className="md:w-1/3 px-1">
-            <IdeasCard
-              className={clsx(
-                'p-4 my-2 md:h-ideas',
-                { 'shadow-xl w-auto md:h-ideas hidden md:block': idea.image !== undefined },
-                getBgColor(ideasC.indexOf(idea), categoryFilter)
-              )}
-              {...idea}
-            >
-              {idea.descriptionText}
-            </IdeasCard>
-          </div>
-        )),
-    [categoryFilter]
-  )
+
+  const filteredIdeas = useMemo(() => {
+    const ideas = ideasC.filter(
+      idea =>
+        categoryFilter === 'All' ||
+        idea.category === categoryFilter ||
+        idea.category === '' ||
+        idea.categories.includes(categoryFilter)
+    )
+
+    if (!ideas.find((idea: IdeasDesc) => idea.id === -1)) {
+      ideas.splice(0, 0, fakeIdea1)
+    }
+    if (!ideas.find((idea: IdeasDesc) => idea.id === -2)) {
+      ideas.splice(4, 0, fakeIdea2)
+    }
+    return ideas.map(idea => (
+      <div key={idea.id} className="md:w-1/3 px-1">
+        <IdeasCard
+          className={clsx(
+            'p-4 my-2 md:h-ideas',
+            { 'shadow-xl w-auto md:h-ideas hidden md:block': idea.image !== undefined },
+            getBgColor(ideas.indexOf(idea), categoryFilter)
+          )}
+          {...idea}
+        >
+          <p dangerouslySetInnerHTML={createMarkup(idea.descriptionText)} />
+        </IdeasCard>
+      </div>
+    ))
+  }, [categoryFilter])
 
   function handleFilterChange(category: string) {
     return () => {

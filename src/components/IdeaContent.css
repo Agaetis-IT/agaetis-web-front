@@ -1,6 +1,54 @@
+/* purgecss start ignore */
+
+.content,
 .content p {
-  margin-bottom: 20px;
+  margin: 10px 0px;
   line-height: 1.5;
+}
+
+.content:nth-child(n) {
+  margin: 15px 0;
+}
+
+.content br {
+  margin-bottom: 20px;
+  display: block;
+  content: ' ';
+}
+
+.content h2 {
+  margin: 20px 0;
+}
+
+.content figcaption {
+  margin: 0;
+}
+
+.content h3 {
+  margin-bottom: 20px;
+}
+
+.content table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin: 0 0 1.5em;
+  width: 100%;
+}
+.content th,
+td {
+  display: table-cell;
+  border: 1px solid #eaeaea;
+  padding: 6px 10px;
+}
+
+.content pre {
+  font-size: 1.2em;
+}
+
+.content table,
+.content video {
+  margin: 0 auto;
+  margin: 20px 0;
 }
 
 .content figure {
@@ -8,13 +56,71 @@
   margin-bottom: 20px;
 }
 
-.content figure img {
+.content img {
   display: block;
   margin: 0 auto;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  padding: 20px 0;
+  /*box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);*/
+}
+
+.content ol li,
+.content ol li ul li {
+  padding-left: 15px;
+}
+
+.content li,
+.content ul li,
+.content ul li ol {
+  padding: 5px 0;
+}
+
+.content ul,
+.content ol li ul {
+  margin: 20px 0;
+}
+
+@media screen and (max-width: 576px) {
+  .content ol {
+    padding-left: 15px;
+  }
+
+  .content ol li ul {
+    padding-left: 30px;
+  }
 }
 
 .content figcaption {
   margin-top: 10px;
   text-align: center;
 }
+
+.EnlighterJSRAW {
+  overflow-x: scroll;
+  padding-bottom: 20px;
+}
+
+.EnlighterJSRAW::-webkit-scrollbar {
+  background-color: #f5f5f5;
+}
+
+.EnlighterJSRAW::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background: #eee;
+  box-shadow: 0 0 1px 1px #bbb, inset 0 0 4px rgba(0, 0, 0, 0.3);
+}
+
+.EnlighterJSRAW::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: linear-gradient(left, #96a6bf, #63738c);
+  box-shadow: inset 0 0 1px 1px #5c6670;
+}
+
+.EnlighterJSRAW::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(left, #8391a6, #536175);
+}
+
+.EnlighterJSRAW::-webkit-scrollbar-thumb:active {
+  background: linear-gradient(left, #22add4, #1e98ba);
+}
+
+/* purgecss end ignore */

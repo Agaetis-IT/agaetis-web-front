@@ -43,7 +43,7 @@ export default function JobsCarousel({ slideMax, slides }: Props) {
           <div
             className={clsx(
               slideIndex !== slide.index - 1 ? 'hidden' : 'flex flex-col-reverse sm:flex-row',
-              'bg-grey m-1 md:m-4 '
+              'bg-light-grey m-1 md:m-4 '
             )}
             key={slide.index}
           >

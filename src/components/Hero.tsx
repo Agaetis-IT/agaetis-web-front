@@ -3,10 +3,12 @@ import { useTranslation } from 'react-i18next'
 
 interface Props {
   hero: string
+  valeurs: string[]
+  subtitle: string
 }
 
 import './Hero.css'
-export default function Hero({ hero }: Props) {
+export default function Hero({ hero, valeurs, subtitle }: Props) {
   const { t } = useTranslation()
   return (
     <div
@@ -19,15 +21,14 @@ export default function Hero({ hero }: Props) {
       className="m-0"
     >
       <div className=" flex justify-center">
-        <div className="p-6 md:p-10 md:my-6 py-16 md:py-32 max-w-sm md:max-w-md text-white mx-auto md:pr-40 text-justify justify-fix">
-          <h1 className="md:text-4xl">
-            {t('index.explore')}
-            <br />
-            {t('index.valorize')}
-            <br />
-            {t('index.innovate')}
-          </h1>
-          <p className="text-sm md:pr-10 pt-4 leading-normal">{t('index.hero-description')}</p>
+        <div className="p-6 md:p-10 md:my-6 py-16 md:py-48 max-w-sm md:max-w-md text-white mx-auto md:pr-40 text-justify justify-fix">
+          {valeurs.map(valeur => (
+            <h1 className="md:text-4xl" key={valeur}>
+              {valeur}
+            </h1>
+          ))}
+
+          <p className="text-sm md:pr-10 pt-4 leading-normal" dangerouslySetInnerHTML={{ __html: subtitle }} />
         </div>
       </div>
     </div>

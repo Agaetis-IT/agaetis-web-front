@@ -4,7 +4,10 @@
   "author": "contact@agaetis.fr",
   "license": "GPL-3.0+",
   "dependencies": {
+    "@bugsnag/js": "^6.5.2",
+    "@bugsnag/plugin-react": "^6.5.0",
     "@fullhuman/postcss-purgecss": "^1.1.0",
+    "@types/nprogress": "^0.2.0",
     "@types/yup": "^0.26.26",
     "@zeit/next-css": "^1.0.1",
     "@zeit/next-typescript": "^1.1.1",
@@ -23,6 +26,7 @@
     "next-purgecss": "^3.0.1",
     "next-routes": "^1.4.2",
     "normalize.css": "^8.0.1",
+    "nprogress": "^0.2.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-ga": "^2.7.0",

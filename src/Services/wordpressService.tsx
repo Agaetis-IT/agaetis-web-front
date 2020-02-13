@@ -6,6 +6,7 @@ import ContactContentApi from '../types/ContactContentApi'
 import { IdeasPageContent } from '../types/IdeasContent'
 import IndexContent from '../types/IndexContent'
 import JobsContentAPI, { convertJobsContentAPItoContent } from '../types/JobsContent'
+import PersonalDataContent from '../types/PersonalDataContent'
 import SolutionsContentAPI, { convertContentAPItoContent } from '../types/SolutionsContent'
 
 export async function getWordpressPageBySlug<T>(slug: string) {
@@ -26,6 +27,17 @@ export async function getAgaetisContent() {
 export async function getIdeasPageContent() {
   const { acf } = await getWordpressPageBySlug<{ acf: IdeasPageContent }>('idees')
   return acf
+}
+
+export async function getPersonalDataContent() {
+  const data = await getWordpressPageBySlug('donnees-personnelles')
+
+  return data
+}
+
+export async function getFAQContent() {
+  const { data } = await getWordpressPageBySlug('faq')
+  return data
 }
 
 export async function getSolutionsPageContent() {
@@ -54,7 +66,7 @@ export async function getWhitePaperContent(slug: string) {
 }
 
 export async function getAllIdeas() {
-  const { data } = await axios.get(`${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/wp/v2/posts?_embed`)
+  const { data } = await axios.get(`${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/wp/v2/posts?_embed&per_page=100`)
   return data
 }
 

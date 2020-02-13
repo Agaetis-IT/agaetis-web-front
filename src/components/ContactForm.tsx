@@ -7,7 +7,7 @@ import Step1 from './form/Step1'
 import Step2 from './form/Step2'
 import Step3 from './form/Step3'
 const stepHeaderClassNames =
-  'text-xs uppercase text-center py-4 md:inline border border-white font-semibold self-center md:w-1/3'
+  'text-xs uppercase text-center py-4 md:inline border border-white font-semibold self-center md:w-1/3 cursor-pointer'
 
 function getHeadersClassNames(index: number, currentIndex: number) {
   if (index === 0) {
@@ -22,17 +22,17 @@ function getHeadersClassNames(index: number, currentIndex: number) {
     if (currentIndex === 1) {
       return 'text-white w-2/3 bg-blue'
     } else if (currentIndex === 0) {
-      return 'w-1/3 text-dark-grey whitespace-no-wrap overflow-hidden px-4 bg-grey'
+      return 'w-1/3 text-dark-grey whitespace-no-wrap overflow-hidden px-4 bg-light-grey'
     }
-    return 'w-1/3 text-dark-grey whitespace-no-wrap overflow-hidden px-4 bg-grey reverseText'
+    return 'w-1/3 text-dark-grey whitespace-no-wrap overflow-hidden px-4 bg-blue reverseText'
   } else {
     if (currentIndex === 2) {
       return 'bg-blue text-white w-2/3'
     }
     if (currentIndex === 1) {
-      return 'bg-grey text-dark-grey w-1/6 whitespace-no-wrap overflow-hidden px-4'
+      return 'bg-light-grey text-dark-grey w-1/6 whitespace-no-wrap overflow-hidden px-4'
     }
-    return 'bg-grey text-dark-grey hidden'
+    return 'bg-light-grey text-dark-grey hidden'
   }
 }
 
@@ -66,12 +66,30 @@ export default function ContactTab() {
   return (
     <div>
       <div className="flex flex-row md:max-w-md mx-auto md:px-4">
-        <div className={clsx(getHeadersClassNames(0, currentIndex), stepHeaderClassNames)}>Votre profil</div>
-        <div className={clsx(getHeadersClassNames(1, currentIndex), stepHeaderClassNames)}>Vos coordonnées</div>
+        <div
+          className={clsx(getHeadersClassNames(0, currentIndex), stepHeaderClassNames)}
+          onClick={() => {
+            if (currentIndex > 0) {
+              setCurrentIndex(0)
+            }
+          }}
+        >
+          Votre profil
+        </div>
+        <div
+          className={clsx(getHeadersClassNames(1, currentIndex), stepHeaderClassNames)}
+          onClick={() => {
+            if (currentIndex > 1) {
+              setCurrentIndex(1)
+            }
+          }}
+        >
+          Vos coordonnées
+        </div>
         <div className={clsx(getHeadersClassNames(2, currentIndex), stepHeaderClassNames)}>Votre message</div>
       </div>
       <div className="border border-white md:max-w-md mx-auto md:px-4">
-        <div className="bg-grey py-8 md:p-12 flex flex-col justify-center">
+        <div className="bg-light-grey py-8 md:p-12 flex flex-col justify-center">
           <h2 className={clsx({ hidden: currentIndex !== 0 }, 'text-center text-lg md:text-2xl md:mt-0')}>
             Votre demande concerne...
           </h2>

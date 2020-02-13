@@ -12,4 +12,6 @@ export default interface IndexContent {
   jobs_desc: string
   jobs_desc_img: string
   hero_img: string
+  hero_valeurs: string
+  hero_subtitle: string
 }

@@ -29,7 +29,7 @@ function IdeaContent({ content }: Props) {
           </span>
         </div>
         <img className="mx-auto md:mx-0 shadow-xl m-4" src={content.imageUrl} alt={content.imageUrl} />
-        <div className="px-4">
+        <div className="md:px-4">
           <div className="text-xs font-semibold mb-4">
             <span className="pr-1">
               {content.date.slice(8, 10)}/{content.date.slice(5, 7)}/{content.date.slice(0, 4)}
@@ -37,7 +37,7 @@ function IdeaContent({ content }: Props) {
             <span className="text-blue">| {content.author}</span>
           </div>
           <h2 className="font-semibold" dangerouslySetInnerHTML={createMarkup(content.title)} />
-          <div dangerouslySetInnerHTML={createMarkup(content.content)} className="content text-xs py-4 text-justify" />
+          <div dangerouslySetInnerHTML={createMarkup(content.content)} className="content text-sm py-4 text-justify" />
         </div>
         <hr className="Footer-separator" />
       </div>

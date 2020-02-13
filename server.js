@@ -1,10 +1,12 @@
 const express = require('express')
 const next = require('next')
 const axios = require('axios')
+const path = require('path')
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev, dir: './src' })
 const handle = app.getRequestHandler()
 const port = process.env.PORT || 3000
+
 app
   .prepare()
   .then(() => {
@@ -13,9 +15,30 @@ app
     /*
       /:slug : existing ideas url are /:postname, we have to respect this pattern 
     */
+
+    server.get('/robots.txt', (req, res) => {
+      res.sendFile(path.join(__dirname, '/', 'robots.txt'))
+    })
+
+    server.get('/favicon.ico', (req, res) => {
+      res.sendFile(path.join(__dirname, '/', 'symbole-agaetis-p164-rgb.png'))
+    })
+
     server.get('/:slug', (req, res) => {
       const queryParams = Object.assign({}, req.params, req.query)
-      if (['solutions', 'ideas', 'agaetis', 'jobs', 'white-paper', 'contact'].includes(queryParams.slug)) {
+      if (
+        [
+          'solutions',
+          'ideas',
+          'agaetis',
+          'jobs',
+          'white-papers',
+          'contact',
+          'cookies',
+          'personal-data',
+          'sitemap.xml',
+        ].includes(queryParams.slug)
+      ) {
         return handle(req, res)
       }
 
@@ -23,7 +46,6 @@ app
     })
 
     server.get('/jobs/:slug', (req, res) => {
-      const queryParams = Object.assign({}, req.params, req.query)
       app.render(req, res, '/job', { ...req.params, ...req.query })
     })
 
