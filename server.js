@@ -24,6 +24,10 @@ app
       res.sendFile(path.join(__dirname, '/', 'symbole-agaetis-p164-rgb.png'))
     })
 
+    server.get('/google80ae36db41235209.html', (req, res) => {
+      res.sendFile(path.join(__dirname, '/', 'google80ae36db41235209.html'))
+    })
+
     server.get('/:slug', (req, res) => {
       const queryParams = Object.assign({}, req.params, req.query)
       if (
