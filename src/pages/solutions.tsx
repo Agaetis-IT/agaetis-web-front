@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import React from 'react'
 
-import { getBugsnagClient } from '../bugsnag/bugsnag'
 import Layout from '../components/Layout'
 import SoluceTab from '../components/SoluceTab'
 import publicRuntimeConfig from '../config/env.config'
