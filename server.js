@@ -35,17 +35,7 @@ app
       })
       console.log(data)
       res.set('Content-Type', 'text/xml')
-      res.send(data)
-    })
-
-    server.get(/sitemap[a-zA-Z-0-9\/\-_]*.xsl/, async (req, res) => {
-      console.log(`${process.env.NEXT_APP_BASE_URL}${req.url}`)
-      const { data } = await axios.get(`${process.env.NEXT_APP_BASE_URL}${req.url}`).catch(err => {
-        console.log('ERREUR')
-      })
-      console.log(data)
-      res.set('Content-Type', 'text/xsl')
-      res.send(data)
+      res.send(data.replace(process.env.NEXT_APP_BASE_URL, process.env.NEXT_APP_SITE_URL))
     })
 
     server.get('/:slug', (req, res) => {
