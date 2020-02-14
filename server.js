@@ -29,11 +29,7 @@ app
     })
 
     server.get(/sitemap[a-zA-Z-0-9\/\-_]*.xml/, async (req, res) => {
-      console.log(`${process.env.NEXT_APP_BASE_URL}${req.url}`)
-      const { data } = await axios.get(`${process.env.NEXT_APP_BASE_URL}${req.url}`).catch(err => {
-        console.log('ERREUR')
-      })
-      console.log(data)
+      const { data } = await axios.get(`${process.env.NEXT_APP_BASE_URL}${req.url}`)
       res.set('Content-Type', 'text/xml')
       res.send(data.replace(process.env.NEXT_APP_BASE_URL, process.env.NEXT_APP_SITE_URL))
     })
