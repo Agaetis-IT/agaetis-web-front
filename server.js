@@ -31,7 +31,7 @@ app
     server.get(/sitemap[a-zA-Z-0-9\/\-_]*.xml/, async (req, res) => {
       const { data } = await axios.get(`${process.env.NEXT_APP_BASE_URL}${req.url}`)
       res.set('Content-Type', 'text/xml')
-      res.send(data.replace(process.env.NEXT_APP_BASE_URL, process.env.NEXT_APP_SITE_URL))
+      res.send(data.replace(new RegExp(process.env.NEXT_APP_BASE_URL, 'g'), process.env.NEXT_APP_SITE_URL))
     })
 
     server.get('/:slug', (req, res) => {
