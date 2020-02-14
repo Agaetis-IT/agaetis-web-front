@@ -22,11 +22,5 @@ ENV NPM_CONFIG_LOGLEVEL=warn \
     PORT=5000
 
 COPY --from=0 --chown=node:node app/ ./
-COPY --from=0 --chown=node:node app/src/.next src/.next
-
-
-RUN ls
-
-RUN yarn --frozen-lockfile --non-interactive
 
 CMD ["yarn","build:start"]
