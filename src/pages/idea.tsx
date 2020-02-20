@@ -8,20 +8,23 @@ import IdeaContent from '../components/IdeaContent'
 import IdeasCard from '../components/IdeasCard'
 import Layout from '../components/Layout'
 import publicRuntimeConfig from '../config/env.config'
-import { getIdeaBySlug } from '../Services/wordpressService'
+import { getIdeaBySlug, getIdeaMeta } from '../Services/wordpressService'
 import IdeasContent, { IdeasDesc } from '../types/IdeasContent'
+import Meta, { convertMetaAPItoMeta } from '../types/Meta'
 
 import Error from './_error'
 
 interface Props {
   data: IdeasContent
   related?: IdeasDesc[]
+  meta: Meta
   errorCode?: number
 }
 
 Idea.getInitialProps = async ({ query }: NextContext) => {
   // tslint:disable-next-line
   const data = await getIdeaBySlug(query.slug)
+  const meta = await getIdeaMeta(query.slug)
   if (!!data.acf || !!data.content) {
     const related = []
     if (!!data.acf) {
@@ -51,6 +54,7 @@ Idea.getInitialProps = async ({ query }: NextContext) => {
           descriptionText: idea.acf.idea_description,
         }
       }),
+      meta: convertMetaAPItoMeta(meta),
     }
   }
   return {
@@ -71,11 +75,14 @@ Idea.getInitialProps = async ({ query }: NextContext) => {
       slug: '',
       descriptionText: '',
     },
+    meta: {
+      description: '',
+    },
     errorCode: 404,
   }
 }
 
-export default function Idea({ data, related, errorCode }: Props) {
+export default function Idea({ data, related, errorCode, meta }: Props) {
   const [isOpenedMoreIdeas, setIsOpenedMoreIdeas] = useState(false)
   function handleToggleMoreIdeas() {
     setIsOpenedMoreIdeas(!isOpenedMoreIdeas)
@@ -107,8 +114,8 @@ export default function Idea({ data, related, errorCode }: Props) {
     <>
       <Head>
         <title>Agaetis : {data.title}</title>
-        <meta property="og:description" content="Chacun d'entre nous a ses idées et le droit de les défendre" />
-        <meta name="description" content="Chacun d'entre nous a ses idées et le droit de les défendre" />
+        <meta property="og:description" content={meta.description} />
+        <meta name="description" content={meta.description} />
         <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/${data.slug}`} />
       </Head>
       <Layout>
