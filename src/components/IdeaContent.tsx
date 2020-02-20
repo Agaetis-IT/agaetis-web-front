@@ -28,7 +28,7 @@ function IdeaContent({ content }: Props) {
             > <b dangerouslySetInnerHTML={createMarkup(content.title)} />
           </span>
         </div>
-        <img className="mx-auto md:mx-0 shadow-xl m-4" src={content.imageUrl} alt={content.imageUrl} />
+        <img className="mx-auto md:mx-0 shadow-xl m-4" src={content.imageUrl} alt={content.imageUrl} loading="lazy" />
         <div className="md:px-4">
           <div className="text-xs font-semibold mb-4">
             <span className="pr-1">

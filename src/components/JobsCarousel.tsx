@@ -52,7 +52,7 @@ export default function JobsCarousel({ slideMax, slides }: Props) {
               <p className="text-blue text-xs font-semibold pt-2" dangerouslySetInnerHTML={{ __html: slide.author }} />
               <p className="text-blue text-xs italic" dangerouslySetInnerHTML={{ __html: slide.role }} />
             </div>
-            <img className="p-8 px-0 pb-4 sm:p-8 sm:pl-4 self-center w-48 h-auto" src={slide.img} />
+            <img className="p-8 px-0 pb-4 sm:p-8 sm:pl-4 self-center w-48 h-auto" src={slide.img} loading="lazy" />
           </div>
         ))}
 
