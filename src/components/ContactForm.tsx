@@ -48,6 +48,15 @@ export default function ContactTab() {
     setCurrentIndex(currentIndex + 1)
   }
 
+  function handleOpenModal(error: boolean) {
+    setIsError(error)
+    setCurrentIndex(0)
+    setOpenModal(true)
+    setTimeout(() => {
+      setOpenModal(false)
+    }, 3000)
+  }
+
   async function handleSubmit(values: FormValues) {
     setFormValues(values)
     if (values && values.firstName && values.lastName && values.email && values.message) {
@@ -57,30 +66,15 @@ export default function ContactTab() {
         values.message,
         new Date(),
         () => {
-          setIsError(false)
-          setCurrentIndex(0)
-          setOpenModal(true)
-          setTimeout(() => {
-            setOpenModal(false)
-          }, 3000)
+          handleOpenModal(false)
         },
         () => {
-          setIsError(true)
-          setCurrentIndex(0)
-          setOpenModal(true)
-          setTimeout(() => {
-            setOpenModal(false)
-          }, 3000)
+          handleOpenModal(true)
         }
       )
     } else {
-      setIsError(true)
+      handleOpenModal(true)
     }
-    setCurrentIndex(0)
-    setOpenModal(true)
-    setTimeout(() => {
-      setOpenModal(false)
-    }, 3000)
   }
 
   return (

@@ -88,9 +88,12 @@ app
         transport.sendMail(message, function(err, info) {
           if (err) {
             console.log(err)
+            res.status(500)
+            res.send()
           } else {
             console.log(info)
-            console.log(message)
+            res.status(200)
+            res.send()
           }
         })
     })
