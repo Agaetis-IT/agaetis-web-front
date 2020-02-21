@@ -16,10 +16,19 @@ interface Props {
 
 export default function Layout({ headerProps, children }: Props) {
   useEffect(() => {
-    if (!window.GoogleAnalyticsObject) {
+    if (
+      (!localStorage.getItem('cookies') ||
+        (localStorage.getItem('cookies') && JSON.parse(localStorage.getItem('cookies')!))) &&
+      !window.GoogleAnalyticsObject
+    ) {
       initReactGA()
     }
-    trackUrl()
+    if (
+      !localStorage.getItem('cookies') ||
+      (localStorage.getItem('cookies') && JSON.parse(localStorage.getItem('cookies')!))
+    ) {
+      trackUrl()
+    }
   }, [])
   return (
     <div className=" md:p-0  md:mb-0">

@@ -3,6 +3,7 @@ import { ErrorMessage, Form, Formik } from 'formik'
 import React, { useEffect, useState } from 'react'
 
 import { newReactGACustomVar, newReactGAEvent } from '../../analytics/analytics'
+import FormValues from '../../types/ContactFormValues'
 import { Step1FormValues, step1InitialValues, step1Schema } from '../../yup/ContactFormValidation'
 import Button from '../Button'
 
@@ -10,31 +11,37 @@ import Radio from './Radio'
 
 interface Props {
   className?: string
-  handleNextStep: () => void
+  handleNextStep: (values: FormValues) => void
+  formValues: FormValues
 }
 
-function onSubmit(fields: Step1FormValues, handleNext: () => void) {
-  localStorage.setItem('step1', JSON.stringify(fields))
-  newReactGAEvent('ContactFormState', 'Start form', 'Started')
-  newReactGAEvent('ContactSubject', 'Subject', fields.objet)
-  newReactGACustomVar(1, 'Started')
-  newReactGACustomVar(2, fields.objet)
-  handleNext()
+function onSubmit(fields: Step1FormValues, handleNext: (values: FormValues) => void, formValues: FormValues) {
+  if (
+    !localStorage.getItem('cookies') ||
+    (localStorage.getItem('cookies') && JSON.parse(localStorage.getItem('cookies')!))
+  ) {
+    localStorage.setItem('step1', JSON.stringify(fields))
+    newReactGAEvent('ContactFormState', 'Start form', 'Started')
+    newReactGAEvent('ContactSubject', 'Subject', fields.objet)
+    newReactGACustomVar(1, 'Started')
+    newReactGACustomVar(2, fields.objet)
+  }
+  handleNext({ ...formValues, ...fields })
 }
 
-export default function Step1({ className, handleNextStep }: Props) {
-  const [formValues, setFormValues] = useState(step1InitialValues)
+export default function Step1({ className, handleNextStep, formValues }: Props) {
+  const [step1FormValues, setStep1FormValues] = useState(step1InitialValues)
   useEffect(() => {
     if (localStorage.getItem('step1')) {
-      setFormValues(JSON.parse(localStorage.getItem('step1')!))
+      setStep1FormValues(JSON.parse(localStorage.getItem('step1')!))
     }
-  }, [formValues])
+  }, [step1FormValues])
 
   return (
     <Formik
       initialValues={formValues}
       validationSchema={step1Schema}
-      onSubmit={fields => onSubmit(fields!, handleNextStep)}
+      onSubmit={fields => onSubmit(fields!, handleNextStep, formValues)}
       render={({ values }) => (
         <Form className={clsx(className, 'justify-center mt-4')}>
           <div className="flex flex-col md:flex-row justify-center">

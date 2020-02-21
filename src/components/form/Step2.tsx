@@ -2,6 +2,7 @@ import clsx from 'clsx'
 import { Form, Formik } from 'formik'
 import React, { useEffect, useState } from 'react'
 
+import FormValues from '../../types/ContactFormValues'
 import step2Schema, { Step2FormValues, step2InitialValues } from '../../yup/ContactFormValidation'
 import Button from '../Button'
 
@@ -10,27 +11,33 @@ import TextField from './TextField'
 
 interface Props {
   className?: string
-  handleNextStep(): void
+  formValues: FormValues
+  handleNextStep(formValues: FormValues): void
 }
 
-function onSubmit(fields: Step2FormValues, handleNext: () => void) {
-  localStorage.setItem('step2', JSON.stringify(fields))
-  handleNext()
+function onSubmit(fields: Step2FormValues, handleNext: (formValues: FormValues) => void, formValues: FormValues) {
+  if (
+    !localStorage.getItem('cookies') ||
+    (localStorage.getItem('cookies') && JSON.parse(localStorage.getItem('cookies')!))
+  ) {
+    localStorage.setItem('step2', JSON.stringify(fields))
+  }
+  handleNext({ ...formValues, ...fields })
 }
 
-export default function Step2({ className, handleNextStep }: Props) {
-  const [formValues, setFormValues] = useState(step2InitialValues)
+export default function Step2({ className, handleNextStep, formValues }: Props) {
+  const [step2FormValues, setStep2FormValues] = useState(step2InitialValues)
   useEffect(() => {
     if (localStorage.getItem('step2')) {
-      setFormValues(JSON.parse(localStorage.getItem('step2')!))
+      setStep2FormValues(JSON.parse(localStorage.getItem('step2')!))
     }
-  }, [formValues])
+  }, [step2FormValues])
   return (
     <Formik
-      initialValues={formValues}
+      initialValues={step2FormValues}
       validationSchema={step2Schema}
       onSubmit={fields => {
-        onSubmit(fields, handleNextStep)
+        onSubmit(fields, handleNextStep, formValues)
       }}
       render={({ errors, touched }) => (
         <Form className={clsx(className, 'justify-center mt-4')}>
