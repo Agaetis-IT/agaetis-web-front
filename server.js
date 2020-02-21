@@ -6,12 +6,24 @@ const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev, dir: './src' })
 const handle = app.getRequestHandler()
 const port = process.env.PORT || 3000
+const bodyParser = require('body-parser')
+const nodemailer = require('nodemailer')
+
+var transport = nodemailer.createTransport({
+  host: 'smtp.mailtrap.io',
+  port: 2525,
+  auth: {
+    user: '6a0158862f5fa3',
+    pass: 'b588a2aea7450f',
+  },
+})
 
 app
   .prepare()
   .then(() => {
     const server = express()
-
+    server.use(bodyParser.urlencoded({ extended: true }))
+    server.use(bodyParser.json())
     /*
       /:slug : existing ideas url are /:postname, we have to respect this pattern 
     */
@@ -53,6 +65,33 @@ app
 
     server.get('/white-papers/:slug', (req, res) => {
       app.render(req, res, '/white-paper', { ...req.params, ...req.query })
+    })
+
+    server.post('/send', (req, res) => {
+      const message = {
+        from: req.body.mail,
+        to: 'benoit.munoz@agaetis.fr',
+        subject: 'Un projet ?',
+        content: escape(req.body.content),
+      }
+
+      if (
+        /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+          message.from
+        ) &&
+        /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+          message.to
+        ) &&
+        ['Un projet ?', 'Une candidature ?', 'Un cafe ?'].includes(message.subject) &&
+        message.content.length > 0
+      )
+        transport.sendMail(message, function(err, info) {
+          if (err) {
+            console.log(err)
+          } else {
+            console.log(info)
+          }
+        })
     })
 
     server.get('*', (req, res) => {

@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import React, { useState } from 'react'
 
-import { sendMessage } from '../Services/wordpressService'
+import send from '../Services/contactService'
 import FormValues, { defaultValues } from '../types/ContactFormValues'
 
 import ContactMessage from './ContactMessage'
@@ -51,8 +51,28 @@ export default function ContactTab() {
   async function handleSubmit(values: FormValues) {
     setFormValues(values)
     if (values && values.firstName && values.lastName && values.email && values.message) {
-      await sendMessage(values.firstName + ' ' + values.lastName, values.email, values.message, new Date())
-      setIsError(false)
+      send(
+        values.firstName + ' ' + values.lastName,
+        values.email,
+        values.message,
+        new Date(),
+        () => {
+          setIsError(false)
+          setCurrentIndex(0)
+          setOpenModal(true)
+          setTimeout(() => {
+            setOpenModal(false)
+          }, 3000)
+        },
+        () => {
+          setIsError(true)
+          setCurrentIndex(0)
+          setOpenModal(true)
+          setTimeout(() => {
+            setOpenModal(false)
+          }, 3000)
+        }
+      )
     } else {
       setIsError(true)
     }

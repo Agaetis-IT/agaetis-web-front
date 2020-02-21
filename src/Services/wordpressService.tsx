@@ -94,13 +94,4 @@ export async function getCategories() {
   return data
 }
 
-export async function sendMessage(name: string, mail: string, content: string, date: Date) {
-  await axios.post(`${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/agaetis/api/v1/send`, {
-    author_name: name,
-    author_email: mail,
-    content,
-    date,
-  })
-}
-
-export default { getIndexContent, sendMessage }
+export default { getIndexContent }
