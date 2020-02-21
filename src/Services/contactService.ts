@@ -17,7 +17,7 @@ export default async function send(
     data: {
       name,
       mail,
-      content,
+      content: formatContent(content),
       date,
     },
   })
@@ -27,4 +27,8 @@ export default async function send(
     .catch(() => {
       error()
     })
+}
+
+function formatContent(content: string) {
+  return `<html><body>${content}</body></html>`
 }

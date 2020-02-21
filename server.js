@@ -10,11 +10,11 @@ const bodyParser = require('body-parser')
 const nodemailer = require('nodemailer')
 
 var transport = nodemailer.createTransport({
-  host: 'smtp.mailtrap.io',
+  host: process.env.NEXT_APP_SMTP_HOST,
   port: 2525,
   auth: {
-    user: '6a0158862f5fa3',
-    pass: 'b588a2aea7450f',
+    user: process.env.NEXT_APP_SMTP_HOST_LOGIN,
+    pass: process.env.NEXT_APP_SMTP_HOST_PASS,
   },
 })
 
@@ -70,9 +70,9 @@ app
     server.post('/send', (req, res) => {
       const message = {
         from: req.body.mail,
-        to: 'benoit.munoz@agaetis.fr',
+        to: process.env.NEXT_APP_MAIL_ADDRESS,
         subject: 'Un projet ?',
-        content: escape(req.body.content),
+        html: req.body.content,
       }
 
       if (
@@ -83,13 +83,14 @@ app
           message.to
         ) &&
         ['Un projet ?', 'Une candidature ?', 'Un cafe ?'].includes(message.subject) &&
-        message.content.length > 0
+        message.html.length > 0
       )
         transport.sendMail(message, function(err, info) {
           if (err) {
             console.log(err)
           } else {
             console.log(info)
+            console.log(message)
           }
         })
     })
