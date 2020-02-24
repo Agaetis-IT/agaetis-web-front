@@ -16,10 +16,8 @@ interface Props {
 }
 
 function onSubmit(fields: Step1FormValues, handleNext: (values: FormValues) => void, formValues: FormValues) {
-  if (
-    !localStorage.getItem('cookies') ||
-    (localStorage.getItem('cookies') && JSON.parse(localStorage.getItem('cookies')!))
-  ) {
+  const cookies = localStorage.getItem('cookies')
+  if (!cookies || (cookies && JSON.parse(cookies))) {
     localStorage.setItem('step1', JSON.stringify(fields))
     newReactGAEvent('ContactFormState', 'Start form', 'Started')
     newReactGAEvent('ContactSubject', 'Subject', fields.objet)
@@ -32,8 +30,9 @@ function onSubmit(fields: Step1FormValues, handleNext: (values: FormValues) => v
 export default function Step1({ className, handleNextStep, formValues }: Props) {
   const [step1FormValues, setStep1FormValues] = useState(step1InitialValues)
   useEffect(() => {
-    if (localStorage.getItem('step1')) {
-      setStep1FormValues(JSON.parse(localStorage.getItem('step1')!))
+    const cookies = localStorage.getItem('cookies')
+    if (cookies) {
+      setStep1FormValues(JSON.parse(cookies))
     }
   }, [step1FormValues])
 

@@ -14,10 +14,8 @@ interface Props {
 }
 
 function onSubmit(fields: Step3FormValues, handleNext: (formValues: FormValues) => void, formValues: FormValues) {
-  if (
-    !localStorage.getItem('cookies') ||
-    (localStorage.getItem('cookies') && JSON.parse(localStorage.getItem('cookies')!))
-  ) {
+  const cookies = localStorage.getItem('cookies')
+  if (!cookies || (cookies && JSON.parse(cookies))) {
     localStorage.setItem('step3', JSON.stringify(fields))
     newReactGAEvent('ContactFormState', 'Submit form', 'Done')
     newReactGACustomVar(1, 'Done')

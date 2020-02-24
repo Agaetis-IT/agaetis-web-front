@@ -16,10 +16,8 @@ interface Props {
 }
 
 function onSubmit(fields: Step2FormValues, handleNext: (formValues: FormValues) => void, formValues: FormValues) {
-  if (
-    !localStorage.getItem('cookies') ||
-    (localStorage.getItem('cookies') && JSON.parse(localStorage.getItem('cookies')!))
-  ) {
+  const cookies = localStorage.getItem('cookies')
+  if (!cookies || (cookies && JSON.parse(cookies))) {
     localStorage.setItem('step2', JSON.stringify(fields))
   }
   handleNext({ ...formValues, ...fields })
@@ -28,8 +26,9 @@ function onSubmit(fields: Step2FormValues, handleNext: (formValues: FormValues) 
 export default function Step2({ className, handleNextStep, formValues }: Props) {
   const [step2FormValues, setStep2FormValues] = useState(step2InitialValues)
   useEffect(() => {
-    if (localStorage.getItem('step2')) {
-      setStep2FormValues(JSON.parse(localStorage.getItem('step2')!))
+    const cookies = localStorage.getItem('cookies')
+    if (cookies) {
+      setStep2FormValues(JSON.parse(cookies))
     }
   }, [step2FormValues])
   return (

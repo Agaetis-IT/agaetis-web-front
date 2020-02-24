@@ -74,24 +74,18 @@ app
         subject: req.body.object,
         html: req.body.content,
       }
-
+      const regEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
       if (
-        /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
-          message.from
-        ) &&
-        /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
-          message.to
-        ) &&
+        regEx.test(message.from) &&
+        regEx.test(message.to) &&
         ['Un projet ?', 'Une candidature ?', 'Un cafe ?'].includes(message.subject) &&
         message.html.length > 0
       )
         transport.sendMail(message, function(err, info) {
           if (err) {
-            console.log(err)
             res.status(500)
             res.send()
           } else {
-            console.log(info)
             res.status(200)
             res.send()
           }
