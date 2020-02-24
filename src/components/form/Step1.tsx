@@ -17,7 +17,7 @@ interface Props {
 
 function onSubmit(fields: Step1FormValues, handleNext: (values: FormValues) => void, formValues: FormValues) {
   const cookies = localStorage.getItem('cookies')
-  if (!cookies || (cookies && JSON.parse(cookies))) {
+  if (!cookies || JSON.parse(cookies)) {
     localStorage.setItem('step1', JSON.stringify(fields))
     newReactGAEvent('ContactFormState', 'Start form', 'Started')
     newReactGAEvent('ContactSubject', 'Subject', fields.objet)

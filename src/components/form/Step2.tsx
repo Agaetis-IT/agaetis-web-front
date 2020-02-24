@@ -17,7 +17,7 @@ interface Props {
 
 function onSubmit(fields: Step2FormValues, handleNext: (formValues: FormValues) => void, formValues: FormValues) {
   const cookies = localStorage.getItem('cookies')
-  if (!cookies || (cookies && JSON.parse(cookies))) {
+  if (!cookies || JSON.parse(cookies)) {
     localStorage.setItem('step2', JSON.stringify(fields))
   }
   handleNext({ ...formValues, ...fields })

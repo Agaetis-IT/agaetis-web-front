@@ -16,18 +16,12 @@ interface Props {
 
 export default function Layout({ headerProps, children }: Props) {
   useEffect(() => {
-    if (
-      (!localStorage.getItem('cookies') ||
-        (localStorage.getItem('cookies') && JSON.parse(localStorage.getItem('cookies')!))) &&
-      !window.GoogleAnalyticsObject
-    ) {
-      initReactGA()
-    }
-    if (
-      !localStorage.getItem('cookies') ||
-      (localStorage.getItem('cookies') && JSON.parse(localStorage.getItem('cookies')!))
-    ) {
+    const cookies = localStorage.getItem('cookies')
+    if (!cookies || JSON.parse(cookies)) {
       trackUrl()
+      if (!window.GoogleAnalyticsObject) {
+        initReactGA()
+      }
     }
   }, [])
   return (
