@@ -12,7 +12,8 @@ export default function Cookies({ className }: Props) {
   const [isOpenedCookies, setIsOpenedCookies] = useState(undefined)
 
   useEffect(() => {
-    setIsOpenedCookies(!localStorage.getItem('cookies') || !JSON.parse(localStorage.getItem('cookies')!))
+    const cookies = localStorage.getItem('cookies')
+    setIsOpenedCookies(!cookies || !JSON.parse(cookies))
   })
 
   function onAcceptAll() {

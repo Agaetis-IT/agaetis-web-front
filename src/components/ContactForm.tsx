@@ -1,8 +1,10 @@
 import clsx from 'clsx'
 import React, { useState } from 'react'
 
-import { sendMessage } from '../Services/wordpressService'
+import send from '../Services/contactService'
+import FormValues, { defaultValues } from '../types/ContactFormValues'
 
+import ContactMessage from './ContactMessage'
 import Step1 from './form/Step1'
 import Step2 from './form/Step2'
 import Step3 from './form/Step3'
@@ -38,28 +40,42 @@ function getHeadersClassNames(index: number, currentIndex: number) {
 
 export default function ContactTab() {
   const [currentIndex, setCurrentIndex] = useState(0)
-
-  function handleNext() {
+  const [isOpenenedModal, setOpenModal] = useState(false)
+  const [isError, setIsError] = useState(true)
+  const [formValues, setFormValues] = useState(defaultValues)
+  function handleNext(values: FormValues) {
+    setFormValues(values)
     setCurrentIndex(currentIndex + 1)
   }
 
-  async function handleSubmit() {
-    const step1 = localStorage.getItem('step1')
-    const step2 = localStorage.getItem('step1')
-    const step3 = localStorage.getItem('step3')
-    if (step1 && step2 && step3) {
-      const contactInfos = {
-        ...JSON.parse(step1),
-        ...JSON.parse(step2),
-        ...JSON.parse(step3),
-      }
-      await sendMessage(
-        contactInfos.firstName + ' ' + contactInfos.lastName,
-        contactInfos.email,
-        contactInfos.message,
-        new Date()
+  function handleOpenModal(error: boolean) {
+    setIsError(error)
+    setCurrentIndex(0)
+    setOpenModal(true)
+    setTimeout(() => {
+      setOpenModal(false)
+    }, 3000)
+  }
+
+  async function handleSubmit(values: FormValues) {
+    setFormValues(values)
+    if (values && values.firstName && values.lastName && values.email && values.message) {
+      send(
+        values.firstName + ' ' + values.lastName,
+        values.objet,
+        values.email,
+        values.company,
+        values.message,
+        new Date(),
+        () => {
+          handleOpenModal(false)
+        },
+        () => {
+          handleOpenModal(true)
+        }
       )
-      setCurrentIndex(0)
+    } else {
+      handleOpenModal(true)
     }
   }
 
@@ -99,15 +115,22 @@ export default function ContactTab() {
           <h2 className={clsx({ hidden: currentIndex !== 2 }, 'text-center text-lg md:text-2xl md:mt-0')}>
             Saisissez votre message :
           </h2>
-          <Step1 className={clsx(currentIndex === 0 ? 'flex flex-col' : 'hidden')} handleNextStep={handleNext} />
+          <Step1
+            className={clsx(currentIndex === 0 ? 'flex flex-col' : 'hidden')}
+            handleNextStep={handleNext}
+            formValues={formValues}
+          />
           <Step2
             className={clsx(currentIndex === 1 ? 'flex flex-col' : 'hidden', 'px-4 md:px-0')}
             handleNextStep={handleNext}
+            formValues={formValues}
           />
           <Step3
             className={clsx(currentIndex === 2 ? 'flex flex-col' : 'hidden', 'px-4 md:px-0')}
             handleNextStep={handleSubmit}
+            formValues={formValues}
           />
+          {isOpenenedModal && <ContactMessage error={isError} />}
         </div>
       </div>
     </div>

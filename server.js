@@ -6,12 +6,24 @@ const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev, dir: './src' })
 const handle = app.getRequestHandler()
 const port = process.env.PORT || 3000
+const bodyParser = require('body-parser')
+const nodemailer = require('nodemailer')
+
+var transport = nodemailer.createTransport({
+  host: process.env.NEXT_APP_SMTP_HOST,
+  port: 2525,
+  auth: {
+    user: process.env.NEXT_APP_SMTP_HOST_LOGIN,
+    pass: process.env.NEXT_APP_SMTP_HOST_PASS,
+  },
+})
 
 app
   .prepare()
   .then(() => {
     const server = express()
-
+    server.use(bodyParser.urlencoded({ extended: true }))
+    server.use(bodyParser.json())
     /*
       /:slug : existing ideas url are /:postname, we have to respect this pattern 
     */
@@ -53,6 +65,31 @@ app
 
     server.get('/white-papers/:slug', (req, res) => {
       app.render(req, res, '/white-paper', { ...req.params, ...req.query })
+    })
+
+    server.post('/send', (req, res) => {
+      const message = {
+        from: req.body.mail,
+        to: process.env.NEXT_APP_MAIL_ADDRESS,
+        subject: req.body.object,
+        html: req.body.content,
+      }
+      const regEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      if (
+        regEx.test(message.from) &&
+        regEx.test(message.to) &&
+        ['Un projet ?', 'Une candidature ?', 'Un cafe ?'].includes(message.subject) &&
+        message.html.length > 0
+      )
+        transport.sendMail(message, function(err, info) {
+          if (err) {
+            res.status(500)
+            res.send()
+          } else {
+            res.status(200)
+            res.send()
+          }
+        })
     })
 
     server.get('*', (req, res) => {
