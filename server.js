@@ -71,7 +71,7 @@ app
       const message = {
         from: req.body.mail,
         to: process.env.NEXT_APP_MAIL_ADDRESS,
-        subject: 'Un projet ?',
+        subject: req.body.object,
         html: req.body.content,
       }
 

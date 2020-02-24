@@ -4,7 +4,9 @@ import publicRuntimeConfig from '../config/env.config'
 
 export default async function send(
   name: string,
+  object: string,
   mail: string,
+  company: string,
   content: string,
   date: Date,
   callback: () => void,
@@ -16,8 +18,9 @@ export default async function send(
     headers: {},
     data: {
       name,
+      object,
       mail,
-      content: formatContent(content),
+      content: formatContent(content, name, mail, company),
       date,
     },
   })
@@ -29,6 +32,6 @@ export default async function send(
     })
 }
 
-function formatContent(content: string) {
-  return `<html><body>${content}</body></html>`
+function formatContent(content: string, name: string, mail: string, company: string) {
+  return `<html><body><p>${content}</p><h3>Contact</h3><p>${name}</p><p>${mail}</p><p>${company}</p></body></html>`
 }

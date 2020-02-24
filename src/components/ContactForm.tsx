@@ -62,7 +62,9 @@ export default function ContactTab() {
     if (values && values.firstName && values.lastName && values.email && values.message) {
       send(
         values.firstName + ' ' + values.lastName,
+        values.objet,
         values.email,
+        values.company,
         values.message,
         new Date(),
         () => {
