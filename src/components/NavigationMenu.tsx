@@ -23,12 +23,6 @@ export default function NavigationMenu({ invertColors }: Props) {
     [t('navigation.solutions-name'), t('navigation.solutions-href')],
     [t('navigation.jobs-name'), t('navigation.jobs-href')],
   ]
-  function onLanguageChange(language: string) {
-    return (e: React.MouseEvent) => {
-      e.preventDefault()
-      i18n.changeLanguage(language)
-    }
-  }
   return (
     <div className="block bg-orange md:bg-transparent flex-grow md:flex-no-grow md:flex md-flex-no-shrink md:items-center md:w-auto p-4 md:p-0 nav-menu">
       <div className="text-xs font-medium md:flex-grow">
@@ -58,35 +52,6 @@ export default function NavigationMenu({ invertColors }: Props) {
             {t('navigation.contact')}
           </Button>
         </Link>
-      </div>
-      {/*Languages selection */}
-      <div
-        className={clsx(
-          invertColors ? 'text-white' : 'text-black',
-          'text-xs md:mx-4 flex flex-row items-center p-2 md:p-0 '
-        )}
-      >
-        <Button
-          className={clsx(
-            isLanguageSelected('en') ? 'Button-language--active' : { 'md:text-light-grey': invertColors },
-            'mr-1 text-xss text-black'
-          )}
-          disabled
-          onClick={onLanguageChange('en')}
-        >
-          EN
-        </Button>
-        <span className="mr-1 hidden md:inline align-middle leading-none text-xss"> - </span>
-        <span className="text-black mr-1 block md:hidden align-middle leading-none text-xss">|</span>
-        <Button
-          className={clsx(
-            isLanguageSelected('fr') ? 'Button-language--active' : { 'md:text-white': invertColors },
-            'text-xss text-black md:mr-2'
-          )}
-          onClick={onLanguageChange('fr')}
-        >
-          FR
-        </Button>
       </div>
     </div>
   )

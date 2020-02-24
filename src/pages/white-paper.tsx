@@ -57,7 +57,11 @@ export default function whitePaper({ pageContent, errorCode }: Props) {
               {pageContent.description}
             </p>
           </div>
-          <img className="md:max-w-md flex shadow-xl justify-center mx-auto my-4 p-0" src={pageContent.image} />
+          <img
+            className="md:max-w-md flex shadow-xl justify-center mx-auto my-4 p-0"
+            src={pageContent.image}
+            loading="lazy"
+          />
           <div className="md:max-w-md mx-auto mb-8 px-4">
             <div className=" md:px-12 flex flex-col justify-center">
               <WhitePaperForm handleNextStep={handleSubmit} />

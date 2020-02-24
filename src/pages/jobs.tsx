@@ -111,7 +111,7 @@ export default function jobs({ pageContent, allJobs }: Props) {
               {pageContent.profilesSection.profiles.map(profile => (
                 <div className="text-center flex flex-col md:mx-2 px-8 md:px-0 md:w-1/4 " key={profile.index}>
                   <div className="w-auto h-24 flex flex-col justify-end mb-2">
-                    <img className="w-16 h-auto self-center" src={profile.img} />
+                    <img className="w-16 h-auto self-center" src={profile.img} loading="lazy" />
                   </div>
                   <h3 className="uppercase text-lg font-semibold my-2">{profile.title}</h3>
                   <p className="text-center leading-normal text-xss my-2">{profile.description}</p>

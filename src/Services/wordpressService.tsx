@@ -6,7 +6,6 @@ import ContactContentApi from '../types/ContactContentApi'
 import { IdeasPageContent } from '../types/IdeasContent'
 import IndexContent from '../types/IndexContent'
 import JobsContentAPI, { convertJobsContentAPItoContent } from '../types/JobsContent'
-import PersonalDataContent from '../types/PersonalDataContent'
 import SolutionsContentAPI, { convertContentAPItoContent } from '../types/SolutionsContent'
 
 export async function getWordpressPageBySlug<T>(slug: string) {
@@ -29,14 +28,14 @@ export async function getIdeasPageContent() {
   return acf
 }
 
-export async function getPersonalDataContent() {
-  const data = await getWordpressPageBySlug('donnees-personnelles')
-
+export async function getIdeaMeta(slug: string) {
+  const { data } = await axios.get(`${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/agaetis/api/v1/meta/${slug}`)
   return data
 }
 
-export async function getFAQContent() {
-  const { data } = await getWordpressPageBySlug('faq')
+export async function getPersonalDataContent() {
+  const data = await getWordpressPageBySlug('donnees-personnelles')
+
   return data
 }
 
