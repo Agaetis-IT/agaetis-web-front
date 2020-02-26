@@ -9,14 +9,21 @@ const port = process.env.PORT || 3000
 const bodyParser = require('body-parser')
 const nodemailer = require('nodemailer')
 
-var transport = nodemailer.createTransport({
-  host: process.env.NEXT_APP_SMTP_HOST,
-  port: 2525,
-  auth: {
-    user: process.env.NEXT_APP_SMTP_HOST_LOGIN,
-    pass: process.env.NEXT_APP_SMTP_HOST_PASS,
-  },
-})
+const { google } = require('googleapis')
+
+const oAuth2Client = new google.auth.OAuth2(
+  process.env.NEXT_APP_GMAIL_CLIENT_ID,
+  process.env.NEXT_APP_GMAIL_CLIENT_SECRET,
+  'http://localhost:3000/'
+)
+
+const SCOPES = [
+  'https://www.googleapis.com/auth/gmail.readonly',
+  'https://www.googleapis.com/auth/gmail.send',
+  'https://www.googleapis.com/auth/userinfo.profile',
+]
+
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
 
 app
   .prepare()
@@ -68,8 +75,28 @@ app
     })
 
     server.post('/send', (req, res) => {
+      oAuth2Client.setCredentials({
+        refresh_token: process.env.NEXT_APP_GMAIL_REFRESH_TOKEN,
+      })
+
+      const accessToken = oAuth2Client.getAccessToken()
+      var transporter = nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true,
+        auth: {
+          type: 'OAuth2',
+          user: process.env.NEXT_APP_MAIL_ADDRESS,
+          clientId: process.env.NEXT_APP_GMAIL_CLIENT_ID,
+          clientSecret: process.env.NEXT_APP_GMAIL_CLIENT_SECRET,
+          refreshToken: process.env.NEXT_APP_GMAIL_REFRESH_TOKEN,
+          accessToken: accessToken,
+          expires: Date.now() + 3600,
+        },
+      })
+
       const message = {
-        from: req.body.mail,
+        from: process.env.NEXT_APP_MAIL_ADDRESS,
         to: process.env.NEXT_APP_MAIL_ADDRESS,
         subject: req.body.object,
         html: req.body.content,
@@ -80,9 +107,10 @@ app
         regEx.test(message.to) &&
         ['Un projet ?', 'Une candidature ?', 'Un cafe ?'].includes(message.subject) &&
         message.html.length > 0
-      )
-        transport.sendMail(message, function(err, info) {
+      ) {
+        transporter.sendMail(message, function(err, info) {
           if (err) {
+            console.log(err)
             res.status(500)
             res.send()
           } else {
@@ -90,6 +118,7 @@ app
             res.send()
           }
         })
+      }
     })
 
     server.get('*', (req, res) => {
