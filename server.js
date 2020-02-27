@@ -166,6 +166,7 @@ app
       ) {
         transporter.sendMail(message, function(err, info) {
           if (err) {
+            console.log(err)
             res.status(500)
             res.send()
           } else {

@@ -1,7 +1,9 @@
 import clsx from 'clsx'
 import { Form, Formik } from 'formik'
 import React from 'react'
+import ReCAPTCHA from 'react-google-recaptcha'
 
+import publicRuntimeConfig from '../../config/env.config'
 import { WhitepaperFormValues, whitePaperInitialValues, whitePaperSchema } from '../../yup/WhitePaperFormValidation'
 import Button from '../Button'
 
@@ -16,13 +18,21 @@ interface Props {
 }
 
 export default function WhitePaperForm({ title, file, className, handleNextStep }: Props) {
+  const recaptchaRef = React.createRef<ReCAPTCHA>()
+
   return (
     <Formik
       initialValues={whitePaperInitialValues}
       validationSchema={whitePaperSchema}
       // tslint:disable-next-line: jsx-no-lambda
       onSubmit={(values: WhitepaperFormValues) => {
-        handleNextStep(values, title, file)
+        let recaptchaValue
+        if (recaptchaRef && recaptchaRef.current) {
+          recaptchaValue = recaptchaRef.current.getValue()
+        }
+        if (recaptchaValue) {
+          handleNextStep(values, title, file)
+        }
       }}
       // tslint:disable-next-line
       render={({ errors, touched }) => (
@@ -66,6 +76,9 @@ export default function WhitePaperForm({ title, file, className, handleNextStep 
             que les informations saisies soient exploitées afin d'être contacté par les équipes d'agaetis."
           />
 
+          <div className="flex flex-row justify-center">
+            <ReCAPTCHA ref={recaptchaRef} size="normal" sitekey={publicRuntimeConfig.NEXT_APP_RECAPTCHA_KEY} />
+          </div>
           <Button
             type="submit"
             className="block w-64 px-8 py-3 leading-none rounded-full uppercase mx-auto mt-4 md:mt-8 bg-orange text-white text-xs font-semibold"

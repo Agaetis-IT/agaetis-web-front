@@ -1,8 +1,10 @@
 import clsx from 'clsx'
 import { ErrorMessage, Field, Form, Formik } from 'formik'
 import React from 'react'
+import ReCAPTCHA from 'react-google-recaptcha'
 
 import { newReactGACustomVar, newReactGAEvent } from '../../analytics/analytics'
+import publicRuntimeConfig from '../../config/env.config'
 import FormValues from '../../types/ContactFormValues'
 import { Step3FormValues, step3InitialValues, step3Schema } from '../../yup/ContactFormValidation'
 import Button from '../Button'
@@ -24,11 +26,20 @@ function onSubmit(fields: Step3FormValues, handleNext: (formValues: FormValues) 
 }
 
 export default function Step3({ className, handleNextStep, formValues }: Props) {
+  const recaptchaRef = React.createRef<ReCAPTCHA>()
   return (
     <Formik
       initialValues={step3InitialValues}
       validationSchema={step3Schema}
-      onSubmit={fields => onSubmit(fields, handleNextStep, formValues)}
+      onSubmit={fields => {
+        let recaptchaValue
+        if (recaptchaRef && recaptchaRef.current) {
+          recaptchaValue = recaptchaRef.current.getValue()
+        }
+        if (recaptchaValue) {
+          onSubmit(fields, handleNextStep, formValues)
+        }
+      }}
       render={() => (
         <Form className={clsx(className, 'justify-center mt-4')}>
           <div className="flex flex-col justify-center">
@@ -47,7 +58,9 @@ export default function Step3({ className, handleNextStep, formValues }: Props) 
             </div>
             <ErrorMessage name="message" component="div" className="text-cgu py-2 font-semibold text-red" />
           </div>
-
+          <div className="flex flex-row justify-center">
+            <ReCAPTCHA ref={recaptchaRef} size="normal" sitekey={publicRuntimeConfig.NEXT_APP_RECAPTCHA_KEY} />
+          </div>
           <Button
             type="submit"
             className="block md:inline-block px-8 py-2 leading-none rounded-full uppercase mx-auto mt-4 md:mt-8 bg-orange text-white text-xs font-semibold"
