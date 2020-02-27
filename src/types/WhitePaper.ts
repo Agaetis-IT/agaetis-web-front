@@ -4,4 +4,5 @@ export default interface WhitePaper {
   description: string
   image: string
   miniature: string
+  fichier: string
 }

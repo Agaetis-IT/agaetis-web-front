@@ -2,25 +2,27 @@ import clsx from 'clsx'
 import { Form, Formik } from 'formik'
 import React from 'react'
 
-import { whitePaperInitialValues, whitePaperSchema } from '../../yup/WhitePaperFormValidation'
+import { WhitepaperFormValues, whitePaperInitialValues, whitePaperSchema } from '../../yup/WhitePaperFormValidation'
 import Button from '../Button'
 
 import Checkbox from './Checkbox'
 import TextField from './TextField'
 
 interface Props {
+  title: string
+  file: string
   className?: string
-  handleNextStep(): void
+  handleNextStep(values: WhitepaperFormValues, title: string, file: string): void
 }
 
-export default function WhitePaperForm({ className, handleNextStep }: Props) {
+export default function WhitePaperForm({ title, file, className, handleNextStep }: Props) {
   return (
     <Formik
       initialValues={whitePaperInitialValues}
       validationSchema={whitePaperSchema}
       // tslint:disable-next-line: jsx-no-lambda
-      onSubmit={() => {
-        handleNextStep()
+      onSubmit={(values: WhitepaperFormValues) => {
+        handleNextStep(values, title, file)
       }}
       // tslint:disable-next-line
       render={({ errors, touched }) => (

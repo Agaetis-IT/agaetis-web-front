@@ -59,13 +59,24 @@ export default function ContactTab() {
 
   async function handleSubmit(values: FormValues) {
     setFormValues(values)
-    if (values && values.firstName && values.lastName && values.email && values.message) {
+    if (
+      values &&
+      values.firstName &&
+      values.lastName &&
+      values.email &&
+      values.message &&
+      values.company &&
+      values.objet &&
+      values.phone &&
+      values.cgu
+    ) {
       send(
         values.firstName + ' ' + values.lastName,
         values.objet,
         values.email,
         values.company,
         values.message,
+        values.phone,
         new Date(),
         () => {
           handleOpenModal(false)
@@ -130,7 +141,7 @@ export default function ContactTab() {
             handleNextStep={handleSubmit}
             formValues={formValues}
           />
-          {isOpenenedModal && <ContactMessage error={isError} />}
+          {isOpenenedModal && <ContactMessage error={isError} contact />}
         </div>
       </div>
     </div>

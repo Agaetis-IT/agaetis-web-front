@@ -110,7 +110,6 @@ app
       ) {
         transporter.sendMail(message, function(err, info) {
           if (err) {
-            console.log(err)
             res.status(500)
             res.send()
           } else {
@@ -118,6 +117,65 @@ app
             res.send()
           }
         })
+      } else {
+        res.status(400)
+        res.send()
+      }
+    })
+
+    server.post('/send/white-paper', (req, res) => {
+      oAuth2Client.setCredentials({
+        refresh_token: process.env.NEXT_APP_GMAIL_REFRESH_TOKEN,
+      })
+
+      const accessToken = oAuth2Client.getAccessToken()
+      var transporter = nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true,
+        auth: {
+          type: 'OAuth2',
+          user: process.env.NEXT_APP_MAIL_ADDRESS,
+          clientId: process.env.NEXT_APP_GMAIL_CLIENT_ID,
+          clientSecret: process.env.NEXT_APP_GMAIL_CLIENT_SECRET,
+          refreshToken: process.env.NEXT_APP_GMAIL_REFRESH_TOKEN,
+          accessToken: accessToken,
+          expires: Date.now() + 3600,
+        },
+      })
+
+      const message = {
+        from: process.env.NEXT_APP_MAIL_ADDRESS,
+        to: req.body.mail,
+        subject: req.body.object,
+        html: req.body.content,
+        attachments: [
+          {
+            filename: req.body.file.split('/').slice(-1)[0],
+            path: req.body.file,
+          },
+        ],
+      }
+      const regEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      if (
+        regEx.test(message.from) &&
+        regEx.test(message.to) &&
+        message.html.length > 0 &&
+        message.attachments[0].filename &&
+        message.attachments[0].path
+      ) {
+        transporter.sendMail(message, function(err, info) {
+          if (err) {
+            res.status(500)
+            res.send()
+          } else {
+            res.status(200)
+            res.send()
+          }
+        })
+      } else {
+        res.status(400)
+        res.send()
       }
     })
 
