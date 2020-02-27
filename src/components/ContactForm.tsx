@@ -43,6 +43,7 @@ export default function ContactTab() {
   const [isOpenenedModal, setOpenModal] = useState(false)
   const [isError, setIsError] = useState(true)
   const [formValues, setFormValues] = useState(defaultValues)
+  const [isSubmitted, setIsSubmitted] = useState(false)
   function handleNext(values: FormValues) {
     setFormValues(values)
     setCurrentIndex(currentIndex + 1)
@@ -59,6 +60,7 @@ export default function ContactTab() {
 
   async function handleSubmit(values: FormValues) {
     setFormValues(values)
+
     if (
       values &&
       values.firstName &&
@@ -80,9 +82,11 @@ export default function ContactTab() {
         new Date(),
         () => {
           handleOpenModal(false)
+          setIsSubmitted(false)
         },
         () => {
           handleOpenModal(true)
+          setIsSubmitted(false)
         }
       )
     } else {
@@ -140,6 +144,7 @@ export default function ContactTab() {
             className={clsx(currentIndex === 2 ? 'flex flex-col' : 'hidden', 'px-4 md:px-0')}
             handleNextStep={handleSubmit}
             formValues={formValues}
+            isSubmitted={isSubmitted}
           />
           {isOpenenedModal && <ContactMessage error={isError} contact />}
         </div>

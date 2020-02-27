@@ -32,6 +32,7 @@ whitePaper.getInitialProps = async ({ query }: NextContext) => {
 export default function whitePaper({ pageContent, errorCode }: Props) {
   const [isOpenenedModal, setOpenModal] = useState(false)
   const [isError, setIsError] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
 
   function handleOpenModal(error: boolean) {
     setIsError(error)
@@ -42,7 +43,7 @@ export default function whitePaper({ pageContent, errorCode }: Props) {
   }
 
   async function handleSubmit(values: WhitepaperFormValues, title: string, file: string) {
-    // TODO: Send white paper by mail
+    setIsLoading(true)
     if (values.firstName && values.lastName && values.email && values.company && values.cgu) {
       sendWhitePaper(
         values.firstName + ' ' + values.lastName,
@@ -52,9 +53,11 @@ export default function whitePaper({ pageContent, errorCode }: Props) {
         file,
         () => {
           handleOpenModal(false)
+          setIsLoading(false)
         },
         () => {
           handleOpenModal(true)
+          setIsLoading(false)
         }
       )
     } else {
@@ -94,7 +97,12 @@ export default function whitePaper({ pageContent, errorCode }: Props) {
           />
           <div className="md:max-w-md mx-auto mb-8 px-4">
             <div className=" md:px-12 flex flex-col justify-center">
-              <WhitePaperForm title={pageContent.title} file={pageContent.fichier} handleNextStep={handleSubmit} />
+              <WhitePaperForm
+                title={pageContent.title}
+                file={pageContent.fichier}
+                handleNextStep={handleSubmit}
+                isLoading={isLoading}
+              />
             </div>
           </div>
           {isOpenenedModal && <ContactMessage error={isError} contact={false} />}

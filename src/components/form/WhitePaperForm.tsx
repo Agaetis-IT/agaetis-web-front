@@ -14,10 +14,11 @@ interface Props {
   title: string
   file: string
   className?: string
+  isLoading: boolean
   handleNextStep(values: WhitepaperFormValues, title: string, file: string): void
 }
 
-export default function WhitePaperForm({ title, file, className, handleNextStep }: Props) {
+export default function WhitePaperForm({ title, file, className, handleNextStep, isLoading }: Props) {
   const recaptchaRef = React.createRef<ReCAPTCHA>()
 
   return (
@@ -83,7 +84,9 @@ export default function WhitePaperForm({ title, file, className, handleNextStep 
             type="submit"
             className="block w-64 px-8 py-3 leading-none rounded-full uppercase mx-auto mt-4 md:mt-8 bg-orange text-white text-xs font-semibold"
           >
-            Télécharger
+            <div>
+              Envoyer <span className={clsx({ loading: isLoading }, ' float-right')} />
+            </div>
           </Button>
           <Button
             href="/ideas#whitepapers"

@@ -143,7 +143,6 @@ app
           expires: Date.now() + 3600,
         },
       })
-
       const message = {
         from: process.env.NEXT_APP_MAIL_ADDRESS,
         to: req.body.mail,
@@ -156,17 +155,23 @@ app
           },
         ],
       }
+
+      const base_url = req.body.file
+        .split('/')
+        .slice(0, 3)
+        .join('/')
+
       const regEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
       if (
         regEx.test(message.from) &&
         regEx.test(message.to) &&
         message.html.length > 0 &&
         message.attachments[0].filename &&
-        message.attachments[0].path
+        message.attachments[0].path &&
+        base_url === process.env.NEXT_APP_BASE_URL
       ) {
         transporter.sendMail(message, function(err, info) {
           if (err) {
-            console.log(err)
             res.status(500)
             res.send()
           } else {

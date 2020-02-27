@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import { ErrorMessage, Field, Form, Formik } from 'formik'
-import React from 'react'
+import React, { useState } from 'react'
 import ReCAPTCHA from 'react-google-recaptcha'
 
 import { newReactGACustomVar, newReactGAEvent } from '../../analytics/analytics'
@@ -13,10 +13,12 @@ interface Props {
   className?: string
   handleNextStep: (formValues: FormValues) => void
   formValues: FormValues
+  isSubmitted: boolean
 }
 
 function onSubmit(fields: Step3FormValues, handleNext: (formValues: FormValues) => void, formValues: FormValues) {
   const cookies = localStorage.getItem('cookies')
+
   if (!cookies || JSON.parse(cookies)) {
     localStorage.setItem('step3', JSON.stringify(fields))
     newReactGAEvent('ContactFormState', 'Submit form', 'Done')
@@ -25,7 +27,7 @@ function onSubmit(fields: Step3FormValues, handleNext: (formValues: FormValues) 
   handleNext({ ...formValues, ...fields })
 }
 
-export default function Step3({ className, handleNextStep, formValues }: Props) {
+export default function Step3({ className, handleNextStep, formValues, isSubmitted }: Props) {
   const recaptchaRef = React.createRef<ReCAPTCHA>()
   return (
     <Formik
@@ -63,9 +65,11 @@ export default function Step3({ className, handleNextStep, formValues }: Props) 
           </div>
           <Button
             type="submit"
-            className="block md:inline-block px-8 py-2 leading-none rounded-full uppercase mx-auto mt-4 md:mt-8 bg-orange text-white text-xs font-semibold"
+            className="w-48 block md:inline-block px-8 py-2 leading-none rounded-full uppercase mx-auto mt-4 md:mt-8 bg-orange text-white text-xs font-semibold"
           >
-            Valider
+            <div className="self-center">
+              Valider <span className={clsx({ loading: isSubmitted }, 'float-right')} />
+            </div>
           </Button>
         </Form>
       )}
