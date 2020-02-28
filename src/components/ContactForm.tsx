@@ -59,8 +59,7 @@ export default function ContactTab() {
   }
 
   async function handleSubmit(values: FormValues) {
-    setFormValues(values)
-
+    setIsSubmitted(true)
     if (
       values &&
       values.firstName &&
