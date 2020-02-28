@@ -8,6 +8,7 @@ const handle = app.getRequestHandler()
 const port = process.env.PORT || 3000
 const bodyParser = require('body-parser')
 const nodemailer = require('nodemailer')
+const sha256 = require('js-sha256').sha256
 
 const { google } = require('googleapis')
 
@@ -101,8 +102,20 @@ app
         subject: req.body.object,
         html: req.body.content,
       }
+
+      const key = Buffer.from(
+        req.body.name +
+          req.body.object +
+          process.env.NEXT_APP_CONTACT_SALT +
+          req.body.mail +
+          req.body.content +
+          req.body.date,
+        'base64'
+      )
+
       const regEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
       if (
+        req.body.hash === sha256(key) &&
         regEx.test(message.from) &&
         regEx.test(message.to) &&
         ['Un projet ?', 'Une candidature ?', 'Un cafe ?'].includes(message.subject) &&
@@ -143,6 +156,7 @@ app
           expires: Date.now() + 3600,
         },
       })
+
       const message = {
         from: process.env.NEXT_APP_MAIL_ADDRESS,
         to: req.body.mail,
@@ -156,6 +170,17 @@ app
         ],
       }
 
+      const key = Buffer.from(
+        req.body.name +
+          req.body.object +
+          process.env.NEXT_APP_CONTACT_SALT +
+          req.body.mail +
+          req.body.content +
+          req.body.file +
+          req.body.date,
+        'base64'
+      )
+
       const base_url = req.body.file
         .split('/')
         .slice(0, 3)
@@ -163,6 +188,7 @@ app
 
       const regEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
       if (
+        req.body.hash === sha256(key) &&
         regEx.test(message.from) &&
         regEx.test(message.to) &&
         message.html.length > 0 &&

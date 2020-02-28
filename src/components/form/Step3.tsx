@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import { ErrorMessage, Field, Form, Formik } from 'formik'
-import React, { useState } from 'react'
+import React from 'react'
 import ReCAPTCHA from 'react-google-recaptcha'
 
 import { newReactGACustomVar, newReactGAEvent } from '../../analytics/analytics'

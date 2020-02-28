@@ -23,6 +23,7 @@
     "googleapis": "^47.0.0",
     "i18next": "^15.0.9",
     "i18next-browser-languagedetector": "^3.0.1",
+    "js-sha256": "^0.9.0",
     "lodash": "^4.17.15",
     "next": "^8.1.0",
     "next-images": "^1.1.1",

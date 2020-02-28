@@ -1,4 +1,5 @@
 import axios from 'axios'
+import sha256 from 'js-sha256'
 
 import publicRuntimeConfig from '../config/env.config'
 
@@ -13,6 +14,16 @@ export default async function send(
   callback: () => void,
   error: () => void
 ) {
+  const key = Buffer.from(
+    name +
+      object +
+      publicRuntimeConfig.NEXT_APP_CONTACT_SALT +
+      mail +
+      formatContent(content, name, mail, company, phone) +
+      date.getTime(),
+    'base64'
+  )
+
   await axios({
     method: 'post',
     url: `${publicRuntimeConfig.NEXT_APP_SITE_URL}/send`,
@@ -22,7 +33,8 @@ export default async function send(
       object,
       mail,
       content: formatContent(content, name, mail, company, phone),
-      date,
+      date: date.getTime(),
+      hash: sha256.sha256(key),
     },
   })
     .then(() => {
@@ -42,6 +54,18 @@ export async function sendWhitePaper(
   callback: () => void,
   error: () => void
 ) {
+  const key = Buffer.from(
+    name +
+      'Envoi du livre blanc : ' +
+      whitepaperTitle +
+      publicRuntimeConfig.NEXT_APP_CONTACT_SALT +
+      mail +
+      formatWPContent() +
+      file +
+      date.getTime(),
+    'base64'
+  )
+
   await axios({
     method: 'post',
     url: `${publicRuntimeConfig.NEXT_APP_SITE_URL}/send/white-paper`,
@@ -51,8 +75,9 @@ export async function sendWhitePaper(
       object: 'Envoi du livre blanc : ' + whitepaperTitle,
       mail,
       content: formatWPContent(),
-      date,
+      date: date.getTime(),
       file,
+      hash: sha256.sha256(key),
     },
   })
     .then(() => {
