@@ -57,3 +57,17 @@ To follow the steps below, you have to create a gmail account (or have one alrea
 16. Add your email address to the .env NEXT_APP_MAIL_ADDRESS
 
 It should be correctly working, if not clap your hands and i'll try to solve the problem and update the README.
+
+## Change Captcha settings
+
+To create reCAPTCHA keys, you need a google Account
+
+1. Visit https://www.google.com/recaptcha/admin/create
+2. Add a project name
+3. Choose the reCAPTCHA version 2
+4. As the domain, use your site base url (without http and /), if you are running the site in local, add 127.0.0.1
+5. Add the mail of the admin
+6. Accept the terms of use and click send
+7. Copy the public key in .env as NEXT_APP_RECAPTCHA_KEY
+
+Now, you should be able to access statistics about your captcha in this same page
