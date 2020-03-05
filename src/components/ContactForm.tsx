@@ -71,23 +71,22 @@ export default function ContactTab() {
       values.phone &&
       values.cgu
     ) {
-      send(
-        values.firstName + ' ' + values.lastName,
-        values.objet,
-        values.email,
-        values.company,
-        values.message,
-        values.phone,
-        new Date(),
-        () => {
-          handleOpenModal(false)
-          setIsSubmitted(false)
-        },
-        () => {
-          handleOpenModal(true)
-          setIsSubmitted(false)
-        }
-      )
+      try {
+        await send(
+          values.firstName + ' ' + values.lastName,
+          values.objet,
+          values.email,
+          values.company,
+          values.message,
+          values.phone,
+          new Date()
+        )
+        handleOpenModal(false)
+        setIsSubmitted(false)
+      } catch {
+        handleOpenModal(true)
+        setIsSubmitted(false)
+      }
     } else {
       handleOpenModal(true)
     }

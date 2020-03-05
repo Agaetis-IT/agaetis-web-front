@@ -10,9 +10,7 @@ export default async function send(
   company: string,
   content: string,
   phone: string,
-  date: Date,
-  callback: () => void,
-  error: () => void
+  date: Date
 ) {
   const key = Buffer.from(
     name +
@@ -24,7 +22,7 @@ export default async function send(
     'base64'
   )
 
-  await axios({
+  return axios({
     method: 'post',
     url: `${publicRuntimeConfig.NEXT_APP_SITE_URL}/send`,
     headers: {},
@@ -37,23 +35,9 @@ export default async function send(
       hash: sha256.sha256(key),
     },
   })
-    .then(() => {
-      callback()
-    })
-    .catch(() => {
-      error()
-    })
 }
 
-export async function sendWhitePaper(
-  name: string,
-  mail: string,
-  date: Date,
-  whitepaperTitle: string,
-  file: string,
-  callback: () => void,
-  error: () => void
-) {
+export async function sendWhitePaper(name: string, mail: string, date: Date, whitepaperTitle: string, file: string) {
   const key = Buffer.from(
     name +
       'Envoi du livre blanc : ' +
@@ -80,18 +64,10 @@ export async function sendWhitePaper(
       hash: sha256.sha256(key),
     },
   })
-    .then(() => {
-      callback()
-    })
-    .catch(() => {
-      error()
-    })
 }
 
-function formatContent(content: string, name: string, mail: string, company: string, phone: string) {
-  return `<html><body><p>${content}</p><h3>Contact</h3><p>${name}</p><p>${mail}</p><p>${phone}</p><p>${company}</p></body></html>`
-}
+const formatContent = (content: string, name: string, mail: string, company: string, phone: string) =>
+  `<html><body><p>${content}</p><h3>Contact</h3><p>${name}</p><p>${mail}</p><p>${phone}</p><p>${company}</p></body></html>`
 
-function formatWPContent() {
-  return `<html><body><p>Bonjour,<br/><br/>Nous vous remercions de l'intérêt que vous portez à Agaetis et son activité. Vous trouverez ci-joint le fichier .pdf que vous avez choisi. <br/><br/>Cordialement,<br/>Agaetis</p></body></html>`
-}
+const formatWPContent = () =>
+  `<html><body><p>Bonjour,<br/><br/>Nous vous remercions de l'intérêt que vous portez à Agaetis et son activité. Vous trouverez ci-joint le fichier .pdf que vous avez choisi. <br/><br/>Cordialement,<br/>Agaetis</p></body></html>`

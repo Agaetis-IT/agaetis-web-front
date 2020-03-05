@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import { ErrorMessage, Field, Form, Formik } from 'formik'
-import React from 'react'
+import React, { useRef } from 'react'
 import ReCAPTCHA from 'react-google-recaptcha'
 
 import { newReactGACustomVar, newReactGAEvent } from '../../analytics/analytics'
@@ -28,17 +28,13 @@ function onSubmit(fields: Step3FormValues, handleNext: (formValues: FormValues) 
 }
 
 export default function Step3({ className, handleNextStep, formValues, isSubmitted }: Props) {
-  const recaptchaRef = React.createRef<ReCAPTCHA>()
+  const recaptchaRef = useRef<ReCAPTCHA>(null)
   return (
     <Formik
       initialValues={step3InitialValues}
       validationSchema={step3Schema}
       onSubmit={fields => {
-        let recaptchaValue
-        if (recaptchaRef && recaptchaRef.current) {
-          recaptchaValue = recaptchaRef.current.getValue()
-        }
-        if (recaptchaValue) {
+        if (recaptchaRef && recaptchaRef.current && recaptchaRef.current.getValue()) {
           onSubmit(fields, handleNextStep, formValues)
         }
       }}

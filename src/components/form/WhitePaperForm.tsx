@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import { Form, Formik } from 'formik'
-import React from 'react'
+import React, { useRef } from 'react'
 import ReCAPTCHA from 'react-google-recaptcha'
 
 import publicRuntimeConfig from '../../config/env.config'
@@ -19,7 +19,7 @@ interface Props {
 }
 
 export default function WhitePaperForm({ title, file, className, handleNextStep, isLoading }: Props) {
-  const recaptchaRef = React.createRef<ReCAPTCHA>()
+  const recaptchaRef = useRef<ReCAPTCHA>(null)
 
   return (
     <Formik
@@ -27,11 +27,7 @@ export default function WhitePaperForm({ title, file, className, handleNextStep,
       validationSchema={whitePaperSchema}
       // tslint:disable-next-line: jsx-no-lambda
       onSubmit={(values: WhitepaperFormValues) => {
-        let recaptchaValue
-        if (recaptchaRef && recaptchaRef.current) {
-          recaptchaValue = recaptchaRef.current.getValue()
-        }
-        if (recaptchaValue) {
+        if (recaptchaRef && recaptchaRef.current && recaptchaRef.current.getValue()) {
           handleNextStep(values, title, file)
         }
       }}

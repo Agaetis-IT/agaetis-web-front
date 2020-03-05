@@ -24,6 +24,8 @@ const SCOPES = [
   'https://www.googleapis.com/auth/userinfo.profile',
 ]
 
+const regEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
 
 app
@@ -113,7 +115,6 @@ app
         'base64'
       )
 
-      const regEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
       if (
         req.body.hash === sha256(key) &&
         regEx.test(message.from) &&
@@ -123,16 +124,13 @@ app
       ) {
         transporter.sendMail(message, function(err, info) {
           if (err) {
-            res.status(500)
-            res.send()
+            res.status(500).send()
           } else {
-            res.status(200)
-            res.send()
+            res.status(200).send()
           }
         })
       } else {
-        res.status(400)
-        res.send()
+        res.status(400).send()
       }
     })
 
@@ -186,7 +184,6 @@ app
         .slice(0, 3)
         .join('/')
 
-      const regEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
       if (
         req.body.hash === sha256(key) &&
         regEx.test(message.from) &&
@@ -198,16 +195,13 @@ app
       ) {
         transporter.sendMail(message, function(err, info) {
           if (err) {
-            res.status(500)
-            res.send()
+            res.status(500).send()
           } else {
-            res.status(200)
-            res.send()
+            res.status(200).send()
           }
         })
       } else {
-        res.status(400)
-        res.send()
+        res.status(400).send()
       }
     })
 
