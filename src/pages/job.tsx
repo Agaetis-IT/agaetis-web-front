@@ -58,7 +58,7 @@ export default function job({ pageContent, allJobs, errorCode }: Props) {
   return (
     <>
       <Head>
-        <title>Agaetis :{pageContent.title}</title>
+        <title>Agaetis : {pageContent.title}</title>
         <meta property="og:description" content={pageContent.description} />
         <meta name="description" content={pageContent.description} />
         <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}${pageContent.slug}`} />
