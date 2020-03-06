@@ -28,6 +28,14 @@ const mailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
 
+const verifyCaptcha = async token => {
+  const url = `https://www.google.com/recaptcha/api/siteverify?secret=${
+    process.env.NEXT_APP_RECAPTCHA_SECRET
+  }&response=${token}`
+  const { data } = await axios.get(url)
+  return data.success
+}
+
 app
   .prepare()
   .then(() => {
@@ -77,7 +85,7 @@ app
       app.render(req, res, '/white-paper', { ...req.params, ...req.query })
     })
 
-    server.post('/send', (req, res) => {
+    server.post('/send', async (req, res) => {
       oAuth2Client.setCredentials({
         refresh_token: process.env.NEXT_APP_GMAIL_REFRESH_TOKEN,
       })
@@ -111,12 +119,14 @@ app
           process.env.NEXT_APP_CONTACT_SALT +
           req.body.mail +
           req.body.content +
-          req.body.date,
+          req.body.date +
+          req.body.token,
         'base64'
       )
 
       if (
         req.body.hash === sha256(key) &&
+        verifyCaptcha(req.body.token) &&
         mailRegex.test(message.from) &&
         mailRegex.test(message.to) &&
         ['Un projet ?', 'Une candidature ?', 'Un cafe ?'].includes(message.subject) &&
@@ -175,7 +185,8 @@ app
           req.body.mail +
           req.body.content +
           req.body.file +
-          req.body.date,
+          req.body.date +
+          req.body.token,
         'base64'
       )
 
@@ -186,6 +197,7 @@ app
 
       if (
         req.body.hash === sha256(key) &&
+        verifyCaptcha(req.body.token) &&
         mailRegex.test(message.from) &&
         mailRegex.test(message.to) &&
         message.html.length > 0 &&

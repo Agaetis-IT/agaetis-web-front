@@ -15,7 +15,7 @@ interface Props {
   file: string
   className?: string
   isLoading: boolean
-  handleNextStep(values: WhitepaperFormValues, title: string, file: string): void
+  handleNextStep(values: WhitepaperFormValues, title: string, file: string, token: string): void
 }
 
 export default function WhitePaperForm({ title, file, className, handleNextStep, isLoading }: Props) {
@@ -28,7 +28,7 @@ export default function WhitePaperForm({ title, file, className, handleNextStep,
       // tslint:disable-next-line: jsx-no-lambda
       onSubmit={(values: WhitepaperFormValues) => {
         if (recaptchaRef && recaptchaRef.current && recaptchaRef.current.getValue()) {
-          handleNextStep(values, title, file)
+          handleNextStep(values, title, file, recaptchaRef.current.getValue()!)
         }
       }}
       // tslint:disable-next-line

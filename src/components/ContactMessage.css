@@ -1,5 +1,5 @@
 .contact-modal {
-  position: fixed;
+  position: absolute;
   bottom: 50px;
   left: 50%;
   transform: translateX(-50%);

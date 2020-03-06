@@ -58,7 +58,7 @@ export default function ContactTab() {
     }, 3000)
   }
 
-  async function handleSubmit(values: FormValues) {
+  async function handleSubmit(values: FormValues, token: string) {
     setIsSubmitted(true)
     if (
       values &&
@@ -69,7 +69,8 @@ export default function ContactTab() {
       values.company &&
       values.objet &&
       values.phone &&
-      values.cgu
+      values.cgu &&
+      token
     ) {
       try {
         await send(
@@ -79,7 +80,8 @@ export default function ContactTab() {
           values.company,
           values.message,
           values.phone,
-          new Date()
+          new Date(),
+          token
         )
         handleOpenModal(false)
         setIsSubmitted(false)
@@ -144,7 +146,7 @@ export default function ContactTab() {
             formValues={formValues}
             isSubmitted={isSubmitted}
           />
-          {isOpenenedModal && <ContactMessage error={isError} contact />}
+          {isOpenenedModal && <ContactMessage error={isError} contact={true} />}
         </div>
       </div>
     </div>

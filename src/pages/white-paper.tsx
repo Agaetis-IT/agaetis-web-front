@@ -42,11 +42,11 @@ export default function whitePaper({ pageContent, errorCode }: Props) {
     }, 3000)
   }
 
-  async function handleSubmit(values: WhitepaperFormValues, title: string, file: string) {
+  async function handleSubmit(values: WhitepaperFormValues, title: string, file: string, token: string) {
     setIsLoading(true)
     if (values.firstName && values.lastName && values.email && values.company && values.cgu) {
       try {
-        await sendWhitePaper(values.firstName + ' ' + values.lastName, values.email, new Date(), title, file)
+        await sendWhitePaper(values.firstName + ' ' + values.lastName, values.email, new Date(), title, file, token)
         handleOpenModal(false)
         setIsLoading(false)
       } catch {
