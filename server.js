@@ -24,7 +24,7 @@ const SCOPES = [
   'https://www.googleapis.com/auth/userinfo.profile',
 ]
 
-const regEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+const mailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
 
@@ -117,8 +117,8 @@ app
 
       if (
         req.body.hash === sha256(key) &&
-        regEx.test(message.from) &&
-        regEx.test(message.to) &&
+        mailRegex.test(message.from) &&
+        mailRegex.test(message.to) &&
         ['Un projet ?', 'Une candidature ?', 'Un cafe ?'].includes(message.subject) &&
         message.html.length > 0
       ) {
@@ -186,8 +186,8 @@ app
 
       if (
         req.body.hash === sha256(key) &&
-        regEx.test(message.from) &&
-        regEx.test(message.to) &&
+        mailRegex.test(message.from) &&
+        mailRegex.test(message.to) &&
         message.html.length > 0 &&
         message.attachments[0].filename &&
         message.attachments[0].path &&

@@ -43,6 +43,7 @@ Idea.getInitialProps = async ({ query }: NextContext) => {
         categories: data._embedded['wp:term'][0].map((category: { name: string }) => category.name),
         content: data.content.rendered,
         slug: data.slug,
+        descriptionText: data.acf.idea_description,
       },
       related: related.map(idea => {
         return {
@@ -114,8 +115,8 @@ export default function Idea({ data, related, errorCode, meta }: Props) {
     <>
       <Head>
         <title>Agaetis : {data.title}</title>
-        <meta property="og:description" content={meta.description} />
-        <meta name="description" content={meta.description} />
+        <meta property="og:description" content={meta.description ? meta.description : data.descriptionText} />
+        <meta name="description" content={meta.description ? meta.description : data.descriptionText} />
         <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/${data.slug}`} />
       </Head>
       <Layout>

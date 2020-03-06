@@ -36,4 +36,5 @@ export default interface IdeasContent {
   category: string
   categories: string[]
   slug: string
+  descriptionText: string
 }
