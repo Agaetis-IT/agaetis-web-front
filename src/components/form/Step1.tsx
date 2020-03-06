@@ -72,7 +72,7 @@ export default function Step1({ className, handleNextStep, formValues }: Props) 
           <ErrorMessage name="objet" component="div" className="text-cgu text-center py-4 font-semibold text-red" />
           <Button
             type="submit"
-            className="block md:inline-block px-8 py-2 leading-none rounded-full uppercase mx-auto mt-4 md:mt-8 bg-orange text-white text-xs font-semibold"
+            className="w-48 block md:inline-block px-8 py-2 leading-none rounded-full uppercase mx-auto mt-4 md:mt-8 bg-orange text-white text-xs font-semibold"
           >
             Poursuivre
           </Button>

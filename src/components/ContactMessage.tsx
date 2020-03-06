@@ -1,3 +1,4 @@
+import clsx from 'clsx'
 import React from 'react'
 
 import Cross from '../images/cross-icon-png-1.png'
@@ -7,11 +8,14 @@ import './ContactMessage.css'
 
 interface Props {
   error: boolean
+  contact: boolean
 }
 
-export default function ContactMessage({ error }: Props) {
+export default function ContactMessage({ error, contact }: Props) {
   return (
-    <div className=" flex flex-row bg-white p-8 mx-auto rounded-lg modal">
+    <div
+      className={clsx('flex flex-row bg-white p-8 mx-auto rounded-lg', contact ? 'contact-modal' : 'white-paper-modal')}
+    >
       <h3 className="self-center block mr-4 text-grey">
         {error ? "Erreur lors de l'envoi, vérifiez les informations fournies" : 'Message Envoyé'}
       </h3>

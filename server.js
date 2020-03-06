@@ -8,15 +8,25 @@ const handle = app.getRequestHandler()
 const port = process.env.PORT || 3000
 const bodyParser = require('body-parser')
 const nodemailer = require('nodemailer')
+const sha256 = require('js-sha256').sha256
 
-var transport = nodemailer.createTransport({
-  host: process.env.NEXT_APP_SMTP_HOST,
-  port: 2525,
-  auth: {
-    user: process.env.NEXT_APP_SMTP_HOST_LOGIN,
-    pass: process.env.NEXT_APP_SMTP_HOST_PASS,
-  },
-})
+const { google } = require('googleapis')
+
+const oAuth2Client = new google.auth.OAuth2(
+  process.env.NEXT_APP_GMAIL_CLIENT_ID,
+  process.env.NEXT_APP_GMAIL_CLIENT_SECRET,
+  'http://localhost:3000/'
+)
+
+const SCOPES = [
+  'https://www.googleapis.com/auth/gmail.readonly',
+  'https://www.googleapis.com/auth/gmail.send',
+  'https://www.googleapis.com/auth/userinfo.profile',
+]
+
+const mailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
 
 app
   .prepare()
@@ -68,28 +78,131 @@ app
     })
 
     server.post('/send', (req, res) => {
+      oAuth2Client.setCredentials({
+        refresh_token: process.env.NEXT_APP_GMAIL_REFRESH_TOKEN,
+      })
+
+      const accessToken = oAuth2Client.getAccessToken()
+      var transporter = nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true,
+        auth: {
+          type: 'OAuth2',
+          user: process.env.NEXT_APP_MAIL_ADDRESS,
+          clientId: process.env.NEXT_APP_GMAIL_CLIENT_ID,
+          clientSecret: process.env.NEXT_APP_GMAIL_CLIENT_SECRET,
+          refreshToken: process.env.NEXT_APP_GMAIL_REFRESH_TOKEN,
+          accessToken: accessToken,
+          expires: Date.now() + 3600,
+        },
+      })
+
       const message = {
-        from: req.body.mail,
+        from: process.env.NEXT_APP_MAIL_ADDRESS,
         to: process.env.NEXT_APP_MAIL_ADDRESS,
         subject: req.body.object,
         html: req.body.content,
       }
-      const regEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+
+      const key = Buffer.from(
+        req.body.name +
+          req.body.object +
+          process.env.NEXT_APP_CONTACT_SALT +
+          req.body.mail +
+          req.body.content +
+          req.body.date,
+        'base64'
+      )
+
       if (
-        regEx.test(message.from) &&
-        regEx.test(message.to) &&
+        req.body.hash === sha256(key) &&
+        mailRegex.test(message.from) &&
+        mailRegex.test(message.to) &&
         ['Un projet ?', 'Une candidature ?', 'Un cafe ?'].includes(message.subject) &&
         message.html.length > 0
-      )
-        transport.sendMail(message, function(err, info) {
+      ) {
+        transporter.sendMail(message, function(err, info) {
           if (err) {
-            res.status(500)
-            res.send()
+            res.status(500).send()
           } else {
-            res.status(200)
-            res.send()
+            res.status(200).send()
           }
         })
+      } else {
+        res.status(400).send()
+      }
+    })
+
+    server.post('/send/white-paper', (req, res) => {
+      oAuth2Client.setCredentials({
+        refresh_token: process.env.NEXT_APP_GMAIL_REFRESH_TOKEN,
+      })
+
+      const accessToken = oAuth2Client.getAccessToken()
+      var transporter = nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true,
+        auth: {
+          type: 'OAuth2',
+          user: process.env.NEXT_APP_MAIL_ADDRESS,
+          clientId: process.env.NEXT_APP_GMAIL_CLIENT_ID,
+          clientSecret: process.env.NEXT_APP_GMAIL_CLIENT_SECRET,
+          refreshToken: process.env.NEXT_APP_GMAIL_REFRESH_TOKEN,
+          accessToken: accessToken,
+          expires: Date.now() + 3600,
+        },
+      })
+
+      const message = {
+        from: process.env.NEXT_APP_MAIL_ADDRESS,
+        to: req.body.mail,
+        subject: req.body.object,
+        html: req.body.content,
+        attachments: [
+          {
+            filename: req.body.file.split('/').slice(-1)[0],
+            path: req.body.file,
+          },
+        ],
+      }
+
+      const key = Buffer.from(
+        req.body.name +
+          req.body.object +
+          process.env.NEXT_APP_CONTACT_SALT +
+          req.body.mail +
+          req.body.content +
+          req.body.file +
+          req.body.date,
+        'base64'
+      )
+
+      const base_url = req.body.file
+        .split('/')
+        .slice(0, 3)
+        .join('/')
+
+      if (
+        req.body.hash === sha256(key) &&
+        mailRegex.test(message.from) &&
+        mailRegex.test(message.to) &&
+        message.html.length > 0 &&
+        message.attachments[0].filename &&
+        message.attachments[0].path &&
+        base_url === process.env.NEXT_APP_BASE_URL
+      ) {
+        transporter.sendMail(message, function(err, info) {
+          if (err) {
+            res.status(500).send()
+          } else {
+            res.status(200).send()
+          }
+        })
+      } else {
+        res.status(400).send()
+      }
     })
 
     server.get('*', (req, res) => {

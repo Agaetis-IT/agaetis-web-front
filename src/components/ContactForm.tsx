@@ -43,6 +43,7 @@ export default function ContactTab() {
   const [isOpenenedModal, setOpenModal] = useState(false)
   const [isError, setIsError] = useState(true)
   const [formValues, setFormValues] = useState(defaultValues)
+  const [isSubmitted, setIsSubmitted] = useState(false)
   function handleNext(values: FormValues) {
     setFormValues(values)
     setCurrentIndex(currentIndex + 1)
@@ -58,22 +59,34 @@ export default function ContactTab() {
   }
 
   async function handleSubmit(values: FormValues) {
-    setFormValues(values)
-    if (values && values.firstName && values.lastName && values.email && values.message) {
-      send(
-        values.firstName + ' ' + values.lastName,
-        values.objet,
-        values.email,
-        values.company,
-        values.message,
-        new Date(),
-        () => {
-          handleOpenModal(false)
-        },
-        () => {
-          handleOpenModal(true)
-        }
-      )
+    setIsSubmitted(true)
+    if (
+      values &&
+      values.firstName &&
+      values.lastName &&
+      values.email &&
+      values.message &&
+      values.company &&
+      values.objet &&
+      values.phone &&
+      values.cgu
+    ) {
+      try {
+        await send(
+          values.firstName + ' ' + values.lastName,
+          values.objet,
+          values.email,
+          values.company,
+          values.message,
+          values.phone,
+          new Date()
+        )
+        handleOpenModal(false)
+        setIsSubmitted(false)
+      } catch {
+        handleOpenModal(true)
+        setIsSubmitted(false)
+      }
     } else {
       handleOpenModal(true)
     }
@@ -129,8 +142,9 @@ export default function ContactTab() {
             className={clsx(currentIndex === 2 ? 'flex flex-col' : 'hidden', 'px-4 md:px-0')}
             handleNextStep={handleSubmit}
             formValues={formValues}
+            isSubmitted={isSubmitted}
           />
-          {isOpenenedModal && <ContactMessage error={isError} />}
+          {isOpenenedModal && <ContactMessage error={isError} contact />}
         </div>
       </div>
     </div>

@@ -55,12 +55,14 @@ export async function getContactPageContent() {
 }
 
 export async function getJobContent(slug: string) {
-  const data = getIdeaBySlug(slug)
+  const { data } = await axios.get(`${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/agaetis/api/v1/jobs/${slug}`)
   return data
 }
 
 export async function getWhitePaperContent(slug: string) {
-  const data = getIdeaBySlug(slug)
+  const { data } = await axios.get(
+    `${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/agaetis/api/v1/white-papers/${slug}`
+  )
   return data
 }
 

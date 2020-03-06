@@ -1,19 +1,17 @@
 import { NextContext } from 'next'
 import Head from 'next/head'
-import React from 'react'
+import React, { useState } from 'react'
 
+import ContactMessage from '../components/ContactMessage'
 import WhitePaperForm from '../components/form/WhitePaperForm'
 import Layout from '../components/Layout'
 import publicRuntimeConfig from '../config/env.config'
+import { sendWhitePaper } from '../Services/contactService'
 import { getWhitePaperContent } from '../Services/wordpressService'
 import WhitePaper from '../types/WhitePaper'
+import { WhitepaperFormValues } from '../yup/WhitePaperFormValidation'
 
 import Error from './_error'
-
-function handleSubmit() {
-  // TODO: Send white paper by mail
-  alert('ok')
-}
 
 interface Props {
   pageContent?: WhitePaper
@@ -32,6 +30,34 @@ whitePaper.getInitialProps = async ({ query }: NextContext) => {
 }
 
 export default function whitePaper({ pageContent, errorCode }: Props) {
+  const [isOpenenedModal, setOpenModal] = useState(false)
+  const [isError, setIsError] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
+
+  function handleOpenModal(error: boolean) {
+    setIsError(error)
+    setOpenModal(true)
+    setTimeout(() => {
+      setOpenModal(false)
+    }, 3000)
+  }
+
+  async function handleSubmit(values: WhitepaperFormValues, title: string, file: string) {
+    setIsLoading(true)
+    if (values.firstName && values.lastName && values.email && values.company && values.cgu) {
+      try {
+        await sendWhitePaper(values.firstName + ' ' + values.lastName, values.email, new Date(), title, file)
+        handleOpenModal(false)
+        setIsLoading(false)
+      } catch {
+        handleOpenModal(true)
+        setIsLoading(false)
+      }
+    } else {
+      handleOpenModal(true)
+    }
+  }
+
   if (!pageContent) {
     return <Error statusCode={errorCode!} />
   }
@@ -64,10 +90,15 @@ export default function whitePaper({ pageContent, errorCode }: Props) {
           />
           <div className="md:max-w-md mx-auto mb-8 px-4">
             <div className=" md:px-12 flex flex-col justify-center">
-              <WhitePaperForm handleNextStep={handleSubmit} />
+              <WhitePaperForm
+                title={pageContent.title}
+                file={pageContent.fichier}
+                handleNextStep={handleSubmit}
+                isLoading={isLoading}
+              />
             </div>
           </div>
-
+          {isOpenenedModal && <ContactMessage error={isError} contact={false} />}
           <div className=" blue-underline my-4" />
         </>
       </Layout>

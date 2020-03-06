@@ -84,7 +84,7 @@ export default function Step2({ className, handleNextStep, formValues }: Props) 
 
           <Button
             type="submit"
-            className="block md:inline-block px-8 py-2 leading-none rounded-full uppercase mx-auto mt-4 md:mt-8 bg-orange text-white text-xs font-semibold"
+            className="w-48 block md:inline-block px-8 py-2 leading-none rounded-full uppercase mx-auto mt-4 md:mt-8 bg-orange text-white text-xs font-semibold"
           >
             Poursuivre
           </Button>
