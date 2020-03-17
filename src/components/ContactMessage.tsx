@@ -13,9 +13,7 @@ interface Props {
 
 export default function ContactMessage({ error, contact }: Props) {
   return (
-    <div
-      className={clsx('flex flex-row bg-white p-8 mx-auto rounded-lg', contact ? 'contact-modal' : 'white-paper-modal')}
-    >
+    <div className={clsx('flex flex-row bg-white p-8 mx-auto rounded-lg contact-modal')}>
       <h3 className="self-center block mr-4 text-grey">
         {error ? "Erreur lors de l'envoi, vérifiez les informations fournies" : 'Message Envoyé'}
       </h3>

@@ -20,13 +20,6 @@ const oAuth2Client = new google.auth.OAuth2(
   'http://localhost:3000/'
 )
 
-/*
-const SCOPES = [
-  'https://www.googleapis.com/auth/gmail.readonly',
-  'https://www.googleapis.com/auth/gmail.send',
-  'https://www.googleapis.com/auth/userinfo.profile',
-]*/
-
 const mailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
@@ -155,8 +148,10 @@ app
         refresh_token: process.env.NEXT_APP_GMAIL_REFRESH_TOKEN,
       })
 
+      const captcha = verifyCaptcha(req.body.token)
+
       const accessToken = oAuth2Client.getAccessToken()
-      /* eslint:disable */
+
       const transporter = nodemailer.createTransport({
         host: 'smtp.gmail.com',
         port: 465,
@@ -171,7 +166,6 @@ app
           expires: Date.now() + 3600,
         },
       })
-      /* eslint:enable */
 
       const message = {
         from: process.env.NEXT_APP_MAIL_ADDRESS,
@@ -205,7 +199,7 @@ app
 
       if (
         req.body.hash === sha256(key) &&
-        verifyCaptcha(req.body.token) &&
+        captcha &&
         mailRegex.test(message.from!) &&
         mailRegex.test(message.to) &&
         message.html.length > 0 &&
@@ -230,10 +224,12 @@ app
     })
 
     server.listen(port, () => {
-      // console.log('> Ready on http://localhost:' + port)
+      // tslint:disable-next-line: no-console
+      console.log('> Ready on http://localhost:' + port)
     })
   })
-  .catch(() => {
-    // console.error(ex.stack)
+  .catch((ex: any) => {
+    // tslint:disable-next-line: no-console
+    console.error(ex.stack)
     process.exit(1)
   })
