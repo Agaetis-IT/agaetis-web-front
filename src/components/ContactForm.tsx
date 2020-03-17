@@ -146,7 +146,7 @@ export default function ContactTab() {
             formValues={formValues}
             isSubmitted={isSubmitted}
           />
-          {isOpenenedModal && <ContactMessage error={isError} contact={true} />}
+          {isOpenenedModal && <ContactMessage error={isError} />}
         </div>
       </div>
     </div>

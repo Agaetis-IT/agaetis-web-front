@@ -47,7 +47,7 @@ export default function JobsCarousel({ slideMax, slides }: Props) {
             )}
             key={slide.index}
           >
-            <div className="p-8 pt-4 leading-normal sm:pt-8 sm:pr-4">
+            <div className="p-8 pt-4 leading-normal sm:pt-8 sm:pr-4 md:max-w-32">
               <p className="text-sm italic" dangerouslySetInnerHTML={{ __html: slide.quote }} />
               <p className="text-blue text-xs font-semibold pt-2" dangerouslySetInnerHTML={{ __html: slide.author }} />
               <p className="text-blue text-xs italic" dangerouslySetInnerHTML={{ __html: slide.role }} />
@@ -59,6 +59,13 @@ export default function JobsCarousel({ slideMax, slides }: Props) {
         <div className="flex justify-center mt-6">
           {range(slideMax + 1).map((_, index) => (
             <span
+              style={{
+                width: '8px',
+                height: '8px',
+                display: 'inline-block',
+                border: '1.5px solid #ff7f40',
+                borderRadius: '9999px',
+              }}
               key={index}
               className={clsx({ 'bg-orange': slideIndex === index }, 'sliderCount border-orange mx-1')}
             />

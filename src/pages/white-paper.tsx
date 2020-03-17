@@ -98,7 +98,7 @@ export default function whitePaper({ pageContent, errorCode }: Props) {
               />
             </div>
           </div>
-          {isOpenenedModal && <ContactMessage error={isError} contact={false} />}
+          {isOpenenedModal && <ContactMessage error={isError} />}
           <div className=" blue-underline my-4" />
         </>
       </Layout>

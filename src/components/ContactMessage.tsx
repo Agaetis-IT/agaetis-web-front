@@ -8,10 +8,9 @@ import './ContactMessage.css'
 
 interface Props {
   error: boolean
-  contact: boolean
 }
 
-export default function ContactMessage({ error, contact }: Props) {
+export default function ContactMessage({ error }: Props) {
   return (
     <div className={clsx('flex flex-row bg-white p-8 mx-auto rounded-lg contact-modal')}>
       <h3 className="self-center block mr-4 text-grey">
