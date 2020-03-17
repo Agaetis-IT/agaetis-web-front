@@ -99,7 +99,7 @@ export default function jobs({ pageContent, allJobs }: Props) {
                   <div className="text-center text-white text-lg flex flex-row justify-center leading-none self-center items-center w-8 h-8 bg-red-light rounded-full  my-2">
                     <span>{step.index}</span>
                   </div>
-                  <h3 className="uppercase text-center md:text-left text-lg font-semibold my-2">{step.title}</h3>
+                  <h3 className="uppercase text-center text-lg font-semibold my-2">{step.title}</h3>
                   <p className="text-center leading-normal text-xss my-2">{step.description}</p>
                 </div>
               ))}

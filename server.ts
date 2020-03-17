@@ -1,16 +1,18 @@
-const express = require('express')
-const next = require('next')
+// tslint:disable: no-var-requires
 const axios = require('axios')
+const bodyParser = require('body-parser')
+const express = require('express')
+const { google } = require('googleapis')
+const sha = require('js-sha256')
+const next = require('next')
+const nodemailer = require('nodemailer')
 const path = require('path')
+
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev, dir: './src' })
 const handle = app.getRequestHandler()
 const port = process.env.PORT || 3000
-const bodyParser = require('body-parser')
-const nodemailer = require('nodemailer')
-const sha256 = require('js-sha256').sha256
-
-const { google } = require('googleapis')
+const sha256 = sha.sha256
 
 const oAuth2Client = new google.auth.OAuth2(
   process.env.NEXT_APP_GMAIL_CLIENT_ID,
@@ -18,17 +20,18 @@ const oAuth2Client = new google.auth.OAuth2(
   'http://localhost:3000/'
 )
 
+/*
 const SCOPES = [
   'https://www.googleapis.com/auth/gmail.readonly',
   'https://www.googleapis.com/auth/gmail.send',
   'https://www.googleapis.com/auth/userinfo.profile',
-]
+]*/
 
 const mailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
 
-const verifyCaptcha = async token => {
+const verifyCaptcha = async (token: string) => {
   const url = `https://www.google.com/recaptcha/api/siteverify?secret=${
     process.env.NEXT_APP_RECAPTCHA_SECRET
   }&response=${token}`
@@ -46,26 +49,26 @@ app
       /:slug : existing ideas url are /:postname, we have to respect this pattern 
     */
 
-    server.get('/robots.txt', (req, res) => {
+    server.get('/robots.txt', (res: any) => {
       res.sendFile(path.join(__dirname, '/', 'robots.txt'))
     })
 
-    server.get('/favicon.ico', (req, res) => {
+    server.get('/favicon.ico', (res: any) => {
       res.sendFile(path.join(__dirname, '/', 'symbole-agaetis-p164-rgb.png'))
     })
 
-    server.get('/google80ae36db41235209.html', (req, res) => {
+    server.get('/google80ae36db41235209.html', (res: { sendFile: (arg0: any) => void }) => {
       res.sendFile(path.join(__dirname, '/', 'google80ae36db41235209.html'))
     })
 
-    server.get(/sitemap[a-zA-Z-0-9\/\-_]*.xml/, async (req, res) => {
+    server.get(/sitemap[a-zA-Z-0-9\/\-_]*.xml/, async (req: any, res: any) => {
       const { data } = await axios.get(`${process.env.NEXT_APP_BASE_URL}${req.url}`)
       res.set('Content-Type', 'text/xml')
-      res.send(data.replace(new RegExp(process.env.NEXT_APP_BASE_URL, 'g'), process.env.NEXT_APP_SITE_URL))
+      res.send(data.replace(new RegExp(process.env.NEXT_APP_BASE_URL!, 'g'), process.env.NEXT_APP_SITE_URL))
     })
 
-    server.get('/:slug', (req, res) => {
-      const queryParams = Object.assign({}, req.params, req.query)
+    server.get('/:slug', (req: any, res: any) => {
+      const queryParams = { ...req.params, ...req.query }
       if (
         ['solutions', 'ideas', 'agaetis', 'jobs', 'white-papers', 'contact', 'cookies', 'personal-data'].includes(
           queryParams.slug
@@ -74,37 +77,40 @@ app
         return handle(req, res)
       }
 
-      app.render(req, res, '/idea', { ...req.params, ...req.query })
+      return app.render(req, res, '/idea', { ...req.params, ...req.query })
     })
 
-    server.get('/jobs/:slug', (req, res) => {
+    server.get('/jobs/:slug', (req: any, res: any) => {
       app.render(req, res, '/job', { ...req.params, ...req.query })
     })
 
-    server.get('/white-papers/:slug', (req, res) => {
+    server.get('/white-papers/:slug', (req: any, res: any) => {
       app.render(req, res, '/white-paper', { ...req.params, ...req.query })
     })
 
-    server.post('/send', async (req, res) => {
+    server.post('/send', async (req: any, res: any) => {
       oAuth2Client.setCredentials({
         refresh_token: process.env.NEXT_APP_GMAIL_REFRESH_TOKEN,
       })
 
       const accessToken = oAuth2Client.getAccessToken()
-      var transporter = nodemailer.createTransport({
+      /* eslint:disable */
+
+      const transporter = nodemailer.createTransport({
         host: 'smtp.gmail.com',
         port: 465,
         secure: true,
         auth: {
           type: 'OAuth2',
-          user: process.env.NEXT_APP_MAIL_ADDRESS,
-          clientId: process.env.NEXT_APP_GMAIL_CLIENT_ID,
-          clientSecret: process.env.NEXT_APP_GMAIL_CLIENT_SECRET,
-          refreshToken: process.env.NEXT_APP_GMAIL_REFRESH_TOKEN,
-          accessToken: accessToken,
+          user: String(process.env.NEXT_APP_MAIL_ADDRESS),
+          clientId: String(process.env.NEXT_APP_GMAIL_CLIENT_ID),
+          clientSecret: String(process.env.NEXT_APP_GMAIL_CLIENT_SECRET),
+          refreshToken: String(process.env.NEXT_APP_GMAIL_REFRESH_TOKEN),
+          accessToken: String(accessToken),
           expires: Date.now() + 3600,
         },
       })
+      /* eslint:enable */
 
       const message = {
         from: process.env.NEXT_APP_MAIL_ADDRESS,
@@ -127,12 +133,12 @@ app
       if (
         req.body.hash === sha256(key) &&
         verifyCaptcha(req.body.token) &&
-        mailRegex.test(message.from) &&
-        mailRegex.test(message.to) &&
+        mailRegex.test(message.from!) &&
+        mailRegex.test(message.to!) &&
         ['Un projet ?', 'Une candidature ?', 'Un cafe ?'].includes(message.subject) &&
         message.html.length > 0
       ) {
-        transporter.sendMail(message, function(err, info) {
+        transporter.sendMail(message, (err: any) => {
           if (err) {
             res.status(500).send()
           } else {
@@ -144,26 +150,28 @@ app
       }
     })
 
-    server.post('/send/white-paper', (req, res) => {
+    server.post('/send/white-paper', (req: any, res: any) => {
       oAuth2Client.setCredentials({
         refresh_token: process.env.NEXT_APP_GMAIL_REFRESH_TOKEN,
       })
 
       const accessToken = oAuth2Client.getAccessToken()
-      var transporter = nodemailer.createTransport({
+      /* eslint:disable */
+      const transporter = nodemailer.createTransport({
         host: 'smtp.gmail.com',
         port: 465,
         secure: true,
         auth: {
           type: 'OAuth2',
-          user: process.env.NEXT_APP_MAIL_ADDRESS,
-          clientId: process.env.NEXT_APP_GMAIL_CLIENT_ID,
-          clientSecret: process.env.NEXT_APP_GMAIL_CLIENT_SECRET,
-          refreshToken: process.env.NEXT_APP_GMAIL_REFRESH_TOKEN,
-          accessToken: accessToken,
+          user: String(process.env.NEXT_APP_MAIL_ADDRESS),
+          clientId: String(process.env.NEXT_APP_GMAIL_CLIENT_ID),
+          clientSecret: String(process.env.NEXT_APP_GMAIL_CLIENT_SECRET),
+          refreshToken: String(process.env.NEXT_APP_GMAIL_REFRESH_TOKEN),
+          accessToken: String(accessToken),
           expires: Date.now() + 3600,
         },
       })
+      /* eslint:enable */
 
       const message = {
         from: process.env.NEXT_APP_MAIL_ADDRESS,
@@ -190,7 +198,7 @@ app
         'base64'
       )
 
-      const base_url = req.body.file
+      const baseUrl = req.body.file
         .split('/')
         .slice(0, 3)
         .join('/')
@@ -198,14 +206,14 @@ app
       if (
         req.body.hash === sha256(key) &&
         verifyCaptcha(req.body.token) &&
-        mailRegex.test(message.from) &&
+        mailRegex.test(message.from!) &&
         mailRegex.test(message.to) &&
         message.html.length > 0 &&
         message.attachments[0].filename &&
         message.attachments[0].path &&
-        base_url === process.env.NEXT_APP_BASE_URL
+        baseUrl === process.env.NEXT_APP_BASE_URL
       ) {
-        transporter.sendMail(message, function(err, info) {
+        transporter.sendMail(message, (err: any) => {
           if (err) {
             res.status(500).send()
           } else {
@@ -217,18 +225,15 @@ app
       }
     })
 
-    server.get('*', (req, res) => {
+    server.get('*', (req: any, res: any) => {
       return handle(req, res)
     })
 
-    server.listen(port, err => {
-      if (err) {
-        throw err
-      }
-      console.log('> Ready on http://localhost:' + port)
+    server.listen(port, () => {
+      // console.log('> Ready on http://localhost:' + port)
     })
   })
-  .catch(ex => {
-    console.error(ex.stack)
+  .catch(() => {
+    // console.error(ex.stack)
     process.exit(1)
   })
