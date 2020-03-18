@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 
-import initReactGA, { trackUrl } from '../analytics/analytics'
 import '../config/yupConfig'
 import '../i18n'
 
@@ -15,15 +14,6 @@ interface Props {
 }
 
 export default function Layout({ headerProps, children }: Props) {
-  useEffect(() => {
-    const cookies = localStorage.getItem('cookies')
-    if (!cookies || JSON.parse(cookies)) {
-      trackUrl()
-      if (!window.GoogleAnalyticsObject) {
-        initReactGA()
-      }
-    }
-  }, [])
   return (
     <div className=" md:p-0  md:mb-0">
       <Header {...headerProps} />

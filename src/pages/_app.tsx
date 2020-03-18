@@ -2,6 +2,7 @@ import App, { Container } from 'next/app'
 import Head from 'next/head'
 import React from 'react'
 
+import initReactGA, { trackUrl } from '../analytics/analytics'
 import initBugsnag, { getBugsnagClient } from '../bugsnag/bugsnag'
 import LoadingSpinner from '../components/LoadingSpinner'
 import publicRuntimeConfig from '../config/env.config'
@@ -21,6 +22,16 @@ export default class MyApp extends App {
   }
 
   ErrorBoundary = getBugsnagClient().getPlugin('react')
+
+  componentDidMount() {
+    const cookies = localStorage.getItem('cookies')
+    if (!cookies || JSON.parse(cookies)) {
+      if (!window.GoogleAnalyticsObject) {
+        initReactGA()
+      }
+      trackUrl()
+    }
+  }
 
   render() {
     const { Component, pageProps } = this.props
