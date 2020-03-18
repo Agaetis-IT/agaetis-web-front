@@ -73,7 +73,7 @@ export default function whitePaper({ pageContent, errorCode }: Props) {
         <>
           <div className="md:max-w-md mx-auto p-0 md:px-8">
             <div className="text-xs px-4 md:px-0">
-              <span className="text-underline">
+              <span className="text-underline text-black">
                 <a href="/">Accueil</a>
               </span>{' '}
               > <b>{pageContent.title}</b>

@@ -7,11 +7,14 @@ const sha = require('js-sha256')
 const next = require('next')
 const nodemailer = require('nodemailer')
 const path = require('path')
+const fs = require('fs')
+const https = require('https')
+const http = require('http')
 
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev, dir: './src' })
 const handle = app.getRequestHandler()
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 80
 const sha256 = sha.sha256
 
 const oAuth2Client = new google.auth.OAuth2(
@@ -38,19 +41,19 @@ app
     const server = express()
     server.use(bodyParser.urlencoded({ extended: true }))
     server.use(bodyParser.json())
-    /*
-      /:slug : existing ideas url are /:postname, we have to respect this pattern 
-    */
 
-    server.get('/robots.txt', (res: any) => {
+    // tslint:disable-next-line: variable-name
+    server.get('/robots.txt', (_req: any, res: any) => {
       res.sendFile(path.join(__dirname, '/', 'robots.txt'))
     })
 
-    server.get('/favicon.ico', (res: any) => {
+    // tslint:disable-next-line: variable-name
+    server.get('/favicon.ico', (_req: any, res: any) => {
       res.sendFile(path.join(__dirname, '/', 'symbole-agaetis-p164-rgb.png'))
     })
 
-    server.get('/google80ae36db41235209.html', (res: { sendFile: (arg0: any) => void }) => {
+    // tslint:disable-next-line: variable-name
+    server.get('/google80ae36db41235209.html', (_req: any, res: any) => {
       res.sendFile(path.join(__dirname, '/', 'google80ae36db41235209.html'))
     })
 
@@ -60,6 +63,9 @@ app
       res.send(data.replace(new RegExp(process.env.NEXT_APP_BASE_URL!, 'g'), process.env.NEXT_APP_SITE_URL))
     })
 
+    /*
+      /:slug : existing ideas url are /:postname, we have to respect this pattern 
+    */
     server.get('/:slug', (req: any, res: any) => {
       const queryParams = { ...req.params, ...req.query }
       if (
@@ -223,10 +229,23 @@ app
       return handle(req, res)
     })
 
-    server.listen(port, () => {
+    /*server.listen(port, () => {
       // tslint:disable-next-line: no-console
       console.log('> Ready on http://localhost:' + port)
-    })
+    })*/
+
+    http.createServer(server).listen(80)
+
+    https
+      .createServer(
+        {
+          key: fs.readFileSync('./key.pem'),
+          cert: fs.readFileSync('./cert.pem'),
+          passphrase: process.env.NEXT_APP_SSL_PASSPHRASE,
+        },
+        server
+      )
+      .listen(443)
   })
   .catch((ex: any) => {
     // tslint:disable-next-line: no-console
