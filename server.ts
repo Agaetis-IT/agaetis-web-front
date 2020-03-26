@@ -1,4 +1,6 @@
-// tslint:disable: no-var-requires
+/* eslint-disable @typescript-eslint/no-var-requires */
+import { Request, Response } from 'express'
+
 const axios = require('axios')
 const bodyParser = require('body-parser')
 const express = require('express')
@@ -14,7 +16,6 @@ const http = require('http')
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev, dir: './src' })
 const handle = app.getRequestHandler()
-const port = process.env.PORT || 80
 const sha256 = sha.sha256
 
 const oAuth2Client = new google.auth.OAuth2(
@@ -28,9 +29,7 @@ const mailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
 
 const verifyCaptcha = async (token: string) => {
-  const url = `https://www.google.com/recaptcha/api/siteverify?secret=${
-    process.env.NEXT_APP_RECAPTCHA_SECRET
-  }&response=${token}`
+  const url = `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.NEXT_APP_RECAPTCHA_SECRET}&response=${token}`
   const { data } = await axios.get(url)
   return data.success
 }
@@ -42,22 +41,19 @@ app
     server.use(bodyParser.urlencoded({ extended: true }))
     server.use(bodyParser.json())
 
-    // tslint:disable-next-line: variable-name
-    server.get('/robots.txt', (_req: any, res: any) => {
+    server.get('/robots.txt', (_: Request, res: Response) => {
       res.sendFile(path.join(__dirname, '/', 'robots.txt'))
     })
 
-    // tslint:disable-next-line: variable-name
-    server.get('/favicon.ico', (_req: any, res: any) => {
+    server.get('/favicon.ico', (_: Request, res: Response) => {
       res.sendFile(path.join(__dirname, '/', 'symbole-agaetis-p164-rgb.png'))
     })
 
-    // tslint:disable-next-line: variable-name
-    server.get('/google80ae36db41235209.html', (_req: any, res: any) => {
+    server.get('/google80ae36db41235209.html', (_: Request, res: Response) => {
       res.sendFile(path.join(__dirname, '/', 'google80ae36db41235209.html'))
     })
 
-    server.get(/sitemap[a-zA-Z-0-9\/\-_]*.xml/, async (req: any, res: any) => {
+    server.get(/sitemap[a-zA-Z-0-9\/\-_]*.xml/, async (req: Request, res: Response) => {
       const { data } = await axios.get(`${process.env.NEXT_APP_BASE_URL}${req.url}`)
       res.set('Content-Type', 'text/xml')
       res.send(data.replace(new RegExp(process.env.NEXT_APP_BASE_URL!, 'g'), process.env.NEXT_APP_SITE_URL))
@@ -66,7 +62,7 @@ app
     /*
       /:slug : existing ideas url are /:postname, we have to respect this pattern 
     */
-    server.get('/:slug', (req: any, res: any) => {
+    server.get('/:slug', (req: Request, res: Response) => {
       const queryParams = { ...req.params, ...req.query }
       if (
         ['solutions', 'ideas', 'agaetis', 'jobs', 'white-papers', 'contact', 'cookies', 'personal-data'].includes(
@@ -79,21 +75,21 @@ app
       return app.render(req, res, '/idea', { ...req.params, ...req.query })
     })
 
-    server.get('/jobs/:slug', (req: any, res: any) => {
+    server.get('/jobs/:slug', (req: Request, res: Response) => {
       app.render(req, res, '/job', { ...req.params, ...req.query })
     })
 
-    server.get('/white-papers/:slug', (req: any, res: any) => {
+    server.get('/white-papers/:slug', (req: Request, res: Response) => {
       app.render(req, res, '/white-paper', { ...req.params, ...req.query })
     })
 
-    server.post('/send', async (req: any, res: any) => {
+    server.post('/send', async (req: Request, res: Response) => {
       oAuth2Client.setCredentials({
+        // eslint-disable-next-line @typescript-eslint/camelcase
         refresh_token: process.env.NEXT_APP_GMAIL_REFRESH_TOKEN,
       })
 
       const accessToken = oAuth2Client.getAccessToken()
-      /* eslint:disable */
 
       const transporter = nodemailer.createTransport({
         host: 'smtp.gmail.com',
@@ -109,7 +105,6 @@ app
           expires: Date.now() + 3600,
         },
       })
-      /* eslint:enable */
 
       const message = {
         from: process.env.NEXT_APP_MAIL_ADDRESS,
@@ -149,8 +144,9 @@ app
       }
     })
 
-    server.post('/send/white-paper', (req: any, res: any) => {
+    server.post('/send/white-paper', (req: Request, res: Response) => {
       oAuth2Client.setCredentials({
+        // eslint-disable-next-line @typescript-eslint/camelcase
         refresh_token: process.env.NEXT_APP_GMAIL_REFRESH_TOKEN,
       })
 
@@ -198,10 +194,7 @@ app
         'base64'
       )
 
-      const baseUrl = req.body.file
-        .split('/')
-        .slice(0, 3)
-        .join('/')
+      const baseUrl = req.body.file.split('/').slice(0, 3).join('/')
 
       if (
         req.body.hash === sha256(key) &&
@@ -213,7 +206,7 @@ app
         message.attachments[0].path &&
         baseUrl === process.env.NEXT_APP_BASE_URL
       ) {
-        transporter.sendMail(message, (err: any) => {
+        transporter.sendMail(message, (err: Error) => {
           if (err) {
             res.status(500).send()
           } else {
@@ -225,14 +218,9 @@ app
       }
     })
 
-    server.get('*', (req: any, res: any) => {
+    server.get('*', (req: Request, res: Response) => {
       return handle(req, res)
     })
-
-    /*server.listen(port, () => {
-      // tslint:disable-next-line: no-console
-      console.log('> Ready on http://localhost:' + port)
-    })*/
 
     http.createServer(server).listen(80)
 
@@ -248,7 +236,6 @@ app
       .listen(443)
   })
   .catch((ex: any) => {
-    // tslint:disable-next-line: no-console
     console.error(ex.stack)
     process.exit(1)
   })
