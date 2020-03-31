@@ -222,7 +222,7 @@ app
       return handle(req, res)
     })
 
-    http.createServer(server).listen(80)
+    http.createServer(server).listen(5000)
 
     https
       .createServer(
@@ -233,7 +233,7 @@ app
         },
         server
       )
-      .listen(443)
+      .listen(6000)
   })
   .catch((ex: any) => {
     console.error(ex.stack)

@@ -13,6 +13,7 @@ RUN yarn --non-interactive --frozen-lockfile --audit && \
 
 FROM node:10-alpine
 EXPOSE 5000
+EXPOSE 6000
 USER node
 WORKDIR /home/node
 
