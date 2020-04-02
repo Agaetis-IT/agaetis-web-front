@@ -17,36 +17,11 @@ interface Props {
   whitePapers: WhitePaper[]
 }
 
-Ideas.getInitialProps = async () => {
-  const ideas = await getAllIdeas()
-  const categories = await getCategories()
-  const content = await getIdeasPageContent()
-  const whitepapers = await getAllWhitePapers()
-
-  return {
-    ideasDescription: ideas.map((idea: any) => ({
-      id: idea.id,
-      title: idea.title.rendered,
-      categories: idea._embedded['wp:term'][0].map((category: { name: string }) => category.name),
-      slug: idea.slug,
-      descriptionText: idea.acf.idea_description,
-      date: idea.date,
-    })),
-
-    whitePapers: whitepapers.map((whitepaper: { slug: string; acf: WhitePaper }) => ({
-      slug: whitepaper.slug,
-      ...whitepaper.acf,
-    })),
-    content,
-    categories: categories.map((category: any) => ({ categoryId: category.id, categoryName: category.name })),
-  }
-}
-
 function compareIdeasByDate(idea1: IdeasDesc, idea2: IdeasDesc) {
   return new Date(idea2.date).getTime() - new Date(idea1.date).getTime()
 }
 
-export default function Ideas({ ideasDescription, whitePapers, categories, content }: Props) {
+function Ideas({ ideasDescription, whitePapers, categories, content }: Props) {
   const sortedIdeas = ideasDescription.sort(compareIdeasByDate)
 
   const [isOpenedMoreIdeas, setIsOpenedMoreIdeas] = useState(false)
@@ -79,10 +54,10 @@ export default function Ideas({ ideasDescription, whitePapers, categories, conte
             </p>
             <CategoryTab
               ideasC={sortedIdeas.filter(
-                idea => !idea.categories.includes('White-paper') && !idea.categories.includes('Jobs')
+                (idea) => !idea.categories.includes('White-paper') && !idea.categories.includes('Jobs')
               )}
               categories={categories.filter(
-                category => category.categoryName !== 'Jobs' && category.categoryName !== 'White-paper'
+                (category) => category.categoryName !== 'Jobs' && category.categoryName !== 'White-paper'
               )}
               toggleMore={isOpenedMoreIdeas}
               ideasImg1={content.ideasimg1}
@@ -98,13 +73,9 @@ export default function Ideas({ ideasDescription, whitePapers, categories, conte
 
           <div id="whitepapers" className="text-center w-full mx-auto p-6 md:py-12 bg-light-grey my-8 blue-underline">
             <h2 className="text-2xl mt-4">Livres blancs</h2>
-            <p className="text-xs md:max-w-md md:px-20 py-4 mx-auto">
-              Curabitur et elit sed orci consequat dapibus a quis justo. Maecenas ornare fermentum congue. Cras eget
-              ante orci. Nullam placerat lacus quam, non eleifend ligula faucibus vitae. Quisque faucibus vitae nibh sit
-              arnet faucibus. Pellentesque sed.
-            </p>
+            <p className="text-xs md:max-w-md md:px-20 py-4 mx-auto">{content.white_paper_description}</p>
             <div className="my-4 md:my-8 flex flex-col md:flex-row justify-center md:max-w-md mx-auto">
-              {whitePapers.map(whitePaper => (
+              {whitePapers.map((whitePaper) => (
                 <div key={whitePaper.title} className="mb-4 md:m-0">
                   <div
                     style={{
@@ -130,3 +101,30 @@ export default function Ideas({ ideasDescription, whitePapers, categories, conte
     </>
   )
 }
+
+Ideas.getInitialProps = async () => {
+  const ideas = await getAllIdeas()
+  const categories = await getCategories()
+  const content = await getIdeasPageContent()
+  const whitepapers = await getAllWhitePapers()
+
+  return {
+    ideasDescription: ideas.map((idea: any) => ({
+      id: idea.id,
+      title: idea.title.rendered,
+      categories: idea._embedded['wp:term'][0].map((category: { name: string }) => category.name),
+      slug: idea.slug,
+      descriptionText: idea.acf.idea_description,
+      date: idea.date,
+    })),
+
+    whitePapers: whitepapers.map((whitepaper: { slug: string; acf: WhitePaper }) => ({
+      slug: whitepaper.slug,
+      ...whitepaper.acf,
+    })),
+    content,
+    categories: categories.map((category: any) => ({ categoryId: category.id, categoryName: category.name })),
+  }
+}
+
+export default Ideas

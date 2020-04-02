@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import Head from 'next/head'
 import React, { useMemo, useState } from 'react'
 
@@ -16,18 +17,11 @@ interface Props {
   allJobs: JobContentLite[]
 }
 
-jobs.getInitialProps = async () => {
-  const pageContent = await getJobsPageContent()
-
-  const allJobs = await getAllJobs()
-  return { pageContent, allJobs }
-}
-
-export default function jobs({ pageContent, allJobs }: Props) {
+function jobs({ pageContent, allJobs }: Props) {
   const [isMoreOffersToggled, setIsMoreOffersToggled] = useState(false)
   const offers = useMemo(
     () =>
-      allJobs.map(offer => (
+      allJobs.map((offer) => (
         <OfferCard
           key={offer.acf.intitule_job}
           title={offer.acf.intitule_job}
@@ -36,7 +30,7 @@ export default function jobs({ pageContent, allJobs }: Props) {
           className="bg-white md:max-w-md p-4 my-2 self-center"
         />
       )),
-    allJobs
+    [allJobs]
   )
 
   function toggleMoreOffers() {
@@ -94,7 +88,7 @@ export default function jobs({ pageContent, allJobs }: Props) {
               dangerouslySetInnerHTML={{ __html: pageContent.joinUsSection.description }}
             />
             <div className="flex flex-col md:flex-row">
-              {pageContent.joinUsSection.steps.map(step => (
+              {pageContent.joinUsSection.steps.map((step) => (
                 <div className="flex flex-col justify-center w-full md:mx-2 px-8 md:px-0 md:w-1/3" key={step.index}>
                   <div className="text-center text-white text-lg flex flex-row justify-center leading-none self-center items-center w-8 h-8 bg-red-light rounded-full  my-2">
                     <span>{step.index}</span>
@@ -108,7 +102,7 @@ export default function jobs({ pageContent, allJobs }: Props) {
 
             <h2 className="text-center mb-8" dangerouslySetInnerHTML={{ __html: pageContent.profilesSection.title }} />
             <div className="flex flex-col md:flex-row ">
-              {pageContent.profilesSection.profiles.map(profile => (
+              {pageContent.profilesSection.profiles.map((profile) => (
                 <div className="text-center flex flex-col md:mx-2 px-8 md:px-0 md:w-1/4 " key={profile.index}>
                   <div className="w-auto h-24 flex flex-col justify-end mb-2">
                     <img className="w-16 h-auto self-center" src={profile.img} loading="lazy" />
@@ -132,9 +126,18 @@ export default function jobs({ pageContent, allJobs }: Props) {
               {isMoreOffersToggled ? "Voir moins d'offres" : "Voir plus d'offres"}
             </Button>
           </div>
-          <OfferSection />
+          <OfferSection footerText={pageContent.footer_contact_text} />
         </>
       </Layout>
     </>
   )
 }
+
+jobs.getInitialProps = async () => {
+  const pageContent = await getJobsPageContent()
+
+  const allJobs = await getAllJobs()
+  return { pageContent, allJobs }
+}
+
+export default jobs
