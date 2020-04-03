@@ -27,7 +27,7 @@ i18n
     },
     fallbackLng: {
       'en-us': ['en'],
-      default: ['fr'],
+      default: ['fr-FR'],
     },
 
     interpolation: {

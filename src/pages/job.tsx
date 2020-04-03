@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { NextContext } from 'next'
 import Head from 'next/head'
 import React, { useMemo, useState } from 'react'
@@ -19,28 +20,14 @@ interface Props {
   errorCode?: number
 }
 
-job.getInitialProps = async ({ query }: NextContext) => {
-  // tslint:disable-next-line
-  const data = await getJobContent(query.slug!)
-  const pageContent = convertJobContentAPItoContent({ ...data.acf, slug: data.slug })
-  const allJobs = await getAllJobs()
-  return {
-    pageContent,
-    allJobs: allJobs.filter((offer: JobContentLite) => {
-      return offer.slug !== pageContent.slug
-    }),
-    errorCode: !!data.acf ? undefined : 404,
-  }
-}
-
-export default function job({ pageContent, allJobs, errorCode }: Props) {
+function job({ pageContent, allJobs, errorCode }: Props) {
   const [isMoreOffersToggled, setIsMoreOffersToggled] = useState(false)
   if (!!errorCode) {
     return <Error statusCode={404} />
   }
   const offers = useMemo(
     () =>
-      allJobs.map(offer => (
+      allJobs.map((offer) => (
         <OfferCard
           key={offer.acf.intitule_job}
           title={offer.acf.intitule_job}
@@ -49,7 +36,7 @@ export default function job({ pageContent, allJobs, errorCode }: Props) {
           className="bg-white hover:bg-orange-light md:max-w-md p-4 my-2 self-center"
         />
       )),
-    allJobs
+    [allJobs]
   )
 
   function toggleMoreOffers() {
@@ -93,14 +80,30 @@ export default function job({ pageContent, allJobs, errorCode }: Props) {
             className="bg-black mt-8 md:mt-0 md:mx-8 py-36"
           />
           <div className="w-full md:max-w-md mx-auto p-8 text-xs leading-normal text-justify">
-            <p className="mb-3">{pageContent.offre_description}</p>
+            <p className="mb-5" dangerouslySetInnerHTML={{ __html: pageContent.offre_description }}></p>
+            <p className="mb-3">
+              <b>Missions</b>
+            </p>
             <ul className="pl-4">
               {pageContent.offre_list
-                .filter(point => point !== '')
-                .map(point => (
+                .filter((point) => point !== '')
+                .map((point) => (
                   <li key={point} className="mb-3">
                     {point}
                   </li>
+                ))}
+            </ul>
+            <p className="mt-5 mb-3">
+              <b>Profil</b>
+            </p>
+            <p className="mb-3">{pageContent.profile_description}</p>
+            <p className="mb-3">Salaire: {pageContent.offre_salary}</p>
+            <p className="mb-3">Connaissances souhaitées (en gras les indispensables) :</p>
+            <ul className="pl-4">
+              {pageContent.offre_profile
+                .filter((point) => point !== '')
+                .map((point) => (
+                  <li key={point} className="mb-3" dangerouslySetInnerHTML={{ __html: point }}></li>
                 ))}
             </ul>
             <p className="mb-3">{pageContent.offre_last_paragraph}</p>
@@ -126,9 +129,25 @@ export default function job({ pageContent, allJobs, errorCode }: Props) {
               </Button>
             )}
           </div>
-          <OfferSection />
+          <OfferSection footerText={pageContent.contact_text} />
         </>
       </Layout>
     </>
   )
 }
+
+job.getInitialProps = async ({ query }: NextContext) => {
+  // tslint:disable-next-line
+  const data = await getJobContent(query.slug!)
+  const pageContent = convertJobContentAPItoContent({ ...data.acf, slug: data.slug })
+  const allJobs = await getAllJobs()
+  return {
+    pageContent,
+    allJobs: allJobs.filter((offer: JobContentLite) => {
+      return offer.slug !== pageContent.slug
+    }),
+    errorCode: !!data.acf ? undefined : 404,
+  }
+}
+
+export default job
