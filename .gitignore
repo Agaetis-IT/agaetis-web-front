@@ -36,3 +36,4 @@ src/.next
 coverage
 *.log
 .env
+key.pem

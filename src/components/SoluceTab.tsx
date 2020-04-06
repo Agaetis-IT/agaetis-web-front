@@ -49,7 +49,7 @@ export default function SoluceTab({ tabs }: Props) {
 
   return (
     <>
-      <div className="md:max-w-md mx-auto p-0 md:px-8</div>">
+      <div className="md:max-w-md mx-auto p-0 md:px-8">
         <div className="flex flex-row w-full mt-8 md:mt-0">
           <Button className={getTabsClassNames(0, currentIndex)} styleType="tab" onClick={onTabChange(0)}>
             {tabs[0].header}

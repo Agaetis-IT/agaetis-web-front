@@ -34,21 +34,21 @@ export default function JobsCarousel({ slideMax, slides }: Props) {
   }
 
   return (
-    <div className="w-full flex flex-row justify-between">
+    <div className="w-full flex flex-row justify-between py-6 md:py-0">
       <Button onClick={handlePrevSlide} className="text-orange mx-2">
-        <img style={{ width: 40, height: 40, color: 'orange' }} src={arrowL} />
+        <img style={{ width: 40, height: 40, stroke: 'orange' }} src={arrowL} />
       </Button>
       <div>
-        {slides.map(slide => (
+        {slides.map((slide) => (
           <div
             className={clsx(
               slideIndex !== slide.index - 1 ? 'hidden' : 'flex flex-col-reverse sm:flex-row',
-              'bg-light-grey m-1 md:m-4 '
+              'bg-light-grey m-1 md:m-4 slide'
             )}
             key={slide.index}
           >
             <div className="p-8 pt-4 leading-normal sm:pt-8 sm:pr-4 md:max-w-32">
-              <p className="text-sm italic" dangerouslySetInnerHTML={{ __html: slide.quote }} />
+              <p className="text-sm italic text-justify max-w-sm" dangerouslySetInnerHTML={{ __html: slide.quote }} />
               <p className="text-blue text-xs font-semibold pt-2" dangerouslySetInnerHTML={{ __html: slide.author }} />
               <p className="text-blue text-xs italic" dangerouslySetInnerHTML={{ __html: slide.role }} />
             </div>

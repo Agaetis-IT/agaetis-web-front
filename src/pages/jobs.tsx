@@ -58,7 +58,7 @@ function jobs({ pageContent, allJobs }: Props) {
             </div>
             <h1 className="text-center text-2xl py-8 md:pb-0" dangerouslySetInnerHTML={{ __html: pageContent.title }} />
             <p
-              className="md:max-w-md mx-auto text-center px-4 md:py-6 md:px-0 text-xs leading-normal"
+              className="md:max-w-md mx-auto text-justify md:text-center  px-4 md:py-6 md:px-0 text-xs leading-normal"
               dangerouslySetInnerHTML={{ __html: pageContent.description }}
             />
             <JobsCarousel slideMax={2} slides={pageContent.slides} />
