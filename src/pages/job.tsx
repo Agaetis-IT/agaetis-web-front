@@ -66,9 +66,10 @@ function job({ pageContent, allJobs, errorCode }: Props) {
               </span>
             </div>
             <h1 className="text-center text-2xl py-8 md:pb-0">{pageContent.title}</h1>
-            <p className="md:max-w-md mx-auto text-center px-4 md:py-6 md:px-0 text-xs leading-normal">
-              {pageContent.description}
-            </p>
+            <p
+              className="md:max-w-md mx-auto text-center px-4 md:py-6 md:px-0 text-xs leading-normal"
+              dangerouslySetInnerHTML={{ __html: pageContent.description }}
+            ></p>
           </div>
           <div
             style={{
