@@ -1,13 +1,9 @@
 import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'
 import LanguageDetector from 'i18next-browser-languagedetector'
-import english from './locales/en.json'
 import french from './locales/fr.json'
 
 const resources = {
-  en: {
-    translation: english,
-  },
   fr: {
     translation: french,
   },
@@ -19,10 +15,10 @@ i18n
   .init({
     resources,
     detection: {
-      order: ['cookie', 'localStorage', 'navigator', 'htmlTag'],
+      order: ['localStorage', 'navigator', 'htmlTag'],
       lookupCookie: 'i18n',
       lookupLocalStorage: 'i18nLng',
-      caches: ['localStorage', 'cookie'],
+      caches: ['localStorage'],
       excludeCacheFor: ['cimode'],
     },
     fallbackLng: {
