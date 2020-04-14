@@ -1,8 +1,8 @@
 .home-img {
   background-position: center;
   background-size: cover;
-  width: 350px;
-  height: 300px;
+  width: 400px;
+  height: 350px;
 }
 
 @media screen and (max-width: 800px) {

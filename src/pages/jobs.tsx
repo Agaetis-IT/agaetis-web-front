@@ -56,9 +56,12 @@ function jobs({ pageContent, allJobs }: Props) {
                 > <b>Jobs</b>
               </span>
             </div>
-            <h1 className="text-center text-2xl py-8 md:pb-0" dangerouslySetInnerHTML={{ __html: pageContent.title }} />
+            <h1
+              className="text-center text-2xl py-8 md:mt-12 md:pb-0"
+              dangerouslySetInnerHTML={{ __html: pageContent.title }}
+            />
             <p
-              className="md:max-w-md mx-auto text-justify md:text-center  px-4 md:py-6 md:px-0 text-xs leading-normal"
+              className="md:max-w-md mx-auto text-justify md:text-center  px-4 md:py-6 md:px-0 text-sm leading-normal"
               dangerouslySetInnerHTML={{ __html: pageContent.description }}
             />
             <JobsCarousel slideMax={2} slides={pageContent.slides} />
@@ -74,7 +77,7 @@ function jobs({ pageContent, allJobs }: Props) {
           >
             <h2 className="" dangerouslySetInnerHTML={{ __html: pageContent.we_are_agaetis_title }} />
             <p
-              className="md:max-w-md pt-8 md:p-8 md:pb-0 self-center text-xs leading-normal"
+              className="md:max-w-md pt-8 md:p-8 md:pb-0 text-justify self-center text-sm leading-normal"
               dangerouslySetInnerHTML={{ __html: pageContent.we_are_agaetis_paragraph }}
             />
           </div>
@@ -84,7 +87,7 @@ function jobs({ pageContent, allJobs }: Props) {
               dangerouslySetInnerHTML={{ __html: pageContent.joinUsSection.title }}
             />
             <p
-              className="md:max-w-md mx-auto text-center px-4 md:py-6 md:px-0 text-xs leading-normal mb-8"
+              className="md:max-w-md mx-auto text-justify px-4 md:py-6 md:px-0 text-sm leading-normal mb-8"
               dangerouslySetInnerHTML={{ __html: pageContent.joinUsSection.description }}
             />
             <div className="flex flex-col md:flex-row">
@@ -94,7 +97,7 @@ function jobs({ pageContent, allJobs }: Props) {
                     <span>{step.index}</span>
                   </div>
                   <h3 className="uppercase text-center text-lg font-semibold my-2">{step.title}</h3>
-                  <p className="text-center leading-normal text-xss my-2">{step.description}</p>
+                  <p className="text-center leading-normal text-sm md:text-xss my-2">{step.description}</p>
                 </div>
               ))}
             </div>
@@ -108,7 +111,7 @@ function jobs({ pageContent, allJobs }: Props) {
                     <img className="w-16 h-auto self-center" src={profile.img} loading="lazy" />
                   </div>
                   <h3 className="uppercase text-lg font-semibold my-2">{profile.title}</h3>
-                  <p className="text-center leading-normal text-xss my-2">{profile.description}</p>
+                  <p className="text-center leading-normal text-sm md:text-xss my-2">{profile.description}</p>
                 </div>
               ))}
             </div>

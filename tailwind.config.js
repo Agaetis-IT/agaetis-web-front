@@ -531,7 +531,7 @@ module.exports = {
     xs: '22rem',
     sm: '30rem',
     md: '45rem',
-    lg: '50rem',
+    lg: '55rem',
     xl: '60rem',
     '2xl': '70rem',
     '3xl': '80rem',
