@@ -9,8 +9,6 @@ const sha = require('js-sha256')
 const next = require('next')
 const nodemailer = require('nodemailer')
 const path = require('path')
-const fs = require('fs')
-const https = require('https')
 const http = require('http')
 
 const dev = process.env.NODE_ENV !== 'production'
@@ -222,18 +220,7 @@ app
       return handle(req, res)
     })
 
-    http.createServer(server).listen(5000)
-
-    https
-      .createServer(
-        {
-          key: fs.readFileSync('./key.pem'),
-          cert: fs.readFileSync('./cert.pem'),
-          passphrase: process.env.NEXT_APP_SSL_PASSPHRASE,
-        },
-        server
-      )
-      .listen(6000)
+    http.createServer(server).listen(3000)
   })
   .catch((ex: any) => {
     console.error(ex.stack)
