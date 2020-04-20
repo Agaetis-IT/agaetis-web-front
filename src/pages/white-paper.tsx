@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { NextContext } from 'next'
 import Head from 'next/head'
 import React, { useState } from 'react'
@@ -10,23 +11,13 @@ import { sendWhitePaper } from '../Services/contactService'
 import { getWhitePaperContent } from '../Services/wordpressService'
 import WhitePaper from '../types/WhitePaper'
 import { WhitepaperFormValues } from '../yup/WhitePaperFormValidation'
+import Logo from '../static/icons/Agaetis - Ico logo - Orange.png'
 
 import Error from './_error'
 
 interface Props {
   pageContent?: WhitePaper
   errorCode?: number
-}
-
-whitePaper.getInitialProps = async ({ query }: NextContext) => {
-  // tslint:disable-next-line
-  const data = await getWhitePaperContent(query.slug!)
-  if (!!data.acf) {
-    return {
-      pageContent: { ...data.acf, slug: data.slug },
-    }
-  }
-  return { errorCode: 404 }
 }
 
 export default function whitePaper({ pageContent, errorCode }: Props) {
@@ -84,11 +75,13 @@ export default function whitePaper({ pageContent, errorCode }: Props) {
             </p>
           </div>
           <img
-            className="md:max-w-md flex shadow-xl justify-center mx-auto my-4 p-0"
+            className="md:max-w-lg flex shadow-xl justify-center mx-auto my-4 p-0"
             src={pageContent.image}
             loading="lazy"
           />
-          <div className="md:max-w-md mx-auto mb-8 px-4">
+          <div className="md:max-w-lg mx-auto mb-8 px-4">
+            <img src={Logo} className="bg-img-left-wp"></img>
+            <img src={Logo} className="bg-img-right-wp"></img>
             <div className=" md:px-12 flex flex-col justify-center">
               <WhitePaperForm
                 title={pageContent.title}
@@ -104,4 +97,15 @@ export default function whitePaper({ pageContent, errorCode }: Props) {
       </Layout>
     </>
   )
+}
+
+whitePaper.getInitialProps = async ({ query }: NextContext) => {
+  // tslint:disable-next-line
+  const data = await getWhitePaperContent(query.slug!)
+  if (!!data.acf) {
+    return {
+      pageContent: { ...data.acf, slug: data.slug },
+    }
+  }
+  return { errorCode: 404 }
 }

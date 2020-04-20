@@ -10,6 +10,7 @@ import OfferSection from '../components/OfferSection'
 import publicRuntimeConfig from '../config/env.config'
 import { getAllJobs, getJobContent } from '../Services/wordpressService'
 import JobContent, { convertJobContentAPItoContent, JobContentLite } from '../types/JobContent'
+import Logo from '../static/icons/Agaetis - Ico logo - Orange.png'
 
 import Error from './_error'
 import './job.css'
@@ -33,7 +34,7 @@ function job({ pageContent, allJobs, errorCode }: Props) {
           title={offer.acf.intitule_job}
           description={offer.acf.description}
           href={'/jobs/' + offer.slug}
-          className="bg-white hover:bg-orange-light md:max-w-md p-4 my-2 self-center"
+          className="bg-white hover:bg-orange-light md:max-w-lg p-4 my-2 self-center"
         />
       )),
     [allJobs]
@@ -65,9 +66,9 @@ function job({ pageContent, allJobs, errorCode }: Props) {
                 > <b>{pageContent.title}</b>{' '}
               </span>
             </div>
-            <h1 className="text-center text-2xl py-8 md:pb-0">{pageContent.title}</h1>
+            <h1 className="text-center text-2xl py-8 md:pb-0 md:mt-12">{pageContent.title}</h1>
             <p
-              className="md:max-w-md mx-auto text-center px-4 md:py-6 md:px-0 text-xs leading-normal"
+              className="md:max-w-md mx-auto text-center px-4 md:py-6 md:px-0 text-sm leading-normal"
               dangerouslySetInnerHTML={{ __html: pageContent.description }}
             ></p>
           </div>
@@ -78,9 +79,11 @@ function job({ pageContent, allJobs, errorCode }: Props) {
               backgroundPosition: 'center',
               backgroundRepeat: 'no-repeat',
             }}
-            className="bg-black mt-8 md:mt-0 md:mx-8 py-36"
+            className="bg-black mt-8 md:my-8 md:mx-8 py-36"
           />
-          <div className="w-full md:max-w-md mx-auto p-8 text-xs leading-normal text-justify">
+          <div className="w-full md:max-w-lg mx-auto p-8 text-sm leading-normal text-justify">
+            <img src={Logo} className="bg-img-left-job"></img>
+            <img src={Logo} className="bg-img-right-job"></img>
             <p className="mb-5" dangerouslySetInnerHTML={{ __html: pageContent.offre_description }}></p>
             <p className="mb-3">
               <b>Missions</b>
@@ -110,21 +113,21 @@ function job({ pageContent, allJobs, errorCode }: Props) {
             <p className="mb-3">{pageContent.offre_last_paragraph}</p>
             <Button
               href="/contact"
-              className="w-32 flex flex-row justify-center uppercase rounded-full bg-orange text-xss py-2 px-6 text-white font-semibold mx-auto mt-4"
+              className="w-32 flex flex-row justify-center uppercase rounded-full bg-orange text-xss py-2 px-6 text-white font-semibold mx-auto mt-4 md:mt-8"
             >
               Postuler
             </Button>
           </div>
           <div className="flex flex-col bg-light-grey py-12 px-4 md:p-12">
             <h2 className="text-center mb-8" dangerouslySetInnerHTML={{ __html: 'Nos offres' }} />
-            <div className="flex flex-col">
+            <div className="flex flex-col md:mb-8">
               {offers.slice(0, 1)}
               {isMoreOffersToggled && offers.slice(1)}
             </div>
             {offers.length > 1 && (
               <Button
                 onClick={toggleMoreOffers}
-                className="flex flex-row justify-center uppercase rounded-full bg-orange text-xss py-2 px-6 text-white font-semibold mx-auto mt-4"
+                className="flex flex-row justify-center uppercase rounded-full bg-orange text-xss py-2 px-6 text-white font-semibold mx-auto"
               >
                 {isMoreOffersToggled ? "Voir moins d'offres" : "Voir plus d'offres"}
               </Button>

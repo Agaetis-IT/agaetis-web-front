@@ -6,6 +6,7 @@ import SoluceTab from '../components/SoluceTab'
 import publicRuntimeConfig from '../config/env.config'
 import { getSolutionsPageContent } from '../Services/wordpressService'
 import { SolutionsContent } from '../types/SolutionsContent'
+import Logo from '../static/icons/Agaetis - Ico logo - Orange.png'
 
 import './solutions.css'
 
@@ -44,6 +45,8 @@ function solutions({ pageContent }: Props) {
               {pageContent.description}
             </p>
           </div>
+          <img src={Logo} className="bg-img-left-solutions"></img>
+          <img src={Logo} className="bg-img-right-solutions"></img>
           <SoluceTab tabs={pageContent.tabs} />
         </>
       </Layout>

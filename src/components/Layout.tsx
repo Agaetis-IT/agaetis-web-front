@@ -17,7 +17,9 @@ export default function Layout({ headerProps, children }: Props) {
   return (
     <div className=" md:p-0  md:mb-0">
       <Header {...headerProps} />
-      <div className="mt-1 md:mt-0">{children}</div>
+      <div className="mt-1 md:mt-0">
+        <div id="main-content">{children}</div>
+      </div>
       <Footer />
       <Cookies className="cookie-fixed" />
     </div>

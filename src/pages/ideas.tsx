@@ -9,6 +9,7 @@ import publicRuntimeConfig from '../config/env.config'
 import { getAllIdeas, getAllWhitePapers, getCategories, getIdeasPageContent } from '../Services/wordpressService'
 import { Category, IdeasDesc, IdeasPageContent } from '../types/IdeasContent'
 import WhitePaper from '../types/WhitePaper'
+import Logo from '../static/icons/Agaetis - Ico logo - Orange.png'
 
 interface Props {
   ideasDescription: IdeasDesc[]
@@ -48,32 +49,36 @@ function Ideas({ ideasDescription, whitePapers, categories, content }: Props) {
                 > <b>Idées</b>
               </span>
             </div>
-            <h1 className="text-center text-2xl py-8 md:pb-0">{content.titre}</h1>
-            <p className="md:max-w-md mx-auto text-center px-4 md:py-6 md:px-0 text-xs leading-normal">
+            <h1 className="text-center text-2xl py-8 md:pb-0 md:mt-12">{content.titre}</h1>
+            <p className="md:max-w-md mx-auto text-center px-4 md:py-6 md:px-0 text-sm leading-normal">
               {content.description}
             </p>
-            <CategoryTab
-              ideasC={sortedIdeas.filter(
-                (idea) => !idea.categories.includes('White-paper') && !idea.categories.includes('Jobs')
-              )}
-              categories={categories.filter(
-                (category) => category.categoryName !== 'Jobs' && category.categoryName !== 'White-paper'
-              )}
-              toggleMore={isOpenedMoreIdeas}
-              ideasImg1={content.ideasimg1}
-              ideasImg2={content.ideasimg2}
-            />
-            <Button
-              className="flex flex-row justify-center uppercase rounded-full bg-orange text-xss py-2 px-6 text-white font-semibold mx-auto"
-              onClick={handleToggleMoreIdeas}
-            >
-              {!isOpenedMoreIdeas ? "Voir plus d'idées" : "Voir moins d'idées"}
-            </Button>
           </div>
+          <img src={Logo} className="bg-img-left-ideas"></img>
+          <img src={Logo} className="bg-img-right-ideas"></img>
+          <CategoryTab
+            ideasC={sortedIdeas.filter(
+              (idea) => !idea.categories.includes('White-paper') && !idea.categories.includes('Jobs')
+            )}
+            categories={categories.filter(
+              (category) => category.categoryName !== 'Jobs' && category.categoryName !== 'White-paper'
+            )}
+            toggleMore={isOpenedMoreIdeas}
+            ideasImg1={content.ideasimg1}
+            ideasImg2={content.ideasimg2}
+          />
+          <Button
+            className="flex flex-row justify-center uppercase rounded-full bg-orange text-xss py-2 px-6 text-white font-semibold mx-auto"
+            onClick={handleToggleMoreIdeas}
+          >
+            {!isOpenedMoreIdeas ? "Voir plus d'idées" : "Voir moins d'idées"}
+          </Button>
 
           <div id="whitepapers" className="text-center w-full mx-auto p-6 md:py-12 bg-light-grey my-8 blue-underline">
             <h2 className="text-2xl mt-4">Livres blancs</h2>
-            <p className="text-xs md:max-w-md md:px-20 py-4 mx-auto">{content.white_paper_description}</p>
+            <p className="text-sm md:max-w-md md:px-20 py-4 mx-auto leading-normal">
+              {content.white_paper_description}
+            </p>
             <div className="my-4 md:my-8 flex flex-col md:flex-row justify-center md:max-w-md mx-auto">
               {whitePapers.map((whitePaper) => (
                 <div key={whitePaper.title} className="mb-4 md:m-0">

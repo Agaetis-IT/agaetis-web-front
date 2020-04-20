@@ -11,6 +11,7 @@ import publicRuntimeConfig from '../config/env.config'
 import { getAllJobs, getJobsPageContent } from '../Services/wordpressService'
 import { JobContentLite } from '../types/JobContent'
 import { JobsContent } from '../types/JobsContent'
+import Logo from '../static/icons/Agaetis - Ico logo - Orange.png'
 
 interface Props {
   pageContent: JobsContent
@@ -56,6 +57,10 @@ function jobs({ pageContent, allJobs }: Props) {
                 > <b>Jobs</b>
               </span>
             </div>
+          </div>
+          <div className="md:max-w-lg mx-auto p-0 md:px-8">
+            <img src={Logo} className="bg-img-left-jobs"></img>
+            <img src={Logo} className="bg-img-right-jobs"></img>
             <h1
               className="text-center text-2xl py-8 md:mt-12 md:pb-0"
               dangerouslySetInnerHTML={{ __html: pageContent.title }}

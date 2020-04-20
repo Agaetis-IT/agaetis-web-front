@@ -96,7 +96,7 @@ export default function ContactTab() {
 
   return (
     <div>
-      <div className="flex flex-row md:max-w-md mx-auto md:px-4">
+      <div className="flex flex-row md:max-w-lg mx-auto md:px-4">
         <div
           className={clsx(getHeadersClassNames(0, currentIndex), stepHeaderClassNames)}
           onClick={() => {
@@ -119,7 +119,7 @@ export default function ContactTab() {
         </div>
         <div className={clsx(getHeadersClassNames(2, currentIndex), stepHeaderClassNames)}>Votre message</div>
       </div>
-      <div className="border border-white md:max-w-md mx-auto md:px-4">
+      <div className="border border-white md:max-w-lg mx-auto md:px-4">
         <div className="bg-light-grey py-8 md:p-12 flex flex-col justify-center">
           <h2 className={clsx({ hidden: currentIndex !== 0 }, 'text-center text-lg md:text-2xl md:mt-0')}>
             Votre demande concerne...

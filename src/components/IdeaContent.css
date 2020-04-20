@@ -1,95 +1,94 @@
 /* purgecss start ignore */
 
-.content,
-.content p {
+#content,
+#content p {
   margin: 10px 0px;
   line-height: 1.5;
 }
 
-.content:nth-child(n) {
+#content:nth-child(n) {
   margin: 15px 0;
 }
 
-.content br {
+#content br {
   margin-bottom: 20px;
   display: block;
   content: ' ';
 }
 
-.content h2 {
+#content h2 {
   margin: 20px 0;
 }
 
-.content figcaption {
+#content figcaption {
   margin: 0;
 }
 
-.content h3 {
+#content h3 {
   margin-bottom: 20px;
 }
 
-.content table {
+#content table {
   border-collapse: collapse;
   border-spacing: 0;
   margin: 0 0 1.5em;
   width: 100%;
 }
-.content th,
+#content th,
 td {
   display: table-cell;
   border: 1px solid #eaeaea;
   padding: 6px 10px;
 }
 
-.content pre {
+#content pre {
   font-size: 1.2em;
 }
 
-.content table,
-.content video {
+#content table,
+#content video {
   margin: 0 auto;
   margin: 20px 0;
 }
 
-.content figure {
+#content figure {
   margin: 0;
   margin-bottom: 20px;
 }
 
-.content img {
+#content img {
   display: block;
   margin: 0 auto;
   padding: 20px 0;
-  /*box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);*/
 }
 
-.content ol li,
-.content ol li ul li {
+#content ol li,
+#content ol li ul li {
   padding-left: 15px;
 }
 
-.content li,
-.content ul li,
-.content ul li ol {
+#content li,
+#content ul li,
+#content ul li ol {
   padding: 5px 0;
 }
 
-.content ul,
-.content ol li ul {
+#content ul,
+#content ol li ul {
   margin: 20px 0;
 }
 
 @media screen and (max-width: 576px) {
-  .content ol {
+  #content ol {
     padding-left: 15px;
   }
 
-  .content ol li ul {
+  #content ol li ul {
     padding-left: 30px;
   }
 }
 
-.content figcaption {
+#content figcaption {
   margin-top: 10px;
   text-align: center;
 }

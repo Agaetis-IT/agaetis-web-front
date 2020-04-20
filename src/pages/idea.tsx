@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import clsx from 'clsx'
 import { NextContext } from 'next'
 import Head from 'next/head'
@@ -11,6 +12,7 @@ import publicRuntimeConfig from '../config/env.config'
 import { getIdeaBySlug, getIdeaMeta } from '../Services/wordpressService'
 import IdeasContent, { IdeasDesc } from '../types/IdeasContent'
 import Meta, { convertMetaAPItoMeta } from '../types/Meta'
+import Logo from '../static/icons/Agaetis - Ico logo - Orange.png'
 
 import Error from './_error'
 
@@ -19,6 +21,74 @@ interface Props {
   related?: IdeasDesc[]
   meta: Meta
   errorCode?: number
+}
+
+export default function Idea({ data, related, errorCode, meta }: Props) {
+  const [isOpenedMoreIdeas, setIsOpenedMoreIdeas] = useState(false)
+  function handleToggleMoreIdeas() {
+    setIsOpenedMoreIdeas(!isOpenedMoreIdeas)
+  }
+
+  if (!!errorCode) {
+    return <Error statusCode={404} />
+  }
+  const relatedIdeas = useMemo(() => {
+    if (!!related) {
+      return related.map((idea) => (
+        <div key={idea.id} className="md:w-1/3 px-2">
+          <IdeasCard
+            slug={idea.slug}
+            id={idea.id}
+            title={idea.title}
+            categories={idea.categories}
+            className="p-4 my-2 md:h-ideas bg-light-grey"
+          >
+            {idea.descriptionText}
+          </IdeasCard>
+        </div>
+      ))
+    }
+    return []
+  }, [related])
+
+  return (
+    <>
+      <Head>
+        <title>Agaetis : {data.title}</title>
+        <meta property="og:description" content={meta.description ? meta.description : data.descriptionText} />
+        <meta name="description" content={meta.description ? meta.description : data.descriptionText} />
+        <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/${data.slug}`} />
+      </Head>
+      <Layout>
+        <div>
+          <img src={Logo} id="bg-img-left-idea"></img>
+          <img src={Logo} id="bg-img-right-idea"></img>
+          <IdeaContent content={data} />
+          {related && related.length > 0 && (
+            <>
+              <div className="pb-12 mb-8 blue-underline">
+                <h2 className="text-center">Ces idées peuvent vous interesser</h2>
+
+                <div className="md:max-w-md px-4 mt-8 mx-auto flex flex-col md:flex-row justify-center">
+                  {relatedIdeas.slice(0, 3)}
+                  {isOpenedMoreIdeas && relatedIdeas.slice(3)}
+                </div>
+                <Button
+                  onClick={handleToggleMoreIdeas}
+                  className={clsx(
+                    related.length < 4 ? 'hidden' : 'flex',
+                    'flex-row justify-center uppercase rounded-full bg-orange text-xss py-2 px-6 mt-8 text-white font-semibold mx-auto'
+                  )}
+                >
+                  {!isOpenedMoreIdeas ? "Voir plus d'idées" : "Voir moins d'idées"}
+                </Button>
+              </div>
+            </>
+          )}
+        </div>
+      </Layout>
+    </>
+  )
 }
 
 Idea.getInitialProps = async ({ query }: NextContext) => {
@@ -45,7 +115,7 @@ Idea.getInitialProps = async ({ query }: NextContext) => {
         slug: data.slug,
         descriptionText: data.acf.idea_description,
       },
-      related: related.map(idea => {
+      related: related.map((idea) => {
         return {
           title: idea.title.rendered,
           id: idea.id,
@@ -81,70 +151,4 @@ Idea.getInitialProps = async ({ query }: NextContext) => {
     },
     errorCode: 404,
   }
-}
-
-export default function Idea({ data, related, errorCode, meta }: Props) {
-  const [isOpenedMoreIdeas, setIsOpenedMoreIdeas] = useState(false)
-  function handleToggleMoreIdeas() {
-    setIsOpenedMoreIdeas(!isOpenedMoreIdeas)
-  }
-
-  if (!!errorCode) {
-    return <Error statusCode={404} />
-  }
-  const relatedIdeas = useMemo(() => {
-    if (!!related) {
-      return related.map(idea => (
-        <div key={idea.id} className="md:w-1/3 px-2">
-          <IdeasCard
-            slug={idea.slug}
-            id={idea.id}
-            title={idea.title}
-            categories={idea.categories}
-            className="p-4 my-2 md:h-ideas bg-light-grey"
-          >
-            {idea.descriptionText}
-          </IdeasCard>
-        </div>
-      ))
-    }
-    return []
-  }, related)
-
-  return (
-    <>
-      <Head>
-        <title>Agaetis : {data.title}</title>
-        <meta property="og:description" content={meta.description ? meta.description : data.descriptionText} />
-        <meta name="description" content={meta.description ? meta.description : data.descriptionText} />
-        <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/${data.slug}`} />
-      </Head>
-      <Layout>
-        <div>
-          <IdeaContent content={data} />
-          {related && related.length > 0 && (
-            <>
-              <div className="pb-12 mb-8 blue-underline">
-                <h2 className="text-center">Ces idées peuvent vous interesser</h2>
-
-                <div className="md:max-w-md px-4 mt-8 mx-auto flex flex-col md:flex-row justify-center">
-                  {relatedIdeas.slice(0, 3)}
-                  {isOpenedMoreIdeas && relatedIdeas.slice(3)}
-                </div>
-                <Button
-                  onClick={handleToggleMoreIdeas}
-                  className={clsx(
-                    related.length < 4 ? 'hidden' : 'flex',
-                    'flex-row justify-center uppercase rounded-full bg-orange text-xss py-2 px-6 mt-8 text-white font-semibold mx-auto'
-                  )}
-                >
-                  {!isOpenedMoreIdeas ? "Voir plus d'idées" : "Voir moins d'idées"}
-                </Button>
-              </div>
-            </>
-          )}
-        </div>
-      </Layout>
-    </>
-  )
 }
