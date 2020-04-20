@@ -91,7 +91,7 @@ textarea::-webkit-scrollbar-thumb {
   opacity: 0.3;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 1024px) {
   .bg-img-left-index,
   .bg-img-right-index,
   .bg-img-right-agaetis,
