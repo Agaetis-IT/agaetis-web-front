@@ -86,7 +86,7 @@ app
         // eslint-disable-next-line @typescript-eslint/camelcase
         refresh_token: process.env.NEXT_APP_GMAIL_REFRESH_TOKEN,
       })
-
+      const captcha = verifyCaptcha(req.body.token)
       const accessToken = oAuth2Client.getAccessToken()
 
       const transporter = nodemailer.createTransport({
@@ -124,7 +124,7 @@ app
 
       if (
         req.body.hash === sha256(key) &&
-        verifyCaptcha(req.body.token) &&
+        captcha &&
         mailRegex.test(message.from!) &&
         mailRegex.test(message.to!) &&
         ['Un projet ?', 'Une candidature ?', 'Un cafe ?'].includes(message.subject) &&
@@ -132,12 +132,14 @@ app
       ) {
         transporter.sendMail(message, (err: any) => {
           if (err) {
+            console.log(err)
             res.status(500).send()
           } else {
             res.status(200).send()
           }
         })
       } else {
+        console.log(req.body.hash === sha256(key), captcha, mailRegex.test(message.from!))
         res.status(400).send()
       }
     })
@@ -206,12 +208,20 @@ app
       ) {
         transporter.sendMail(message, (err: Error) => {
           if (err) {
+            console.log(err)
             res.status(500).send()
           } else {
             res.status(200).send()
           }
         })
       } else {
+        console.log(
+          req.body.hash === sha256(key),
+          captcha,
+          mailRegex.test(message.from!),
+          mailRegex.test(message.to),
+          baseUrl === process.env.NEXT_APP_BASE_URL
+        )
         res.status(400).send()
       }
     })
