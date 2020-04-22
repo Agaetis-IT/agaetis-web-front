@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { NextContext } from 'next'
+import { NextPageContext } from 'next'
 import Head from 'next/head'
 import React, { useState } from 'react'
 
@@ -11,13 +11,17 @@ import { sendWhitePaper } from '../Services/contactService'
 import { getWhitePaperContent } from '../Services/wordpressService'
 import WhitePaper from '../types/WhitePaper'
 import { WhitepaperFormValues } from '../yup/WhitePaperFormValidation'
-import Logo from '../static/icons/Agaetis - Ico logo - Orange.png'
+import Logo from '../public/icons/Agaetis - Ico logo - Orange.png'
 
 import Error from './_error'
 
 interface Props {
   pageContent?: WhitePaper
   errorCode?: number
+}
+
+interface Context extends NextPageContext {
+  query: { slug: string }
 }
 
 export default function whitePaper({ pageContent, errorCode }: Props) {
@@ -74,11 +78,7 @@ export default function whitePaper({ pageContent, errorCode }: Props) {
               {pageContent.description}
             </p>
           </div>
-          <img
-            className="md:max-w-lg flex shadow-xl justify-center mx-auto my-4 p-0"
-            src={pageContent.image}
-            loading="lazy"
-          />
+          <img className="md:max-w-lg flex shadow-xl justify-center mx-auto my-4 p-0" src={pageContent.image} />
           <div className="md:max-w-lg mx-auto mb-8 px-4">
             <img src={Logo} className="bg-img-left-wp"></img>
             <img src={Logo} className="bg-img-right-wp"></img>
@@ -99,7 +99,7 @@ export default function whitePaper({ pageContent, errorCode }: Props) {
   )
 }
 
-whitePaper.getInitialProps = async ({ query }: NextContext) => {
+whitePaper.getInitialProps = async ({ query }: Context) => {
   // tslint:disable-next-line
   const data = await getWhitePaperContent(query.slug!)
   if (!!data.acf) {

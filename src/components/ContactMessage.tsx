@@ -1,8 +1,8 @@
 import clsx from 'clsx'
 import React from 'react'
 
-import Cross from '../images/cross-icon-png-1.png'
-import Tick from '../images/Flat_tick_icon.svg.png'
+import Cross from '../public/images/cross-icon-png-1.png'
+import Tick from '../public/images/Flat_tick_icon.svg.png'
 
 import './ContactMessage.css'
 

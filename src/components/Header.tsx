@@ -2,8 +2,8 @@ import clsx from 'clsx'
 import Link from 'next/link'
 import React, { useState } from 'react'
 
-import logoAgaetisMobile from '../images/logo-agaetis-hor-p164-rgb-150.png'
-import logoAgaetisDesktop from '../images/logo-agaetis-hor-white-rgb-150.png'
+import logoAgaetisMobile from '../public/images/logo-agaetis-hor-p164-rgb-150.png'
+import logoAgaetisDesktop from '../public/images/logo-agaetis-hor-white-rgb-150.png'
 
 import './Header.css'
 import NavigationMenu from './NavigationMenu'

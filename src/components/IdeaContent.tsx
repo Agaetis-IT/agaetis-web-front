@@ -34,7 +34,6 @@ function IdeaContent({ content }: Props) {
             className={clsx('mx-auto md:mx-0  m-4', { 'shadow-xl': content.imageUrl })}
             src={content.imageUrl}
             alt={content.imageUrl}
-            loading="lazy"
           />
           <div className="text-xs font-semibold mb-4">
             <span className="pr-1">

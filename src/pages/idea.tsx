@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import clsx from 'clsx'
-import { NextContext } from 'next'
+import { NextPageContext } from 'next'
 import Head from 'next/head'
 import React, { useMemo, useState } from 'react'
 
@@ -12,7 +12,7 @@ import publicRuntimeConfig from '../config/env.config'
 import { getIdeaBySlug, getIdeaMeta } from '../Services/wordpressService'
 import IdeasContent, { IdeasDesc } from '../types/IdeasContent'
 import Meta, { convertMetaAPItoMeta } from '../types/Meta'
-import Logo from '../static/icons/Agaetis - Ico logo - Orange.png'
+import Logo from '../public/icons/Agaetis - Ico logo - Orange.png'
 
 import Error from './_error'
 
@@ -21,6 +21,10 @@ interface Props {
   related?: IdeasDesc[]
   meta: Meta
   errorCode?: number
+}
+
+interface Context extends NextPageContext {
+  query: { slug: string }
 }
 
 export default function Idea({ data, related, errorCode, meta }: Props) {
@@ -91,7 +95,7 @@ export default function Idea({ data, related, errorCode, meta }: Props) {
   )
 }
 
-Idea.getInitialProps = async ({ query }: NextContext) => {
+Idea.getInitialProps = async ({ query }: Context) => {
   // tslint:disable-next-line
   const data = await getIdeaBySlug(query.slug)
   const meta = await getIdeaMeta(query.slug)

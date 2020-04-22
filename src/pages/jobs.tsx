@@ -11,7 +11,7 @@ import publicRuntimeConfig from '../config/env.config'
 import { getAllJobs, getJobsPageContent } from '../Services/wordpressService'
 import { JobContentLite } from '../types/JobContent'
 import { JobsContent } from '../types/JobsContent'
-import Logo from '../static/icons/Agaetis - Ico logo - Orange.png'
+import Logo from '../public/icons/Agaetis - Ico logo - Orange.png'
 
 interface Props {
   pageContent: JobsContent
@@ -113,7 +113,7 @@ function jobs({ pageContent, allJobs }: Props) {
               {pageContent.profilesSection.profiles.map((profile) => (
                 <div className="text-center flex flex-col md:mx-2 px-8 md:px-0 md:w-1/4 " key={profile.index}>
                   <div className="w-auto h-24 flex flex-col justify-end mb-2">
-                    <img className="w-16 h-auto self-center" src={profile.img} loading="lazy" />
+                    <img className="w-16 h-auto self-center" src={profile.img} />
                   </div>
                   <h3 className="uppercase text-lg font-semibold my-2">{profile.title}</h3>
                   <p className="text-center leading-normal text-sm md:text-xss my-2">{profile.description}</p>

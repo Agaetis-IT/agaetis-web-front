@@ -6,7 +6,7 @@ import Layout from '../components/Layout'
 import publicRuntimeConfig from '../config/env.config'
 import { getContactPageContent } from '../Services/wordpressService'
 import ContactContentApi from '../types/ContactContentApi'
-import Logo from '../static/icons/Agaetis - Ico logo - Orange.png'
+import Logo from '../public/icons/Agaetis - Ico logo - Orange.png'
 
 import './contact.css'
 

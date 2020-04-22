@@ -14,7 +14,7 @@ export default function SoluceTabContent({ content, className }: Props) {
   return (
     <>
       <div className="md:max-w-lg mx-auto p-0 md:px-8">
-        <img className="mt-4 soluce-shadow w-full" src={content.solutions_img} loading="lazy" />
+        <img className="mt-4 soluce-shadow w-full" src={content.solutions_img} />
         <div className={clsx(className, 'p-4')}>
           <div className={clsx('md:w-1/2 md:pr-4')}>
             <h2
@@ -43,7 +43,7 @@ export default function SoluceTabContent({ content, className }: Props) {
           <div className="flex flex-col md:flex-row justify-between">
             {content.whyUs.sections.sort(compareWhyUsSection).map((section) => (
               <div key={section.index} className="md:w-1/3 p-2 flex flex-col align-middle">
-                <img className="w-24 h-24 mx-auto text-center mb-4" src={section.icon} loading="lazy" />
+                <img className="w-24 h-24 mx-auto text-center mb-4" src={section.icon} />
                 <div>
                   <h3 className="text-lg uppercase text-center">{section.title}</h3>
                   <p className="text-xs leading-normal text-center py-2">{section.description}</p>
@@ -66,7 +66,6 @@ export default function SoluceTabContent({ content, className }: Props) {
               key={partner}
               className="m-2"
               src={partner}
-              loading="lazy"
             />
           ))}
         </div>

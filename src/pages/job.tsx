@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { NextContext } from 'next'
+import { NextPageContext } from 'next'
 import Head from 'next/head'
 import React, { useMemo, useState } from 'react'
 
@@ -10,7 +10,7 @@ import OfferSection from '../components/OfferSection'
 import publicRuntimeConfig from '../config/env.config'
 import { getAllJobs, getJobContent } from '../Services/wordpressService'
 import JobContent, { convertJobContentAPItoContent, JobContentLite } from '../types/JobContent'
-import Logo from '../static/icons/Agaetis - Ico logo - Orange.png'
+import Logo from '../public/icons/Agaetis - Ico logo - Orange.png'
 
 import Error from './_error'
 import './job.css'
@@ -19,6 +19,10 @@ interface Props {
   pageContent: JobContent
   allJobs: JobContentLite[]
   errorCode?: number
+}
+
+interface Context extends NextPageContext {
+  query: { slug: string }
 }
 
 function job({ pageContent, allJobs, errorCode }: Props) {
@@ -140,7 +144,7 @@ function job({ pageContent, allJobs, errorCode }: Props) {
   )
 }
 
-job.getInitialProps = async ({ query }: NextContext) => {
+job.getInitialProps = async ({ query }: Context) => {
   // tslint:disable-next-line
   const data = await getJobContent(query.slug!)
   const pageContent = convertJobContentAPItoContent({ ...data.acf, slug: data.slug })

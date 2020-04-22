@@ -9,7 +9,7 @@ import publicRuntimeConfig from '../config/env.config'
 import { getAllIdeas, getAllWhitePapers, getCategories, getIdeasPageContent } from '../Services/wordpressService'
 import { Category, IdeasDesc, IdeasPageContent } from '../types/IdeasContent'
 import WhitePaper from '../types/WhitePaper'
-import Logo from '../static/icons/Agaetis - Ico logo - Orange.png'
+import Logo from '../public/icons/Agaetis - Ico logo - Orange.png'
 
 interface Props {
   ideasDescription: IdeasDesc[]
