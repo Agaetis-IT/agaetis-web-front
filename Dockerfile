@@ -23,9 +23,6 @@ ENV NPM_CONFIG_LOGLEVEL=warn \
     PORT=5000
 
 COPY --from=0 --chown=node:node app/dist/ dist
-COPY --from=0 --chown=node:node app/package.json app/yarn.lock ./
-
-RUN yarn install --frozen-lockfile --non-interactive &&\
-    rm -rf .cache && yarn next:build
+COPY --from=0 --chown=node:node app/src/.next .
 
 CMD ["yarn","build:start"]
