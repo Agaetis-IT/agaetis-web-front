@@ -8,12 +8,12 @@ WORKDIR app
 COPY . .
 
 # Install deps
-RUN yarn --non-interactive --frozen-lockfile --audit && \
-    yarn test && yarn build
+RUN npm i -g typescript && \
+    yarn install --ignore-scripts --non-interactive --frozen-lockfile --audit && \
+    yarn build
 
 FROM node:10-alpine
 EXPOSE 5000
-EXPOSE 6000
 USER node
 WORKDIR /home/node
 
@@ -22,6 +22,10 @@ ENV NPM_CONFIG_LOGLEVEL=warn \
     NODE_ENV=production \
     PORT=5000
 
-COPY --from=0 --chown=node:node app/ ./
+COPY --from=0 --chown=node:node app/dist/ dist
+COPY --from=0 --chown=node:node app/package.json app/yarn.lock ./
+
+RUN yarn install --frozen-lockfile --non-interactive &&\
+    rm -rf .cache && yarn next:build
 
 CMD ["yarn","build:start"]

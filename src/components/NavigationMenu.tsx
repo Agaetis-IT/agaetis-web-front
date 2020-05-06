@@ -1,5 +1,4 @@
 import clsx from 'clsx'
-import i18next from 'i18next'
 import Link from 'next/link'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
@@ -7,16 +6,12 @@ import { useTranslation } from 'react-i18next'
 import Button from './Button'
 import './NavigationMenu.css'
 
-function isLanguageSelected(language: string) {
-  return i18next.languages[0] === language
-}
-
 interface Props {
   invertColors?: boolean
 }
 
 export default function NavigationMenu({ invertColors }: Props) {
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
   const pages = [
     [t('navigation.agaetis-name'), t('navigation.agaetis-href')],
     [t('navigation.ideas-name'), t('navigation.ideas-href')],
@@ -26,7 +21,7 @@ export default function NavigationMenu({ invertColors }: Props) {
   return (
     <div className="block bg-orange md:bg-transparent flex-grow md:flex-no-grow md:flex md-flex-no-shrink md:items-center md:w-auto p-4 md:p-0 nav-menu">
       <div className="text-xs font-medium md:flex-grow">
-        {pages.map(page => (
+        {pages.map((page) => (
           <Link key={page[0]} href={page[1]}>
             <Button
               className={clsx(

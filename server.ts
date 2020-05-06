@@ -19,7 +19,7 @@ const sha256 = sha.sha256
 const oAuth2Client = new google.auth.OAuth2(
   process.env.NEXT_APP_GMAIL_CLIENT_ID,
   process.env.NEXT_APP_GMAIL_CLIENT_SECRET,
-  'http://localhost:3000/'
+  process.env.NEXT_APP_SITE_URL
 )
 
 const mailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -230,7 +230,7 @@ app
       return handle(req, res)
     })
 
-    http.createServer(server).listen(3000)
+    http.createServer(server).listen(5000)
   })
   .catch((ex: any) => {
     console.error(ex.stack)

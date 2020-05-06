@@ -16,8 +16,13 @@ declare global {
   }
 }
 
+interface Context {
+  Component: any
+  ctx: any
+}
+
 export default class MyApp extends App {
-  static async getInitialProps({ Component, ctx }) {
+  static async getInitialProps({ Component, ctx }: Context) {
     let pageProps = {}
     if (Component.getInitialProps) {
       pageProps = await Component.getInitialProps(ctx)
