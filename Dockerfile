@@ -3,7 +3,7 @@
 FROM node:10-alpine
 
 # Copy all local files into the image.
-WORKDIR /home/node
+WORKDIR /app
 
 COPY . .
 
@@ -12,17 +12,21 @@ RUN npm i -g typescript && \
     yarn install --ignore-scripts --non-interactive --frozen-lockfile && \
     yarn build
 
-EXPOSE 5000
-
-
+FROM node:10-alpine
+WORKDIR /home/node
 # Override the base log level (info).
 ENV NPM_CONFIG_LOGLEVEL=warn \
     NODE_ENV=production \
-    PORT=5000
+    NODE_PORT=5000
 
-# TODO ?
+COPY --from=0 --chown=node:node /app/src/.next src/.next
+COPY --from=0 --chown=node:node /app/dist/server.js app/package.json app/yarn.lock app/next.config.js ./
 
-RUN yarn remove @bugsnag/js @bugsnag/plugin-react @fullhuman/postcss-purgecss @types/nprogress @types/react-google-recaptcha @types/yup @zeit/next-css @zeit/next-typescript autoprefixer babel-plugin-transform-define clsx dotenv formik i18next i18next-browser-languagedetector next next-images next-purgecss next-routes normalize.css nprogress react-ga react-google-recaptcha react-i18next tailwindcss yup   &&  yarn add express axios body-parser googleapis js-sha256 next nodemailer path http
-CMD ["yarn","build:start"]
+RUN yarn --frozen-lockfile --non-interactive && \
+    rm -rf .cache
 
 USER node
+EXPOSE 5000
+
+# launch on port 5000
+CMD ["yarn", "build:start"]

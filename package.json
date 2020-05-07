@@ -57,7 +57,7 @@
     "test": "jest",
     "dev": "ts-node ./server.ts",
     "build": "next build ./src && tsc -p .",
-    "build:start": "node dist/server.js",
+    "build:start": "node server.js",
     "start": "next start ./src",
     "typecheck": "tsc --project tsconfig.json --noEmit",
     "precommit": "lint-staged && npm test",
