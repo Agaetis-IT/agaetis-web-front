@@ -1,17 +1,28 @@
-import App, { Container } from 'next/app'
+import App from 'next/app'
 import Head from 'next/head'
 import React from 'react'
 
+import initReactGA, { trackUrl } from '../analytics/analytics'
 import initBugsnag, { getBugsnagClient } from '../bugsnag/bugsnag'
 import LoadingSpinner from '../components/LoadingSpinner'
 import publicRuntimeConfig from '../config/env.config'
-import Favicon from '../images/symbole-agaetis-p164-rgb.png'
+import Favicon from '../public/images/symbole-agaetis-p164-rgb.png'
 import '../index.css'
 
 initBugsnag()
+declare global {
+  interface Window {
+    GoogleAnalyticsObject: string
+  }
+}
+
+interface Context {
+  Component: any
+  ctx: any
+}
 
 export default class MyApp extends App {
-  static async getInitialProps({ Component, ctx }) {
+  static async getInitialProps({ Component, ctx }: Context) {
     let pageProps = {}
     if (Component.getInitialProps) {
       pageProps = await Component.getInitialProps(ctx)
@@ -21,6 +32,16 @@ export default class MyApp extends App {
   }
 
   ErrorBoundary = getBugsnagClient().getPlugin('react')
+
+  componentDidMount() {
+    const cookies = localStorage.getItem('cookies')
+    if (!cookies || JSON.parse(cookies)) {
+      if (!window.GoogleAnalyticsObject) {
+        initReactGA()
+      }
+      trackUrl()
+    }
+  }
 
   render() {
     const { Component, pageProps } = this.props
@@ -37,10 +58,9 @@ export default class MyApp extends App {
             <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
             <link rel="shortcut icon" type="image/png" href={Favicon} />
           </Head>
-          <Container>
-            <LoadingSpinner color="#ff7f40" startPosition={0.3} stopDelayMs={50} height="3" />
-            <Component {...pageProps} />
-          </Container>
+
+          <LoadingSpinner color="#ff7f40" startPosition={0.3} stopDelayMs={50} height="3" />
+          <Component {...pageProps} />
         </this.ErrorBoundary>
       </>
     )

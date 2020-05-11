@@ -1,9 +1,9 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import Facebook from '../static/icons/facebook.png'
-import Linkedin from '../static/icons/linkedin.png'
-import Twitter from '../static/icons/twitter.png'
+import Facebook from '../public/icons/facebook.png'
+import Linkedin from '../public/icons/linkedin.png'
+import Twitter from '../public/icons/twitter.png'
 
 import Address from './Address'
 import BottomNav from './BottomNav'
@@ -41,7 +41,7 @@ export default function Footer() {
         <div className="p-4 pt-0 md:p-0 md:pr-4">
           <h4 className="text-xs">{t('footer.address-title')}</h4>
           <div className="flex flex-col md:flex-row mt-4 justify-center font-thin">
-            {addresses.map(address => (
+            {addresses.map((address) => (
               <Address key={address.agency} {...address} />
             ))}
           </div>

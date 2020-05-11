@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 export default interface JobsContentAPI {
   titre: string
   description: string
@@ -40,6 +41,7 @@ export default interface JobsContentAPI {
   profile_value4_description: string
   offers_title: string
   offers_button: string
+  candidature_texte: string
 }
 
 export interface JobsContent {
@@ -54,6 +56,7 @@ export interface JobsContent {
   profilesSection: ProfilesSection
   offers_title: string
   offers_button: string
+  footer_contact_text: string
 }
 
 interface JoinUsSection {
@@ -90,39 +93,18 @@ interface Profile {
 }
 
 // TODO voir pour refactorer en fonctionnelle
-export function convertJobsContentAPItoContent(contentApi: JobsContentAPI) {
-  const regexSlides = /slide[0-9][a-zA-Z0-9_]*/
-  const regexJoinUs = /join_us[a-zA-Z0-9_]*/
-  const regexProfiles = /profile[a-zA-Z0-9_]*/
-  return {
-    title: contentApi.titre,
-    description: contentApi.description,
-    jobsImg: contentApi.jobsimg,
-    slides: createSlideArray(contentApi, Object.keys(contentApi).filter(key => key.match(regexSlides))),
-    joinUsSection: createJoinUsSectionObject(contentApi, Object.keys(contentApi).filter(key => key.match(regexJoinUs))),
-    profilesSection: createProfilesSectionObject(
-      contentApi,
-      Object.keys(contentApi).filter(key => key.match(regexProfiles))
-    ),
-    we_are_agaetis_Img: contentApi.we_are_agaetis_img,
-    we_are_agaetis_title: contentApi.we_are_agaetis_title,
-    we_are_agaetis_paragraph: contentApi.we_are_agaetis_paragraph,
-    offers_button: contentApi.offers_button,
-    offers_title: contentApi.offers_title,
-  }
-}
 
 function createSlideArray(contentApi: JobsContentAPI, keys: string[]) {
   const slides: Slide[] = []
-  keys.forEach(key => {
-    const slideIndex = slides.findIndex(slide => slide.index === parseInt(key[5], 10))
+  keys.forEach((key) => {
+    const slideIndex = slides.findIndex((slide) => slide.index === parseInt(key[5], 10))
     if (!Number.isNaN(parseInt(key[5], 10))) {
       if (slideIndex === -1) {
         const newSlide = Object.create({ index: 0, quote: '', author: '', img: '' })
         newSlide.index = parseInt(key[5], 10)
         slides.push(newSlide)
       }
-      const newindex = slides.findIndex(slide => slide.index === parseInt(key[5], 10))
+      const newindex = slides.findIndex((slide) => slide.index === parseInt(key[5], 10))
       if (key.includes('quote') && !key.includes('quote_author') && !key.includes('quote_author_role')) {
         slides[newindex].quote = contentApi[key]
       }
@@ -153,8 +135,8 @@ function createJoinUsSectionObject(contentApi: JobsContentAPI, keys: string[]) {
     steps: [],
   })
 
-  keys.forEach(key => {
-    const index = steps.findIndex(step => step.index === parseInt(key[12], 10))
+  keys.forEach((key) => {
+    const index = steps.findIndex((step) => step.index === parseInt(key[12], 10))
 
     if (!Number.isNaN(parseInt(key[12], 10))) {
       if (index === -1) {
@@ -162,7 +144,7 @@ function createJoinUsSectionObject(contentApi: JobsContentAPI, keys: string[]) {
         newStep.index = parseInt(key[12], 10)
         steps.push(newStep)
       }
-      const newindex = steps.findIndex(step => step.index === parseInt(key[12], 10))
+      const newindex = steps.findIndex((step) => step.index === parseInt(key[12], 10))
       if (key.includes('title')) {
         steps[newindex].title = contentApi[key]
       }
@@ -190,9 +172,9 @@ function createProfilesSectionObject(contentApi: JobsContentAPI, keys: string[])
     profiles: [],
   })
   keys
-    .filter(key => key.includes('value'))
-    .forEach(key => {
-      const index = profiles.findIndex(profile => profile.index === parseInt(key[13], 10))
+    .filter((key) => key.includes('value'))
+    .forEach((key) => {
+      const index = profiles.findIndex((profile) => profile.index === parseInt(key[13], 10))
 
       if (!Number.isNaN(parseInt(key[13], 10))) {
         if (index === -1) {
@@ -200,7 +182,7 @@ function createProfilesSectionObject(contentApi: JobsContentAPI, keys: string[])
           newProfile.index = parseInt(key[13], 10)
           profiles.push(newProfile)
         }
-        const newindex = profiles.findIndex(profile => profile.index === parseInt(key[13], 10))
+        const newindex = profiles.findIndex((profile) => profile.index === parseInt(key[13], 10))
         if (key.includes('title')) {
           profiles[newindex].title = contentApi[key]
         }
@@ -215,4 +197,33 @@ function createProfilesSectionObject(contentApi: JobsContentAPI, keys: string[])
   profilesSection.title = contentApi.profile_title
   profilesSection.profiles = profiles
   return profilesSection
+}
+
+export function convertJobsContentAPItoContent(contentApi: JobsContentAPI) {
+  const regexSlides = /slide[0-9][a-zA-Z0-9_]*/
+  const regexJoinUs = /join_us[a-zA-Z0-9_]*/
+  const regexProfiles = /profile[a-zA-Z0-9_]*/
+  return {
+    title: contentApi.titre,
+    description: contentApi.description,
+    jobsImg: contentApi.jobsimg,
+    slides: createSlideArray(
+      contentApi,
+      Object.keys(contentApi).filter((key) => key.match(regexSlides))
+    ),
+    joinUsSection: createJoinUsSectionObject(
+      contentApi,
+      Object.keys(contentApi).filter((key) => key.match(regexJoinUs))
+    ),
+    profilesSection: createProfilesSectionObject(
+      contentApi,
+      Object.keys(contentApi).filter((key) => key.match(regexProfiles))
+    ),
+    we_are_agaetis_Img: contentApi.we_are_agaetis_img,
+    we_are_agaetis_title: contentApi.we_are_agaetis_title,
+    we_are_agaetis_paragraph: contentApi.we_are_agaetis_paragraph,
+    offers_button: contentApi.offers_button,
+    offers_title: contentApi.offers_title,
+    footer_contact_text: contentApi.candidature_texte,
+  }
 }

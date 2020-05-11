@@ -41,6 +41,10 @@ textarea::-webkit-scrollbar-thumb {
   -webkit-appearance: none;
 }
 
+#main-content {
+  overflow-x: hidden;
+}
+
 .cookie-fixed {
   position: fixed;
   bottom: 0;
@@ -58,4 +62,143 @@ textarea::-webkit-scrollbar-thumb {
   height: 1px;
   background: #f5f6f7;
   opacity: 0.5;
+}
+
+.bg-img-left-index,
+.bg-img-right-index,
+.bg-img-right-agaetis,
+.bg-img-left-agaetis,
+.bg-img-left-ideas,
+.bg-img-right-ideas,
+.bg-img-right-wp,
+.bg-img-left-wp,
+#bg-img-left-idea,
+#bg-img-right-idea,
+.bg-img-right-solutions,
+.bg-img-left-solutions,
+.bg-img-right-jobs,
+.bg-img-left-jobs,
+.bg-img-right-job,
+.bg-img-left-job,
+.bg-img-right-contact,
+.bg-img-left-contact {
+  position: absolute;
+  display: block;
+  width: 200px;
+  height: 150px;
+  padding: 5px 0;
+  z-index: -2;
+  opacity: 0.3;
+}
+
+@media (max-width: 1024px) {
+  .bg-img-left-index,
+  .bg-img-right-index,
+  .bg-img-right-agaetis,
+  .bg-img-left-agaetis,
+  .bg-img-left-ideas,
+  .bg-img-right-ideas,
+  .bg-img-right-wp,
+  .bg-img-left-wp,
+  #bg-img-left-idea,
+  #bg-img-right-idea,
+  .bg-img-right-solutions,
+  .bg-img-left-solutions,
+  .bg-img-right-jobs,
+  .bg-img-left-jobs,
+  .bg-img-right-job,
+  .bg-img-left-job,
+  .bg-img-right-contact,
+  .bg-img-left-contact {
+    display: none;
+  }
+}
+
+.bg-img-left-index {
+  left: -40px;
+  top: 1800px;
+}
+
+.bg-img-right-index {
+  right: 280px;
+  top: 980px;
+}
+
+.bg-img-right-agaetis {
+  right: 160px;
+  top: 540px;
+}
+
+.bg-img-left-agaetis {
+  left: -50px;
+  top: 1500px;
+}
+
+.bg-img-left-ideas {
+  left: -40px;
+  top: 1100px;
+}
+
+.bg-img-right-ideas {
+  right: 350px;
+  top: 330px;
+}
+
+.bg-img-right-wp {
+  right: 20px;
+  top: 320px;
+}
+
+.bg-img-left-wp {
+  left: -40px;
+  top: 850px;
+}
+
+#bg-img-right-idea {
+  top: 400px;
+  right: 20px;
+}
+#bg-img-left-idea {
+  top: 1200px;
+  left: -40px;
+}
+
+.bg-img-right-solutions {
+  right: 200px;
+  top: 280px;
+}
+.bg-img-left-solutions {
+  left: -40px;
+  top: 1100px;
+}
+
+.bg-img-right-jobs {
+  right: 20px;
+  top: 450px;
+}
+.bg-img-left-jobs {
+  left: -40px;
+  top: 1300px;
+}
+
+.bg-img-right-job {
+  right: 20px;
+  top: 700px;
+}
+.bg-img-left-job {
+  left: -40px;
+  top: 1200px;
+}
+
+.bg-img-right-contact {
+  top: 280px;
+  right: 200px;
+}
+.bg-img-left-contact {
+  top: 600px;
+  left: -40px;
+}
+
+.content {
+  z-index: 2;
 }

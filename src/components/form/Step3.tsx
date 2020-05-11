@@ -11,12 +11,17 @@ import Button from '../Button'
 
 interface Props {
   className?: string
-  handleNextStep: (formValues: FormValues) => void
+  handleNextStep: (formValues: FormValues, token: string) => void
   formValues: FormValues
   isSubmitted: boolean
 }
 
-function onSubmit(fields: Step3FormValues, handleNext: (formValues: FormValues) => void, formValues: FormValues) {
+function onSubmit(
+  fields: Step3FormValues,
+  handleNext: (formValues: FormValues, token: string) => void,
+  formValues: FormValues,
+  token: string
+) {
   const cookies = localStorage.getItem('cookies')
 
   if (!cookies || JSON.parse(cookies)) {
@@ -24,7 +29,7 @@ function onSubmit(fields: Step3FormValues, handleNext: (formValues: FormValues) 
     newReactGAEvent('ContactFormState', 'Submit form', 'Done')
     newReactGACustomVar(1, 'Done')
   }
-  handleNext({ ...formValues, ...fields })
+  handleNext({ ...formValues, ...fields }, token)
 }
 
 export default function Step3({ className, handleNextStep, formValues, isSubmitted }: Props) {
@@ -35,7 +40,7 @@ export default function Step3({ className, handleNextStep, formValues, isSubmitt
       validationSchema={step3Schema}
       onSubmit={fields => {
         if (recaptchaRef && recaptchaRef.current && recaptchaRef.current.getValue()) {
-          onSubmit(fields, handleNextStep, formValues)
+          onSubmit(fields, handleNextStep, formValues, recaptchaRef.current.getValue()!)
         }
       }}
       render={() => (

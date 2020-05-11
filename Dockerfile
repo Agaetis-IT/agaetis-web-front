@@ -3,24 +3,31 @@
 FROM node:10-alpine
 
 # Copy all local files into the image.
-WORKDIR app
+WORKDIR /app
 
 COPY . .
 
 # Install deps
-RUN yarn --non-interactive --frozen-lockfile --audit && \
-    yarn test && yarn build
+RUN npm i -g typescript && \
+    yarn install --ignore-scripts --non-interactive --frozen-lockfile && \
+    yarn build
 
 FROM node:10-alpine
-EXPOSE 5000
-USER node
 WORKDIR /home/node
-
 # Override the base log level (info).
 ENV NPM_CONFIG_LOGLEVEL=warn \
     NODE_ENV=production \
-    PORT=5000
+    NODE_PORT=5000
 
-COPY --from=0 --chown=node:node app/ ./
+COPY --from=0 --chown=node:node /app/src/.next src/.next
+COPY --from=0 --chown=node:node /app/dist/server.js app/package.json app/yarn.lock app/next.config.js ./
+COPY --from=0 --chown=node:node  /app/robots.txt /app/google80ae36db41235209.html /app/symbole-agaetis-p164-rgb.png  ./
 
-CMD ["yarn","build:start"]
+RUN yarn --frozen-lockfile --non-interactive && \
+    rm -rf .cache
+
+USER node
+EXPOSE 5000
+
+# launch on port 5000
+CMD ["yarn", "build:start"]

@@ -10,3 +10,9 @@ ul li::before {
   display: inline-block;
   width: 1em;
 }
+
+p br {
+  margin-bottom: 20px;
+  display: block;
+  content: ' ';
+}

@@ -8,16 +8,6 @@ interface Props {
   pageContent: PersonalDataContent
 }
 
-personalData.getInitialProps = async () => {
-  const data = await getPersonalDataContent()
-  return {
-    pageContent: {
-      title: data.title.rendered,
-      content: data.content.rendered,
-    },
-  }
-}
-
 export default function personalData({ pageContent }: Props) {
   return (
     <Layout>
@@ -46,4 +36,14 @@ export default function personalData({ pageContent }: Props) {
       </>
     </Layout>
   )
+}
+
+personalData.getInitialProps = async () => {
+  const data = await getPersonalDataContent()
+  return {
+    pageContent: {
+      title: data.title.rendered,
+      content: data.content.rendered,
+    },
+  }
 }

@@ -34,7 +34,9 @@ export async function getIdeaMeta(slug: string) {
 }
 
 export async function getPersonalDataContent() {
-  const data = await getWordpressPageBySlug('donnees-personnelles')
+  const data = await getWordpressPageBySlug<{ title: { rendered: string }; content: { rendered: string } }>(
+    'donnees-personnelles'
+  )
 
   return data
 }

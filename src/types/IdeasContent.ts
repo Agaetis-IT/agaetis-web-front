@@ -25,6 +25,7 @@ export interface IdeasPageContent {
   description: string
   ideasimg1: string
   ideasimg2: string
+  white_paper_description: string
 }
 
 export default interface IdeasContent {

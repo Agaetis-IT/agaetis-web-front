@@ -57,7 +57,7 @@ export default function CategoryTab({ ideasC, categories, toggleMore, ideasImg1,
 
   const filteredIdeas = useMemo(() => {
     const ideas = ideasC.filter(
-      idea => categoryFilter === 'All' || idea.categories.includes(categoryFilter) || idea.categories.includes('')
+      (idea) => categoryFilter === 'All' || idea.categories.includes(categoryFilter) || idea.categories.includes('')
     )
 
     if (!ideas.find((idea: IdeasDesc) => idea.id === -1)) {
@@ -66,7 +66,7 @@ export default function CategoryTab({ ideasC, categories, toggleMore, ideasImg1,
     if (!ideas.find((idea: IdeasDesc) => idea.id === -2)) {
       ideas.splice(4, 0, fakeIdea2)
     }
-    return ideas.map(idea => (
+    return ideas.map((idea) => (
       <div key={idea.id} className="md:w-1/3 px-1">
         <IdeasCard
           className={clsx(
@@ -80,7 +80,7 @@ export default function CategoryTab({ ideasC, categories, toggleMore, ideasImg1,
         </IdeasCard>
       </div>
     ))
-  }, [categoryFilter])
+  }, [categoryFilter, fakeIdea1, fakeIdea2, ideasC])
 
   function handleFilterChange(category: string) {
     return () => {
@@ -100,7 +100,7 @@ export default function CategoryTab({ ideasC, categories, toggleMore, ideasImg1,
         >
           Toutes
         </Button>
-        {categories.map(category => (
+        {categories.map((category) => (
           <Button
             key={category.categoryId}
             className={clsx(

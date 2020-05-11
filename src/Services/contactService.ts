@@ -10,7 +10,8 @@ export default async function send(
   company: string,
   content: string,
   phone: string,
-  date: Date
+  date: Date,
+  token: string
 ) {
   const key = Buffer.from(
     name +
@@ -18,7 +19,8 @@ export default async function send(
       publicRuntimeConfig.NEXT_APP_CONTACT_SALT +
       mail +
       formatContent(content, name, mail, company, phone) +
-      date.getTime(),
+      date.getTime() +
+      token,
     'base64'
   )
 
@@ -33,11 +35,19 @@ export default async function send(
       content: formatContent(content, name, mail, company, phone),
       date: date.getTime(),
       hash: sha256.sha256(key),
+      token,
     },
   })
 }
 
-export async function sendWhitePaper(name: string, mail: string, date: Date, whitepaperTitle: string, file: string) {
+export async function sendWhitePaper(
+  name: string,
+  mail: string,
+  date: Date,
+  whitepaperTitle: string,
+  file: string,
+  token: string
+) {
   const key = Buffer.from(
     name +
       'Envoi du livre blanc : ' +
@@ -46,7 +56,8 @@ export async function sendWhitePaper(name: string, mail: string, date: Date, whi
       mail +
       formatWPContent() +
       file +
-      date.getTime(),
+      date.getTime() +
+      token,
     'base64'
   )
 
@@ -62,6 +73,7 @@ export async function sendWhitePaper(name: string, mail: string, date: Date, whi
       date: date.getTime(),
       file,
       hash: sha256.sha256(key),
+      token,
     },
   })
 }

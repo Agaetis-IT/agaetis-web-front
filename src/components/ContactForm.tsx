@@ -58,7 +58,7 @@ export default function ContactTab() {
     }, 3000)
   }
 
-  async function handleSubmit(values: FormValues) {
+  async function handleSubmit(values: FormValues, token: string) {
     setIsSubmitted(true)
     if (
       values &&
@@ -69,7 +69,8 @@ export default function ContactTab() {
       values.company &&
       values.objet &&
       values.phone &&
-      values.cgu
+      values.cgu &&
+      token
     ) {
       try {
         await send(
@@ -79,7 +80,8 @@ export default function ContactTab() {
           values.company,
           values.message,
           values.phone,
-          new Date()
+          new Date(),
+          token
         )
         handleOpenModal(false)
         setIsSubmitted(false)
@@ -94,7 +96,7 @@ export default function ContactTab() {
 
   return (
     <div>
-      <div className="flex flex-row md:max-w-md mx-auto md:px-4">
+      <div className="flex flex-row md:max-w-lg mx-auto md:px-4">
         <div
           className={clsx(getHeadersClassNames(0, currentIndex), stepHeaderClassNames)}
           onClick={() => {
@@ -117,7 +119,7 @@ export default function ContactTab() {
         </div>
         <div className={clsx(getHeadersClassNames(2, currentIndex), stepHeaderClassNames)}>Votre message</div>
       </div>
-      <div className="border border-white md:max-w-md mx-auto md:px-4">
+      <div className="border border-white md:max-w-lg mx-auto md:px-4">
         <div className="bg-light-grey py-8 md:p-12 flex flex-col justify-center">
           <h2 className={clsx({ hidden: currentIndex !== 0 }, 'text-center text-lg md:text-2xl md:mt-0')}>
             Votre demande concerne...
@@ -144,7 +146,7 @@ export default function ContactTab() {
             formValues={formValues}
             isSubmitted={isSubmitted}
           />
-          {isOpenenedModal && <ContactMessage error={isError} contact />}
+          {isOpenenedModal && <ContactMessage error={isError} />}
         </div>
       </div>
     </div>

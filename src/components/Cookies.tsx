@@ -9,11 +9,11 @@ interface Props {
 }
 
 export default function Cookies({ className }: Props) {
-  const [isOpenedCookies, setIsOpenedCookies] = useState(undefined)
+  const [isOpenedCookies, setIsOpenedCookies] = useState(true)
 
   useEffect(() => {
     const cookies = localStorage.getItem('cookies')
-    setIsOpenedCookies(!cookies || !JSON.parse(cookies))
+    setIsOpenedCookies(!cookies)
   })
 
   function onAcceptAll() {
@@ -22,7 +22,7 @@ export default function Cookies({ className }: Props) {
   }
 
   function onRefuseAll() {
-    setIsOpenedCookies(true)
+    setIsOpenedCookies(false)
     localStorage.setItem('cookies', JSON.stringify(false))
   }
 

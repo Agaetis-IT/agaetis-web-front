@@ -8,6 +8,7 @@
 # production
 /build
 # misc
+/src/dist
 .DS_Store
 .env.*
 npm-debug.log*
@@ -22,3 +23,19 @@ cypress/fixtures/example.json
 cypress/screenshots
 cypress/videos
 /.env.review
+
+.gitignore
+.git
+*.iml
+.idea
+README.md
+Dockerfile
+.dockerignore
+.prettierrc
+node_modules
+src/.next
+coverage
+*.log
+.env
+key.pem
+dist

@@ -1,5 +1,4 @@
 import React from 'react'
-import { useTranslation } from 'react-i18next'
 
 interface Props {
   hero: string
@@ -9,7 +8,6 @@ interface Props {
 
 import './Hero.css'
 export default function Hero({ hero, valeurs, subtitle }: Props) {
-  const { t } = useTranslation()
   return (
     <div
       style={{
@@ -18,11 +16,11 @@ export default function Hero({ hero, valeurs, subtitle }: Props) {
         backgroundPosition: 'center',
         backgroundSize: 'cover',
       }}
-      className="m-0"
+      className="m-0 hero"
     >
       <div className=" flex justify-center">
         <div className="p-6 md:p-10 md:my-6 py-16 md:py-48 max-w-sm md:max-w-md text-white mx-auto md:pr-40 text-justify justify-fix">
-          {valeurs.map(valeur => (
+          {valeurs.map((valeur) => (
             <h1 className="md:text-4xl" key={valeur}>
               {valeur}
             </h1>

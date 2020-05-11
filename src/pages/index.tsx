@@ -9,14 +9,10 @@ import Layout from '../components/Layout'
 import publicRuntimeConfig from '../config/env.config'
 import { getIndexContent } from '../Services/wordpressService'
 import IndexContent from '../types/IndexContent'
+import Logo from '../public/icons/Agaetis - Ico logo - Orange.png'
 
 interface Props {
   pageContent: IndexContent
-}
-
-Index.getInitialProps = async () => {
-  const pageContent = await getIndexContent()
-  return { pageContent }
 }
 
 function Index({ pageContent: pageContent }: Props) {
@@ -37,6 +33,8 @@ function Index({ pageContent: pageContent }: Props) {
             subtitle={pageContent.hero_subtitle}
           />
           <div className=" md:px-6">
+            <img src={Logo} className="bg-img-left-index"></img>
+            <img src={Logo} className="bg-img-right-index"></img>
             <HomeCard
               className="md:flex-row "
               title={pageContent.agaetis_desc_title}
@@ -75,6 +73,11 @@ function Index({ pageContent: pageContent }: Props) {
       </Layout>
     </>
   )
+}
+
+Index.getInitialProps = async () => {
+  const pageContent = await getIndexContent()
+  return { pageContent }
 }
 
 export default Index

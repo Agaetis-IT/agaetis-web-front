@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 /*
 
 Tailwind - The Utility-First CSS Framework
@@ -24,7 +25,8 @@ View the full documentation at https://tailwindcss.com.
 |
 */
 
-let defaultConfig = require('tailwindcss/defaultConfig')()
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const defaultConfig = require('tailwindcss/defaultConfig')()
 
 /*
 |-------------------------------------------------------------------------------
@@ -42,7 +44,7 @@ let defaultConfig = require('tailwindcss/defaultConfig')()
 |
 */
 
-let colors = {
+const colors = {
   transparent: 'transparent',
   black: '#22292f',
   'black-light': '#333F48',
@@ -462,7 +464,7 @@ module.exports = {
     '32': '8rem',
     '40': '10rem',
     '48': '12rem',
-    ideas: '13rem',
+    ideas: '14rem',
     '64': '16rem',
     full: '100%',
     screen: '100vh',
@@ -529,7 +531,7 @@ module.exports = {
     xs: '22rem',
     sm: '30rem',
     md: '45rem',
-    lg: '50rem',
+    lg: '55rem',
     xl: '60rem',
     '2xl': '70rem',
     '3xl': '80rem',

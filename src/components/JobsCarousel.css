@@ -1,12 +1,10 @@
-.sliderCount {
-  width: 8px;
-  height: 8px;
-  display: inline-block;
-  border: 1.5px solid #ff7f40;
-  border-radius: 9999px;
-}
-
 .nicolas {
   width: 220px;
   height: 245px;
+}
+
+@media screen and (min-width: 800px) {
+  .slide {
+    max-height: 235px;
+  }
 }

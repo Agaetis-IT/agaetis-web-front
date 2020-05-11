@@ -30,12 +30,7 @@ export default function HomeCard({ className, href, title, description, buttonCo
           </Button>
         </Link>
       </div>
-      <img
-        className="home-img-mobile home-img img-shadow self-center mx-auto md:mx-0"
-        src={imgUrl}
-        alt={imgUrl}
-        loading="lazy"
-      />
+      <img className="home-img-mobile home-img img-shadow self-center mx-auto md:mx-0" src={imgUrl} alt={imgUrl} />
     </div>
   )
 }

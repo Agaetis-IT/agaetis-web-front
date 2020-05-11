@@ -6,6 +6,7 @@ import SoluceTab from '../components/SoluceTab'
 import publicRuntimeConfig from '../config/env.config'
 import { getSolutionsPageContent } from '../Services/wordpressService'
 import { SolutionsContent } from '../types/SolutionsContent'
+import Logo from '../public/icons/Agaetis - Ico logo - Orange.png'
 
 import './solutions.css'
 
@@ -13,12 +14,7 @@ interface Props {
   pageContent: SolutionsContent
 }
 
-solutions.getInitialProps = async () => {
-  const pageContent = await getSolutionsPageContent()
-  return { pageContent }
-}
-
-export default function solutions({ pageContent }: Props) {
+function solutions({ pageContent }: Props) {
   return (
     <>
       <Head>
@@ -44,14 +40,23 @@ export default function solutions({ pageContent }: Props) {
                 > <b>Solutions</b>
               </span>
             </div>
-            <h1 className="text-center text-2xl py-8 md:pb-0">{pageContent.title}</h1>
-            <p className="md:max-w-md mx-auto text-center px-4 md:py-6 md:px-0 text-xs leading-normal">
+            <h1 className="text-center text-2xl py-8 md:pb-0 md:mt-12">{pageContent.title}</h1>
+            <p className="md:max-w-md mx-auto text-center px-4 md:py-6 md:px-0 text-sm leading-normal">
               {pageContent.description}
             </p>
           </div>
+          <img src={Logo} className="bg-img-left-solutions"></img>
+          <img src={Logo} className="bg-img-right-solutions"></img>
           <SoluceTab tabs={pageContent.tabs} />
         </>
       </Layout>
     </>
   )
 }
+
+solutions.getInitialProps = async () => {
+  const pageContent = await getSolutionsPageContent()
+  return { pageContent }
+}
+
+export default solutions
