@@ -53,6 +53,7 @@ export default function ContactTab() {
     setIsError(error)
     setCurrentIndex(0)
     setOpenModal(true)
+    setIsSubmitted(false)
     setTimeout(() => {
       setOpenModal(false)
     }, 3000)
@@ -84,10 +85,8 @@ export default function ContactTab() {
           token
         )
         handleOpenModal(false)
-        setIsSubmitted(false)
       } catch {
         handleOpenModal(true)
-        setIsSubmitted(false)
       }
     } else {
       handleOpenModal(true)

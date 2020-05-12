@@ -32,6 +32,7 @@ export default function whitePaper({ pageContent, errorCode }: Props) {
   function handleOpenModal(error: boolean) {
     setIsError(error)
     setOpenModal(true)
+    setIsLoading(false)
     setTimeout(() => {
       setOpenModal(false)
     }, 3000)
@@ -43,10 +44,8 @@ export default function whitePaper({ pageContent, errorCode }: Props) {
       try {
         await sendWhitePaper(values.firstName + ' ' + values.lastName, values.email, new Date(), title, file, token)
         handleOpenModal(false)
-        setIsLoading(false)
       } catch {
         handleOpenModal(true)
-        setIsLoading(false)
       }
     } else {
       handleOpenModal(true)
