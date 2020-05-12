@@ -75,7 +75,7 @@ app
 
     server.get('^/[0-9]{4}/[0-9]{2}/[0-9]{2}/:slug', async (req: Request, res: Response) => {
       console.log({ ...req.query }, { ...req.params })
-      res.redirect(`/${req.params.slug}`)
+      res.status(301).redirect(`/${req.params.slug}`)
     })
 
     server.get('/jobs/:slug', (req: Request, res: Response) => {
