@@ -63,9 +63,17 @@ app
     server.get('/:slug', (req: Request, res: Response) => {
       const queryParams = { ...req.params, ...req.query }
       if (
-        ['solutions', 'ideas', 'agaetis', 'jobs', 'white-papers', 'contact', 'cookies', 'personal-data'].includes(
-          queryParams.slug
-        )
+        [
+          'solutions',
+          'ideas',
+          'agaetis',
+          'jobs',
+          'white-papers',
+          'contact',
+          'cookies',
+          'personal-data',
+          'offers',
+        ].includes(queryParams.slug)
       ) {
         return handle(req, res)
       }
@@ -111,7 +119,7 @@ app
 
       const message = {
         from: process.env.NEXT_APP_MAIL_ADDRESS,
-        to: process.env.NEXT_APP_MAIL_ADDRESS,
+        to: 'contact@agaetis.fr',
         subject: req.body.object,
         html: req.body.content,
       }
