@@ -80,6 +80,7 @@ app
           'personal-data',
           'mentions-legales',
         ].includes(queryParams.slug)
+          'offers',
       ) {
         return handle(req, res)
       } else if (queryParams.slug === 'ideas') {
@@ -132,7 +133,7 @@ app
 
       const message = {
         from: process.env.NEXT_APP_MAIL_ADDRESS,
-        to: process.env.NEXT_APP_MAIL_ADDRESS,
+        to: 'contact@agaetis.fr',
         subject: req.body.object,
         html: req.body.content,
       }
