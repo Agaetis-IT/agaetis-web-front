@@ -1,16 +1,30 @@
 .home-img {
   background-position: center;
   background-size: cover;
-  width: 400px;
-  height: 350px;
+  width: 450px;
+  height: 380px;
+}
+
+@media screen and (max-width: 1200px) {
+  .home-img {
+    width: 400px;
+    height: 350px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .home-img {
+    width: 350px;
+    height: 300px;
+  }
 }
 
 @media screen and (max-width: 800px) {
   .home-img-mobile {
     background-position: center;
     background-size: cover;
-    width: 250px;
-    height: 200px;
+    width: auto;
+    height: auto;
   }
 }
 
