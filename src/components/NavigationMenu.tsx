@@ -18,6 +18,7 @@ export default function NavigationMenu({ invertColors, position }: Props) {
     ['Blog', '/blog'],
     ['Activités', '/sectors'],
     ['Jobs', '/jobs'],
+    [t('navigation.offers-name'), t('navigation.offers-href')],
   ]
 
   return (
