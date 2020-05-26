@@ -9,7 +9,6 @@ import Layout from '../components/Layout'
 import publicRuntimeConfig from '../config/env.config'
 import { getIndexContent } from '../Services/wordpressService'
 import IndexContent from '../types/IndexContent'
-import Logo from '../public/icons/Agaetis - Ico logo - Orange.png'
 
 interface Props {
   pageContent: IndexContent
@@ -33,10 +32,7 @@ function Index({ pageContent: pageContent }: Props) {
             subtitle={pageContent.hero_subtitle}
           />
           <div className=" md:px-6">
-            <img src={Logo} className="bg-img-left-index"></img>
-            <img src={Logo} className="bg-img-right-index"></img>
             <HomeCard
-              className="md:flex-row "
               title={pageContent.agaetis_desc_title}
               description={pageContent.agaetis_desc}
               href="/agaetis"
@@ -44,15 +40,14 @@ function Index({ pageContent: pageContent }: Props) {
               imgUrl={pageContent.agaetis_desc_img}
             />
             <HomeCard
-              className="md:flex-row-reverse py-6 bg-light-grey"
               title={pageContent.ideas_desc_title}
               description={pageContent.ideas_desc}
               href="/ideas"
               buttonContent={t('index.learnmore-btn')}
               imgUrl={pageContent.ideas_desc_img}
+              reverse
             />
             <HomeCard
-              className="md:flex-row"
               title={pageContent.solutions_desc_title}
               description={pageContent.solutions_desc}
               href="/solutions"
@@ -60,12 +55,12 @@ function Index({ pageContent: pageContent }: Props) {
               imgUrl={pageContent.solutions_desc_img}
             />
             <HomeCard
-              className="md:flex-row-reverse py-6  bg-light-grey"
               title={pageContent.jobs_desc_title}
               description={pageContent.jobs_desc}
               href="/jobs"
               buttonContent={t('index.learnmore-btn')}
               imgUrl={pageContent.jobs_desc_img}
+              reverse
             />
           </div>
           <ContactSection />
