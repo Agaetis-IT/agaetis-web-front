@@ -22,13 +22,13 @@ export default function Header({ invertColors, className }: Props) {
   }
 
   return (
-    <header className={clsx('p-3 md:py-8', className)}>
-      <nav className="flex flex-col md:flex-row item-start md:items-center flex-wrap justify-between md:justify-center">
+    <header className={clsx('p-3 md:py-16', className)}>
+      <nav className="flex flex-col md:flex-row item-start md:items-center flex-wrap justify-between lg:justify-center">
         {/*Site logo + Hamburger icon */}
 
         <div className="flex items-center flex-no-shrink text-orange md:text-white">
           <Link href="/">
-            <a className="ml-auto mr-auto md:ml-0 md:mr-12 flex items-center">
+            <a className="ml-auto mr-auto md:ml-0  flex items-center">
               <img className={clsx({ 'md:inline': invertColors }, 'logoAgaetis hidden')} src={logoAgaetisDesktop} />
               <img className={clsx(invertColors ? 'md:hidden' : 'inline', 'logoAgaetis')} src={logoAgaetisMobile} />
             </a>
@@ -44,7 +44,7 @@ export default function Header({ invertColors, className }: Props) {
             <span className="uppercase text-black text-xxs pt-1">Menu</span>
           </button>
         </div>
-        <div id="main_nav" className={clsx({ 'hidden md:inline': !isMenuOpen }, 'w-100')}>
+        <div id="main_nav" className={clsx({ 'hidden md:inline': !isMenuOpen }, 'w-100 mx-auto md:mx-12 lg:mx-auto')}>
           <NavigationMenu invertColors={invertColors} />
         </div>
       </nav>

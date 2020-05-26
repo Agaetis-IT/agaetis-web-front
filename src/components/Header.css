@@ -1,6 +1,6 @@
 .logoAgaetis {
   z-index: 3;
-  width: 140px;
+  width: 180px;
   background-attachment: fixed;
   background-position: center center;
 }
@@ -9,5 +9,11 @@
   header {
     left: 0;
     right: 0;
+  }
+
+  .logoAgaetis {
+    position: absolute;
+    top: 55px;
+    left: 30px;
   }
 }
