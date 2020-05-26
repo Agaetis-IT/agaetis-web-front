@@ -1,21 +1,17 @@
-import Link from 'next/link'
 import React from 'react'
 
 interface Props {
   title: string
-  description: string
-  href: string
-  className?: string
+  desc: string
+  image: string
 }
 
-export default function OfferCard({ title, description, href, className }: Props) {
+export default function OfferCard({ title, desc, image }: Props) {
   return (
-    <div className={className}>
-      <h4>{title}</h4>
-      <p className="text-sm py-4" dangerouslySetInnerHTML={{ __html: description }}></p>
-      <Link href={href}>
-        <a className="text-blue text-xs blue-underline-thin">Consulter l'offre</a>
-      </Link>
+    <div>
+      <h3>{title}</h3>
+      <p>{desc}</p>
+      <img src={image} />
     </div>
   )
 }

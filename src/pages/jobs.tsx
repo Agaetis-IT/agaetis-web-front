@@ -5,7 +5,7 @@ import React, { useMemo, useState } from 'react'
 import Button from '../components/Button'
 import JobsCarousel from '../components/JobsCarousel'
 import Layout from '../components/Layout'
-import OfferCard from '../components/OfferCard'
+import JobCard from '../components/JobCard'
 import OfferSection from '../components/OfferSection'
 import publicRuntimeConfig from '../config/env.config'
 import { getAllJobs, getJobsPageContent } from '../Services/wordpressService'
@@ -23,7 +23,7 @@ function jobs({ pageContent, allJobs }: Props) {
   const offers = useMemo(
     () =>
       allJobs.map((offer) => (
-        <OfferCard
+        <JobCard
           key={offer.acf.intitule_job}
           title={offer.acf.intitule_job}
           description={offer.acf.description}

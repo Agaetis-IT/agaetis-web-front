@@ -17,6 +17,7 @@ export default function NavigationMenu({ invertColors }: Props) {
     [t('navigation.ideas-name'), t('navigation.ideas-href')],
     [t('navigation.solutions-name'), t('navigation.solutions-href')],
     [t('navigation.jobs-name'), t('navigation.jobs-href')],
+    [t('navigation.offers-name'), t('navigation.offers-href')],
   ]
   return (
     <div className="block bg-orange md:bg-transparent flex-grow md:flex-no-grow md:flex md-flex-no-shrink md:items-center md:w-auto p-4 md:p-0 nav-menu">

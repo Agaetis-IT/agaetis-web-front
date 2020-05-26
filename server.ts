@@ -95,6 +95,10 @@ app
       app.render(req, res, '/job', { ...req.params, ...req.query })
     })
 
+    server.get('/offers/:slug', (req: Request, res: Response) => {
+      app.render(req, res, '/offer', { ...req.params, ...req.query })
+    })
+
     server.get('/white-papers/:slug', (req: Request, res: Response) => {
       app.render(req, res, '/white-paper', { ...req.params, ...req.query })
     })
