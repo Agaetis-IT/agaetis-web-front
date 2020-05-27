@@ -18,11 +18,18 @@ export default function HomeCard({ href, title, description, buttonContent, imgU
   return (
     <div
       className={clsx(
-        'flex flex-col my-6 md:my-12 justify-center md:justify-end md:p-12 mx-auto md:max-full',
-        reverse ? 'md:flex-row-reverse bg-light-grey' : 'md:flex-row'
+        'flex flex-col my-6 md:my-12 justify-center md:justify-end sm:p-4 md:p-6 lg:p-12 mx-auto md:max-full',
+        reverse ? 'sm:flex-row-reverse bg-light-grey' : 'sm:flex-row'
       )}
     >
-      <div className={clsx('md:max-w-full mx-4 p-8 px-4 md:mx-0 self-center md:px-16')}>
+      <div
+        className={clsx(
+          'sm:max-w-full mx-4  md:mx-0 self-center  ',
+          reverse
+            ? 'p-8 px-4 sm:mr-0 sm:pr-0 sm:px-2 md:pl-8 lg:pl-16'
+            : 'p-8 px-4 sm:ml-0 sm:pl-0 sm:px-2 md:pr-8 lg:pr-16'
+        )}
+      >
         <Link href={href}>
           <a title={href}>
             <h2 className="pb-4 text-black">{title}</h2>

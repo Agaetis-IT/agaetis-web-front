@@ -16,7 +16,7 @@ export default function SoluceTabContent({ content, className }: Props) {
       <div className="md:max-w-full mx-auto p-0 md:px-8">
         <img className="mt-4 soluce-shadow w-full" src={content.solutions_img} />
         <div className={clsx(className, 'p-4')}>
-          <div className={clsx('md:w-1/2 md:pr-4')}>
+          <div className={clsx('sm:w-1/2 sm:pr-4')}>
             <h2
               className="text-xl font-semibold py-4 text-center"
               dangerouslySetInnerHTML={{ __html: content.sections[0].title }}
@@ -26,7 +26,7 @@ export default function SoluceTabContent({ content, className }: Props) {
               dangerouslySetInnerHTML={{ __html: content.sections[0].description }}
             />
           </div>
-          <div className={clsx('md:w-1/2 md:pl-4')}>
+          <div className={clsx('sm:w-1/2 sm:pl-4')}>
             <h2
               className="text-xl font-semibold py-4 text-center"
               dangerouslySetInnerHTML={{ __html: content.sections[1].title }}
@@ -40,9 +40,9 @@ export default function SoluceTabContent({ content, className }: Props) {
 
         <div>
           <h2 className="text-2xl font-semibold py-8 text-center">{content.whyUs.title}</h2>
-          <div className="flex flex-col md:flex-row justify-between">
+          <div className="flex flex-col sm:flex-row justify-between">
             {content.whyUs.sections.sort(compareWhyUsSection).map((section) => (
-              <div key={section.index} className="md:w-1/3 p-2 flex flex-col align-middle">
+              <div key={section.index} className="sm:w-1/3 p-2 flex flex-col align-middle">
                 <img className="w-24 h-24 mx-auto text-center mb-4" src={section.icon} />
                 <div>
                   <h3 className="text-lg uppercase text-center">{section.title}</h3>

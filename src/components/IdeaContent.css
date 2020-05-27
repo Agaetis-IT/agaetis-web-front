@@ -78,7 +78,7 @@ td {
   margin: 20px 0;
 }
 
-@media screen and (max-width: 576px) {
+@media screen and (max-width: 640px) {
   #content ol {
     padding-left: 15px;
   }

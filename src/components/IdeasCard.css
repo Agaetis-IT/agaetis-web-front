@@ -22,7 +22,7 @@
   outline: 1px solid slategrey;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 640px) {
   .bottom {
     overflow-y: auto;
   }
