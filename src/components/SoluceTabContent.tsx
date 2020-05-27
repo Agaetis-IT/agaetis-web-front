@@ -13,7 +13,7 @@ interface Props {
 export default function SoluceTabContent({ content, className }: Props) {
   return (
     <>
-      <div className="md:max-w-lg mx-auto p-0 md:px-8">
+      <div className="md:max-w-full mx-auto p-0 md:px-8">
         <img className="mt-4 soluce-shadow w-full" src={content.solutions_img} />
         <div className={clsx(className, 'p-4')}>
           <div className={clsx('md:w-1/2 md:pr-4')}>
@@ -46,7 +46,7 @@ export default function SoluceTabContent({ content, className }: Props) {
                 <img className="w-24 h-24 mx-auto text-center mb-4" src={section.icon} />
                 <div>
                   <h3 className="text-lg uppercase text-center">{section.title}</h3>
-                  <p className="text-xs leading-normal text-center py-2">{section.description}</p>
+                  <p className="text-sm leading-normal text-center py-2">{section.description}</p>
                 </div>
               </div>
             ))}
