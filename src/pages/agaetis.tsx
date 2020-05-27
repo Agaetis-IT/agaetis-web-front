@@ -8,7 +8,6 @@ import Layout from '../components/Layout'
 import publicRuntimeConfig from '../config/env.config'
 import { getAgaetisContent } from '../Services/wordpressService'
 import { AgaetisContent, convertAgaetisAPItoContent } from '../types/AgaetisContent'
-import Logo from '../public/icons/Agaetis - Ico logo - Orange.png'
 
 interface Props {
   pageContent: AgaetisContent
@@ -37,12 +36,10 @@ export default function agaetis({ pageContent }: Props) {
             </span>
           </div>
           <div className="md:max-w-md mx-auto md:px-8">
-            <h1 className="text-center text-2xl py-8 md:pb-0 md:mt-12">{pageContent.title}</h1>
-            <p className=" text-center px-4 md:py-6 md:px-0 text-xs leading-normal">{pageContent.paragraph}</p>
+            <h1 className="text-center text-3xl py-8 md:pb-0 md:mt-12">{pageContent.title}</h1>
+            <p className=" text-center px-4 md:py-6 md:px-0 text-sm leading-normal">{pageContent.paragraph}</p>
           </div>
-          <div className="md:max-w-lg mx-auto mt-8 md:mt-0">
-            <img src={Logo} className="bg-img-left-agaetis"></img>
-            <img src={Logo} className="bg-img-right-agaetis"></img>
+          <div className="md:max-w-full mx-auto mt-8 md:mt-0 md:px-6">
             {pageContent.questions.map((question) => (
               <AgaetisCard
                 key={question.index}
@@ -52,14 +49,14 @@ export default function agaetis({ pageContent }: Props) {
               />
             ))}
           </div>
-          <div className="mb-8 md:mb-16">
+          <div className="mb-8 md:mb-16 md:px-8">
             <h2 className="text-center mt-12 mb-8">{pageContent.chiffres_title}</h2>
-            <div className="md:max-w-lg mx-auto md:px-8 flex flex-col md:flex-row justify-around bg-light-grey p-8">
+            <div className="md:max-w-full mx-auto md:px-8 flex flex-col md:flex-row justify-around bg-light-grey p-8">
               {pageContent.chiffres.map((chiffre) => (
-                <div key={chiffre.title} className="text-center my-6 md:my-0 mx-2">
-                  <h3 className="uppercase text-xs ">{chiffre.title}</h3>
-                  <h3 className="text-4xl text-orange my-2 md:my-4">{chiffre.data}</h3>
-                  <p className="text-xs">{chiffre.desc}</p>
+                <div key={chiffre.title} className="text-center my-6 md:my-0 px-4">
+                  <h3 className="uppercase text-sm ">{chiffre.title}</h3>
+                  <h3 className="text-5xl text-orange my-2 md:my-4">{chiffre.data}</h3>
+                  <p className="text-sm">{chiffre.desc}</p>
                 </div>
               ))}
             </div>
