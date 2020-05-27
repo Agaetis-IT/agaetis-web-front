@@ -1,8 +1,8 @@
 .home-img {
   background-position: center;
   background-size: cover;
-  width: 450px;
-  height: 380px;
+  width: 500px;
+  height: 420px;
 }
 
 @media screen and (max-width: 1200px) {
@@ -20,6 +20,13 @@
 }
 
 @media screen and (max-width: 800px) {
+  .home-img {
+    width: 300px;
+    height: 260px;
+  }
+}
+
+@media screen and (max-width: 640px) {
   .home-img-mobile {
     background-position: center;
     background-size: cover;
