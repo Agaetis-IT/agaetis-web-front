@@ -95,9 +95,12 @@ function jobs({ pageContent, allJobs }: Props) {
               className="md:max-w-lg mx-auto text-center px-4 md:py-8 md:px-0 text-sm leading-normal mb-8"
               dangerouslySetInnerHTML={{ __html: pageContent.joinUsSection.description }}
             />
-            <div className="flex flex-col md:flex-row md:py-8">
+            <div className="flex flex-col sm:flex-row md:py-8">
               {pageContent.joinUsSection.steps.map((step) => (
-                <div className="flex flex-col justify-center w-full md:mx-2 px-8 md:px-0 md:w-1/3" key={step.index}>
+                <div
+                  className="flex flex-col justify-center w-full md:mx-2 px-8 sm:px-2 md:px-0 sm:w-1/3"
+                  key={step.index}
+                >
                   <div className="text-center text-white text-lg flex flex-row justify-center leading-none self-center items-center w-8 h-8 bg-red-light rounded-full  my-2">
                     <span>{step.index}</span>
                   </div>
@@ -109,9 +112,9 @@ function jobs({ pageContent, allJobs }: Props) {
             <hr className="Footer-separator my-12" />
 
             <h2 className="text-center mb-8" dangerouslySetInnerHTML={{ __html: pageContent.profilesSection.title }} />
-            <div className="flex flex-col md:flex-row md:py-8">
+            <div className="flex flex-col sm:flex-row md:py-8">
               {pageContent.profilesSection.profiles.map((profile) => (
-                <div className="text-center flex flex-col md:mx-2 px-8 md:px-0 md:w-1/4 " key={profile.index}>
+                <div className="text-center flex flex-col md:mx-2 px-8 sm:px-2 md:px-0 sm:w-1/4 " key={profile.index}>
                   <div className="w-auto h-24 flex flex-col justify-end mb-2">
                     <img className="w-16 h-auto self-center" src={profile.img} />
                   </div>

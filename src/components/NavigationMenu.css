@@ -12,6 +12,7 @@
   left: 0;
   right: 0;
   margin-top: 0.75rem;
+  z-index: 1000;
 }
 
 @media (min-width: 800px) {

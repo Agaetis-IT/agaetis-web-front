@@ -65,7 +65,7 @@ export default function SoluceTab({ tabs }: Props) {
           </Button>
         </div>
       </div>
-      <SoluceTabContent className="flex flex-col md:flex-row w-full" content={tabs.sort(compareTabs)[currentIndex]} />
+      <SoluceTabContent className="flex flex-col sm:flex-row w-full" content={tabs.sort(compareTabs)[currentIndex]} />
     </>
   )
 }
