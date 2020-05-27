@@ -11,7 +11,6 @@ import publicRuntimeConfig from '../config/env.config'
 import { getAllJobs, getJobsPageContent } from '../Services/wordpressService'
 import { JobContentLite } from '../types/JobContent'
 import { JobsContent } from '../types/JobsContent'
-import Logo from '../public/icons/Agaetis - Ico logo - Orange.png'
 
 interface Props {
   pageContent: JobsContent
@@ -62,10 +61,8 @@ function jobs({ pageContent, allJobs }: Props) {
             </div>
           </div>
           <div className="md:max-w-lg mx-auto p-0 md:px-8">
-            <img src={Logo} className="bg-img-left-jobs"></img>
-            <img src={Logo} className="bg-img-right-jobs"></img>
             <h1
-              className="text-center text-2xl py-8 md:mt-12 md:pb-0"
+              className="text-center text-3xl py-8 md:mt-12 md:pb-0"
               dangerouslySetInnerHTML={{ __html: pageContent.title }}
             />
             <p
@@ -89,37 +86,37 @@ function jobs({ pageContent, allJobs }: Props) {
               dangerouslySetInnerHTML={{ __html: pageContent.we_are_agaetis_paragraph }}
             />
           </div>
-          <div className="w-full md:max-w-md mx-auto p-0 md:px-8">
+          <div className="w-full md:max-w-full mx-auto p-0 md:p-8">
             <h2
               className="text-center mb-8 md:mb-0"
               dangerouslySetInnerHTML={{ __html: pageContent.joinUsSection.title }}
             />
             <p
-              className="md:max-w-md mx-auto text-justify px-4 md:py-6 md:px-0 text-sm leading-normal mb-8"
+              className="md:max-w-lg mx-auto text-center px-4 md:py-8 md:px-0 text-sm leading-normal mb-8"
               dangerouslySetInnerHTML={{ __html: pageContent.joinUsSection.description }}
             />
-            <div className="flex flex-col md:flex-row">
+            <div className="flex flex-col md:flex-row md:py-8">
               {pageContent.joinUsSection.steps.map((step) => (
                 <div className="flex flex-col justify-center w-full md:mx-2 px-8 md:px-0 md:w-1/3" key={step.index}>
                   <div className="text-center text-white text-lg flex flex-row justify-center leading-none self-center items-center w-8 h-8 bg-red-light rounded-full  my-2">
                     <span>{step.index}</span>
                   </div>
                   <h3 className="uppercase text-center text-lg font-semibold my-2">{step.title}</h3>
-                  <p className="text-center leading-normal text-sm md:text-xss my-2">{step.description}</p>
+                  <p className="text-center leading-normal text-sm  my-2">{step.description}</p>
                 </div>
               ))}
             </div>
             <hr className="Footer-separator my-12" />
 
             <h2 className="text-center mb-8" dangerouslySetInnerHTML={{ __html: pageContent.profilesSection.title }} />
-            <div className="flex flex-col md:flex-row ">
+            <div className="flex flex-col md:flex-row md:py-8">
               {pageContent.profilesSection.profiles.map((profile) => (
                 <div className="text-center flex flex-col md:mx-2 px-8 md:px-0 md:w-1/4 " key={profile.index}>
                   <div className="w-auto h-24 flex flex-col justify-end mb-2">
                     <img className="w-16 h-auto self-center" src={profile.img} />
                   </div>
                   <h3 className="uppercase text-lg font-semibold my-2">{profile.title}</h3>
-                  <p className="text-center leading-normal text-sm md:text-xss my-2">{profile.description}</p>
+                  <p className="text-center leading-normal text-sm  my-2">{profile.description}</p>
                 </div>
               ))}
             </div>
