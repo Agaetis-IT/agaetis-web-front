@@ -18,11 +18,11 @@ export default function HomeCard({ href, title, description, buttonContent, imgU
   return (
     <div
       className={clsx(
-        'flex flex-col my-6 md:my-12 justify-center md:justify-end p-8 md:p-12 mx-auto md:max-full',
+        'flex flex-col my-6 md:my-12 justify-center md:justify-end md:p-12 mx-auto md:max-full',
         reverse ? 'md:flex-row-reverse bg-light-grey' : 'md:flex-row'
       )}
     >
-      <div className={clsx('md:max-w-full mx-4 md:mx-0 self-center md:px-16')}>
+      <div className={clsx('md:max-w-full mx-4 p-8 px-4 md:mx-0 self-center md:px-16')}>
         <Link href={href}>
           <a title={href}>
             <h2 className="pb-4 text-black">{title}</h2>
@@ -35,7 +35,7 @@ export default function HomeCard({ href, title, description, buttonContent, imgU
           </Button>
         </Link>
       </div>
-      <img className="home-img-mobile home-img  self-center mx-auto md:mx-0" src={imgUrl} alt={imgUrl} />
+      <img className="home-img-mobile home-img img-shadow self-center mx-auto md:mx-0" src={imgUrl} alt={imgUrl} />
     </div>
   )
 }
