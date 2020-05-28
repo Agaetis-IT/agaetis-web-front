@@ -197,7 +197,6 @@ function createWhyUsObject(contentApi: SolutionsContentAPI, keys: string[]) {
       const newindex = sections.findIndex((section) => section.index === parseInt(key[19], 10))
       // Add icon/title/desc to the good section
       if (key.includes('icon')) {
-        console.log(key)
         sections[newindex].icon = contentApi[key]
       }
       if (key.includes('section') && key.includes('title')) {
@@ -210,7 +209,6 @@ function createWhyUsObject(contentApi: SolutionsContentAPI, keys: string[]) {
   })
 
   whyUs.sections = sections
-  console.log(sections)
   return whyUs
 }
 

@@ -70,7 +70,7 @@ app
         return handle(req, res)
       }
 
-      return app.render(req, res, '/idea', { ...req.params, ...req.query })
+      return app.render(req, res, '/idea', queryParams)
     })
 
     server.get('^/[0-9]{4}/[0-9]{2}/[0-9]{2}/:slug', async (req: Request, res: Response) => {

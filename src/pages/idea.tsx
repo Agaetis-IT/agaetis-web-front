@@ -15,6 +15,7 @@ import Meta, { convertMetaAPItoMeta } from '../types/Meta'
 import Logo from '../public/icons/Agaetis - Ico logo - Orange.png'
 
 import Error from './_error'
+import { escape } from 'querystring'
 
 interface Props {
   data: IdeasContent
@@ -97,8 +98,8 @@ export default function Idea({ data, related, errorCode, meta }: Props) {
 
 Idea.getInitialProps = async ({ query }: Context) => {
   // tslint:disable-next-line
-  const data = await getIdeaBySlug(query.slug)
-  const meta = await getIdeaMeta(query.slug)
+  const data = await getIdeaBySlug(escape(query.slug))
+  const meta = await getIdeaMeta(escape(query.slug))
   if (!!data.acf || !!data.content) {
     const related = []
     if (!!data.acf) {
