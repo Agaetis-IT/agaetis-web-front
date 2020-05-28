@@ -17,6 +17,7 @@ import Meta, { convertMetaAPItoMeta } from '../types/Meta'
 import Logo from '../public/icons/Agaetis - Ico logo - Orange.png'
 
 import Error from './_error'
+import { escape } from 'querystring'
 
 interface Props {
   data: IdeasContent

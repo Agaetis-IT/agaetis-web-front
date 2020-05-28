@@ -78,14 +78,14 @@ function Ideas({ ideasDescription, whitePapers, categories, content }: Props) {
           >
             {!isOpenedMoreIdeas ? "Voir plus d'idées" : "Voir moins d'idées"}
           </Button>
-          {whitePapers && whitePapers.length > 0 && (
+          {whitePapers && whitePapers.length > 1 && (
             <div id="whitepapers" className="text-center w-full mx-auto p-6 md:py-12 bg-light-grey my-8 blue-underline">
               <h2 className="text-2xl mt-4">Livres blancs</h2>
               <p className="text-sm md:max-w-md md:px-20 py-4 mx-auto leading-normal">
                 {content.white_paper_description}
               </p>
               <div className="my-4 md:my-8 flex flex-col md:flex-row justify-center md:max-w-md mx-auto">
-                {whitePapers.slice(0).map((whitePaper) => (
+                {whitePapers.slice(1).map((whitePaper) => (
                   <div key={whitePaper.title} className="mb-4 md:m-0">
                     <div
                       style={{
