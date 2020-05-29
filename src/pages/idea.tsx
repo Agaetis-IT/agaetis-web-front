@@ -4,6 +4,8 @@ import { NextPageContext } from 'next'
 import Head from 'next/head'
 import React, { useMemo, useState } from 'react'
 
+import { escape } from 'querystring'
+
 import Button from '../components/Button'
 import IdeaContent from '../components/IdeaContent'
 import IdeasCard from '../components/IdeasCard'
@@ -97,8 +99,8 @@ export default function Idea({ data, related, errorCode, meta }: Props) {
 
 Idea.getInitialProps = async ({ query }: Context) => {
   // tslint:disable-next-line
-  const data = await getIdeaBySlug(query.slug)
-  const meta = await getIdeaMeta(query.slug)
+  const data = await getIdeaBySlug(escape(query.slug))
+  const meta = await getIdeaMeta(escape(query.slug))
   if (!!data.acf || !!data.content) {
     const related = []
     if (!!data.acf) {
