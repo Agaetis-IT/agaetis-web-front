@@ -4,8 +4,6 @@ import { NextPageContext } from 'next'
 import Head from 'next/head'
 import React, { useMemo, useState } from 'react'
 
-import { escape } from 'querystring'
-
 import Button from '../components/Button'
 import IdeaContent from '../components/IdeaContent'
 import IdeasCard from '../components/IdeasCard'
