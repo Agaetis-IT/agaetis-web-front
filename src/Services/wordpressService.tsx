@@ -24,7 +24,7 @@ export async function getAgaetisContent() {
 }
 
 export async function getIdeasPageContent() {
-  const { acf } = await getWordpressPageBySlug<{ acf: IdeasPageContent }>('idees')
+  const { acf } = await getWordpressPageBySlug<{ acf: IdeasPageContent }>('ideas')
   return acf
 }
 
@@ -35,7 +35,7 @@ export async function getIdeaMeta(slug: string) {
 
 export async function getPersonalDataContent() {
   const data = await getWordpressPageBySlug<{ title: { rendered: string }; content: { rendered: string } }>(
-    'donnees-personnelles'
+    'personal-data'
   )
 
   return data
