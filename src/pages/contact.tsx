@@ -26,7 +26,7 @@ export default function contact({ pageContent }: Props) {
         <meta name="description" content="Pour un projet, une candidature ou même pour un café, on peut en parler !" />
         <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/contact`} />
       </Head>
-      <Layout headerProps={{ invertColors: false }}>
+      <Layout invertColors={false}>
         <>
           <div className="md:max-w-md mx-auto p-0 md:px-4 mb-8">
             <div className=" text-xs px-4">
