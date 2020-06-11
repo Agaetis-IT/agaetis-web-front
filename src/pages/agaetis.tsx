@@ -36,7 +36,7 @@ export default function agaetis({ pageContent }: Props) {
             <h1 className="text-center text-3xl py-8 md:pb-0 md:mt-12">{pageContent.title}</h1>
             <p className=" text-center px-4 md:py-6 md:px-0 text-sm leading-normal">{pageContent.paragraph}</p>
           </div>
-          <div className="md:max-w-full mx-auto mt-8 md:mt-0 md:px-6">
+          <div className="md:max-w-full mx-auto mt-8 md:mt-0 md:px-6 xl:px-32">
             {pageContent.questions.map((question) => (
               <AgaetisCard
                 key={question.index}

@@ -32,7 +32,7 @@ function Index({ pageContent: pageContent }: Props) {
             valeurs={pageContent.hero_valeurs.split(' ')}
             subtitle={pageContent.hero_subtitle}
           />
-          <div className="sm:px-0 md:px-6">
+          <div className="sm:px-0 md:px-6 xl:px-32">
             <HomeCard
               title={pageContent.agaetis_desc_title}
               description={pageContent.agaetis_desc}

@@ -136,14 +136,12 @@ app
       ) {
         transporter.sendMail(message, (err: any) => {
           if (err) {
-            console.log(err)
             res.status(500).send()
           } else {
             res.status(200).send()
           }
         })
       } else {
-        console.log(req.body.hash === sha256(key), captcha, mailRegex.test(message.from!))
         res.status(400).send()
       }
     })
@@ -212,20 +210,12 @@ app
       ) {
         transporter.sendMail(message, (err: Error) => {
           if (err) {
-            console.log(err)
             res.status(500).send()
           } else {
             res.status(200).send()
           }
         })
       } else {
-        console.log(
-          req.body.hash === sha256(key),
-          captcha,
-          mailRegex.test(message.from!),
-          mailRegex.test(message.to),
-          baseUrl === process.env.NEXT_APP_BASE_URL
-        )
         res.status(400).send()
       }
     })
