@@ -16,4 +16,55 @@
     top: 55px;
     left: 30px;
   }
+
+  .headerWhite {
+    background-color: white;
+    position: fixed;
+    top: 0;
+    padding: 20px 0;
+    color: black;
+    z-index: 1000;
+    -webkit-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.5);
+    margin-top: 0;
+  }
+
+  .animation-up {
+    animation: nav-scroll-up 1.2s;
+    animation-fill-mode: both;
+  }
+
+  .animation-down {
+    animation: nav-scroll-down 1.2s;
+    animation-fill-mode: both;
+  }
+
+  .logoSticky {
+    position: absolute;
+    top: 17px;
+    left: 17px;
+    z-index: 3;
+    width: 150px;
+    background-attachment: fixed;
+    background-position: center center;
+  }
+
+  @keyframes nav-scroll-up {
+    0% {
+      margin-top: 0px;
+    }
+    100% {
+      margin-top: -200px;
+    }
+  }
+
+  @keyframes nav-scroll-down {
+    from {
+      margin-top: -200px;
+    }
+    to {
+      margin-top: 0px;
+    }
+  }
 }

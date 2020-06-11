@@ -16,6 +16,7 @@ interface Props {
 
 function Index({ pageContent: pageContent }: Props) {
   const { t } = useTranslation()
+
   return (
     <>
       <Head>
@@ -28,7 +29,7 @@ function Index({ pageContent: pageContent }: Props) {
         <meta name="description" content={pageContent.agaetis_desc} />
         <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/`} />
       </Head>
-      <Layout headerProps={{ invertColors: true, className: 'header md:absolute md:mx-auto' }}>
+      <Layout invertColors={true}>
         <>
           <Hero
             hero={pageContent.hero_img}

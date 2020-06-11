@@ -8,9 +8,10 @@ import './NavigationMenu.css'
 
 interface Props {
   invertColors?: boolean
+  position: number
 }
 
-export default function NavigationMenu({ invertColors }: Props) {
+export default function NavigationMenu({ invertColors, position }: Props) {
   const { t } = useTranslation()
   const pages = [
     [t('navigation.agaetis-name'), t('navigation.agaetis-href')],
@@ -18,6 +19,7 @@ export default function NavigationMenu({ invertColors }: Props) {
     [t('navigation.solutions-name'), t('navigation.solutions-href')],
     [t('navigation.jobs-name'), t('navigation.jobs-href')],
   ]
+
   return (
     <div className="block bg-orange md:bg-transparent flex-grow md:flex-no-grow md:flex md-flex-no-shrink md:items-center md:w-100 p-4 md:p-0 nav-menu">
       <div className="text-xs font-medium md:flex-grow">
@@ -25,8 +27,8 @@ export default function NavigationMenu({ invertColors }: Props) {
           <Link key={page[0]} href={page[1]}>
             <Button
               className={clsx(
-                { 'md:text-black': !invertColors },
-                'block md:inline-block p-2 py-3 md:p-3 md:px-6 xl:px-8 text-base font-thin text-white'
+                !invertColors || position > 200 ? 'md:text-black' : 'text-white',
+                'block md:inline-block p-2 py-3 md:p-3 md:px-6 xl:px-8 text-base font-thin'
               )}
             >
               {page[0]}
