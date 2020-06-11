@@ -38,7 +38,7 @@ function Ideas({ ideasDescription, whitePapers, categories, content }: Props) {
         <meta name="description" content="Chacun d'entre nous a ses idées et le droit de les défendre" />
         <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/ideas`} />
       </Head>
-      <Layout>
+      <Layout invertColors={false}>
         <div>
           <div className="md:max-w-md mx-auto px-0 md:px-8">
             <div className="text-xs px-4 md:px-0">

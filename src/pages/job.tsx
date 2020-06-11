@@ -55,7 +55,7 @@ function job({ pageContent, allJobs, errorCode }: Props) {
         <meta name="description" content={pageContent.description} />
         <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}${pageContent.slug}`} />
       </Head>
-      <Layout>
+      <Layout invertColors={false}>
         <>
           <div className="md:max-w-md mx-auto p-0 md:px-8">
             <div className="text-xs px-4 md:px-0">

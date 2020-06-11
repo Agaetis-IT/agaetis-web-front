@@ -9,7 +9,7 @@ import './Header.css'
 import NavigationMenu from './NavigationMenu'
 
 interface Props {
-  invertColors?: boolean
+  invertColors: boolean
   className?: string
 }
 
@@ -102,7 +102,7 @@ export default function Header({ invertColors, className }: Props) {
           'p-3 md:py-16',
           'header md:absolute md:mx-auto',
           className,
-          getHeaderClass(invertColors, position),
+          getHeaderClass(!!invertColors, position),
           invertColors && position < 400 && scrollDir == 'UP' ? 'animation-up' : '',
           invertColors && position > 100 && scrollDir == 'DOWN' ? 'animation-down' : '',
           !invertColors && position < 400 && scrollDir == 'UP' ? 'animation-up' : '',
