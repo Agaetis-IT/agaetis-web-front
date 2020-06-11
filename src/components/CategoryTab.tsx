@@ -89,7 +89,7 @@ export default function CategoryTab({ ideasC, categories, toggleMore, ideasImg1,
   }
 
   return (
-    <div className="flex flex-col justify-center md:max-w-full mx-auto px-2 py-6 md:p-6">
+    <div className="flex flex-col justify-center md:max-w-full mx-auto px-2 py-6 md:p-6 xl:px-12">
       <div className="text-xs ml-2">
         <Button
           className={clsx(

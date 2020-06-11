@@ -86,7 +86,7 @@ function jobs({ pageContent, allJobs }: Props) {
               dangerouslySetInnerHTML={{ __html: pageContent.we_are_agaetis_paragraph }}
             />
           </div>
-          <div className="w-full md:max-w-full mx-auto p-0 md:p-8">
+          <div className="w-full md:max-w-full mx-auto p-0 md:p-8 xl:px-20">
             <h2
               className="text-center mb-8 md:mb-0"
               dangerouslySetInnerHTML={{ __html: pageContent.joinUsSection.title }}
@@ -112,7 +112,7 @@ function jobs({ pageContent, allJobs }: Props) {
             <hr className="Footer-separator my-12" />
 
             <h2 className="text-center mb-8" dangerouslySetInnerHTML={{ __html: pageContent.profilesSection.title }} />
-            <div className="flex flex-col sm:flex-row md:py-8">
+            <div className="flex flex-col sm:flex-row md:py-8 ">
               {pageContent.profilesSection.profiles.map((profile) => (
                 <div className="text-center flex flex-col md:mx-2 px-8 sm:px-2 md:px-0 sm:w-1/4 " key={profile.index}>
                   <div className="w-auto h-24 flex flex-col justify-end mb-2">

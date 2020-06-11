@@ -16,4 +16,17 @@
   .hero-text h1 {
     display: block;
   }
+
+  .hoverEffect::after {
+    content: '';
+    display: block;
+    transition: width 0.5s ease-out;
+    background-color: #ff7f40;
+    width: 0%;
+    height: 2px;
+  }
+
+  .hoverEffect:hover::after {
+    width: 100%;
+  }
 }
