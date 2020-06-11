@@ -103,9 +103,9 @@ export default function Header({ invertColors, className }: Props) {
           className,
           getHeaderClass(!!invertColors, position),
           invertColors && position < 400 && scrollDir == 'UP' ? 'animation-up' : '',
-          invertColors && position > 100 && scrollDir == 'DOWN' ? 'animation-down' : '',
+          invertColors && position > 100 && position < 1000 && scrollDir == 'DOWN' ? 'animation-down' : '',
           !invertColors && position < 400 && scrollDir == 'UP' ? 'animation-up' : '',
-          !invertColors && position > 100 && scrollDir == 'DOWN' ? 'animation-down' : ''
+          !invertColors && position > 100 && position < 800 && scrollDir == 'DOWN' ? 'animation-down' : ''
         )}
       >
         <nav className="flex flex-col md:flex-row item-start md:items-center flex-wrap justify-between lg:justify-center">
