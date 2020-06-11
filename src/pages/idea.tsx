@@ -68,7 +68,7 @@ export default function Idea({ data, related, errorCode, meta }: Props) {
         <meta name="description" content={meta.description ? meta.description : data.descriptionText} />
         <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/${data.slug}`} />
       </Head>
-      <Layout>
+      <Layout invertColors={false}>
         <div>
           <img src={Logo} id="bg-img-left-idea"></img>
           <img src={Logo} id="bg-img-right-idea"></img>

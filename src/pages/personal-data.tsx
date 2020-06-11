@@ -10,7 +10,7 @@ interface Props {
 
 export default function personalData({ pageContent }: Props) {
   return (
-    <Layout>
+    <Layout invertColors={false}>
       <>
         <div className="md:max-w-md mx-auto px-0 md:px-8">
           <div className="text-xs px-4 md:px-0">

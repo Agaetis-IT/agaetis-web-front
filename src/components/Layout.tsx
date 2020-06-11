@@ -10,7 +10,7 @@ import Header from './Header'
 import clsx from 'clsx'
 
 interface Props {
-  invertColors?: boolean
+  invertColors: boolean
   children?: string | React.ReactElement
 }
 

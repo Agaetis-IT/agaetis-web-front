@@ -48,7 +48,7 @@ function jobs({ pageContent, allJobs }: Props) {
         <meta name="description" content="Séduits par Agaetis ? Et si vous nous rejoignez ?" />
         <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/jobs`} />
       </Head>
-      <Layout>
+      <Layout invertColors={false}>
         <>
           <div className="md:max-w-md mx-auto p-0 md:px-8">
             <div className="text-xs px-4 md:px-0">
