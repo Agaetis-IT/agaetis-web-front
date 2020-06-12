@@ -15,6 +15,48 @@
   z-index: 1000;
 }
 
+.white-underline::after {
+  position: relative;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+  content: '';
+  margin-top: 2px;
+  display: block;
+  transition: width 0.2s ease-out;
+  background-color: white;
+  width: 0px;
+  height: 2px;
+  text-align: center;
+}
+
+.white-underline:hover::after {
+  width: 100%;
+}
+
+.black-underline::after {
+  content: '';
+  position: relative;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+  margin-top: 2px;
+  display: block;
+  transition: width 0.2s ease-out;
+  background-color: black;
+  width: 0px;
+  height: 2px;
+  text-align: center;
+}
+
+.black-underline:hover::after {
+  width: 100%;
+}
+
 @media (min-width: 800px) {
   .Button-language--active {
     color: #ff7f40;

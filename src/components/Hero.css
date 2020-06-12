@@ -14,7 +14,8 @@
   }
 
   .hero-text h1 {
-    display: block;
+    display: inline;
+    margin-right: auto;
   }
 
   .hoverEffect::after {

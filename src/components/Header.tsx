@@ -41,6 +41,9 @@ export default function Header({ invertColors, className }: Props) {
   const [position, setPosition] = useState(0)
 
   useEffect(() => {
+    if (window) {
+      setPosition(window.scrollY)
+    }
     const handleScroll = () => {
       setPosition(window.scrollY)
       if (document.body.getBoundingClientRect().top > scrollPos) {

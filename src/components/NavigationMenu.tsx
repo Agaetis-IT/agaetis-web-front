@@ -27,7 +27,7 @@ export default function NavigationMenu({ invertColors, position }: Props) {
           <Link key={page[0]} href={page[1]}>
             <Button
               className={clsx(
-                !invertColors || position > 200 ? 'md:text-black' : 'text-white',
+                !invertColors || position > 200 ? 'md:text-black black-underline' : 'text-white white-underline',
                 'block md:inline-block p-2 py-3 md:p-3 md:px-6 xl:px-8 text-base font-thin'
               )}
             >
