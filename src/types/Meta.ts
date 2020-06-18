@@ -14,8 +14,6 @@ export function convertMetaAPItoMeta(contentAPI: MetaAPI, embeddedData?: any) {
       embeddedData &&
       embeddedData['wp:featuredmedia'] &&
       embeddedData['wp:featuredmedia'][0] &&
-      embeddedData['wp:featuredmedia'][0].media_details &&
-      embeddedData['wp:featuredmedia'][0].media_details.sizes &&
-      embeddedData['wp:featuredmedia'][0].media_details.sizes.thumbnail.source_url,
+      embeddedData['wp:featuredmedia'][0].source_url,
   }
 }
