@@ -146,9 +146,8 @@ function job({ pageContent, allJobs, errorCode }: Props) {
 
 job.getInitialProps = async ({ query }: Context) => {
   // tslint:disable-next-line
-  const data = await getJobContent(query.slug!)
-  const pageContent = convertJobContentAPItoContent({ ...data.acf, slug: data.slug })
-  const allJobs = await getAllJobs()
+  const { [0]: data, [1]: allJobs } = await Promise.all([getJobContent(query.slug!), getAllJobs()])
+  const pageContent = await convertJobContentAPItoContent({ ...data.acf, slug: data.slug })
   return {
     pageContent,
     allJobs: allJobs.filter((offer: JobContentLite) => {

@@ -113,12 +113,13 @@ function Ideas({ ideasDescription, whitePapers, categories, content }: Props) {
 }
 
 Ideas.getInitialProps = async () => {
-  const ideas = await getAllIdeas()
-  const categories = await getCategories()
-  const content = await getIdeasPageContent()
-  const whitepapers = await getAllWhitePapers()
+  const { [0]: ideas, [1]: categories, [2]: content, [3]: whitepapers } = await Promise.all([
+    getAllIdeas(),
+    getCategories(),
+    getIdeasPageContent(),
+    getAllWhitePapers(),
+  ])
 
-  console.log(whitepapers)
   return {
     ideasDescription: ideas.map((idea: any) => ({
       id: idea.id,
