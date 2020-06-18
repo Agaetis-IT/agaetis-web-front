@@ -59,6 +59,9 @@ export default function whitePaper({ pageContent, errorCode }: Props) {
     <>
       <Head>
         <title>Agaetis : {pageContent.title}</title>
+        <meta property="og:title" content={`Agaetis : ${pageContent.title}`} />
+        <meta property="og:image" content={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/favicon.ico`} />
+        <meta property="og:type" content="website" />
         <meta property="og:description" content={pageContent.description} />
         <meta name="description" content={pageContent.description} />
         <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/${pageContent.slug}`} />

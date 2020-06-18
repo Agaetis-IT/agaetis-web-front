@@ -61,11 +61,11 @@ export default function Idea({ data, related, errorCode, meta }: Props) {
     <>
       <Head>
         <title>Agaetis : {data.title}</title>
-        <meta name="og:title" content={`Agaetis : ${data.title}`} />
-        <meta name="og:type" content="article" />
-        <meta name="og:url" content={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/${data.slug}`} />
-        <meta name="og:description" content={meta.description ? meta.description : data.descriptionText} />
-        {meta.featuredImage && <meta name="og:image" content={meta.featuredImage} />}
+        <meta property="og:title" content={`Agaetis : ${data.title}`} />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/${data.slug}`} />
+        <meta property="og:description" content={meta.description ? meta.description : data.descriptionText} />
+        {meta.featuredImage && <meta property="og:image" content={meta.featuredImage} />}
         <meta name="description" content={meta.description ? meta.description : data.descriptionText} />
         <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/${data.slug}`} />
       </Head>

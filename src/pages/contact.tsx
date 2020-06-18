@@ -19,6 +19,10 @@ export default function contact({ pageContent }: Props) {
     <>
       <Head>
         <title>Agaetis : contactez-nous</title>
+
+        <meta property="og:title" content="Agaetis : contactez-nous" />
+        <meta property="og:image" content={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/favicon.ico`} />
+        <meta property="og:type" content="website" />
         <meta
           property="og:description"
           content="Pour un projet, une candidature ou même pour un café, on peut en parler !"

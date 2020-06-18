@@ -21,6 +21,10 @@ function Index({ pageContent: pageContent }: Props) {
     <>
       <Head>
         <title>Agaetis</title>
+
+        <meta property="og:title" content="Agaetis" />
+        <meta property="og:image" content={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/favicon.ico`} />
+        <meta property="og:type" content="website" />
         <meta property="og:description" content={pageContent.agaetis_desc} />
         <meta name="description" content={pageContent.agaetis_desc} />
         <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/`} />

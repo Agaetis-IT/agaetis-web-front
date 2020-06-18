@@ -35,6 +35,10 @@ function Ideas({ ideasDescription, whitePapers, categories, content }: Props) {
     <>
       <Head>
         <title>Agaetis : nos idées</title>
+
+        <meta property="og:title" content="Agaetis : nos idées" />
+        <meta property="og:image" content={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/favicon.ico`} />
+        <meta property="og:type" content="website" />
         <meta property="og:description" content="Chacun d'entre nous a ses idées et le droit de les défendre" />
         <meta name="description" content="Chacun d'entre nous a ses idées et le droit de les défendre" />
         <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/ideas`} />

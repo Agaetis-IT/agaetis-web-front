@@ -5,7 +5,6 @@ import React from 'react'
 import initReactGA, { trackUrl } from '../analytics/analytics'
 import initBugsnag, { getBugsnagClient } from '../bugsnag/bugsnag'
 import LoadingSpinner from '../components/LoadingSpinner'
-import publicRuntimeConfig from '../config/env.config'
 import Favicon from '../public/images/symbole-agaetis-p164-rgb.png'
 import '../index.css'
 
@@ -51,9 +50,6 @@ export default class MyApp extends App {
         <this.ErrorBoundary>
           <Head>
             <title>Agaetis</title>
-            <meta name="og:title" content="Agaetis" />
-            <meta name="og:image" content={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/favicon.ico`} />
-            <meta name="og:type" content="website" />
             <meta name="keywords" content="Agaetis, Data science, Web development, Digital Twin" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             <meta name="Language" content="fr" />
