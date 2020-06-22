@@ -19,6 +19,9 @@ function solutions({ pageContent }: Props) {
     <>
       <Head>
         <title>Agaetis : nos solutions</title>
+        <meta property="og:title" content="Agaetis : nos solutions" />
+        <meta property="og:image" content={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/favicon.ico`} />
+        <meta property="og:type" content="website" />
         <meta
           property="og:description"
           content="Chaque client a des besoins propres, nous leur apportons des solutions sur mesure"

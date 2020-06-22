@@ -19,6 +19,9 @@ export default function agaetis({ pageContent }: Props) {
     <>
       <Head>
         <title>Agaetis : histoire et vision</title>
+        <meta property="og:title" content="Agaetis : histoire et vision" />
+        <meta property="og:image" content={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/favicon.ico`} />
+        <meta property="og:type" content="website" />
         <meta property="og:description" content={"Présentation d'Agaetis, de son histoire et de sa vision"} />
         <meta name="description" content={"Présentation d'Agaetis, de son histoire et de sa vision"} />
         <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/agaetis`} />

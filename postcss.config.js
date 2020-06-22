@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const purgecss = require('@fullhuman/postcss-purgecss')
 
 const tailwind = require('tailwindcss')
@@ -12,7 +13,7 @@ module.exports = {
     tailwind('./tailwind.config.js'),
     purgecss({
       content: ['./src/**/*.tsx'],
-      whitelist: ['html', 'body', 'figure'],
+      whitelist: ['html', 'body', 'figure', 'loading'],
       extractors: [
         {
           extractor: TailwindExtractor,

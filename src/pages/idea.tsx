@@ -4,6 +4,8 @@ import { NextPageContext } from 'next'
 import Head from 'next/head'
 import React, { useMemo, useState } from 'react'
 
+import { escape } from 'querystring'
+
 import Button from '../components/Button'
 import IdeaContent from '../components/IdeaContent'
 import IdeasCard from '../components/IdeasCard'
@@ -59,7 +61,11 @@ export default function Idea({ data, related, errorCode, meta }: Props) {
     <>
       <Head>
         <title>Agaetis : {data.title}</title>
+        <meta property="og:title" content={`Agaetis : ${data.title}`} />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/${data.slug}`} />
         <meta property="og:description" content={meta.description ? meta.description : data.descriptionText} />
+        {meta.featuredImage && <meta property="og:image" content={meta.featuredImage} />}
         <meta name="description" content={meta.description ? meta.description : data.descriptionText} />
         <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/${data.slug}`} />
       </Head>
@@ -97,8 +103,12 @@ export default function Idea({ data, related, errorCode, meta }: Props) {
 
 Idea.getInitialProps = async ({ query }: Context) => {
   // tslint:disable-next-line
-  const data = await getIdeaBySlug(query.slug)
-  const meta = await getIdeaMeta(query.slug)
+
+  const { [0]: data, [1]: meta } = await Promise.all([
+    getIdeaBySlug(escape(query.slug)),
+    getIdeaMeta(escape(query.slug)),
+  ])
+
   if (!!data.acf || !!data.content) {
     const related = []
     if (!!data.acf) {
@@ -129,7 +139,7 @@ Idea.getInitialProps = async ({ query }: Context) => {
           descriptionText: idea.acf.idea_description,
         }
       }),
-      meta: convertMetaAPItoMeta(meta),
+      meta: convertMetaAPItoMeta(meta, data._embedded),
     }
   }
   return {

@@ -42,6 +42,9 @@ function jobs({ pageContent, allJobs }: Props) {
     <>
       <Head>
         <title>Agaetis : rejoignez-nous</title>
+        <meta property="og:title" content="Agaetis : rejoignez-nous" />
+        <meta property="og:image" content={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/favicon.ico`} />
+        <meta property="og:type" content="website" />
         <meta property="og:description" content="Séduits par Agaetis ? Et si vous nous rejoignez ?" />
         <meta name="description" content="Séduits par Agaetis ? Et si vous nous rejoignez ?" />
         <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/jobs`} />
