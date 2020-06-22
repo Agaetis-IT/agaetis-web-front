@@ -1,0 +1,33 @@
+.blue-underline {
+  border-bottom: 4px solid #2779bd;
+}
+
+.text-underline {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.034);
+}
+
+.blue-underline-thin {
+  border-bottom: 1px solid #2779bd;
+}
+
+.loading {
+  display: block;
+  width: 13px;
+  height: 13px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: spin 1s ease-in-out infinite;
+  -webkit-animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}

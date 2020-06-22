@@ -1,0 +1,7 @@
+.contact-modal {
+  position: fixed;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 2px solid rgb(194, 194, 194);
+}

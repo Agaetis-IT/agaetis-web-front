@@ -1,0 +1,21 @@
+.home-img {
+  background-position: center;
+  background-size: cover;
+  width: 400px;
+  height: 350px;
+}
+
+@media screen and (max-width: 800px) {
+  .home-img-mobile {
+    background-position: center;
+    background-size: cover;
+    width: 250px;
+    height: 200px;
+  }
+}
+
+.img-shadow {
+  -webkit-box-shadow: 3px 12px 53px -19px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 3px 12px 53px -19px rgba(0, 0, 0, 0.5);
+  box-shadow: 3px 12px 53px -19px rgba(0, 0, 0, 0.5);
+}

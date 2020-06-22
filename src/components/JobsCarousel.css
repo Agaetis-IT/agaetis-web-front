@@ -1,0 +1,10 @@
+.nicolas {
+  width: 220px;
+  height: 245px;
+}
+
+@media screen and (min-width: 800px) {
+  .slide {
+    max-height: 235px;
+  }
+}
