@@ -161,7 +161,6 @@ app
           }
         })
       } else {
-        console.log(req.body.hash === sha256(key), captcha, mailRegex.test(message.from!))
         res.status(400).send()
       }
     })
@@ -237,13 +236,6 @@ app
           }
         })
       } else {
-        console.log(
-          req.body.hash === sha256(key),
-          captcha,
-          mailRegex.test(message.from!),
-          mailRegex.test(message.to),
-          baseUrl === process.env.NEXT_APP_BASE_URL
-        )
         res.status(400).send()
       }
     })

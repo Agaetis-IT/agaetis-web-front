@@ -30,7 +30,7 @@ export async function getIdeasPageContent() {
 }
 
 export async function getOffersPageContent() {
-  const { acf } = await getWordpressPageBySlug<{ acf: OffersPageContent }>('offres')
+  const { acf } = await getWordpressPageBySlug<{ acf: OffersPageContent }>('offers')
   return acf
 }
 
@@ -64,6 +64,11 @@ export async function getContactPageContent() {
 
 export async function getJobContent(slug: string) {
   const { data } = await axios.get(`${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/agaetis/api/v1/jobs/${slug}`)
+  return data
+}
+
+export async function getOfferContent(slug: string) {
+  const { data } = await axios.get(`${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/agaetis/api/v1/offres/${slug}`)
   return data
 }
 
