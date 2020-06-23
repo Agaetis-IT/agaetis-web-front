@@ -10,6 +10,7 @@ const next = require('next')
 const nodemailer = require('nodemailer')
 const path = require('path')
 const http = require('http')
+const logger = require('morgan')
 
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev, dir: './src' })
@@ -36,6 +37,11 @@ app
   .prepare()
   .then(() => {
     const server = express()
+    server.use(
+      logger(
+        ':date[iso] :req[x-real-ip] :method :url :status :res[content-length] - :response-time ms --- from: :referrer'
+      )
+    )
     server.use(bodyParser.urlencoded({ extended: true }))
     server.use(bodyParser.json())
 
