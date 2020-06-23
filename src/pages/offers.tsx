@@ -14,13 +14,9 @@ interface Props {
 }
 
 export default function offers({ pageContent, allOffers }: Props) {
-  const offers = useMemo(
-    () =>
-      allOffers.map((offer: OffersDesc) => (
-        <OfferCard key={offer.title} title={offer.title} desc={offer.offers_description} image={offer.offers_image} />
-      )),
-    [allOffers]
-  )
+  const offers = useMemo(() => allOffers.map((offer: OffersDesc) => <OfferCard offer={offer} key={offer.title} />), [
+    allOffers,
+  ])
 
   return (
     <>
@@ -40,7 +36,7 @@ export default function offers({ pageContent, allOffers }: Props) {
               > <b>Offres</b>
             </span>
           </div>
-          <div className="md:max-w-md mx-auto md:px-8">
+          <div className="md:max-w-md mx-auto py-12 px-4 md:p-12">
             <h1 className="text-center text-2xl py-8 md:pb-0 md:mt-12">{pageContent.title}</h1>
             <p className=" text-center px-4 md:py-6 md:px-0 text-xs leading-normal">{pageContent.paragraph}</p>
 
@@ -57,6 +53,8 @@ offers.getInitialProps = async () => {
   const data = await getOffersPageContent()
   const pageContent = convertAPItoOffersContent(data)
   const allOffersData = await getAllOffers()
-  const allOffers = allOffersData.map((offer) => offer.acf)
+  const allOffers = allOffersData.map((offer) => {
+    return { ...offer.acf, slug: offer.slug }
+  })
   return { pageContent, allOffers }
 }
