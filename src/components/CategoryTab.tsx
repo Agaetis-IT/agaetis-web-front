@@ -70,7 +70,7 @@ export default function CategoryTab({ ideasC, categories, toggleMore, ideasImg1,
       <div key={idea.id} className="sm:w-1/3 lg:w-1/4 xl:w-1/5 px-1">
         <IdeasCard
           className={clsx(
-            'p-4 my-2 sm:h-ideas lg:h-ideas-lg xl:h-64',
+            'my-2 sm:h-ideas lg:h-ideas-lg xl:h-64',
             { 'shadow-xl w-auto sm:h-ideas lg:h-ideas-lg xl:h-64 hidden sm:block': idea.image !== undefined },
             getBgColor(ideas.indexOf(idea), categoryFilter)
           )}

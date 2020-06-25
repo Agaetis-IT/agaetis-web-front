@@ -3,7 +3,6 @@ import React from 'react'
 import IdeasContent from '../types/IdeasContent'
 
 import './IdeaContent.css'
-import clsx from 'clsx'
 
 interface Props {
   content: IdeasContent
@@ -30,11 +29,6 @@ function IdeaContent({ content }: Props) {
               > <b dangerouslySetInnerHTML={createMarkup(content.title)} />
             </span>
           </div>
-          <img
-            className={clsx('mx-auto md:mx-0  m-4', { 'shadow-xl': content.imageUrl })}
-            src={content.imageUrl}
-            alt={content.imageUrl}
-          />
           <div className="text-xs font-semibold mb-4">
             <span className="pr-1">
               {content.date.slice(8, 10)}/{content.date.slice(5, 7)}/{content.date.slice(0, 4)}

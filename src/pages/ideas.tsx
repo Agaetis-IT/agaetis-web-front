@@ -34,7 +34,6 @@ function Ideas({ ideasDescription, whitePapers, categories, content }: Props) {
     <>
       <Head>
         <title>Agaetis : nos idées</title>
-
         <meta property="og:title" content="Agaetis : nos idées" />
         <meta property="og:image" content={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/favicon.ico`} />
         <meta property="og:type" content="website" />
@@ -129,6 +128,7 @@ Ideas.getInitialProps = async () => {
       slug: idea.slug,
       descriptionText: idea.acf.idea_description,
       date: idea.date,
+      image: idea.acf.idea_image,
     })),
     whitePapers:
       whitepapers && whitepapers.length > 0
