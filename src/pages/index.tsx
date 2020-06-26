@@ -44,6 +44,7 @@ function Index({ pageContent: pageContent }: Props) {
               buttonContent={t('index.learnmore-btn')}
               imgUrl={pageContent.agaetis_desc_img}
             />
+
             <HomeCard
               title={pageContent.ideas_desc_title}
               description={pageContent.ideas_desc}
