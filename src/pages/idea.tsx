@@ -33,7 +33,7 @@ export default function Idea({ data, related, errorCode, meta }: Props) {
   function handleToggleMoreIdeas() {
     setIsOpenedMoreIdeas(!isOpenedMoreIdeas)
   }
-
+  console.log(data.tags)
   if (!!errorCode) {
     return <Error statusCode={404} />
   }
@@ -127,6 +127,7 @@ Idea.getInitialProps = async ({ query }: Context) => {
         content: data.content.rendered,
         slug: data.slug,
         descriptionText: data.acf.idea_description,
+        tags: data._embedded['wp:term'][1].map((tag: { name: string }) => tag.name),
       },
       related: related.map((idea) => {
         return {

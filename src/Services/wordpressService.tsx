@@ -94,7 +94,7 @@ export async function getIdeaBySlug(slug: string) {
 }
 
 export async function getCategories() {
-  const { data } = await axios.get(`${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/wp/v2/categories/`)
+  const { data } = await axios.get(`${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/wp/v2/categories?per_page=100`)
   return data
 }
 
