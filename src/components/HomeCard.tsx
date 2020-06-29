@@ -21,7 +21,6 @@ export default function HomeCard({ href, title, description, buttonContent, imgU
     <VisibilitySensor
       partialVisibility={true}
       onChange={(isCardVisible: boolean) => {
-        console.log(isCardVisible)
         setIsVisible(!isVisible ? isCardVisible : true)
       }}
     >

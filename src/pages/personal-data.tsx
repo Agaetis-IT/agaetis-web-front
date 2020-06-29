@@ -20,12 +20,8 @@ export default function personalData({ pageContent }: Props) {
               <span>
                 <a className="text-underline text-black" href="/">
                   Accueil
-                </a>{' '}
-                {'>'}{' '}
-                <a className="text-underline text-black" href="/ideas">
-                  Idées
-                </a>{' '}
-                {'>'} <b dangerouslySetInnerHTML={{ __html: pageContent.title }} />
+                </a>
+                {' > '} <b dangerouslySetInnerHTML={{ __html: pageContent.title }} />
               </span>
             </div>
             <h1

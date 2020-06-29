@@ -38,8 +38,8 @@ function getStyle(id: number) {
 export default function IdeasCard({ slug, id, title, categories, children, className, image }: Props) {
   return (
     <div style={getBackgroundStyle(id, image)} className={clsx(className)}>
-      <div style={getStyle(id)} className="sm:h-ideas lg:h-ideas-lg xl:h-64">
-        <div className="p-4">
+      <div style={getStyle(id)}>
+        <div className="p-4 sm:h-ideas lg:h-ideas-lg xl:h-64">
           <div className="top">
             <div className={clsx({ 'text-blue': id !== 6 }, 'font-semibold text-xss')}>
               {categories.map((cat: string) => cat + ' ')}
