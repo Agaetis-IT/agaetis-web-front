@@ -33,7 +33,6 @@ export default function Idea({ data, related, errorCode, meta }: Props) {
   function handleToggleMoreIdeas() {
     setIsOpenedMoreIdeas(!isOpenedMoreIdeas)
   }
-  console.log(data.tags)
   if (!!errorCode) {
     return <Error statusCode={404} />
   }

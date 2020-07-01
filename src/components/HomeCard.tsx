@@ -32,10 +32,8 @@ export default function HomeCard({ href, title, description, buttonContent, imgU
       >
         <div
           className={clsx(
-            'sm:max-w-full self-center  ',
-            reverse
-              ? 'p-8 px-4 sm:mr-0 sm:pr-0 sm:px-2 md:pl-8 lg:pl-16 '
-              : 'p-8 px-4 sm:ml-0 sm:pl-0 sm:px-2 md:pr-8 lg:pr-16',
+            'sm:max-w-full self-center p-8 px-4 sm:p-4 sm:mr-0 sm:pr-0 sm:px-2 ',
+            reverse ? 'md:pl-8 lg:pl-16 ' : ' md:pr-8 lg:pr-16',
             { 'card-visible': isVisible && !reverse },
             { 'card-visible-reverse': isVisible && reverse }
           )}

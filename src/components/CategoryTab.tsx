@@ -69,11 +69,11 @@ export default function CategoryTab({ ideasC, categories, toggleMore, ideasImg1,
       ideas.splice(7, 0, fakeIdea2)
     }
     return ideas.map((idea) => (
-      <div key={idea.id} className="sm:w-1/3 lg:w-1/4 xl:w-1/5 px-1">
+      <div key={idea.id} className="sm:w-1/3 px-1">
         <IdeasCard
           className={clsx(
-            'my-2 sm:h-ideas lg:h-ideas-lg xl:h-64',
-            { 'shadow-xl w-auto sm:h-ideas lg:h-ideas-lg xl:h-64 hidden sm:block': idea.image !== undefined },
+            'my-2 sm:h-ideas ',
+            { 'shadow-xl w-auto sm:h-ideas hidden sm:block': idea.id < 0 },
             getBgColor(ideas.indexOf(idea), categoryFilter)
           )}
           {...idea}
@@ -92,7 +92,7 @@ export default function CategoryTab({ ideasC, categories, toggleMore, ideasImg1,
 
   return (
     <div className="flex flex-col justify-center md:max-w-full mx-auto px-2 py-6 md:p-6 xl:px-12">
-      <div className="text-xs ml-2">
+      <div className="text-xs mx-auto">
         <Button
           className={clsx(
             'uppercase font-semibold mx-2 p-2',
@@ -117,7 +117,7 @@ export default function CategoryTab({ ideasC, categories, toggleMore, ideasImg1,
           </Button>
         ))}
       </div>
-      <div className="flex flex-col sm:flex-row justify-center flex-wrap mt-2 md:p-8">
+      <div className="flex flex-col md:max-w-lg sm:flex-row justify-center flex-wrap mt-2 md:p-8 mx-auto">
         {filteredIdeas.slice(0, 9)}
         {toggleMore && filteredIdeas.slice(9)}
       </div>

@@ -466,7 +466,7 @@ module.exports = {
     '32': '8rem',
     '40': '10rem',
     '48': '12rem',
-    ideas: '14rem',
+    ideas: '15rem',
     'ideas-lg': '15rem',
     '64': '16rem',
     full: '100%',
