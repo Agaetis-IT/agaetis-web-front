@@ -26,8 +26,20 @@
   outline: 1px solid slategrey;
 }
 
+@media screen and (max-width: 800px) {
+  .bottom {
+    overflow-y: auto;
+  }
+  .idea-card {
+    min-width: 12rem;
+  }
+}
+
 @media screen and (max-width: 640px) {
   .bottom {
     overflow-y: auto;
+  }
+  .idea-card {
+    min-width: 12rem;
   }
 }
