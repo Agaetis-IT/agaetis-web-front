@@ -69,11 +69,11 @@ export default function CategoryTab({ ideasC, categories, toggleMore, ideasImg1,
       ideas.splice(7, 0, fakeIdea2)
     }
     return ideas.map((idea) => (
-      <div key={idea.id} className="sm:w-1/3 px-1">
+      <div key={idea.id} className={clsx(ideas.length > 2 ? 'sm:w-1/3' : 'sm:w-1/2', ' px-1')}>
         <IdeasCard
           className={clsx(
             'my-2 sm:h-ideas ',
-            { 'shadow-xl w-auto sm:h-ideas hidden sm:block': idea.id < 0 },
+            { 'shadow-xl sm:h-ideas hidden sm:block idea-card': idea.id < 0 },
             getBgColor(ideas.indexOf(idea), categoryFilter)
           )}
           {...idea}

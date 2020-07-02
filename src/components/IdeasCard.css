@@ -2,6 +2,9 @@
 .bottom {
   height: 50%;
 }
+.idea-card {
+  min-width: 14rem;
+}
 
 .bottom {
   overflow-y: auto;
