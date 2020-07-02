@@ -39,10 +39,10 @@ function IdeaContent({ content }: Props) {
             </div>
           </div>
           <h2 className="font-semibold mb-8" dangerouslySetInnerHTML={createMarkup(content.title)} />
-          <div className="my-4 md:my-0 flex flex-row flex-wrap md:inline-block">
+          <div className="my-4 md:my-0 flex flex-row flex-wrap">
             {content.tags &&
               content.tags.map((tag) => (
-                <span key={tag} className="tag my-2 text-xs">
+                <span key={tag} className="tag text-xs">
                   {tag}
                 </span>
               ))}
