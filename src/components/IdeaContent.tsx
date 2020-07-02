@@ -30,19 +30,23 @@ function IdeaContent({ content }: Props) {
               <b dangerouslySetInnerHTML={createMarkup(content.title)} />
             </span>
           </div>
-          <div className="text-xs font-semibold mb-4 flex flex-row justify-between">
+          <div className="text-xs font-semibold my-4 sm:my-8 ">
             <div>
               <span className="pr-1">
                 {content.date.slice(8, 10)}/{content.date.slice(5, 7)}/{content.date.slice(0, 4)}
               </span>
               <span className="text-blue">| {content.author}</span>
             </div>
-            <div>
-              {content.tags && <span>Tags : </span>}
-              {content.tags && content.tags.map((tag) => <span key={tag}>{tag}</span>)}
-            </div>
           </div>
-          <h2 className="font-semibold" dangerouslySetInnerHTML={createMarkup(content.title)} />
+          <h2 className="font-semibold mb-8" dangerouslySetInnerHTML={createMarkup(content.title)} />
+          <div className="my-4 md:my-0 flex flex-row flex-wrap md:inline-block">
+            {content.tags &&
+              content.tags.map((tag) => (
+                <span key={tag} className="tag my-2 text-xs">
+                  {tag}
+                </span>
+              ))}
+          </div>
         </div>
         <div className="md:max-w-lg mx-auto px-4 md:px-8">
           <div className="md:px-4">
