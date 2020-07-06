@@ -18,7 +18,7 @@ export default function Radio({ name, id, isSelected, className, value, label }:
 
       <label
         className={clsx(
-          isSelected ? 'border-orange text-orange' : 'border-blue text-blue',
+          isSelected ? 'border-orange text-orange' : 'border-blue text-blue hover:border-orange hover:text-orange',
           'border bg-transparent rounded w-40 text-center py-2 align-middle block mx-auto md:mx-4 cursor-pointer font-semibold text-xss uppercase radio'
         )}
         htmlFor={id}

@@ -19,11 +19,17 @@ export default function Cookies({ className }: Props) {
   function onAcceptAll() {
     setIsOpenedCookies(false)
     localStorage.setItem('cookies', JSON.stringify(true))
+    if (window) {
+      window.location.reload()
+    }
   }
 
   function onRefuseAll() {
     setIsOpenedCookies(false)
     localStorage.setItem('cookies', JSON.stringify(false))
+    if (window) {
+      window.location.reload()
+    }
   }
 
   return (

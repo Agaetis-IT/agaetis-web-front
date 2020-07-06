@@ -73,7 +73,7 @@ export default function CategoryTab({ ideasC, categories, toggleMore, ideasImg1,
         <IdeasCard
           className={clsx(
             'my-2 sm:h-ideas ',
-            { 'shadow-xl sm:h-ideas hidden sm:block idea-card': idea.id < 0 },
+            { 'shadow-xl sm:h-ideas hidden sm:block idea-card': idea.id < 0 || idea.image },
             getBgColor(ideas.indexOf(idea), categoryFilter)
           )}
           {...idea}
