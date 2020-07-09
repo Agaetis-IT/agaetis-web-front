@@ -126,7 +126,9 @@ Idea.getInitialProps = async ({ query }: Context) => {
         content: data.content.rendered,
         slug: data.slug,
         descriptionText: data.acf.idea_description,
-        tags: data._embedded['wp:term'][1].map((tag: { name: string }) => tag.name),
+        tags: data._embedded['wp:term'][1].map((tag: { name: string; slug: string }) => {
+          return { name: tag.name, slug: tag.slug }
+        }),
       },
       related: related.map((idea) => {
         return {

@@ -19,7 +19,7 @@ export default function Layout({ invertColors, children }: Props) {
     <div className=" md:p-0  md:mb-0">
       <Header invertColors={invertColors} />
       <div className={clsx('mt-1 md:mt-0', { 'md:pt-48': !invertColors })}>
-        <div id="main-content">{children}</div>
+        <div>{children}</div>
       </div>
       <Footer />
       <Cookies className="cookie-fixed" />

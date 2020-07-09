@@ -42,8 +42,10 @@ function IdeaContent({ content }: Props) {
           <div className="my-4 md:my-0 flex flex-row flex-wrap">
             {content.tags &&
               content.tags.map((tag) => (
-                <span key={tag} className="tag text-xs">
-                  {tag}
+                <span key={tag.name} className="tag text-xs ">
+                  <a href={`/tags/${tag.slug}`} className="text-white">
+                    {tag.name}
+                  </a>
                 </span>
               ))}
           </div>

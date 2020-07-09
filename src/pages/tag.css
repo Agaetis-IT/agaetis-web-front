@@ -1,0 +1,10 @@
+.tag-card {
+  width: calc(50% - 2em);
+  border-radius: 5px;
+}
+
+@media (max-width: 800px) {
+  .tag-card {
+    width: 100%;
+  }
+}
