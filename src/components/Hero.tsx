@@ -21,11 +21,13 @@ export default function Hero({ hero, valeurs, subtitle }: Props) {
       <div className=" flex justify-center">
         <div className="flex flex-col hero-text md:flex-row p-6 md:p-0 md:my-6 py-16 max-w-sm md:max-w-full text-white mx-auto text-justify justify-end">
           <div className="xl:pr-48 flex flex-col" style={{ transform: 'translate(-50 %, -50 %)' }}>
-            {valeurs.map((valeur) => (
-              <h1 className="md:text-6xl font-bold hoverEffect" key={valeur}>
-                {valeur}
-              </h1>
-            ))}
+            <h1>
+              {valeurs.map((valeur) => (
+                <div className="md:text-6xl font-bold hoverEffect" key={valeur}>
+                  {valeur}
+                </div>
+              ))}
+            </h1>
           </div>
 
           <p

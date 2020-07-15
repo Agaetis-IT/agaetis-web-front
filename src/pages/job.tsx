@@ -89,8 +89,8 @@ function job({ pageContent, allJobs, errorCode }: Props) {
             className="bg-black mt-8 md:my-8 md:mx-8 py-36"
           />
           <div className="w-full md:max-w-lg mx-auto p-8 text-sm leading-normal text-justify">
-            <img src={Logo} className="bg-img-left-job"></img>
-            <img src={Logo} className="bg-img-right-job"></img>
+            <img src={Logo} className="bg-img-left-job" alt="logo agaetis"></img>
+            <img src={Logo} className="bg-img-right-job" alt="logo agaetis"></img>
             <p className="mb-5" dangerouslySetInnerHTML={{ __html: pageContent.offre_description }}></p>
             <p className="mb-3">
               <b>Missions</b>

@@ -80,10 +80,14 @@ export default function whitePaper({ pageContent, errorCode }: Props) {
               {pageContent.description}
             </p>
           </div>
-          <img className="md:max-w-lg flex shadow-xl justify-center mx-auto my-4 p-0" src={pageContent.image} />
+          <img
+            className="md:max-w-lg flex shadow-xl justify-center mx-auto my-4 p-0"
+            src={pageContent.image}
+            alt="header"
+          />
           <div className="md:max-w-lg mx-auto mb-8 px-4">
-            <img src={Logo} className="bg-img-left-wp"></img>
-            <img src={Logo} className="bg-img-right-wp"></img>
+            <img src={Logo} className="bg-img-left-wp" alt="logo agaetis"></img>
+            <img src={Logo} className="bg-img-right-wp" alt="logo agaetis"></img>
             <div className=" md:px-12 flex flex-col justify-center">
               <WhitePaperForm
                 title={pageContent.title}

@@ -73,6 +73,7 @@ export default function Header({ invertColors, className }: Props) {
                 <img
                   className={clsx({ 'md:inline': invertColors && position < 200 }, 'logoAgaetis hidden')}
                   src={logoAgaetisDesktop}
+                  alt="logo agaetis"
                 />
                 <img
                   className={clsx(
@@ -80,6 +81,7 @@ export default function Header({ invertColors, className }: Props) {
                     position > 200 ? 'logoSticky' : 'logoAgaetis'
                   )}
                   src={logoAgaetisMobile}
+                  alt="logo agaetis"
                 />
               </a>
             </Link>
@@ -120,6 +122,7 @@ export default function Header({ invertColors, className }: Props) {
                 <img
                   className={clsx({ 'md:inline': invertColors && position < 200 }, 'logoAgaetis hidden')}
                   src={logoAgaetisDesktop}
+                  alt="logo agaetis"
                 />
                 <img
                   className={clsx(
@@ -127,6 +130,7 @@ export default function Header({ invertColors, className }: Props) {
                     position > 200 ? 'logoSticky' : 'logoAgaetis'
                   )}
                   src={logoAgaetisMobile}
+                  alt="logo agaetis"
                 />
               </a>
             </Link>

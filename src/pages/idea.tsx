@@ -69,8 +69,8 @@ export default function Idea({ data, related, errorCode, meta }: Props) {
       </Head>
       <Layout invertColors={false}>
         <div>
-          <img src={Logo} id="bg-img-left-idea"></img>
-          <img src={Logo} id="bg-img-right-idea"></img>
+          <img src={Logo} id="bg-img-left-idea" alt="logo agaetis"></img>
+          <img src={Logo} id="bg-img-right-idea" alt="logo agaetis"></img>
           <IdeaContent content={data} />
           {related && related.length > 0 && (
             <>

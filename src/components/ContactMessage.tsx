@@ -16,8 +16,8 @@ export default function ContactMessage({ error }: Props) {
       <h3 className="self-center block mr-4 text-grey">
         {error ? "Erreur lors de l'envoi, vérifiez les informations fournies" : 'Message Envoyé'}
       </h3>
-      {!error && <img src={Tick} className="w-12 h-12 block" />}
-      {error && <img src={Cross} className="w-12 h-12 block" />}
+      {!error && <img src={Tick} alt="tick" className="w-12 h-12 block" />}
+      {error && <img src={Cross} alt="cross" className="w-12 h-12 block" />}
     </div>
   )
 }
