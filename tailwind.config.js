@@ -52,15 +52,16 @@ const colors = {
   grey: '#82919C',
   'dark-grey': '#B8C2CC',
   'grey-darker': '#3d4852',
-  teal: '#01B2A9',
+  teal: '#00B2A9',
   pink: '#FFE5D9',
   red: '#ff0033',
   'red-light': '#ff003320',
   white: '#ffffff',
-  blue: '#3F7EC9',
+  blue: '#407ec9',
   orange: '#ff7f40',
   'orange-light': '#FFE5D9',
   'dark-blue': '#12283A',
+  yellow: '#f1b434',
 }
 
 module.exports = {

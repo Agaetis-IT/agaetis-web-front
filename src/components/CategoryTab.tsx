@@ -14,18 +14,19 @@ interface Props {
   ideasImg2: string
 }
 
-function getBgColor(id: number, category: string) {
-  if (id === 0 || id === 4) {
-    return ''
-  } else if ((id === 1 || id === 5) && category === 'All') {
-    return 'bg-light-grey md:bg-white'
-  } else if (id === 6 && category === 'All') {
-    return 'bg-light-grey md:bg-teal'
-  } else if (id === 7 && category === 'All') {
-    return 'bg-light-grey md:bg-pink'
-  } else {
-    return 'bg-light-grey'
+function getBgColor(category: string) {
+  if (category === 'Agaetis' || category === 'Evènements') {
+    return 'bg-orange'
+  } else if (category === 'Stratégie SI') {
+    return 'bg-blue'
+  } else if (category === 'Technologie') {
+    return 'bg-teal'
+  } else if (category === 'Service Design') {
+    return 'bg-pink'
+  } else if (category === 'Data') {
+    return 'bg-yellow'
   }
+  return 'bg-grey'
 }
 
 function createMarkup(content: string) {
@@ -73,8 +74,8 @@ export default function CategoryTab({ ideasC, categories, toggleMore, ideasImg1,
         <IdeasCard
           className={clsx(
             'my-2 sm:h-ideas ',
-            { 'shadow-xl sm:h-ideas hidden sm:block idea-card': idea.id < 0 || idea.image },
-            getBgColor(ideas.indexOf(idea), categoryFilter)
+            { 'shadow-xl sm:h-ideas hidden sm:block idea-card': idea.id < 0 },
+            { [getBgColor(idea.categories[0])]: idea.id > 0 }
           )}
           {...idea}
         >

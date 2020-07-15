@@ -19,7 +19,7 @@ function createMarkup(content: string) {
 }
 
 function getBackgroundStyle(id: number, image?: string) {
-  if (id < 0 || image) {
+  if (id < 0) {
     return {
       background: `url("${image}")`,
       backgroundSize: 'cover',
@@ -32,7 +32,7 @@ function getBackgroundStyle(id: number, image?: string) {
 }
 
 function getStyle(id: number) {
-  return id > 0 ? { backgroundColor: 'rgba(255, 255, 255, 0.95)' } : {}
+  return id > 0 ? { backgroundColor: 'rgba(255, 255, 255, 0.8)' } : {}
 }
 
 export default function IdeasCard({ slug, id, title, categories, children, className, image }: Props) {

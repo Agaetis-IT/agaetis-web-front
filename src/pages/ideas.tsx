@@ -48,8 +48,9 @@ function Ideas({ ideasDescription, whitePapers, categories, content }: Props) {
               <span>
                 <a className="text-underline text-black" href="/">
                   Accueil
-                </a>{' '}
-                > <b>Idées</b>
+                </a>
+                {' > '}
+                <b>Idées</b>
               </span>
             </div>
             <h1 className="text-center text-3xl py-8 md:pb-0 md:mt-12">{content.titre}</h1>
