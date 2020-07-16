@@ -19,11 +19,11 @@ function getBgColor(category: string) {
     return 'bg-orange'
   } else if (category === 'Stratégie SI') {
     return 'bg-blue'
-  } else if (category === 'Technologie') {
+  } else if (category === 'Data') {
     return 'bg-teal'
   } else if (category === 'Service Design') {
     return 'bg-pink'
-  } else if (category === 'Data') {
+  } else if (category === 'Technologie') {
     return 'bg-yellow'
   }
   return 'bg-grey'
