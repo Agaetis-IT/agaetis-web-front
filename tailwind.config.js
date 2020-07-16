@@ -54,6 +54,7 @@ const colors = {
   'grey-darker': '#3d4852',
   teal: '#00B2A9',
   pink: '#FFE5D9',
+  'light-pink': '#df1995',
   red: '#ff0033',
   'red-light': '#ff003320',
   white: '#ffffff',

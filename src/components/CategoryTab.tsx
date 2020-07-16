@@ -5,6 +5,7 @@ import { Category, IdeasDesc } from '../types/IdeasContent'
 
 import Button from './Button'
 import IdeasCard from './IdeasCard'
+import './CategoryTab.css'
 
 interface Props {
   ideasC: IdeasDesc[]
@@ -12,6 +13,23 @@ interface Props {
   toggleMore: boolean
   ideasImg1: string
   ideasImg2: string
+}
+
+function slugify(string) {
+  const a = 'àáâäæãåāăąçćčđďèéêëēėęěğǵḧîïíīįìłḿñńǹňôöòóœøōõőṕŕřßśšşșťțûüùúūǘůűųẃẍÿýžźż·/_,:;'
+  const b = 'aaaaaaaaaacccddeeeeeeeegghiiiiiilmnnnnoooooooooprrsssssttuuuuuuuuuwxyyzzz------'
+  const p = new RegExp(a.split('').join('|'), 'g')
+
+  return string
+    .toString()
+    .toLowerCase()
+    .replace(/\s+/g, '-') // Replace spaces with -
+    .replace(p, (c) => b.charAt(a.indexOf(c))) // Replace special characters
+    .replace(/&/g, '-and-') // Replace & with 'and'
+    .replace(/[^\w\-]+/g, '') // Remove all non-word characters
+    .replace(/\-\-+/g, '-') // Replace multiple - with single -
+    .replace(/^-+/, '') // Trim - from start of text
+    .replace(/-+$/, '') // Trim - from end of text
 }
 
 function getBgColor(category: string) {
@@ -22,7 +40,7 @@ function getBgColor(category: string) {
   } else if (category === 'Data') {
     return 'bg-teal'
   } else if (category === 'Service Design') {
-    return 'bg-pink'
+    return 'bg-light-pink'
   } else if (category === 'Technologie') {
     return 'bg-yellow'
   }
@@ -96,7 +114,7 @@ export default function CategoryTab({ ideasC, categories, toggleMore, ideasImg1,
       <div className="text-xs mx-auto">
         <Button
           className={clsx(
-            'uppercase font-semibold mx-2 p-2',
+            'uppercase font-semibold mx-2 p-2 hover:text-white all',
             categoryFilter === 'All' ? 'bg-blue text-white rounded-sm' : 'underline text-blue font-semibold'
           )}
           onClick={handleFilterChange('All')}
@@ -107,9 +125,11 @@ export default function CategoryTab({ ideasC, categories, toggleMore, ideasImg1,
           <Button
             key={category.categoryId}
             className={clsx(
-              'uppercase font-semibold mx-1 md:mx-2 p-2',
+              'uppercase font-semibold mx-1 md:mx-2 p-2 rounded-sm',
+              'hover:text-white',
+              slugify(category.categoryName),
               category.categoryName === categoryFilter
-                ? 'bg-blue  text-white rounded-sm'
+                ? getBgColor(category.categoryName) + ' text-white rounded-sm'
                 : 'underline text-blue font-semibold'
             )}
             onClick={handleFilterChange(category.categoryName)}
