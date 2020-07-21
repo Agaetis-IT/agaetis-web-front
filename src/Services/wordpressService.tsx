@@ -41,6 +41,14 @@ export async function getPersonalDataContent() {
   return data
 }
 
+export async function getMentionsLegalesContent() {
+  const data = await getWordpressPageBySlug<{ title: { rendered: string }; content: { rendered: string } }>(
+    'mentions-legales'
+  )
+
+  return data
+}
+
 export async function getSolutionsPageContent() {
   const { acf } = await getWordpressPageBySlug<{ acf: SolutionsContentAPI }>('solutions')
   return convertContentAPItoContent(acf)
