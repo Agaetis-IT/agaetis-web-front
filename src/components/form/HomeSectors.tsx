@@ -54,7 +54,7 @@ const sectors = [
 ]
 export default function HomeSectors() {
   return (
-    <div className="bg-light-grey py-8 md:p-12">
+    <div className="bg-light-grey py-8 md:p-16">
       <h2 className="text-orange ml-4 md:ml-8 font-semibold">Nos secteurs d'activité</h2>
       <div className=" py-12 sectors-list ">
         {sectors.map((sector) => (

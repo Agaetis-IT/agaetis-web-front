@@ -55,14 +55,14 @@ export default function HomeOffers() {
   return (
     <div className="flex flex-col md:flex-row">
       <div className="home-offers-left p-4 md:p-12 lg:p-16">
-        <h2 className="text-orange">Nos offres</h2>
+        <h2 className="ml-4 text-orange">Nos offres</h2>
         <ul className="my-12">
           {offers.map((offer) => (
-            <li key={offer.index} className="my-4">
+            <li key={offer.index} className="my-6">
               <Button onClick={() => handleOfferChange(offer.index)}>
-                <h4 className="text-orange text-sm">{offer.title}</h4>
+                <h4 className="text-orange text-sm uppercase">{offer.title}</h4>
               </Button>
-              <p className="text-xs my-2">{offer.line}</p>
+              <p className="text-xs my-1">{offer.line}</p>
             </li>
           ))}
         </ul>
