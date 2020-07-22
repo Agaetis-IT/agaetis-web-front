@@ -1,0 +1,16 @@
+.home-offers-left,
+.home-offers-right {
+  width: 100%;
+}
+.home-offers-left ul,
+.home-offers-right ul {
+  list-style: none;
+  padding: 0;
+}
+
+@media (min-width: 800px) {
+  .home-offers-left,
+  .home-offers-right {
+    width: 50%;
+  }
+}

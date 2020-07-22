@@ -9,6 +9,8 @@ import Layout from '../components/Layout'
 import publicRuntimeConfig from '../config/env.config'
 import { getIndexContent } from '../Services/wordpressService'
 import IndexContent from '../types/IndexContent'
+import HomeOffers from '../components/form/HomeOffers'
+import HomeSectors from '../components/form/HomeSectors'
 
 interface Props {
   pageContent: IndexContent
@@ -36,23 +38,9 @@ function Index({ pageContent: pageContent }: Props) {
             valeurs={pageContent.hero_valeurs.split(' ')}
             subtitle={pageContent.hero_subtitle}
           />
-          <div className="sm:px-0 md:px-6 xl:px-32">
-            <HomeCard
-              title={pageContent.agaetis_desc_title}
-              description={pageContent.agaetis_desc}
-              href="/agaetis"
-              buttonContent={t('index.learnmore-btn')}
-              imgUrl={pageContent.agaetis_desc_img}
-            />
-
-            <HomeCard
-              title={pageContent.ideas_desc_title}
-              description={pageContent.ideas_desc}
-              href="/ideas"
-              buttonContent={t('index.learnmore-btn')}
-              imgUrl={pageContent.ideas_desc_img}
-              reverse
-            />
+          <div className="sm:px-0">
+            <HomeOffers></HomeOffers>
+            <HomeSectors></HomeSectors>
             <HomeCard
               title={pageContent.solutions_desc_title}
               description={pageContent.solutions_desc}
