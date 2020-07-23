@@ -9,8 +9,8 @@ import Layout from '../components/Layout'
 import publicRuntimeConfig from '../config/env.config'
 import { getIndexContent } from '../Services/wordpressService'
 import IndexContent from '../types/IndexContent'
-import HomeOffers from '../components/form/HomeOffers'
-import HomeSectors from '../components/form/HomeSectors'
+import HomeOffers from '../components/HomeOffers'
+import HomeSectors from '../components/HomeSectors'
 
 interface Props {
   pageContent: IndexContent
