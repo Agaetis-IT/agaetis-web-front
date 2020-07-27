@@ -69,6 +69,7 @@ export default class MyApp extends App {
             <meta name="twitter:card" content="summary_large_image" />
             <meta name="twitter:site" content="@AgaetisIT" />
             <link rel="shortcut icon" type="image/png" href={Favicon} />
+            <link rel="preconnect" href="https://wordpress.agaetis.fr" />
           </Head>
 
           <LoadingSpinner color="#ff7f40" startPosition={0.3} stopDelayMs={50} height="3" />
