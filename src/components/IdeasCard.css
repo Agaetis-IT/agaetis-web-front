@@ -9,6 +9,7 @@
 .bottom {
   overflow-y: auto;
   padding-right: 5px;
+  padding-bottom: 5px;
 }
 
 .bottom::-webkit-scrollbar {
@@ -26,12 +27,20 @@
   outline: 1px solid slategrey;
 }
 
+.ideas-inner-content {
+  height: calc(16rem - 0.5rem);
+}
+
 @media screen and (max-width: 800px) {
   .bottom {
     overflow-y: auto;
   }
   .idea-card {
     min-width: 12rem;
+  }
+
+  .ideas-inner-content {
+    height: calc(15rem);
   }
 }
 
@@ -41,5 +50,9 @@
   }
   .idea-card {
     min-width: 12rem;
+  }
+
+  .ideas-inner-content {
+    height: auto;
   }
 }
