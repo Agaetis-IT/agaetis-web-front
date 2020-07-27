@@ -38,7 +38,7 @@ export default function ContactSection() {
         <img src={Logo}></img>
       </div>
 
-      <div>
+      <div className="flex flex-col justify-center">
         <BottomNav></BottomNav>
         <h4 className="text-white my-4 uppercase text-sm">Nos adresses</h4>
         <div className="flex flex-col md:flex-row justify-center font-thin">
