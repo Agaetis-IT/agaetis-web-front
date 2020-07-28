@@ -50,13 +50,13 @@ export default function Footer() {
           <h2 className="text-xs">{t('footer.social-title')}</h2>
           <div className="flex flex-row my-4 justify-center md:justify-start">
             <Button href="https://fr-fr.facebook.com/AgaetisIT" className="mr-4 w-4">
-              <img src={Facebook} />
+              <img src={Facebook} alt="facebook" />
             </Button>
             <Button href="https://www.linkedin.com/company/agaetis/" className="mr-4 w-4">
-              <img src={Linkedin} />
+              <img src={Linkedin} alt="linkedin" />
             </Button>
             <Button href="https://twitter.com/agaetisit" className="w-4">
-              <img src={Twitter} />
+              <img src={Twitter} alt="twitter" />
             </Button>
           </div>
         </div>

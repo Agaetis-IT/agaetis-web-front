@@ -1,16 +1,76 @@
 .home-img {
   background-position: center;
   background-size: cover;
-  width: 400px;
-  height: 350px;
+  width: 500px;
+  height: 420px;
+}
+
+.card-visible {
+  animation: onVisible 1s;
+}
+.card-visible-reverse {
+  animation: onVisibleReverse 1s;
+}
+@keyframes onVisible {
+  0% {
+    opacity: 20%;
+    margin-left: 3em;
+    margin-right: -3em;
+  }
+  100% {
+    opacity: 100%;
+    margin-left: 0em;
+    margin-right: 0em;
+  }
+}
+@keyframes onVisibleReverse {
+  0% {
+    opacity: 20%;
+    margin-left: -3em;
+    margin-right: 3em;
+  }
+  100% {
+    opacity: 100%;
+    margin-left: 0em;
+    margin-right: 0em;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .home-img {
+    width: 400px;
+    height: 350px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .home-img {
+    width: 350px;
+    height: 300px;
+  }
 }
 
 @media screen and (max-width: 800px) {
+  .home-img {
+    width: 300px;
+    height: 260px;
+  }
+  .card-visible,
+  .card-visible-reverse {
+    animation: none;
+  }
+}
+
+@media screen and (max-width: 640px) {
   .home-img-mobile {
     background-position: center;
     background-size: cover;
-    width: 250px;
-    height: 200px;
+    width: auto;
+    height: auto;
+  }
+  .card-visible,
+  .card-visible-reverse {
+    animation: none;
   }
 }
 

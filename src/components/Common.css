@@ -31,3 +31,14 @@
     -webkit-transform: rotate(360deg);
   }
 }
+
+.hoverButtonEffect {
+  border: 1px solid #ff7f40;
+  background-color: #ff7f40;
+  color: white;
+}
+
+.hoverButtonEffect:hover {
+  background-color: white;
+  color: black;
+}

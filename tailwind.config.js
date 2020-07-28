@@ -52,15 +52,17 @@ const colors = {
   grey: '#82919C',
   'dark-grey': '#B8C2CC',
   'grey-darker': '#3d4852',
-  teal: '#01B2A9',
+  teal: '#00B2A9',
   pink: '#FFE5D9',
+  'light-pink': '#df1995',
   red: '#ff0033',
   'red-light': '#ff003320',
   white: '#ffffff',
-  blue: '#3F7EC9',
+  blue: '#407ec9',
   orange: '#ff7f40',
   'orange-light': '#FFE5D9',
   'dark-blue': '#12283A',
+  yellow: '#f1b434',
 }
 
 module.exports = {
@@ -99,9 +101,10 @@ module.exports = {
   */
 
   screens: {
-    sm: '576px',
+    sm: '640px',
     md: '800px',
     lg: '992px',
+    xl: '1200px',
   },
 
   /*
@@ -178,7 +181,7 @@ module.exports = {
     cgu: '.6rem',
     xss: '.7rem',
     xs: '.75rem', // 12px
-    sm: '.85rem', // 14px
+    sm: '.9rem', // 14px
     base: '1rem', // 16px
     lg: '1.125rem', // 18px
     xl: '1.25rem', // 20px
@@ -186,6 +189,7 @@ module.exports = {
     '3xl': '1.875rem', // 30px
     '4xl': '2.5rem', // 36px
     '5xl': '3rem', // 48px
+    '6xl': '3.5rem',
   },
 
   /*
@@ -464,7 +468,8 @@ module.exports = {
     '32': '8rem',
     '40': '10rem',
     '48': '12rem',
-    ideas: '14rem',
+    ideas: '15rem',
+    'ideas-lg': '15rem',
     '64': '16rem',
     full: '100%',
     screen: '100vh',
@@ -532,7 +537,7 @@ module.exports = {
     sm: '30rem',
     md: '45rem',
     lg: '55rem',
-    xl: '60rem',
+    xl: '64rem',
     '2xl': '70rem',
     '3xl': '80rem',
     '4xl': '90rem',
@@ -632,6 +637,7 @@ module.exports = {
     '20': '5rem',
     '24': '6rem',
     '32': '8rem',
+    '64': '16rem',
   },
 
   /*

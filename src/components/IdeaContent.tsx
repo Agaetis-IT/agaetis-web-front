@@ -3,7 +3,6 @@ import React from 'react'
 import IdeasContent from '../types/IdeasContent'
 
 import './IdeaContent.css'
-import clsx from 'clsx'
 
 interface Props {
   content: IdeasContent
@@ -18,30 +17,38 @@ function IdeaContent({ content }: Props) {
     <div className="mb-8">
       <>
         <div className="md:max-w-md mx-auto px-4 md:px-8">
-          <div className="text-xs">
+          <div className="text-xs mb-12">
             <span>
               <a className="text-underline text-black" href="/">
                 Accueil
-              </a>{' '}
-              >{' '}
+              </a>
+              {' > '}
               <a className="text-underline text-black" href="/ideas">
                 Idées
-              </a>{' '}
-              > <b dangerouslySetInnerHTML={createMarkup(content.title)} />
+              </a>
+              {' > '}
+              <b dangerouslySetInnerHTML={createMarkup(content.title)} />
             </span>
           </div>
-          <img
-            className={clsx('mx-auto md:mx-0  m-4', { 'shadow-xl': content.imageUrl })}
-            src={content.imageUrl}
-            alt={content.imageUrl}
-          />
-          <div className="text-xs font-semibold mb-4">
-            <span className="pr-1">
-              {content.date.slice(8, 10)}/{content.date.slice(5, 7)}/{content.date.slice(0, 4)}
-            </span>
-            <span className="text-blue">| {content.author}</span>
+          <div className="text-xs font-semibold my-4 sm:my-8 ">
+            <div>
+              <span className="pr-1">
+                {content.date.slice(8, 10)}/{content.date.slice(5, 7)}/{content.date.slice(0, 4)}
+              </span>
+              <span className="text-blue">| {content.author}</span>
+            </div>
           </div>
-          <h2 className="font-semibold" dangerouslySetInnerHTML={createMarkup(content.title)} />
+          <h2 className="font-semibold mb-8" dangerouslySetInnerHTML={createMarkup(content.title)} />
+          <div className="my-4 md:my-0 flex flex-row flex-wrap">
+            {content.tags &&
+              content.tags.map((tag) => (
+                <span key={tag.name} className="tag text-xs ">
+                  <a href={`/tags/${tag.slug}`} className="text-white">
+                    {tag.name}
+                  </a>
+                </span>
+              ))}
+          </div>
         </div>
         <div className="md:max-w-lg mx-auto px-4 md:px-8">
           <div className="md:px-4">

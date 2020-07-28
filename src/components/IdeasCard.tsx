@@ -2,6 +2,8 @@ import clsx from 'clsx'
 import Link from 'next/link'
 import React from 'react'
 
+import './IdeasCard.css'
+
 interface Props {
   id: number
   title: string
@@ -16,8 +18,8 @@ function createMarkup(content: string) {
   return { __html: content }
 }
 
-function getStyle(id: number, image?: string) {
-  if (id < 0 && image) {
+function getBackgroundStyle(id: number, image?: string) {
+  if (id < 0) {
     return {
       background: `url("${image}")`,
       backgroundSize: 'cover',
@@ -29,18 +31,30 @@ function getStyle(id: number, image?: string) {
   }
 }
 
+function getStyle(id: number) {
+  return id > 0 ? { backgroundColor: 'rgba(255, 255, 255, 0.8)' } : {}
+}
+
 export default function IdeasCard({ slug, id, title, categories, children, className, image }: Props) {
   return (
-    <div style={getStyle(id, image)} className={clsx(className)}>
-      <div className={clsx({ 'text-blue': id !== 6 }, 'font-semibold text-xss')}>
-        {categories.map((cat: string) => cat + ' ')}
+    <div style={getBackgroundStyle(id, image)} className={clsx(className)}>
+      <div style={getStyle(id)}>
+        <div className="p-4 sm:h-ideas lg:h-ideas-lg xl:h-64 ideas-inner-content">
+          <div className="top">
+            <div className={clsx({ 'text-blue': id !== 6 }, 'font-semibold text-xss')}>
+              {categories.map((cat: string) => cat + ' ')}
+            </div>
+            <Link href={`/${escape(slug)}`}>
+              <a className={clsx(id !== 6 ? 'text-black' : 'text-white')}>
+                <h3 dangerouslySetInnerHTML={createMarkup(title)} className="font-semibold text-xs py-4 text-base" />
+              </a>
+            </Link>
+          </div>
+          <div className="bottom">
+            <div className="text-xs text-justify leading-normal h-auto">{children}</div>
+          </div>
+        </div>
       </div>
-      <Link href={`/${escape(slug)}`}>
-        <a className={clsx(id !== 6 ? 'text-black' : 'text-white')}>
-          <h3 dangerouslySetInnerHTML={createMarkup(title)} className="font-semibold text-xs py-4 text-base" />
-        </a>
-      </Link>
-      <div className="text-cgu text-justify leading-tight h-12 overflow-y-hidden">{children}</div>
     </div>
   )
 }

@@ -12,6 +12,8 @@ initBugsnag()
 declare global {
   interface Window {
     GoogleAnalyticsObject: string
+    CRISP_WEBSITE_ID: string
+    $crisp: []
   }
 }
 
@@ -34,12 +36,22 @@ export default class MyApp extends App {
 
   componentDidMount() {
     const cookies = localStorage.getItem('cookies')
-    if (!cookies || JSON.parse(cookies)) {
+    if (cookies && JSON.parse(cookies)) {
       if (!window.GoogleAnalyticsObject) {
         initReactGA()
       }
       trackUrl()
     }
+    window.$crisp = []
+    window.CRISP_WEBSITE_ID = 'b8ecab4b-de6b-4c95-aa6b-be6f4cc09135'
+    ;(function () {
+      const d = document
+      const s = d.createElement('script')
+
+      s.src = 'https://client.crisp.chat/l.js'
+      s.async = true
+      d.getElementsByTagName('head')[0].appendChild(s)
+    })()
   }
 
   render() {
@@ -57,6 +69,7 @@ export default class MyApp extends App {
             <meta name="twitter:card" content="summary_large_image" />
             <meta name="twitter:site" content="@AgaetisIT" />
             <link rel="shortcut icon" type="image/png" href={Favicon} />
+            <link rel="preconnect" href="https://wordpress.agaetis.fr" />
           </Head>
 
           <LoadingSpinner color="#ff7f40" startPosition={0.3} stopDelayMs={50} height="3" />

@@ -58,7 +58,7 @@ function job({ pageContent, allJobs, errorCode }: Props) {
         <meta name="description" content={pageContent.description} />
         <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}${pageContent.slug}`} />
       </Head>
-      <Layout>
+      <Layout invertColors={false}>
         <>
           <div className="md:max-w-md mx-auto p-0 md:px-8">
             <div className="text-xs px-4 md:px-0">
@@ -89,8 +89,8 @@ function job({ pageContent, allJobs, errorCode }: Props) {
             className="bg-black mt-8 md:my-8 md:mx-8 py-36"
           />
           <div className="w-full md:max-w-lg mx-auto p-8 text-sm leading-normal text-justify">
-            <img src={Logo} className="bg-img-left-job"></img>
-            <img src={Logo} className="bg-img-right-job"></img>
+            <img src={Logo} className="bg-img-left-job" alt="logo agaetis"></img>
+            <img src={Logo} className="bg-img-right-job" alt="logo agaetis"></img>
             <p className="mb-5" dangerouslySetInnerHTML={{ __html: pageContent.offre_description }}></p>
             <p className="mb-3">
               <b>Missions</b>

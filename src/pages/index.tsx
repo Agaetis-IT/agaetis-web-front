@@ -9,7 +9,6 @@ import Layout from '../components/Layout'
 import publicRuntimeConfig from '../config/env.config'
 import { getIndexContent } from '../Services/wordpressService'
 import IndexContent from '../types/IndexContent'
-import Logo from '../public/icons/Agaetis - Ico logo - Orange.png'
 
 interface Props {
   pageContent: IndexContent
@@ -17,6 +16,7 @@ interface Props {
 
 function Index({ pageContent: pageContent }: Props) {
   const { t } = useTranslation()
+
   return (
     <>
       <Head>
@@ -29,34 +29,31 @@ function Index({ pageContent: pageContent }: Props) {
         <meta name="description" content={pageContent.agaetis_desc} />
         <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/`} />
       </Head>
-      <Layout headerProps={{ invertColors: true, className: 'header md:absolute md:mx-auto' }}>
+      <Layout invertColors={true}>
         <>
           <Hero
             hero={pageContent.hero_img}
             valeurs={pageContent.hero_valeurs.split(' ')}
             subtitle={pageContent.hero_subtitle}
           />
-          <div className=" md:px-6">
-            <img src={Logo} className="bg-img-left-index"></img>
-            <img src={Logo} className="bg-img-right-index"></img>
+          <div className="sm:px-0 md:px-6 xl:px-32">
             <HomeCard
-              className="md:flex-row "
               title={pageContent.agaetis_desc_title}
               description={pageContent.agaetis_desc}
               href="/agaetis"
               buttonContent={t('index.learnmore-btn')}
               imgUrl={pageContent.agaetis_desc_img}
             />
+
             <HomeCard
-              className="md:flex-row-reverse py-6 bg-light-grey"
               title={pageContent.ideas_desc_title}
               description={pageContent.ideas_desc}
               href="/ideas"
               buttonContent={t('index.learnmore-btn')}
               imgUrl={pageContent.ideas_desc_img}
+              reverse
             />
             <HomeCard
-              className="md:flex-row"
               title={pageContent.solutions_desc_title}
               description={pageContent.solutions_desc}
               href="/solutions"
@@ -64,12 +61,12 @@ function Index({ pageContent: pageContent }: Props) {
               imgUrl={pageContent.solutions_desc_img}
             />
             <HomeCard
-              className="md:flex-row-reverse py-6  bg-light-grey"
               title={pageContent.jobs_desc_title}
               description={pageContent.jobs_desc}
               href="/jobs"
               buttonContent={t('index.learnmore-btn')}
               imgUrl={pageContent.jobs_desc_img}
+              reverse
             />
           </div>
           <ContactSection />

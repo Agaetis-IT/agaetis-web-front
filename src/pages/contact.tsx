@@ -30,7 +30,7 @@ export default function contact({ pageContent }: Props) {
         <meta name="description" content="Pour un projet, une candidature ou même pour un café, on peut en parler !" />
         <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/contact`} />
       </Head>
-      <Layout headerProps={{ invertColors: false }}>
+      <Layout invertColors={false}>
         <>
           <div className="md:max-w-md mx-auto p-0 md:px-4 mb-8">
             <div className=" text-xs px-4">
@@ -51,8 +51,8 @@ export default function contact({ pageContent }: Props) {
             />
           </div>
           <div className="md:max-w-lg mx-auto p-0 md:px-4 mb-8">
-            <img src={Logo} className="bg-img-left-contact"></img>
-            <img src={Logo} className="bg-img-right-contact"></img>
+            <img src={Logo} className="bg-img-left-contact" alt="logo agaetis"></img>
+            <img src={Logo} className="bg-img-right-contact" alt="logo agaetis"></img>
             <ContactTab />
           </div>
         </>

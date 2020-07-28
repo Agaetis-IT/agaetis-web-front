@@ -1,16 +1,16 @@
 import React from 'react'
 
 import Layout from '../components/Layout'
-import { getPersonalDataContent } from '../Services/wordpressService'
-import PersonalDataContent from '../types/PersonalDataContent'
+import { getMentionsLegalesContent } from '../Services/wordpressService'
+import MentionsLegalesContent from '../types/MentionsLegalesContent'
 
 import './personal-data.css'
 
 interface Props {
-  pageContent: PersonalDataContent
+  pageContent: MentionsLegalesContent
 }
 
-export default function personalData({ pageContent }: Props) {
+export default function mentionsLegales({ pageContent }: Props) {
   return (
     <Layout invertColors={false}>
       <>
@@ -39,8 +39,8 @@ export default function personalData({ pageContent }: Props) {
   )
 }
 
-personalData.getInitialProps = async () => {
-  const data = await getPersonalDataContent()
+mentionsLegales.getInitialProps = async () => {
+  const data = await getMentionsLegalesContent()
   return {
     pageContent: {
       title: data.title.rendered,

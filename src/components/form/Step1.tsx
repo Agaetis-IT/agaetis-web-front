@@ -17,7 +17,7 @@ interface Props {
 
 function onSubmit(fields: Step1FormValues, handleNext: (values: FormValues) => void, formValues: FormValues) {
   const cookies = localStorage.getItem('cookies')
-  if (!cookies || JSON.parse(cookies)) {
+  if (cookies && JSON.parse(cookies)) {
     localStorage.setItem('step1', JSON.stringify(fields))
     newReactGAEvent('ContactFormState', 'Start form', 'Started')
     newReactGAEvent('ContactSubject', 'Subject', fields.objet)
@@ -40,7 +40,7 @@ export default function Step1({ className, handleNextStep, formValues }: Props) 
     <Formik
       initialValues={formValues}
       validationSchema={step1Schema}
-      onSubmit={fields => onSubmit(fields!, handleNextStep, formValues)}
+      onSubmit={(fields) => onSubmit(fields!, handleNextStep, formValues)}
       render={({ values }) => (
         <Form className={clsx(className, 'justify-center mt-4')}>
           <div className="flex flex-col md:flex-row justify-center">

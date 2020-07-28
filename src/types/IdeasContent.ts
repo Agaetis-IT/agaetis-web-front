@@ -3,6 +3,7 @@ export interface IdeasDesc {
   slug: string
   title: string
   categories: string[]
+  tags: Tag[]
   descriptionText: string
   date: string
   image?: string
@@ -36,6 +37,12 @@ export default interface IdeasContent {
   imageUrl: string
   category: string
   categories: string[]
+  tags: Tag[]
   slug: string
   descriptionText: string
+}
+
+export interface Tag {
+  name: string
+  slug: string
 }

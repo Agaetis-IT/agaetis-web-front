@@ -4,8 +4,6 @@ import { NextPageContext } from 'next'
 import Head from 'next/head'
 import React, { useMemo, useState } from 'react'
 
-import { escape } from 'querystring'
-
 import Button from '../components/Button'
 import IdeaContent from '../components/IdeaContent'
 import IdeasCard from '../components/IdeasCard'
@@ -17,6 +15,7 @@ import Meta, { convertMetaAPItoMeta } from '../types/Meta'
 import Logo from '../public/icons/Agaetis - Ico logo - Orange.png'
 
 import Error from './_error'
+import { escape } from 'querystring'
 
 interface Props {
   data: IdeasContent
@@ -34,7 +33,6 @@ export default function Idea({ data, related, errorCode, meta }: Props) {
   function handleToggleMoreIdeas() {
     setIsOpenedMoreIdeas(!isOpenedMoreIdeas)
   }
-
   if (!!errorCode) {
     return <Error statusCode={404} />
   }
@@ -69,10 +67,10 @@ export default function Idea({ data, related, errorCode, meta }: Props) {
         <meta name="description" content={meta.description ? meta.description : data.descriptionText} />
         <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/${data.slug}`} />
       </Head>
-      <Layout>
+      <Layout invertColors={false}>
         <div>
-          <img src={Logo} id="bg-img-left-idea"></img>
-          <img src={Logo} id="bg-img-right-idea"></img>
+          <img src={Logo} id="bg-img-left-idea" alt="logo agaetis"></img>
+          <img src={Logo} id="bg-img-right-idea" alt="logo agaetis"></img>
           <IdeaContent content={data} />
           {related && related.length > 0 && (
             <>
@@ -128,6 +126,9 @@ Idea.getInitialProps = async ({ query }: Context) => {
         content: data.content.rendered,
         slug: data.slug,
         descriptionText: data.acf.idea_description,
+        tags: data._embedded['wp:term'][1].map((tag: { name: string; slug: string }) => {
+          return { name: tag.name, slug: tag.slug }
+        }),
       },
       related: related.map((idea) => {
         return {

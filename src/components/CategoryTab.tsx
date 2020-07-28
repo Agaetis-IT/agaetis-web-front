@@ -5,6 +5,7 @@ import { Category, IdeasDesc } from '../types/IdeasContent'
 
 import Button from './Button'
 import IdeasCard from './IdeasCard'
+import './CategoryTab.css'
 
 interface Props {
   ideasC: IdeasDesc[]
@@ -14,18 +15,36 @@ interface Props {
   ideasImg2: string
 }
 
-function getBgColor(id: number, category: string) {
-  if (id === 0 || id === 4) {
-    return ''
-  } else if ((id === 1 || id === 5) && category === 'All') {
-    return 'bg-light-grey md:bg-white'
-  } else if (id === 6 && category === 'All') {
-    return 'bg-light-grey md:bg-teal'
-  } else if (id === 7 && category === 'All') {
-    return 'bg-light-grey md:bg-pink'
-  } else {
-    return 'bg-light-grey'
+function slugify(string: string) {
+  const a = 'àáâäæãåāăąçćčđďèéêëēėęěğǵḧîïíīįìłḿñńǹňôöòóœøōõőṕŕřßśšşșťțûüùúūǘůűųẃẍÿýžźż·/_,:;'
+  const b = 'aaaaaaaaaacccddeeeeeeeegghiiiiiilmnnnnoooooooooprrsssssttuuuuuuuuuwxyyzzz------'
+  const p = new RegExp(a.split('').join('|'), 'g')
+
+  return string
+    .toString()
+    .toLowerCase()
+    .replace(/\s+/g, '-') // Replace spaces with -
+    .replace(p, (c) => b.charAt(a.indexOf(c))) // Replace special characters
+    .replace(/&/g, '-and-') // Replace & with 'and'
+    .replace(/[^\w\-]+/g, '') // Remove all non-word characters
+    .replace(/\-\-+/g, '-') // Replace multiple - with single -
+    .replace(/^-+/, '') // Trim - from start of text
+    .replace(/-+$/, '') // Trim - from end of text
+}
+
+function getBgColor(category: string) {
+  if (category === 'Agaetis' || category === 'Evènements') {
+    return 'bg-orange'
+  } else if (category === 'Stratégie SI') {
+    return 'bg-blue'
+  } else if (category === 'Data') {
+    return 'bg-teal'
+  } else if (category === 'Service Design') {
+    return 'bg-light-pink'
+  } else if (category === 'Technologie') {
+    return 'bg-yellow'
   }
+  return 'bg-grey'
 }
 
 function createMarkup(content: string) {
@@ -40,6 +59,7 @@ export default function CategoryTab({ ideasC, categories, toggleMore, ideasImg1,
     title: '',
     category: '',
     categories: [''],
+    tags: [],
     descriptionText: '',
     date: '',
     image: ideasImg1,
@@ -50,6 +70,7 @@ export default function CategoryTab({ ideasC, categories, toggleMore, ideasImg1,
     title: '',
     category: '',
     categories: [''],
+    tags: [],
     descriptionText: '',
     date: '',
     image: ideasImg2,
@@ -64,15 +85,15 @@ export default function CategoryTab({ ideasC, categories, toggleMore, ideasImg1,
       ideas.splice(0, 0, fakeIdea1)
     }
     if (!ideas.find((idea: IdeasDesc) => idea.id === -2)) {
-      ideas.splice(4, 0, fakeIdea2)
+      ideas.splice(7, 0, fakeIdea2)
     }
     return ideas.map((idea) => (
-      <div key={idea.id} className="md:w-1/3 px-1">
+      <div key={idea.id} className={clsx(ideas.length > 2 ? 'sm:w-1/3' : 'sm:w-1/2', ' px-1')}>
         <IdeasCard
           className={clsx(
-            'p-4 my-2 md:h-ideas',
-            { 'shadow-xl w-auto md:h-ideas hidden md:block': idea.image !== undefined },
-            getBgColor(ideas.indexOf(idea), categoryFilter)
+            'my-2 sm:h-ideas ',
+            { 'shadow-xl sm:h-ideas hidden sm:block idea-card': idea.id < 0 },
+            { [getBgColor(idea.categories[0])]: idea.id > 0 }
           )}
           {...idea}
         >
@@ -89,11 +110,11 @@ export default function CategoryTab({ ideasC, categories, toggleMore, ideasImg1,
   }
 
   return (
-    <div className="flex flex-col justify-center md:max-w-md mx-auto px-2 py-6 md:p-6">
-      <div className="text-cgu ml-2">
+    <div className="flex flex-col justify-center md:max-w-full mx-auto px-2 py-6 md:p-6 xl:px-12">
+      <div className="text-xs mx-auto">
         <Button
           className={clsx(
-            'uppercase font-semibold mx-2 p-2',
+            'uppercase font-semibold mx-2 p-2 hover:text-white all',
             categoryFilter === 'All' ? 'bg-blue text-white rounded-sm' : 'underline text-blue font-semibold'
           )}
           onClick={handleFilterChange('All')}
@@ -104,9 +125,11 @@ export default function CategoryTab({ ideasC, categories, toggleMore, ideasImg1,
           <Button
             key={category.categoryId}
             className={clsx(
-              'uppercase font-semibold mx-1 md:mx-2 p-2',
+              'uppercase font-semibold mx-1 md:mx-2 p-2 rounded-sm',
+              'hover:text-white',
+              slugify(category.categoryName),
               category.categoryName === categoryFilter
-                ? 'bg-blue  text-white rounded-sm'
+                ? getBgColor(category.categoryName) + ' text-white rounded-sm'
                 : 'underline text-blue font-semibold'
             )}
             onClick={handleFilterChange(category.categoryName)}
@@ -115,7 +138,7 @@ export default function CategoryTab({ ideasC, categories, toggleMore, ideasImg1,
           </Button>
         ))}
       </div>
-      <div className="flex flex-col md:flex-row justify-center flex-wrap mt-2">
+      <div className="flex flex-col md:max-w-lg sm:flex-row justify-center flex-wrap mt-2 md:p-8 mx-auto">
         {filteredIdeas.slice(0, 9)}
         {toggleMore && filteredIdeas.slice(9)}
       </div>

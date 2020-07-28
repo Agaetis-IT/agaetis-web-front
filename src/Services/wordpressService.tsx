@@ -41,6 +41,14 @@ export async function getPersonalDataContent() {
   return data
 }
 
+export async function getMentionsLegalesContent() {
+  const data = await getWordpressPageBySlug<{ title: { rendered: string }; content: { rendered: string } }>(
+    'mentions-legales'
+  )
+
+  return data
+}
+
 export async function getSolutionsPageContent() {
   const { acf } = await getWordpressPageBySlug<{ acf: SolutionsContentAPI }>('solutions')
   return convertContentAPItoContent(acf)
@@ -94,7 +102,12 @@ export async function getIdeaBySlug(slug: string) {
 }
 
 export async function getCategories() {
-  const { data } = await axios.get(`${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/wp/v2/categories/`)
+  const { data } = await axios.get(`${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/wp/v2/categories?per_page=100`)
+  return data
+}
+
+export async function getIdeasByTag(slug: string) {
+  const { data } = await axios.get(`${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/agaetis/api/v1/tags/${slug}`)
   return data
 }
 

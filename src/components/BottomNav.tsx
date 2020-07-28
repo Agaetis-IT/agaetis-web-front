@@ -9,11 +9,11 @@ export default function BottomNav() {
     // { title: t('footer.faq'), href: '/faq' },
     // { title: t('footer.cookies'), href: '/cookies' },
     { title: t('footer.data'), href: '/personal-data' },
-    { title: t('footer.sitemap'), href: '/sitemap.xml' },
+    { title: 'Mentions légales', href: '/mentions-legales' },
   ]
   return (
     <nav className="flex flex-col md:flex-row text-center justify-center">
-      {links.map(link => (
+      {links.map((link) => (
         <Button href={link.href} key={link.title} className="text-black p-2 underline md:mx-4 text-xss">
           {link.title}
         </Button>

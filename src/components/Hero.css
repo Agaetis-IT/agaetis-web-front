@@ -4,6 +4,30 @@
 
 @media (min-width: 800px) {
   .hero {
-    height: 88vh;
+    height: 100vh;
+  }
+
+  .hero-text {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .hero-text h1 {
+    display: inline;
+    margin-right: auto;
+  }
+
+  .hoverEffect::after {
+    content: '';
+    display: block;
+    transition: width 0.5s ease-out;
+    background-color: #ff7f40;
+    width: 0%;
+    height: 2px;
+  }
+
+  .hoverEffect:hover::after {
+    width: 100%;
   }
 }

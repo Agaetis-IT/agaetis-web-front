@@ -69,9 +69,17 @@ app
     server.get('/:slug', (req: Request, res: Response) => {
       const queryParams = { ...req.params, ...req.query }
       if (
-        ['solutions', 'ideas', 'agaetis', 'jobs', 'white-papers', 'contact', 'cookies', 'personal-data'].includes(
-          queryParams.slug
-        )
+        [
+          'solutions',
+          'ideas',
+          'agaetis',
+          'jobs',
+          'white-papers',
+          'contact',
+          'cookies',
+          'personal-data',
+          'mentions-legales',
+        ].includes(queryParams.slug)
       ) {
         return handle(req, res)
       }
@@ -89,6 +97,10 @@ app
 
     server.get('/white-papers/:slug', (req: Request, res: Response) => {
       app.render(req, res, '/white-paper', { ...req.params, ...req.query })
+    })
+
+    server.get('/tags/:slug', (req: Request, res: Response) => {
+      app.render(req, res, '/tag', { ...req.params, ...req.query })
     })
 
     server.post('/send', async (req: Request, res: Response) => {
@@ -142,14 +154,12 @@ app
       ) {
         transporter.sendMail(message, (err: any) => {
           if (err) {
-            console.log(err)
             res.status(500).send()
           } else {
             res.status(200).send()
           }
         })
       } else {
-        console.log(req.body.hash === sha256(key), captcha, mailRegex.test(message.from!))
         res.status(400).send()
       }
     })
@@ -218,20 +228,12 @@ app
       ) {
         transporter.sendMail(message, (err: Error) => {
           if (err) {
-            console.log(err)
             res.status(500).send()
           } else {
             res.status(200).send()
           }
         })
       } else {
-        console.log(
-          req.body.hash === sha256(key),
-          captcha,
-          mailRegex.test(message.from!),
-          mailRegex.test(message.to),
-          baseUrl === process.env.NEXT_APP_BASE_URL
-        )
         res.status(400).send()
       }
     })
