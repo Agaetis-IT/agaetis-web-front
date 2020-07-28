@@ -24,7 +24,7 @@ function onSubmit(
 ) {
   const cookies = localStorage.getItem('cookies')
 
-  if (!cookies || JSON.parse(cookies)) {
+  if (cookies && JSON.parse(cookies)) {
     localStorage.setItem('step3', JSON.stringify(fields))
     newReactGAEvent('ContactFormState', 'Submit form', 'Done')
     newReactGACustomVar(1, 'Done')
@@ -38,7 +38,7 @@ export default function Step3({ className, handleNextStep, formValues, isSubmitt
     <Formik
       initialValues={step3InitialValues}
       validationSchema={step3Schema}
-      onSubmit={fields => {
+      onSubmit={(fields) => {
         if (recaptchaRef && recaptchaRef.current && recaptchaRef.current.getValue()) {
           onSubmit(fields, handleNextStep, formValues, recaptchaRef.current.getValue()!)
         }

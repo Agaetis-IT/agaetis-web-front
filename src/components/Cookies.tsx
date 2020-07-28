@@ -14,22 +14,16 @@ export default function Cookies({ className }: Props) {
   useEffect(() => {
     const cookies = localStorage.getItem('cookies')
     setIsOpenedCookies(!cookies)
-  })
+  }, [setIsOpenedCookies])
 
   function onAcceptAll() {
     setIsOpenedCookies(false)
     localStorage.setItem('cookies', JSON.stringify(true))
-    if (window) {
-      window.location.reload()
-    }
   }
 
   function onRefuseAll() {
     setIsOpenedCookies(false)
     localStorage.setItem('cookies', JSON.stringify(false))
-    if (window) {
-      window.location.reload()
-    }
   }
 
   return (
