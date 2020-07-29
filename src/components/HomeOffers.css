@@ -8,6 +8,17 @@
   padding: 0;
 }
 
+.offer-arrow {
+  transform: rotate(90deg);
+  fill: orange;
+  stroke: orange;
+  transition: transform 1s;
+}
+
+.offer-selected-arrow {
+  transform: rotate(-90deg);
+}
+
 @media (min-width: 800px) {
   .home-offers-left,
   .home-offers-right {
