@@ -1,17 +1,37 @@
 .sectors-list {
   display: flex;
-  flex-direction: column;
-  overflow-x: none;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  overflow-x: auto;
 }
 
 .sectors-list img {
   width: 100%;
+  max-height: 350px;
 }
 
 .items {
   flex: 0 0 auto;
   max-width: 100%;
-  margin: 0 0px;
+  margin: 0 20px;
+}
+
+.items:first-child {
+  margin-left: 0;
+}
+
+.home-sectors-description {
+  position: relative;
+  z-index: 999;
+  margin: -50px 30px 0px 30px;
+}
+
+@media (min-width: 640px) {
+  .items {
+    flex: 0 0 auto;
+    max-width: 50%;
+    margin: 0 25px;
+  }
 }
 
 @media (min-width: 800px) {
@@ -20,6 +40,16 @@
     flex-direction: row;
     flex-wrap: nowrap;
     overflow-x: auto;
+  }
+
+  .sectors-list img {
+    max-height: 220px;
+  }
+
+  .home-sectors-description {
+    position: relative;
+    z-index: 999;
+    margin: 0;
   }
 
   .items {

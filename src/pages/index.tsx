@@ -1,10 +1,8 @@
 import Head from 'next/head'
 import React from 'react'
-import { useTranslation } from 'react-i18next'
 
 import ContactSection from '../components/ContactSection'
 import Hero from '../components/Hero'
-import HomeCard from '../components/HomeCard'
 import Layout from '../components/Layout'
 import publicRuntimeConfig from '../config/env.config'
 import { getIndexContent } from '../Services/wordpressService'
@@ -17,8 +15,6 @@ interface Props {
 }
 
 function Index({ pageContent: pageContent }: Props) {
-  const { t } = useTranslation()
-
   return (
     <>
       <Head>
@@ -41,21 +37,6 @@ function Index({ pageContent: pageContent }: Props) {
           <div className="sm:px-0">
             <HomeOffers></HomeOffers>
             <HomeSectors></HomeSectors>
-            <HomeCard
-              title={pageContent.solutions_desc_title}
-              description={pageContent.solutions_desc}
-              href="/solutions"
-              buttonContent={t('index.learnmore-btn')}
-              imgUrl={pageContent.solutions_desc_img}
-            />
-            <HomeCard
-              title={pageContent.jobs_desc_title}
-              description={pageContent.jobs_desc}
-              href="/jobs"
-              buttonContent={t('index.learnmore-btn')}
-              imgUrl={pageContent.jobs_desc_img}
-              reverse
-            />
           </div>
           <ContactSection />
         </>

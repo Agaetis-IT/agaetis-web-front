@@ -82,7 +82,7 @@ export default function HomeOffers() {
 
                 <p className="text-xs my-1">{offer.line}</p>
               </div>
-              {offer.index !== selectedOffer && <hr className="block md:hidden separator mx-2" />}
+              {offer.index !== selectedOffer && <hr className="block md:hidden separator mx-4" />}
 
               <div
                 className={clsx(

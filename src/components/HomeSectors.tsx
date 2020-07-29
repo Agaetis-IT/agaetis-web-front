@@ -60,8 +60,10 @@ export default function HomeSectors() {
         {sectors.map((sector) => (
           <div key={sector.title} className="md:bg-white items md:shadow-md">
             <img src={sector.img}></img>
-            <h3 className="p-4">{sector.title}</h3>
-            <p className="text-xs text-justify leading-normal p-4">{sector.paragraph}</p>
+            <div className="bg-white md:bg-none home-sectors-description">
+              <h3 className="p-4">{sector.title}</h3>
+              <p className="text-xs text-justify leading-normal p-4">{sector.paragraph}</p>
+            </div>
           </div>
         ))}
       </div>
