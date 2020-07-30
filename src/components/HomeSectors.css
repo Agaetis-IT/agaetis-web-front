@@ -3,6 +3,7 @@
   flex-direction: row;
   flex-wrap: nowrap;
   overflow-x: auto;
+  scroll-snap-type: x proximity;
 }
 
 .sectors-list img {
@@ -14,6 +15,7 @@
   flex: 0 0 auto;
   max-width: 100%;
   margin: 0 20px;
+  scroll-snap-align: start;
 }
 
 .items:first-child {
@@ -24,6 +26,7 @@
   position: relative;
   z-index: 999;
   margin: -50px 30px 0px 30px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.08);
 }
 
 @media (min-width: 640px) {
@@ -40,16 +43,18 @@
     flex-direction: row;
     flex-wrap: nowrap;
     overflow-x: auto;
+    scroll-snap-type: none;
   }
 
   .sectors-list img {
-    max-height: 220px;
+    max-height: 260px;
   }
 
   .home-sectors-description {
     position: relative;
     z-index: 999;
     margin: 0;
+    box-shadow: none;
   }
 
   .items {

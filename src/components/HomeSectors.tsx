@@ -1,6 +1,7 @@
 import React from 'react'
 
 import './HomeSectors.css'
+import Button from './Button'
 
 const sectors = [
   {
@@ -54,15 +55,18 @@ const sectors = [
 ]
 export default function HomeSectors() {
   return (
-    <div className="bg-light-grey py-8 md:p-16">
-      <h2 className="text-orange ml-4 md:ml-8 font-semibold">Nos secteurs d'activité</h2>
+    <div className="bg-light-grey py-8 md:p-16 xl:px-32">
+      <h2 className="text-orange font-semibold text-center md:text-left">Nos secteurs d'activité</h2>
       <div className=" py-12 sectors-list ">
         {sectors.map((sector) => (
           <div key={sector.title} className="md:bg-white items md:shadow-md">
             <img src={sector.img}></img>
-            <div className="bg-white md:bg-none home-sectors-description">
+            <div className="bg-white md:bg-none home-sectors-description pb-4">
               <h3 className="p-4">{sector.title}</h3>
               <p className="text-xs text-justify leading-normal p-4">{sector.paragraph}</p>
+              <Button className="block px-6 py-3 leading-none rounded-full uppercase bg-orange text-white mt-4 text-xs font-semibold mx-auto">
+                En savoir plus
+              </Button>
             </div>
           </div>
         ))}

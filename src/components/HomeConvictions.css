@@ -1,0 +1,32 @@
+.convictions-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.convictions-container div {
+  justify-content: center;
+  width: 100%;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.convictions-container div img {
+  max-width: 113px;
+  max-height: 113px;
+  margin: 0 auto;
+}
+
+@media (min-width: 800px) {
+  .convictions-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .convictions-container div {
+    justify-content: space-between;
+    text-align: left;
+    width: 50%;
+  }
+}

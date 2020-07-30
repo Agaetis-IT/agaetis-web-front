@@ -9,6 +9,7 @@ import { getIndexContent } from '../Services/wordpressService'
 import IndexContent from '../types/IndexContent'
 import HomeOffers from '../components/HomeOffers'
 import HomeSectors from '../components/HomeSectors'
+import HomeConvictions from '../components/HomeConvictions'
 
 interface Props {
   pageContent: IndexContent
@@ -37,6 +38,7 @@ function Index({ pageContent: pageContent }: Props) {
           <div className="sm:px-0">
             <HomeOffers></HomeOffers>
             <HomeSectors></HomeSectors>
+            <HomeConvictions></HomeConvictions>
           </div>
           <ContactSection />
         </>
