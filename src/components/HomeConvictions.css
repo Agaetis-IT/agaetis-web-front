@@ -4,17 +4,19 @@
   justify-content: center;
 }
 
-.convictions-container div {
-  justify-content: center;
+.conviction-item {
   width: 100%;
-  text-align: center;
+  text-align: left;
+  justify-content: space-between;
   margin: 20px 0;
 }
 
-.convictions-container div img {
-  max-width: 113px;
-  max-height: 113px;
-  margin: 0 auto;
+.conviction-item img {
+  max-width: 70px;
+  max-height: 70px;
+}
+
+@media (min-width: 692px) {
 }
 
 @media (min-width: 800px) {
@@ -24,9 +26,13 @@
     flex-wrap: wrap;
   }
 
-  .convictions-container div {
-    justify-content: space-between;
-    text-align: left;
+  .conviction-item {
     width: 50%;
+  }
+
+  .conviction-item img {
+    max-width: 113px;
+    max-height: 113px;
+    margin: 0;
   }
 }

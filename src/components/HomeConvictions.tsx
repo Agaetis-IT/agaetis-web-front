@@ -31,19 +31,19 @@ export default function HomeConvictions() {
   return (
     <div className="bg-orange py-8 md:p-16 xl:px-32">
       <h2 className="mt-8 mb-4 md:my-0 text-white text-center md:text-left">Nos convictions</h2>
-      <div className="convictions-container text-white my-8 lg:my-0">
+      <div className="convictions-container text-white my-8 lg:my-0 px-4 sm:px-12 md:px-4">
         {convictions.map((conviction, index) => (
           <div
             key={conviction.title}
             className={clsx(
-              'flex flex-col md:flex-row lg:py-8 justify-start lg:my-8',
-              index % 2 === 0 ? 'lg:pr-8 xl:pr-16' : 'lg:pl-8 xl:pl-16 pr-0'
+              'flex lg:py-8 lg:my-8 conviction-item',
+              index % 2 === 0 ? 'flex-row lg:pr-8 xl:pr-16' : 'flex-row-reverse lg:pl-8 xl:pl-16 pr-0'
             )}
           >
             <img src={conviction.img}></img>
-            <span className="flex flex-col justify-center px-8">
-              <h3 className="uppercase font-semibold mb-4">{conviction.title}</h3>
-              <p>{conviction.description}</p>
+            <span className={clsx(index % 2 === 0 ? 'pl-4' : 'pr-4', 'flex flex-col justify-center md:px-8')}>
+              <h3 className="uppercase font-semibold mb-2 md:mb-4 text-base">{conviction.title}</h3>
+              <p className="text-xs md:text-sm">{conviction.description}</p>
             </span>
           </div>
         ))}
