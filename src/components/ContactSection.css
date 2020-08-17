@@ -1,0 +1,9 @@
+.vert-line {
+  border-bottom: 1px solid white;
+}
+@media (min-width: 800px) {
+  .vert-line {
+    border-bottom: none;
+    border-right: 1px solid white;
+  }
+}
