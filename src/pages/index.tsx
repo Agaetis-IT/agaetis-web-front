@@ -6,13 +6,13 @@ import Hero from '../components/Hero'
 import Layout from '../components/Layout'
 import publicRuntimeConfig from '../config/env.config'
 import { getIndexContent } from '../Services/wordpressService'
-import IndexContent from '../types/IndexContent'
+import { IndexContentV2, convertIndexContentAPItoContentAPI } from '../types/IndexContent'
 import HomeOffers from '../components/HomeOffers'
 import HomeSectors from '../components/HomeSectors'
 import HomeConvictions from '../components/HomeConvictions'
 
 interface Props {
-  pageContent: IndexContent
+  pageContent: IndexContentV2
 }
 
 function Index({ pageContent: pageContent }: Props) {
@@ -24,21 +24,21 @@ function Index({ pageContent: pageContent }: Props) {
         <meta property="og:title" content="Agaetis" />
         <meta property="og:image" content={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/favicon.ico`} />
         <meta property="og:type" content="website" />
-        <meta property="og:description" content={pageContent.agaetis_desc} />
-        <meta name="description" content={pageContent.agaetis_desc} />
+        <meta property="og:description" content={pageContent.hero_subtitle} />
+        <meta name="description" content={pageContent.hero_subtitle} />
         <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/`} />
       </Head>
       <Layout invertColors={true}>
         <>
           <Hero
-            hero={pageContent.hero_img}
+            hero={pageContent.hero_image}
             valeurs={pageContent.hero_valeurs.split(' ')}
             subtitle={pageContent.hero_subtitle}
           />
           <div className="sm:px-0">
-            <HomeOffers></HomeOffers>
-            <HomeSectors></HomeSectors>
-            <HomeConvictions></HomeConvictions>
+            <HomeOffers offers={pageContent.offres}></HomeOffers>
+            <HomeSectors sectors={pageContent.secteurs}></HomeSectors>
+            <HomeConvictions convictions={pageContent.convictions}></HomeConvictions>
           </div>
           <ContactSection />
         </>
@@ -48,7 +48,8 @@ function Index({ pageContent: pageContent }: Props) {
 }
 
 Index.getInitialProps = async () => {
-  const pageContent = await getIndexContent()
+  const data = await getIndexContent()
+  const pageContent = convertIndexContentAPItoContentAPI(data)
   return { pageContent }
 }
 
