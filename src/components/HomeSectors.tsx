@@ -5,13 +5,14 @@ import Button from './Button'
 import { SectorDesc } from '../types/IndexContent'
 
 interface Props {
+  title: string
   sectors: SectorDesc[]
 }
 
-export default function HomeSectors({ sectors }: Props) {
+export default function HomeSectors({ title, sectors }: Props) {
   return (
     <div className="bg-light-grey py-8 md:p-16 xl:px-32">
-      <h2 className="text-orange font-semibold text-center md:text-left">Nos secteurs d'activité</h2>
+      <h2 className="text-orange font-semibold text-center md:text-left">{title}</h2>
       <div className=" py-12 sectors-list ">
         {sectors
           .filter((sector) => sector.title != '' && sector.desc != '' && sector.image != '')

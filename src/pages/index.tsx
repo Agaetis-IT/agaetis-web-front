@@ -11,6 +11,9 @@ import HomeOffers from '../components/HomeOffers'
 import HomeSectors from '../components/HomeSectors'
 import HomeConvictions from '../components/HomeConvictions'
 
+import HomeJoinUs from '../components/HomeJoinUs'
+import HomeExpertises from '../components/HomeExpertises'
+
 interface Props {
   pageContent: IndexContentV2
 }
@@ -36,9 +39,14 @@ function Index({ pageContent: pageContent }: Props) {
             subtitle={pageContent.hero_subtitle}
           />
           <div className="sm:px-0">
-            <HomeOffers offers={pageContent.offres}></HomeOffers>
-            <HomeSectors sectors={pageContent.secteurs}></HomeSectors>
-            <HomeConvictions convictions={pageContent.convictions}></HomeConvictions>
+            <HomeOffers offers={pageContent.offres} title={pageContent.offres_title}></HomeOffers>
+            <HomeSectors sectors={pageContent.secteurs} title={pageContent.secteurs_title}></HomeSectors>
+            <HomeExpertises></HomeExpertises>
+            <HomeConvictions
+              convictions={pageContent.convictions}
+              title={pageContent.convictions_title}
+            ></HomeConvictions>
+            <HomeJoinUs></HomeJoinUs>
           </div>
           <ContactSection />
         </>

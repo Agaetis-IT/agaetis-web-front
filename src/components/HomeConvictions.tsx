@@ -5,13 +5,14 @@ import clsx from 'clsx'
 import { Conviction } from '../types/IndexContent'
 
 interface Props {
+  title: string
   convictions: Conviction[]
 }
 
-export default function HomeConvictions({ convictions }: Props) {
+export default function HomeConvictions({ title, convictions }: Props) {
   return (
     <div className="bg-orange py-8 md:p-16 xl:px-32">
-      <h2 className="mt-8 mb-4 md:my-0 text-white text-center md:text-left">Nos convictions</h2>
+      <h2 className="mt-8 mb-4 md:my-0 text-white text-center md:text-left">{title}</h2>
       <div className="convictions-container text-white my-8 lg:my-0 px-4 sm:px-12 md:px-4">
         {convictions.map((conviction, index) => (
           <div

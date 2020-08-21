@@ -9,10 +9,11 @@ import clsx from 'clsx'
 import arrowR from '../public/images/right-arrow.svg'
 
 interface Props {
+  title: string
   offers: OfferDesc[]
 }
 
-export default function HomeOffers({ offers }: Props) {
+export default function HomeOffers({ title, offers }: Props) {
   const [selectedOffer, setSelectedOffer] = useState(1)
   const handleOfferChange = (index: number) => {
     setSelectedOffer(index)
@@ -24,7 +25,7 @@ export default function HomeOffers({ offers }: Props) {
   return (
     <div className="flex flex-col md:flex-row">
       <div className="home-offers-left p-0 md:p-12 lg:px-24 lg:p-16">
-        <h2 className="mt-8 mb-4 md:my-0 md:ml-8 text-orange text-center md:text-left">Nos offres</h2>
+        <h2 className="mt-8 mb-4 md:my-0 md:ml-8 text-orange text-center md:text-left">{title}</h2>
         <ul className="md:my-12">
           {offers.map((offer) => (
             <li key={offer.index} className="my-0 md:my-6 home-offer-card" id={`offer-${offer.index}`}>

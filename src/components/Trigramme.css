@@ -1,0 +1,83 @@
+/* purgecss start ignore */
+
+#human {
+  width: 400px;
+  height: auto;
+}
+
+.trigram > img {
+  z-index: 900;
+  width: 120px;
+  height: auto;
+}
+
+.trigram p {
+  vertical-align: center;
+}
+
+.trigram-desc {
+  position: absolute;
+  width: 280px;
+}
+
+.trigram-desc p {
+  width: 280px;
+}
+
+.line {
+  position: absolute;
+  display: block;
+  height: auto;
+}
+
+.line-R-0 {
+  top: -50px;
+  left: 65px;
+}
+
+.line-R-0-text {
+  top: -20px;
+  left: 50px;
+}
+
+.line-R-1 {
+  top: -40px;
+  left: 70px;
+}
+
+.line-R-1-text {
+  top: -10px;
+  left: 50px;
+}
+
+.line-R-2 {
+  top: -20px;
+  left: 80px;
+}
+
+.line-R-2-text {
+  left: 50px;
+  top: 10px;
+}
+
+.line-L-0 {
+  top: -50px;
+  left: -70px;
+}
+
+.line-L-0-text {
+  top: -20px;
+  left: -50px;
+}
+
+.line-L-1 {
+  top: -30px;
+  left: -80px;
+}
+
+.line-L-1-text {
+  top: 0px;
+  left: -60px;
+}
+
+/* purgecss end ignore */
