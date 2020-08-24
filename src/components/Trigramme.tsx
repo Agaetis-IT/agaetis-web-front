@@ -65,7 +65,11 @@ export default function Trigramme({ imageUrl, TrigramOrder, line, lineClassName 
       <div className="trigram-desc">
         <img src={line === 'L' ? LineL : LineR} className={clsx('line', lineClassName)}></img>
         <p
-          className={clsx('absolute block text-xs', `${lineClassName}-text`, line === 'L' ? 'text-left' : 'text-right')}
+          className={clsx(
+            'absolute block text-xs leading-normal',
+            `${lineClassName}-text`,
+            line === 'L' ? 'text-left' : 'text-right'
+          )}
         >
           Texte explicatif de chaque item
           <br />

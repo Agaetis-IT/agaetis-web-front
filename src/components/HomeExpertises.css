@@ -1,0 +1,16 @@
+#human {
+  width: 400px;
+  height: auto;
+}
+
+#human2 {
+  width: 160px;
+  height: auto;
+}
+
+@media (min-width: 800px) {
+  #human2 {
+    width: 240px;
+    height: auto;
+  }
+}
