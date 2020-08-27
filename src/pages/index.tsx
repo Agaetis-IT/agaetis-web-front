@@ -41,12 +41,26 @@ function Index({ pageContent: pageContent }: Props) {
           <div className="sm:px-0">
             <HomeOffers offers={pageContent.offres} title={pageContent.offres_title}></HomeOffers>
             <HomeSectors sectors={pageContent.secteurs} title={pageContent.secteurs_title}></HomeSectors>
-            <HomeExpertises></HomeExpertises>
+            <HomeExpertises
+              expertises_title={pageContent.expertises_title}
+              expertises_image_desktop={pageContent.expertises_image_desktop}
+              expertises_image_mobile={pageContent.expertises_image_mobile}
+              expertises={pageContent.expertises}
+            ></HomeExpertises>
             <HomeConvictions
               convictions={pageContent.convictions}
               title={pageContent.convictions_title}
             ></HomeConvictions>
-            <HomeJoinUs></HomeJoinUs>
+            <HomeJoinUs
+              joinUs_agaetis_title={pageContent.joinUs_agaetis_title}
+              joinUs_agaetis_desc={pageContent.joinUs_agaetis_desc}
+              joinUs_carreer_title={pageContent.joinUs_carreer_title}
+              joinUs_carreer_desc={pageContent.joinUs_carreer_desc}
+              joinUs_human={pageContent.joinUs_human}
+              joinUs_image_desktop={pageContent.joinUs_image_desktop}
+              joinUs_image_mobile_1={pageContent.joinUs_image_mobile_1}
+              joinUs_image_mobile_2={pageContent.joinUs_image_mobile_2}
+            ></HomeJoinUs>
           </div>
           <ContactSection />
         </>
