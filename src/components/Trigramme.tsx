@@ -33,16 +33,18 @@ function getTrigramPosition(humanPos: number[], trigramOrder: number) {
 
 function handleHumanPosition(TrigramOrder: number) {
   return () => {
-    const trigramStyle = document.getElementById(`trigram-${TrigramOrder}`).style
-    const humanPos = [
-      document.getElementById('human').getBoundingClientRect().top - document.body.getBoundingClientRect().top,
-      document.getElementById('human').getBoundingClientRect().left,
-    ]
-    const trigramPosition = getTrigramPosition(humanPos, TrigramOrder)
-    trigramStyle.position = 'absolute'
+    if (document.getElementById(`trigram-${TrigramOrder}`) && document.getElementById('human')) {
+      const trigramStyle = document.getElementById(`trigram-${TrigramOrder}`)!.style
+      const humanPos = [
+        document.getElementById('human')!.getBoundingClientRect().top - document.body.getBoundingClientRect().top,
+        document.getElementById('human')!.getBoundingClientRect().left,
+      ]
+      const trigramPosition = getTrigramPosition(humanPos, TrigramOrder)
+      trigramStyle.position = 'absolute'
 
-    trigramStyle.top = trigramPosition.top
-    trigramStyle.left = trigramPosition.left
+      trigramStyle.top = trigramPosition.top
+      trigramStyle.left = trigramPosition.left
+    }
   }
 }
 

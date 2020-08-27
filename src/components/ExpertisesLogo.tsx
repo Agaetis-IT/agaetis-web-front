@@ -47,16 +47,18 @@ function getLogoPosition(humanPos: number[], logoId: number) {
 
 function handleHumanPosition(logoId: number) {
   return () => {
-    const logoStyle = document.getElementById(`logo-${logoId}`).style
-    const humanPos = [
-      document.getElementById('human2').getBoundingClientRect().top - document.body.getBoundingClientRect().top,
-      document.getElementById('human2').getBoundingClientRect().left,
-    ]
-    const logoPosition = getLogoPosition(humanPos, logoId)
-    logoStyle.position = 'absolute'
+    if (document.getElementById(`logo-${logoId}`) && document.getElementById('human2')) {
+      const logoStyle = document.getElementById(`logo-${logoId}`)!.style
+      const humanPos = [
+        document.getElementById('human2')!.getBoundingClientRect().top - document.body.getBoundingClientRect().top,
+        document.getElementById('human2')!.getBoundingClientRect().left,
+      ]
+      const logoPosition = getLogoPosition(humanPos, logoId)
+      logoStyle.position = 'absolute'
 
-    logoStyle.top = logoPosition.top
-    logoStyle.left = logoPosition.left
+      logoStyle.top = logoPosition.top
+      logoStyle.left = logoPosition.left
+    }
   }
 }
 
