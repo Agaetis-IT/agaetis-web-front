@@ -40,30 +40,35 @@ export default function HomeExpertises({
                 TrigramOrder={0}
                 line="L"
                 lineClassName="line-L-0"
+                items={expertises[0].items}
               ></Trigramme>
               <Trigramme
                 imageUrl={expertises[1].trigram}
                 TrigramOrder={1}
                 line="L"
                 lineClassName="line-L-1"
+                items={expertises[1].items}
               ></Trigramme>
               <Trigramme
                 imageUrl={expertises[2].trigram}
                 TrigramOrder={2}
                 line="R"
                 lineClassName="line-R-0"
+                items={expertises[2].items}
               ></Trigramme>
               <Trigramme
                 imageUrl={expertises[3].trigram}
                 TrigramOrder={3}
                 line="R"
                 lineClassName="line-R-1"
+                items={expertises[3].items}
               ></Trigramme>
               <Trigramme
                 imageUrl={expertises[4].trigram}
                 TrigramOrder={4}
                 line="R"
                 lineClassName="line-R-2"
+                items={expertises[4].items}
               ></Trigramme>
             </>
           )}

@@ -288,7 +288,7 @@ export function convertIndexContentAPItoContentAPI(contentApi: IndexContentAPI) 
       contentApi,
       Object.keys(contentApi).filter((key) => key.match(regexConviction))
     ),
-    expertises_title: contentApi.expertises_1_title,
+    expertises_title: contentApi.expertises_title,
     expertises_image_desktop: contentApi.expertises_image_desktop,
     expertises_image_mobile: contentApi.expertises_image_mobile,
     expertises: createExpertiseArray(

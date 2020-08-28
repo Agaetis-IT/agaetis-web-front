@@ -10,6 +10,7 @@ interface Props {
   TrigramOrder: number
   line: string
   lineClassName: string
+  items: string
 }
 
 function getTrigramPosition(humanPos: number[], trigramOrder: number) {
@@ -48,7 +49,7 @@ function handleHumanPosition(TrigramOrder: number) {
   }
 }
 
-export default function Trigramme({ imageUrl, TrigramOrder, line, lineClassName }: Props) {
+export default function Trigramme({ imageUrl, TrigramOrder, line, lineClassName, items }: Props) {
   useEffect(() => {
     if (window && document) {
       handleHumanPosition(TrigramOrder)()
@@ -72,13 +73,8 @@ export default function Trigramme({ imageUrl, TrigramOrder, line, lineClassName 
             `${lineClassName}-text`,
             line === 'L' ? 'text-left' : 'text-right'
           )}
-        >
-          Texte explicatif de chaque item
-          <br />
-          Texte explicatif de chaque item
-          <br />
-          Texte explicatif de chaque item
-        </p>
+          dangerouslySetInnerHTML={{ __html: items.split(',').join('<br/>') }}
+        ></p>
       </div>
     </div>
   )
