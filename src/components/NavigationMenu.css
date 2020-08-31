@@ -38,7 +38,7 @@
   width: 100%;
 }
 
-@media (min-width: 800px) {
+@media (min-width: 820px) {
   .Button-language--active {
     color: #ff7f40;
     font-weight: 700;

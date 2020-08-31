@@ -16,10 +16,7 @@
   max-height: 70px;
 }
 
-@media (min-width: 692px) {
-}
-
-@media (min-width: 800px) {
+@media (min-width: 820px) {
   .convictions-container {
     display: flex;
     flex-direction: row;
@@ -28,6 +25,7 @@
 
   .conviction-item {
     width: 50%;
+    justify-content: flex-start;
   }
 
   .conviction-item img {

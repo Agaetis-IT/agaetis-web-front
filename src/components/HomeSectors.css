@@ -36,7 +36,7 @@
   }
 }
 
-@media (min-width: 800px) {
+@media (min-width: 820px) {
   .sectors-list {
     display: flex;
     flex-direction: row;

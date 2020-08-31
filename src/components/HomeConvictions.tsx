@@ -18,8 +18,10 @@ export default function HomeConvictions({ title, convictions }: Props) {
           <div
             key={conviction.title}
             className={clsx(
-              'flex lg:py-8 lg:my-8 conviction-item',
-              index % 2 === 0 ? 'flex-row lg:pr-8 xl:pr-16' : 'flex-row-reverse md:flex-row lg:pl-8 xl:pl-16 pr-0'
+              'flex lg:py-8 lg:my-8 conviction-item ',
+              index % 2 === 0
+                ? 'flex-row justify-start lg:pr-8 xl:pr-16'
+                : 'flex-row-reverse md:flex-row justify-start lg:pl-8 xl:pl-16 pr-0'
             )}
           >
             <img src={conviction.image}></img>

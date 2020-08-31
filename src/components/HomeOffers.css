@@ -21,7 +21,7 @@
   transform: rotate(-90deg);
 }
 
-@media (min-width: 800px) {
+@media (min-width: 820px) {
   .home-offers-left,
   .home-offers-right {
     width: 50%;

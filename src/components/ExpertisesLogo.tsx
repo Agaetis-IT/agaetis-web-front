@@ -8,7 +8,7 @@ interface Props {
 }
 
 function getLogoPosition(humanPos: number[], logoId: number) {
-  if (window && window.innerWidth < 800) {
+  if (window && window.innerWidth < 820) {
     if (logoId === 0) {
       return { top: `${humanPos[0] + 65}px`, left: `${humanPos[1] - 85}px` }
     }
