@@ -75,7 +75,14 @@ export default function HomeOffers({ title, offers }: Props) {
           Consulter toutes nos offres
         </Button>
       </div>
-      <div className="hidden md:block home-offers-right bg-grey-darker md:p-12 lg:p-16">
+      <div
+        style={{
+          backgroundImage: `url(${offers[selectedOffer - 1].image})`,
+          backgroundPosition: 'center',
+          backgroundSize: 'cover',
+        }}
+        className="hidden md:block home-offers-right bg-grey-darker md:p-12 lg:p-16"
+      >
         <ul>
           {offers.map((offer) => (
             <li key={offer.index} className={clsx({ hidden: selectedOffer != offer.index }, 'my-4')}>
