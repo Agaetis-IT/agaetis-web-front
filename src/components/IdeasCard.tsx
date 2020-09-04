@@ -44,7 +44,7 @@ export default function IdeasCard({ slug, id, title, categories, children, class
             <div className={clsx({ 'text-blue': id !== 6 }, 'font-semibold text-xss')}>
               {categories.map((cat: string) => cat + ' ')}
             </div>
-            <Link href={`/${escape(slug)}`}>
+            <Link href={`/${slug}`}>
               <a className={clsx(id !== 6 ? 'text-black' : 'text-white')}>
                 <h3 dangerouslySetInnerHTML={createMarkup(title)} className="font-semibold text-xs py-4 text-base" />
               </a>

@@ -65,12 +65,13 @@ function job({ pageContent, allJobs, errorCode }: Props) {
               <span>
                 <a className="text-underline text-black" href="/">
                   Accueil
-                </a>{' '}
-                >{' '}
+                </a>
+                {' > '}
                 <a className="text-underline text-black" href="/jobs">
                   Jobs
-                </a>{' '}
-                > <b>{pageContent.title}</b>{' '}
+                </a>
+                {' > '}
+                <b>{pageContent.title}</b>{' '}
               </span>
             </div>
             <h1 className="text-center text-2xl py-8 md:pb-0 md:mt-12">{pageContent.title}</h1>
@@ -91,11 +92,11 @@ function job({ pageContent, allJobs, errorCode }: Props) {
           <div className="w-full md:max-w-lg mx-auto p-8 text-sm leading-normal text-justify">
             <img src={Logo} className="bg-img-left-job" alt="logo agaetis"></img>
             <img src={Logo} className="bg-img-right-job" alt="logo agaetis"></img>
-            <p className="mb-5" dangerouslySetInnerHTML={{ __html: pageContent.offre_description }}></p>
+            <p className="mb-5 job-desc" dangerouslySetInnerHTML={{ __html: pageContent.offre_description }}></p>
             <p className="mb-3">
               <b>Missions</b>
             </p>
-            <ul className="pl-4">
+            <ul className="pl-4 job-list">
               {pageContent.offre_list
                 .filter((point) => point !== '')
                 .map((point) => (
@@ -110,7 +111,7 @@ function job({ pageContent, allJobs, errorCode }: Props) {
             <p className="mb-3">{pageContent.profile_description}</p>
             <p className="mb-3">Salaire: {pageContent.offre_salary}</p>
             <p className="mb-3">Connaissances souhaitées (en gras les indispensables) :</p>
-            <ul className="pl-4">
+            <ul className="pl-4 job-list">
               {pageContent.offre_profile
                 .filter((point) => point !== '')
                 .map((point) => (

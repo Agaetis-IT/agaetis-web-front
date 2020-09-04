@@ -1,22 +1,24 @@
 import Head from 'next/head'
 import React from 'react'
-import { useTranslation } from 'react-i18next'
 
 import ContactSection from '../components/ContactSection'
 import Hero from '../components/Hero'
-import HomeCard from '../components/HomeCard'
 import Layout from '../components/Layout'
 import publicRuntimeConfig from '../config/env.config'
 import { getIndexContent } from '../Services/wordpressService'
-import IndexContent from '../types/IndexContent'
+import { IndexContentV2, convertIndexContentAPItoContentAPI } from '../types/IndexContent'
+import HomeOffers from '../components/HomeOffers'
+import HomeSectors from '../components/HomeSectors'
+import HomeConvictions from '../components/HomeConvictions'
+
+import HomeJoinUs from '../components/HomeJoinUs'
+import HomeExpertises from '../components/HomeExpertises'
 
 interface Props {
-  pageContent: IndexContent
+  pageContent: IndexContentV2
 }
 
 function Index({ pageContent: pageContent }: Props) {
-  const { t } = useTranslation()
-
   return (
     <>
       <Head>
@@ -25,49 +27,40 @@ function Index({ pageContent: pageContent }: Props) {
         <meta property="og:title" content="Agaetis" />
         <meta property="og:image" content={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/favicon.ico`} />
         <meta property="og:type" content="website" />
-        <meta property="og:description" content={pageContent.agaetis_desc} />
-        <meta name="description" content={pageContent.agaetis_desc} />
+        <meta property="og:description" content={pageContent.hero_subtitle} />
+        <meta name="description" content={pageContent.hero_subtitle} />
         <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/`} />
       </Head>
       <Layout invertColors={true}>
         <>
           <Hero
-            hero={pageContent.hero_img}
+            hero={pageContent.hero_image}
             valeurs={pageContent.hero_valeurs.split(' ')}
             subtitle={pageContent.hero_subtitle}
           />
-          <div className="sm:px-0 md:px-6 xl:px-32">
-            <HomeCard
-              title={pageContent.agaetis_desc_title}
-              description={pageContent.agaetis_desc}
-              href="/agaetis"
-              buttonContent={t('index.learnmore-btn')}
-              imgUrl={pageContent.agaetis_desc_img}
-            />
-
-            <HomeCard
-              title={pageContent.ideas_desc_title}
-              description={pageContent.ideas_desc}
-              href="/ideas"
-              buttonContent={t('index.learnmore-btn')}
-              imgUrl={pageContent.ideas_desc_img}
-              reverse
-            />
-            <HomeCard
-              title={pageContent.solutions_desc_title}
-              description={pageContent.solutions_desc}
-              href="/solutions"
-              buttonContent={t('index.learnmore-btn')}
-              imgUrl={pageContent.solutions_desc_img}
-            />
-            <HomeCard
-              title={pageContent.jobs_desc_title}
-              description={pageContent.jobs_desc}
-              href="/jobs"
-              buttonContent={t('index.learnmore-btn')}
-              imgUrl={pageContent.jobs_desc_img}
-              reverse
-            />
+          <div className="sm:px-0">
+            <HomeOffers offers={pageContent.offres} title={pageContent.offres_title}></HomeOffers>
+            <HomeSectors sectors={pageContent.secteurs} title={pageContent.secteurs_title}></HomeSectors>
+            <HomeExpertises
+              expertises_title={pageContent.expertises_title}
+              expertises_image_desktop={pageContent.expertises_image_desktop}
+              expertises_image_mobile={pageContent.expertises_image_mobile}
+              expertises={pageContent.expertises}
+            ></HomeExpertises>
+            <HomeConvictions
+              convictions={pageContent.convictions}
+              title={pageContent.convictions_title}
+            ></HomeConvictions>
+            <HomeJoinUs
+              joinUs_agaetis_title={pageContent.joinUs_agaetis_title}
+              joinUs_agaetis_desc={pageContent.joinUs_agaetis_desc}
+              joinUs_carreer_title={pageContent.joinUs_carreer_title}
+              joinUs_carreer_desc={pageContent.joinUs_carreer_desc}
+              joinUs_human={pageContent.joinUs_human}
+              joinUs_image_desktop={pageContent.joinUs_image_desktop}
+              joinUs_image_mobile_1={pageContent.joinUs_image_mobile_1}
+              joinUs_image_mobile_2={pageContent.joinUs_image_mobile_2}
+            ></HomeJoinUs>
           </div>
           <ContactSection />
         </>
@@ -77,7 +70,8 @@ function Index({ pageContent: pageContent }: Props) {
 }
 
 Index.getInitialProps = async () => {
-  const pageContent = await getIndexContent()
+  const data = await getIndexContent()
+  const pageContent = convertIndexContentAPItoContentAPI(data)
   return { pageContent }
 }
 

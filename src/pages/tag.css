@@ -3,7 +3,7 @@
   border-radius: 5px;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 820px) {
   .tag-card {
     width: 100%;
   }

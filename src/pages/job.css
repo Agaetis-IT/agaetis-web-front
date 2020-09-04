@@ -2,7 +2,7 @@ ul {
   list-style: none;
 }
 
-ul li::before {
+.job-list li::before {
   content: '\2022';
   color: #ff7f40;
   margin-left: -1em;
@@ -11,7 +11,7 @@ ul li::before {
   width: 1em;
 }
 
-p br {
+.job-desc br {
   margin-bottom: 20px;
   display: block;
   content: ' ';

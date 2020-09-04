@@ -5,7 +5,6 @@ import '../i18n'
 
 import './Common.css'
 import Cookies from './Cookies'
-import Footer from './Footer'
 import Header from './Header'
 import clsx from 'clsx'
 
@@ -21,7 +20,7 @@ export default function Layout({ invertColors, children }: Props) {
       <div className={clsx('mt-1 md:mt-0', { 'md:pt-48': !invertColors })}>
         <div>{children}</div>
       </div>
-      <Footer />
+
       <Cookies className="cookie-fixed" />
     </div>
   )
