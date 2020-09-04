@@ -49,10 +49,12 @@ export default function HomeOffers({ title, offers }: Props) {
               {offer.index !== selectedOffer && <hr className="block md:hidden separator mx-4" />}
 
               <div
-                className={clsx(
-                  'md:hidden home-offers-right bg-grey-darker p-4',
-                  offer.index === selectedOffer ? 'block' : 'hidden'
-                )}
+                style={{
+                  backgroundImage: `url(${offers[selectedOffer - 1].image})`,
+                  backgroundPosition: 'center',
+                  backgroundSize: 'cover',
+                }}
+                className={clsx('md:hidden home-offers-right  p-4', offer.index === selectedOffer ? 'block' : 'hidden')}
               >
                 <ul>
                   {offers.map((offer) => (
@@ -60,7 +62,7 @@ export default function HomeOffers({ title, offers }: Props) {
                       <h3 className="text-orange">{offer.title}</h3>
                       <p className="text-sm leading-normal text-justify text-white py-8">{offer.desc}</p>
                       <div className="flex flex-row justify-center">
-                        <Button className="block md:inline-block px-6 py-3 leading-none rounded-full uppercase mt-4 md:mt-0 bg-white text-orange text-xs font-semibold">
+                        <Button className="block md:inline-block px-6 py-3 leading-none rounded-full uppercase mt-4 mb-32 md:my-0 bg-white text-orange text-xs font-semibold">
                           En savoir plus
                         </Button>
                       </div>

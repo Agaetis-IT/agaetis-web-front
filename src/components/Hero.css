@@ -7,6 +7,7 @@
   position: absolute;
   width: 50px;
   height: auto;
+  z-index: 1;
 }
 
 #quoteL {
@@ -50,11 +51,15 @@
     margin-right: auto;
   }
 
+  .hoverEffect {
+    z-index: 100;
+  }
+
   .hoverEffect::after {
     content: '';
     display: block;
     transition: width 0.5s ease-out;
-    background-color: #ff7f40;
+    background-color: white;
     width: 0%;
     height: 2px;
   }

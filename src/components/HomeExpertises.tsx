@@ -27,6 +27,7 @@ export default function HomeExpertises({
       setSelectedExpertise(expertiseId)
     }
   }
+
   return (
     <>
       <div className="hidden lg:block  md:p-16 xl:px-32">
