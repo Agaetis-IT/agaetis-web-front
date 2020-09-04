@@ -11,16 +11,16 @@ interface Props {
   ideasC: IdeasDesc[]
   categories: Category[]
   toggleMore: boolean
-  ideasImg1: string
-  ideasImg2: string
+  ideasImg1?: string
+  ideasImg2?: string
 }
 
-function slugify(string: string) {
+function slugify(s: string) {
   const a = 'àáâäæãåāăąçćčđďèéêëēėęěğǵḧîïíīįìłḿñńǹňôöòóœøōõőṕŕřßśšşșťțûüùúūǘůűųẃẍÿýžźż·/_,:;'
   const b = 'aaaaaaaaaacccddeeeeeeeegghiiiiiilmnnnnoooooooooprrsssssttuuuuuuuuuwxyyzzz------'
   const p = new RegExp(a.split('').join('|'), 'g')
 
-  return string
+  return s
     .toString()
     .toLowerCase()
     .replace(/\s+/g, '-') // Replace spaces with -
@@ -81,10 +81,10 @@ export default function CategoryTab({ ideasC, categories, toggleMore, ideasImg1,
       (idea) => categoryFilter === 'All' || idea.categories.includes(categoryFilter) || idea.categories.includes('')
     )
 
-    if (!ideas.find((idea: IdeasDesc) => idea.id === -1)) {
+    if (ideasImg1 && !ideas.find((idea: IdeasDesc) => idea.id === -1)) {
       ideas.splice(0, 0, fakeIdea1)
     }
-    if (!ideas.find((idea: IdeasDesc) => idea.id === -2)) {
+    if (ideasImg2 && !ideas.find((idea: IdeasDesc) => idea.id === -2)) {
       ideas.splice(7, 0, fakeIdea2)
     }
     return ideas.map((idea) => (

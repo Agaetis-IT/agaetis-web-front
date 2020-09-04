@@ -1,22 +1,23 @@
 import React from 'react'
-import { IdeasDesc } from '../types/IdeasContent'
+import { IdeasDesc, Category } from '../types/IdeasContent'
 import { NextPageContext } from 'next'
-import { getIdeasByTag } from '../Services/wordpressService'
+import { getIdeasByTag, getCategories } from '../Services/wordpressService'
 import Head from 'next/head'
 import publicRuntimeConfig from '../config/env.config'
 import Layout from '../components/Layout'
-import TagCard from '../components/TagCard'
 import './tag.css'
+import CategoryTab from '../components/CategoryTab'
 interface Props {
   articles: IdeasDesc[]
   tag: string
+  categories: Category[]
 }
 
 interface Context extends NextPageContext {
   query: { slug: string }
 }
 
-export default function Tag({ articles, tag }: Props) {
+export default function Tag({ articles, categories, tag }: Props) {
   return (
     <>
       <Head>
@@ -43,21 +44,19 @@ export default function Tag({ articles, tag }: Props) {
               <b>{tag}</b>
             </span>
             <div className="md:max-w-md mx-auto md:px-8">
-              <h1 className="text-center text-3xl py-8 md:pb-0 md:mt-12">{tag}</h1>
+              <h1 className="text-center text-3xl py-8  md:mt-12">{tag}</h1>
             </div>
           </div>
-          <div className="flex flex-col md:flex-row justify-between flex-wrap my-4 md:my-12">
-            {articles.map((idea) => (
-              <TagCard
-                key={idea.title}
-                name={idea.title}
-                description={idea.descriptionText}
-                slug={idea.slug}
-                category={idea.categories[0]}
-                className="tag-card m-0 md:m-4"
-              ></TagCard>
-            ))}
-          </div>
+
+          <CategoryTab
+            ideasC={articles.filter(
+              (idea) => !idea.categories.includes('White-paper') && !idea.categories.includes('Jobs')
+            )}
+            categories={categories.filter(
+              (category) => category.categoryName !== 'Jobs' && category.categoryName !== 'White-paper'
+            )}
+            toggleMore={true}
+          />
         </>
       </Layout>
     </>
@@ -65,7 +64,7 @@ export default function Tag({ articles, tag }: Props) {
 }
 
 Tag.getInitialProps = async ({ query }: Context) => {
-  const { [0]: ideas } = await Promise.all([getIdeasByTag(query.slug)])
+  const { [0]: ideas, [1]: categories } = await Promise.all([getIdeasByTag(query.slug), getCategories()])
   return {
     articles: ideas.map((idea: any) => ({
       id: idea.id,
@@ -76,6 +75,8 @@ Tag.getInitialProps = async ({ query }: Context) => {
       date: idea.date,
       image: idea.acf.idea_image,
     })),
+    categories: categories.map((category: any) => ({ categoryId: category.id, categoryName: category.name })),
+
     tag: query.slug.charAt(0).toUpperCase() + query.slug.slice(1),
   }
 }
