@@ -40,7 +40,7 @@ export default function ContactSection() {
 
       <div className="flex flex-col justify-center">
         <BottomNav></BottomNav>
-        <h4 className="text-white my-4 uppercase text-sm">Nos adresses</h4>
+        <h4 className="text-white my-4 md:mb-2 uppercase text-sm">Nos adresses</h4>
         <div className="flex flex-col md:flex-row justify-center font-thin">
           {addresses.map((address) => (
             <Address key={address.agency} {...address} />

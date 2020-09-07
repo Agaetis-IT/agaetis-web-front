@@ -40,7 +40,12 @@ export default function NavigationMenu({ invertColors, position }: Props) {
       </div>
       <div className="hidden md:inline md:ml-14 xl:mr-8">
         <Link href="/contact">
-          <Button className="block md:inline-block px-6 py-3 leading-none rounded-full uppercase mt-4 md:mt-0 bg-white text-orange text-base font-thin shadow-md">
+          <Button
+            className={clsx(
+              !invertColors || position > 200 ? 'bg-orange text-white' : 'bg-white text-orange',
+              'block md:inline-block px-6 py-3 leading-none rounded-full uppercase mt-4 md:mt-0  text-base font-thin shadow-md'
+            )}
+          >
             {t('navigation.contact')}
           </Button>
         </Link>

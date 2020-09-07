@@ -28,6 +28,13 @@
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.08);
 }
 
+.sector-control {
+  position: relative;
+  top: -350px;
+  z-index: 999;
+  opacity: 0.5;
+}
+
 @media (min-width: 640px) {
   .items {
     flex: 0 0 auto;

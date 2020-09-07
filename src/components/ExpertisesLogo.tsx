@@ -66,15 +66,10 @@ export default function ExpertisesLogo({ image, logoId, title, onClick }: Props)
   useEffect(() => {
     if (window && document) {
       handleHumanPosition(logoId)()
-      window.addEventListener('resize', () => {
-        handleHumanPosition(logoId)()
-        window.location.reload()
-      })
+      window.addEventListener('resize', handleHumanPosition(logoId))
     }
     return () => {
-      window.removeEventListener('resize', () => {
-        handleHumanPosition(logoId)
-      })
+      window.removeEventListener('resize', handleHumanPosition(logoId))
     }
   }, [logoId])
 
