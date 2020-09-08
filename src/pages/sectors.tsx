@@ -38,8 +38,9 @@ function solutions({ pageContent }: Props) {
               <span>
                 <a className="text-underline text-black" href="/">
                   Accueil
-                </a>{' '}
-                > <b>Solutions</b>
+                </a>
+                {' > '}
+                <b>Secteurs</b>
               </span>
             </div>
             <h1 className="text-center text-3xl py-8 md:pb-0 md:mt-12">{pageContent.title}</h1>

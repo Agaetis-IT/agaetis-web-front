@@ -50,7 +50,7 @@ function Ideas({ ideasDescription, whitePapers, categories, content }: Props) {
                   Accueil
                 </a>
                 {' > '}
-                <b>Idées</b>
+                <b>Blog</b>
               </span>
             </div>
             <h1 className="text-center text-3xl py-8 md:pb-0 md:mt-12">{content.titre}</h1>

@@ -47,28 +47,20 @@ export default function HomeSectors({ title, sectors }: Props) {
             </div>
           ))}
       </div>
-      <div className="flex sm:hidden flex-row justify-between mx-4 sector-control">
+      <div className="flex sm:hidden flex-row justify-between mx-4 sector-control ">
         <div
           style={{ width: 40, height: 40 }}
-          className={clsx('sector-arrow-L bg-white rounded-full flex flex-col justify-center')}
+          className={clsx('sector-arrow-L bg-white rounded-full flex flex-col justify-center arrow-hover')}
+          onClick={handleSectorScrollLeft}
         >
-          <img
-            src={arrowL}
-            style={{ width: 20, height: 20 }}
-            onClick={handleSectorScrollLeft}
-            className="block mx-auto self-center"
-          />
+          <img src={arrowL} style={{ width: 20, height: 20 }} className="block mx-auto self-center" />
         </div>
         <div
           style={{ width: 40, height: 40 }}
-          className={clsx('sector-arrow-R bg-white rounded-full flex flex-col justify-center')}
+          className={clsx('sector-arrow-R bg-white rounded-full flex flex-col justify-center arrow-hover')}
+          onClick={handleSectorScrollRight}
         >
-          <img
-            src={arrowR}
-            style={{ width: 20, height: 20 }}
-            onClick={handleSectorScrollRight}
-            className="block mx-auto self-center"
-          />
+          <img src={arrowR} style={{ width: 20, height: 20 }} className="block mx-auto self-center" />
         </div>
       </div>
     </div>
