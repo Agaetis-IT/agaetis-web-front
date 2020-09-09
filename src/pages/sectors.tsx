@@ -29,7 +29,7 @@ function solutions({ pageContent }: Props) {
           name="description"
           content="Chaque client a des besoins propres, nous leur apportons des solutions sur mesure"
         />
-        <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/solutions`} />
+        <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/sectors`} />
       </Head>
       <Layout invertColors={false}>
         <>

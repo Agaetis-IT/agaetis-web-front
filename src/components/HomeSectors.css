@@ -30,7 +30,7 @@
 
 .sector-control {
   position: relative;
-  top: -350px;
+  top: -400px;
   z-index: 999;
   opacity: 0.5;
 }

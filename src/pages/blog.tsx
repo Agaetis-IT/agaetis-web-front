@@ -39,7 +39,7 @@ function Ideas({ ideasDescription, whitePapers, categories, content }: Props) {
         <meta property="og:type" content="website" />
         <meta property="og:description" content="Chacun d'entre nous a ses idées et le droit de les défendre" />
         <meta name="description" content="Chacun d'entre nous a ses idées et le droit de les défendre" />
-        <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/ideas`} />
+        <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/blog`} />
       </Head>
       <Layout invertColors={false}>
         <div>

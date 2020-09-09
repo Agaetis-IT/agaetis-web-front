@@ -6,6 +6,7 @@ import { SectorDesc } from '../types/IndexContent'
 import arrowL from '../public/images/left-arrow.svg'
 import arrowR from '../public/images/right-arrow.svg'
 import clsx from 'clsx'
+import VisibilitySensor from 'react-visibility-sensor'
 
 interface Props {
   title: string
@@ -28,36 +29,55 @@ export default function HomeSectors({ title, sectors }: Props) {
       setId(id + 1)
     }
   }
+
   return (
     <div className="bg-light-grey py-8 md:p-16 xl:px-32">
       <h2 className="text-orange font-semibold text-center md:text-left">{title}</h2>
       <div className="py-12 sectors-list" id="sectors">
         {sectors
           .filter((sector) => sector.title != '' && sector.desc != '' && sector.image != '')
-          .map((sector) => (
-            <div key={sector.title} className="md:bg-white items md:shadow-md">
-              <img src={sector.image}></img>
-              <div className="bg-white md:bg-none home-sectors-description pb-4">
-                <h3 className="p-4">{sector.title}</h3>
-                <p className="text-xs text-justify leading-normal p-4">{sector.desc}</p>
-                <Button className="block px-6 py-3 leading-none rounded-full uppercase bg-orange text-white mt-4 text-xs font-semibold mx-auto">
-                  En savoir plus
-                </Button>
+          .map((sector, index) => (
+            <VisibilitySensor
+              key={sector.title}
+              partialVisibility={true}
+              onChange={(isCardVisible: boolean) => {
+                if (isCardVisible && index != id) {
+                  setId(index)
+                }
+              }}
+            >
+              <div className="md:bg-white items md:shadow-md">
+                <img src={sector.image}></img>
+                <div className="bg-white md:bg-none home-sectors-description pb-4">
+                  <h3 className="p-4">{sector.title}</h3>
+                  <p className="text-xs text-justify leading-normal p-4">{sector.desc}</p>
+                  <Button className="block px-6 py-3 leading-none rounded-full uppercase bg-orange text-white mt-4 text-xs font-semibold mx-auto">
+                    En savoir plus
+                  </Button>
+                </div>
               </div>
-            </div>
+            </VisibilitySensor>
           ))}
       </div>
-      <div className="flex sm:hidden flex-row justify-between mx-4 sector-control ">
+      <div
+        className={clsx('flex sm:hidden flex-row mx-4 sector-control ', id === 0 ? 'justify-end' : 'justify-between ')}
+      >
         <div
           style={{ width: 40, height: 40 }}
-          className={clsx('sector-arrow-L bg-white rounded-full flex flex-col justify-center arrow-hover')}
+          className={clsx(
+            'sector-arrow-L bg-white rounded-full  justify-center arrow-hover',
+            id === 0 ? 'hidden' : 'flex flex-col'
+          )}
           onClick={handleSectorScrollLeft}
         >
           <img src={arrowL} style={{ width: 20, height: 20 }} className="block mx-auto self-center" />
         </div>
         <div
           style={{ width: 40, height: 40 }}
-          className={clsx('sector-arrow-R bg-white rounded-full flex flex-col justify-center arrow-hover')}
+          className={clsx(
+            'sector-arrow-R bg-white rounded-full justify-center arrow-hover',
+            id > 6 ? 'hidden' : 'flex flex-col'
+          )}
           onClick={handleSectorScrollRight}
         >
           <img src={arrowR} style={{ width: 20, height: 20 }} className="block mx-auto self-center" />
