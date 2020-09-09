@@ -39,7 +39,7 @@ export default function HomeSectors({ title, sectors }: Props) {
           .map((sector, index) => (
             <VisibilitySensor
               key={sector.title}
-              partialVisibility={true}
+              partialVisibility={false}
               onChange={(isCardVisible: boolean) => {
                 if (isCardVisible && index != id) {
                   setId(index)

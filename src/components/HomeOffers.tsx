@@ -17,9 +17,11 @@ export default function HomeOffers({ title, offers }: Props) {
   const [selectedOffer, setSelectedOffer] = useState(1)
   const handleOfferChange = (index: number) => {
     setSelectedOffer(index)
-    if (document && document.body.getBoundingClientRect().width < 800) {
-      location.href = '#'
-      location.href = `#offer-${index}`
+
+    if (window && document && document.body.getBoundingClientRect().width < 800) {
+      window.setTimeout(() => {
+        document.getElementById(`offer-${index}`).scrollIntoView({ behavior: 'smooth' })
+      })
     }
   }
   return (
@@ -34,7 +36,12 @@ export default function HomeOffers({ title, offers }: Props) {
                   <Button onClick={() => handleOfferChange(offer.index)}>
                     <h4 className="text-orange text-sm uppercase">{offer.title}</h4>
                   </Button>
-                  <Button className="block md:hidden text-orange mx-2" onClick={() => handleOfferChange(offer.index)}>
+                  <Button
+                    className="block md:hidden text-orange mx-2"
+                    onClick={() => {
+                      handleOfferChange(offer.index)
+                    }}
+                  >
                     <img
                       style={{ width: 10, height: 10 }}
                       src={arrowR}
