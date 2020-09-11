@@ -15,18 +15,23 @@ interface Props {
 
 export default function HomeSectors({ title, sectors }: Props) {
   const [id, setId] = useState(0)
+
   function handleSectorScrollLeft() {
     if (document && window && id > 0) {
       const sectors = document.getElementById('sectors')
-      sectors.children[id - 1].scrollIntoView({ behavior: 'smooth' })
-      setId(id - 1)
+      if (sectors) {
+        sectors!.children[id - 1].scrollIntoView({ behavior: 'smooth' })
+        setId(id - 1)
+      }
     }
   }
   function handleSectorScrollRight() {
     if (document && window && id < 7) {
       const sectors = document.getElementById('sectors')
-      sectors.children[id + 1].scrollIntoView({ behavior: 'smooth' })
-      setId(id + 1)
+      if (sectors) {
+        sectors!.children[id + 1].scrollIntoView({ behavior: 'smooth' })
+        setId(id + 1)
+      }
     }
   }
 
@@ -39,9 +44,9 @@ export default function HomeSectors({ title, sectors }: Props) {
           .map((sector, index) => (
             <VisibilitySensor
               key={sector.title}
-              partialVisibility={false}
+              partialVisibility={true}
               onChange={(isCardVisible: boolean) => {
-                if (isCardVisible && index != id) {
+                if (isCardVisible) {
                   setId(index)
                 }
               }}
@@ -60,7 +65,7 @@ export default function HomeSectors({ title, sectors }: Props) {
           ))}
       </div>
       <div
-        className={clsx('flex sm:hidden flex-row mx-4 sector-control ', id === 0 ? 'justify-end' : 'justify-between ')}
+        className={clsx('flex md:hidden flex-row mx-4 sector-control ', id === 0 ? 'justify-end' : 'justify-between ')}
       >
         <div
           style={{ width: 40, height: 40 }}

@@ -20,7 +20,9 @@ export default function HomeOffers({ title, offers }: Props) {
 
     if (window && document && document.body.getBoundingClientRect().width < 800) {
       window.setTimeout(() => {
-        document.getElementById(`offer-${index}`).scrollIntoView({ behavior: 'smooth' })
+        if (document.getElementById(`offer-${index}`)) {
+          document.getElementById(`offer-${index}`)!.scrollIntoView({ behavior: 'smooth' })
+        }
       })
     }
   }
