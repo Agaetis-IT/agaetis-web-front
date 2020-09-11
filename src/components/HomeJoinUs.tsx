@@ -33,7 +33,10 @@ export default function HomeJoinUs({
           <div className="my-auto w-2/5 ">
             <h3 className="text-orange">{joinUs_agaetis_title}</h3>
             <p className="my-8 text-sm leading-normal text-justify">{joinUs_agaetis_desc}</p>
-            <Button className="bg-orange text-white rounded-full text-sm font-semibold px-6 py-3 shadow-md">
+            <Button
+              href="/agaetis"
+              className="bg-orange text-white rounded-full text-sm font-semibold px-6 py-3 shadow-md"
+            >
               En savoir plus
             </Button>
           </div>
@@ -41,7 +44,10 @@ export default function HomeJoinUs({
           <div className="my-auto w-2/5">
             <h3 className="text-orange">{joinUs_carreer_title}</h3>
             <p className="my-8 text-sm leading-normal text-justify">{joinUs_carreer_desc}</p>
-            <Button className="bg-white text-orange rounded-full text-sm font-semibold px-6 py-3 shadow-md">
+            <Button
+              href="/jobs"
+              className="bg-white text-orange rounded-full text-sm font-semibold px-6 py-3 shadow-md"
+            >
               Carrière
             </Button>
           </div>

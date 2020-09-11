@@ -72,6 +72,7 @@
   #quoteR {
     width: 100px;
     height: auto;
+    z-index: 1;
   }
   #quoteL {
     top: -80px;

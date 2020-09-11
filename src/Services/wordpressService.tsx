@@ -24,7 +24,7 @@ export async function getAgaetisContent() {
 }
 
 export async function getIdeasPageContent() {
-  const { acf } = await getWordpressPageBySlug<{ acf: IdeasPageContent }>('ideas')
+  const { acf } = await getWordpressPageBySlug<{ acf: IdeasPageContent }>('blog')
   return acf
 }
 
@@ -50,7 +50,7 @@ export async function getMentionsLegalesContent() {
 }
 
 export async function getSolutionsPageContent() {
-  const { acf } = await getWordpressPageBySlug<{ acf: SolutionsContentAPI }>('solutions')
+  const { acf } = await getWordpressPageBySlug<{ acf: SolutionsContentAPI }>('sectors')
   return convertContentAPItoContent(acf)
 }
 

@@ -29,7 +29,7 @@ function solutions({ pageContent }: Props) {
           name="description"
           content="Chaque client a des besoins propres, nous leur apportons des solutions sur mesure"
         />
-        <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/solutions`} />
+        <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/sectors`} />
       </Head>
       <Layout invertColors={false}>
         <>
@@ -38,8 +38,9 @@ function solutions({ pageContent }: Props) {
               <span>
                 <a className="text-underline text-black" href="/">
                   Accueil
-                </a>{' '}
-                > <b>Solutions</b>
+                </a>
+                {' > '}
+                <b>Secteurs</b>
               </span>
             </div>
             <h1 className="text-center text-3xl py-8 md:pb-0 md:mt-12">{pageContent.title}</h1>
