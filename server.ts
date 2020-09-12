@@ -79,8 +79,8 @@ app
           'cookies',
           'personal-data',
           'mentions-legales',
-        ].includes(queryParams.slug)
           'offers',
+        ].includes(queryParams.slug)
       ) {
         return handle(req, res)
       } else if (queryParams.slug === 'ideas') {

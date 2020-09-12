@@ -26,14 +26,15 @@ export default function offers({ pageContent, allOffers }: Props) {
         <meta name="description" content={"Présentation d'Agaetis, de son histoire et de sa vision"} />
         <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/agaetis`} />
       </Head>
-      <Layout headerProps={{ invertColors: false }}>
+      <Layout invertColors={false}>
         <div className="mx-auto px-0">
           <div className="md:max-w-md mx-auto text-xs px-4 md:px-8 ">
             <span>
               <a className="text-underline text-black" href="/">
                 Accueil
-              </a>{' '}
-              > <b>Offres</b>
+              </a>
+              {' > '}
+              <b>Offres</b>
             </span>
           </div>
           <div className="md:max-w-md mx-auto py-12 px-4 md:p-12">
