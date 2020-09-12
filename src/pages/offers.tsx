@@ -54,8 +54,13 @@ offers.getInitialProps = async () => {
   const data = await getOffersPageContent()
   const pageContent = convertAPItoOffersContent(data)
   const allOffersData = await getAllOffers()
-  const allOffers = allOffersData.map((offer) => {
-    return { ...offer.acf, slug: offer.slug }
-  })
+  const allOffers = allOffersData.map(
+    (offer: {
+      acf: { title: string; paragraph: string; offers_description: string; offers_image: string }
+      slug: string
+    }) => {
+      return { ...offer.acf, slug: offer.slug }
+    }
+  )
   return { pageContent, allOffers }
 }
