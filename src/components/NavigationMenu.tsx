@@ -14,10 +14,10 @@ interface Props {
 export default function NavigationMenu({ invertColors, position }: Props) {
   const { t } = useTranslation()
   const pages = [
-    [t('navigation.agaetis-name'), t('navigation.agaetis-href')],
     ['Blog', '/blog'],
     ['Activités', '/sectors'],
     ['Jobs', '/jobs'],
+    ['Offres', '/offers'],
   ]
 
   return (

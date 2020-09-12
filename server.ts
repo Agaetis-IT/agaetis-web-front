@@ -79,6 +79,7 @@ app
           'cookies',
           'personal-data',
           'mentions-legales',
+          'offers',
         ].includes(queryParams.slug)
       ) {
         return handle(req, res)
@@ -97,6 +98,10 @@ app
 
     server.get('/jobs/:slug', (req: Request, res: Response) => {
       app.render(req, res, '/job', { ...req.params, ...req.query })
+    })
+
+    server.get('/offers/:slug', (req: Request, res: Response) => {
+      app.render(req, res, '/offer', { ...req.params, ...req.query })
     })
 
     server.get('/white-papers/:slug', (req: Request, res: Response) => {
@@ -132,7 +137,7 @@ app
 
       const message = {
         from: process.env.NEXT_APP_MAIL_ADDRESS,
-        to: process.env.NEXT_APP_MAIL_ADDRESS,
+        to: 'contact@agaetis.fr',
         subject: req.body.object,
         html: req.body.content,
       }
