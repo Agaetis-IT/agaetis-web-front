@@ -32,7 +32,7 @@ export default function HomeExpertises({
     <>
       <div className="hidden lg:block  md:p-16 xl:px-32">
         <h2 className="text-orange font-semibold text-center md:text-left">{expertises_title}</h2>
-        <div className="md:mt-36 md:mb-16">
+        <div className="md:mt-36 md:mb-16 relative" id="expertise-container-desktop">
           <img src={expertises_image_desktop} className="block mx-auto " id="human"></img>
           {expertises && expertises.length > 4 && (
             <>
@@ -75,7 +75,7 @@ export default function HomeExpertises({
           )}
         </div>
       </div>
-      <div className="block lg:hidden py-8 md:p-16">
+      <div className="block lg:hidden py-8 md:p-16 relative" id="expertise-container">
         <h2 className="text-orange font-semibold text-center md:text-left">{expertises_title}</h2>
         <img src={expertises_image_mobile} className="block mx-auto mt-36 mb-16" id="human2"></img>
         {expertises.map((icon) => (
