@@ -10,6 +10,7 @@ import { getAllIdeas, getAllWhitePapers, getCategories, getIdeasPageContent } fr
 import { Category, IdeasDesc, IdeasPageContent } from '../types/IdeasContent'
 import WhitePaper from '../types/WhitePaper'
 import clsx from 'clsx'
+import ContactSection from '../components/ContactSection'
 
 interface Props {
   ideasDescription: IdeasDesc[]
@@ -107,6 +108,7 @@ function Ideas({ ideasDescription, whitePapers, categories, content }: Props) {
               </div>
             </div>
           )}
+          <ContactSection></ContactSection>
         </div>
       </Layout>
     </>

@@ -60,7 +60,7 @@ export default function offer({ pageContent, errorCode }: Props) {
 offer.getInitialProps = async ({ query }: Context) => {
   // tslint:disable-next-line
   const { [0]: data } = await Promise.all([getOfferContent(query.slug!)])
-  const pageContent = await convertAPItoOffersContent({ ...data.acf, slug: data.slug })
+  const pageContent = convertAPItoOffersContent({ ...data.acf, slug: data.slug })
   return {
     pageContent,
     errorCode: !!data.acf ? undefined : 404,

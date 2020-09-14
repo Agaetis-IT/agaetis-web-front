@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import React from 'react'
+import ContactSection from '../components/ContactSection'
 
 import Layout from '../components/Layout'
 import SoluceTab from '../components/SoluceTab'
@@ -17,8 +18,8 @@ function solutions({ pageContent }: Props) {
   return (
     <>
       <Head>
-        <title>Agaetis : nos solutions</title>
-        <meta property="og:title" content="Agaetis : nos solutions" />
+        <title>Agaetis : secteurs d'activités</title>
+        <meta property="og:title" content="Agaetis : secteurs d'activités" />
         <meta property="og:image" content={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/favicon.ico`} />
         <meta property="og:type" content="website" />
         <meta
@@ -49,6 +50,7 @@ function solutions({ pageContent }: Props) {
             </p>
           </div>
           <SoluceTab tabs={pageContent.tabs} />
+          <ContactSection></ContactSection>
         </>
       </Layout>
     </>

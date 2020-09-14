@@ -11,6 +11,7 @@ import publicRuntimeConfig from '../config/env.config'
 import { getAllJobs, getJobsPageContent } from '../Services/wordpressService'
 import { JobContentLite } from '../types/JobContent'
 import { JobsContent } from '../types/JobsContent'
+import ContactSection from '../components/ContactSection'
 
 interface Props {
   pageContent: JobsContent
@@ -55,8 +56,9 @@ function jobs({ pageContent, allJobs }: Props) {
               <span>
                 <a className="text-underline text-black" href="/">
                   Accueil
-                </a>{' '}
-                > <b>Jobs</b>
+                </a>
+                {' > '}
+                <b>Jobs</b>
               </span>
             </div>
           </div>
@@ -138,6 +140,7 @@ function jobs({ pageContent, allJobs }: Props) {
             </Button>
           </div>
           <OfferSection footerText={pageContent.footer_contact_text} />
+          <ContactSection></ContactSection>
         </>
       </Layout>
     </>

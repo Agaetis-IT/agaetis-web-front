@@ -51,9 +51,8 @@ export default function offers({ pageContent, allOffers }: Props) {
 }
 
 offers.getInitialProps = async () => {
-  const data = await getOffersPageContent()
+  const { [0]: data, [1]: allOffersData } = await Promise.all([getOffersPageContent(), getAllOffers()])
   const pageContent = convertAPItoOffersContent(data)
-  const allOffersData = await getAllOffers()
   const allOffers = allOffersData.map(
     (offer: {
       acf: { title: string; paragraph: string; offers_description: string; offers_image: string }
