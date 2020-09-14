@@ -30,6 +30,7 @@ function getTrigramPosition(humanPos: number[], trigramOrder: number) {
     if (trigramOrder === 4) {
       return { top: `${humanPos[0] + 280}px`, left: `${humanPos[1] + 280}px` }
     }
+    return { top: '0', left: '0' }
   } else {
     if (trigramOrder === 0) {
       return { top: `${humanPos[0] + 20}px`, left: `${humanPos[1] - 120}px` }
