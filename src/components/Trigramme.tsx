@@ -64,11 +64,23 @@ function handleHumanPosition(TrigramOrder: number) {
           document.getElementById('expertise-container-desktop')!.getBoundingClientRect().top,
         document.getElementById('human')!.getBoundingClientRect().left,
       ]
-      const trigramPosition = getTrigramPosition(humanPos, TrigramOrder)
-      trigramStyle.position = 'absolute'
+      // eslint-disable-next-line
+      // @ts-ignore
+      if (document.querySelector('#human').complete) {
+        const trigramPosition = getTrigramPosition(humanPos, TrigramOrder)
+        trigramStyle.position = 'absolute'
 
-      trigramStyle.top = trigramPosition.top
-      trigramStyle.left = trigramPosition.left
+        trigramStyle.top = trigramPosition.top
+        trigramStyle.left = trigramPosition.left
+      } else {
+        document.querySelector('#human').addEventListener('load', () => {
+          const trigramPosition = getTrigramPosition(humanPos, TrigramOrder)
+          trigramStyle.position = 'absolute'
+
+          trigramStyle.top = trigramPosition.top
+          trigramStyle.left = trigramPosition.left
+        })
+      }
     }
   }
 }
@@ -77,6 +89,7 @@ export default function Trigramme({ imageUrl, TrigramOrder, line, lineClassName,
   useEffect(() => {
     if (window && document) {
       handleHumanPosition(TrigramOrder)()
+
       window.addEventListener('resize', handleHumanPosition(TrigramOrder))
     }
     return () => {

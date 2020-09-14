@@ -3,7 +3,7 @@
 .trigram > img {
   z-index: 900;
   width: 120px;
-  height: auto;
+  height: 125px;
 }
 
 .trigram p {
