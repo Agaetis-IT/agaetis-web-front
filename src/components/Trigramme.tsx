@@ -73,7 +73,7 @@ function handleHumanPosition(TrigramOrder: number) {
         trigramStyle.top = trigramPosition.top
         trigramStyle.left = trigramPosition.left
       } else {
-        document.querySelector('#human').addEventListener('load', () => {
+        document.querySelector('#human')!.addEventListener('load', () => {
           const trigramPosition = getTrigramPosition(humanPos, TrigramOrder)
           trigramStyle.position = 'absolute'
 
