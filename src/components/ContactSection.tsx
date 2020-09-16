@@ -6,6 +6,8 @@ import BottomNav from './BottomNav'
 import { useTranslation } from 'react-i18next'
 import Address from './Address'
 
+import { LazyLoadImage } from 'react-lazy-load-image-component'
+
 export default function ContactSection() {
   const { t } = useTranslation()
   const addresses = [
@@ -35,7 +37,11 @@ export default function ContactSection() {
   return (
     <div className="bg-orange py-8 flex flex-col md:flex-row justify-center text-white text-center md:text-left">
       <div className="max-w-xxs py-4 px-16 md:px-0 md:pr-16 mx-auto md:mx-0 md:mr-8 mb-4 md:my-0 vert-line flex flex-col justify-center ">
-        <img src={Logo}></img>
+        {
+          // eslint-disable-next-line
+          // @ts-ignore-next-line
+          <LazyLoadImage effect="blur" src={Logo}></LazyLoadImage>
+        }
       </div>
 
       <div className="flex flex-col justify-center">

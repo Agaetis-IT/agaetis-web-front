@@ -8,6 +8,8 @@ import logoAgaetisDesktop from '../public/images/logo-agaetis-hor-white-rgb-150.
 import './Header.css'
 import NavigationMenu from './NavigationMenu'
 
+import { LazyLoadImage } from 'react-lazy-load-image-component'
+
 interface Props {
   invertColors: boolean
   className?: string
@@ -70,19 +72,29 @@ export default function Header({ invertColors, className }: Props) {
           <div className="flex items-center flex-no-shrink text-orange md:text-white">
             <Link href="/">
               <a className="ml-auto mr-auto md:ml-0  flex items-center">
-                <img
-                  className={clsx({ 'md:inline': invertColors && position < 200 }, 'logoAgaetis hidden')}
-                  src={logoAgaetisDesktop}
-                  alt="logo agaetis"
-                />
-                <img
-                  className={clsx(
-                    invertColors && position < 200 ? 'md:hidden' : 'inline',
-                    position > 200 ? 'logoSticky' : 'logoAgaetis'
-                  )}
-                  src={logoAgaetisMobile}
-                  alt="logo agaetis"
-                />
+                {
+                  // eslint-disable-next-line
+                  // @ts-ignore-next-line
+                  <LazyLoadImage
+                    effect="blur"
+                    className={clsx({ 'md:inline': invertColors && position < 200 }, 'logoAgaetis hidden')}
+                    src={logoAgaetisDesktop}
+                    alt="logo agaetis"
+                  ></LazyLoadImage>
+                }
+                {
+                  // eslint-disable-next-line
+                  // @ts-ignore-next-line
+                  <LazyLoadImage
+                    effect="blur"
+                    className={clsx(
+                      invertColors && position < 200 ? 'md:hidden' : 'inline',
+                      position > 200 ? 'logoSticky' : 'logoAgaetis'
+                    )}
+                    src={logoAgaetisMobile}
+                    alt="logo agaetis"
+                  ></LazyLoadImage>
+                }
               </a>
             </Link>
             <button

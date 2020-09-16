@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react'
 
+import { LazyLoadImage } from 'react-lazy-load-image-component'
+
 import './Trigramme.css'
 import clsx from 'clsx'
 import LineL from '../static/images/line-left.png'
@@ -101,9 +103,22 @@ export default function Trigramme({ imageUrl, TrigramOrder, line, lineClassName,
       className={clsx('flex', line === 'R' ? 'flex-row' : 'flex-row-reverse', 'trigram')}
       id={`trigram-${TrigramOrder}`}
     >
-      <img src={imageUrl} alt="" />
+      {
+        // eslint-disable-next-line
+        // @ts-ignore-next-line
+        <LazyLoadImage effect="blur" src={imageUrl} alt="trigramme"></LazyLoadImage>
+      }
       <div className="trigram-desc">
-        <img src={line === 'L' ? LineL : LineR} className={clsx('line', lineClassName)}></img>
+        {
+          // eslint-disable-next-line
+          // @ts-ignore-next-line
+          <LazyLoadImage
+            effect="blur"
+            src={line === 'L' ? LineL : LineR}
+            className={clsx('line', lineClassName)}
+            alt="line"
+          ></LazyLoadImage>
+        }
         <p
           className={clsx(
             'absolute block text-xs leading-normal',

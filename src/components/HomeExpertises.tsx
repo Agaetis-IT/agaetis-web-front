@@ -34,6 +34,7 @@ export default function HomeExpertises({
         <h2 className="text-orange font-semibold text-center md:text-left">{expertises_title}</h2>
         <div className="md:mt-36 md:mb-16 relative" id="expertise-container-desktop">
           <img src={expertises_image_desktop} className="block mx-auto " id="human"></img>
+
           {expertises && expertises.length > 4 && (
             <>
               <Trigramme

@@ -7,6 +7,7 @@ import arrowL from '../public/images/left-arrow.svg'
 import arrowR from '../public/images/right-arrow.svg'
 import clsx from 'clsx'
 import VisibilitySensor from 'react-visibility-sensor'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 
 interface Props {
   title: string
@@ -52,7 +53,11 @@ export default function HomeSectors({ title, sectors }: Props) {
               }}
             >
               <div className="md:bg-white items md:shadow-md flex flex-col justify-between">
-                <img src={sector.image}></img>
+                {
+                  // eslint-disable-next-line
+                  // @ts-ignore-next-line
+                  <LazyLoadImage effect="blur" src={sector.image}></LazyLoadImage>
+                }
                 <div className="bg-white md:bg-none home-sectors-description pb-4 flex flex-col justify-between">
                   <h3 className="p-4">{sector.title}</h3>
                   <p className="text-xs text-justify leading-normal p-4">{sector.desc}</p>

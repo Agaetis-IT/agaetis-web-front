@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 
 interface Props {
   image: string
@@ -93,7 +94,11 @@ export default function ExpertisesLogo({ image, logoId, title, onClick }: Props)
 
   return (
     <div id={`logo-${logoId}`} className="" onClick={onClick}>
-      <img src={image} className="block mx-auto"></img>
+      {
+        // eslint-disable-next-line
+        // @ts-ignore-next-line
+        <LazyLoadImage effect="blur" src={image} className="block mx-auto"></LazyLoadImage>
+      }
       <p
         className="text-xs text-center font-semibold"
         dangerouslySetInnerHTML={{ __html: title.split(/[\s]/).join('<br/>') }}
