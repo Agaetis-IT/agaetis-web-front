@@ -58,11 +58,24 @@ function handleHumanPosition(logoId: number) {
           document.getElementById('expertise-container')!.getBoundingClientRect().top,
         document.getElementById('human2')!.getBoundingClientRect().left,
       ]
-      const logoPosition = getLogoPosition(humanPos, logoId)
-      logoStyle.position = 'absolute'
 
-      logoStyle.top = logoPosition.top
-      logoStyle.left = logoPosition.left
+      // eslint-disable-next-line
+      // @ts-ignore
+      if (document.querySelector('#human2').complete) {
+        const logoPosition = getLogoPosition(humanPos, logoId)
+        logoStyle.position = 'absolute'
+
+        logoStyle.top = logoPosition.top
+        logoStyle.left = logoPosition.left
+      } else {
+        document.querySelector('#human2')!.addEventListener('load', () => {
+          const logoPosition = getLogoPosition(humanPos, logoId)
+          logoStyle.position = 'absolute'
+
+          logoStyle.top = logoPosition.top
+          logoStyle.left = logoPosition.left
+        })
+      }
     }
   }
 }

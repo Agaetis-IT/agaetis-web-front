@@ -51,9 +51,9 @@ export default function HomeSectors({ title, sectors }: Props) {
                 }
               }}
             >
-              <div className="md:bg-white items md:shadow-md">
+              <div className="md:bg-white items md:shadow-md flex flex-col justify-between">
                 <img src={sector.image}></img>
-                <div className="bg-white md:bg-none home-sectors-description pb-4">
+                <div className="bg-white md:bg-none home-sectors-description pb-4 flex flex-col justify-between">
                   <h3 className="p-4">{sector.title}</h3>
                   <p className="text-xs text-justify leading-normal p-4">{sector.desc}</p>
                   <Button className="block px-6 py-3 leading-none rounded-full uppercase bg-orange text-white mt-4 text-xs font-semibold mx-auto">
