@@ -39,7 +39,7 @@ export default function HomeJoinUs({
           className="flex flex-row justify-between  w-2/3 py-40 px-8"
         >
           <div className="my-auto w-2/5 pr-8">
-            <h3 className="text-orange">{joinUs_agaetis_title}</h3>
+            <h3 className="text-black text-2xl">{joinUs_agaetis_title}</h3>
             <p className="my-8 text-sm leading-normal text-justify">{joinUs_agaetis_desc}</p>
             <Button
               href="/agaetis"
@@ -50,7 +50,7 @@ export default function HomeJoinUs({
           </div>
 
           <div className="my-auto w-2/5 pl-8">
-            <h3 className="text-orange">{joinUs_carreer_title}</h3>
+            <h3 className="text-black text-2xl">{joinUs_carreer_title}</h3>
             <p className="my-8 text-sm leading-normal text-justify">{joinUs_carreer_desc}</p>
             <Button
               href="/jobs"

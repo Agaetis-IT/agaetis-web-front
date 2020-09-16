@@ -1,8 +1,27 @@
 /* purgecss start ignore */
 
-.trigram > img {
+.trigram {
   z-index: 900;
   width: 120px;
+}
+
+#trigram-0 {
+  height: 125px;
+}
+
+#trigram-1 {
+  height: 120px;
+}
+
+#trigram-2 {
+  height: 125px;
+}
+
+#trigram-3 {
+  height: 120px;
+}
+
+#trigram-4 {
   height: 125px;
 }
 
