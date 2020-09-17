@@ -27,10 +27,10 @@ function getTrigramPosition(humanPos: number[], trigramOrder: number) {
       return { top: `${humanPos[0] - 50}px`, left: `${humanPos[1] + 180}px` }
     }
     if (trigramOrder === 3) {
-      return { top: `${humanPos[0] + 120}px`, left: `${humanPos[1] + 280}px` }
+      return { top: `${humanPos[0] + 120}px`, left: `${humanPos[1] + 260}px` }
     }
     if (trigramOrder === 4) {
-      return { top: `${humanPos[0] + 280}px`, left: `${humanPos[1] + 280}px` }
+      return { top: `${humanPos[0] + 280}px`, left: `${humanPos[1] + 250}px` }
     }
     return { top: '0', left: '0' }
   } else {
@@ -44,10 +44,10 @@ function getTrigramPosition(humanPos: number[], trigramOrder: number) {
       return { top: `${humanPos[0] - 50}px`, left: `${humanPos[1] + 100}px` }
     }
     if (trigramOrder === 3) {
-      return { top: `${humanPos[0] + 120}px`, left: `${humanPos[1] + 200}px` }
+      return { top: `${humanPos[0] + 120}px`, left: `${humanPos[1] + 180}px` }
     }
     if (trigramOrder === 4) {
-      return { top: `${humanPos[0] + 280}px`, left: `${humanPos[1] + 200}px` }
+      return { top: `${humanPos[0] + 280}px`, left: `${humanPos[1] + 170}px` }
     }
     return { top: '0', left: '0' }
   }
