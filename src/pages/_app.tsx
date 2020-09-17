@@ -7,6 +7,7 @@ import initBugsnag, { getBugsnagClient } from '../bugsnag/bugsnag'
 import LoadingSpinner from '../components/LoadingSpinner'
 import Favicon from '../public/images/symbole-agaetis-p164-rgb.png'
 import '../index.css'
+import 'react-lazy-load-image-component/src/effects/blur.css'
 
 initBugsnag()
 declare global {

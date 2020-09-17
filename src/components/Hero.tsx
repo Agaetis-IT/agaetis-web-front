@@ -32,7 +32,7 @@ export default function Hero({ hero, valeurs, subtitle }: Props) {
               <img src={Quote} id="quoteR"></img>
             </div>
 
-            <div className="flex flex-col md:flex-row  justify-center text-white">
+            <div className="flex flex-col md:flex-row justify-center text-white hero-text-valeurs">
               <div className="md:pr-16 xl:pr-48  ">
                 <h1 className="flex flex-row md:flex-col justify-center pb-4 md:pb-0">
                   {valeurs.map((valeur) => (

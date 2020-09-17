@@ -21,6 +21,10 @@
   transform: rotate(180deg);
 }
 
+.hero-text-valeurs {
+  z-index: 800;
+}
+
 @media (min-width: 450px) {
   #quoteL {
     top: 110px;
@@ -49,10 +53,6 @@
   .hero-text h1 {
     display: inline;
     margin-right: auto;
-  }
-
-  .hoverEffect {
-    z-index: 100;
   }
 
   .hoverEffect::after {

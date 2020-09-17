@@ -14,6 +14,7 @@ import Logo from '../public/icons/Agaetis - Ico logo - Orange.png'
 
 import Error from './_error'
 import './job.css'
+import ContactSection from '../components/ContactSection'
 
 interface Props {
   pageContent: JobContent
@@ -142,6 +143,7 @@ function job({ pageContent, allJobs, errorCode }: Props) {
             )}
           </div>
           <OfferSection footerText={pageContent.contact_text} />
+          <ContactSection></ContactSection>
         </>
       </Layout>
     </>

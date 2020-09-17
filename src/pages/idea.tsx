@@ -16,6 +16,7 @@ import Logo from '../public/icons/Agaetis - Ico logo - Orange.png'
 
 import Error from './_error'
 import { escape } from 'querystring'
+import ContactSection from '../components/ContactSection'
 
 interface Props {
   data: IdeasContent
@@ -93,6 +94,7 @@ export default function Idea({ data, related, errorCode, meta }: Props) {
               </div>
             </>
           )}
+          <ContactSection></ContactSection>
         </div>
       </Layout>
     </>

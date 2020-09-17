@@ -1,5 +1,6 @@
 import React from 'react'
 import Button from './Button'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 
 interface Props {
   joinUs_image_desktop: string
@@ -27,11 +28,23 @@ export default function HomeJoinUs({
     <>
       <div className="hidden py-8 md:p-16 xl:px-32 lg:flex flex-row">
         <div className="my-auto w-1/3">
-          <img src={joinUs_image_desktop}></img>
+          {
+            // eslint-disable-next-line
+            // @ts-ignore-next-line
+            <LazyLoadImage effect="blur" src={joinUs_image_desktop}></LazyLoadImage>
+          }
         </div>
-        <div className="flex flex-row justify-between  w-2/3 px-8">
-          <div className="my-auto w-2/5 ">
-            <h3 className="text-orange">{joinUs_agaetis_title}</h3>
+        <div
+          style={{
+            backgroundImage: `url("${joinUs_human}")`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+          }}
+          className="flex flex-row justify-between  w-2/3 py-40 px-8"
+        >
+          <div className="my-auto w-2/5 pr-8">
+            <h3 className="text-black text-2xl">{joinUs_agaetis_title}</h3>
             <p className="my-8 text-sm leading-normal text-justify">{joinUs_agaetis_desc}</p>
             <Button
               href="/agaetis"
@@ -40,9 +53,9 @@ export default function HomeJoinUs({
               En savoir plus
             </Button>
           </div>
-          <img src={joinUs_human}></img>
-          <div className="my-auto w-2/5">
-            <h3 className="text-orange">{joinUs_carreer_title}</h3>
+
+          <div className="my-auto w-2/5 pl-8">
+            <h3 className="text-black text-2xl">{joinUs_carreer_title}</h3>
             <p className="my-8 text-sm leading-normal text-justify">{joinUs_carreer_desc}</p>
             <Button
               href="/jobs"
@@ -57,7 +70,11 @@ export default function HomeJoinUs({
         <h3 className="text-orange">{joinUs_agaetis_title}</h3>
         <p className="my-8 text-sm leading-normal text-justify">{joinUs_agaetis_desc}</p>
         <div className="flex flex-row-reverse justify-between sm:justify-around mb-8">
-          <img src={joinUs_image_mobile_1} className="h-40 w-auto"></img>
+          {
+            // eslint-disable-next-line
+            // @ts-ignore-next-line
+            <LazyLoadImage effect="blur" src={joinUs_image_mobile_1} className="h-40 w-auto"></LazyLoadImage>
+          }
           <Button className="bg-orange text-white rounded-full text-xs sm:text-sm font-semibold px-4 sm:px-12 py-2 sm:py-3 shadow-md h-12 my-auto">
             En savoir plus
           </Button>
@@ -66,7 +83,11 @@ export default function HomeJoinUs({
         <h3 className="text-orange">{joinUs_carreer_title}</h3>
         <p className="my-8 text-sm leading-normal text-justify">{joinUs_carreer_desc}</p>
         <div className="flex flex-row justify-between sm:justify-around ">
-          <img src={joinUs_image_mobile_2} className="h-40 w-auto"></img>
+          {
+            // eslint-disable-next-line
+            // @ts-ignore-next-line
+            <LazyLoadImage effect="blur" src={joinUs_image_mobile_2} className="h-40 w-auto"></LazyLoadImage>
+          }
           <Button className="bg-white text-orange rounded-full text-xs sm:text-sm font-semibold px-4 sm:px-12 py-2 sm:py-3 shadow-md h-12 my-auto">
             Carrière
           </Button>
