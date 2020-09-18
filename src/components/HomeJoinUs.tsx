@@ -37,11 +37,11 @@ export default function HomeJoinUs({
         <div
           style={{
             backgroundImage: `url("${joinUs_human}")`,
-            backgroundSize: 'cover',
+            backgroundSize: 'contain',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
           }}
-          className="flex flex-row justify-between  w-2/3 py-40 px-8"
+          className="flex flex-row justify-between  w-2/3 py-32 px-8"
         >
           <div className="my-auto w-2/5 pr-8">
             <h3 className="text-black text-2xl">{joinUs_agaetis_title}</h3>
@@ -89,7 +89,7 @@ export default function HomeJoinUs({
             <LazyLoadImage effect="blur" src={joinUs_image_mobile_2} className="h-40 w-auto"></LazyLoadImage>
           }
           <Button className="bg-white text-orange rounded-full text-xs sm:text-sm font-semibold px-4 sm:px-12 py-2 sm:py-3 shadow-md h-12 my-auto">
-            Carrière
+            Jobs
           </Button>
         </div>
       </div>
