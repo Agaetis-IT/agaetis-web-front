@@ -70,11 +70,7 @@ export default function HomeOffers({ title, offers }: Props) {
                     <li key={offer.index} className={clsx({ hidden: selectedOffer != offer.index }, 'my-4')}>
                       <h3 className="text-orange">{offer.title}</h3>
                       <p className="text-sm leading-normal text-justify text-white py-8">{offer.desc}</p>
-                      <div className="flex flex-row justify-center">
-                        <Button className="block md:inline-block px-6 py-3 leading-none rounded-full uppercase mt-4 mb-32 md:my-0 bg-white text-orange text-xs font-semibold">
-                          En savoir plus
-                        </Button>
-                      </div>
+                      <div className="flex flex-row justify-center"></div>
                     </li>
                   ))}
                 </ul>
@@ -82,9 +78,6 @@ export default function HomeOffers({ title, offers }: Props) {
             </li>
           ))}
         </ul>
-        <Button className="block md:inline-block px-6 py-3 leading-none rounded-full uppercase mt-4 mb-4 md:my-0 mx-auto bg-white text-orange text-xs font-semibold shadow-md">
-          Consulter toutes nos offres
-        </Button>
       </div>
       <div
         style={{
@@ -99,11 +92,7 @@ export default function HomeOffers({ title, offers }: Props) {
             <li key={offer.index} className={clsx({ hidden: selectedOffer != offer.index }, 'my-4')}>
               <h3 className="text-orange">{offer.title}</h3>
               <p className="text-sm leading-normal text-justify text-white py-8">{offer.desc}</p>
-              <div className="flex flex-row justify-center">
-                <Button className="block md:inline-block px-6 py-3 leading-none rounded-full uppercase mt-4 md:mt-0 bg-white text-orange text-xs font-semibold">
-                  En savoir plus
-                </Button>
-              </div>
+              <div className="flex flex-row justify-center"></div>
             </li>
           ))}
         </ul>

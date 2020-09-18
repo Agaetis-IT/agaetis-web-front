@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 
 import './HomeSectors.css'
-import Button from './Button'
 import { SectorDesc } from '../types/IndexContent'
 import arrowL from '../public/images/left-arrow.svg'
 import arrowR from '../public/images/right-arrow.svg'
@@ -61,9 +60,6 @@ export default function HomeSectors({ title, sectors }: Props) {
                 <div className="bg-white md:bg-none home-sectors-description pb-4 flex flex-col justify-between">
                   <h3 className="p-4">{sector.title}</h3>
                   <p className="text-xs text-justify leading-normal p-4">{sector.desc}</p>
-                  <Button className="block px-6 py-3 leading-none rounded-full uppercase bg-orange text-white mt-4 text-xs font-semibold mx-auto">
-                    En savoir plus
-                  </Button>
                 </div>
               </div>
             </VisibilitySensor>

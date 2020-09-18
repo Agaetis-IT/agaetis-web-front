@@ -79,7 +79,6 @@ app
           'cookies',
           'personal-data',
           'mentions-legales',
-          'offers',
         ].includes(queryParams.slug)
       ) {
         return handle(req, res)
