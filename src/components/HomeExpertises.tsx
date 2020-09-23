@@ -4,7 +4,6 @@ import Trigramme from './Trigramme'
 
 import './HomeExpertises.css'
 import ExpertisesLogo from './ExpertisesLogo'
-import Button from './Button'
 import { Expertise } from '../types/IndexContent'
 
 /* eslint-disable @typescript-eslint/camelcase */
@@ -93,9 +92,6 @@ export default function HomeExpertises({
             <img src={expertises[selectedExpertise].logo} className="block mx-auto"></img>
             <h3 className="text-center mt-4 mb-8">{expertises[selectedExpertise].title}</h3>
             <p className="text-center text-sm">{expertises[selectedExpertise].items.split(',').join(' - ')}</p>
-            <Button className="block mx-auto bg-white rounded-full shadow-md px-4 py-2 text-orange font-semibold text-xs mt-4">
-              En savoir plus
-            </Button>
           </div>
         )}
       </div>
