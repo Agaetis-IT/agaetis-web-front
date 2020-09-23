@@ -16,7 +16,7 @@ export default function NavigationMenu({ invertColors, position }: Props) {
   const pages = [
     ['Blog', '/blog'],
     ['Agaetis', '/agaetis'],
-    ['Secteurs', '/sectors'],
+    ['Activités', '/activities'],
     ['Jobs', '/jobs'],
   ]
 

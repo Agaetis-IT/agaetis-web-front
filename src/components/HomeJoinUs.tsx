@@ -61,7 +61,7 @@ export default function HomeJoinUs({
               href="/jobs"
               className="bg-white text-orange rounded-full text-sm font-semibold px-6 py-3 shadow-md"
             >
-              Carrière
+              Jobs
             </Button>
           </div>
         </div>

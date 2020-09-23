@@ -129,8 +129,8 @@ function jobs({ pageContent, allJobs }: Props) {
           <div className="flex flex-col bg-light-grey py-12 px-4 md:p-12 mt-12">
             <h2 className="text-center mb-8" dangerouslySetInnerHTML={{ __html: pageContent.offers_title }} />
             <div className="flex flex-col">
-              {offers.slice(0, 1)}
-              {isMoreOffersToggled && offers.slice(1)}
+              {offers.slice(0, 4)}
+              {offers.length > 4 && isMoreOffersToggled && offers.slice(5)}
             </div>
             <Button
               onClick={toggleMoreOffers}

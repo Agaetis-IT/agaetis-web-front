@@ -70,7 +70,7 @@ app
       const queryParams = { ...req.params, ...req.query }
       if (
         [
-          'sectors',
+          'activities',
           'blog',
           'agaetis',
           'jobs',
@@ -85,7 +85,7 @@ app
       } else if (queryParams.slug === 'ideas') {
         res.redirect(301, '/blog')
       } else if (queryParams.slug === 'solutions') {
-        res.redirect(301, '/sectors')
+        res.redirect(301, '/activities')
       }
 
       return app.render(req, res, '/idea', queryParams)

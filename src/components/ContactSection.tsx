@@ -45,13 +45,13 @@ export default function ContactSection() {
       </div>
 
       <div className="flex flex-col justify-center">
-        <BottomNav></BottomNav>
-        <h4 className="text-white my-4 md:mb-2 uppercase text-sm">Nos adresses</h4>
-        <div className="flex flex-col md:flex-row justify-center font-thin">
+        <h4 className="text-white my-4 md:my-0 mb-4 uppercase text-sm">Nos adresses</h4>
+        <div className="flex flex-col md:flex-row justify-center font-thin mb-4">
           {addresses.map((address) => (
             <Address key={address.agency} {...address} />
           ))}
         </div>
+        <BottomNav></BottomNav>
       </div>
     </div>
   )

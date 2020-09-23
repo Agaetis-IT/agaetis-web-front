@@ -41,7 +41,7 @@ function solutions({ pageContent }: Props) {
                   Accueil
                 </a>
                 {' > '}
-                <b>Secteurs</b>
+                <b>Activités</b>
               </span>
             </div>
             <h1 className="text-center text-3xl py-8 md:pb-0 md:mt-12">{pageContent.title}</h1>
