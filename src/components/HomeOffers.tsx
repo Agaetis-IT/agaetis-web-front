@@ -87,7 +87,7 @@ export default function HomeOffers({ title, offers }: Props) {
         }}
         className="hidden md:block  bg-grey-darker home-offers-right md:p-12 lg:p-16 "
       >
-        <div style={{ backgroundColor: 'rgba(0,0,0,0.3)' }} className=" p-8">
+        <div style={{ backgroundColor: 'rgba(0,0,0,0.3)' }} className="p-8">
           <ul>
             {offers.map((offer) => (
               <li key={offer.index} className={clsx({ hidden: selectedOffer != offer.index }, 'my-4')}>

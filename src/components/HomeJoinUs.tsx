@@ -75,7 +75,10 @@ export default function HomeJoinUs({
             // @ts-ignore-next-line
             <LazyLoadImage effect="blur" src={joinUs_image_mobile_1} className="h-40 w-auto"></LazyLoadImage>
           }
-          <Button className="bg-orange text-white rounded-full text-xs sm:text-sm font-semibold px-4 sm:px-12 py-2 sm:py-3 shadow-md h-12 my-auto">
+          <Button
+            href="/agaetis"
+            className="bg-orange text-white rounded-full text-xs sm:text-sm font-semibold px-4 sm:px-12 py-2 sm:py-3 shadow-md h-12 flex flex-col justify-center my-auto"
+          >
             En savoir plus
           </Button>
         </div>
@@ -88,7 +91,10 @@ export default function HomeJoinUs({
             // @ts-ignore-next-line
             <LazyLoadImage effect="blur" src={joinUs_image_mobile_2} className="h-40 w-auto"></LazyLoadImage>
           }
-          <Button className="bg-white text-orange rounded-full text-xs sm:text-sm font-semibold px-4 sm:px-12 py-2 sm:py-3 shadow-md h-12 my-auto">
+          <Button
+            href="/jobs"
+            className="bg-white text-orange rounded-full text-xs sm:text-sm font-semibold px-4 sm:px-12 py-2 sm:py-3 shadow-md h-12 flex flex-col justify-center my-auto"
+          >
             Jobs
           </Button>
         </div>
