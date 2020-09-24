@@ -8,18 +8,22 @@ export default interface IndexContentAPI {
   cat_offres_1_title: string
   cat_offres_1_short_desc: string
   cat_offres_1_desc: string
+  cat_offres_1_related_offers: string
   cat_offres_1_image: string
   cat_offres_2_title: string
   cat_offres_2_short_desc: string
   cat_offres_2_desc: string
+  cat_offres_2_related_offers: string
   cat_offres_2_image: string
   cat_offres_3_title: string
   cat_offres_3_short_desc: string
   cat_offres_3_desc: string
+  cat_offres_3_related_offers: string
   cat_offres_3_image: string
   cat_offres_4_title: string
   cat_offres_4_short_desc: string
   cat_offres_4_desc: string
+  cat_offres_4_related_offers: string
   cat_offres_4_image: string
   cat_offres_5_title: string
   cat_offres_5_short_desc: string
@@ -133,6 +137,7 @@ export interface OfferDesc {
   short_desc: string
   desc: string
   image: string
+  related_offers: string[]
 }
 
 export interface SectorDesc {
@@ -179,6 +184,9 @@ function createOfferArray(contentApi: IndexContentAPI, keys: string[]) {
       }
       if (key.includes('image')) {
         offers[newindex].image = contentApi[key]
+      }
+      if (key.includes('related_offers')) {
+        offers[newindex].related_offers = contentApi[key].split(',')
       }
     }
   })
@@ -269,6 +277,7 @@ export function convertIndexContentAPItoContentAPI(contentApi: IndexContentAPI) 
   const regexSector = /secteur_[0-9][0-9]*/g
   const regexConviction = /conviction_[0-9]*/g
   const regexExpertise = /expertises_[0-9]*/g
+  console.log(contentApi)
   return {
     hero_valeurs: contentApi.hero_valeurs,
     hero_subtitle: contentApi.hero_subtitle,
@@ -282,7 +291,7 @@ export function convertIndexContentAPItoContentAPI(contentApi: IndexContentAPI) 
     secteurs: createSectorArray(
       contentApi,
       Object.keys(contentApi).filter((key) => key.match(regexSector))
-    ),
+    ).filter((secteur) => secteur.desc !== '' && secteur.title !== ''),
     convictions_title: contentApi.convictions_title,
     convictions: createConvictionArray(
       contentApi,

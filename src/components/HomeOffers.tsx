@@ -93,6 +93,14 @@ export default function HomeOffers({ title, offers }: Props) {
               <li key={offer.index} className={clsx({ hidden: selectedOffer != offer.index }, 'my-4')}>
                 <h3 className="text-orange">{offer.title}</h3>
                 <p className="text-sm leading-normal text-justify text-white py-8">{offer.desc}</p>
+                <ul>
+                  {offer.related_offers &&
+                    offer.related_offers.map((o) => (
+                      <li key={o} className="text-white">
+                        {o}
+                      </li>
+                    ))}
+                </ul>
                 <div className="flex flex-row justify-center"></div>
               </li>
             ))}

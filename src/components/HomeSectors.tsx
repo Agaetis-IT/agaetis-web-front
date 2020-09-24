@@ -15,7 +15,6 @@ interface Props {
 
 export default function HomeSectors({ title, sectors }: Props) {
   const [id, setId] = useState(0)
-
   function handleSectorScrollLeft() {
     if (document && window && id > 0) {
       const sectors = document.getElementById('sectors')
@@ -26,7 +25,7 @@ export default function HomeSectors({ title, sectors }: Props) {
     }
   }
   function handleSectorScrollRight() {
-    if (document && window && id < 7) {
+    if (document && window && id < sectors.length - 1) {
       const sectors = document.getElementById('sectors')
       if (sectors) {
         sectors!.children[id + 1].scrollIntoView({ behavior: 'smooth' })
@@ -44,14 +43,14 @@ export default function HomeSectors({ title, sectors }: Props) {
           .map((sector, index) => (
             <VisibilitySensor
               key={sector.title}
-              partialVisibility={true}
+              partialVisibility={false}
               onChange={(isCardVisible: boolean) => {
                 if (isCardVisible) {
                   setId(index)
                 }
               }}
             >
-              <div className="md:bg-white items md:shadow-md flex flex-col justify-between">
+              <div className="md:bg-white w-full sm:w-auto items md:shadow-md flex flex-col justify-between">
                 {
                   // eslint-disable-next-line
                   // @ts-ignore-next-line
@@ -82,7 +81,7 @@ export default function HomeSectors({ title, sectors }: Props) {
           style={{ width: 40, height: 40 }}
           className={clsx(
             'sector-arrow-R bg-white rounded-full justify-center arrow-hover',
-            id > 6 ? 'hidden' : 'flex flex-col'
+            id === sectors.length - 1 ? 'hidden' : 'flex flex-col'
           )}
           onClick={handleSectorScrollRight}
         >
