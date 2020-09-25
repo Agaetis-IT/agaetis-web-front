@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import './HomeSectors.css'
 import { SectorDesc } from '../types/IndexContent'
@@ -34,6 +34,17 @@ export default function HomeSectors({ title, sectors }: Props) {
     }
   }
 
+  useEffect(() => {
+    if (document && document.getElementsByClassName('sector-card-image')) {
+      const items = document.getElementsByClassName('sector-card-image')
+      for (let i = 0; i < items.length; i++) {
+        // eslint-disable-next-line
+        // @ts-ignore
+        items.item(i).style.display = 'block'
+      }
+    }
+  }, [])
+
   return (
     <div className="bg-light-grey py-8 md:p-16 xl:px-32">
       <h2 className="text-orange font-semibold text-center md:text-left">{title}</h2>
@@ -50,15 +61,21 @@ export default function HomeSectors({ title, sectors }: Props) {
                 }
               }}
             >
-              <div className="md:bg-white w-full sm:w-auto items md:shadow-md flex flex-col justify-between">
-                {
-                  // eslint-disable-next-line
-                  // @ts-ignore-next-line
-                  <LazyLoadImage effect="blur" src={sector.image}></LazyLoadImage>
-                }
-                <div className="bg-white md:bg-none home-sectors-description pb-4 flex flex-col justify-between">
-                  <h3 className="p-4">{sector.title}</h3>
-                  <p className="text-xs text-justify leading-normal p-4">{sector.desc}</p>
+              <div className="md:bg-white w-full items  md:shadow-md flex flex-col justify-between">
+                <div>
+                  {
+                    // eslint-disable-next-line
+                    // @ts-ignore-next-line
+                    <LazyLoadImage
+                      effect="blur"
+                      wrapperClassName="sector-card-image"
+                      src={sector.image}
+                    ></LazyLoadImage>
+                  }
+                  <div className="bg-white md:bg-none home-sectors-description pb-4  ">
+                    <h3 className="p-4">{sector.title}</h3>
+                    <p className="text-xs text-justify leading-normal p-4">{sector.desc}</p>
+                  </div>
                 </div>
               </div>
             </VisibilitySensor>

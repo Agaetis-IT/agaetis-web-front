@@ -277,7 +277,6 @@ export function convertIndexContentAPItoContentAPI(contentApi: IndexContentAPI) 
   const regexSector = /secteur_[0-9][0-9]*/g
   const regexConviction = /conviction_[0-9]*/g
   const regexExpertise = /expertises_[0-9]*/g
-  console.log(contentApi)
   return {
     hero_valeurs: contentApi.hero_valeurs,
     hero_subtitle: contentApi.hero_subtitle,

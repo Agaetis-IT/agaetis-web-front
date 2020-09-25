@@ -65,15 +65,17 @@ export default function HomeOffers({ title, offers }: Props) {
                 }}
                 className={clsx('md:hidden home-offers-right  p-4', offer.index === selectedOffer ? 'block' : 'hidden')}
               >
-                <ul>
-                  {offers.map((offer) => (
-                    <li key={offer.index} className={clsx({ hidden: selectedOffer != offer.index }, 'my-4')}>
-                      <h3 className="text-orange">{offer.title}</h3>
-                      <p className="text-sm leading-normal text-justify text-white py-8">{offer.desc}</p>
-                      <div className="flex flex-row justify-center"></div>
-                    </li>
-                  ))}
-                </ul>
+                <div style={{ backgroundColor: 'rgba(0,0,0,0.5)' }} className="p-4">
+                  <ul>
+                    {offers.map((offer) => (
+                      <li key={offer.index} className={clsx({ hidden: selectedOffer != offer.index }, 'my-4')}>
+                        <h3 className="text-orange">{offer.title}</h3>
+                        <p className="text-sm leading-normal text-justify text-white py-8">{offer.desc}</p>
+                        <div className="flex flex-row justify-center"></div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </li>
           ))}
