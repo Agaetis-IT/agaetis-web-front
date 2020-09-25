@@ -93,7 +93,7 @@ export default function ExpertisesLogo({ image, logoId, title, onClick }: Props)
   }, [logoId])
 
   return (
-    <div id={`logo-${logoId}`} className="" onClick={onClick}>
+    <div id={`logo-${logoId}`} className="flex flex-col justify-center" onClick={onClick}>
       {
         // eslint-disable-next-line
         // @ts-ignore-next-line

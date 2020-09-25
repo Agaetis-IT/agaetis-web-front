@@ -65,26 +65,21 @@ export default function HomeOffers({ title, offers }: Props) {
                 }}
                 className={clsx('md:hidden home-offers-right  p-4', offer.index === selectedOffer ? 'block' : 'hidden')}
               >
-                <ul>
-                  {offers.map((offer) => (
-                    <li key={offer.index} className={clsx({ hidden: selectedOffer != offer.index }, 'my-4')}>
-                      <h3 className="text-orange">{offer.title}</h3>
-                      <p className="text-sm leading-normal text-justify text-white py-8">{offer.desc}</p>
-                      <div className="flex flex-row justify-center">
-                        <Button className="block md:inline-block px-6 py-3 leading-none rounded-full uppercase mt-4 mb-32 md:my-0 bg-white text-orange text-xs font-semibold">
-                          En savoir plus
-                        </Button>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
+                <div style={{ backgroundColor: 'rgba(0,0,0,0.5)' }} className="p-4">
+                  <ul>
+                    {offers.map((offer) => (
+                      <li key={offer.index} className={clsx({ hidden: selectedOffer != offer.index }, 'my-4')}>
+                        <h3 className="text-orange">{offer.title}</h3>
+                        <p className="text-sm leading-normal text-justify text-white py-8">{offer.desc}</p>
+                        <div className="flex flex-row justify-center"></div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </li>
           ))}
         </ul>
-        <Button className="block md:inline-block px-6 py-3 leading-none rounded-full uppercase mt-4 mb-4 md:my-0 mx-auto bg-white text-orange text-xs font-semibold shadow-md">
-          Consulter toutes nos offres
-        </Button>
       </div>
       <div
         style={{
@@ -92,21 +87,27 @@ export default function HomeOffers({ title, offers }: Props) {
           backgroundPosition: 'center',
           backgroundSize: 'cover',
         }}
-        className="hidden md:block home-offers-right bg-grey-darker md:p-12 lg:p-16"
+        className="hidden md:block  bg-grey-darker home-offers-right md:p-12 lg:p-16 "
       >
-        <ul>
-          {offers.map((offer) => (
-            <li key={offer.index} className={clsx({ hidden: selectedOffer != offer.index }, 'my-4')}>
-              <h3 className="text-orange">{offer.title}</h3>
-              <p className="text-sm leading-normal text-justify text-white py-8">{offer.desc}</p>
-              <div className="flex flex-row justify-center">
-                <Button className="block md:inline-block px-6 py-3 leading-none rounded-full uppercase mt-4 md:mt-0 bg-white text-orange text-xs font-semibold">
-                  En savoir plus
-                </Button>
-              </div>
-            </li>
-          ))}
-        </ul>
+        <div style={{ backgroundColor: 'rgba(0,0,0,0.3)' }} className="p-8">
+          <ul>
+            {offers.map((offer) => (
+              <li key={offer.index} className={clsx({ hidden: selectedOffer != offer.index }, 'my-4')}>
+                <h3 className="text-orange">{offer.title}</h3>
+                <p className="text-sm leading-normal text-justify text-white py-8">{offer.desc}</p>
+                <ul>
+                  {offer.related_offers &&
+                    offer.related_offers.map((o) => (
+                      <li key={o} className="text-white">
+                        {o}
+                      </li>
+                    ))}
+                </ul>
+                <div className="flex flex-row justify-center"></div>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   )

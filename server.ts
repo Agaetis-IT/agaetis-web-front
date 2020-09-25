@@ -70,7 +70,7 @@ app
       const queryParams = { ...req.params, ...req.query }
       if (
         [
-          'sectors',
+          'solutions',
           'blog',
           'agaetis',
           'jobs',
@@ -79,14 +79,11 @@ app
           'cookies',
           'personal-data',
           'mentions-legales',
-          'offers',
         ].includes(queryParams.slug)
       ) {
         return handle(req, res)
       } else if (queryParams.slug === 'ideas') {
         res.redirect(301, '/blog')
-      } else if (queryParams.slug === 'solutions') {
-        res.redirect(301, '/sectors')
       }
 
       return app.render(req, res, '/idea', queryParams)
