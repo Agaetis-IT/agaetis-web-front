@@ -19,7 +19,7 @@ function solutions({ pageContent }: Props) {
     <>
       <Head>
         <title>Agaetis : secteurs d'activités</title>
-        <meta property="og:title" content="Agaetis : secteurs d'activités" />
+        <meta property="og:title" content="Agaetis : solutions" />
         <meta property="og:image" content={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/favicon.ico`} />
         <meta property="og:type" content="website" />
         <meta

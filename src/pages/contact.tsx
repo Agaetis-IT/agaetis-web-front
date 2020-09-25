@@ -9,6 +9,7 @@ import ContactContentApi from '../types/ContactContentApi'
 import Logo from '../public/icons/Agaetis - Ico logo - Orange.png'
 
 import './contact.css'
+import ContactSection from '../components/ContactSection'
 
 interface Props {
   pageContent: ContactContentApi
@@ -37,8 +38,9 @@ export default function contact({ pageContent }: Props) {
               <span>
                 <a className="text-underline text-black" href="/">
                   Accueil
-                </a>{' '}
-                > <b>Contact</b>
+                </a>
+                {' > '}
+                <b>Contact</b>
               </span>
             </div>
             <h1
@@ -55,6 +57,7 @@ export default function contact({ pageContent }: Props) {
             <img src={Logo} className="bg-img-right-contact" alt="logo agaetis"></img>
             <ContactTab />
           </div>
+          <ContactSection></ContactSection>
         </>
       </Layout>
     </>
