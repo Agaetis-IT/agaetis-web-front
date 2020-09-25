@@ -285,7 +285,7 @@ export function convertIndexContentAPItoContentAPI(contentApi: IndexContentAPI) 
     offres: createOfferArray(
       contentApi,
       Object.keys(contentApi).filter((key) => key.match(regexOffer))
-    ),
+    ).filter((offre) => offre.title !== '' && offre.desc !== ''),
     secteurs_title: contentApi.secteurs_title,
     secteurs: createSectorArray(
       contentApi,
