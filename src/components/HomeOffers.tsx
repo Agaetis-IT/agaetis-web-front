@@ -87,7 +87,7 @@ export default function HomeOffers({ title, offers }: Props) {
           backgroundPosition: 'center',
           backgroundSize: 'cover',
         }}
-        className="hidden md:block  bg-grey-darker home-offers-right md:p-12 lg:p-16 "
+        className="hidden md:block  bg-grey-darker home-offers-right md:p-12 md:py-36 lg:px-16  "
       >
         <div style={{ backgroundColor: 'rgba(0,0,0,0.3)' }} className="p-4">
           <ul>
