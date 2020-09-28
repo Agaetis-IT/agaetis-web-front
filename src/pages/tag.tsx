@@ -1,12 +1,15 @@
-import React from 'react'
-import { IdeasDesc, Category } from '../types/IdeasContent'
-import { NextPageContext } from 'next'
-import { getIdeasByTag, getCategories } from '../Services/wordpressService'
-import Head from 'next/head'
-import publicRuntimeConfig from '../config/env.config'
-import Layout from '../components/Layout'
 import './tag.css'
+
+import { Category, IdeasDesc } from '../types/IdeasContent'
+import { getCategories, getIdeasByTag } from '../Services/wordpressService'
+
 import CategoryTab from '../components/CategoryTab'
+import Head from 'next/head'
+import Layout from '../components/Layout'
+import { NextPageContext } from 'next'
+import React from 'react'
+import publicRuntimeConfig from '../config/env.config'
+
 interface Props {
   articles: IdeasDesc[]
   tag: string

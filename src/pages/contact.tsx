@@ -1,15 +1,14 @@
-import Head from 'next/head'
-import React from 'react'
-
-import ContactTab from '../components/ContactForm'
-import Layout from '../components/Layout'
-import publicRuntimeConfig from '../config/env.config'
-import { getContactPageContent } from '../Services/wordpressService'
-import ContactContentApi from '../types/ContactContentApi'
-import Logo from '../public/icons/Agaetis - Ico logo - Orange.png'
-
 import './contact.css'
+
+import ContactContentApi from '../types/ContactContentApi'
 import ContactSection from '../components/ContactSection'
+import ContactTab from '../components/ContactForm'
+import Head from 'next/head'
+import Layout from '../components/Layout'
+import Logo from '../public/icons/Agaetis - Ico logo - Orange.png'
+import React from 'react'
+import { getContactPageContent } from '../Services/wordpressService'
+import publicRuntimeConfig from '../config/env.config'
 
 interface Props {
   pageContent: ContactContentApi
