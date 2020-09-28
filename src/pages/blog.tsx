@@ -9,8 +9,8 @@ import publicRuntimeConfig from '../config/env.config'
 import { getAllIdeas, getAllWhitePapers, getCategories, getIdeasPageContent } from '../Services/wordpressService'
 import { Category, IdeasDesc, IdeasPageContent } from '../types/IdeasContent'
 import WhitePaper from '../types/WhitePaper'
-import Logo from '../public/icons/Agaetis - Ico logo - Orange.png'
 import clsx from 'clsx'
+import ContactSection from '../components/ContactSection'
 
 interface Props {
   ideasDescription: IdeasDesc[]
@@ -35,32 +35,30 @@ function Ideas({ ideasDescription, whitePapers, categories, content }: Props) {
     <>
       <Head>
         <title>Agaetis : nos idées</title>
-
         <meta property="og:title" content="Agaetis : nos idées" />
         <meta property="og:image" content={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/favicon.ico`} />
         <meta property="og:type" content="website" />
         <meta property="og:description" content="Chacun d'entre nous a ses idées et le droit de les défendre" />
         <meta name="description" content="Chacun d'entre nous a ses idées et le droit de les défendre" />
-        <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/ideas`} />
+        <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/blog`} />
       </Head>
-      <Layout headerProps={{ invertColors: false }}>
+      <Layout invertColors={false}>
         <div>
           <div className="md:max-w-md mx-auto px-0 md:px-8">
             <div className="text-xs px-4 md:px-0">
               <span>
                 <a className="text-underline text-black" href="/">
                   Accueil
-                </a>{' '}
-                > <b>Idées</b>
+                </a>
+                {' > '}
+                <b>Blog</b>
               </span>
             </div>
-            <h1 className="text-center text-2xl py-8 md:pb-0 md:mt-12">{content.titre}</h1>
+            <h1 className="text-center text-3xl py-8 md:pb-0 md:mt-12">{content.titre}</h1>
             <p className="md:max-w-md mx-auto text-center px-4 md:py-6 md:px-0 text-sm leading-normal">
               {content.description}
             </p>
           </div>
-          <img src={Logo} className="bg-img-left-ideas"></img>
-          <img src={Logo} className="bg-img-right-ideas"></img>
           <CategoryTab
             ideasC={sortedIdeas.filter(
               (idea) => !idea.categories.includes('White-paper') && !idea.categories.includes('Jobs')
@@ -110,6 +108,7 @@ function Ideas({ ideasDescription, whitePapers, categories, content }: Props) {
               </div>
             </div>
           )}
+          <ContactSection></ContactSection>
         </div>
       </Layout>
     </>
@@ -132,6 +131,7 @@ Ideas.getInitialProps = async () => {
       slug: idea.slug,
       descriptionText: idea.acf.idea_description,
       date: idea.date,
+      image: idea.acf.idea_image,
     })),
     whitePapers:
       whitepapers && whitepapers.length > 0

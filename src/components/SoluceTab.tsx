@@ -49,7 +49,7 @@ export default function SoluceTab({ tabs }: Props) {
 
   return (
     <>
-      <div className="md:max-w-lg mx-auto p-0 md:px-8">
+      <div className="md:max-w-full mx-auto p-0 md:px-8 xl:px-32">
         <div className="flex flex-row w-full mt-8 md:mt-0">
           <Button className={getTabsClassNames(0, currentIndex)} styleType="tab" onClick={onTabChange(0)}>
             {tabs[0].header}
@@ -65,7 +65,7 @@ export default function SoluceTab({ tabs }: Props) {
           </Button>
         </div>
       </div>
-      <SoluceTabContent className="flex flex-col md:flex-row w-full" content={tabs.sort(compareTabs)[currentIndex]} />
+      <SoluceTabContent className="flex flex-col sm:flex-row w-full" content={tabs.sort(compareTabs)[currentIndex]} />
     </>
   )
 }

@@ -7,6 +7,7 @@ import { IdeasPageContent } from '../types/IdeasContent'
 import IndexContent from '../types/IndexContent'
 import JobsContentAPI, { convertJobsContentAPItoContent } from '../types/JobsContent'
 import SolutionsContentAPI, { convertContentAPItoContent } from '../types/SolutionsContent'
+import OffersPageContent from '../types/OffersContent'
 
 export async function getWordpressPageBySlug<T>(slug: string) {
   const { data } = await axios.get<T>(`${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/agaetis/api/v1/pages/${slug}`)
@@ -24,7 +25,12 @@ export async function getAgaetisContent() {
 }
 
 export async function getIdeasPageContent() {
-  const { acf } = await getWordpressPageBySlug<{ acf: IdeasPageContent }>('ideas')
+  const { acf } = await getWordpressPageBySlug<{ acf: IdeasPageContent }>('blog')
+  return acf
+}
+
+export async function getOffersPageContent() {
+  const { acf } = await getWordpressPageBySlug<{ acf: OffersPageContent }>('offers')
   return acf
 }
 
@@ -36,6 +42,14 @@ export async function getIdeaMeta(slug: string) {
 export async function getPersonalDataContent() {
   const data = await getWordpressPageBySlug<{ title: { rendered: string }; content: { rendered: string } }>(
     'personal-data'
+  )
+
+  return data
+}
+
+export async function getMentionsLegalesContent() {
+  const data = await getWordpressPageBySlug<{ title: { rendered: string }; content: { rendered: string } }>(
+    'mentions-legales'
   )
 
   return data
@@ -61,6 +75,11 @@ export async function getJobContent(slug: string) {
   return data
 }
 
+export async function getOfferContent(slug: string) {
+  const { data } = await axios.get(`${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/agaetis/api/v1/offres/${slug}`)
+  return data
+}
+
 export async function getWhitePaperContent(slug: string) {
   const { data } = await axios.get(
     `${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/agaetis/api/v1/white-papers/${slug}`
@@ -83,6 +102,11 @@ export async function getAllWhitePapers() {
   return data
 }
 
+export async function getAllOffers() {
+  const { data } = await axios.get(`${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/agaetis/api/v1/offres`)
+  return data
+}
+
 export async function getIdeaById(id: number) {
   const { data } = await axios.get(`${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/wp/v2/posts/${id}?_embed`)
   return data
@@ -94,7 +118,12 @@ export async function getIdeaBySlug(slug: string) {
 }
 
 export async function getCategories() {
-  const { data } = await axios.get(`${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/wp/v2/categories/`)
+  const { data } = await axios.get(`${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/wp/v2/categories?per_page=100`)
+  return data
+}
+
+export async function getIdeasByTag(slug: string) {
+  const { data } = await axios.get(`${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/agaetis/api/v1/tags/${slug}`)
   return data
 }
 

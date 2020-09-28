@@ -1,0 +1,22 @@
+#human {
+  width: 400px;
+  height: auto;
+}
+
+#human2 {
+  width: 140px;
+  height: auto;
+}
+
+#myCanvas {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+@media (min-width: 820px) {
+  #human2 {
+    width: 240px;
+    height: auto;
+  }
+}

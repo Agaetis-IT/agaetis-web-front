@@ -5,7 +5,7 @@ import React, { useMemo, useState } from 'react'
 
 import Button from '../components/Button'
 import Layout from '../components/Layout'
-import OfferCard from '../components/OfferCard'
+import JobCard from '../components/JobCard'
 import OfferSection from '../components/OfferSection'
 import publicRuntimeConfig from '../config/env.config'
 import { getAllJobs, getJobContent } from '../Services/wordpressService'
@@ -14,6 +14,7 @@ import Logo from '../public/icons/Agaetis - Ico logo - Orange.png'
 
 import Error from './_error'
 import './job.css'
+import ContactSection from '../components/ContactSection'
 
 interface Props {
   pageContent: JobContent
@@ -33,7 +34,7 @@ function job({ pageContent, allJobs, errorCode }: Props) {
   const offers = useMemo(
     () =>
       allJobs.map((offer) => (
-        <OfferCard
+        <JobCard
           key={offer.acf.intitule_job}
           title={offer.acf.intitule_job}
           description={offer.acf.description}
@@ -58,19 +59,20 @@ function job({ pageContent, allJobs, errorCode }: Props) {
         <meta name="description" content={pageContent.description} />
         <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}${pageContent.slug}`} />
       </Head>
-      <Layout>
+      <Layout invertColors={false}>
         <>
           <div className="md:max-w-md mx-auto p-0 md:px-8">
             <div className="text-xs px-4 md:px-0">
               <span>
                 <a className="text-underline text-black" href="/">
                   Accueil
-                </a>{' '}
-                >{' '}
+                </a>
+                {' > '}
                 <a className="text-underline text-black" href="/jobs">
                   Jobs
-                </a>{' '}
-                > <b>{pageContent.title}</b>{' '}
+                </a>
+                {' > '}
+                <b>{pageContent.title}</b>{' '}
               </span>
             </div>
             <h1 className="text-center text-2xl py-8 md:pb-0 md:mt-12">{pageContent.title}</h1>
@@ -89,13 +91,13 @@ function job({ pageContent, allJobs, errorCode }: Props) {
             className="bg-black mt-8 md:my-8 md:mx-8 py-36"
           />
           <div className="w-full md:max-w-lg mx-auto p-8 text-sm leading-normal text-justify">
-            <img src={Logo} className="bg-img-left-job"></img>
-            <img src={Logo} className="bg-img-right-job"></img>
-            <p className="mb-5" dangerouslySetInnerHTML={{ __html: pageContent.offre_description }}></p>
+            <img src={Logo} className="bg-img-left-job" alt="logo agaetis"></img>
+            <img src={Logo} className="bg-img-right-job" alt="logo agaetis"></img>
+            <p className="mb-5 job-desc" dangerouslySetInnerHTML={{ __html: pageContent.offre_description }}></p>
             <p className="mb-3">
               <b>Missions</b>
             </p>
-            <ul className="pl-4">
+            <ul className="pl-4 job-list">
               {pageContent.offre_list
                 .filter((point) => point !== '')
                 .map((point) => (
@@ -110,7 +112,7 @@ function job({ pageContent, allJobs, errorCode }: Props) {
             <p className="mb-3">{pageContent.profile_description}</p>
             <p className="mb-3">Salaire: {pageContent.offre_salary}</p>
             <p className="mb-3">Connaissances souhaitées (en gras les indispensables) :</p>
-            <ul className="pl-4">
+            <ul className="pl-4 job-list">
               {pageContent.offre_profile
                 .filter((point) => point !== '')
                 .map((point) => (
@@ -141,6 +143,7 @@ function job({ pageContent, allJobs, errorCode }: Props) {
             )}
           </div>
           <OfferSection footerText={pageContent.contact_text} />
+          <ContactSection></ContactSection>
         </>
       </Layout>
     </>

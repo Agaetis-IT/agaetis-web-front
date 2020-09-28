@@ -10,6 +10,11 @@
   border-bottom: 1px solid #2779bd;
 }
 
+.separator {
+  border-bottom: 1px solid grey;
+  opacity: 0.5;
+}
+
 .loading {
   display: block;
   width: 13px;
@@ -30,4 +35,15 @@
   to {
     -webkit-transform: rotate(360deg);
   }
+}
+
+.hoverButtonEffect {
+  border: 1px solid #ff7f40;
+  background-color: #ff7f40;
+  color: white;
+}
+
+.hoverButtonEffect:hover {
+  background-color: white;
+  color: black;
 }

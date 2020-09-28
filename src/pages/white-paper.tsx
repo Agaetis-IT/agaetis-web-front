@@ -66,24 +66,29 @@ export default function whitePaper({ pageContent, errorCode }: Props) {
         <meta name="description" content={pageContent.description} />
         <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/${pageContent.slug}`} />
       </Head>
-      <Layout>
+      <Layout invertColors={false}>
         <>
           <div className="md:max-w-md mx-auto p-0 md:px-8">
             <div className="text-xs px-4 md:px-0">
               <span className="text-underline text-black">
                 <a href="/">Accueil</a>
-              </span>{' '}
-              > <b>{pageContent.title}</b>
+              </span>
+              {' > '}
+              <b>{pageContent.title}</b>
             </div>
             <h1 className="text-center text-2xl py-8 md:pb-0">{pageContent.title}</h1>
             <p className="md:max-w-md mx-auto text-center px-4 md:py-6 md:px-0 text-xs leading-normal">
               {pageContent.description}
             </p>
           </div>
-          <img className="md:max-w-lg flex shadow-xl justify-center mx-auto my-4 p-0" src={pageContent.image} />
+          <img
+            className="md:max-w-lg flex shadow-xl justify-center mx-auto my-4 p-0"
+            src={pageContent.image}
+            alt="header"
+          />
           <div className="md:max-w-lg mx-auto mb-8 px-4">
-            <img src={Logo} className="bg-img-left-wp"></img>
-            <img src={Logo} className="bg-img-right-wp"></img>
+            <img src={Logo} className="bg-img-left-wp" alt="logo agaetis"></img>
+            <img src={Logo} className="bg-img-right-wp" alt="logo agaetis"></img>
             <div className=" md:px-12 flex flex-col justify-center">
               <WhitePaperForm
                 title={pageContent.title}

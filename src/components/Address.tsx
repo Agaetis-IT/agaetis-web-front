@@ -10,8 +10,8 @@ interface Props {
 
 export default function Address({ agency, address, zipcode, city, tel }: Props) {
   return (
-    <div className="text-xs md:mr-12 md:pr-1 mb-4 md:mb-0">
-      <b className="font-bold">{agency}</b>
+    <div className="text-xs md:mr-12 md:pr-1 mb-4 md:mb-0 font-thin leading-normal">
+      <b className="font-semibold">{agency}</b>
       <br />
       {address}
       <br />

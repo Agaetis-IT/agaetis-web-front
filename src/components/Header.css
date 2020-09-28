@@ -1,13 +1,74 @@
 .logoAgaetis {
   z-index: 3;
-  width: 140px;
+  width: 180px;
   background-attachment: fixed;
   background-position: center center;
 }
 
-@media (min-width: 800px) {
+.logoSticky {
+  display: none;
+}
+
+@media (min-width: 820px) {
   header {
     left: 0;
     right: 0;
+  }
+
+  .logoAgaetis {
+    position: absolute;
+    top: 55px;
+    left: 30px;
+  }
+
+  .headerWhite {
+    background-color: white;
+    position: fixed;
+    top: 0;
+    padding: 20px 0;
+    color: black;
+    z-index: 1000;
+    border-bottom: 1px solid #f0f0f0;
+    margin-top: 0;
+  }
+
+  .animation-up {
+    animation: nav-scroll-up 1s;
+    animation-fill-mode: both;
+  }
+
+  .animation-down {
+    animation: nav-scroll-down 1s;
+    animation-fill-mode: both;
+    animation-timing-function: ease-out;
+  }
+
+  .logoSticky {
+    position: absolute;
+    display: block;
+    top: 17px;
+    left: 17px;
+    z-index: 3;
+    width: 150px;
+    background-attachment: fixed;
+    background-position: center center;
+  }
+
+  @keyframes nav-scroll-up {
+    0% {
+      margin-top: 0px;
+    }
+    100% {
+      margin-top: -200px;
+    }
+  }
+
+  @keyframes nav-scroll-down {
+    from {
+      margin-top: -200px;
+    }
+    to {
+      margin-top: 0px;
+    }
   }
 }

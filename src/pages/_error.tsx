@@ -15,7 +15,7 @@ export default function Error({ statusCode }: Props) {
         <meta name="robots" content="noindex,nofollow" />
         <title>Agaetis : Erreur 404</title>
       </Head>
-      <Layout>
+      <Layout invertColors={false}>
         <>
           <div className="md:max-w-md flex flex-col mx-auto ">
             <div className=" text-xs px-4">

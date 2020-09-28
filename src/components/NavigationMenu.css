@@ -12,9 +12,33 @@
   left: 0;
   right: 0;
   margin-top: 0.75rem;
+  z-index: 1000;
 }
 
-@media (min-width: 800px) {
+.menu-link-white-underline::after,
+.menu-link-black-underline::after {
+  position: relative;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+  content: '';
+  margin-top: 2px;
+  display: block;
+  transition: width 0.2s ease-out;
+  background-color: white;
+  width: 0px;
+  height: 2px;
+  text-align: center;
+}
+
+.menu-link-white-underline:hover::after,
+.menu-link-black-underline:hover::after {
+  width: 100%;
+}
+
+@media (min-width: 820px) {
   .Button-language--active {
     color: #ff7f40;
     font-weight: 700;
@@ -27,5 +51,9 @@
   .nav-menu {
     position: relative;
     margin-top: 0rem;
+  }
+
+  .menu-link-black-underline::after {
+    background-color: black;
   }
 }

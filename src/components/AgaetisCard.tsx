@@ -14,7 +14,7 @@ interface Props {
 
 export default function AgaetisCard({ className, title, description, imgShadow, descBlockClass, imgUrl }: Props) {
   return (
-    <div className={clsx('flex flex-col  md:my-12 justify-between p-8 mx-auto md:max-w-lg', className)}>
+    <div className={clsx('flex flex-col  md:my-12 justify-between p-8 mx-auto md:max-w-full', className)}>
       <div className={clsx(' md:mx-0 self-center', imgUrl ? 'md:max-w-xs' : 'md:max-w-full', descBlockClass)}>
         <h2 className="pb-4 text-black">{title}</h2>
 

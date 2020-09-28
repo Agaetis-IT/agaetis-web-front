@@ -1,12 +1,12 @@
 import Head from 'next/head'
 import React from 'react'
+import ContactSection from '../components/ContactSection'
 
 import Layout from '../components/Layout'
 import SoluceTab from '../components/SoluceTab'
 import publicRuntimeConfig from '../config/env.config'
 import { getSolutionsPageContent } from '../Services/wordpressService'
 import { SolutionsContent } from '../types/SolutionsContent'
-import Logo from '../public/icons/Agaetis - Ico logo - Orange.png'
 
 import './solutions.css'
 
@@ -18,8 +18,8 @@ function solutions({ pageContent }: Props) {
   return (
     <>
       <Head>
-        <title>Agaetis : nos solutions</title>
-        <meta property="og:title" content="Agaetis : nos solutions" />
+        <title>Agaetis : secteurs d'activités</title>
+        <meta property="og:title" content="Agaetis : solutions" />
         <meta property="og:image" content={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/favicon.ico`} />
         <meta property="og:type" content="website" />
         <meta
@@ -30,27 +30,27 @@ function solutions({ pageContent }: Props) {
           name="description"
           content="Chaque client a des besoins propres, nous leur apportons des solutions sur mesure"
         />
-        <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/solutions`} />
+        <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/sectors`} />
       </Head>
-      <Layout>
+      <Layout invertColors={false}>
         <>
           <div className="md:max-w-md mx-auto p-0 md:px-8">
             <div className="text-xs px-4 md:px-0">
               <span>
                 <a className="text-underline text-black" href="/">
                   Accueil
-                </a>{' '}
-                > <b>Solutions</b>
+                </a>
+                {' > '}
+                <b>Solutions</b>
               </span>
             </div>
-            <h1 className="text-center text-2xl py-8 md:pb-0 md:mt-12">{pageContent.title}</h1>
+            <h1 className="text-center text-3xl py-8 md:pb-0 md:mt-12">{pageContent.title}</h1>
             <p className="md:max-w-md mx-auto text-center px-4 md:py-6 md:px-0 text-sm leading-normal">
               {pageContent.description}
             </p>
           </div>
-          <img src={Logo} className="bg-img-left-solutions"></img>
-          <img src={Logo} className="bg-img-right-solutions"></img>
           <SoluceTab tabs={pageContent.tabs} />
+          <ContactSection></ContactSection>
         </>
       </Layout>
     </>

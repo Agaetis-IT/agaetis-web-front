@@ -5,22 +5,22 @@ import '../i18n'
 
 import './Common.css'
 import Cookies from './Cookies'
-import Footer from './Footer'
-import Header, { HeaderProps } from './Header'
+import Header from './Header'
+import clsx from 'clsx'
 
 interface Props {
-  headerProps?: HeaderProps
+  invertColors: boolean
   children?: string | React.ReactElement
 }
 
-export default function Layout({ headerProps, children }: Props) {
+export default function Layout({ invertColors, children }: Props) {
   return (
     <div className=" md:p-0  md:mb-0">
-      <Header {...headerProps} />
-      <div className="mt-1 md:mt-0">
-        <div id="main-content">{children}</div>
+      <Header invertColors={invertColors} />
+      <div className={clsx('mt-1 md:mt-0', { 'md:pt-48': !invertColors })}>
+        <div>{children}</div>
       </div>
-      <Footer />
+
       <Cookies className="cookie-fixed" />
     </div>
   )
