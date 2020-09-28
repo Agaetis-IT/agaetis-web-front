@@ -36,17 +36,27 @@ export default function HomeSectors({ title, sectors }: Props) {
 
   useEffect(() => {
     if (document && document.getElementsByClassName('sector-card-image')) {
+      const sectors = document.getElementById('sectors')
       const items = document.getElementsByClassName('sector-card-image')
       for (let i = 0; i < items.length; i++) {
         // eslint-disable-next-line
         // @ts-ignore
         items.item(i).style.display = 'block'
       }
+      if (sectors) {
+        sectors.addEventListener('wheel', (e) => {
+          const delta = Math.max(-1, Math.min(1, e.deltaY))
+          document.getElementById('sectors').scrollLeft += delta * 40
+          if (sectors.scrollLeft > 0 && sectors.offsetWidth + sectors.scrollLeft <= sectors.scrollWidth - 1) {
+            e.preventDefault()
+          }
+        })
+      }
     }
   }, [])
 
   return (
-    <div className="bg-light-grey py-8 md:p-16 xl:px-32">
+    <div className="bg-light-grey py-8 md:p-16 xl:px-32" id="sectors_container">
       <h2 className="text-orange font-semibold text-center md:text-left">{title}</h2>
       <div className="py-12 sectors-list" id="sectors">
         {sectors

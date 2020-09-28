@@ -87,12 +87,12 @@ export default function HomeOffers({ title, offers }: Props) {
           backgroundPosition: 'center',
           backgroundSize: 'cover',
         }}
-        className="hidden md:block  bg-grey-darker home-offers-right md:p-12 lg:p-16 "
+        className="hidden md:block  bg-grey-darker home-offers-right md:p-12 md:py-40 lg:px-16  "
       >
-        <div style={{ backgroundColor: 'rgba(0,0,0,0.3)' }} className="p-4">
+        <div style={{ backgroundColor: 'rgba(0,0,0,0.3)' }} className="p-8">
           <ul>
             {offers.map((offer) => (
-              <li key={offer.index} className={clsx({ hidden: selectedOffer != offer.index }, 'my-4')}>
+              <li key={offer.index} className={clsx({ hidden: selectedOffer != offer.index }, 'my-8')}>
                 <h3 className="text-orange">{offer.title}</h3>
                 <p className="text-sm leading-normal text-justify text-white py-8 pb-4">{offer.desc}</p>
                 <ul>
