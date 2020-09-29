@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 
 interface Props {
@@ -14,13 +15,13 @@ function getLogoPosition(humanPos: number[], logoId: number) {
       return { top: `${humanPos[0] + 25}px`, left: `${humanPos[1] - 85}px` }
     }
     if (logoId === 1) {
-      return { top: `${humanPos[0] - 75}px`, left: `${humanPos[1] - 55}px` }
+      return { top: `${humanPos[0] - 75}px`, left: `${humanPos[1] - 65}px` }
     }
     if (logoId === 2) {
       return { top: `${humanPos[0] - 105}px`, left: `${humanPos[1] + 40}px` }
     }
     if (logoId === 3) {
-      return { top: `${humanPos[0] - 75}px`, left: `${humanPos[1] + 110}px` }
+      return { top: `${humanPos[0] - 75}px`, left: `${humanPos[1] + 120}px` }
     }
     if (logoId === 4) {
       return { top: `${humanPos[0] + 25}px`, left: `${humanPos[1] + 140}px` }
