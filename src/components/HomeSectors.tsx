@@ -1,12 +1,13 @@
+import './HomeSectors.css'
+
 import React, { useEffect, useState } from 'react'
 
-import './HomeSectors.css'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 import { SectorDesc } from '../types/IndexContent'
+import VisibilitySensor from 'react-visibility-sensor'
 import arrowL from '../public/images/left-arrow.svg'
 import arrowR from '../public/images/right-arrow.svg'
 import clsx from 'clsx'
-import VisibilitySensor from 'react-visibility-sensor'
-import { LazyLoadImage } from 'react-lazy-load-image-component'
 
 interface Props {
   title: string
@@ -47,7 +48,7 @@ export default function HomeSectors({ title, sectors }: Props) {
         sectors.addEventListener('wheel', (e) => {
           const delta = Math.max(-1, Math.min(1, e.deltaY))
           sectors.scrollLeft += delta * 40
-          if (sectors.scrollLeft > 0 && sectors.offsetWidth + sectors.scrollLeft <= sectors.scrollWidth - 1) {
+          if (sectors.scrollLeft > 0 && sectors.offsetWidth + sectors.scrollLeft < sectors.scrollWidth - 1) {
             e.preventDefault()
           }
         })

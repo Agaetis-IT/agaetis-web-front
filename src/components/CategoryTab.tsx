@@ -1,11 +1,11 @@
-import clsx from 'clsx'
-import React, { useMemo, useState } from 'react'
+import './CategoryTab.css'
 
 import { Category, IdeasDesc } from '../types/IdeasContent'
+import React, { useMemo, useState } from 'react'
 
 import Button from './Button'
 import IdeasCard from './IdeasCard'
-import './CategoryTab.css'
+import clsx from 'clsx'
 
 interface Props {
   ideasC: IdeasDesc[]

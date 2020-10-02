@@ -1,14 +1,13 @@
-import clsx from 'clsx'
-import Link from 'next/link'
-import React, { useState, useEffect } from 'react'
-
-import logoAgaetisMobile from '../public/images/logo-agaetis-hor-p164-rgb-150.png'
-import logoAgaetisDesktop from '../public/images/logo-agaetis-hor-white-rgb-150.png'
-
 import './Header.css'
-import NavigationMenu from './NavigationMenu'
+
+import React, { useEffect, useState } from 'react'
 
 import { LazyLoadImage } from 'react-lazy-load-image-component'
+import Link from 'next/link'
+import NavigationMenu from './NavigationMenu'
+import clsx from 'clsx'
+import logoAgaetisDesktop from '../public/images/logo-agaetis-hor-white-rgb-150.png'
+import logoAgaetisMobile from '../public/images/logo-agaetis-hor-p164-rgb-150.png'
 
 interface Props {
   invertColors: boolean
