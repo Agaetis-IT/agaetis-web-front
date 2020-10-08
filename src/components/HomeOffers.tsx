@@ -1,12 +1,11 @@
-import React, { useState } from 'react'
-import Button from './Button'
-
-import { OfferDesc } from '../types/IndexContent'
-
 import './HomeOffers.css'
-import clsx from 'clsx'
 
+import React, { useState } from 'react'
+
+import Button from './Button'
+import { OfferDesc } from '../types/IndexContent'
 import arrowR from '../public/images/right-arrow.svg'
+import clsx from 'clsx'
 
 interface Props {
   title: string
@@ -30,7 +29,7 @@ export default function HomeOffers({ title, offers }: Props) {
     <div className="flex flex-col md:flex-row">
       <div className="home-offers-left p-0 md:p-12 lg:px-24 lg:p-16">
         <h2 className="mt-8 mb-4 md:my-0 md:ml-8 text-orange text-center md:text-left">{title}</h2>
-        <ul className="md:my-12">
+        <ul className="md:my-12 flex flex-col justify-center">
           {offers.map((offer) => (
             <li key={offer.index} className="my-0 md:my-6" id={`offer-${offer.index}`}>
               <div className="p-4 md:p-0">

@@ -1,13 +1,12 @@
-import clsx from 'clsx'
 import { Form, Formik } from 'formik'
 import React, { useEffect, useState } from 'react'
-
-import FormValues from '../../types/ContactFormValues'
 import step2Schema, { Step2FormValues, step2InitialValues } from '../../yup/ContactFormValidation'
-import Button from '../Button'
 
+import Button from '../Button'
 import Checkbox from './Checkbox'
+import FormValues from '../../types/ContactFormValues'
 import TextField from './TextField'
+import clsx from 'clsx'
 
 interface Props {
   className?: string
@@ -26,9 +25,9 @@ function onSubmit(fields: Step2FormValues, handleNext: (formValues: FormValues) 
 export default function Step2({ className, handleNextStep, formValues }: Props) {
   const [step2FormValues, setStep2FormValues] = useState(step2InitialValues)
   useEffect(() => {
-    const cookies = localStorage.getItem('cookies')
-    if (cookies) {
-      setStep2FormValues(JSON.parse(cookies))
+    const step = localStorage.getItem('step2')
+    if (step2FormValues) {
+      setStep2FormValues(JSON.parse(step))
     }
   }, [step2FormValues])
   return (

@@ -155,7 +155,7 @@ app
         captcha &&
         mailRegex.test(message.from!) &&
         mailRegex.test(message.to!) &&
-        ['Un projet ?', 'Une candidature ?', 'Un cafe ?'].includes(message.subject) &&
+        ['Un projet ?', 'Une candidature ?'].includes(message.subject) &&
         message.html.length > 0
       ) {
         transporter.sendMail(message, (err: any) => {
