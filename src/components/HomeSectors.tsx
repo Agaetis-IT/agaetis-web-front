@@ -47,7 +47,7 @@ export default function HomeSectors({ title, sectors }: Props) {
       if (sectors) {
         sectors.addEventListener('wheel', (e) => {
           const delta = Math.max(-1, Math.min(1, e.deltaY))
-          sectors.scrollLeft += delta * 40
+          sectors.scrollLeft += delta * 30
           if (sectors.scrollLeft > 0 && sectors.offsetWidth + sectors.scrollLeft < sectors.scrollWidth - 1) {
             e.preventDefault()
           }
