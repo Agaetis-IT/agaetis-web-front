@@ -26,8 +26,8 @@ export default function Step2({ className, handleNextStep, formValues }: Props) 
   const [step2FormValues, setStep2FormValues] = useState(step2InitialValues)
   useEffect(() => {
     const step = localStorage.getItem('step2')
-    if (step2FormValues) {
-      setStep2FormValues(JSON.parse(step))
+    if (step2FormValues && step) {
+      setStep2FormValues(JSON.parse(step!))
     }
   }, [step2FormValues])
   return (

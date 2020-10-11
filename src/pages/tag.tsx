@@ -58,7 +58,6 @@ export default function Tag({ articles, categories, tag }: Props) {
             categories={categories.filter(
               (category) => category.categoryName !== 'Jobs' && category.categoryName !== 'White-paper'
             )}
-            toggleMore={true}
           />
         </>
       </Layout>
