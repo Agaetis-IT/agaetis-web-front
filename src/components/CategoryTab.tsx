@@ -10,7 +10,6 @@ import clsx from 'clsx'
 interface Props {
   ideasC: IdeasDesc[]
   categories: Category[]
-  toggleMore: boolean
   ideasImg1?: string
   ideasImg2?: string
 }
@@ -51,8 +50,17 @@ function createMarkup(content: string) {
   return { __html: content }
 }
 
-export default function CategoryTab({ ideasC, categories, toggleMore, ideasImg1, ideasImg2 }: Props) {
+export default function CategoryTab({ ideasC, categories, ideasImg1, ideasImg2 }: Props) {
   const [categoryFilter, setFilter] = useState('All')
+
+  const [isOpenedMoreIdeas, setIsOpenedMoreIdeas] = useState(false)
+
+  function handleToggleMoreIdeas() {
+    setIsOpenedMoreIdeas(!isOpenedMoreIdeas)
+    if (document && document.getElementById('anchor')) {
+      document.getElementById('anchor').scrollIntoView({ block: 'start' })
+    }
+  }
   const fakeIdea1 = {
     id: -1,
     slug: '',
@@ -87,8 +95,8 @@ export default function CategoryTab({ ideasC, categories, toggleMore, ideasImg1,
     if (ideasImg2 && !ideas.find((idea: IdeasDesc) => idea.id === -2)) {
       ideas.splice(7, 0, fakeIdea2)
     }
-    return ideas.map((idea) => (
-      <div key={idea.id} className={clsx(ideas.length > 2 ? 'sm:w-1/3' : 'sm:w-1/2', ' px-1')}>
+    return ideas.map((idea, index) => (
+      <div key={idea.id} className={clsx(ideas.length > 2 ? 'sm:w-1/3' : 'sm:w-1/2', ' px-1')} id={`idea-${index}`}>
         <IdeasCard
           className={clsx(
             'my-2 sm:h-ideas ',
@@ -138,10 +146,19 @@ export default function CategoryTab({ ideasC, categories, toggleMore, ideasImg1,
           </Button>
         ))}
       </div>
+      <div id="anchor"></div>
       <div className="flex flex-col md:max-w-lg sm:flex-row justify-center flex-wrap mt-2 md:p-8 mx-auto">
         {filteredIdeas.slice(0, 9)}
-        {toggleMore && filteredIdeas.slice(9)}
+        {isOpenedMoreIdeas && filteredIdeas.slice(9)}
       </div>
+      <Button
+        className={clsx(
+          'flex flex-row justify-center uppercase rounded-full bg-orange text-xss py-2 px-6 text-white font-semibold mx-auto mb-8'
+        )}
+        onClick={handleToggleMoreIdeas}
+      >
+        {!isOpenedMoreIdeas ? "Voir plus d'idées" : 'Voir moins'}
+      </Button>
     </div>
   )
 }
