@@ -58,7 +58,7 @@ export default function CategoryTab({ ideasC, categories, ideasImg1, ideasImg2 }
   function handleToggleMoreIdeas() {
     setIsOpenedMoreIdeas(!isOpenedMoreIdeas)
     if (document && document.getElementById('anchor')) {
-      document.getElementById('anchor').scrollIntoView({ block: 'start' })
+      document.getElementById('anchor')!.scrollIntoView({ block: 'start' })
     }
   }
   const fakeIdea1 = {
