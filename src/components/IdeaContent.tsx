@@ -22,10 +22,11 @@ function getMedia(url: string) {
   } else if (url.includes('linkedin')) {
     return Linkedin
   }
+  return ''
 }
 
 function IdeaContent({ content }: Props) {
-  const [classname, setClassname] = useState(undefined)
+  const [classname, setClassname] = useState<string | undefined>(undefined)
   const toggleInfo = () => {
     if (!classname || classname === 'close') {
       setClassname('open')
