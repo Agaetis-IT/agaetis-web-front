@@ -79,7 +79,10 @@ app
           'cookies',
           'personal-data',
           'mentions-legales',
-        ].includes(queryParams.slug)
+          'sw.js',
+          'offline.html',
+          'manifest.json'
+        ].includes(queryParams.slug) || !!queryParams.slug.match(/(workbox)|(worker)-.*\.js/)
       ) {
         return handle(req, res)
       } else if (queryParams.slug === 'ideas') {
