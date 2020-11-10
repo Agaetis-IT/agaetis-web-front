@@ -4,8 +4,8 @@ import React, { useState } from 'react'
 
 import Button from './Button'
 import IdeasContent from '../types/IdeasContent'
-import Linkedin from '../public/icons/linkedin.png'
-import Twitter from '../public/icons/twitter.png'
+import Linkedin from '../static/icons/linkedin.png'
+import Twitter from '../static/icons/twitter.png'
 import clsx from 'clsx'
 
 interface Props {

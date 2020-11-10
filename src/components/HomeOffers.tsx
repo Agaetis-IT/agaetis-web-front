@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 
 import Button from './Button'
 import { OfferDesc } from '../types/IndexContent'
-import arrowR from '../public/images/right-arrow.svg'
+import arrowR from '../static/images/right-arrow.svg'
 import clsx from 'clsx'
 
 interface Props {

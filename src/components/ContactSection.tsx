@@ -3,7 +3,7 @@ import './ContactSection.css'
 import Address from './Address'
 import BottomNav from './BottomNav'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
-import Logo from '../public/images/logo-agaetis-vert.png'
+import Logo from '../static/images/logo-agaetis-vert.png'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
