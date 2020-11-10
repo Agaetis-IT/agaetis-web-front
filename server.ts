@@ -8,7 +8,6 @@ const { google } = require('googleapis')
 const sha = require('js-sha256')
 const next = require('next')
 const nodemailer = require('nodemailer')
-const path = require('path')
 const http = require('http')
 const logger = require('morgan')
 
@@ -45,18 +44,6 @@ app
     server.use(bodyParser.urlencoded({ extended: true }))
     server.use(bodyParser.json())
 
-    server.get('/robots.txt', (_: Request, res: Response) => {
-      res.sendFile(path.join(__dirname, '/', 'robots.txt'))
-    })
-
-    server.get('/favicon.ico', (_: Request, res: Response) => {
-      res.sendFile(path.join(__dirname, '/', 'symbole-agaetis-p164-rgb.png'))
-    })
-
-    server.get('/google80ae36db41235209.html', (_: Request, res: Response) => {
-      res.sendFile(path.join(__dirname, '/', 'google80ae36db41235209.html'))
-    })
-
     server.get(/sitemap[a-zA-Z-0-9\/\-_]*.xml/, async (req: Request, res: Response) => {
       const { data } = await axios.get(`${process.env.NEXT_APP_BASE_URL}${req.url}`)
       res.set('Content-Type', 'text/xml')
@@ -81,7 +68,11 @@ app
           'mentions-legales',
           'sw.js',
           'offline.html',
-          'manifest.json'
+          'manifest.json',
+          'google80ae36db41235209.html',
+          'robots.txt',
+          'favicon.ico',
+          'logo-agaetis-carre.png'
         ].includes(queryParams.slug) || !!queryParams.slug.match(/(workbox)|(worker)-.*\.js/)
       ) {
         return handle(req, res)

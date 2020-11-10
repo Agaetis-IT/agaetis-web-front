@@ -1,8 +1,12 @@
 import React from 'react'
 
-import Logo from '../public/images/logo-agaetis-vert.png'
 import './ContactSection.css'
 import BottomNav from './BottomNav'
+import Address from './Address'
+import BottomNav from './BottomNav'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
+import Logo from '../static/images/logo-agaetis-vert.png'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 import Address from './Address'
 
