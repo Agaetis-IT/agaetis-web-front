@@ -5,8 +5,8 @@ import React, { useEffect, useState } from 'react'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import { SectorDesc } from '../types/IndexContent'
 import VisibilitySensor from 'react-visibility-sensor'
-import arrowL from '../public/images/left-arrow.svg'
-import arrowR from '../public/images/right-arrow.svg'
+import arrowL from '../static/images/left-arrow.svg'
+import arrowR from '../static/images/right-arrow.svg'
 import clsx from 'clsx'
 
 interface Props {

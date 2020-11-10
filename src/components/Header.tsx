@@ -6,8 +6,8 @@ import { LazyLoadImage } from 'react-lazy-load-image-component'
 import Link from 'next/link'
 import NavigationMenu from './NavigationMenu'
 import clsx from 'clsx'
-import logoAgaetisDesktop from '../public/images/logo-agaetis-hor-white-rgb-150.png'
-import logoAgaetisMobile from '../public/images/logo-agaetis-hor-p164-rgb-150.png'
+import logoAgaetisDesktop from '../static/images/logo-agaetis-hor-white-rgb-150.png'
+import logoAgaetisMobile from '../static/images/logo-agaetis-hor-p164-rgb-150.png'
 
 interface Props {
   invertColors: boolean

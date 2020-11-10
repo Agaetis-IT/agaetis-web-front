@@ -10,7 +10,7 @@ import Head from 'next/head'
 import IdeaContent from '../components/IdeaContent'
 import IdeasCard from '../components/IdeasCard'
 import Layout from '../components/Layout'
-import Logo from '../public/icons/Agaetis - Ico logo - Orange.png'
+import Logo from '../static/icons/Agaetis - Ico logo - Orange.png'
 import { NextPageContext } from 'next'
 /* eslint-disable react-hooks/rules-of-hooks */
 import clsx from 'clsx'
