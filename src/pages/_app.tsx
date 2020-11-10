@@ -8,6 +8,7 @@ import LoadingSpinner from '../components/LoadingSpinner'
 import Favicon from '../public/images/symbole-agaetis-p164-rgb.png'
 import '../index.css'
 import 'react-lazy-load-image-component/src/effects/blur.css'
+import ServiceWorkerManager from '../components/ServiceWorkerManager';
 
 initBugsnag()
 declare global {
@@ -15,6 +16,7 @@ declare global {
     GoogleAnalyticsObject: string
     CRISP_WEBSITE_ID: string
     $crisp: []
+    workbox: {active: Promise<any>, messageSW: (param: {action: string}) => void, addEventListener: (listener: string, cb: () => void) => void}
   }
 }
 
@@ -61,6 +63,7 @@ export default class MyApp extends App {
     return (
       <>
         <this.ErrorBoundary>
+          <ServiceWorkerManager />
           <Head>
             <title>Agaetis</title>
             <meta name="keywords" content="Agaetis, Data science, Web development, Digital Twin" />
@@ -71,6 +74,7 @@ export default class MyApp extends App {
             <meta name="twitter:site" content="@AgaetisIT" />
             <link rel="shortcut icon" type="image/png" href={Favicon} />
             <link rel="preconnect" href="https://wordpress.agaetis.fr" />
+            <link rel="manifest" href="/manifest.json" />
           </Head>
 
           <LoadingSpinner color="#ff7f40" startPosition={0.3} stopDelayMs={50} height="3" />
