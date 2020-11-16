@@ -1,7 +1,3 @@
-import './Hero.css'
-
-import Mask from '../static/images/hero_mask.svg'
-import Quote from '../static/images/quote.png'
 import React from 'react'
 
 interface Props {
@@ -9,6 +5,11 @@ interface Props {
   valeurs: string[]
   subtitle: string
 }
+
+import Mask from '../static/images/hero_mask.svg'
+import Quote from '../static/images/quote.png'
+
+import './Hero.css'
 
 export default function Hero({ hero, valeurs, subtitle }: Props) {
   return (

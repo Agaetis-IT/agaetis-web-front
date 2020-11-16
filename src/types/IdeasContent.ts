@@ -33,7 +33,6 @@ export default interface IdeasContent {
   title: string
   date: string
   author: string
-  authorUrl: string
   content: string
   imageUrl: string
   category: string

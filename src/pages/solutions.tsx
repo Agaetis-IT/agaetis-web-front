@@ -1,13 +1,14 @@
-import './solutions.css'
-
-import ContactSection from '../components/ContactSection'
 import Head from 'next/head'
-import Layout from '../components/Layout'
 import React from 'react'
+import ContactSection from '../components/ContactSection'
+
+import Layout from '../components/Layout'
 import SoluceTab from '../components/SoluceTab'
-import { SolutionsContent } from '../types/SolutionsContent'
-import { getSolutionsPageContent } from '../Services/wordpressService'
 import publicRuntimeConfig from '../config/env.config'
+import { getSolutionsPageContent } from '../Services/wordpressService'
+import { SolutionsContent } from '../types/SolutionsContent'
+
+import './solutions.css'
 
 interface Props {
   pageContent: SolutionsContent
@@ -17,7 +18,7 @@ function solutions({ pageContent }: Props) {
   return (
     <>
       <Head>
-        <title>Agaetis : solutions</title>
+        <title>Agaetis : secteurs d'activités</title>
         <meta property="og:title" content="Agaetis : solutions" />
         <meta property="og:image" content={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/favicon.ico`} />
         <meta property="og:type" content="website" />

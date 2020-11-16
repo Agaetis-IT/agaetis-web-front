@@ -11,7 +11,7 @@ import { sendWhitePaper } from '../Services/contactService'
 import { getWhitePaperContent } from '../Services/wordpressService'
 import WhitePaper from '../types/WhitePaper'
 import { WhitepaperFormValues } from '../yup/WhitePaperFormValidation'
-import Logo from '../static/icons/Agaetis - Ico logo - Orange.png'
+import Logo from '../public/icons/Agaetis - Ico logo - Orange.png'
 
 import Error from './_error'
 

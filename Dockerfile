@@ -20,8 +20,8 @@ ENV NPM_CONFIG_LOGLEVEL=warn \
     NODE_PORT=5000
 
 COPY --from=0 --chown=node:node /app/src/.next src/.next
-COPY --from=0 --chown=node:node /app/src/public src/public
 COPY --from=0 --chown=node:node /app/dist/server.js app/package.json app/yarn.lock app/next.config.js ./
+COPY --from=0 --chown=node:node  /app/robots.txt /app/google80ae36db41235209.html /app/symbole-agaetis-p164-rgb.png  ./
 
 RUN yarn --frozen-lockfile --non-interactive && \
     rm -rf .cache

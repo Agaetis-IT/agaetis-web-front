@@ -1,9 +1,8 @@
-import './Cookies.css'
-
+import clsx from 'clsx'
 import React, { useEffect, useState } from 'react'
 
 import Button from './Button'
-import clsx from 'clsx'
+import './Cookies.css'
 
 interface Props {
   className?: string

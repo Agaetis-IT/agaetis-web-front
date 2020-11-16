@@ -2,8 +2,8 @@ import clsx from 'clsx'
 import range from 'lodash/range'
 import React, { useState } from 'react'
 
-import arrowL from '../static/images/left-arrow.svg'
-import arrowR from '../static/images/right-arrow.svg'
+import arrowL from '../public/images/left-arrow.svg'
+import arrowR from '../public/images/right-arrow.svg'
 import { Slide } from '../types/JobsContent'
 
 import Button from './Button'
