@@ -74,6 +74,8 @@ export default class MyApp extends App {
             <link rel="shortcut icon" type="image/png" href={'../public/favicon.ico'} />
             <link rel="preconnect" href="https://wordpress.agaetis.fr" />
             <link rel="manifest" href="/manifest.json" />
+            <meta name="theme-color" content='#ff7f40' />
+            <link rel="apple-touch-icon" href="/logo-agaetis-carre-apple.png"/>
           </Head>
 
           <LoadingSpinner color="#ff7f40" startPosition={0.3} stopDelayMs={50} height="3" />
