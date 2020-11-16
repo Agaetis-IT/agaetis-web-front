@@ -18,7 +18,7 @@ precacheAndRoute(WB_MANIFEST)
 cleanupOutdatedCaches()
 registerRoute(
   '/',
-  new NetworkFirst({
+  new StaleWhileRevalidate({
     cacheName: 'start-url',
     plugins: [new ExpirationPlugin({ maxEntries: 1, maxAgeSeconds: 30 * 24 * 3600, purgeOnQuotaError: !0 })]
   }),
@@ -41,14 +41,6 @@ registerRoute(
   'GET'
 )
 registerRoute(
-  /\.(?:jpg|jpeg|gif|png|svg|ico|webp)$/i,
-  new NetworkOnly({
-    cacheName: 'static-image-assets',
-    plugins: [new ExpirationPlugin({ maxEntries: 64, maxAgeSeconds: 30 * 24 * 3600, purgeOnQuotaError: !0 })]
-  }),
-  'GET'
-)
-registerRoute(
   /\.(?:js)$/i,
   new StaleWhileRevalidate({
     cacheName: 'static-js-assets',
@@ -61,6 +53,14 @@ registerRoute(
   new StaleWhileRevalidate({
     cacheName: 'static-style-assets',
     plugins: [new ExpirationPlugin({ maxEntries: 32, maxAgeSeconds: 30 * 24 * 3600, purgeOnQuotaError: !0 })]
+  }),
+  'GET'
+)
+registerRoute(
+  /.*\.(?:jpg|jpeg|gif|png|svg|ico|webp)$/i,
+  new StaleWhileRevalidate({
+    cacheName: 'static-image-assets',
+    plugins: [new ExpirationPlugin({ maxEntries: 64, maxAgeSeconds: 30 * 24 * 3600, purgeOnQuotaError: !0 })]
   }),
   'GET'
 )
@@ -82,20 +82,11 @@ registerRoute(
   'GET'
 )
 registerRoute(
-  /\/api\/.*$/i,
-  new NetworkFirst({
-    cacheName: 'apis',
-    networkTimeoutSeconds: 10,
-    plugins: [new ExpirationPlugin({ maxEntries: 16, maxAgeSeconds: 30 * 24 * 3600, purgeOnQuotaError: !0 })]
-  }),
-  'POST'
-)
-registerRoute(
   /.*/i,
-  new NetworkFirst({
+  new StaleWhileRevalidate({
     cacheName: 'others',
     networkTimeoutSeconds: 10,
-    plugins: [new ExpirationPlugin({ maxEntries: 32, maxAgeSeconds: 30 * 24 * 3600, purgeOnQuotaError: !0 })]
+    plugins: [new ExpirationPlugin({ maxEntries: 128, maxAgeSeconds: 30 * 24 * 3600, purgeOnQuotaError: !0 })]
   }),
   'GET'
 )
