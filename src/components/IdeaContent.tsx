@@ -1,12 +1,8 @@
-import './IdeaContent.css'
+import React from 'react'
 
-import React, { useState } from 'react'
-
-import Button from './Button'
 import IdeasContent from '../types/IdeasContent'
-import Linkedin from '../static/icons/linkedin.png'
-import Twitter from '../static/icons/twitter.png'
-import clsx from 'clsx'
+
+import './IdeaContent.css'
 
 interface Props {
   content: IdeasContent
@@ -16,24 +12,7 @@ function createMarkup(content: string) {
   return { __html: content }
 }
 
-function getMedia(url: string) {
-  if (url.includes('twitter')) {
-    return Twitter
-  } else if (url.includes('linkedin')) {
-    return Linkedin
-  }
-  return ''
-}
-
 function IdeaContent({ content }: Props) {
-  const [classname, setClassname] = useState<string | undefined>(undefined)
-  const toggleInfo = () => {
-    if (!classname || classname === 'close') {
-      setClassname('open')
-    } else {
-      setClassname('close')
-    }
-  }
   return (
     <div className="mb-8">
       <>
@@ -45,35 +24,20 @@ function IdeaContent({ content }: Props) {
               </a>
               {' > '}
               <a className="text-underline text-black" href="/ideas">
-                Blog
+                Idées
               </a>
               {' > '}
               <b dangerouslySetInnerHTML={createMarkup(content.title)} />
             </span>
           </div>
-          <div className="text-xs font-semibold my-4 sm:my-8 relative">
+          <div className="text-xs font-semibold my-4 sm:my-8 ">
             <div>
               <span className="pr-1">
-                {content.date.slice(8, 10)}/{content.date.slice(5, 7)}/{content.date.slice(0, 4)} |
+                {content.date.slice(8, 10)}/{content.date.slice(5, 7)}/{content.date.slice(0, 4)}
               </span>
-              <span className="text-blue cursor-pointer" onClick={toggleInfo}>
-                {content.author}
-              </span>
-              <span
-                className={clsx(
-                  'inline mx-4 ',
-                  content.authorUrl && classname ? `author-popper-${classname} block` : 'hidden'
-                )}
-              >
-                {content.authorUrl.split(',').map((url) => (
-                  <Button href={url} key={url} className="mr-4 author-media inline-block">
-                    <img className="" src={getMedia(url)} alt="facebook" />
-                  </Button>
-                ))}
-              </span>
+              <span className="text-blue">| {content.author}</span>
             </div>
           </div>
-
           <h1 className="font-semibold mb-8" dangerouslySetInnerHTML={createMarkup(content.title)} />
           <div className="my-4 md:my-0 flex flex-row flex-wrap">
             {content.tags &&

@@ -35,8 +35,6 @@ yarn dev
 
 Then visit http://localhost:3000
 
-You need an accessible wordpress for the website to work, whose url needs to be added in a `.env` file (on root directory) with `NEXT_APP_BASE_URL`.
-
 ## Change Mail settings
 
 To follow the steps below, you have to create a gmail account (or have one already)

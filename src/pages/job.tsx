@@ -10,7 +10,7 @@ import OfferSection from '../components/OfferSection'
 import publicRuntimeConfig from '../config/env.config'
 import { getAllJobs, getJobContent } from '../Services/wordpressService'
 import JobContent, { convertJobContentAPItoContent, JobContentLite } from '../types/JobContent'
-import Logo from '../static/icons/Agaetis - Ico logo - Orange.png'
+import Logo from '../public/icons/Agaetis - Ico logo - Orange.png'
 
 import Error from './_error'
 import './job.css'

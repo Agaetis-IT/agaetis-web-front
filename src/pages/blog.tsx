@@ -1,15 +1,16 @@
-import { Category, IdeasDesc, IdeasPageContent } from '../types/IdeasContent'
-import { getAllIdeas, getAllWhitePapers, getCategories, getIdeasPageContent } from '../Services/wordpressService'
+import Head from 'next/head'
+import Link from 'next/link'
+import React, { useState } from 'react'
 
 import Button from '../components/Button'
 import CategoryTab from '../components/CategoryTab'
-import ContactSection from '../components/ContactSection'
-import Head from 'next/head'
 import Layout from '../components/Layout'
-import Link from 'next/link'
-import React from 'react'
-import WhitePaper from '../types/WhitePaper'
 import publicRuntimeConfig from '../config/env.config'
+import { getAllIdeas, getAllWhitePapers, getCategories, getIdeasPageContent } from '../Services/wordpressService'
+import { Category, IdeasDesc, IdeasPageContent } from '../types/IdeasContent'
+import WhitePaper from '../types/WhitePaper'
+import clsx from 'clsx'
+import ContactSection from '../components/ContactSection'
 
 interface Props {
   ideasDescription: IdeasDesc[]
@@ -25,6 +26,11 @@ function compareIdeasByDate(idea1: IdeasDesc, idea2: IdeasDesc) {
 function Ideas({ ideasDescription, whitePapers, categories, content }: Props) {
   const sortedIdeas = ideasDescription.sort(compareIdeasByDate)
 
+  const [isOpenedMoreIdeas, setIsOpenedMoreIdeas] = useState(false)
+
+  function handleToggleMoreIdeas() {
+    setIsOpenedMoreIdeas(!isOpenedMoreIdeas)
+  }
   return (
     <>
       <Head>
@@ -60,10 +66,19 @@ function Ideas({ ideasDescription, whitePapers, categories, content }: Props) {
             categories={categories.filter(
               (category) => category.categoryName !== 'Jobs' && category.categoryName !== 'White-paper'
             )}
+            toggleMore={isOpenedMoreIdeas}
             ideasImg1={content.ideasimg1}
             ideasImg2={content.ideasimg2}
           />
-
+          <Button
+            className={clsx(
+              'flex flex-row justify-center uppercase rounded-full bg-orange text-xss py-2 px-6 text-white font-semibold mx-auto',
+              { 'mb-8': whitePapers.length < 2 }
+            )}
+            onClick={handleToggleMoreIdeas}
+          >
+            {!isOpenedMoreIdeas ? "Voir plus d'idées" : "Voir moins d'idées"}
+          </Button>
           {whitePapers && whitePapers.length > 1 && (
             <div id="whitepapers" className="text-center w-full mx-auto p-6 md:py-12 bg-light-grey my-8 blue-underline">
               <h2 className="text-2xl mt-4">Livres blancs</h2>

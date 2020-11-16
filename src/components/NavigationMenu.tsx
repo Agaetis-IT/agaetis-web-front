@@ -1,10 +1,10 @@
-import './NavigationMenu.css'
-
-import Button from './Button'
+import clsx from 'clsx'
 import Link from 'next/link'
 import React from 'react'
-import clsx from 'clsx'
 import { useTranslation } from 'react-i18next'
+
+import Button from './Button'
+import './NavigationMenu.css'
 
 interface Props {
   invertColors?: boolean

@@ -1,12 +1,13 @@
+import clsx from 'clsx'
 import { ErrorMessage, Form, Formik } from 'formik'
 import React, { useEffect, useState } from 'react'
-import { Step1FormValues, step1InitialValues, step1Schema } from '../../yup/ContactFormValidation'
-import { newReactGACustomVar, newReactGAEvent } from '../../analytics/analytics'
 
-import Button from '../Button'
+import { newReactGACustomVar, newReactGAEvent } from '../../analytics/analytics'
 import FormValues from '../../types/ContactFormValues'
+import { Step1FormValues, step1InitialValues, step1Schema } from '../../yup/ContactFormValidation'
+import Button from '../Button'
+
 import Radio from './Radio'
-import clsx from 'clsx'
 
 interface Props {
   className?: string
@@ -29,9 +30,9 @@ function onSubmit(fields: Step1FormValues, handleNext: (values: FormValues) => v
 export default function Step1({ className, handleNextStep, formValues }: Props) {
   const [step1FormValues, setStep1FormValues] = useState(step1InitialValues)
   useEffect(() => {
-    const step = localStorage.getItem('step1')
-    if (step) {
-      setStep1FormValues(JSON.parse(step))
+    const cookies = localStorage.getItem('cookies')
+    if (cookies) {
+      setStep1FormValues(JSON.parse(cookies))
     }
   }, [step1FormValues])
 
@@ -58,6 +59,14 @@ export default function Step1({ className, handleNextStep, formValues }: Props) 
               id="radio2"
               value="Une candidature ?"
               label="Une candidature ?"
+            />
+            <Radio
+              isSelected={values.objet === 'Un cafe ?'}
+              className="my-2 md:m-0"
+              name="objet"
+              id="radio3"
+              value="Un cafe ?"
+              label="Un café ?"
             />
           </div>
           <ErrorMessage name="objet" component="div" className="text-cgu text-center py-4 font-semibold text-red" />

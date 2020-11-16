@@ -1,8 +1,8 @@
-import './IdeasCard.css'
-
+import clsx from 'clsx'
 import Link from 'next/link'
 import React from 'react'
-import clsx from 'clsx'
+
+import './IdeasCard.css'
 
 interface Props {
   id: number
