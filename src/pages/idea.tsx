@@ -1,22 +1,21 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-import clsx from 'clsx'
-import { NextPageContext } from 'next'
-import Head from 'next/head'
+import IdeasContent, { IdeasDesc } from '../types/IdeasContent'
+import Meta, { convertMetaAPItoMeta } from '../types/Meta'
 import React, { useMemo, useState } from 'react'
+import { getIdeaBySlug, getIdeaMeta } from '../Services/wordpressService'
 
 import Button from '../components/Button'
+import ContactSection from '../components/ContactSection'
+import Error from './_error'
+import Head from 'next/head'
 import IdeaContent from '../components/IdeaContent'
 import IdeasCard from '../components/IdeasCard'
 import Layout from '../components/Layout'
-import publicRuntimeConfig from '../config/env.config'
-import { getIdeaBySlug, getIdeaMeta } from '../Services/wordpressService'
-import IdeasContent, { IdeasDesc } from '../types/IdeasContent'
-import Meta, { convertMetaAPItoMeta } from '../types/Meta'
-import Logo from '../public/icons/Agaetis - Ico logo - Orange.png'
-
-import Error from './_error'
+import Logo from '../static/icons/Agaetis - Ico logo - Orange.png'
+import { NextPageContext } from 'next'
+/* eslint-disable react-hooks/rules-of-hooks */
+import clsx from 'clsx'
 import { escape } from 'querystring'
-import ContactSection from '../components/ContactSection'
+import publicRuntimeConfig from '../config/env.config'
 
 interface Props {
   data: IdeasContent
@@ -124,6 +123,7 @@ Idea.getInitialProps = async ({ query }: Context) => {
         imageUrl: data.acf.idea_image || '',
         date: data.date,
         author: data._embedded.author[0].name,
+        authorUrl: data._embedded.author[0].url,
         categories: data._embedded['wp:term'][0].map((category: { name: string }) => category.name),
         content: data.content.rendered,
         slug: data.slug,

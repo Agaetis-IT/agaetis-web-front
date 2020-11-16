@@ -1,9 +1,9 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import Facebook from '../public/icons/facebook.png'
-import Linkedin from '../public/icons/linkedin.png'
-import Twitter from '../public/icons/twitter.png'
+import Facebook from '../static/icons/facebook.png'
+import Linkedin from '../static/icons/linkedin.png'
+import Twitter from '../static/icons/twitter.png'
 
 import Button from './Button'
 import './Footer.css'

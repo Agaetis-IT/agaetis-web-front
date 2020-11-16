@@ -1,12 +1,13 @@
+import './HomeSectors.css'
+
 import React, { useEffect, useState } from 'react'
 
-import './HomeSectors.css'
-import { SectorDesc } from '../types/IndexContent'
-import arrowL from '../public/images/left-arrow.svg'
-import arrowR from '../public/images/right-arrow.svg'
-import clsx from 'clsx'
-import VisibilitySensor from 'react-visibility-sensor'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
+import { SectorDesc } from '../types/IndexContent'
+import VisibilitySensor from 'react-visibility-sensor'
+import arrowL from '../static/images/left-arrow.svg'
+import arrowR from '../static/images/right-arrow.svg'
+import clsx from 'clsx'
 
 interface Props {
   title: string
@@ -36,17 +37,27 @@ export default function HomeSectors({ title, sectors }: Props) {
 
   useEffect(() => {
     if (document && document.getElementsByClassName('sector-card-image')) {
+      const sectors = document.getElementById('sectors')
       const items = document.getElementsByClassName('sector-card-image')
       for (let i = 0; i < items.length; i++) {
         // eslint-disable-next-line
         // @ts-ignore
         items.item(i).style.display = 'block'
       }
+      if (sectors) {
+        sectors.addEventListener('wheel', (e) => {
+          const delta = Math.max(-1, Math.min(1, e.deltaY))
+          sectors.scrollLeft += delta * 30
+          if (sectors.scrollLeft > 0 && sectors.offsetWidth + sectors.scrollLeft < sectors.scrollWidth - 1) {
+            e.preventDefault()
+          }
+        })
+      }
     }
   }, [])
 
   return (
-    <div className="bg-light-grey py-8 md:p-16 xl:px-32">
+    <div className="bg-light-grey py-8 md:p-16 xl:px-32" id="sectors_container">
       <h2 className="text-orange font-semibold text-center md:text-left">{title}</h2>
       <div className="py-12 sectors-list" id="sectors">
         {sectors

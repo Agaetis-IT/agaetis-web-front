@@ -1,12 +1,11 @@
-import React from 'react'
-
-import Logo from '../public/images/logo-agaetis-vert.png'
 import './ContactSection.css'
-import BottomNav from './BottomNav'
-import { useTranslation } from 'react-i18next'
-import Address from './Address'
 
+import Address from './Address'
+import BottomNav from './BottomNav'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
+import Logo from '../static/images/logo-agaetis-vert.png'
+import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 export default function ContactSection() {
   const { t } = useTranslation()
@@ -46,7 +45,7 @@ export default function ContactSection() {
 
       <div className="flex flex-col justify-center">
         <h4 className="text-white my-4  mb-4 uppercase text-sm">Nos adresses</h4>
-        <div className="flex flex-col md:flex-row justify-center font-thin mb-4">
+        <div className="flex flex-col md:flex-row justify-center font-thin mb-8">
           {addresses.map((address) => (
             <Address key={address.agency} {...address} />
           ))}

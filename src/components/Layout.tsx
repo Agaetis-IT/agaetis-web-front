@@ -1,11 +1,10 @@
-import React from 'react'
-
 import '../config/yupConfig'
 import '../i18n'
-
 import './Common.css'
+
 import Cookies from './Cookies'
 import Header from './Header'
+import React from 'react'
 import clsx from 'clsx'
 
 interface Props {
