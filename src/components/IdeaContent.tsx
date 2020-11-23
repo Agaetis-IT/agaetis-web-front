@@ -3,6 +3,7 @@ import React from 'react'
 import IdeasContent from '../types/IdeasContent'
 
 import './IdeaContent.css'
+import AccessTime from '../static/icons/access_time-24px.svg'
 
 interface Props {
   content: IdeasContent
@@ -31,11 +32,14 @@ function IdeaContent({ content }: Props) {
             </span>
           </div>
           <div className="text-xs font-semibold my-4 sm:my-8 ">
-            <div>
-              <span className="pr-1">
-                {content.date.slice(8, 10)}/{content.date.slice(5, 7)}/{content.date.slice(0, 4)}
+            <div className="flex items-center justify-between">
+              <span>
+                <span className="pr-1">
+                  {content.date.slice(8, 10)}/{content.date.slice(5, 7)}/{content.date.slice(0, 4)}
+                </span>
+                <span className="text-blue">| {content.author}</span>
               </span>
-              <span className="text-blue">| {content.author}</span>
+              <span className="flex items-center"><img src={AccessTime} style={{ width: 15, height: 15 }} alt="read_time" />&nbsp;{content.readTime} min.</span>
             </div>
           </div>
           <h1 className="font-semibold mb-8" dangerouslySetInnerHTML={createMarkup(content.title)} />

@@ -40,6 +40,7 @@ export default interface IdeasContent {
   tags: Tag[]
   slug: string
   descriptionText: string
+  readTime: number
 }
 
 export interface Tag {

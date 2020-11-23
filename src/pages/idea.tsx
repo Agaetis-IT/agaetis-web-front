@@ -67,6 +67,12 @@ export default function Idea({ data, related, errorCode, meta }: Props) {
         {meta.featuredImage && <meta property="og:image" content={meta.featuredImage} />}
         <meta name="description" content={meta.description ? meta.description : data.descriptionText} />
         <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/${data.slug}`} />
+        {/*
+        // @ts-ignore */}
+        <meta name="twitter:label1" value="Temps de lecture" />
+        {/*
+        // @ts-ignore */}
+        <meta name="twitter:data1" value={`${data.readTime} min.`}  />
       </Head>
       <Layout invertColors={false}>
         <div>
@@ -131,6 +137,7 @@ Idea.getInitialProps = async ({ query }: Context) => {
         tags: data._embedded['wp:term'][1].map((tag: { name: string; slug: string }) => {
           return { name: tag.name, slug: tag.slug }
         }),
+        readTime: data.content.rendered && Math.floor(data.content.rendered.split(' ').length / 275) ? Math.floor(data.content.rendered.split(' ').length / 275) : '1'
       },
       related: related.map((idea) => {
         return {
