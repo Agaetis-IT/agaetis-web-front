@@ -6,7 +6,6 @@ import './Header.css'
 import NavigationMenu from './NavigationMenu'
 
 import { LazyLoadImage } from 'react-lazy-load-image-component'
-import clsx from 'clsx'
 import logoAgaetisDesktop from '../static/images/logo-agaetis-hor-white-rgb-150.png'
 import logoAgaetisMobile from '../static/images/logo-agaetis-hor-p164-rgb-150.png'
 
