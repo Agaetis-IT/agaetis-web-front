@@ -3,10 +3,10 @@ import React from 'react'
 
 import ContactTab from '../components/ContactForm'
 import Layout from '../components/Layout'
+import Logo from '../static/icons/Agaetis - Ico logo - Orange.png'
 import publicRuntimeConfig from '../config/env.config'
 import { getContactPageContent } from '../Services/wordpressService'
 import ContactContentApi from '../types/ContactContentApi'
-import Logo from '../public/icons/Agaetis - Ico logo - Orange.png'
 
 import './contact.css'
 import ContactSection from '../components/ContactSection'

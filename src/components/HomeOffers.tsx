@@ -4,9 +4,8 @@ import Button from './Button'
 import { OfferDesc } from '../types/IndexContent'
 
 import './HomeOffers.css'
+import arrowR from '../static/images/right-arrow.svg'
 import clsx from 'clsx'
-
-import arrowR from '../public/images/right-arrow.svg'
 
 interface Props {
   title: string

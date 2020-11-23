@@ -1,0 +1,16 @@
+{
+  "name": "Agaetis",
+  "short_name": "Agaetis",
+  "icons": [
+    {
+      "src": "./logo-agaetis-carre.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "background_color": "#ff7f40",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait"
+}

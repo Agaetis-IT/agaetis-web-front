@@ -12,9 +12,9 @@ import publicRuntimeConfig from '../config/env.config'
 import { getIdeaBySlug, getIdeaMeta } from '../Services/wordpressService'
 import IdeasContent, { IdeasDesc } from '../types/IdeasContent'
 import Meta, { convertMetaAPItoMeta } from '../types/Meta'
-import Logo from '../public/icons/Agaetis - Ico logo - Orange.png'
 
 import Error from './_error'
+import Logo from '../static/icons/Agaetis - Ico logo - Orange.png'
 import { escape } from 'querystring'
 import ContactSection from '../components/ContactSection'
 
