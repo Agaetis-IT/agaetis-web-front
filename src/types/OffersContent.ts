@@ -19,10 +19,24 @@ export interface OfferDesc {
   slug: string
 }
 
+interface LandingPageAPI {
+  content: { rendered: string }
+}
+
+export interface LandingPage {
+  content: string
+}
+
 export function convertAPItoOffersContent(contentApi: OffersPageContent) {
   return {
     title: contentApi.title,
     paragraph: contentApi.paragraph,
     slug: contentApi.slug,
+  }
+}
+
+export function convertAPItoLandingPageContent(contentApi: LandingPageAPI) {
+  return {
+    content: contentApi.content.rendered,
   }
 }

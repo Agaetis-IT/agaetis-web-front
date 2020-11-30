@@ -80,6 +80,13 @@ export async function getOfferContent(slug: string) {
   return data
 }
 
+export async function getLandingPageContent(offer: string, landingPage: string) {
+  const { data } = await axios.get(
+    `${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/agaetis/api/v1/offres/${offer}/${landingPage}`
+  )
+  return data
+}
+
 export async function getWhitePaperContent(slug: string) {
   const { data } = await axios.get(
     `${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/agaetis/api/v1/white-papers/${slug}`
