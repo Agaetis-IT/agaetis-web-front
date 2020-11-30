@@ -15,7 +15,7 @@ export default function NavigationMenu({ invertColors, position }: Props) {
   const { t } = useTranslation()
   const pages = [
     ['Blog', '/blog'],
-    ['Agaetis', '/agaetis'],
+    ['Offres', '/offers'],
     ['Solutions', '/solutions'],
     ['Jobs', '/jobs'],
   ]

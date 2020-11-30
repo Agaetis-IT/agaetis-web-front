@@ -111,7 +111,7 @@ function job({ pageContent, allJobs, errorCode }: Props) {
             </p>
             <p className="mb-3">{pageContent.profile_description}</p>
             <p className="mb-3">Salaire: {pageContent.offre_salary}</p>
-            <p className="mb-3">Connaissances souhaitées (en gras les indispensables) :</p>
+            <p className="mb-3">Connaissances souhaitées :</p>
             <ul className="pl-4 job-list">
               {pageContent.offre_profile
                 .filter((point) => point !== '')
