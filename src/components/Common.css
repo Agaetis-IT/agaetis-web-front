@@ -47,3 +47,18 @@
   background-color: white;
   color: black;
 }
+
+.justify-evenly {
+  justify-content: space-evenly;
+}
+
+input,
+textarea {
+  outline: none;
+}
+
+.message-textarea {
+  display: block;
+  height: 200px;
+  border-radius: 20px;
+}
