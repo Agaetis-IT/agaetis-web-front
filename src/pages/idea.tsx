@@ -69,10 +69,16 @@ export default function Idea({ data, related, errorCode, meta }: Props) {
         <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/${data.slug}`} />
         {/*
         // @ts-ignore */}
-        <meta name="twitter:label1" value="Temps de lecture" />
+        <meta name="twitter:label1" value="Auteur" />
         {/*
         // @ts-ignore */}
-        <meta name="twitter:data1" value={`${data.readTime} min.`}  />
+        <meta name="twitter:data1" value={`${data.author}`}  />
+        {/*
+        // @ts-ignore */}
+        <meta name="twitter:label2" value="Temps de lecture" />
+        {/*
+        // @ts-ignore */}
+        <meta name="twitter:data2" value={`${data.readTime} min.`}  />
       </Head>
       <Layout invertColors={false}>
         <div>

@@ -4,10 +4,11 @@ import React from 'react'
 
 import initReactGA, { trackUrl } from '../analytics/analytics'
 import initBugsnag, { getBugsnagClient } from '../bugsnag/bugsnag'
-import LoadingSpinner from '../components/LoadingSpinner'
+import publicRuntimeConfig from '../config/env.config'
 import '../index.css'
 import 'react-lazy-load-image-component/src/effects/blur.css'
 import ServiceWorkerManager from '../components/ServiceWorkerManager';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 initBugsnag()
 declare global {
@@ -71,7 +72,7 @@ export default class MyApp extends App {
             <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
             <meta name="twitter:card" content="summary_large_image" />
             <meta name="twitter:site" content="@AgaetisIT" />
-            <link rel="shortcut icon" type="image/png" href={'../public/favicon.ico'} />
+            <link rel="shortcut icon" type="image/ico" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/favicon.ico`} />
             <link rel="preconnect" href="https://wordpress.agaetis.fr" />
             <link rel="manifest" href="/manifest.json" />
             <meta name="theme-color" content='#ff7f40' />
