@@ -13,7 +13,7 @@ import { FooterFormInput } from '../yup/ContactFormValidation'
 import './landingpage.css'
 
 interface Context extends NextPageContext {
-  query: { slug: string; landingPage: string }
+  query: { slug: string }
 }
 
 interface Props {
@@ -65,7 +65,7 @@ export default function Landingpage({ pageContent, errorCode }: Props) {
 
 Landingpage.getInitialProps = async ({ query }: Context) => {
   // tslint:disable-next-line
-  const { [0]: data } = await Promise.all([getLandingPageContent(query.slug!, query.landingPage!)])
+  const { [0]: data } = await Promise.all([getLandingPageContent(query.slug!)])
   const pageContent = convertAPItoLandingPageContent({ ...data })
   return {
     pageContent,

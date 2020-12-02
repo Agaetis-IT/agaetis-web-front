@@ -93,7 +93,7 @@ app
       app.render(req, res, '/job', { ...req.params, ...req.query })
     })
 
-    server.get('/offers/:slug/:landingPage', (req: Request, res: Response) => {
+    server.get('/landingpages/:slug', (req: Request, res: Response) => {
       app.render(req, res, '/landingpage', { ...req.params, ...req.query })
     })
 
