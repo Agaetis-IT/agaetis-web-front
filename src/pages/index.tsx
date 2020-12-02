@@ -44,8 +44,6 @@ function Index({ pageContent: pageContent }: Props) {
             <HomeExpertises
               expertises_title={pageContent.expertises_title}
               expertises_image_desktop={pageContent.expertises_image_desktop}
-              expertises_image_mobile={pageContent.expertises_image_mobile}
-              expertises={pageContent.expertises}
             ></HomeExpertises>
             <HomeConvictions
               convictions={pageContent.convictions}
