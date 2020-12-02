@@ -23,34 +23,34 @@ export default function ContactFormFooter({ handleSubmit, isSubmited }: Props) {
   }, [clearErrors])
 
   return (
-    <div className="bg-light-grey p-0 md:p-12 lg:px-24 lg:p-16">
+    <div className="bg-light-grey p-0 p-6 md:p-12 lg:px-24 lg:p-16">
       <h2 className="text-orange text-2xl mb-8">Une question, un café, un thé ? Contactez-nous</h2>
       <FormProvider register={register} watch={watch} control={control} clearErrors={clearErrors} {...otherFormProps}>
         <form onSubmit={otherFormProps.handleSubmit(handleSubmit)}>
-          <div className="flex flex-row justify-between">
+          <div className="flex flex-col md:flex-row justify-between">
             <TextInput
-              wrapperClassName="w-1/5"
+              wrapperClassName="w-full md:w-1/5"
               className="appearance-none rounded-full  text-xs p-3 shadow-xl text-orange font-semibold leading-tight"
               name="lastname"
               label="Nom"
               type="input"
             ></TextInput>
             <TextInput
-              wrapperClassName="w-1/5"
+              wrapperClassName="w-full md:w-1/5 mt-8 md:mt-0"
               className="appearance-none rounded-full  text-xs p-3 shadow-xl text-orange font-semibold leading-tight"
               name="firstname"
               label="Prénom"
               type="input"
             ></TextInput>
             <TextInput
-              wrapperClassName="w-1/5"
+              wrapperClassName="w-full md:w-1/5 mt-8 md:mt-0"
               className="appearance-none rounded-full  text-xs p-3 shadow-xl text-orange font-semibold leading-tight"
               name="mail"
               label="Mail"
               type="input"
             ></TextInput>
             <TextInput
-              wrapperClassName="w-1/5"
+              wrapperClassName="w-full md:w-1/5 mt-8 md:mt-0"
               className="appearance-none rounded-full  text-xs p-3 shadow-xl text-orange font-semibold leading-tight"
               name="phone"
               label="Téléphone"

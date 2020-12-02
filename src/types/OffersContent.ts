@@ -37,6 +37,6 @@ export function convertAPItoOffersContent(contentApi: OffersPageContent) {
 
 export function convertAPItoLandingPageContent(contentApi: LandingPageAPI) {
   return {
-    content: contentApi.content.rendered,
+    content: contentApi.content ? contentApi.content.rendered : '',
   }
 }

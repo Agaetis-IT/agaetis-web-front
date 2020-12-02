@@ -10,6 +10,8 @@ import { getLandingPageContent } from '../Services/wordpressService'
 import { convertAPItoLandingPageContent, LandingPage } from '../types/OffersContent'
 import { FooterFormInput } from '../yup/ContactFormValidation'
 
+import './landingpage.css'
+
 interface Context extends NextPageContext {
   query: { slug: string; landingPage: string }
 }
@@ -50,8 +52,8 @@ export default function Landingpage({ pageContent, errorCode }: Props) {
   return (
     <Layout invertColors={false}>
       <>
-        <div className="p-0 md:p-12 lg:px-24 lg:p-16">
-          <div className="mt-20" dangerouslySetInnerHTML={{ __html: pageContent.content }}></div>
+        <div className="p-0 md:p-12 md:p-16 xl:px-32">
+          <div className="xl:mt-20 landingpage-content" dangerouslySetInnerHTML={{ __html: pageContent.content }}></div>
         </div>
         <ContactFormFooter handleSubmit={handleSubmit} isSubmited={isSubmited} />
         {isOpenenedModal && <ContactMessage error={isError}></ContactMessage>}
