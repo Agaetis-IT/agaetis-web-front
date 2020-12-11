@@ -1,4 +1,4 @@
-export default interface OffersPageContent {
+export interface OffersPageContent {
   title: string
   paragraph: string
   offers_description: string
@@ -6,7 +6,7 @@ export default interface OffersPageContent {
   slug: string
 }
 
-export interface OffersContent {
+export default interface OffersContent {
   title: string
   paragraph: string
   slug: string
@@ -15,7 +15,8 @@ export interface OffersContent {
 export interface OfferDesc {
   title: string
   offers_description: string
-  offers_image: string
+  offers_image1: string
+  offers_image2: string
   slug: string
 }
 
@@ -27,7 +28,7 @@ export interface LandingPage {
   content: string
 }
 
-export function convertAPItoOffersContent(contentApi: OffersPageContent) {
+export function convertAPItoOffersContent(contentApi: OffersPageContent): OffersContent {
   return {
     title: contentApi.title,
     paragraph: contentApi.paragraph,
