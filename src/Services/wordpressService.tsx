@@ -7,7 +7,7 @@ import { IdeasPageContent } from '../types/IdeasContent'
 import IndexContent from '../types/IndexContent'
 import JobsContentAPI, { convertJobsContentAPItoContent } from '../types/JobsContent'
 import SolutionsContentAPI, { convertContentAPItoContent } from '../types/SolutionsContent'
-import OffersPageContent from '../types/OffersContent'
+import { OffersPageContent } from '../types/OffersContent'
 
 export async function getWordpressPageBySlug<T>(slug: string) {
   const { data } = await axios.get<T>(`${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/agaetis/api/v1/pages/${slug}`)
