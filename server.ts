@@ -105,6 +105,10 @@ app
       app.render(req, res, '/tag', { ...req.params, ...req.query })
     })
 
+    server.get('/offers/:slug', (req: Request, res: Response) => {
+      app.render(req, res, '/offer', { ...req.params, ...req.query })
+    })
+
     server.post('/send', async (req: Request, res: Response) => {
       oAuth2Client.setCredentials({
         // eslint-disable-next-line @typescript-eslint/camelcase

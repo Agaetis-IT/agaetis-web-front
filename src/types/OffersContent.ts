@@ -20,6 +20,12 @@ export interface OfferDesc {
   slug: string
 }
 
+export interface OfferContent {
+  title: string
+  paragraph: string
+  slug: string
+}
+
 interface LandingPageAPI {
   content: { rendered: string }
 }
