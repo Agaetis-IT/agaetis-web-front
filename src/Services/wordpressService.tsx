@@ -114,6 +114,11 @@ export async function getAllOffers() {
   return data
 }
 
+export async function getCategoryOffers(slug: string) {
+  const { data } = await axios.get(`${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/agaetis/api/v1/cat/${slug}`)
+  return data
+}
+
 export async function getIdeaById(id: number) {
   const { data } = await axios.get(`${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/wp/v2/posts/${id}?_embed`)
   return data

@@ -1,6 +1,6 @@
-import OffersContent, { OfferDesc, convertAPItoOffersContent } from '../types/OffersContent'
+import OffersContent, { OfferDesc, convertAPItoOffersContent, OfferLeaf } from '../types/OffersContent'
 import React, { useState } from 'react'
-import { getAllOffers, getOffersPageContent } from '../Services/wordpressService'
+import { getAllOffers, getCategoryOffers, getOffersPageContent } from '../Services/wordpressService'
 
 import Button from '../components/Button'
 import ContactFormFooter from '../components/ContactFormFooter'
@@ -38,6 +38,7 @@ export default function offers({ pageContent, allOffers }: Props) {
   const [isOpenenedModal, setOpenModal] = useState(false)
   const [isError, setIsError] = useState(true)
   const [isSubmited, setIsSubmited] = useState(false)
+  console.log(allOffers)
 
   function handleOpenModal(error: boolean) {
     setIsError(error)
@@ -121,7 +122,18 @@ export default function offers({ pageContent, allOffers }: Props) {
                       <span>+</span>
                     </div>
                   </div>
-                  <div className="block md:hidden px-8 text-white">{selectedOffer === index && <p>00</p>}</div>
+                  <div
+                    className={clsx('block md:hidden px-8 text-white text-sm', {
+                      'mb-8': allOffers.length === index + 1 && selectedOffer === index,
+                    })}
+                  >
+                    {selectedOffer === index && (
+                      <p>
+                        {allOffers[selectedOffer].childrens.length > 0 &&
+                          allOffers[selectedOffer].childrens.map((offer: OfferLeaf) => offer.post_title).join(' - ')}
+                      </p>
+                    )}
+                  </div>
                 </>
               ))}
             </div>
@@ -139,7 +151,7 @@ offers.getInitialProps = async () => {
   const { [0]: data, [1]: allOffersData } = await Promise.all([getOffersPageContent(), getAllOffers()])
   const pageContent = convertAPItoOffersContent(data)
   const allOffers = allOffersData.map(
-    (offer: {
+    async (offer: {
       acf: {
         title: string
         paragraph: string
@@ -149,8 +161,10 @@ offers.getInitialProps = async () => {
       }
       slug: string
     }) => {
-      return { ...offer.acf, slug: offer.slug }
+      const childrens = await getCategoryOffers(offer.slug)
+      return { ...offer.acf, slug: offer.slug, childrens }
     }
   )
-  return { pageContent, allOffers }
+  const allOffersChildrens = await Promise.all(allOffers)
+  return { pageContent, allOffers: allOffersChildrens }
 }

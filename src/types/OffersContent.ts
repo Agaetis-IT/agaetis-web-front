@@ -18,11 +18,18 @@ export interface OfferDesc {
   offers_image1: string
   offers_image2: string
   slug: string
+  childrens: OfferLeaf[]
 }
 
 export interface OfferContent {
   title: string
   paragraph: string
+  slug: string
+  childrens: OfferLeaf[]
+}
+
+export interface OfferLeaf {
+  post_title: string
   slug: string
 }
 
