@@ -13,8 +13,19 @@ import ContactMessage from '../components/ContactMessage'
 import ContactSection from '../components/ContactSection'
 import Mask from '../static/images/hero_mask.svg'
 import Plus from '../static/icons/squared_plus.svg'
+import clsx from 'clsx'
 
 /* eslint-disable react-hooks/rules-of-hooks */
+
+function getRotation(selected: boolean, wasSelected: boolean) {
+  if (selected) {
+    return 'rotate45'
+  }
+  if (wasSelected) {
+    return 'rotate0-45'
+  }
+  return ''
+}
 
 interface Props {
   pageContent: OffersContent
@@ -23,6 +34,7 @@ interface Props {
 
 export default function offers({ pageContent, allOffers }: Props) {
   const [selectedOffer, setSelectedOffer] = useState(0)
+  const [wasSelected, setWasSelected] = useState(0)
   const [isOpenenedModal, setOpenModal] = useState(false)
   const [isError, setIsError] = useState(true)
   const [isSubmited, setIsSubmited] = useState(false)
@@ -63,37 +75,54 @@ export default function offers({ pageContent, allOffers }: Props) {
               backgroundPosition: 'center',
               backgroundSize: 'cover',
             }}
-            className="bg-orange p-0 md:p-12 lg:px-24 lg:p-16"
+            className="bg-black-light md:bg-orange p-0 md:p-12 lg:px-24 lg:p-16"
           >
-            <h1 className="text-white text-2xl mt-20">{pageContent.title}</h1>
-            <p className="text-white py-8 leading-normal text-sm">{pageContent.paragraph}</p>
-            <div className="mx-auto bg-white p-8">
-              <div className="flex flex-row items-center">
-                <img src={allOffers[selectedOffer].offers_image2} className="block h-16"></img>
-                <h2 className="text-orange ml-8">{allOffers[selectedOffer].title}</h2>
-              </div>
-              <p
-                className="leading-normal text-sm py-8 text-justify"
-                dangerouslySetInnerHTML={{ __html: allOffers[selectedOffer].offers_description }}
-              ></p>
-              <Button className="text-sm block text-orange font-semibold mx-auto">
+            <div className="hidden md:block">
+              <h1 className="text-white text-2xl mt-0 md:mt-20">{pageContent.title}</h1>
+              <p className="text-white py-8 leading-normal text-sm">{pageContent.paragraph}</p>
+              <div className="mx-auto bg-white p-8">
                 <div className="flex flex-row items-center">
-                  En savoir plus <img src={Plus} className="ml-4 h-6"></img>
+                  <img src={allOffers[selectedOffer].offers_image2} className="block h-16"></img>
+                  <h2 className="text-orange ml-8">{allOffers[selectedOffer].title}</h2>
                 </div>
-              </Button>
-            </div>
-            <div className="flex flex-row justify-between pt-8">
-              {allOffers.map((offre, index) => (
-                <div
-                  className="bg-white flex flex-col p-8 cursor-pointer w-1/6 text-center"
-                  onClick={() => {
-                    setSelectedOffer(index)
-                  }}
-                  key={offre.title}
+                <p
+                  className="leading-normal text-sm py-8 text-justify"
+                  dangerouslySetInnerHTML={{ __html: allOffers[selectedOffer].offers_description }}
+                ></p>
+                <Button
+                  className="text-sm flex flex-row justify-center text-orange font-semibold"
+                  href={`/offers/${allOffers[selectedOffer].slug}`}
                 >
-                  <img src={offre.offers_image1}></img>
-                  <h2 className="text-sm">{offre.title}</h2>
-                </div>
+                  <div className="flex flex-row items-center">
+                    En savoir plus <img src={Plus} className="ml-4 h-6"></img>
+                  </div>
+                </Button>
+              </div>
+            </div>
+            <div className="flex flex-col md:flex-row justify-between m-0 md:pt-8">
+              {allOffers.map((offre, index) => (
+                <>
+                  <div
+                    className="bg-none md:bg-white flex flex-row md:flex-col justify-between items-center text-white md:text-black p-8 cursor-pointer w-full md:w-1/6 text-center"
+                    onClick={() => {
+                      setWasSelected(selectedOffer)
+                      setSelectedOffer(index)
+                    }}
+                    key={offre.title}
+                  >
+                    <img src={offre.offers_image1} className="h-8 md:h-auto"></img>
+                    <h2 className="text-sm">{offre.title}</h2>
+                    <div
+                      className={clsx(
+                        'inline-block md:hidden offer-icon',
+                        getRotation(selectedOffer === index, wasSelected === index)
+                      )}
+                    >
+                      <span>+</span>
+                    </div>
+                  </div>
+                  <div className="block md:hidden px-8 text-white">{selectedOffer === index && <p>00</p>}</div>
+                </>
               ))}
             </div>
           </div>

@@ -1,18 +1,19 @@
 import React from 'react'
 import { NextPageContext } from 'next'
-import { convertAPItoOffersContent, OffersContent } from '../types/OffersContent'
+import { convertAPItoOffersContent, OfferContent } from '../types/OffersContent'
 import { getOfferContent } from '../Services/wordpressService'
 import Error from './_error'
 import Head from 'next/head'
 import publicRuntimeConfig from '../config/env.config'
 import Layout from '../components/Layout'
+import Mask from '../static/images/hero_mask.svg'
 
 interface Context extends NextPageContext {
   query: { slug: string }
 }
 
 interface Props {
-  pageContent: OffersContent
+  pageContent: OfferContent
   errorCode?: number
 }
 
@@ -31,25 +32,18 @@ export default function offer({ pageContent, errorCode }: Props) {
         <meta name="description" content={pageContent.paragraph} />
         <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}${pageContent.slug}`} />
       </Head>
-      <Layout invertColors={false}>
-        <div className="md:max-w-md mx-auto p-0 md:px-8">
-          <div className="text-xs px-4 md:px-0">
-            <span>
-              <a className="text-underline text-black" href="/">
-                Accueil
-              </a>
-              {' > '}
-              <a className="text-underline text-black" href="/offers">
-                Offres
-              </a>
-              {' > '}
-              <b>{pageContent.title}</b>{' '}
-            </span>
-            <h1 className="text-center text-2xl py-8 md:pb-0 md:mt-12">{pageContent.title}</h1>
-            <p
-              className="md:max-w-md mx-auto text-center px-4 md:py-6 md:px-0 text-sm leading-normal"
-              dangerouslySetInnerHTML={{ __html: pageContent.paragraph }}
-            ></p>
+      <Layout invertColors={true}>
+        <div className="mx-auto px-0">
+          <div
+            style={{
+              backgroundImage: `url("${Mask}")`,
+              backgroundPosition: 'center',
+              backgroundSize: 'cover',
+            }}
+            className="bg-orange p-0 md:p-12 lg:px-24 lg:p-16"
+          >
+            <h1 className="text-white text-2xl mt-20">{pageContent.title}</h1>
+            <p className="text-white py-8 leading-normal text-sm">{pageContent.paragraph}</p>
           </div>
         </div>
       </Layout>
