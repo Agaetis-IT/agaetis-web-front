@@ -102,14 +102,13 @@ export default function offers({ pageContent, allOffers }: Props) {
             </div>
             <div className="flex flex-col md:flex-row justify-between m-0 md:pt-8">
               {allOffers.map((offre, index) => (
-                <>
+                <div key={offre.title}>
                   <div
                     className="bg-none md:bg-white flex flex-row md:flex-col justify-between items-center text-white md:text-black p-8 cursor-pointer w-full md:w-1/6 text-center"
                     onClick={() => {
                       setWasSelected(selectedOffer)
                       setSelectedOffer(index)
                     }}
-                    key={offre.title}
                   >
                     <img src={offre.offers_image1} className="h-8 md:h-auto"></img>
                     <h2 className="text-sm">{offre.title}</h2>
@@ -128,13 +127,17 @@ export default function offers({ pageContent, allOffers }: Props) {
                     })}
                   >
                     {selectedOffer === index && (
-                      <p>
+                      <div className="flex flex-col">
                         {allOffers[selectedOffer].childrens.length > 0 &&
-                          allOffers[selectedOffer].childrens.map((offer: OfferLeaf) => offer.post_title).join(' - ')}
-                      </p>
+                          allOffers[selectedOffer].childrens.map((offer: OfferLeaf) => (
+                            <p key={offer.post_title} className="text-center p-4">
+                              {offer.post_title}
+                            </p>
+                          ))}
+                      </div>
                     )}
                   </div>
-                </>
+                </div>
               ))}
             </div>
           </div>

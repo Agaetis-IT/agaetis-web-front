@@ -6,6 +6,14 @@ export interface OffersPageContent {
   slug: string
 }
 
+interface OfferAPI {
+  title: { rendered: string }
+  acf: {
+    title: string
+    description: string
+  }
+}
+
 export default interface OffersContent {
   title: string
   paragraph: string
@@ -41,6 +49,11 @@ export interface LandingPage {
   content: string
 }
 
+export interface OfferLeafContent {
+  title: string
+  description: string
+}
+
 export function convertAPItoOffersContent(contentApi: OffersPageContent): OffersContent {
   return {
     title: contentApi.title,
@@ -52,5 +65,12 @@ export function convertAPItoOffersContent(contentApi: OffersPageContent): Offers
 export function convertAPItoLandingPageContent(contentApi: LandingPageAPI) {
   return {
     content: contentApi.content ? contentApi.content.rendered : '',
+  }
+}
+
+export function convertAPItoOfferleaf(contentApi: OfferAPI) {
+  return {
+    title: contentApi.title.rendered,
+    ...contentApi.acf,
   }
 }

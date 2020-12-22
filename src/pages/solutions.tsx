@@ -34,7 +34,7 @@ function solutions({ pageContent }: Props) {
       </Head>
       <Layout invertColors={false}>
         <>
-          <div className="md:max-w-md mx-auto p-0 md:px-8">
+          <div className="md:max-w-md mx-auto p-0 md:px-8 mt-0 md:mt-20">
             <div className="text-xs px-4 md:px-0">
               <span>
                 <a className="text-underline text-black" href="/">
