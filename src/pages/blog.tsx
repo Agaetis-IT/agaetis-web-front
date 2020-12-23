@@ -44,14 +44,7 @@ function Ideas({ ideasDescription, whitePapers, categories, content }: Props) {
       </Head>
       <Layout invertColors={false}>
         <div className="mx-auto px-0">
-          <div
-            style={{
-              backgroundImage: `url("")`,
-              backgroundPosition: 'center',
-              backgroundSize: 'cover',
-            }}
-            className=" p-0 md:p-12 lg:px-24 lg:p-16"
-          >
+          <div className=" p-0 md:p-12 lg:px-24 lg:p-16">
             <h1 className="text-center text-3xl py-8 md:pb-0 mt-0 md:mt-20">{content.titre}</h1>
             <p className="md:max-w-md mx-auto text-center px-4 md:py-6 md:px-0 text-sm leading-normal">
               {content.description}
