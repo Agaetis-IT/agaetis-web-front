@@ -15,6 +15,7 @@ import Logo from '../static/icons/Agaetis - Ico logo - Orange.png'
 import Error from './_error'
 import './job.css'
 import ContactSection from '../components/ContactSection'
+import Link from 'next/link'
 
 interface Props {
   pageContent: JobContent
@@ -65,9 +66,9 @@ function job({ pageContent, allJobs, errorCode }: Props) {
             <div className="md:max-w-md mx-auto p-0 md:px-8 mt-0 md:mt-20">
               <div className="text-xs px-4 md:px-0">
                 <span>
-                  <a className="text-underline text-black" href="/">
-                    Accueil
-                  </a>
+                  <Link href="/">
+                    <a className="text-underline text-black">Accueil</a>
+                  </Link>
                   {' > '}
                   <a className="text-underline text-black" href="/jobs">
                     Jobs
