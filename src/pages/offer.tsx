@@ -8,6 +8,7 @@ import {
   OfferLeafContent,
 } from '../types/OffersContent'
 import { getCategoryOffers, getOfferContent, getOfferLeaf } from '../Services/wordpressService'
+import Back from '../static/icons/Btn_Retour.svg'
 import Error from './_error'
 import Head from 'next/head'
 import publicRuntimeConfig from '../config/env.config'
@@ -15,6 +16,7 @@ import Layout from '../components/Layout'
 import Particles from '../static/images/particles-2.svg'
 import { useState } from 'react'
 import Button from '../components/Button'
+import clsx from 'clsx'
 
 interface Context extends NextPageContext {
   query: { slug: string }
@@ -55,25 +57,40 @@ export default function offer({ pageContent, errorCode, offers }: Props): React.
           >
             <h1 className="text-white text-2xl mt-0 md:mt-20">{pageContent.title}</h1>
             <p className="text-white py-8 leading-normal text-sm">{pageContent.paragraph}</p>
-            <div className="flex flex-col lg:flex-row bg-white p-8">
-              <div className="w-1/2 border-right">
-                {offers !== undefined &&
-                  offers.map((offer, index) => (
-                    <Button
-                      key={offer.title}
-                      onClick={() => {
-                        setSelectedOffer(index)
-                      }}
-                      className="block border-2 border-orange bg-transparent rounded-full my-8 mx-auto w-1/2 py-2 text-sm"
-                    >
-                      <div dangerouslySetInnerHTML={{ __html: offer.title }}></div>
-                    </Button>
-                  ))}
+            <div className="bg-white p-8">
+              <Button href="/offers">
+                <div className="flex flex-row items-center mb-8">
+                  <img className="mr-4" src={Back} />
+                  <span className="text-orange">Retour aux catégories d'offres</span>
+                </div>
+              </Button>
+
+              <div className="flex flex-col lg:flex-row">
+                <div className="w-2/5 border-orange-right">
+                  {offers !== undefined &&
+                    offers.map((offer, index) => (
+                      <Button
+                        key={offer.title}
+                        onClick={() => {
+                          setSelectedOffer(index)
+                        }}
+                        className={clsx(
+                          'block border-2 border-orange bg-transparent rounded-full my-8 mx-auto w-3/4 py-2 text-sm',
+                          { 'text-white bg-orange': selectedOffer === index }
+                        )}
+                      >
+                        <div dangerouslySetInnerHTML={{ __html: offer.title }}></div>
+                      </Button>
+                    ))}
+                </div>
+                <div className="w-3/5 my-8 pl-8">
+                  <h2 className="text-xl text-orange mb-8">{offers[selectedOffer].title}</h2>
+                  <div
+                    className="text-sm"
+                    dangerouslySetInnerHTML={{ __html: offers[selectedOffer].description }}
+                  ></div>
+                </div>
               </div>
-              <div
-                className="w-1/2 my-8 "
-                dangerouslySetInnerHTML={{ __html: offers[selectedOffer].description }}
-              ></div>
             </div>
           </div>
         </div>

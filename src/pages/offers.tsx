@@ -102,8 +102,9 @@ export default function offers({ pageContent, allOffers }: Props) {
             </div>
             <div className="flex flex-col md:flex-row justify-between m-0 md:pt-8">
               {allOffers.map((offre, index) => (
-                <div key={offre.title}>
+                <>
                   <div
+                    key={offre.title}
                     className="bg-none md:bg-white flex flex-row md:flex-col justify-between items-center text-white md:text-black p-8 cursor-pointer w-full md:w-1/6 text-center"
                     onClick={() => {
                       setWasSelected(selectedOffer)
@@ -137,7 +138,7 @@ export default function offers({ pageContent, allOffers }: Props) {
                       </div>
                     )}
                   </div>
-                </div>
+                </>
               ))}
             </div>
           </div>
