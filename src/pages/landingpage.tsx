@@ -5,6 +5,7 @@ import ContactMessage from '../components/ContactMessage'
 import ContactSection from '../components/ContactSection'
 import Error from './_error'
 import Layout from '../components/Layout'
+import Particles from '../static/images/particles-3.svg'
 import { footerSend } from '../Services/contactService'
 import { getLandingPageContent } from '../Services/wordpressService'
 import { convertAPItoLandingPageContent, LandingPage } from '../types/OffersContent'
@@ -52,8 +53,20 @@ export default function Landingpage({ pageContent, errorCode }: Props) {
   return (
     <Layout invertColors={false}>
       <>
-        <div className="p-0 md:p-12 md:p-16 xl:px-32">
-          <div className="xl:mt-20 landingpage-content" dangerouslySetInnerHTML={{ __html: pageContent.content }}></div>
+        <div className="pt-0 md:pt-28">
+          <div
+            style={{
+              backgroundImage: `url("${Particles}")`,
+              backgroundRepeat: 'no-repeat',
+            }}
+            className="bg-light-grey p-6 md:p-12 md:p-16 xl:px-32 shadow-none md:shadow-top"
+          >
+            <h1>{pageContent.title}</h1>
+            <div
+              className="xl:mt-20 landingpage-content"
+              dangerouslySetInnerHTML={{ __html: pageContent.content }}
+            ></div>
+          </div>
         </div>
         <ContactFormFooter handleSubmit={handleSubmit} isSubmited={isSubmited} />
         {isOpenenedModal && <ContactMessage error={isError}></ContactMessage>}

@@ -43,10 +43,12 @@ export interface OfferLeaf {
 
 interface LandingPageAPI {
   content: { rendered: string }
+  title: { rendered: string }
 }
 
 export interface LandingPage {
   content: string
+  title: string
 }
 
 export interface OfferLeafContent {
@@ -65,6 +67,7 @@ export function convertAPItoOffersContent(contentApi: OffersPageContent): Offers
 export function convertAPItoLandingPageContent(contentApi: LandingPageAPI) {
   return {
     content: contentApi.content ? contentApi.content.rendered : '',
+    title: contentApi.title.rendered,
   }
 }
 
