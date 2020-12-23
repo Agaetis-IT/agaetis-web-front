@@ -9,7 +9,7 @@ interface Props {
 
 export default function OfferSection({ footerText }: Props) {
   return (
-    <div className="bg-orange p-8 pt-12 md:pb-20 md:pt-24 flex flex-col md:flex-row justify-center text-white text-center md:text-left blue-underline mb-4">
+    <div className="bg-orange p-8 pt-12 md:pb-20 md:pt-24 flex flex-col md:flex-row justify-center text-white text-center md:text-left blue-underline">
       <h3 className="text-2xl self-center m-0 md:pb-2">
         Candidature
         <br /> spontanée
