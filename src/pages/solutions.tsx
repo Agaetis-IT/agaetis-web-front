@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Link from 'next/link'
 import React from 'react'
 import ContactSection from '../components/ContactSection'
 
@@ -38,9 +39,9 @@ function solutions({ pageContent }: Props) {
             <div className="md:max-w-md mx-auto p-0 md:px-8 mt-0 md:mt-20">
               <div className="text-xs px-4 md:px-0">
                 <span>
-                  <a className="text-underline text-black" href="/">
-                    Accueil
-                  </a>
+                  <Link href="/">
+                    <a className="text-underline text-black">Accueil</a>
+                  </Link>
                   {' > '}
                   <b>Solutions</b>
                 </span>

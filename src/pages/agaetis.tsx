@@ -1,5 +1,6 @@
 import clsx from 'clsx'
 import Head from 'next/head'
+import Link from 'next/link'
 import React from 'react'
 
 import AgaetisCard from '../components/AgaetisCard'
@@ -29,10 +30,11 @@ export default function agaetis({ pageContent }: Props) {
         <div className="mx-auto px-0">
           <div className="md:max-w-md mx-auto text-xs px-4 md:px-8 ">
             <span>
-              <a className="text-underline text-black" href="/">
-                Accueil
-              </a>{' '}
-              > <b>Agaetis</b>
+              <Link href="/">
+                <a className="text-underline text-black">Accueil</a>
+              </Link>
+              {' > '}
+              <b>Agaetis</b>
             </span>
           </div>
           <div className="md:max-w-md mx-auto md:px-8">

@@ -7,6 +7,7 @@ import publicRuntimeConfig from '../config/env.config'
 import Layout from '../components/Layout'
 import './tag.css'
 import CategoryTab from '../components/CategoryTab'
+import Link from 'next/link'
 interface Props {
   articles: IdeasDesc[]
   tag: string
@@ -33,13 +34,15 @@ export default function Tag({ articles, categories, tag }: Props) {
         <>
           <div className="md:max-w-md mx-auto text-xs px-4 md:px-8 ">
             <span>
-              <a className="text-underline text-black" href="/">
-                Accueil
-              </a>
+              <Link href="/">
+                <a className="text-underline text-black">Accueil</a>
+              </Link>
+
               {' > '}
-              <a className="text-underline text-black" href="/ideas">
-                Idées
-              </a>
+              <Link href="/ideas">
+                <a className="text-underline text-black">Idées</a>
+              </Link>
+
               {' > '}
               <b>{tag}</b>
             </span>

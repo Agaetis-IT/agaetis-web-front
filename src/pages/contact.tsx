@@ -10,6 +10,7 @@ import ContactContentApi from '../types/ContactContentApi'
 
 import './contact.css'
 import ContactSection from '../components/ContactSection'
+import Link from 'next/link'
 
 interface Props {
   pageContent: ContactContentApi
@@ -36,9 +37,9 @@ export default function contact({ pageContent }: Props) {
           <div className="md:max-w-md mx-auto p-0 md:px-4 mb-8">
             <div className=" text-xs px-4">
               <span>
-                <a className="text-underline text-black" href="/">
-                  Accueil
-                </a>
+                <Link href="/">
+                  <a className="text-underline text-black">Accueil</a>
+                </Link>
                 {' > '}
                 <b>Contact</b>
               </span>
