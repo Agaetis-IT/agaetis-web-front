@@ -96,6 +96,7 @@ export default function CategoryTab({ ideasC, categories, toggleMore, ideasImg1,
             { [getBgColor(idea.categories[0])]: idea.id > 0 }
           )}
           {...idea}
+          categories={idea.categories.filter((category) => !category.includes('_offer-'))}
         >
           <p dangerouslySetInnerHTML={createMarkup(idea.descriptionText)} />
         </IdeasCard>

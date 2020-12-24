@@ -146,4 +146,9 @@ export async function getIdeasByTag(slug: string) {
   return data
 }
 
+export async function getIdeaByCategory(slug: string) {
+  const { data } = await axios.get(`${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/agaetis/api/v1/categories/${slug}`)
+  return data
+}
+
 export default { getIndexContent }

@@ -1,3 +1,5 @@
+import { PostAPI } from './IdeasContent'
+
 export interface OffersPageContent {
   title: string
   paragraph: string
@@ -54,6 +56,13 @@ export interface LandingPage {
 export interface OfferLeafContent {
   title: string
   description: string
+  posts: PostOffer[]
+}
+
+export interface PostOffer {
+  title: string
+  slug: string
+  image: string
 }
 
 export function convertAPItoOffersContent(contentApi: OffersPageContent): OffersContent {
@@ -71,9 +80,12 @@ export function convertAPItoLandingPageContent(contentApi: LandingPageAPI) {
   }
 }
 
-export function convertAPItoOfferleaf(contentApi: OfferAPI) {
+export function convertAPItoOfferleaf(contentApi: OfferAPI, posts: PostAPI[]) {
   return {
     title: contentApi.title.rendered,
     ...contentApi.acf,
+    posts: posts.map((post) => {
+      return { title: post.title.rendered, slug: post.slug, image: post.acf.idea_image }
+    }),
   }
 }

@@ -47,3 +47,11 @@ export interface Tag {
   name: string
   slug: string
 }
+
+export interface PostAPI {
+  title: { rendered: string }
+  slug: string
+  acf: {
+    idea_image: string
+  }
+}
