@@ -7,7 +7,7 @@ import {
   OfferContent,
   OfferLeafContent,
 } from '../types/OffersContent'
-import { getCategoryOffers, getOfferContent, getOfferLeaf } from '../Services/wordpressService'
+import { getCategoryOffers, getIdeaByCategory, getOfferContent, getOfferLeaf } from '../Services/wordpressService'
 import Back from '../static/icons/Btn_Retour.svg'
 import Error from './_error'
 import Head from 'next/head'
@@ -17,6 +17,7 @@ import Particles from '../static/images/particles-2.svg'
 import { useState } from 'react'
 import Button from '../components/Button'
 import clsx from 'clsx'
+import RelatedArticlesSection from '../components/RelatedArticlesSection'
 
 interface Context extends NextPageContext {
   query: { slug: string }
@@ -84,7 +85,10 @@ export default function offer({ pageContent, errorCode, offers }: Props): React.
                     ))}
                 </div>
                 <div className="w-3/5 my-8 pl-8">
-                  <h2 className="text-xl text-orange mb-8">{offers[selectedOffer].title}</h2>
+                  <h2
+                    className="text-2xl text-orange mb-8"
+                    dangerouslySetInnerHTML={{ __html: offers[selectedOffer].title }}
+                  ></h2>
                   <div
                     className="text-sm"
                     dangerouslySetInnerHTML={{ __html: offers[selectedOffer].description }}
@@ -92,6 +96,12 @@ export default function offer({ pageContent, errorCode, offers }: Props): React.
                 </div>
               </div>
             </div>
+          </div>
+          <div>
+            <RelatedArticlesSection
+              className="p-0 md:p-12 lg:px-24 lg:p-16"
+              posts={offers[selectedOffer].posts}
+            ></RelatedArticlesSection>
           </div>
         </div>
       </Layout>
@@ -114,8 +124,12 @@ offer.getInitialProps = async ({ query }: Context) => {
       }
       post_name: string
     }) => {
-      const children = await getOfferLeaf(query.slug, offer.post_name)
-      return convertAPItoOfferleaf(children)
+      const { [0]: children, [1]: posts } = await Promise.all([
+        getOfferLeaf(query.slug, offer.post_name),
+        getIdeaByCategory(`_offer-${escape(offer.post_name)}`),
+      ])
+      console.log(posts)
+      return convertAPItoOfferleaf(children, posts)
     }
   )
   const offerChildrens = await Promise.all(allOffers)
