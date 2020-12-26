@@ -135,7 +135,7 @@ Ideas.getInitialProps = async () => {
     content,
     categories: categories
       .map((category: any) => ({ categoryId: category.id, categoryName: category.name }))
-      .filter((category) => !category.categoryName.includes('_offer-')),
+      .filter((category: any) => !category.categoryName.includes('_offer-')),
   }
 }
 
