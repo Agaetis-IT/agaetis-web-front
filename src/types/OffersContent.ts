@@ -1,5 +1,11 @@
 import { PostAPI } from './IdeasContent'
 
+export default interface OffersContent {
+  title: string
+  paragraph: string
+  slug: string
+}
+
 export interface OffersPageContent {
   title: string
   paragraph: string
@@ -13,13 +19,8 @@ interface OfferAPI {
   acf: {
     title: string
     description: string
+    offers_image1: string
   }
-}
-
-export default interface OffersContent {
-  title: string
-  paragraph: string
-  slug: string
 }
 
 export interface OfferDesc {
@@ -35,6 +36,7 @@ export interface OfferContent {
   title: string
   paragraph: string
   slug: string
+  offers_image1: string
   childrens: OfferLeaf[]
 }
 
@@ -63,6 +65,7 @@ export interface PostOffer {
   title: string
   slug: string
   image: string
+  description: string
 }
 
 export function convertAPItoOffersContent(contentApi: OffersPageContent): OffersContent {
@@ -85,7 +88,12 @@ export function convertAPItoOfferleaf(contentApi: OfferAPI, posts: PostAPI[]) {
     title: contentApi.title.rendered,
     ...contentApi.acf,
     posts: posts.map((post) => {
-      return { title: post.title.rendered, slug: post.slug, image: post.acf.idea_image }
+      return {
+        title: post.title.rendered,
+        slug: post.slug,
+        image: post.acf.idea_image,
+        description: post.acf.idea_description,
+      }
     }),
   }
 }

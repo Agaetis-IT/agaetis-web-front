@@ -49,7 +49,6 @@ export default function Landingpage({ pageContent, errorCode }: Props) {
   if (!!errorCode) {
     return <Error statusCode={404} />
   }
-  console.log(pageContent)
   return (
     <Layout invertColors={false}>
       <>
