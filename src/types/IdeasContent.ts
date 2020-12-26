@@ -53,5 +53,6 @@ export interface PostAPI {
   slug: string
   acf: {
     idea_image: string
+    idea_description: string
   }
 }

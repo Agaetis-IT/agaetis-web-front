@@ -14,6 +14,7 @@ import ContactSection from '../components/ContactSection'
 import Mask from '../static/images/hero_mask.svg'
 import Plus from '../static/icons/squared_plus.svg'
 import clsx from 'clsx'
+import Link from 'next/link'
 
 /* eslint-disable react-hooks/rules-of-hooks */
 
@@ -38,7 +39,6 @@ export default function offers({ pageContent, allOffers }: Props) {
   const [isOpenenedModal, setOpenModal] = useState(false)
   const [isError, setIsError] = useState(true)
   const [isSubmited, setIsSubmited] = useState(false)
-  console.log(allOffers)
 
   function handleOpenModal(error: boolean) {
     setIsError(error)
@@ -131,9 +131,9 @@ export default function offers({ pageContent, allOffers }: Props) {
                       <div className="flex flex-col">
                         {allOffers[selectedOffer].childrens.length > 0 &&
                           allOffers[selectedOffer].childrens.map((offer: OfferLeaf) => (
-                            <p key={offer.post_title} className="text-center p-4">
-                              {offer.post_title}
-                            </p>
+                            <Link key={offer.post_title} href={`/offers/${allOffers[selectedOffer].slug}`}>
+                              <p className="text-center p-4">{offer.post_title}</p>
+                            </Link>
                           ))}
                       </div>
                     )}
