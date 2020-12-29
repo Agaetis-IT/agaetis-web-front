@@ -111,7 +111,7 @@ export default function offers({ pageContent, allOffers }: Props) {
                       setSelectedOffer(index)
                     }}
                   >
-                    <img src={offre.offers_image1} className="h-8 md:h-auto"></img>
+                    <img src={offre.offers_image1} className="h-8 md:h-24"></img>
                     <h2 className="text-sm">{offre.title}</h2>
                     <div
                       className={clsx(

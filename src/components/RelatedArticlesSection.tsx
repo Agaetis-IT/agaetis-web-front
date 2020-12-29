@@ -1,3 +1,4 @@
+import clsx from 'clsx'
 import React from 'react'
 import { PostOffer } from '../types/OffersContent'
 import Button from './Button'
@@ -12,9 +13,14 @@ export default function RelatedArticlesSection({ posts, className }: Props) {
     <div className={className}>
       <h2 className="text-orange">Nos articles associés</h2>
       <div className="mt-8 md:mt-16">
-        {posts.map((post) => {
+        {posts.map((post, index) => {
           return (
-            <div className="flex flex-col md:flex-row h-auto md:h-32 lg:h-48 my-2" key={post.title}>
+            <div
+              className={clsx('flex flex-col md:flex-row h-auto md:h-32 lg:h-48 my-2', {
+                'mb-0': index === posts.length - 1,
+              })}
+              key={post.title}
+            >
               <img src={post.image} className="w-full md:w-1/4"></img>
               <div className="flex flex-col p-4 lg:p-8 justify-between">
                 <div>

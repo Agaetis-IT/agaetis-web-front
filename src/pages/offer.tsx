@@ -103,7 +103,7 @@ export default function offer({ pageContent, errorCode, offers }: Props): React.
                           setSelectedOffer(index)
                         }}
                         className={clsx(
-                          'block border-2 border-orange bg-transparent rounded-full my-8 mx-auto w-3/4 py-2 text-sm',
+                          'block border border-orange bg-transparent rounded-full my-8 mx-auto w-3/4 py-2 text-sm',
                           { 'text-white bg-orange': selectedOffer === index }
                         )}
                       >
@@ -129,13 +129,13 @@ export default function offer({ pageContent, errorCode, offers }: Props): React.
               <Link href="/offers">
                 <Button>
                   <div className="flex flex-row items-center mb-8">
-                    <img className="mr-4" src={Back} />
+                    <img className="mr-4 h-8" src={Back} />
                     <span className="text-orange">Retour aux catégories d'offres</span>
                   </div>
                 </Button>
               </Link>
               <div className="flex flex-row items-center mt-0 md:mt-20">
-                <img src={pageContent.offers_image1} className="block h-16"></img>
+                <img src={pageContent.offers_image1} className="block h-12"></img>
                 <h1 className="text-black text-2xl ml-8">{pageContent.title}</h1>
               </div>
               <div>
@@ -147,7 +147,7 @@ export default function offer({ pageContent, errorCode, offers }: Props): React.
                         setSelectedOffer(index)
                       }}
                       className={clsx(
-                        'block border-2 border-orange bg-transparent rounded-full my-8 mx-auto w-full py-2 text-sm',
+                        'block border border-orange bg-transparent rounded-full my-8 mx-auto w-full py-2 text-sm',
                         { 'text-white bg-orange': selectedOffer === index }
                       )}
                     >
@@ -169,10 +169,13 @@ export default function offer({ pageContent, errorCode, offers }: Props): React.
               </div>
             </div>
           </div>
-          <RelatedArticlesSection
-            className="bg-light-grey p-4 md:p-12 lg:px-24 lg:p-16 lg:pb-0"
-            posts={offers[selectedOffer].posts}
-          ></RelatedArticlesSection>
+          {offers[selectedOffer].posts.length > 0 && (
+            <RelatedArticlesSection
+              className="bg-light-grey p-4 md:p-12 lg:px-24 lg:p-16 lg:pb-0"
+              posts={offers[selectedOffer].posts}
+            ></RelatedArticlesSection>
+          )}
+
           <ContactFormFooter handleSubmit={handleSubmit} isSubmited={isSubmited} />
           {isOpenenedModal && <ContactMessage error={isError}></ContactMessage>}
           <ContactSection />
