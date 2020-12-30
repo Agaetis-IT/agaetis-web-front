@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React from 'react'
+import React, { useEffect } from 'react'
 import { NextPageContext } from 'next'
 import { convertAPItoOfferleaf, OfferContent, OfferLeafContent } from '../types/OffersContent'
 import { getCategoryOffers, getIdeaByCategory, getOfferContent, getOfferLeaf } from '../Services/wordpressService'
@@ -19,9 +19,11 @@ import ContactMessage from '../components/ContactMessage'
 import ContactSection from '../components/ContactSection'
 import { FooterFormInput } from '../yup/ContactFormValidation'
 import { footerSend } from '../Services/contactService'
+import { useRouter } from 'next/router'
 
 interface Context extends NextPageContext {
   query: { slug: string }
+  params: { offer: string }
 }
 
 interface Props {
@@ -35,6 +37,7 @@ export default function offer({ pageContent, errorCode, offers }: Props): React.
   const [isOpenenedModal, setOpenModal] = useState(false)
   const [isError, setIsError] = useState(true)
   const [isSubmited, setIsSubmited] = useState(false)
+  const router = useRouter()
 
   function handleOpenModal(error: boolean) {
     setIsError(error)
@@ -44,6 +47,13 @@ export default function offer({ pageContent, errorCode, offers }: Props): React.
       setOpenModal(false)
     }, 3000)
   }
+
+  useEffect(() => {
+    const offerId = offers.findIndex((offer) => offer.slug === router.query.offer)
+    if (offerId !== -1) {
+      setSelectedOffer(offerId)
+    }
+  }, [offers, router.query.offer])
 
   async function handleSubmit(data: FooterFormInput) {
     try {
