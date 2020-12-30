@@ -16,6 +16,7 @@ export interface OffersPageContent {
 
 interface OfferAPI {
   title: { rendered: string }
+  slug: string
   acf: {
     title: string
     description: string
@@ -42,7 +43,7 @@ export interface OfferContent {
 
 export interface OfferLeaf {
   post_title: string
-  slug: string
+  post_name: string
 }
 
 interface LandingPageAPI {
@@ -56,6 +57,7 @@ export interface LandingPage {
 }
 
 export interface OfferLeafContent {
+  slug: string
   title: string
   description: string
   posts: PostOffer[]
@@ -86,6 +88,7 @@ export function convertAPItoLandingPageContent(contentApi: LandingPageAPI) {
 export function convertAPItoOfferleaf(contentApi: OfferAPI, posts: PostAPI[]) {
   return {
     title: contentApi.title.rendered,
+    slug: contentApi.slug,
     ...contentApi.acf,
     posts: posts.map((post) => {
       return {

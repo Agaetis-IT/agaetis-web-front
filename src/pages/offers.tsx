@@ -58,7 +58,6 @@ export default function offers({ pageContent, allOffers }: Props) {
       handleOpenModal(true)
     }
   }
-
   return (
     <>
       <Head>
@@ -92,7 +91,7 @@ export default function offers({ pageContent, allOffers }: Props) {
                 ></p>
                 <Button
                   className="text-sm flex flex-row justify-center text-orange font-semibold"
-                  href={`/offers/${allOffers[selectedOffer].slug}`}
+                  href={`/offers/${allOffers[selectedOffer].slug}?offer=${allOffers[selectedOffer].childrens[0].post_name}`}
                 >
                   <div className="flex flex-row items-center">
                     En savoir plus <img src={Plus} className="ml-4 h-6"></img>
@@ -131,7 +130,13 @@ export default function offers({ pageContent, allOffers }: Props) {
                       <div className="flex flex-col">
                         {allOffers[selectedOffer].childrens.length > 0 &&
                           allOffers[selectedOffer].childrens.map((offer: OfferLeaf) => (
-                            <Link key={offer.post_title} href={`/offers/${allOffers[selectedOffer].slug}`}>
+                            <Link
+                              key={offer.post_title}
+                              href={{
+                                pathname: `/offers/${allOffers[selectedOffer].slug}`,
+                                query: { offer: offer.post_name },
+                              }}
+                            >
                               <p className="text-center p-4">{offer.post_title}</p>
                             </Link>
                           ))}
