@@ -28,7 +28,7 @@ export default function HomeOffers({ title, offers }: Props) {
   return (
     <div className="flex flex-col md:flex-row">
       <div className="home-offers-left p-0 md:p-12 lg:px-24 lg:p-16">
-        <h2 className="mt-8 mb-4 md:my-0 md:ml-8 text-orange text-center md:text-left">{title}</h2>
+        <h2 className="mt-8 mb-4 md:my-0 text-orange text-center md:text-left">{title}</h2>
         <ul className="md:my-12">
           {offers.map((offer) => (
             <li key={offer.index} className="my-0 md:my-6" id={`offer-${offer.index}`}>

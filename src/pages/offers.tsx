@@ -12,7 +12,7 @@ import { footerSend } from '../Services/contactService'
 import ContactMessage from '../components/ContactMessage'
 import ContactSection from '../components/ContactSection'
 import Mask from '../static/images/hero_mask.svg'
-import Plus from '../static/icons/squared_plus.svg'
+import Plus from '../static/icons/squared_plus_white.svg'
 import clsx from 'clsx'
 import Link from 'next/link'
 
@@ -67,34 +67,34 @@ export default function offers({ pageContent, allOffers }: Props) {
         <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/agaetis`} />
       </Head>
 
-      <Layout invertColors={true}>
-        <div className="mx-auto px-0">
+      <Layout invertColors={false}>
+        <div className="mx-auto pt-0 md:pt-28">
           <div
             style={{
               backgroundImage: `url("${Mask}")`,
               backgroundPosition: 'center',
               backgroundSize: 'cover',
             }}
-            className="bg-black-light md:bg-orange p-0 md:p-12 lg:px-24 lg:p-16"
+            className="bg-black-light md:bg-orange p-0 md:p-12 lg:px-24 lg:p-16 shadow-none md:shadow-top"
           >
             <div className="hidden md:block">
-              <h1 className="text-white text-2xl mt-0 md:mt-20">{pageContent.title}</h1>
+              <h1 className="text-white text-2xl pb-2 white-underline-thin">{pageContent.title}</h1>
               <p className="text-white py-8 leading-normal text-sm">{pageContent.paragraph}</p>
-              <div className="mx-auto bg-white p-8">
+              <div className="mx-auto p-8">
                 <div className="flex flex-row items-center">
-                  <img src={allOffers[selectedOffer].offers_image2} className="block h-16"></img>
-                  <h2 className="text-orange ml-8">{allOffers[selectedOffer].title}</h2>
+                  <img src={allOffers[selectedOffer].offers_image1} className="block h-16"></img>
+                  <h2 className="ml-8 text-white">{allOffers[selectedOffer].title}</h2>
                 </div>
                 <p
-                  className="leading-normal text-sm py-8 text-justify"
+                  className="leading-normal text-sm py-8 text-justify text-white"
                   dangerouslySetInnerHTML={{ __html: allOffers[selectedOffer].offers_description }}
                 ></p>
                 <Button
-                  className="text-sm flex flex-row justify-center text-orange font-semibold"
+                  className="text-sm flex flex-row justify-center font-semibold text-white"
                   href={`/offers/${allOffers[selectedOffer].slug}?offer=${allOffers[selectedOffer].childrens[0].post_name}`}
                 >
                   <div className="flex flex-row items-center">
-                    En savoir plus <img src={Plus} className="ml-4 h-6"></img>
+                    En savoir plus <img src={Plus} className="ml-4 h-6" />
                   </div>
                 </Button>
               </div>

@@ -20,6 +20,7 @@ import ContactSection from '../components/ContactSection'
 import { FooterFormInput } from '../yup/ContactFormValidation'
 import { footerSend } from '../Services/contactService'
 import { useRouter } from 'next/router'
+import PartnerList from '../components/PartnerList'
 
 interface Context extends NextPageContext {
   query: { slug: string }
@@ -78,17 +79,17 @@ export default function offer({ pageContent, errorCode, offers }: Props): React.
         <meta name="description" content={pageContent.paragraph} />
         <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}${pageContent.slug}`} />
       </Head>
-      <Layout invertColors={true}>
-        <div className="mx-auto px-0">
+      <Layout invertColors={false}>
+        <div className="mx-auto pt-0 md:pt-28">
           <div
             style={{
               backgroundImage: `url("${Particles}")`,
               backgroundPosition: 'center',
               backgroundSize: 'cover',
             }}
-            className="bg-black-light p-0 md:p-12 lg:px-24 lg:p-16 hidden lg:block"
+            className="bg-black-light p-0 md:p-12 lg:px-24 lg:p-16 hidden lg:block shadow-none md:shadow-top"
           >
-            <div className="flex flex-row items-center mt-0 md:mt-20">
+            <div className="flex flex-row items-center ">
               <img src={pageContent.offers_image1} className="block h-16"></img>
               <h1 className="text-white text-2xl ml-8">{pageContent.title}</h1>
             </div>
@@ -179,11 +180,14 @@ export default function offer({ pageContent, errorCode, offers }: Props): React.
               </div>
             </div>
           </div>
+          {offers[selectedOffer].partners.length > 0 && (
+            <PartnerList partners={offers[selectedOffer].partners} className=" p-4 md:p-12 lg:px-24 lg:p-16 " />
+          )}
           {offers[selectedOffer].posts.length > 0 && (
             <RelatedArticlesSection
-              className="bg-light-grey p-4 md:p-12 lg:px-24 lg:p-16 lg:pb-0"
+              className="bg-light-grey p-4 md:p-12 lg:px-24 lg:p-16 pb-2"
               posts={offers[selectedOffer].posts}
-            ></RelatedArticlesSection>
+            />
           )}
 
           <ContactFormFooter handleSubmit={handleSubmit} isSubmited={isSubmited} />

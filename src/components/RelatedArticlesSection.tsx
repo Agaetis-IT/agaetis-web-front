@@ -1,4 +1,5 @@
 import clsx from 'clsx'
+import Link from 'next/link'
 import React from 'react'
 import { PostOffer } from '../types/OffersContent'
 import Button from './Button'
@@ -12,7 +13,7 @@ export default function RelatedArticlesSection({ posts, className }: Props) {
   return (
     <div className={className}>
       <h2 className="text-orange">Nos articles associés</h2>
-      <div className="mt-8 md:mt-16">
+      <div className="mt-8 md:mt-16 pb-8">
         {posts.map((post, index) => {
           return (
             <div
@@ -30,14 +31,22 @@ export default function RelatedArticlesSection({ posts, className }: Props) {
                     className="text-xs lg:text-sm leading-normal text-justify"
                   ></p>
                 </div>
-                <Button className="text-orange text-sm mt-4 md:m-0" href={`/${post.slug}`}>
-                  <span>{'> Lire la suite de cet article'}</span>
-                </Button>
+
+                <Link href={`/${post.slug}`}>
+                  <Button className="text-orange text-sm mt-4 md:m-0" href={`/${post.slug}`}>
+                    <span>{'> Lire la suite de cet article'}</span>
+                  </Button>
+                </Link>
               </div>
             </div>
           )
         })}
       </div>
+      <Link href="/blog">
+        <Button className="bg-white text-orange rounded-full text-xs sm:text-sm font-semibold px-4 sm:px-12 py-2 sm:py-3 shadow-md h-12 w-64 flex flex-col justify-center mx-auto">
+          Consulter notre blog
+        </Button>
+      </Link>
     </div>
   )
 }
