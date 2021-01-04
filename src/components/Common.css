@@ -10,6 +10,9 @@
   border-bottom: 1px solid #2779bd;
 }
 
+.white-underline-thin {
+  border-bottom: 1px solid white;
+}
 .separator {
   border-bottom: 1px solid grey;
   opacity: 0.5;

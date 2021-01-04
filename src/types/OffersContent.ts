@@ -21,6 +21,11 @@ interface OfferAPI {
     title: string
     description: string
     offers_image1: string
+    partner1: string
+    partner2: string
+    partner3: string
+    partner4: string
+    partner5: string
   }
 }
 
@@ -61,6 +66,7 @@ export interface OfferLeafContent {
   title: string
   description: string
   posts: PostOffer[]
+  partners: string[]
 }
 
 export interface PostOffer {
@@ -85,11 +91,23 @@ export function convertAPItoLandingPageContent(contentApi: LandingPageAPI) {
   }
 }
 
+function createPartnerArray(content: OfferAPI, keys: string[]) {
+  const partners: string[] = []
+  keys.forEach((key) => {
+    if (key.includes(`partner`)) {
+      partners.push(content.acf[key])
+    }
+  })
+  return partners
+}
+
 export function convertAPItoOfferleaf(contentApi: OfferAPI, posts: PostAPI[]) {
   return {
-    title: contentApi.title.rendered,
-    slug: contentApi.slug,
     ...contentApi.acf,
+    title: contentApi.acf.title ? contentApi.acf.title : contentApi.title.rendered,
+    slug: contentApi.slug,
+
+    partners: createPartnerArray(contentApi, Object.keys(contentApi.acf)),
     posts: posts.map((post) => {
       return {
         title: post.title.rendered,
