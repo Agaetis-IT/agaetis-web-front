@@ -1,104 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
-export default interface SolutionsContentAPI {
-  titre: string
-  description: string
 
-  tab1_header: string
-  tab1_titre_section1: string
-  tab1_contenu_section1: string
-  tab1_titre_section2: string
-  tab1_contenu_section2: string
-
-  tab1_why_us_title: string
-  tab1_why_us_section1_icon: string
-  tab1_why_us_section1_title: string
-  tab1_why_us_section1_description: string
-  tab1_why_us_section2_icon: string
-  tab1_why_us_section2_title: string
-  tab1_why_us_section2_description: string
-  tab1_why_us_section3_icon: string
-  tab1_why_us_section3_title: string
-  tab1_why_us_section3_description: string
-
-  tab1_partenaires_title: string
-  tab1_partenaire1_img: string
-  tab1_partenaire2_img: string
-  tab1_partenaire3_img: string
-  tab1_partenaire4_img: string
-  tab1_solutions_img: string
-
-  tab2_header: string
-  tab2_titre_section1: string
-  tab2_contenu_section1: string
-  tab2_titre_section2: string
-  tab2_contenu_section2: string
-
-  tab2_why_us_title: string
-  tab2_why_us_section1_icon: string
-  tab2_why_us_section1_title: string
-  tab2_why_us_section1_description: string
-  tab2_why_us_section2_icon: string
-  tab2_why_us_section2_title: string
-  tab2_why_us_section2_description: string
-  tab2_why_us_section3_icon: string
-  tab2_why_us_section3_title: string
-  tab2_why_us_section3_description: string
-
-  tab2_partenaires_title: string
-  tab2_partenaire1_img: string
-  tab2_partenaire2_img: string
-  tab2_partenaire3_img: string
-  tab2_partenaire4_img: string
-  tab2_solutions_img: string
-
-  tab3_header: string
-  tab3_titre_section1: string
-  tab3_contenu_section1: string
-  tab3_titre_section2: string
-  tab3_contenu_section2: string
-
-  tab3_why_us_title: string
-  tab3_why_us_section1_icon: string
-  tab3_why_us_section1_title: string
-  tab3_why_us_section1_description: string
-  tab3_why_us_section2_icon: string
-  tab3_why_us_section2_title: string
-  tab3_why_us_section2_description: string
-  tab3_why_us_section3_icon: string
-  tab3_why_us_section3_title: string
-  tab3_why_us_section3_description: string
-
-  tab3_partenaires_title: string
-  tab3_partenaire1_img: string
-  tab3_partenaire2_img: string
-  tab3_partenaire3_img: string
-  tab3_partenaire4_img: string
-  tab3_solutions_img: string
-
-  tab4_header: string
-  tab4_titre_section1: string
-  tab4_contenu_section1: string
-  tab4_titre_section2: string
-  tab4_contenu_section2: string
-
-  tab4_why_us_title: string
-  tab4_why_us_section1_icon: string
-  tab4_why_us_section1_title: string
-  tab4_why_us_section1_description: string
-  tab4_why_us_section2_icon: string
-  tab4_why_us_section2_title: string
-  tab4_why_us_section2_description: string
-  tab4_why_us_section3_icon: string
-  tab4_why_us_section3_title: string
-  tab4_why_us_section3_description: string
-
-  tab4_partenaires_title: string
-  tab4_partenaire1_img: string
-  tab4_partenaire2_img: string
-  tab4_partenaire3_img: string
-  tab4_partenaire4_img: string
-  tab4_solutions_img: string
-}
+import SolutionsAPI from '../models/SolutionsAPI'
 
 export interface SolutionsContent {
   title: string
@@ -162,7 +64,7 @@ export function compareTabsSection(
   return a.index < b.index ? -1 : 1
 }
 
-function createPartnerArray(content: SolutionsContentAPI, tabIndex: number, keys: string[]) {
+function createPartnerArray(content: SolutionsAPI, tabIndex: number, keys: string[]) {
   const partners: string[] = []
   keys.forEach((key) => {
     if (key.includes(`tab${tabIndex}_partenaire`) && key.includes('_img')) {
@@ -172,7 +74,7 @@ function createPartnerArray(content: SolutionsContentAPI, tabIndex: number, keys
   return partners
 }
 
-function createWhyUsObject(contentApi: SolutionsContentAPI, keys: string[]) {
+function createWhyUsObject(contentApi: SolutionsAPI, keys: string[]) {
   const sections: Array<{
     index: number
     icon: string
@@ -212,7 +114,7 @@ function createWhyUsObject(contentApi: SolutionsContentAPI, keys: string[]) {
   return whyUs
 }
 
-function createTabSections(content: SolutionsContentAPI, keys: string[]) {
+function createTabSections(content: SolutionsAPI, keys: string[]) {
   const sections: Array<{
     index: number
     title: string
@@ -241,7 +143,7 @@ function createTabSections(content: SolutionsContentAPI, keys: string[]) {
 }
 
 // TODO voir pour refactorer en fonctionnelle
-function createTabsArray(contentApi: SolutionsContentAPI, keys: string[]) {
+function createTabsArray(contentApi: SolutionsAPI, keys: string[]) {
   const tabs: Tab[] = []
 
   keys.forEach((key) => {
@@ -296,7 +198,7 @@ function createTabsArray(contentApi: SolutionsContentAPI, keys: string[]) {
   return tabs
 }
 
-export function convertContentAPItoContent(contentApi: SolutionsContentAPI) {
+export function convertContentAPItoContent(contentApi: SolutionsAPI) {
   const regexTab = /tab[0-9][a-zA-Z0-9_]*/
   return {
     title: contentApi.titre,

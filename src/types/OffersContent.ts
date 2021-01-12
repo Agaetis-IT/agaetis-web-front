@@ -1,4 +1,5 @@
-import { PostAPI } from './IdeasContent'
+import { PostAPI } from '../models/IdeasAPI'
+import OfferAPI from '../models/OffersAPI'
 
 export default interface OffersContent {
   title: string
@@ -12,21 +13,6 @@ export interface OffersPageContent {
   offers_description: string
   offers_image: string
   slug: string
-}
-
-interface OfferAPI {
-  title: { rendered: string }
-  slug: string
-  acf: {
-    title: string
-    description: string
-    offers_image1: string
-    partner1: string
-    partner2: string
-    partner3: string
-    partner4: string
-    partner5: string
-  }
 }
 
 export interface OfferDesc {

@@ -6,7 +6,7 @@ import Hero from '../components/Hero'
 import Layout from '../components/Layout'
 import publicRuntimeConfig from '../config/env.config'
 import { getIndexContent } from '../Services/wordpressService'
-import { IndexContentV2, convertIndexContentAPItoContentAPI } from '../types/IndexContent'
+import IndexContent, { convertIndexContentAPItoContentAPI } from '../types/IndexContent'
 import HomeOffers from '../components/HomeOffers'
 import HomeSectors from '../components/HomeSectors'
 import HomeConvictions from '../components/HomeConvictions'
@@ -15,7 +15,7 @@ import HomeJoinUs from '../components/HomeJoinUs'
 import HomeExpertises from '../components/HomeExpertises'
 
 interface Props {
-  pageContent: IndexContentV2
+  pageContent: IndexContent
 }
 
 function Index({ pageContent: pageContent }: Props) {

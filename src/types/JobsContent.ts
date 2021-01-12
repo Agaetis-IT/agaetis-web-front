@@ -1,49 +1,6 @@
-/* eslint-disable @typescript-eslint/camelcase */
-export default interface JobsContentAPI {
-  titre: string
-  description: string
-  jobsimg: string
-  slide1_quote: string
-  slide1_quote_author: string
-  slide1_quote_author_role: string
-  slide1_Img: string
-  slide2_quote: string
-  slide2_quote_author: string
-  slide2_quote_author_role: string
-  slide2_Img: string
-  slide3_quote: string
-  slide3_quote_author: string
-  slide3_quote_author_role: string
-  slide3_Img: string
-  we_are_agaetis_title: string
-  we_are_agaetis_img: string
-  we_are_agaetis_paragraph: string
-  join_us_title: string
-  join_us_description: string
-  join_us_step1_title: string
-  join_us_step1_description: string
-  join_us_step2_title: string
-  join_us_step2_description: string
-  join_us_step3_title: string
-  join_us_step3_description: string
-  profile_title: string
-  profile_value1_img: string
-  profile_value1_title: string
-  profile_value1_description: string
-  profile_value2_img: string
-  profile_value2_title: string
-  profile_value2_description: string
-  profile_value3_img: string
-  profile_value3_title: string
-  profile_value3_description: string
-  profile_value4_img: string
-  profile_value4_title: string
-  profile_value4_description: string
-  offers_title: string
-  offers_button: string
-  candidature_texte: string
-}
+import JobsContentAPI from '../models/JobsAPI'
 
+/* eslint-disable @typescript-eslint/camelcase */
 export interface JobsContent {
   title: string
   description: string

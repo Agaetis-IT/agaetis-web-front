@@ -6,14 +6,14 @@ import Layout from '../components/Layout'
 import Logo from '../static/icons/Agaetis - Ico logo - Orange.png'
 import publicRuntimeConfig from '../config/env.config'
 import { getContactPageContent } from '../Services/wordpressService'
-import ContactContentApi from '../types/ContactContentApi'
+import ContactContent from '../types/ContactContent'
 
 import './contact.css'
 import ContactSection from '../components/ContactSection'
 import Link from 'next/link'
 
 interface Props {
-  pageContent: ContactContentApi
+  pageContent: ContactContent
 }
 
 export default function contact({ pageContent }: Props) {
@@ -33,7 +33,7 @@ export default function contact({ pageContent }: Props) {
         <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/contact`} />
       </Head>
       <Layout invertColors={false}>
-        <>
+        <div className="pt-0 md:pt-28">
           <div className="md:max-w-md mx-auto p-0 md:px-4 mb-8">
             <div className=" text-xs px-4">
               <span>
@@ -59,7 +59,7 @@ export default function contact({ pageContent }: Props) {
             <ContactTab />
           </div>
           <ContactSection></ContactSection>
-        </>
+        </div>
       </Layout>
     </>
   )
