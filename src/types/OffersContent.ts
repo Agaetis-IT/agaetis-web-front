@@ -1,5 +1,5 @@
 import { PostAPI } from '../models/IdeasAPI'
-import OfferAPI from '../models/OffersAPI'
+import OfferAPI from '../models/OfferAPI'
 
 export default interface OffersContent {
   title: string
@@ -20,8 +20,11 @@ export interface OfferDesc {
   offers_description: string
   offers_image1: string
   offers_image2: string
+  short_desc: string
+  image: string
   slug: string
   childrens: OfferLeaf[]
+  related_landingpage?: string
 }
 
 export interface OfferContent {

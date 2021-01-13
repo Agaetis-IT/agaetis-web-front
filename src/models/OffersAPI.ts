@@ -1,14 +1,11 @@
-export default interface OfferAPI {
-  title: { rendered: string }
-  slug: string
+export default interface OffersAPI {
   acf: {
     title: string
-    description: string
-    offers_image1: string
-    partner1: string
-    partner2: string
-    partner3: string
-    partner4: string
-    partner5: string
+    offers_description: string
+    short_desc: string
+    image: string
+    related_landingpage?: string
   }
+  title: { rendered: string }
+  slug: string
 }
