@@ -14,6 +14,7 @@ import HomeConvictions from '../components/HomeConvictions'
 import HomeJoinUs from '../components/HomeJoinUs'
 import HomeExpertises from '../components/HomeExpertises'
 import { OfferDesc } from '../types/OffersContent'
+import OfferAPI from '../models/OfferAPI'
 
 interface Props {
   pageContent: IndexContent
@@ -74,7 +75,7 @@ Index.getInitialProps = async () => {
   const { [0]: data, [1]: allOffersData } = await Promise.all([getIndexContent(), getAllOffers()])
   const pageContent = convertIndexContentAPItoContentAPI(data)
   console.log(allOffersData)
-  return { pageContent, offers: allOffersData.map((offer) => offer.acf) }
+  return { pageContent, offers: allOffersData.map((offer: OfferAPI) => offer.acf) }
 }
 
 export default Index
