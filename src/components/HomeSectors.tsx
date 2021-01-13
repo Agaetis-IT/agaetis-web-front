@@ -2,9 +2,6 @@ import React, { useEffect } from 'react'
 
 import './HomeSectors.css'
 import { SectorDesc } from '../types/IndexContent'
-import Plus from '../static/icons/squared_plus.svg'
-import Button from './Button'
-import Link from 'next/link'
 import clsx from 'clsx'
 
 interface Props {
@@ -52,19 +49,7 @@ export default function HomeSectors({ title, sectors }: Props) {
                 <div className="p-0 ml-12 md:m-0 md:p-4 pt-0">
                   <h3>{sector.title}</h3>
                   <p className="text-xs text-justify leading-normal py-4 hidden md:block">{sector.desc}</p>
-                  <p className="block md:hidden text-sm">Secteur en plein essor</p>
                 </div>
-                <Link href="/sectors">
-                  <>
-                    <Button
-                      href="/sectors"
-                      className="hidden md:block bg-white text-orange rounded-full text-xs sm:text-sm font-semibold px-4 sm:px-12 py-2 sm:py-3 mt-4 shadow-md mx-auto"
-                    >
-                      En savoir plus
-                    </Button>
-                    <img src={Plus} className="h-6 block md:hidden" />
-                  </>
-                </Link>
               </div>
             </div>
           ))}
