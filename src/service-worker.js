@@ -81,9 +81,9 @@ registerRoute(
   }),
   'GET'
 )
-registerRoute(/(.*wp-json\/wp\/v2\/posts.*)|(.*agaetis\.fr/blog)/i,                  // Blog posts
+registerRoute(/(.*wp-json\/wp\/v2\/posts.*)|(.*agaetis\.fr\/blog)/i,
   new NetworkFirst({
-    cacheName: 'apis',
+    cacheName: 'blog',
     networkTimeoutSeconds: 10,
     plugins: [new ExpirationPlugin({ maxEntries: 2, maxAgeSeconds: 30 * 24 * 3600, purgeOnQuotaError: !0 })]
   }),
