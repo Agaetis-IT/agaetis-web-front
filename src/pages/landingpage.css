@@ -10,6 +10,13 @@
   text-align: justify;
 }
 
+.landingpage-content .separator {
+  height: 1px;
+  width: 100%;
+  margin: 40px 0;
+  background-color: rgba(0, 0, 0, 0.034);
+}
+
 .landingpage-content .row :nth-child(n) {
   margin-top: 10px;
   margin-bottom: 10px;
