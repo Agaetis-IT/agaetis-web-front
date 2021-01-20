@@ -22,7 +22,6 @@ interface Props {
 }
 
 function Index({ pageContent, offers }: Props) {
-  console.log(offers)
   return (
     <>
       <Head>
@@ -74,7 +73,7 @@ function Index({ pageContent, offers }: Props) {
 Index.getInitialProps = async () => {
   const { [0]: data, [1]: allOffersData } = await Promise.all([getIndexContent(), getAllOffers()])
   const pageContent = convertIndexContentAPItoContentAPI(data)
-  console.log(allOffersData)
+
   return { pageContent, offers: allOffersData.map((offer: OfferAPI) => offer.acf) }
 }
 

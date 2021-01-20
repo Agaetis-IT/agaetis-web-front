@@ -25,7 +25,6 @@ export default function HomeOffers({ title, offers }: Props) {
       })
     }
   }
-  console.log(offers)
   return (
     <div className="flex flex-col md:flex-row">
       <div className="home-offers-left p-0 md:p-12 lg:px-24 lg:p-16">
