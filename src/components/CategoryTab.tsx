@@ -34,17 +34,17 @@ function slugify(s: string) {
 
 function getBgColor(category: string) {
   if (category === 'Agaetis' || category === 'Evènements') {
-    return 'bg-orange'
+    return 'bg-orange hover:bg-orange'
   } else if (category === 'Stratégie SI') {
-    return 'bg-blue'
+    return 'hover:bg-blue bg-blue'
   } else if (category === 'Data') {
-    return 'bg-teal'
+    return 'hover:bg-teal bg-teal'
   } else if (category === 'Service Design') {
-    return 'bg-light-pink'
+    return 'hover:bg-light-pink bg-light-pink'
   } else if (category === 'Technologie') {
-    return 'bg-yellow'
+    return 'hover:bg-yellow bg-yellow'
   }
-  return 'bg-grey'
+  return 'hover:bg-grey bg-grey'
 }
 
 function createMarkup(content: string) {
@@ -96,6 +96,7 @@ export default function CategoryTab({ ideasC, categories, toggleMore, ideasImg1,
             { [getBgColor(idea.categories[0])]: idea.id > 0 }
           )}
           {...idea}
+          categories={idea.categories.filter((category) => !category.includes('_offer-'))}
         >
           <p dangerouslySetInnerHTML={createMarkup(idea.descriptionText)} />
         </IdeasCard>

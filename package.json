@@ -7,6 +7,7 @@
     "@bugsnag/js": "^6.5.2",
     "@bugsnag/plugin-react": "^6.5.0",
     "@fullhuman/postcss-purgecss": "^1.1.0",
+    "@hookform/resolvers": "^1.0.0",
     "@types/express": "^4.17.3",
     "@types/node": "^13.9.8",
     "@types/nodemailer": "^6.4.0",
@@ -52,13 +53,14 @@
     "react-dom": "^16.8.6",
     "react-ga": "^2.7.0",
     "react-google-recaptcha": "^2.0.1",
+    "react-hook-form": "^6.9.6",
     "react-i18next": "^10.8.1",
     "react-lazy-load-image-component": "^1.5.0",
     "react-visibility-sensor": "^5.1.1",
     "tailwindcss": "^0.7.4",
     "ts-node": "^8.6.2",
     "yarn": "^1.22.5",
-    "yup": "^0.27.0"
+    "yup": "^0.29.3"
   },
   "scripts": {
     "test": "jest",

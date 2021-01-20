@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React from 'react'
 
 import Layout from '../components/Layout'
@@ -18,9 +19,9 @@ export default function personalData({ pageContent }: Props) {
           <div className="text-xs px-4 md:px-0">
             <div className="text-xs">
               <span>
-                <a className="text-underline text-black" href="/">
-                  Accueil
-                </a>
+                <Link href="/">
+                  <a className="text-underline text-black">Accueil</a>
+                </Link>
                 {' > '} <b dangerouslySetInnerHTML={{ __html: pageContent.title }} />
               </span>
             </div>

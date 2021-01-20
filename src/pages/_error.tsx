@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Link from 'next/link'
 import React from 'react'
 
 import Button from '../components/Button'
@@ -18,12 +19,14 @@ export default function Error({ statusCode }: Props) {
       <Layout invertColors={false}>
         <>
           <div className="md:max-w-md flex flex-col mx-auto ">
-            <div className=" text-xs px-4">
+            <div className=" text-xs px-4 mt-32">
               <span>
-                <a className="text-underline" href="/">
-                  Accueil
-                </a>{' '}
-                > <b>Page introuvable</b>
+                <Link href="/">
+                  <a className="text-underline">Accueil</a>
+                </Link>
+
+                {' > '}
+                <b>Page introuvable</b>
               </span>
             </div>
           </div>

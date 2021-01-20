@@ -26,6 +26,7 @@ export default function NavigationMenu({ invertColors, position }: Props) {
         {pages.map((page) => (
           <Link key={page[0]} href={page[1]}>
             <Button
+              href={page[1]}
               className={clsx(
                 !invertColors || position > 200
                   ? 'text-white md:text-black menu-link-black-underline'
@@ -41,6 +42,7 @@ export default function NavigationMenu({ invertColors, position }: Props) {
       <div className="hidden md:inline md:ml-14 xl:mr-8">
         <Link href="/contact">
           <Button
+            href="/contact"
             className={clsx(
               !invertColors || position > 200 ? 'bg-orange text-white' : 'bg-white text-orange',
               'block md:inline-block px-6 py-3 leading-none rounded-full uppercase mt-4 md:mt-0  text-base font-thin shadow-md'
@@ -52,7 +54,10 @@ export default function NavigationMenu({ invertColors, position }: Props) {
       </div>
       <div className="inline md:hidden text-base font-medium md:flex-grow">
         <Link href="/contact">
-          <Button className="block md:inline-block block md:mt-0 md:mr-16 md:ml-1 p-2 py-3 md:p-0 text-white text-base font-thin">
+          <Button
+            href="/contact"
+            className="block md:inline-block block md:mt-0 md:mr-16 md:ml-1 p-2 py-3 md:p-0 text-white text-base font-thin"
+          >
             {t('navigation.contact')}
           </Button>
         </Link>

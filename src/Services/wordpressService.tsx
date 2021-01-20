@@ -1,13 +1,15 @@
 import axios from 'axios'
 
 import publicRuntimeConfig from '../config/env.config'
-import { AgaetisContentApi } from '../types/AgaetisContent'
-import ContactContentApi from '../types/ContactContentApi'
+import { AgaetisContentApi } from '../models/AgaetisAPI'
+import ContactContentApi from '../models/ContactAPI'
 import { IdeasPageContent } from '../types/IdeasContent'
-import IndexContent from '../types/IndexContent'
-import JobsContentAPI, { convertJobsContentAPItoContent } from '../types/JobsContent'
-import SolutionsContentAPI, { convertContentAPItoContent } from '../types/SolutionsContent'
-import OffersPageContent from '../types/OffersContent'
+import IndexContentApi from '../models/IndexAPI'
+import { convertJobsContentAPItoContent } from '../types/JobsContent'
+import { convertContentAPItoContent } from '../types/SolutionsContent'
+import { OffersPageContent } from '../types/OffersContent'
+import JobsContentAPI from '../models/JobsAPI'
+import SolutionsAPI from '../models/SolutionsAPI'
 
 export async function getWordpressPageBySlug<T>(slug: string) {
   const { data } = await axios.get<T>(`${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/agaetis/api/v1/pages/${slug}`)
@@ -15,7 +17,7 @@ export async function getWordpressPageBySlug<T>(slug: string) {
 }
 
 export async function getIndexContent() {
-  const { acf } = await getWordpressPageBySlug<{ acf: IndexContent }>('index')
+  const { acf } = await getWordpressPageBySlug<{ acf: IndexContentApi }>('index')
   return acf
 }
 
@@ -56,7 +58,7 @@ export async function getMentionsLegalesContent() {
 }
 
 export async function getSolutionsPageContent() {
-  const { acf } = await getWordpressPageBySlug<{ acf: SolutionsContentAPI }>('solutions')
+  const { acf } = await getWordpressPageBySlug<{ acf: SolutionsAPI }>('solutions')
   return convertContentAPItoContent(acf)
 }
 
@@ -77,6 +79,13 @@ export async function getJobContent(slug: string) {
 
 export async function getOfferContent(slug: string) {
   const { data } = await axios.get(`${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/agaetis/api/v1/offres/${slug}`)
+  return data
+}
+
+export async function getLandingPageContent(offer: string) {
+  const { data } = await axios.get(
+    `${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/agaetis/api/v1/landingpages/${offer}`
+  )
   return data
 }
 
@@ -107,6 +116,18 @@ export async function getAllOffers() {
   return data
 }
 
+export async function getCategoryOffers(slug: string) {
+  const { data } = await axios.get(`${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/agaetis/api/v1/cat/${slug}`)
+  return data
+}
+
+export async function getOfferLeaf(offer: string, slug: string) {
+  const { data } = await axios.get(
+    `${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/agaetis/api/v1/offres/${offer}/${slug}`
+  )
+  return data
+}
+
 export async function getIdeaById(id: number) {
   const { data } = await axios.get(`${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/wp/v2/posts/${id}?_embed`)
   return data
@@ -124,6 +145,11 @@ export async function getCategories() {
 
 export async function getIdeasByTag(slug: string) {
   const { data } = await axios.get(`${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/agaetis/api/v1/tags/${slug}`)
+  return data
+}
+
+export async function getIdeaByCategory(slug: string) {
+  const { data } = await axios.get(`${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/agaetis/api/v1/categories/${slug}`)
   return data
 }
 

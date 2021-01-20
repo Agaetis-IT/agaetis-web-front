@@ -64,7 +64,7 @@ export default function Header({ invertColors, className }: Props) {
 
   return (
     <>
-      <header className={clsx('p-3 md:py-16 header-1', 'header md:absolute md:mx-auto', className)}>
+      <header className={clsx('p-3 md:py-8 header-1', 'header md:absolute md:mx-auto', className)}>
         <nav className="flex flex-col md:flex-row item-start md:items-center flex-wrap justify-between lg:justify-center">
           {/*Site logo + Hamburger icon */}
 

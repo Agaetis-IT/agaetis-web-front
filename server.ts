@@ -72,8 +72,9 @@ app
           'google80ae36db41235209.html',
           'robots.txt',
           'favicon.ico',
-          'logo-agaetis-carre.png'
-        ].includes(queryParams.slug) || !!queryParams.slug.match(/(workbox)|(worker)-.*\.js/)
+          'logo-agaetis-carre.png',
+        ].includes(queryParams.slug) ||
+        !!queryParams.slug.match(/(workbox)|(worker)-.*\.js/)
       ) {
         return handle(req, res)
       } else if (queryParams.slug === 'ideas') {
@@ -91,8 +92,8 @@ app
       app.render(req, res, '/job', { ...req.params, ...req.query })
     })
 
-    server.get('/offers/:slug', (req: Request, res: Response) => {
-      app.render(req, res, '/offer', { ...req.params, ...req.query })
+    server.get('/landingpages/:slug', (req: Request, res: Response) => {
+      app.render(req, res, '/landingpage', { ...req.params, ...req.query })
     })
 
     server.get('/white-papers/:slug', (req: Request, res: Response) => {
@@ -150,6 +151,63 @@ app
         mailRegex.test(message.from!) &&
         mailRegex.test(message.to!) &&
         ['Un projet ?', 'Une candidature ?', 'Un cafe ?'].includes(message.subject) &&
+        message.html.length > 0
+      ) {
+        transporter.sendMail(message, (err: any) => {
+          if (err) {
+            res.status(500).send()
+          } else {
+            res.status(200).send()
+          }
+        })
+      } else {
+        res.status(400).send()
+      }
+    })
+
+    server.post('/send/fastcontact', async (req: Request, res: Response) => {
+      oAuth2Client.setCredentials({
+        // eslint-disable-next-line @typescript-eslint/camelcase
+        refresh_token: process.env.NEXT_APP_GMAIL_REFRESH_TOKEN,
+      })
+      const accessToken = oAuth2Client.getAccessToken()
+
+      const transporter = nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true,
+        auth: {
+          type: 'OAuth2',
+          user: String(process.env.NEXT_APP_MAIL_ADDRESS),
+          clientId: String(process.env.NEXT_APP_GMAIL_CLIENT_ID),
+          clientSecret: String(process.env.NEXT_APP_GMAIL_CLIENT_SECRET),
+          refreshToken: String(process.env.NEXT_APP_GMAIL_REFRESH_TOKEN),
+          accessToken: String(accessToken),
+          expires: Date.now() + 3600,
+        },
+      })
+
+      const message = {
+        from: process.env.NEXT_APP_MAIL_ADDRESS,
+        to: 'benoit.munoz@agaetis.fr',
+        subject: `Prise de contact site web ${req.body.firstname} ${req.body.lastname}`,
+        html: req.body.content,
+      }
+
+      const key = Buffer.from(
+        req.body.firstname +
+          req.body.lastname +
+          process.env.NEXT_APP_CONTACT_SALT +
+          req.body.mail +
+          req.body.content +
+          req.body.date,
+        'base64'
+      )
+
+      if (
+        req.body.hash === sha256(key) &&
+        mailRegex.test(message.from!) &&
+        mailRegex.test(message.to!) &&
         message.html.length > 0
       ) {
         transporter.sendMail(message, (err: any) => {
