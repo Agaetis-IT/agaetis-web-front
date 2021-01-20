@@ -14,6 +14,7 @@ import { WhitepaperFormValues } from '../yup/WhitePaperFormValidation'
 import Logo from '../static/icons/Agaetis - Ico logo - Orange.png'
 
 import Error from './_error'
+import Link from 'next/link'
 
 interface Props {
   pageContent?: WhitePaper
@@ -71,7 +72,9 @@ export default function whitePaper({ pageContent, errorCode }: Props) {
           <div className="md:max-w-md mx-auto p-0 md:px-8">
             <div className="text-xs px-4 md:px-0">
               <span className="text-underline text-black">
-                <a href="/">Accueil</a>
+                <Link href="/">
+                  <a>Accueil</a>
+                </Link>
               </span>
               {' > '}
               <b>{pageContent.title}</b>

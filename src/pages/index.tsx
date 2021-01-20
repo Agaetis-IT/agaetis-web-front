@@ -5,20 +5,24 @@ import ContactSection from '../components/ContactSection'
 import Hero from '../components/Hero'
 import Layout from '../components/Layout'
 import publicRuntimeConfig from '../config/env.config'
-import { getIndexContent } from '../Services/wordpressService'
-import { IndexContentV2, convertIndexContentAPItoContentAPI } from '../types/IndexContent'
+import { getAllOffers, getIndexContent } from '../Services/wordpressService'
+import IndexContent, { convertIndexContentAPItoContentAPI } from '../types/IndexContent'
 import HomeOffers from '../components/HomeOffers'
 import HomeSectors from '../components/HomeSectors'
 import HomeConvictions from '../components/HomeConvictions'
 
 import HomeJoinUs from '../components/HomeJoinUs'
 import HomeExpertises from '../components/HomeExpertises'
+import { OfferDesc } from '../types/OffersContent'
+import OfferAPI from '../models/OfferAPI'
 
 interface Props {
-  pageContent: IndexContentV2
+  pageContent: IndexContent
+  offers: OfferDesc[]
 }
 
-function Index({ pageContent: pageContent }: Props) {
+function Index({ pageContent, offers }: Props) {
+  console.log(offers)
   return (
     <>
       <Head>
@@ -39,7 +43,7 @@ function Index({ pageContent: pageContent }: Props) {
             subtitle={pageContent.hero_subtitle}
           />
           <div className="sm:px-0">
-            <HomeOffers offers={pageContent.offres} title={pageContent.offres_title}></HomeOffers>
+            {offers && <HomeOffers offers={offers} title={pageContent.offres_title}></HomeOffers>}
             <HomeSectors sectors={pageContent.secteurs} title={pageContent.secteurs_title}></HomeSectors>
             <HomeExpertises
               expertises_title={pageContent.expertises_title}
@@ -68,9 +72,10 @@ function Index({ pageContent: pageContent }: Props) {
 }
 
 Index.getInitialProps = async () => {
-  const data = await getIndexContent()
+  const { [0]: data, [1]: allOffersData } = await Promise.all([getIndexContent(), getAllOffers()])
   const pageContent = convertIndexContentAPItoContentAPI(data)
-  return { pageContent }
+  console.log(allOffersData)
+  return { pageContent, offers: allOffersData.map((offer: OfferAPI) => offer.acf) }
 }
 
 export default Index

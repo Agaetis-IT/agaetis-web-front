@@ -50,27 +50,29 @@ function jobs({ pageContent, allJobs }: Props) {
         <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/jobs`} />
       </Head>
       <Layout invertColors={false}>
-        <>
-          <div className="md:max-w-md mx-auto p-0 md:px-8">
-            <div className="text-xs px-4 md:px-0">
-              <span>
-                <a className="text-underline text-black" href="/">
-                  Accueil
-                </a>
-                {' > '}
-                <b>Jobs</b>
-              </span>
+        <div className="mx-auto px-0">
+          <div className=" p-0 md:p-12 lg:px-24 lg:p-16 pb-0">
+            <div className="md:max-w-md mx-auto p-0 md:px-8 mt-0 md:mt-20">
+              <div className="text-xs px-4 md:px-0">
+                <span>
+                  <a className="text-underline text-black" href="/">
+                    Accueil
+                  </a>
+                  {' > '}
+                  <b>Jobs</b>
+                </span>
+              </div>
+              <h1
+                className="text-center text-3xl py-8 md:mt-12 md:pb-0"
+                dangerouslySetInnerHTML={{ __html: pageContent.title }}
+              />
+              <p
+                className="md:max-w-md mx-auto text-justify md:text-center  px-4 md:py-6 md:px-0 text-sm leading-normal"
+                dangerouslySetInnerHTML={{ __html: pageContent.description }}
+              />
             </div>
           </div>
           <div className="md:max-w-lg mx-auto p-0 md:px-8">
-            <h1
-              className="text-center text-3xl py-8 md:mt-12 md:pb-0"
-              dangerouslySetInnerHTML={{ __html: pageContent.title }}
-            />
-            <p
-              className="md:max-w-md mx-auto text-justify md:text-center  px-4 md:py-6 md:px-0 text-sm leading-normal"
-              dangerouslySetInnerHTML={{ __html: pageContent.description }}
-            />
             <JobsCarousel slideMax={2} slides={pageContent.slides} />
           </div>
           <div
@@ -141,7 +143,7 @@ function jobs({ pageContent, allJobs }: Props) {
           </div>
           <OfferSection footerText={pageContent.footer_contact_text} />
           <ContactSection></ContactSection>
-        </>
+        </div>
       </Layout>
     </>
   )

@@ -15,6 +15,7 @@ import Logo from '../static/icons/Agaetis - Ico logo - Orange.png'
 import Error from './_error'
 import './job.css'
 import ContactSection from '../components/ContactSection'
+import Link from 'next/link'
 
 interface Props {
   pageContent: JobContent
@@ -60,26 +61,28 @@ function job({ pageContent, allJobs, errorCode }: Props) {
         <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}${pageContent.slug}`} />
       </Head>
       <Layout invertColors={false}>
-        <>
-          <div className="md:max-w-md mx-auto p-0 md:px-8">
-            <div className="text-xs px-4 md:px-0">
-              <span>
-                <a className="text-underline text-black" href="/">
-                  Accueil
-                </a>
-                {' > '}
-                <a className="text-underline text-black" href="/jobs">
-                  Jobs
-                </a>
-                {' > '}
-                <b>{pageContent.title}</b>{' '}
-              </span>
+        <div className="mx-auto px-0">
+          <div className=" p-0 md:p-12 lg:px-24 lg:p-16 pb-0">
+            <div className="md:max-w-md mx-auto p-0 md:px-8 mt-0 md:mt-20">
+              <div className="text-xs px-4 md:px-0">
+                <span>
+                  <Link href="/">
+                    <a className="text-underline text-black">Accueil</a>
+                  </Link>
+                  {' > '}
+                  <a className="text-underline text-black" href="/jobs">
+                    Jobs
+                  </a>
+                  {' > '}
+                  <b>{pageContent.title}</b>{' '}
+                </span>
+              </div>
+              <h1 className="text-center text-2xl py-8 md:pb-0 md:mt-12">{pageContent.title}</h1>
+              <p
+                className="md:max-w-md mx-auto text-center px-4 md:py-6 md:px-0 text-sm leading-normal"
+                dangerouslySetInnerHTML={{ __html: pageContent.description }}
+              ></p>
             </div>
-            <h1 className="text-center text-2xl py-8 md:pb-0 md:mt-12">{pageContent.title}</h1>
-            <p
-              className="md:max-w-md mx-auto text-center px-4 md:py-6 md:px-0 text-sm leading-normal"
-              dangerouslySetInnerHTML={{ __html: pageContent.description }}
-            ></p>
           </div>
           <div
             style={{
@@ -111,7 +114,7 @@ function job({ pageContent, allJobs, errorCode }: Props) {
             </p>
             <p className="mb-3">{pageContent.profile_description}</p>
             <p className="mb-3">Salaire: {pageContent.offre_salary}</p>
-            <p className="mb-3">Connaissances souhaitées (en gras les indispensables) :</p>
+            <p className="mb-3">Connaissances souhaitées :</p>
             <ul className="pl-4 job-list">
               {pageContent.offre_profile
                 .filter((point) => point !== '')
@@ -144,7 +147,7 @@ function job({ pageContent, allJobs, errorCode }: Props) {
           </div>
           <OfferSection footerText={pageContent.contact_text} />
           <ContactSection></ContactSection>
-        </>
+        </div>
       </Layout>
     </>
   )
