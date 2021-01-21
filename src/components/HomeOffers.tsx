@@ -13,7 +13,7 @@ interface Props {
 }
 
 export default function HomeOffers({ title, offers }: Props) {
-  const [selectedOffer, setSelectedOffer] = useState(1)
+  const [selectedOffer, setSelectedOffer] = useState(0)
   const handleOfferChange = (index: number) => {
     setSelectedOffer(index)
 
