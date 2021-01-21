@@ -65,6 +65,10 @@ export interface PostOffer {
   description: string
 }
 
+export function compareOffer(a: OfferDesc, b: OfferDesc) {
+  return a.title < b.title ? -1 : 1
+}
+
 export function convertAPItoOffersContent(contentApi: OffersPageContent): OffersContent {
   return {
     title: contentApi.title,
