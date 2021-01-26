@@ -4,5 +4,6 @@ export interface PostAPI {
   acf: {
     idea_image: string
     idea_description: string
+    coAuthor: { data: { display_name } }
   }
 }

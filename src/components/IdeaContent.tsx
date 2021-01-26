@@ -41,7 +41,9 @@ function IdeaContent({ content }: Props) {
                     <span className="pr-1">
                       {content.date.slice(8, 10)}/{content.date.slice(5, 7)}/{content.date.slice(0, 4)}
                     </span>
-                    <span className="text-blue">| {content.author}</span>
+                    <span className="text-blue">
+                      | {`${content.author}`} {content.coAuthor && ` & ${content.coAuthor}`}
+                    </span>
                   </span>
                   <span className="flex items-center">
                     <img src={AccessTime} style={{ width: 15, height: 15 }} alt="read_time" />

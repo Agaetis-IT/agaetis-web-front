@@ -72,13 +72,13 @@ export default function Idea({ data, related, errorCode, meta }: Props) {
         <meta name="twitter:label1" value="Auteur" />
         {/*
         // @ts-ignore */}
-        <meta name="twitter:data1" value={`${data.author}`}  />
+        <meta name="twitter:data1" value={`${data.author}`} />
         {/*
         // @ts-ignore */}
         <meta name="twitter:label2" value="Temps de lecture" />
         {/*
         // @ts-ignore */}
-        <meta name="twitter:data2" value={`${data.readTime} min.`}  />
+        <meta name="twitter:data2" value={`${data.readTime} min.`} />
       </Head>
       <Layout invertColors={false}>
         <div>
@@ -136,6 +136,7 @@ Idea.getInitialProps = async ({ query }: Context) => {
         imageUrl: data.acf.idea_image || '',
         date: data.date,
         author: data._embedded.author[0].name,
+        coAuthor: data.acf.co_author.data.display_name,
         categories: data._embedded['wp:term'][0].map((category: { name: string }) => category.name),
         content: data.content.rendered,
         slug: data.slug,
@@ -143,7 +144,10 @@ Idea.getInitialProps = async ({ query }: Context) => {
         tags: data._embedded['wp:term'][1].map((tag: { name: string; slug: string }) => {
           return { name: tag.name, slug: tag.slug }
         }),
-        readTime: data.content.rendered && Math.floor(data.content.rendered.split(' ').length / 275) ? Math.floor(data.content.rendered.split(' ').length / 275) : '1'
+        readTime:
+          data.content.rendered && Math.floor(data.content.rendered.split(' ').length / 275)
+            ? Math.floor(data.content.rendered.split(' ').length / 275)
+            : '1',
       },
       related: related.map((idea) => {
         return {
