@@ -66,8 +66,8 @@ export default function agaetis({ pageContent }: Props) {
                 ))}
               </div>
             </div>
-            <ContactSection />
           </div>
+          <ContactSection />
         </div>
       </Layout>
     </>

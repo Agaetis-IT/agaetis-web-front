@@ -136,7 +136,7 @@ Idea.getInitialProps = async ({ query }: Context) => {
         imageUrl: data.acf.idea_image || '',
         date: data.date,
         author: data._embedded.author[0].name,
-        coAuthor: data.acf.co_author.data.display_name,
+        coAuthor: data.acf.co_author ? data.acf.co_author.data.display_name : undefined,
         categories: data._embedded['wp:term'][0].map((category: { name: string }) => category.name),
         content: data.content.rendered,
         slug: data.slug,
