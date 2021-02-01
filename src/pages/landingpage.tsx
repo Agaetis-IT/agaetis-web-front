@@ -67,7 +67,11 @@ export default function Landingpage({ pageContent, errorCode }: Props) {
             ></div>
           </div>
         </div>
-        <ContactFormFooter handleSubmit={handleSubmit} isSubmited={isSubmited} />
+        <ContactFormFooter
+          title="Une question, un café, un thé ? Contactez-nous"
+          handleSubmit={handleSubmit}
+          isSubmited={isSubmited}
+        />
         {isOpenenedModal && <ContactMessage error={isError}></ContactMessage>}
         <ContactSection />
       </>
