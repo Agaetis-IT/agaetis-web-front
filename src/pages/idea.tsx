@@ -132,7 +132,7 @@ export default function Idea({ data, related, errorCode, meta }: Props) {
                       'flex-row justify-center uppercase rounded-full bg-orange text-xss py-2 px-6 mt-8 text-white font-semibold mx-auto'
                     )}
                   >
-                    {!isOpenedMoreIdeas ? "Voir plus d'idées" : "Voir moins d'idées"}
+                    {!isOpenedMoreIdeas ? 'Voir plus' : 'Voir moins'}
                   </Button>
                 </div>
               </>

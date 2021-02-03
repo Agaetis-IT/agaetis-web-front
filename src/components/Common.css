@@ -10,6 +10,30 @@
   border-bottom: 1px solid #2779bd;
 }
 
+.orange-border-thin {
+  border: 2px solid #ff7f40;
+}
+
+.blue-border-thin {
+  border: 2px solid #407ec9;
+}
+
+.teal-border-thin {
+  border: 2px solid#00B2A9;
+}
+
+.grey-border-thin {
+  border: 2px solid #82919c;
+}
+
+.pink-border-thin {
+  border: 2px solid#df1995;
+}
+
+.yellow-border-thin {
+  border: 2px solid #f1b434;
+}
+
 .white-underline-thin {
   border-bottom: 1px solid white;
 }

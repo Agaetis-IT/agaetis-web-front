@@ -47,6 +47,22 @@ function getBgColor(category: string) {
   return 'hover:bg-grey bg-grey'
 }
 
+function getBorderColor(category: string, selected: boolean) {
+  console.log(category)
+  if (category === 'Agaetis' || category === 'Evènements') {
+    return clsx('orange-border-thin', selected ? 'bg-orange text-white' : 'text-orange')
+  } else if (category === 'Stratégie SI') {
+    return clsx('blue-border-thin', selected ? 'bg-blue text-white' : 'text-blue')
+  } else if (category === 'Data') {
+    return clsx('teal-border-thin', selected ? 'bg-teal text-white' : 'text-teal')
+  } else if (category === 'Service Design') {
+    return clsx('pink-border-thin', selected ? 'bg-light-pink text-white' : 'text-light-pink')
+  } else if (category === 'Technologie') {
+    return clsx('yellow-border-thin', selected ? 'bg-yellow text-white' : 'text-yellow')
+  }
+  return clsx('grey-border-thin', selected ? 'bg-grey text-white' : 'text-grey')
+}
+
 function createMarkup(content: string) {
   return { __html: content }
 }
@@ -87,21 +103,22 @@ export default function CategoryTab({ ideasC, categories, toggleMore, ideasImg1,
     if (ideasImg2 && !ideas.find((idea: IdeasDesc) => idea.id === -2)) {
       ideas.splice(7, 0, fakeIdea2)
     }
-    return ideas.map((idea) => (
-      <div key={idea.id} className={clsx(ideas.length > 2 ? 'sm:w-1/3' : 'sm:w-1/2', ' px-1')}>
-        <IdeasCard
-          className={clsx(
-            'my-2 sm:h-ideas ',
-            { 'shadow-xl sm:h-ideas hidden sm:block idea-card': idea.id < 0 },
-            { [getBgColor(idea.categories[0])]: idea.id > 0 }
-          )}
-          {...idea}
-          categories={idea.categories.filter((category) => !category.includes('_offer-'))}
-        >
-          <p dangerouslySetInnerHTML={createMarkup(idea.descriptionText)} />
-        </IdeasCard>
-      </div>
-    ))
+    return ideas.map((idea) => {
+      return (
+        <div key={idea.id} className={clsx(ideas.length > 2 ? 'sm:w-1/3' : 'sm:w-1/2', ' p-2')}>
+          <IdeasCard
+            className={clsx(
+              { 'shadow-xl hidden sm:block': idea.id < 0 },
+              { [getBgColor(idea.categories.filter((category) => !category.includes('_offer-'))[0])]: idea.id > 0 }
+            )}
+            {...idea}
+            categories={idea.categories.filter((category) => !category.includes('_offer-'))}
+          >
+            <p dangerouslySetInnerHTML={createMarkup(idea.descriptionText)} />
+          </IdeasCard>
+        </div>
+      )
+    })
   }, [categoryFilter, fakeIdea1, fakeIdea2, ideasC])
 
   function handleFilterChange(category: string) {
@@ -112,11 +129,11 @@ export default function CategoryTab({ ideasC, categories, toggleMore, ideasImg1,
 
   return (
     <div className="flex flex-col justify-center md:max-w-full mx-auto px-2 py-6 md:p-6 xl:px-12">
-      <div className="text-xs mx-auto">
+      <div className="text-xs mx-auto flex flex-row flex-wrap justify-center">
         <Button
           className={clsx(
-            'uppercase font-semibold mx-2 p-2 hover:text-white all',
-            categoryFilter === 'All' ? 'bg-blue text-white rounded-sm' : 'underline text-blue font-semibold'
+            'uppercase font-semibold my-2 mx-2 p-2 hover:text-white all rounded-full blue-border-thin',
+            categoryFilter === 'All' ? 'bg-blue text-white' : 'blue-border-thin text-blue'
           )}
           onClick={handleFilterChange('All')}
         >
@@ -126,12 +143,9 @@ export default function CategoryTab({ ideasC, categories, toggleMore, ideasImg1,
           <Button
             key={category.categoryId}
             className={clsx(
-              'uppercase font-semibold mx-1 md:mx-2 p-2 rounded-sm',
-              'hover:text-white',
+              'uppercase font-semibold my-2 mx-1 md:mx-2 p-2 rounded-full hover:text-white',
               slugify(category.categoryName),
-              category.categoryName === categoryFilter
-                ? getBgColor(category.categoryName) + ' text-white rounded-sm'
-                : 'underline text-blue font-semibold'
+              getBorderColor(category.categoryName, categoryFilter === category.categoryName)
             )}
             onClick={handleFilterChange(category.categoryName)}
           >

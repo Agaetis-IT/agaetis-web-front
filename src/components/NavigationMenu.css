@@ -27,7 +27,7 @@
   margin-top: 2px;
   display: block;
   transition: width 0.2s ease-out;
-  background-color: white;
+  background-color: none;
   width: 0px;
   height: 2px;
   text-align: center;
@@ -55,5 +55,9 @@
 
   .menu-link-black-underline::after {
     background-color: black;
+  }
+
+  .menu-link-white-underline::after {
+    background-color: white;
   }
 }

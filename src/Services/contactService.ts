@@ -4,7 +4,9 @@ import sha256 from 'js-sha256'
 import publicRuntimeConfig from '../config/env.config'
 
 const formatContent = (content: string, name: string, mail: string, phone: string, company?: string) =>
-  `<html><body><p>${content}</p><h3>Contact</h3><p>${name}</p><p>${mail}</p><p>${phone}</p><p>${company}</p></body></html>`
+  `<html><body><p>${content}</p><h3>Contact</h3><p>${name}</p><p>${mail}</p><p>${phone}</p><p>${
+    company ? company : ''
+  }</p></body></html>`
 
 const formatWPContent = () =>
   `<html><body><p>Bonjour,<br/><br/>Nous vous remercions de l'intérêt que vous portez à Agaetis et son activité. Vous trouverez ci-joint le fichier .pdf que vous avez choisi. <br/><br/>Cordialement,<br/>Agaetis</p></body></html>`

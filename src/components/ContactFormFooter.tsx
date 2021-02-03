@@ -28,8 +28,8 @@ export default function ContactFormFooter({ title, handleSubmit, isSubmited }: P
 
   return (
     <div className="bg-light-grey p-0 p-6 md:p-12 lg:px-24 lg:p-16">
-      <div className="flex flex-row justify-between mb-8">
-        <h2 className="text-orange text-2xl ">{title}</h2>
+      <div className="flex flex-col md:flex-row justify-between mb-8">
+        <h2 className="text-orange text-2xl mb-4 md:mb-0">{title}</h2>
         <div className="flex flex-row items-center">
           <Button href="https://fr-fr.facebook.com/AgaetisIT" className="mr-4 self-center">
             <img src={Facebook} className="w-4 h-4" />

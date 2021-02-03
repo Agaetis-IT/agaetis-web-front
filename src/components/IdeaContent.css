@@ -56,7 +56,8 @@ td {
   margin-bottom: 20px;
 }
 
-#content figure img {
+#content figure img,
+#content img {
   display: block;
   margin: 0 auto;
   padding: 20px 0;
