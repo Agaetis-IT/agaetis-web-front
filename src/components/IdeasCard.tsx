@@ -37,7 +37,7 @@ function getStyle(id: number) {
 
 export default function IdeasCard({ slug, id, title, categories, children, className, image }: Props) {
   return (
-    <div style={getBackgroundStyle(id, image)} className={clsx(className, 'idea-card')}>
+    <div style={getBackgroundStyle(id, image)} className={clsx(className, { 'idea-card': id < 0 })}>
       <div style={getStyle(id)}>
         <div className="p-4 ideas-inner-content">
           <div className="top">
