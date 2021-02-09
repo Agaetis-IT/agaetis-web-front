@@ -34,6 +34,14 @@
   border: 2px solid #f1b434;
 }
 
+.red-lighter-border-thin {
+  border: 2px solid #cf5b5b;
+}
+
+.purple-light-border-thin {
+  border: 2px solid #ad5ac6;
+}
+
 .white-underline-thin {
   border-bottom: 1px solid white;
 }

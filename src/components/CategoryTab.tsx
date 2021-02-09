@@ -34,33 +34,47 @@ function slugify(s: string) {
 
 function getBgColor(category: string) {
   if (category === 'Agaetis' || category === 'Evènements') {
-    return 'bg-orange hover:bg-orange'
+    return 'bg-orange'
   } else if (category === 'Stratégie SI') {
-    return 'hover:bg-blue bg-blue'
+    return 'bg-blue'
   } else if (category === 'Data') {
-    return 'hover:bg-teal bg-teal'
+    return 'bg-teal'
   } else if (category === 'Service Design') {
-    return 'hover:bg-light-pink bg-light-pink'
+    return 'bg-light-pink'
   } else if (category === 'Technologie') {
-    return 'hover:bg-yellow bg-yellow'
+    return 'bg-yellow'
+  } else if (category === 'Agilité') {
+    return 'bg-light-purple'
+  } else if (category === 'Business Hacking') {
+    return 'bg-red-lighter'
   }
-  return 'hover:bg-grey bg-grey'
+  return 'bg-grey'
 }
 
 function getBorderColor(category: string, selected: boolean) {
   console.log(category)
   if (category === 'Agaetis' || category === 'Evènements') {
-    return clsx('orange-border-thin', selected ? 'bg-orange text-white' : 'text-orange')
+    return clsx('hover:bg-orange orange-border-thin', selected ? 'bg-orange text-white' : 'text-orange')
   } else if (category === 'Stratégie SI') {
-    return clsx('blue-border-thin', selected ? 'bg-blue text-white' : 'text-blue')
+    return clsx('hover:bg-blue blue-border-thin', selected ? 'bg-blue text-white' : 'text-blue')
   } else if (category === 'Data') {
-    return clsx('teal-border-thin', selected ? 'bg-teal text-white' : 'text-teal')
+    return clsx('hover:bg-teal teal-border-thin', selected ? 'bg-teal text-white' : 'text-teal')
   } else if (category === 'Service Design') {
-    return clsx('pink-border-thin', selected ? 'bg-light-pink text-white' : 'text-light-pink')
+    return clsx('hover:bg-light-pink pink-border-thin', selected ? 'bg-light-pink text-white' : 'text-light-pink')
   } else if (category === 'Technologie') {
-    return clsx('yellow-border-thin', selected ? 'bg-yellow text-white' : 'text-yellow')
+    return clsx('hover:bg-yellow yellow-border-thin', selected ? 'bg-yellow text-white' : 'text-yellow')
+  } else if (category === 'Agilité') {
+    return clsx(
+      'hover:bg-light-purple purple-light-border-thin',
+      selected ? 'bg-light-purple text-white' : 'text-light-purple'
+    )
+  } else if (category === 'Business Hacking') {
+    return clsx(
+      'hover:bg-red-lighter red-lighter-border-thin',
+      selected ? 'bg-red-lighter text-white' : 'text-red-lighter'
+    )
   }
-  return clsx('grey-border-thin', selected ? 'bg-grey text-white' : 'text-grey')
+  return clsx('hover:bg-grey grey-border-thin', selected ? 'bg-grey text-white' : 'text-grey')
 }
 
 function createMarkup(content: string) {
