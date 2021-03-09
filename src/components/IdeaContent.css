@@ -16,6 +16,19 @@
   content: ' ';
 }
 
+#content code {
+  text-align: left;
+  max-width: 100%;
+}
+
+#content code span {
+  word-break: break-word;
+}
+
+#content code span br {
+  margin-bottom: 0;
+}
+
 #content h2 {
   margin: 20px 0;
 }
