@@ -54,7 +54,6 @@ export interface Expertise {
   index: number
   title: string
   items: string
-  trigram: string
   logo: string
 }
 
@@ -156,9 +155,6 @@ function createExpertiseArray(contentApi: IndexContentAPI, keys: string[]) {
       }
       if (key.includes('items')) {
         expertises[newindex].items = contentApi[key]
-      }
-      if (key.includes('trigram')) {
-        expertises[newindex].trigram = contentApi[key]
       }
       if (key.includes('logo')) {
         expertises[newindex].logo = contentApi[key]

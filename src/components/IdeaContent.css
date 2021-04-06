@@ -16,6 +16,19 @@
   content: ' ';
 }
 
+#content code {
+  text-align: left;
+  max-width: 100%;
+}
+
+#content code span {
+  word-break: break-word;
+}
+
+#content code span br {
+  margin-bottom: 0;
+}
+
 #content h2 {
   margin: 20px 0;
 }
@@ -56,6 +69,7 @@ td {
   margin-bottom: 20px;
 }
 
+#content figure img,
 #content img {
   display: block;
   margin: 0 auto;

@@ -6,13 +6,17 @@ import TextInput from './TextInput'
 import { footerContactSchema, FooterFormInput } from '../yup/ContactFormValidation'
 import { yupResolver } from '@hookform/resolvers/yup'
 import clsx from 'clsx'
+import Twitter from '../static/icons/twitter.png'
+import Linkedin from '../static/icons/linkedin.png'
+import Facebook from '../static/icons/facebook.png'
 
 interface Props {
   handleSubmit: (formValues: FooterFormInput) => void
   isSubmited: boolean
+  title: string
 }
 
-export default function ContactFormFooter({ handleSubmit, isSubmited }: Props) {
+export default function ContactFormFooter({ title, handleSubmit, isSubmited }: Props) {
   const { register, watch, control, clearErrors, ...otherFormProps } = useForm<FooterFormInput>({
     mode: 'onBlur',
     resolver: yupResolver(footerContactSchema),
@@ -24,7 +28,20 @@ export default function ContactFormFooter({ handleSubmit, isSubmited }: Props) {
 
   return (
     <div className="bg-light-grey p-0 p-6 md:p-12 lg:px-24 lg:p-16">
-      <h2 className="text-orange text-2xl mb-8">Une question, un café, un thé ? Contactez-nous</h2>
+      <div className="flex flex-col md:flex-row justify-between mb-8">
+        <h2 className="text-orange text-2xl mb-4 md:mb-0">{title}</h2>
+        <div className="flex flex-row items-center">
+          <Button href="https://fr-fr.facebook.com/AgaetisIT" className="mr-4 self-center">
+            <img src={Facebook} className="w-4 h-4" />
+          </Button>
+          <Button href="https://www.linkedin.com/company/agaetis/" className="mr-4">
+            <img src={Linkedin} className="w-4 h-4" />
+          </Button>
+          <Button href="https://twitter.com/agaetisit" className="">
+            <img src={Twitter} className="w-4 h-4" />
+          </Button>
+        </div>
+      </div>
       <FormProvider register={register} watch={watch} control={control} clearErrors={clearErrors} {...otherFormProps}>
         <form onSubmit={otherFormProps.handleSubmit(handleSubmit)}>
           <div className="flex flex-col md:flex-row justify-between">

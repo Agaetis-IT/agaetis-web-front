@@ -24,9 +24,9 @@ export default function HomeSectors({ title, sectors }: Props) {
   }, [])
 
   return (
-    <div className="bg-light-grey p-4 md:p-16 xl:px-32">
-      <h2 className="mt-8 mb-4 md:my-0 text-orange font-semibold text-center md:text-left">{title}</h2>
-      <div className="py-4 pb-0 mt-4 md:mt-12" id="sectors">
+    <div className="bg-light-grey py-8 px-4 md:p-16 xl:px-32">
+      <h2 className=" mb-4 md:my-0 text-orange font-semibold text-center md:text-left">{title}</h2>
+      <div className="py-4 pb-0  md:mt-12" id="sectors">
         {sectors
           .filter((sector) => sector.title != '' && sector.desc != '' && sector.image != '')
           .map((sector, index) => (

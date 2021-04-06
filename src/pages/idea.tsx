@@ -12,11 +12,15 @@ import publicRuntimeConfig from '../config/env.config'
 import { getIdeaBySlug, getIdeaMeta } from '../Services/wordpressService'
 import IdeasContent, { IdeasDesc } from '../types/IdeasContent'
 import Meta, { convertMetaAPItoMeta } from '../types/Meta'
+import Particles from '../static/images/particles-3.svg'
 
 import Error from './_error'
-import Logo from '../static/icons/Agaetis - Ico logo - Orange.png'
 import { escape } from 'querystring'
 import ContactSection from '../components/ContactSection'
+import ContactFormFooter from '../components/ContactFormFooter'
+import { FooterFormInput } from '../yup/ContactFormValidation'
+import { footerSend } from '../Services/contactService'
+import ContactMessage from '../components/ContactMessage'
 
 interface Props {
   data: IdeasContent
@@ -31,6 +35,28 @@ interface Context extends NextPageContext {
 
 export default function Idea({ data, related, errorCode, meta }: Props) {
   const [isOpenedMoreIdeas, setIsOpenedMoreIdeas] = useState(false)
+  const [isOpenenedModal, setOpenModal] = useState(false)
+  const [isError, setIsError] = useState(true)
+  const [isSubmited, setIsSubmited] = useState(false)
+
+  function handleOpenModal(error: boolean) {
+    setIsError(error)
+    setOpenModal(true)
+    setIsSubmited(false)
+    setTimeout(() => {
+      setOpenModal(false)
+    }, 3000)
+  }
+
+  async function handleSubmit(data: FooterFormInput) {
+    try {
+      setIsSubmited(true)
+      await footerSend(data.firstname, data.lastname, data.mail, data.message, data.phone, new Date())
+      handleOpenModal(false)
+    } catch {
+      handleOpenModal(true)
+    }
+  }
   function handleToggleMoreIdeas() {
     setIsOpenedMoreIdeas(!isOpenedMoreIdeas)
   }
@@ -81,31 +107,43 @@ export default function Idea({ data, related, errorCode, meta }: Props) {
         <meta name="twitter:data2" value={`${data.readTime} min.`} />
       </Head>
       <Layout invertColors={false}>
-        <div>
-          <img src={Logo} id="bg-img-left-idea" alt="logo agaetis"></img>
-          <img src={Logo} id="bg-img-right-idea" alt="logo agaetis"></img>
-          <IdeaContent content={data} />
-          {related && related.length > 0 && (
-            <>
-              <div className="pb-12 mb-8 blue-underline">
-                <h2 className="text-center">Ces idées peuvent vous interesser</h2>
+        <div className="pt-0 md:pt-28">
+          <div
+            style={{
+              backgroundImage: `url("${Particles}")`,
+              backgroundRepeat: 'no-repeat',
+            }}
+            className="bg-light-grey p-6 md:p-16 xl:px-32 shadow-none md:shadow-top"
+          >
+            <IdeaContent content={data} />
+            {related && related.length > 0 && (
+              <>
+                <div className="pb-12 mb-8 blue-underline">
+                  <h2 className="text-center">Ces idées peuvent vous interesser</h2>
 
-                <div className="md:max-w-md px-4 mt-8 mx-auto flex flex-col md:flex-row justify-center">
-                  {relatedIdeas.slice(0, 3)}
-                  {isOpenedMoreIdeas && relatedIdeas.slice(3)}
+                  <div className="md:max-w-md px-4 mt-8 mx-auto flex flex-col md:flex-row justify-center">
+                    {relatedIdeas.slice(0, 3)}
+                    {isOpenedMoreIdeas && relatedIdeas.slice(3)}
+                  </div>
+                  <Button
+                    onClick={handleToggleMoreIdeas}
+                    className={clsx(
+                      related.length < 4 ? 'hidden' : 'flex',
+                      'flex-row justify-center uppercase rounded-full bg-orange text-xss py-2 px-6 mt-8 text-white font-semibold mx-auto'
+                    )}
+                  >
+                    {!isOpenedMoreIdeas ? 'Voir plus' : 'Voir moins'}
+                  </Button>
                 </div>
-                <Button
-                  onClick={handleToggleMoreIdeas}
-                  className={clsx(
-                    related.length < 4 ? 'hidden' : 'flex',
-                    'flex-row justify-center uppercase rounded-full bg-orange text-xss py-2 px-6 mt-8 text-white font-semibold mx-auto'
-                  )}
-                >
-                  {!isOpenedMoreIdeas ? "Voir plus d'idées" : "Voir moins d'idées"}
-                </Button>
-              </div>
-            </>
-          )}
+              </>
+            )}
+          </div>
+          <ContactFormFooter
+            title="Un sujet vous intéresse ? Une question ? Contactez-nous"
+            handleSubmit={handleSubmit}
+            isSubmited={isSubmited}
+          ></ContactFormFooter>
+          {isOpenenedModal && <ContactMessage error={isError}></ContactMessage>}
           <ContactSection></ContactSection>
         </div>
       </Layout>

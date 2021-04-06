@@ -31,36 +31,40 @@ export default function Tag({ articles, categories, tag }: Props) {
         <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/tags/${tag.toLowerCase()}`} />
       </Head>
       <Layout invertColors={false}>
-        <>
-          <div className="md:max-w-md mx-auto text-xs px-4 md:px-8 ">
-            <span>
-              <Link href="/">
-                <a className="text-underline text-black">Accueil</a>
-              </Link>
+        <div className="mx-auto px-0">
+          <div className=" p-0 md:p-12 lg:px-24 lg:p-16 pb-0">
+            <div className="md:max-w-md mx-auto p-0 md:px-8 mt-0 md:mt-20 text-xs">
+              <div className="text-xs px-4 md:px-0 ">
+                <span>
+                  <Link href="/">
+                    <a className="text-underline text-black">Accueil</a>
+                  </Link>
 
-              {' > '}
-              <Link href="/ideas">
-                <a className="text-underline text-black">Idées</a>
-              </Link>
+                  {' > '}
+                  <Link href="/ideas">
+                    <a className="text-underline text-black">Idées</a>
+                  </Link>
 
-              {' > '}
-              <b>{tag}</b>
-            </span>
-            <div className="md:max-w-md mx-auto md:px-8">
-              <h1 className="text-center text-3xl py-8  md:mt-12">{tag}</h1>
+                  {' > '}
+                  <b>{tag}</b>
+                </span>
+              </div>
+              <div className="md:max-w-md mx-auto md:px-8">
+                <h1 className="text-center text-3xl py-8  md:mt-12">{tag}</h1>
+              </div>
             </div>
-          </div>
 
-          <CategoryTab
-            ideasC={articles.filter(
-              (idea) => !idea.categories.includes('White-paper') && !idea.categories.includes('Jobs')
-            )}
-            categories={categories.filter(
-              (category) => category.categoryName !== 'Jobs' && category.categoryName !== 'White-paper'
-            )}
-            toggleMore={true}
-          />
-        </>
+            <CategoryTab
+              ideasC={articles.filter(
+                (idea) => !idea.categories.includes('White-paper') && !idea.categories.includes('Jobs')
+              )}
+              categories={categories.filter(
+                (category) => category.categoryName !== 'Jobs' && category.categoryName !== 'White-paper'
+              )}
+              toggleMore={true}
+            />
+          </div>
+        </div>
       </Layout>
     </>
   )
@@ -78,7 +82,9 @@ Tag.getInitialProps = async ({ query }: Context) => {
       date: idea.date,
       image: idea.acf.idea_image,
     })),
-    categories: categories.map((category: any) => ({ categoryId: category.id, categoryName: category.name })),
+    categories: categories
+      .map((category: any) => ({ categoryId: category.id, categoryName: category.name }))
+      .filter((category: any) => !category.categoryName.includes('_offer-')),
 
     tag: query.slug.charAt(0).toUpperCase() + query.slug.slice(1),
   }

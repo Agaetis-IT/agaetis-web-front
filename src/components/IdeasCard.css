@@ -3,6 +3,7 @@
   height: 50%;
 }
 .idea-card {
+  display: block;
   min-width: 14rem;
 }
 
@@ -49,6 +50,7 @@
     overflow-y: auto;
   }
   .idea-card {
+    display: none;
     min-width: 12rem;
   }
 
