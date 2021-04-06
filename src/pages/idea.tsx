@@ -151,30 +151,62 @@ export default function Idea({ data, related, errorCode, meta }: Props) {
   )
 }
 
-Idea.getInitialProps = async ({ query }: Context) => {
-  // tslint:disable-next-line
+// Bug fix : replace `undefined` with `null`
 
+export async function getServerSideProps({ query }: Context) {
   const { [0]: data, [1]: meta } = await Promise.all([
     getIdeaBySlug(escape(query.slug)),
     getIdeaMeta(escape(query.slug)),
   ])
 
-  if (!!data.acf || !!data.content) {
-    const related = []
-    if (!!data.acf) {
-      for (const idea of data.acf.related_ideas) {
-        const data2 = await getIdeaBySlug(idea.post_name)
-        related.push(data2)
-      }
-    }
-
+  if (!(!!data.acf || !!data.content)) {
     return {
+      props: {
+        data: {
+          title: '',
+          imageUrl: '',
+          date: '',
+          author: '',
+          categories: [],
+          content: '',
+          slug: '',
+        },
+        related: {
+          title: '',
+          id: '',
+          date: '',
+          categories: [],
+          slug: '',
+          descriptionText: '',
+        },
+        meta: {
+          description: '',
+        },
+        errorCode: 404,
+      },
+    }
+    // Next.js v10
+    /*return {
+      notFound: true,
+    }*/
+  }
+
+  const related = []
+  if (!!data.acf) {
+    for (const idea of data.acf.related_ideas) {
+      const data2 = await getIdeaBySlug(idea.post_name)
+      related.push(data2)
+    }
+  }
+
+  return {
+    props: {
       data: {
         title: data.title.rendered,
         imageUrl: data.acf.idea_image || '',
         date: data.date,
         author: data._embedded.author[0].name,
-        coAuthor: data.acf.co_author ? data.acf.co_author.data.display_name : undefined,
+        coAuthor: data.acf.co_author ? data.acf.co_author.data.display_name : null,
         categories: data._embedded['wp:term'][0].map((category: { name: string }) => category.name),
         content: data.content.rendered,
         slug: data.slug,
@@ -190,37 +222,12 @@ Idea.getInitialProps = async ({ query }: Context) => {
       related: related.map((idea) => {
         return {
           title: idea.title.rendered,
-          id: idea.id,
-          date: idea.date,
-          categories: data._embedded['wp:term'][0].map((category: { name: string }) => category.name),
+          id: idea.id['wp:term'][0].map((category: { name: string }) => category.name),
           slug: idea.slug,
           descriptionText: idea.acf.idea_description,
         }
       }),
       meta: convertMetaAPItoMeta(meta, data._embedded),
-    }
-  }
-  return {
-    data: {
-      title: '',
-      imageUrl: '',
-      date: '',
-      author: '',
-      categories: [],
-      content: '',
-      slug: '',
     },
-    related: {
-      title: '',
-      id: '',
-      date: '',
-      categories: [],
-      slug: '',
-      descriptionText: '',
-    },
-    meta: {
-      description: '',
-    },
-    errorCode: 404,
   }
 }
