@@ -33,9 +33,26 @@ yarn install
 yarn dev
 ```
 
-Then visit http://localhost:3000
+Then visit http://localhost:5000
 
-You need an accessible wordpress for the website to work, whose url needs to be added in a `.env` file (on root directory) with `NEXT_APP_BASE_URL`.
+You need an accessible Wordpress for the website to work, whose url needs to be added in a `.env` file (on root directory) with `NEXT_APP_BASE_URL`.
+
+You can find below an example of `.env` file:
+
+```
+NEXT_APP_BASE_URL=<URL to Wordpress>
+NEXT_APP_SITE_URL=http://127.0.0.1:5000
+NEXT_APP_MAIL_ADDRESS=<Mail address>
+NEXT_APP_GMAIL_CLIENT_ID=<GMail client ID>
+NEXT_APP_GMAIL_CLIENT_SECRET=<GMail client secret key>
+NEXT_APP_GMAIL_REFRESH_TOKEN=<GMail client refresh token>
+NEXT_APP_GOOGLE_ANALYTICS_KEY=<Analytics key>
+NEXT_APP_RECAPTCHA_KEY=<ReCaptcha key>
+NEXT_APP_RECAPTCHA_SECRET=<ReCaptcha secret key>
+NEXT_APP_CONTACT_SALT=<Contact salt key>
+```
+
+You'll find this example in `.env-sample`.
 
 ## Change Mail settings
 
