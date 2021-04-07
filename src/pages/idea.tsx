@@ -151,9 +151,9 @@ export default function Idea({ data, related, errorCode, meta }: Props) {
   )
 }
 
-Idea.getInitialProps = async ({ query }: Context) => {
-  // tslint:disable-next-line
+// Bug fix : replace `undefined` with `null`
 
+export async function getServerSideProps({ query }: Context) {
   const { [0]: data, [1]: meta } = await Promise.all([
     getIdeaBySlug(escape(query.slug)),
     getIdeaMeta(escape(query.slug)),
@@ -169,58 +169,68 @@ Idea.getInitialProps = async ({ query }: Context) => {
     }
 
     return {
-      data: {
-        title: data.title.rendered,
-        imageUrl: data.acf.idea_image || '',
-        date: data.date,
-        author: data._embedded.author[0].name,
-        coAuthor: data.acf.co_author ? data.acf.co_author.data.display_name : undefined,
-        categories: data._embedded['wp:term'][0].map((category: { name: string }) => category.name),
-        content: data.content.rendered,
-        slug: data.slug,
-        descriptionText: data.acf.idea_description,
-        tags: data._embedded['wp:term'][1].map((tag: { name: string; slug: string }) => {
-          return { name: tag.name, slug: tag.slug }
+      props: {
+        data: {
+          title: data.title.rendered || '',
+          imageUrl: data.acf.idea_image || '',
+          date: data.date || '',
+          author: data._embedded.author[0].name || '',
+          coAuthor: data.acf.co_author ? data.acf.co_author.data.display_name : '',
+          categories: data._embedded['wp:term'][0].map((category: { name: string }) => category.name) || [],
+          content: data.content.rendered || '',
+          slug: data.slug || '',
+          descriptionText: data.acf.idea_description || '',
+          tags:
+            data._embedded['wp:term'][1].map((tag: { name: string; slug: string }) => {
+              return { name: tag.name, slug: tag.slug }
+            }) || [],
+          readTime:
+            data.content.rendered && Math.floor(data.content.rendered.split(' ').length / 275)
+              ? Math.floor(data.content.rendered.split(' ').length / 275)
+              : '1',
+        },
+        related: related.map((idea) => {
+          return {
+            title: idea.title.rendered || '',
+            id: idea.id || '',
+            date: idea.date || '',
+            categories: data._embedded['wp:term'][0].map((category: { name: string }) => category.name) || [],
+            slug: idea.slug || '',
+            descriptionText: idea.acf.idea_description || '',
+          }
         }),
-        readTime:
-          data.content.rendered && Math.floor(data.content.rendered.split(' ').length / 275)
-            ? Math.floor(data.content.rendered.split(' ').length / 275)
-            : '1',
+        meta: convertMetaAPItoMeta(meta, data._embedded),
       },
-      related: related.map((idea) => {
-        return {
-          title: idea.title.rendered,
-          id: idea.id,
-          date: idea.date,
-          categories: data._embedded['wp:term'][0].map((category: { name: string }) => category.name),
-          slug: idea.slug,
-          descriptionText: idea.acf.idea_description,
-        }
-      }),
-      meta: convertMetaAPItoMeta(meta, data._embedded),
     }
   }
+
   return {
-    data: {
-      title: '',
-      imageUrl: '',
-      date: '',
-      author: '',
-      categories: [],
-      content: '',
-      slug: '',
+    props: {
+      data: {
+        title: '',
+        imageUrl: '',
+        date: '',
+        author: '',
+        categories: [],
+        content: '',
+        slug: '',
+      },
+      related: {
+        title: '',
+        id: '',
+        date: '',
+        categories: [],
+        slug: '',
+        descriptionText: '',
+      },
+      meta: {
+        description: '',
+      },
+      errorCode: 404,
     },
-    related: {
-      title: '',
-      id: '',
-      date: '',
-      categories: [],
-      slug: '',
-      descriptionText: '',
-    },
-    meta: {
-      description: '',
-    },
-    errorCode: 404,
   }
+  // Next.js v10
+  /*return {
+    notFound: true,
+  }*/
 }

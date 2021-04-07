@@ -37,7 +37,7 @@ function IdeaContent({ content }: Props) {
               &nbsp;{content.readTime} min.
             </span>
           </div>
-          <Link href="/blog">
+          <Link href="/blog" passHref={true}>
             <Button>
               <div className="flex flex-row items-center mt-8">
                 <img className="mr-4" src={Back} />
