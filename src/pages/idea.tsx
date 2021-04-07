@@ -171,18 +171,19 @@ export async function getServerSideProps({ query }: Context) {
     return {
       props: {
         data: {
-          title: data.title.rendered,
+          title: data.title.rendered || '',
           imageUrl: data.acf.idea_image || '',
-          date: data.date,
-          author: data._embedded.author[0].name,
-          coAuthor: data.acf.co_author ? data.acf.co_author.data.display_name : null,
-          categories: data._embedded['wp:term'][0].map((category: { name: string }) => category.name),
-          content: data.content.rendered,
-          slug: data.slug,
-          descriptionText: data.acf.idea_description,
-          tags: data._embedded['wp:term'][1].map((tag: { name: string; slug: string }) => {
-            return { name: tag.name, slug: tag.slug }
-          }),
+          date: data.date || '',
+          author: data._embedded.author[0].name || '',
+          coAuthor: data.acf.co_author ? data.acf.co_author.data.display_name : '',
+          categories: data._embedded['wp:term'][0].map((category: { name: string }) => category.name) || [],
+          content: data.content.rendered || '',
+          slug: data.slug || '',
+          descriptionText: data.acf.idea_description || '',
+          tags:
+            data._embedded['wp:term'][1].map((tag: { name: string; slug: string }) => {
+              return { name: tag.name, slug: tag.slug }
+            }) || [],
           readTime:
             data.content.rendered && Math.floor(data.content.rendered.split(' ').length / 275)
               ? Math.floor(data.content.rendered.split(' ').length / 275)
@@ -190,12 +191,12 @@ export async function getServerSideProps({ query }: Context) {
         },
         related: related.map((idea) => {
           return {
-            title: idea.title.rendered,
-            id: idea.id,
-            date: idea.date,
-            categories: data._embedded['wp:term'][0].map((category: { name: string }) => category.name),
-            slug: idea.slug,
-            descriptionText: idea.acf.idea_description,
+            title: idea.title.rendered || '',
+            id: idea.id || '',
+            date: idea.date || '',
+            categories: data._embedded['wp:term'][0].map((category: { name: string }) => category.name) || [],
+            slug: idea.slug || '',
+            descriptionText: idea.acf.idea_description || '',
           }
         }),
         meta: convertMetaAPItoMeta(meta, data._embedded),
