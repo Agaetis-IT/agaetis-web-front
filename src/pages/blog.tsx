@@ -33,7 +33,7 @@ function compareIdeasByDate(idea1: IdeasDesc, idea2: IdeasDesc) {
 }
 
 function Ideas({ ideasDescription, whitePapers, categories, content }: Props) {
-  const [sortedIdeas, setSortedIdeas] = useState(ideasDescription.sort(compareIdeasByDate))
+  const [ideas, setIdeas] = useState(ideasDescription.sort(compareIdeasByDate))
   const [searchFilter, setSearchFilter] = useState('')
   const [isOpenenedModal, setOpenModal] = useState(false)
   const [isError, setIsError] = useState(true)
@@ -105,8 +105,17 @@ function Ideas({ ideasDescription, whitePapers, categories, content }: Props) {
     }
   }
 
-  function handleFilterChange(category: string) {
-    setCategoryFilter(category)
+  function applyFilters(data: any[], changedCategory?: string, changedSearchFilter?: string) {
+    const catFilter = changedCategory ? changedCategory : categoryFilter
+    const searchBarFilter = (changedSearchFilter ? changedSearchFilter : searchFilter).toLocaleLowerCase()
+
+    return data.filter(
+      (idea) =>
+        !idea.categories.includes('White-paper') &&
+        !idea.categories.includes('Jobs') &&
+        idea.title.toLocaleLowerCase().includes(searchBarFilter) &&
+        (catFilter === 'All' || idea.categories.includes(catFilter) || idea.categories.includes(''))
+    )
   }
 
   function createMarkup(content: string) {
@@ -115,23 +124,25 @@ function Ideas({ ideasDescription, whitePapers, categories, content }: Props) {
 
   async function handleFetchMoreIdeas() {
     setIsLoading(true)
-    const { [0]: data } = await Promise.all([getIdeasByPage(loadedPages + 1)])
-    setLoadedPages(loadedPages + 1)
+    let continueFetch = true
+    let data: any = []
+    let i = loadedPages
+    const button = document.getElementsByClassName('see-more')[0]
 
-    if (data.length < 9) {
-      console.log('hide')
-      const button = document.getElementsByClassName('see-more')[0]
+    const currentDataLength = applyFilters(ideas).length
+    const toAdd = currentDataLength < 7 ? 7 - currentDataLength : 9
 
-      if (button) {
-        button.classList.add('hidden')
-        button.classList.remove('flex')
-      }
-    }
+    while (data.length < toAdd && continueFetch) {
+      i++
+      const { [0]: newData } = await Promise.all([getIdeasByPage(i)])
 
-    setSortedIdeas(
-      sortedIdeas.concat(
-        data
-          .map((idea: any) => ({
+      if (newData.length < toAdd) continueFetch = false
+
+      setLoadedPages(i)
+
+      data = data.concat(
+        applyFilters(
+          newData.map((idea: any) => ({
             id: idea.id,
             title: idea.title.rendered,
             categories: idea._embedded['wp:term'][0].map((category: { name: string }) => category.name),
@@ -140,31 +151,95 @@ function Ideas({ ideasDescription, whitePapers, categories, content }: Props) {
             date: idea.date,
             image: idea.acf.idea_image,
           }))
-          .sort(compareIdeasByDate)
+        )
       )
-    )
+    }
+
+    if (!continueFetch) {
+      if (button) {
+        button.classList.add('hidden')
+        button.classList.remove('flex')
+      }
+    } else {
+      data = data.slice(0, toAdd)
+    }
+
+    setIdeas(ideas.concat(data).sort(compareIdeasByDate))
 
     setIsLoading(false)
   }
 
-  const filteredIdeas = useMemo(() => {
-    const ideas = sortedIdeas.filter(
-      (idea) =>
-        !idea.categories.includes('White-paper') &&
-        !idea.categories.includes('Jobs') &&
-        idea.title.toLocaleLowerCase().includes(searchFilter.toLocaleLowerCase()) &&
-        (categoryFilter === 'All' || idea.categories.includes(categoryFilter) || idea.categories.includes(''))
-    )
+  async function handleNewFilters(changedCategory?: string, changedSearchFilter?: string) {
+    setIsLoading(true)
+    let continueFetch = true
+    let i = 0
+    let data: any = []
 
-    if (content.ideasimg1 && !ideas.find((idea: IdeasDesc) => idea.id === -1)) {
-      ideas.splice(0, 0, fakeIdea1)
+    const button = document.getElementsByClassName('see-more')[0]
+
+    if (button) {
+      button.classList.add('flex')
+      button.classList.remove('hidden')
     }
-    if (content.ideasimg2 && !ideas.find((idea: IdeasDesc) => idea.id === -2)) {
-      ideas.splice(7, 0, fakeIdea2)
+
+    while (data.length < 7 && continueFetch) {
+      i++
+      const { [0]: newData } = await Promise.all([getIdeasByPage(i)])
+
+      if (newData.length < 7) continueFetch = false
+
+      setLoadedPages(i)
+
+      data = data.concat(
+        applyFilters(
+          newData.map((idea: any) => ({
+            id: idea.id,
+            title: idea.title.rendered,
+            categories: idea._embedded['wp:term'][0].map((category: { name: string }) => category.name),
+            slug: idea.slug,
+            descriptionText: idea.acf.idea_description,
+            date: idea.date,
+            image: idea.acf.idea_image,
+          })),
+          changedCategory,
+          changedSearchFilter
+        )
+      )
     }
-    return ideas.map((idea) => {
+
+    if (!continueFetch) {
+      if (button) {
+        button.classList.add('hidden')
+        button.classList.remove('flex')
+      }
+    } else {
+      data = data.slice(0, 7)
+    }
+
+    setIdeas(data.sort(compareIdeasByDate))
+
+    setIsLoading(false)
+  }
+
+  function handleFilterChange(category: string) {
+    setCategoryFilter(category)
+    handleNewFilters(category)
+  }
+
+  const cards = useMemo(() => {
+    const source = ideas
+
+    if (content.ideasimg1 && !source.find((idea: IdeasDesc) => idea.id === -1)) {
+      source.splice(0, 0, fakeIdea1)
+    }
+
+    if (content.ideasimg2 && !source.find((idea: IdeasDesc) => idea.id === -2)) {
+      source.splice(7, 0, fakeIdea2)
+    }
+
+    return source.map((idea) => {
       return (
-        <div key={idea.id} className={clsx(ideas.length > 2 ? 'sm:w-1/3' : 'sm:w-1/2', ' p-2')}>
+        <div key={idea.id} className={clsx(source.length > 2 ? 'sm:w-1/3' : 'sm:w-1/2', ' p-2')}>
           <IdeasCard
             className={clsx(
               { 'shadow-xl hidden sm:block': idea.id < 0 },
@@ -178,7 +253,7 @@ function Ideas({ ideasDescription, whitePapers, categories, content }: Props) {
         </div>
       )
     })
-  }, [categoryFilter, fakeIdea1, fakeIdea2])
+  }, [categoryFilter, fakeIdea1, fakeIdea2, ideas])
 
   return (
     <>
@@ -208,11 +283,15 @@ function Ideas({ ideasDescription, whitePapers, categories, content }: Props) {
               <SearchInput // To change
                 handleChange={(value: string) => {
                   if (searchTimeout) clearTimeout(searchTimeout)
-                  setSearchTimeout(setTimeout(() => setSearchFilter(value), 500))
+                  setSearchTimeout(
+                    setTimeout(() => {
+                      setSearchFilter(value)
+                      handleNewFilters(null, value)
+                    }, 500)
+                  )
                 }}
               ></SearchInput>
             </div>
-
             <CategoryTab
               categories={categories.filter(
                 (category) => category.categoryName !== 'Jobs' && category.categoryName !== 'White-paper'
@@ -221,7 +300,7 @@ function Ideas({ ideasDescription, whitePapers, categories, content }: Props) {
               handleFilterChange={handleFilterChange}
             />
             <div className="flex flex-col md:max-w-lg sm:flex-row justify-center flex-wrap mt-2 md:p-8 mx-auto">
-              {filteredIdeas}
+              {cards}
             </div>
             <Button
               className={clsx(
