@@ -6,7 +6,7 @@ import Button from '../components/Button'
 import CategoryTab from '../components/CategoryTab'
 import Layout from '../components/Layout'
 import publicRuntimeConfig from '../config/env.config'
-import { getAllIdeas, getAllWhitePapers, getCategories, getIdeasPageContent } from '../Services/wordpressService'
+import { getAllWhitePapers, getCategories, getIdeasPageContent, getIdeasByPage } from '../Services/wordpressService'
 import { Category, IdeasDesc, IdeasPageContent } from '../types/IdeasContent'
 import WhitePaper from '../types/WhitePaper'
 import clsx from 'clsx'
@@ -17,6 +17,8 @@ import { footerSend } from '../Services/contactService'
 import ContactFormFooter from '../components/ContactFormFooter'
 import ContactMessage from '../components/ContactMessage'
 import SearchInput from '../components/SearchInput'
+
+import './blog.css'
 
 interface Props {
   ideasDescription: IdeasDesc[]
@@ -30,7 +32,7 @@ function compareIdeasByDate(idea1: IdeasDesc, idea2: IdeasDesc) {
 }
 
 function Ideas({ ideasDescription, whitePapers, categories, content }: Props) {
-  const sortedIdeas = ideasDescription.sort(compareIdeasByDate)
+  const [sortedIdeas, setSortedIdeas] = useState(ideasDescription.sort(compareIdeasByDate))
   const [filter, setFilter] = useState('')
   const [isOpenenedModal, setOpenModal] = useState(false)
   const [isError, setIsError] = useState(true)
@@ -54,11 +56,44 @@ function Ideas({ ideasDescription, whitePapers, categories, content }: Props) {
       handleOpenModal(true)
     }
   }
-  const [isOpenedMoreIdeas, setIsOpenedMoreIdeas] = useState(false)
 
-  function handleToggleMoreIdeas() {
-    setIsOpenedMoreIdeas(!isOpenedMoreIdeas)
+  const [loadedPages, setLoadedPages] = useState(1)
+  const [isLoading, setIsLoading] = useState(false)
+
+  async function handleFetchMoreIdeas() {
+    setIsLoading(true)
+    const { [0]: data } = await Promise.all([getIdeasByPage(loadedPages + 1)])
+    setLoadedPages(loadedPages + 1)
+
+    if (data.length < 9) {
+      console.log('hide')
+      const button = document.getElementsByClassName('see-more')[0]
+
+      if (button) {
+        button.classList.add('hidden')
+        button.classList.remove('flex')
+      }
+    }
+
+    setSortedIdeas(
+      sortedIdeas.concat(
+        data
+          .map((idea: any) => ({
+            id: idea.id,
+            title: idea.title.rendered,
+            categories: idea._embedded['wp:term'][0].map((category: { name: string }) => category.name),
+            slug: idea.slug,
+            descriptionText: idea.acf.idea_description,
+            date: idea.date,
+            image: idea.acf.idea_image,
+          }))
+          .sort(compareIdeasByDate)
+      )
+    )
+
+    setIsLoading(false)
   }
+
   return (
     <>
       <Head>
@@ -84,7 +119,7 @@ function Ideas({ ideasDescription, whitePapers, categories, content }: Props) {
                 <h1 className="text-orange text-3xl" dangerouslySetInnerHTML={{ __html: content.titre }}></h1>
                 <p className="md:max-w-lg mx-auto py-6 text-sm leading-normal mb-8">{content.description}</p>
               </div>
-              <SearchInput
+              <SearchInput // To change
                 handleChange={(value: string) => {
                   setFilter(value)
                 }}
@@ -101,18 +136,43 @@ function Ideas({ ideasDescription, whitePapers, categories, content }: Props) {
               categories={categories.filter(
                 (category) => category.categoryName !== 'Jobs' && category.categoryName !== 'White-paper'
               )}
-              toggleMore={isOpenedMoreIdeas}
               ideasImg1={content.ideasimg1}
               ideasImg2={content.ideasimg2}
             />
             <Button
               className={clsx(
-                'flex flex-row justify-center uppercase rounded-full bg-orange text-xss py-2 px-6 text-white font-semibold mx-auto',
+                'flex flex-row justify-center uppercase rounded-full bg-orange text-xss py-2 px-6 text-white font-semibold mx-auto see-more',
                 { 'mb-8': whitePapers.length < 2 }
               )}
-              onClick={handleToggleMoreIdeas}
+              onClick={handleFetchMoreIdeas}
             >
-              {!isOpenedMoreIdeas ? 'Voir plus' : 'Voir moins'}
+              {isLoading ? (
+                <div>
+                  <svg
+                    className="animate-spin spinner text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    ></path>
+                  </svg>
+                  Chargement
+                </div>
+              ) : (
+                'Voir plus'
+              )}
             </Button>
             {whitePapers && whitePapers.length > 1 && (
               <div
@@ -160,35 +220,40 @@ function Ideas({ ideasDescription, whitePapers, categories, content }: Props) {
   )
 }
 
-Ideas.getInitialProps = async () => {
+// Click on category / search => request to server, shows 7 most recent
+//    >> find a way to filter while getting enough posts
+
+export async function getServerSideProps() {
   const { [0]: ideas, [1]: categories, [2]: content, [3]: whitepapers } = await Promise.all([
-    getAllIdeas(),
+    getIdeasByPage(1),
     getCategories(),
     getIdeasPageContent(),
     getAllWhitePapers(),
   ])
 
   return {
-    ideasDescription: ideas.map((idea: any) => ({
-      id: idea.id,
-      title: idea.title.rendered,
-      categories: idea._embedded['wp:term'][0].map((category: { name: string }) => category.name),
-      slug: idea.slug,
-      descriptionText: idea.acf.idea_description,
-      date: idea.date,
-      image: idea.acf.idea_image,
-    })),
-    whitePapers:
-      whitepapers && whitepapers.length > 0
-        ? whitepapers.map((whitepaper: { slug: string; acf: WhitePaper }) => ({
-            slug: whitepaper.slug,
-            ...whitepaper.acf,
-          }))
-        : [],
-    content,
-    categories: categories
-      .map((category: any) => ({ categoryId: category.id, categoryName: category.name }))
-      .filter((category: any) => !category.categoryName.includes('_offer-')),
+    props: {
+      ideasDescription: ideas.map((idea: any) => ({
+        id: idea.id,
+        title: idea.title.rendered,
+        categories: idea._embedded['wp:term'][0].map((category: { name: string }) => category.name),
+        slug: idea.slug,
+        descriptionText: idea.acf.idea_description,
+        date: idea.date,
+        image: idea.acf.idea_image,
+      })),
+      whitePapers:
+        whitepapers && whitepapers.length > 0
+          ? whitepapers.map((whitepaper: { slug: string; acf: WhitePaper }) => ({
+              slug: whitepaper.slug,
+              ...whitepaper.acf,
+            }))
+          : [],
+      content,
+      categories: categories
+        .map((category: any) => ({ categoryId: category.id, categoryName: category.name }))
+        .filter((category: any) => !category.categoryName.includes('_offer-')),
+    },
   }
 }
 

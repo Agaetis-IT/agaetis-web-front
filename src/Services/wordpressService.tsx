@@ -96,8 +96,13 @@ export async function getWhitePaperContent(slug: string) {
   return data
 }
 
-export async function getAllIdeas() {
-  const { data } = await axios.get(`${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/wp/v2/posts?_embed&per_page=100`)
+export async function getIdeasByPage(page: number) {
+  const off = page <= 1 ? 0 : 7 + 9 * (page - 2)
+  const { data } = await axios.get(
+    `${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/wp/v2/posts?_embed&per_page=${
+      page <= 1 ? '7' : '9'
+    }&offset=${off}`
+  )
   return data
 }
 

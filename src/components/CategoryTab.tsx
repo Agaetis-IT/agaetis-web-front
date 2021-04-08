@@ -10,7 +10,6 @@ import './CategoryTab.css'
 interface Props {
   ideasC: IdeasDesc[]
   categories: Category[]
-  toggleMore: boolean
   ideasImg1?: string
   ideasImg2?: string
 }
@@ -52,7 +51,6 @@ function getBgColor(category: string) {
 }
 
 function getBorderColor(category: string, selected: boolean) {
-  console.log(category)
   if (category === 'Agaetis' || category === 'Evènements') {
     return clsx('hover:bg-orange orange-border-thin', selected ? 'bg-orange text-white' : 'text-orange')
   } else if (category === 'Stratégie SI') {
@@ -81,7 +79,7 @@ function createMarkup(content: string) {
   return { __html: content }
 }
 
-export default function CategoryTab({ ideasC, categories, toggleMore, ideasImg1, ideasImg2 }: Props) {
+export default function CategoryTab({ ideasC, categories, ideasImg1, ideasImg2 }: Props) {
   const [categoryFilter, setFilter] = useState('All')
   const fakeIdea1 = {
     id: -1,
@@ -168,8 +166,7 @@ export default function CategoryTab({ ideasC, categories, toggleMore, ideasImg1,
         ))}
       </div>
       <div className="flex flex-col md:max-w-lg sm:flex-row justify-center flex-wrap mt-2 md:p-8 mx-auto">
-        {filteredIdeas.slice(0, 9)}
-        {toggleMore && filteredIdeas.slice(9)}
+        {filteredIdeas}
       </div>
     </div>
   )

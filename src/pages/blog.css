@@ -1,0 +1,18 @@
+.animate-spin {
+    animation: spin 1s linear infinite!important;
+    animation-duration: 1s !important;
+    animation-timing-function: linear !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: infinite !important;
+    animation-direction: normal !important;
+    animation-fill-mode: none !important;
+    animation-play-state: running !important;
+    animation-name: spin !important;
+}
+
+.spinner {
+    width: .7rem;
+    height: .7rem;
+    margin-right: .25rem;
+    margin-bottom: -.1rem;
+}
