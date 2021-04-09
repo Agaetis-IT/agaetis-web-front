@@ -1,6 +1,6 @@
 .animate-spin {
-    animation: spin 1s linear infinite!important;
-    animation-duration: 1s !important;
+    animation: spin 400ms linear infinite!important;
+    animation-duration: 400ms !important;
     animation-timing-function: linear !important;
     animation-delay: 0s !important;
     animation-iteration-count: infinite !important;
@@ -11,8 +11,18 @@
 }
 
 .spinner {
-    width: .7rem;
-    height: .7rem;
     margin-right: .25rem;
     margin-bottom: -.1rem;
+}
+
+.w-07 {
+    width: .7rem;
+}
+
+.h-07 {
+    height: .7rem;
+}
+
+.invisible {
+    visibility: hidden;
 }

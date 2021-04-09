@@ -74,9 +74,10 @@ app
           'favicon.ico',
           'logo-agaetis-carre.png',
         ].includes(queryParams.slug) ||
-        !!queryParams.slug.match(/(workbox)|(worker)-.*\.js/)
+        !!queryParams.slug.match(/(workbox)|(worker)-.*\.js/) ||
+        !!queryParams.slug.match(/^blog\/.*/)
       ) {
-        return handle(req, res)
+        return handle(req, res) // Goes here if 'blog/test'
       } else if (queryParams.slug === 'ideas') {
         res.redirect(301, '/blog')
       }

@@ -20,6 +20,7 @@ import ContactMessage from '../components/ContactMessage'
 import SearchInput from '../components/SearchInput'
 
 import './blog.css'
+import _ from 'lodash'
 
 interface Props {
   ideasDescription: IdeasDesc[]
@@ -38,10 +39,10 @@ function Ideas({ ideasDescription, whitePapers, categories, content }: Props) {
   const [isOpenenedModal, setOpenModal] = useState(false)
   const [isError, setIsError] = useState(true)
   const [isSubmited, setIsSubmited] = useState(false)
-  const [searchTimeout, setSearchTimeout] = useState(null)
   const [categoryFilter, setCategoryFilter] = useState('All')
   const [loadedPages, setLoadedPages] = useState(1)
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoadingNewPosts, setIsLoadingNewPosts] = useState(false)
+  const [isLoadingMorePosts, setIsLoadingMorePosts] = useState(false)
 
   const fakeIdea1 = {
     id: -1,
@@ -107,8 +108,11 @@ function Ideas({ ideasDescription, whitePapers, categories, content }: Props) {
 
   function applyFilters(data: any[], changedCategory?: string, changedSearchFilter?: string) {
     const catFilter = changedCategory ? changedCategory : categoryFilter
-    const searchBarFilter = (changedSearchFilter ? changedSearchFilter : searchFilter).toLocaleLowerCase()
-
+    const searchBarFilter = (changedSearchFilter || changedSearchFilter === ''
+      ? changedSearchFilter
+      : searchFilter
+    ).toLocaleLowerCase()
+    console.log(searchBarFilter)
     return data.filter(
       (idea) =>
         !idea.categories.includes('White-paper') &&
@@ -123,7 +127,7 @@ function Ideas({ ideasDescription, whitePapers, categories, content }: Props) {
   }
 
   async function handleFetchMoreIdeas() {
-    setIsLoading(true)
+    setIsLoadingMorePosts(true)
     let continueFetch = true
     let data: any = []
     let i = loadedPages
@@ -157,8 +161,7 @@ function Ideas({ ideasDescription, whitePapers, categories, content }: Props) {
 
     if (!continueFetch) {
       if (button) {
-        button.classList.add('hidden')
-        button.classList.remove('flex')
+        button.classList.add('invisible')
       }
     } else {
       data = data.slice(0, toAdd)
@@ -166,21 +169,14 @@ function Ideas({ ideasDescription, whitePapers, categories, content }: Props) {
 
     setIdeas(ideas.concat(data).sort(compareIdeasByDate))
 
-    setIsLoading(false)
+    setIsLoadingMorePosts(false)
   }
 
   async function handleNewFilters(changedCategory?: string, changedSearchFilter?: string) {
-    setIsLoading(true)
+    setIsLoadingNewPosts(true)
     let continueFetch = true
     let i = 0
     let data: any = []
-
-    const button = document.getElementsByClassName('see-more')[0]
-
-    if (button) {
-      button.classList.add('flex')
-      button.classList.remove('hidden')
-    }
 
     while (data.length < 7 && continueFetch) {
       i++
@@ -207,18 +203,22 @@ function Ideas({ ideasDescription, whitePapers, categories, content }: Props) {
       )
     }
 
+    const button = document.getElementsByClassName('see-more')[0]
+
     if (!continueFetch) {
       if (button) {
-        button.classList.add('hidden')
-        button.classList.remove('flex')
+        button.classList.add('invisible')
       }
     } else {
+      if (button) {
+        button.classList.remove('invisible')
+      }
       data = data.slice(0, 7)
     }
 
     setIdeas(data.sort(compareIdeasByDate))
 
-    setIsLoading(false)
+    setIsLoadingNewPosts(false)
   }
 
   function handleFilterChange(category: string) {
@@ -253,7 +253,12 @@ function Ideas({ ideasDescription, whitePapers, categories, content }: Props) {
         </div>
       )
     })
-  }, [categoryFilter, fakeIdea1, fakeIdea2, ideas])
+  }, [categoryFilter, fakeIdea1, fakeIdea2, ideas, content])
+
+  const handleSearchChanged = _.debounce((value: string) => {
+    setSearchFilter(value)
+    handleNewFilters(null, value)
+  }, 400)
 
   return (
     <>
@@ -280,17 +285,7 @@ function Ideas({ ideasDescription, whitePapers, categories, content }: Props) {
                 <h1 className="text-orange text-3xl" dangerouslySetInnerHTML={{ __html: content.titre }}></h1>
                 <p className="md:max-w-lg mx-auto py-6 text-sm leading-normal mb-8">{content.description}</p>
               </div>
-              <SearchInput // To change
-                handleChange={(value: string) => {
-                  if (searchTimeout) clearTimeout(searchTimeout)
-                  setSearchTimeout(
-                    setTimeout(() => {
-                      setSearchFilter(value)
-                      handleNewFilters(null, value)
-                    }, 500)
-                  )
-                }}
-              ></SearchInput>
+              <SearchInput handleChange={handleSearchChanged}></SearchInput>
             </div>
             <CategoryTab
               categories={categories.filter(
@@ -299,6 +294,26 @@ function Ideas({ ideasDescription, whitePapers, categories, content }: Props) {
               categoryFilter={categoryFilter}
               handleFilterChange={handleFilterChange}
             />
+            {isLoadingNewPosts ? (
+              <div className="flex flex-row justify-center">
+                <svg
+                  className="animate-spin spinner text-orange w-5 h-5"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  ></path>
+                </svg>
+                Chargement
+              </div>
+            ) : (
+              <div className="invisible">-</div>
+            )}
             <div className="flex flex-col md:max-w-lg sm:flex-row justify-center flex-wrap mt-2 md:p-8 mx-auto">
               {cards}
             </div>
@@ -309,10 +324,10 @@ function Ideas({ ideasDescription, whitePapers, categories, content }: Props) {
               )}
               onClick={handleFetchMoreIdeas}
             >
-              {isLoading ? (
+              {isLoadingMorePosts ? (
                 <div>
                   <svg
-                    className="animate-spin spinner text-white"
+                    className="animate-spin spinner h-07 w-07 text-white"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
