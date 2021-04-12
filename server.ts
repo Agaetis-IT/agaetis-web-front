@@ -77,7 +77,7 @@ app
         !!queryParams.slug.match(/(workbox)|(worker)-.*\.js/) ||
         !!queryParams.slug.match(/^blog\/.*/)
       ) {
-        return handle(req, res) // Goes here if 'blog/test'
+        return handle(req, res)
       } else if (queryParams.slug === 'ideas') {
         res.redirect(301, '/blog')
       }
