@@ -8,6 +8,7 @@
     "@bugsnag/plugin-react": "^6.5.0",
     "@fullhuman/postcss-purgecss": "^1.1.0",
     "@hookform/resolvers": "^1.0.0",
+    "@tanem/react-nprogress": "^3.0.62",
     "@types/express": "^4.17.3",
     "@types/node": "^13.9.8",
     "@types/nodemailer": "^6.4.0",
