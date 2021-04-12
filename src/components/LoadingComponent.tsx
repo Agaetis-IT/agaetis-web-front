@@ -5,6 +5,8 @@ import LoadingSpinner from './LoadingSpinner'
 import LoadingBar from './LoadingBar'
 import LoadingContainer from './LoadingContainer'
 
+import './LoadingComponent.css'
+
 interface Props {
   color: string
   startPosition: number
@@ -37,12 +39,12 @@ export default function LoadingComponent({ color, startPosition, stopDelayMs, he
   })
 
   return (
-    <div style={{ position: 'absolute' }}>
+    <div className="absolute">
       <NProgress isAnimating={animating} minimum={startPosition} key={stateKey}>
         {({ animationDuration, isFinished, progress }) => (
           <LoadingContainer animationDuration={animationDuration} isFinished={isFinished}>
             <LoadingBar animationDuration={animationDuration} progress={progress} color={color} height={height} />
-            <div style={{ position: 'fixed', top: 15, right: 15, display: 'block', zIndex: 1023 }}>
+            <div className="fixed block loading-spinner">
               <LoadingSpinner color={color} size={18} />
             </div>
           </LoadingContainer>
