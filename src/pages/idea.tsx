@@ -151,8 +151,6 @@ export default function Idea({ data, related, errorCode, meta }: Props) {
   )
 }
 
-// Bug fix : replace `undefined` with `null`
-
 export async function getServerSideProps({ query }: Context) {
   const { [0]: data, [1]: meta } = await Promise.all([
     getIdeaBySlug(escape(query.slug)),
