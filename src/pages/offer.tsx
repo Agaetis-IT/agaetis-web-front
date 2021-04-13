@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react'
 import { NextPageContext } from 'next'
 import { convertAPItoOfferleaf, OfferContent, OfferLeafContent } from '../types/OffersContent'
-import { getCategoryOffers, getIdeaByCategory, getOfferContent, getOfferLeaf } from '../Services/wordpressService'
+import { getCategoryOffers, getIdeasByCategory, getOfferContent, getOfferLeaf } from '../Services/wordpressService'
 import Back from '../static/icons/Btn_Retour.svg'
 import Error from './_error'
 import Head from 'next/head'
@@ -218,7 +218,7 @@ offer.getInitialProps = async ({ query }: Context) => {
     }) => {
       const { [0]: children, [1]: posts } = await Promise.all([
         getOfferLeaf(query.slug, offer.post_name),
-        getIdeaByCategory(`_offer-${escape(offer.post_name)}`),
+        getIdeasByCategory(`_offer-${escape(offer.post_name)}`),
       ])
       return convertAPItoOfferleaf(children, posts)
     }

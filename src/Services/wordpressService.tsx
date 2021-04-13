@@ -98,7 +98,7 @@ export async function getWhitePaperContent(slug: string) {
 
 export async function getIdeasByPage(offset: number) {
   const { data } = await axios.get(
-    `${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/wp/v2/posts?_embed&per_page=9&offset=${offset}`
+    `${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/wp/v2/posts?_embed&offset=${offset}`
   )
   return data
 }
@@ -145,13 +145,17 @@ export async function getCategories() {
   return data
 }
 
-export async function getIdeasByTag(slug: string) {
-  const { data } = await axios.get(`${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/agaetis/api/v1/tags/${slug}`)
+export async function getIdeasByTag(slug: string, page?: number) {
+  const { data } = await axios.get(
+    `${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/agaetis/api/v1/tags/${slug}${page ? `?page=${page}` : ''}`
+  )
   return data
 }
 
-export async function getIdeaByCategory(slug: string) {
-  const { data } = await axios.get(`${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/agaetis/api/v1/categories/${slug}`)
+export async function getIdeasByCategory(slug: string, page?: number) {
+  const { data } = await axios.get(
+    `${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/agaetis/api/v1/categories/${slug}${page ? `?page=${page}` : ''}`
+  )
   return data
 }
 
