@@ -203,7 +203,7 @@ function Ideas({ ideasDescription, whitePapers, categories, content, errorCode, 
               <div className="invisible">-</div>
             )}
             <div className="flex flex-col md:max-w-lg sm:flex-row justify-center flex-wrap mt-2 md:p-8 mx-auto">
-              {cards}
+              {cards.length ? cards : 'Aucun résultat'}
             </div>
             {isVisibleSeeMore && (
               <Button
