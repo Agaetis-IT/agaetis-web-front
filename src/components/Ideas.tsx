@@ -24,6 +24,7 @@ import _ from 'lodash'
 import { getBgColor } from '../Services/categoryColor'
 import { createMarkup, slugify } from '../Services/textUtilities'
 import LoadingSpinner from './LoadingSpinner'
+import { PostAPI } from '../models/IdeasAPI'
 
 interface Props {
   ideasDescription: IdeasDesc[]
@@ -94,7 +95,7 @@ function Ideas({ ideasDescription, whitePapers, categories, content, errorCode, 
 
       data = data.concat(
         applyFilters(
-          newData.map((idea: any) => ({
+          newData.map((idea: PostAPI) => ({
             id: idea.id,
             title: idea.title.rendered,
             categories: idea._embedded['wp:term'][0].map((category: { name: string }) => category.name),
@@ -153,7 +154,7 @@ function Ideas({ ideasDescription, whitePapers, categories, content, errorCode, 
 
   const handleSearchChanged = _.debounce((value: string) => {
     setSearchFilter(value)
-    handleFetchIdeas(true, null, value)
+    handleFetchIdeas(true, undefined, value)
   }, 400)
 
   if (!!errorCode) {
@@ -203,7 +204,7 @@ function Ideas({ ideasDescription, whitePapers, categories, content, errorCode, 
               <div className="invisible">-</div>
             )}
             <div className="flex flex-col md:max-w-lg sm:flex-row justify-center flex-wrap mt-2 md:p-8 mx-auto">
-              {cards}
+              {cards.length ? cards : 'Aucun résultat'}
             </div>
             {isVisibleSeeMore && (
               <Button
