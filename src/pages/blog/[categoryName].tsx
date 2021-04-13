@@ -6,7 +6,7 @@ import { IdeasDesc } from '../../types/IdeasContent'
 import WhitePaper from '../../types/WhitePaper'
 
 interface Context extends NextPageContext {
-  query: { slug: string }
+  query: { categoryName: string }
 }
 
 export async function getServerSideProps({ query }: Context) {
@@ -19,12 +19,22 @@ export async function getServerSideProps({ query }: Context) {
   let ideas: IdeasDesc[] = []
   let i = 0
 
-  if (query.slug) {
+  if (!query.categoryName) {
+    ideas = (await Promise.all([getIdeasByPage(0)])[0]).map((idea: any) => ({
+      id: idea.id,
+      title: idea.title.rendered,
+      categories: idea._embedded['wp:term'][0].map((category: { name: string }) => category.name),
+      slug: idea.slug,
+      descriptionText: idea.acf.idea_description,
+      date: idea.date,
+      image: idea.acf.idea_image,
+    }))
+  } else {
     const names = categories
       .map((category: any) => slugify(category.name))
       .filter((name: string) => !name.includes('_offer-'))
 
-    if (!names.includes(query.slug)) {
+    if (!names.includes(query.categoryName)) {
       return {
         props: {
           ideasDescription: [],
@@ -36,7 +46,7 @@ export async function getServerSideProps({ query }: Context) {
       }
     }
 
-    selectedCategory = categories.filter((category: any) => category.slug == query.slug)[0].name
+    selectedCategory = categories.filter((category: any) => category.slug == query.categoryName)[0].name
     let continueFetch = true
 
     while (ideas.length < 9 && continueFetch) {
@@ -70,8 +80,6 @@ export async function getServerSideProps({ query }: Context) {
       i -= ideas.length - 9
       ideas = ideas.slice(0, 9)
     }
-  } else {
-    ideas = await Promise.all([getIdeasByPage(0)])[0]
   }
 
   return {

@@ -246,7 +246,7 @@ function Ideas({ ideasDescription, whitePapers, categories, content, errorCode, 
             <div className="flex flex-col md:max-w-lg sm:flex-row justify-center flex-wrap mt-2 md:p-8 mx-auto">
               {cards}
             </div>
-            {isVisibleSeeMore ? (
+            {isVisibleSeeMore && (
               <Button
                 className={clsx(
                   'flex flex-row justify-center uppercase rounded-full bg-orange text-xss py-2 px-6 text-white font-semibold mx-auto see-more',
@@ -282,8 +282,6 @@ function Ideas({ ideasDescription, whitePapers, categories, content, errorCode, 
                   'Voir plus'
                 )}
               </Button>
-            ) : (
-              ''
             )}
 
             {whitePapers && whitePapers.length > 1 && (
