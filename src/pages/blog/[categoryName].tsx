@@ -1,8 +1,9 @@
 import { NextPageContext } from 'next'
 import Ideas from '../../components/Ideas'
+import { CategoryAPI, PostAPI } from '../../models/IdeasAPI'
 import { slugify } from '../../Services/textUtilities'
 import { getIdeasByPage, getCategories, getIdeasPageContent, getAllWhitePapers } from '../../Services/wordpressService'
-import { IdeasDesc } from '../../types/IdeasContent'
+import { Category, IdeasDesc } from '../../types/IdeasContent'
 import WhitePaper from '../../types/WhitePaper'
 
 interface Context extends NextPageContext {
@@ -20,7 +21,7 @@ export async function getServerSideProps({ query }: Context) {
   let i = 0
 
   if (!query.categoryName) {
-    ideas = (await Promise.all([getIdeasByPage(0)])[0]).map((idea: any) => ({
+    ideas = (await Promise.all([getIdeasByPage(0)])[0]).map((idea: PostAPI) => ({
       id: idea.id,
       title: idea.title.rendered,
       categories: idea._embedded['wp:term'][0].map((category: { name: string }) => category.name),
@@ -31,7 +32,7 @@ export async function getServerSideProps({ query }: Context) {
     }))
   } else {
     const names = categories
-      .map((category: any) => slugify(category.name))
+      .map((category: CategoryAPI) => slugify(category.name))
       .filter((name: string) => !name.includes('_offer-'))
 
     if (!names.includes(query.categoryName)) {
@@ -46,7 +47,7 @@ export async function getServerSideProps({ query }: Context) {
       }
     }
 
-    selectedCategory = categories.filter((category: any) => category.slug == query.categoryName)[0].name
+    selectedCategory = categories.filter((category: CategoryAPI) => category.slug == query.categoryName)[0].name
     let continueFetch = true
 
     while (ideas.length < 9 && continueFetch) {
@@ -56,7 +57,7 @@ export async function getServerSideProps({ query }: Context) {
 
       ideas = ideas.concat(
         newData
-          .map((idea: any) => ({
+          .map((idea: PostAPI) => ({
             id: idea.id,
             title: idea.title.rendered,
             categories: idea._embedded['wp:term'][0].map((category: { name: string }) => category.name),
@@ -66,7 +67,7 @@ export async function getServerSideProps({ query }: Context) {
             image: idea.acf.idea_image,
           }))
           .filter(
-            (idea: any) =>
+            (idea: IdeasDesc) =>
               !idea.categories.includes('White-paper') &&
               !idea.categories.includes('Jobs') &&
               idea.categories.includes(selectedCategory)
@@ -94,8 +95,8 @@ export async function getServerSideProps({ query }: Context) {
           : [],
       content,
       categories: categories
-        .map((category: any) => ({ categoryId: category.id, categoryName: category.name }))
-        .filter((category: any) => !category.categoryName.includes('_offer-')),
+        .map((category: CategoryAPI) => ({ categoryId: category.id, categoryName: category.name }))
+        .filter((category: Category) => !category.categoryName.includes('_offer-')),
       selectedCategory: selectedCategory,
       offset: i,
     },

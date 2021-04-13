@@ -24,6 +24,7 @@ import _ from 'lodash'
 import { getBgColor } from '../Services/categoryColor'
 import { createMarkup, slugify } from '../Services/textUtilities'
 import LoadingSpinner from './LoadingSpinner'
+import { PostAPI } from '../models/IdeasAPI'
 
 interface Props {
   ideasDescription: IdeasDesc[]
@@ -94,7 +95,7 @@ function Ideas({ ideasDescription, whitePapers, categories, content, errorCode, 
 
       data = data.concat(
         applyFilters(
-          newData.map((idea: any) => ({
+          newData.map((idea: PostAPI) => ({
             id: idea.id,
             title: idea.title.rendered,
             categories: idea._embedded['wp:term'][0].map((category: { name: string }) => category.name),
