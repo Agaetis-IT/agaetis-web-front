@@ -153,7 +153,7 @@ function Ideas({ ideasDescription, whitePapers, categories, content, errorCode, 
 
   const handleSearchChanged = _.debounce((value: string) => {
     setSearchFilter(value)
-    handleFetchIdeas(true, null, value)
+    handleFetchIdeas(true, undefined, value)
   }, 400)
 
   if (!!errorCode) {

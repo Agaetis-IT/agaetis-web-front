@@ -10,7 +10,7 @@ interface Context extends NextPageContext {
 }
 
 export async function getServerSideProps({ query }: Context) {
-  let selectedCategory: string = null
+  let selectedCategory = ''
   const { [0]: categories, [1]: content, [2]: whitepapers } = await Promise.all([
     getCategories(),
     getIdeasPageContent(),
@@ -66,7 +66,7 @@ export async function getServerSideProps({ query }: Context) {
             image: idea.acf.idea_image,
           }))
           .filter(
-            (idea) =>
+            (idea: any) =>
               !idea.categories.includes('White-paper') &&
               !idea.categories.includes('Jobs') &&
               idea.categories.includes(selectedCategory)
