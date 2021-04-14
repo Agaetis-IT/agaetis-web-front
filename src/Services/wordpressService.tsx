@@ -96,13 +96,6 @@ export async function getWhitePaperContent(slug: string) {
   return data
 }
 
-export async function getIdeasByPage(offset: number) {
-  const { data } = await axios.get(
-    `${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/wp/v2/posts?_embed&offset=${offset}`
-  )
-  return data
-}
-
 export async function getAllJobs() {
   const { data } = await axios.get(`${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/agaetis/api/v1/jobs`)
   return data
@@ -130,6 +123,11 @@ export async function getOfferLeaf(offer: string, slug: string) {
   return data
 }
 
+export async function getCategories() {
+  const { data } = await axios.get(`${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/wp/v2/categories?per_page=100`)
+  return data
+}
+
 export async function getIdeaById(id: number) {
   const { data } = await axios.get(`${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/wp/v2/posts/${id}?_embed`)
   return data
@@ -139,24 +137,32 @@ export async function getIdeaBySlug(slug: string) {
   const { data } = await axios.get(`${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/agaetis/api/v1/posts/${slug}`)
   return data
 }
-
-export async function getCategories() {
-  const { data } = await axios.get(`${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/wp/v2/categories?per_page=100`)
-  return data
+// Remove ?per_page=9 after implementing new site style
+export async function getIdeasByPage(page?: number, search?: string) {
+  const res = await axios.get(
+    `${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/agaetis/api/v1/posts?per_page=9${page ? `&page=${page}` : ''}${
+      search ? `&search=${search}` : ''
+    }`
+  )
+  return { data: res.data, pageCount: res.headers['x-wp-totalpages'] }
 }
 
-export async function getIdeasByTag(slug: string, page?: number) {
-  const { data } = await axios.get(
-    `${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/agaetis/api/v1/tags/${slug}${page ? `?page=${page}` : ''}`
+export async function getIdeasByTag(slug: string, page?: number, search?: string) {
+  const res = await axios.get(
+    `${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/agaetis/api/v1/tags/${slug}?per_page=9${
+      page ? `&page=${page}` : ''
+    }${search ? `&search=${search}` : ''}`
   )
-  return data
+  return { data: res.data, pageCount: res.headers['x-wp-totalpages'] }
 }
 
-export async function getIdeasByCategory(slug: string, page?: number) {
-  const { data } = await axios.get(
-    `${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/agaetis/api/v1/categories/${slug}${page ? `?page=${page}` : ''}`
+export async function getIdeasByCategory(slug: string, page?: number, search?: string) {
+  const res = await axios.get(
+    `${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/agaetis/api/v1/categories/${slug}?per_page=9${
+      page ? `&page=${page}` : ''
+    }${search ? `&search=${search}` : ''}`
   )
-  return data
+  return { data: res.data, pageCount: res.headers['x-wp-totalpages'] }
 }
 
 export default { getIndexContent }

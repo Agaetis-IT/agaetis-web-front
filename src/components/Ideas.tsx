@@ -6,8 +6,8 @@ import Button from '../components/Button'
 import CategoryTab from '../components/CategoryTab'
 import Layout from '../components/Layout'
 import publicRuntimeConfig from '../config/env.config'
-import { getIdeasByPage } from '../Services/wordpressService'
-import { Category, IdeasDesc, IdeasPageContent } from '../types/IdeasContent'
+import { getIdeasByCategory, getIdeasByPage } from '../Services/wordpressService'
+import { Category, IdeasDesc, IdeasPageContent, Response } from '../types/IdeasContent'
 import WhitePaper from '../types/WhitePaper'
 import IdeasCard from '../components/IdeasCard'
 import clsx from 'clsx'
@@ -33,19 +33,27 @@ interface Props {
   whitePapers: WhitePaper[]
   errorCode?: number
   selectedCategory?: string
-  offset?: number
+  hideSeeMore?: boolean
 }
 
-function Ideas({ ideasDescription, whitePapers, categories, content, errorCode, selectedCategory, offset }: Props) {
-  const [ideas, setIdeas] = useState(ideasDescription)
-  const [searchFilter, setSearchFilter] = useState('')
+function Ideas({
+  ideasDescription,
+  whitePapers,
+  categories,
+  content,
+  errorCode,
+  selectedCategory,
+  hideSeeMore,
+}: Props) {
   const [isOpenenedModal, setOpenModal] = useState(false)
   const [isError, setIsError] = useState(true)
   const [isSubmited, setIsSubmited] = useState(false)
+  const [ideas, setIdeas] = useState(ideasDescription)
+  const [searchFilter, setSearchFilter] = useState('')
   const [categoryFilter, setCategoryFilter] = useState(selectedCategory || 'All')
-  const [lastPost, setLastPost] = useState(offset || 9)
+  const [lastPage, setLastPage] = useState(1)
   const [isLoadingPosts, setIsLoadingPosts] = useState(false)
-  const [isVisibleSeeMore, setIsVisibleSeeMore] = useState(true)
+  const [isVisibleSeeMore, setIsVisibleSeeMore] = useState(!hideSeeMore && true)
 
   function handleOpenModal(error: boolean) {
     setIsError(error)
@@ -66,61 +74,43 @@ function Ideas({ ideasDescription, whitePapers, categories, content, errorCode, 
     }
   }
 
-  function applyFilters(data: IdeasDesc[], changedCategory?: string, changedSearchFilter?: string) {
+  async function handleFetchIdeas(reset?: boolean, changedCategory?: string, changedSearchFilter?: string) {
+    setIsLoadingPosts(true)
+    let data: IdeasDesc[] = []
+    let newData: Response
+    const page = reset ? 1 : lastPage + 1
     const catFilter = changedCategory ? changedCategory : categoryFilter
     const searchBarFilter = (changedSearchFilter || changedSearchFilter === ''
       ? changedSearchFilter
       : searchFilter
     ).toLocaleLowerCase()
 
-    return data.filter(
-      (idea) =>
-        !idea.categories.includes('White-paper') &&
-        !idea.categories.includes('Jobs') &&
-        idea.title.toLocaleLowerCase().includes(searchBarFilter) &&
-        (catFilter === 'All' || idea.categories.includes(catFilter) || idea.categories.includes(''))
-    )
-  }
-
-  async function handleFetchIdeas(reset?: boolean, changedCategory?: string, changedSearchFilter?: string) {
-    setIsLoadingPosts(true)
-    let continueFetch = true
-    let data: IdeasDesc[] = []
-    let i = reset ? 0 : lastPost
-
-    while (data.length < 9 && continueFetch) {
-      const { [0]: newData } = await Promise.all([getIdeasByPage(i)])
-
-      if (newData.length < 9) continueFetch = false
-
-      data = data.concat(
-        applyFilters(
-          newData.map((idea: PostAPI) => ({
-            id: idea.id,
-            title: idea.title.rendered,
-            categories: idea._embedded['wp:term'][0].map((category: { name: string }) => category.name),
-            slug: idea.slug,
-            descriptionText: idea.acf.idea_description,
-            date: idea.date,
-            image: idea.acf.idea_image,
-          })),
-          changedCategory,
-          changedSearchFilter
-        )
-      )
-
-      i += newData.length
-    }
-
-    if (!continueFetch) {
-      setIsVisibleSeeMore(false)
-      setLastPost(i)
+    if (catFilter != 'All') {
+      newData = (await Promise.all([getIdeasByCategory(slugify(catFilter), page, searchBarFilter)]))[0]
     } else {
-      if (reset) setIsVisibleSeeMore(true)
-      setLastPost(i - (data.length - 9))
-      data = data.slice(0, 9)
+      newData = (await Promise.all([getIdeasByPage(page, searchBarFilter)]))[0]
     }
 
+    data = newData.data
+      .map((idea: PostAPI) => ({
+        id: idea.id,
+        title: idea.title.rendered,
+        categories: idea._embedded['wp:term'][0].map((category: { name: string }) => category.name),
+        tags: [],
+        slug: idea.slug,
+        descriptionText: idea.acf.idea_description,
+        date: idea.date,
+        image: idea.acf.idea_image,
+      }))
+      .filter((idea) => !idea.categories.includes('White-paper') && !idea.categories.includes('Jobs'))
+
+    if (newData.pageCount > page) {
+      setIsVisibleSeeMore(true)
+    } else {
+      setIsVisibleSeeMore(false)
+    }
+
+    setLastPage(page)
     setIdeas(reset ? data : ideas.concat(data))
     setIsLoadingPosts(false)
   }

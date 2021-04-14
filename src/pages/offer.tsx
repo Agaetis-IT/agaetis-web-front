@@ -220,7 +220,7 @@ offer.getInitialProps = async ({ query }: Context) => {
         getOfferLeaf(query.slug, offer.post_name),
         getIdeasByCategory(`_offer-${escape(offer.post_name)}`),
       ])
-      return convertAPItoOfferleaf(children, posts)
+      return convertAPItoOfferleaf(children, posts.data)
     }
   )
   const offerChildrens = await Promise.all(allOffers)

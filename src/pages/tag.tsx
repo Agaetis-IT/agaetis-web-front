@@ -46,7 +46,7 @@ export default function Tag({ articles, categories, tag }: Props) {
 
     setIdeas(
       applyFilters(
-        newData.map((idea: any) => ({
+        newData.data.map((idea: any) => ({
           id: idea.id,
           title: idea.title.rendered,
           categories: idea._embedded['wp:term'][0].map((category: { name: string }) => category.name),
@@ -150,11 +150,11 @@ export default function Tag({ articles, categories, tag }: Props) {
 }
 
 export async function getServerSideProps({ query }: Context) {
-  const { [0]: ideas, [1]: categories } = await Promise.all([getIdeasByTag(query.slug), getCategories()])
+  const { [0]: ideas, [1]: categories } = await Promise.all([getIdeasByTag(query.slug, 1), getCategories()])
 
   return {
     props: {
-      articles: ideas.map((idea: any) => ({
+      articles: ideas.data.map((idea: any) => ({
         id: idea.id,
         title: idea.title.rendered,
         categories: idea._embedded['wp:term'][0].map((category: { name: string }) => category.name),
