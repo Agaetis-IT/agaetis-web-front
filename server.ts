@@ -60,7 +60,6 @@ app
           'solutions',
           'blog',
           'agaetis',
-          'jobs',
           'white-papers',
           'contact',
           'cookies',
@@ -80,6 +79,8 @@ app
         return handle(req, res)
       } else if (queryParams.slug === 'ideas') {
         res.redirect(301, '/blog')
+      } else if (queryParams.slug === 'jobs') {
+        res.redirect(301, 'https://agaetis.welcomekit.co/')
       }
 
       return app.render(req, res, '/idea', queryParams)
