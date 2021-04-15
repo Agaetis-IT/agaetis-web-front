@@ -86,9 +86,9 @@ function Ideas({
     ).toLocaleLowerCase()
 
     if (catFilter != 'All') {
-      newData = (await Promise.all([getIdeasByCategory(slugify(catFilter), page, searchBarFilter)]))[0]
+      newData = await getIdeasByCategory(slugify(catFilter), page, searchBarFilter)
     } else {
-      newData = (await Promise.all([getIdeasByPage(page, searchBarFilter)]))[0]
+      newData = await getIdeasByPage(page, searchBarFilter)
     }
 
     data = newData.data

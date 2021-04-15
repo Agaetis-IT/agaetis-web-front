@@ -26,7 +26,7 @@ export async function getServerSideProps({ query }: Context) {
   let promiseResult: Response
 
   if (!query.categoryName) {
-    promiseResult = (await Promise.all([getIdeasByPage()]))[0]
+    promiseResult = await getIdeasByPage()
   } else {
     const names = categories
       .map((category: CategoryAPI) => slugify(category.name))
@@ -45,7 +45,7 @@ export async function getServerSideProps({ query }: Context) {
     }
 
     selectedCategory = categories.filter((category: CategoryAPI) => category.slug == query.categoryName)[0].slug
-    promiseResult = (await Promise.all([getIdeasByCategory(selectedCategory)]))[0]
+    promiseResult = await getIdeasByCategory(selectedCategory)
   }
 
   return {
