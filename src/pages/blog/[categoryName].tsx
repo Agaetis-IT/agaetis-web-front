@@ -2,8 +2,14 @@ import { NextPageContext } from 'next'
 import Ideas from '../../components/Ideas'
 import { CategoryAPI, PostAPI } from '../../models/IdeasAPI'
 import { slugify } from '../../Services/textUtilities'
-import { getIdeasByPage, getCategories, getIdeasPageContent, getAllWhitePapers } from '../../Services/wordpressService'
-import { Category, IdeasDesc } from '../../types/IdeasContent'
+import {
+  getIdeasByPage,
+  getCategories,
+  getIdeasPageContent,
+  getAllWhitePapers,
+  getIdeasByCategory,
+} from '../../Services/wordpressService'
+import { Category, Response } from '../../types/IdeasContent'
 import WhitePaper from '../../types/WhitePaper'
 
 interface Context extends NextPageContext {
@@ -17,19 +23,10 @@ export async function getServerSideProps({ query }: Context) {
     getIdeasPageContent(),
     getAllWhitePapers(),
   ])
-  let ideas: IdeasDesc[] = []
-  let i = 0
+  let promiseResult: Response
 
   if (!query.categoryName) {
-    ideas = (await Promise.all([getIdeasByPage(0)])[0]).map((idea: PostAPI) => ({
-      id: idea.id,
-      title: idea.title.rendered,
-      categories: idea._embedded['wp:term'][0].map((category: { name: string }) => category.name),
-      slug: idea.slug,
-      descriptionText: idea.acf.idea_description,
-      date: idea.date,
-      image: idea.acf.idea_image,
-    }))
+    promiseResult = await getIdeasByPage()
   } else {
     const names = categories
       .map((category: CategoryAPI) => slugify(category.name))
@@ -47,45 +44,22 @@ export async function getServerSideProps({ query }: Context) {
       }
     }
 
-    selectedCategory = categories.filter((category: CategoryAPI) => category.slug == query.categoryName)[0].name
-    let continueFetch = true
-
-    while (ideas.length < 9 && continueFetch) {
-      const { [0]: newData } = await Promise.all([getIdeasByPage(i)])
-
-      if (newData.length < 9) continueFetch = false
-
-      ideas = ideas.concat(
-        newData
-          .map((idea: PostAPI) => ({
-            id: idea.id,
-            title: idea.title.rendered,
-            categories: idea._embedded['wp:term'][0].map((category: { name: string }) => category.name),
-            slug: idea.slug,
-            descriptionText: idea.acf.idea_description,
-            date: idea.date,
-            image: idea.acf.idea_image,
-          }))
-          .filter(
-            (idea: IdeasDesc) =>
-              !idea.categories.includes('White-paper') &&
-              !idea.categories.includes('Jobs') &&
-              idea.categories.includes(selectedCategory)
-          )
-      )
-
-      i += newData.length
-    }
-
-    if (continueFetch) {
-      i -= ideas.length - 9
-      ideas = ideas.slice(0, 9)
-    }
+    selectedCategory = categories.filter((category: CategoryAPI) => category.slug == query.categoryName)[0].slug
+    promiseResult = await getIdeasByCategory(selectedCategory)
   }
 
   return {
     props: {
-      ideasDescription: ideas,
+      ideasDescription: promiseResult.data.map((idea: PostAPI) => ({
+        id: idea.id,
+        title: idea.title.rendered,
+        categories: idea._embedded['wp:term'][0].map((category: { name: string }) => category.name),
+        tags: [],
+        slug: idea.slug,
+        descriptionText: idea.acf.idea_description,
+        date: idea.date,
+        image: idea.acf.idea_image,
+      })),
       whitePapers:
         whitepapers && whitepapers.length > 0
           ? whitepapers.map((whitepaper: { slug: string; acf: WhitePaper }) => ({
@@ -98,7 +72,7 @@ export async function getServerSideProps({ query }: Context) {
         .map((category: CategoryAPI) => ({ categoryId: category.id, categoryName: category.name }))
         .filter((category: Category) => !category.categoryName.includes('_offer-')),
       selectedCategory: selectedCategory,
-      offset: i,
+      hideSeeMore: promiseResult.pageCount <= 1,
     },
   }
 }

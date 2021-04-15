@@ -1,10 +1,12 @@
 import Ideas from '../components/Ideas'
+import { CategoryAPI, PostAPI } from '../models/IdeasAPI'
 import { getIdeasByPage, getCategories, getIdeasPageContent, getAllWhitePapers } from '../Services/wordpressService'
+import { Category } from '../types/IdeasContent'
 import WhitePaper from '../types/WhitePaper'
 
 export async function getServerSideProps() {
   const { [0]: ideas, [1]: categories, [2]: content, [3]: whitepapers } = await Promise.all([
-    getIdeasByPage(0),
+    getIdeasByPage(),
     getCategories(),
     getIdeasPageContent(),
     getAllWhitePapers(),
@@ -12,7 +14,7 @@ export async function getServerSideProps() {
 
   return {
     props: {
-      ideasDescription: ideas.map((idea: any) => ({
+      ideasDescription: ideas.data.map((idea: PostAPI) => ({
         id: idea.id,
         title: idea.title.rendered,
         categories: idea._embedded['wp:term'][0].map((category: { name: string }) => category.name),
@@ -30,8 +32,9 @@ export async function getServerSideProps() {
           : [],
       content,
       categories: categories
-        .map((category: any) => ({ categoryId: category.id, categoryName: category.name }))
-        .filter((category: any) => !category.categoryName.includes('_offer-')),
+        .map((category: CategoryAPI) => ({ categoryId: category.id, categoryName: category.name }))
+        .filter((category: Category) => !category.categoryName.includes('_offer-')),
+      hideSeeMore: ideas.pageCount == 1,
     },
   }
 }

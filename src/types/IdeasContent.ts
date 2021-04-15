@@ -1,3 +1,5 @@
+import { PostAPI } from '../models/IdeasAPI'
+
 export interface IdeasDesc {
   id: number
   slug: string
@@ -47,4 +49,9 @@ export default interface IdeasContent {
 export interface Tag {
   name: string
   slug: string
+}
+
+export interface Response {
+  data: PostAPI[]
+  pageCount: number
 }

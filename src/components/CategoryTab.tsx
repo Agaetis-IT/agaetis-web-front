@@ -59,10 +59,7 @@ export default function CategoryTab({ categories, categoryFilter, handleFilterCh
             className={clsx(
               'uppercase font-semibold my-2 mx-1 md:mx-2 p-2 rounded-full hover:text-white',
               slugify(category.categoryName),
-              getBorderColor(
-                category.categoryName,
-                categoryFilter.toLocaleLowerCase() === category.categoryName.toLocaleLowerCase()
-              )
+              getBorderColor(category.categoryName, slugify(categoryFilter) === slugify(category.categoryName))
             )}
             onClick={() => handleFilterChange(category.categoryName)}
           >
