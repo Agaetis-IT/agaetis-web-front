@@ -90,7 +90,7 @@ app
       res.status(301).redirect(`/${req.params.slug}`)
     })
 
-    server.get('/jobs/:slug', (res: Response) => {
+    server.get('/jobs/:slug', async (_: Request, res: Response) => {
       res.redirect(301, 'https://agaetis.welcomekit.co/')
     })
 
