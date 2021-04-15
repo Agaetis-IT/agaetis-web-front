@@ -57,12 +57,15 @@ export default function Idea({ data, related, errorCode, meta }: Props) {
       handleOpenModal(true)
     }
   }
+
   function handleToggleMoreIdeas() {
     setIsOpenedMoreIdeas(!isOpenedMoreIdeas)
   }
+
   if (!!errorCode) {
     return <Error statusCode={404} />
   }
+
   const relatedIdeas = useMemo(() => {
     if (!!related) {
       return related.map((idea) => (

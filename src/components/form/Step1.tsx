@@ -53,14 +53,6 @@ export default function Step1({ className, handleNextStep, formValues }: Props) 
               label="Un projet ?"
             />
             <Radio
-              isSelected={values.objet === 'Une candidature ?'}
-              className="my-2 md:m-0"
-              name="objet"
-              id="radio2"
-              value="Une candidature ?"
-              label="Une candidature ?"
-            />
-            <Radio
               isSelected={values.objet === 'Un cafe ?'}
               className="my-2 md:m-0"
               name="objet"

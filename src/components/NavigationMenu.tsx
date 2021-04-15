@@ -17,7 +17,7 @@ export default function NavigationMenu({ invertColors, position }: Props) {
     ['Blog', '/blog'],
     ['Agaetis', '/agaetis'],
     ['Solutions', '/solutions'],
-    ['Jobs', '/jobs'],
+    ['Jobs', 'https://agaetis.welcomekit.co/'],
   ]
 
   return (

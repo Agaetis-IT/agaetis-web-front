@@ -58,6 +58,7 @@ export default function contact({ pageContent }: Props) {
             <img src={Logo} className="bg-img-right-contact" alt="logo agaetis"></img>
             <ContactTab />
           </div>
+
           <ContactSection></ContactSection>
         </div>
       </Layout>
