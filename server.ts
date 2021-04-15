@@ -90,8 +90,9 @@ app
       res.status(301).redirect(`/${req.params.slug}`)
     })
 
-    server.get('/jobs/:slug', (req: Request, res: Response) => {
-      app.render(req, res, '/job', { ...req.params, ...req.query })
+    server.get('/jobs/:slug', (/* req: Request,  */ res: Response) => {
+      res.redirect(301, 'https://agaetis.welcomekit.co/')
+      //app.render(req, res, '/job', { ...req.params, ...req.query })
     })
 
     server.get('/landingpages/:slug', (req: Request, res: Response) => {
