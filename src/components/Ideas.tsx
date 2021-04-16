@@ -21,8 +21,7 @@ import SearchInput from '../components/SearchInput'
 import Error from '../pages/_error'
 
 import _ from 'lodash'
-import { getBgColor } from '../Services/categoryColor'
-import { createMarkup, slugify } from '../Services/textUtilities'
+import { slugify } from '../Services/textUtilities'
 import LoadingSpinner from './LoadingSpinner'
 import { PostAPI } from '../models/IdeasAPI'
 
@@ -126,17 +125,8 @@ function Ideas({
 
     return source.map((idea) => {
       return (
-        <div key={idea.id} className={clsx(source.length > 2 ? 'sm:w-1/3' : 'sm:w-1/2', ' p-2')}>
-          <IdeasCard
-            className={clsx(
-              { 'shadow-xl hidden sm:block': idea.id < 0 },
-              { [getBgColor(idea.categories.filter((category) => !category.includes('_offer-'))[0])]: idea.id > 0 }
-            )}
-            {...idea}
-            categories={idea.categories.filter((category) => !category.includes('_offer-'))}
-          >
-            <p dangerouslySetInnerHTML={createMarkup(idea.descriptionText)} />
-          </IdeasCard>
+        <div key={idea.id} className="w-full m-2 mb-8 shadow-md">
+          <IdeasCard slug={idea.slug} title={idea.title} image={idea.image} description={idea.descriptionText} />
         </div>
       )
     })
@@ -171,10 +161,10 @@ function Ideas({
             }}
             className="bg-light-grey p-6 md:p-16 xl:px-32 shadow-none md:shadow-top"
           >
-            <div className="max-w-lg mx-auto">
-              <div className="">
-                <h1 className="text-orange text-3xl" dangerouslySetInnerHTML={{ __html: content.titre }}></h1>
-                <p className="md:max-w-lg mx-auto py-6 text-sm leading-normal mb-8">{content.description}</p>
+            <div className="mx-1 md:mx-2">
+              <div>
+                <h1 className="text-orange text-3xl font-bold" dangerouslySetInnerHTML={{ __html: content.titre }}></h1>
+                <p className="py-6 text-3md leading-normal my-8 font-medium">{content.description}</p>
               </div>
               <SearchInput handleChange={handleSearchChanged}></SearchInput>
             </div>
@@ -193,9 +183,7 @@ function Ideas({
             ) : (
               <div className="invisible">-</div>
             )}
-            <div className="flex flex-col md:max-w-lg sm:flex-row justify-center flex-wrap mt-2 md:p-8 mx-auto">
-              {cards.length ? cards : 'Aucun résultat'}
-            </div>
+            <div className="flex flex-row flex-wrap mt-2">{cards.length ? cards : 'Aucun résultat'}</div>
             {isVisibleSeeMore && (
               <Button
                 className={clsx(

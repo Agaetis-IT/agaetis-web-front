@@ -1,3 +1,8 @@
+.bg-blend {
+  transition: all 250ms ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+}
+
 .blue-underline {
   border-bottom: 4px solid #2779bd;
 }

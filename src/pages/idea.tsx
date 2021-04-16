@@ -70,15 +70,7 @@ export default function Idea({ data, related, errorCode, meta }: Props) {
     if (!!related) {
       return related.map((idea) => (
         <div key={idea.id} className="md:w-1/3 px-2">
-          <IdeasCard
-            slug={idea.slug}
-            id={idea.id}
-            title={idea.title}
-            categories={idea.categories}
-            className="p-4 my-2 md:h-ideas bg-light-grey"
-          >
-            {idea.descriptionText}
-          </IdeasCard>
+          <IdeasCard slug={idea.slug} title={idea.title} image={idea.image} description={idea.descriptionText} />
         </div>
       ))
     }

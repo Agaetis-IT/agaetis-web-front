@@ -474,6 +474,8 @@ module.exports = {
     ideas: '15rem',
     'ideas-lg': '15rem',
     '64': '16rem',
+    '1/3': '33%',
+    '2/3': '67%',
     full: '100%',
     screen: '100vh',
   },
