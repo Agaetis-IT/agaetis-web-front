@@ -81,11 +81,11 @@ registerRoute(
   }),
   'GET'
 )
-registerRoute(/(.*wp-json\/wp\/v2\/posts.*)|(.*agaetis\.fr\/blog)/i,
+registerRoute(/(.*wp-json\/wp\/v2\/posts.*)|(.*agaetis\.fr\/blog)|(.*wp-json\/agaetis\/api\/v1\/categories.*)/i,
   new NetworkFirst({
     cacheName: 'blog',
     networkTimeoutSeconds: 10,
-    plugins: [new ExpirationPlugin({ maxEntries: 2, maxAgeSeconds: 30 * 24 * 3600, purgeOnQuotaError: !0 })]
+    plugins: [new ExpirationPlugin({ maxEntries: 16, maxAgeSeconds: 30 * 24 * 3600, purgeOnQuotaError: !0 })]
   }),
   'GET'
 )
