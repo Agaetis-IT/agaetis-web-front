@@ -155,15 +155,16 @@ function Ideas({
         <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/blog`} />
       </Head>
       <Layout invertColors={false}>
-        <div
-          style={{
-            backgroundImage: `url("${Particles}")`,
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'left top',
-          }}
-          className="pt-0 md:pt-28 bg-light-grey"
-        >
-          <div className="p-6 md:p-16 xl:px-32">
+        <div className="pt-0 md:pt-28">
+          <div
+            style={{
+              backgroundImage: `url("${Particles}")`,
+              backgroundRepeat: 'no-repeat',
+              backgroundPosition: 'left top',
+              backgroundSize: 'contain',
+            }}
+            className="p-6 md:p-16 xl:px-32 bg-light-grey"
+          >
             <div className="mx-1 md:mx-2">
               <div>
                 <h1 className="text-orange text-2xl font-bold" dangerouslySetInnerHTML={{ __html: content.titre }}></h1>

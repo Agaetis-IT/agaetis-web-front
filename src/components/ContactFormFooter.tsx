@@ -31,7 +31,7 @@ export default function ContactFormFooter({ title, handleSubmit, isSubmited }: P
 
   return (
     <div
-      className="p-0 p-6 md:p-12 lg:px-24 lg:p-16"
+      className="bg-light-grey p-0 p-6 md:p-12 lg:px-24 lg:p-16"
       style={{
         backgroundImage: `url("${Particles}")`,
         backgroundRepeat: 'no-repeat',
