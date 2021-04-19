@@ -158,13 +158,14 @@ function Ideas({
             style={{
               backgroundImage: `url("${Particles}")`,
               backgroundRepeat: 'no-repeat',
+              backgroundSize: 'contain',
             }}
-            className="bg-light-grey p-6 md:p-16 xl:px-32 shadow-none md:shadow-top"
+            className="bg-light-grey p-6 md:p-16 xl:px-32"
           >
             <div className="mx-1 md:mx-2">
               <div>
                 <h1 className="text-orange text-3xl font-bold" dangerouslySetInnerHTML={{ __html: content.titre }}></h1>
-                <p className="py-6 text-3md leading-normal my-8 font-medium">{content.description}</p>
+                <p className="py-6 text-xl leading-normal my-8 font-medium">{content.description}</p>
               </div>
               <SearchInput handleChange={handleSearchChanged}></SearchInput>
             </div>
