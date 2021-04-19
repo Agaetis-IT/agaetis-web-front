@@ -45,7 +45,7 @@ export default function HomeCard({ href, title, description, buttonContent, imgU
           </Link>
           <p className={clsx('text-sm leading-normal text-justify justify-fix')}>{description}</p>
           <Link href={href}>
-            <Button className="w-40 block mx-auto md:mx-0 text-center px-6 py-2 leading-none rounded-full uppercase mt-4 mb-6 md:mb-0 text-xs font-semibold hoverButtonEffect">
+            <Button className="w-40 block mx-auto md:mx-0 text-center px-6 py-2 leading-none rounded-full uppercase mt-4 mb-6 md:mb-0 text-xs font-semibold">
               {buttonContent}
             </Button>
           </Link>

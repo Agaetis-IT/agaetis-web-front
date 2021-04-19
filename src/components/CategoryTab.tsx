@@ -19,7 +19,7 @@ export default function CategoryTab({ categories, categoryFilter, handleFilterCh
       <div className="text-xs mr-auto flex flex-row flex-wrap">
         <Button
           className={clsx(
-            'bg-blend w-48 uppercase font-semibold my-2 mx-1 md:mx-2 p-2 hover:text-white hover:bg-orange all rounded-full orange-border-thin shadow-md bg-light-grey',
+            'smooth-transition w-48 uppercase font-semibold my-2 mx-1 md:mx-2 p-2 hover:text-white hover:bg-orange all rounded-full border-2 border-orange shadow-md bg-light-grey',
             categoryFilter === 'All' ? 'bg-orange text-white' : 'text-orange'
           )}
           onClick={() => handleFilterChange('All')}
@@ -30,7 +30,7 @@ export default function CategoryTab({ categories, categoryFilter, handleFilterCh
           <Button
             key={category.categoryId}
             className={clsx(
-              'bg-blend w-48 uppercase font-semibold my-2 mx-1 md:mx-2 p-2 rounded-full hover:text-white shadow-md bg-light-grey hover:bg-orange orange-border-thin',
+              'smooth-transition w-48 uppercase font-semibold my-2 mx-1 md:mx-2 p-2 rounded-full hover:text-white shadow-md bg-light-grey hover:bg-orange border-2 border-orange',
               slugify(categoryFilter) === slugify(category.categoryName) ? 'bg-orange text-white' : 'text-orange'
             )}
             onClick={() => handleFilterChange(category.categoryName)}

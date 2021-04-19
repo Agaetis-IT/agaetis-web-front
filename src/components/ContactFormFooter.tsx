@@ -9,6 +9,9 @@ import clsx from 'clsx'
 import Twitter from '../static/icons/twitter.png'
 import Linkedin from '../static/icons/linkedin.png'
 import Facebook from '../static/icons/facebook.png'
+import Particles from '../static/images/particles-3-mirror.svg'
+
+import './Common.css'
 
 interface Props {
   handleSubmit: (formValues: FooterFormInput) => void
@@ -27,17 +30,34 @@ export default function ContactFormFooter({ title, handleSubmit, isSubmited }: P
   }, [clearErrors])
 
   return (
-    <div className="bg-light-grey p-0 p-6 md:p-12 lg:px-24 lg:p-16">
+    <div
+      className="p-0 p-6 md:p-12 lg:px-24 lg:p-16"
+      style={{
+        backgroundImage: `url("${Particles}")`,
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'right bottom',
+        backgroundSize: 'cover',
+      }}
+    >
       <div className="flex flex-col md:flex-row justify-between mb-8">
         <h2 className="text-orange text-2xl mb-4 md:mb-0">{title}</h2>
         <div className="flex flex-row items-center">
-          <Button href="https://fr-fr.facebook.com/AgaetisIT" className="mr-4 self-center">
+          <Button
+            href="https://fr-fr.facebook.com/AgaetisIT"
+            className="w-6 h-6 mr-4 self-center shadow-sm hover:shadow-md bg-white rounded-full smooth-transition p-1"
+          >
             <img src={Facebook} className="w-4 h-4" />
           </Button>
-          <Button href="https://www.linkedin.com/company/agaetis/" className="mr-4">
+          <Button
+            href="https://www.linkedin.com/company/agaetis/"
+            className="w-6 h-6 mr-4 shadow-sm hover:shadow-md bg-white rounded-full smooth-transition p-1"
+          >
             <img src={Linkedin} className="w-4 h-4" />
           </Button>
-          <Button href="https://twitter.com/agaetisit" className="">
+          <Button
+            href="https://twitter.com/agaetisit"
+            className="w-6 h-6 shadow-sm hover:shadow-md bg-white rounded-full smooth-transition p-1"
+          >
             <img src={Twitter} className="w-4 h-4" />
           </Button>
         </div>
@@ -47,28 +67,28 @@ export default function ContactFormFooter({ title, handleSubmit, isSubmited }: P
           <div className="flex flex-col md:flex-row justify-between">
             <TextInput
               wrapperClassName="w-full md:w-1/5"
-              className="appearance-none rounded-full  text-xs p-3 shadow-xl text-orange font-semibold leading-tight"
+              className="appearance-none rounded-full  text-xs p-3 shadow-md text-orange font-semibold leading-tight"
               name="lastname"
               label="Nom"
               type="input"
             ></TextInput>
             <TextInput
               wrapperClassName="w-full md:w-1/5 mt-8 md:mt-0"
-              className="appearance-none rounded-full  text-xs p-3 shadow-xl text-orange font-semibold leading-tight"
+              className="appearance-none rounded-full  text-xs p-3 shadow-md text-orange font-semibold leading-tight"
               name="firstname"
               label="Prénom"
               type="input"
             ></TextInput>
             <TextInput
               wrapperClassName="w-full md:w-1/5 mt-8 md:mt-0"
-              className="appearance-none rounded-full  text-xs p-3 shadow-xl text-orange font-semibold leading-tight"
+              className="appearance-none rounded-full  text-xs p-3 shadow-md text-orange font-semibold leading-tight"
               name="mail"
               label="Mail"
               type="input"
             ></TextInput>
             <TextInput
               wrapperClassName="w-full md:w-1/5 mt-8 md:mt-0"
-              className="appearance-none rounded-full  text-xs p-3 shadow-xl text-orange font-semibold leading-tight"
+              className="appearance-none rounded-full  text-xs p-3 shadow-md text-orange font-semibold leading-tight"
               name="phone"
               label="Téléphone"
               type="input"
@@ -76,19 +96,19 @@ export default function ContactFormFooter({ title, handleSubmit, isSubmited }: P
           </div>
           <TextInput
             wrapperClassName="my-8"
-            className="appearance-none w-full text-xs p-4 shadow-xl text-orange font-semibold leading-tight  message-textarea"
+            className="appearance-none w-full text-xs p-4 shadow-md text-orange font-semibold leading-tight message-textarea"
             name="message"
-            label="Détail de votre demande"
+            label="Détails de votre demande"
             type="textarea"
           ></TextInput>
 
           <Button
-            className="block px-8 py-2 leading-none rounded-full uppercase mx-auto mt-4 md:mt-8 bg-orange text-white text-xs font-semibold"
+            className="block px-8 py-2 leading-none rounded-full uppercase mx-auto mt-4 md:mt-8 bg-orange text-white text-xs font-semibold shadow-md"
             type="submit"
             disabled={isSubmited}
           >
             <div className="self-center">
-              Valider <span className={clsx({ loading: isSubmited }, 'float-right')} />
+              Envoyer <span className={clsx({ loading: isSubmited }, 'float-right')} />
             </div>
           </Button>
         </form>

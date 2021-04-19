@@ -1,55 +1,16 @@
-.bg-blend {
+.smooth-transition {
   transition: all 250ms ease-in-out;
   -webkit-transition: all 250ms ease-in-out;
 }
 
-.blue-underline {
-  border-bottom: 4px solid #2779bd;
+.zoom-in:hover {
+  transform: scale(1.025);
 }
 
 .text-underline {
   border-bottom: 1px solid rgba(0, 0, 0, 0.034);
 }
 
-.blue-underline-thin {
-  border-bottom: 1px solid #2779bd;
-}
-
-.orange-border-thin {
-  border: 2px solid #ff7f40;
-}
-
-.blue-border-thin {
-  border: 2px solid #407ec9;
-}
-
-.teal-border-thin {
-  border: 2px solid#00B2A9;
-}
-
-.grey-border-thin {
-  border: 2px solid #82919c;
-}
-
-.pink-border-thin {
-  border: 2px solid#df1995;
-}
-
-.yellow-border-thin {
-  border: 2px solid #f1b434;
-}
-
-.red-lighter-border-thin {
-  border: 2px solid #cf5b5b;
-}
-
-.purple-light-border-thin {
-  border: 2px solid #ad5ac6;
-}
-
-.white-underline-thin {
-  border-bottom: 1px solid white;
-}
 .separator {
   border-bottom: 1px solid grey;
   opacity: 0.5;
@@ -75,21 +36,6 @@
   to {
     -webkit-transform: rotate(360deg);
   }
-}
-
-.hoverButtonEffect {
-  border: 1px solid #ff7f40;
-  background-color: #ff7f40;
-  color: white;
-}
-
-.hoverButtonEffect:hover {
-  background-color: white;
-  color: black;
-}
-
-.justify-evenly {
-  justify-content: space-evenly;
 }
 
 input,
@@ -149,16 +95,4 @@ textarea {
   to {
     -webkit-transform: rotate(0);
   }
-}
-
-.half-width-p-8 {
-  width: calc(50% - 64px);
-}
-
-.border-orange-right {
-  border-right: 1px solid #ff7f40;
-}
-
-.top-padding {
-  padding-top: 7rem;
 }

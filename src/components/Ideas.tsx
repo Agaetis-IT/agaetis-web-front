@@ -25,6 +25,8 @@ import { slugify } from '../Services/textUtilities'
 import LoadingSpinner from './LoadingSpinner'
 import { PostAPI } from '../models/IdeasAPI'
 
+import './Common.css'
+
 interface Props {
   ideasDescription: IdeasDesc[]
   categories: Category[]
@@ -125,7 +127,7 @@ function Ideas({
 
     return source.map((idea) => {
       return (
-        <div key={idea.id} className="w-full m-2 mb-8 shadow-md">
+        <div key={idea.id} className="w-full m-2 mb-8 shadow-md hover:shadow-lg smooth-transition zoom-in">
           <IdeasCard slug={idea.slug} title={idea.title} image={idea.image} description={idea.descriptionText} />
         </div>
       )
@@ -153,18 +155,18 @@ function Ideas({
         <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/blog`} />
       </Head>
       <Layout invertColors={false}>
-        <div className="pt-0 md:pt-28">
-          <div
-            style={{
-              backgroundImage: `url("${Particles}")`,
-              backgroundRepeat: 'no-repeat',
-              backgroundSize: 'contain',
-            }}
-            className="bg-light-grey p-6 md:p-16 xl:px-32"
-          >
+        <div
+          style={{
+            backgroundImage: `url("${Particles}")`,
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'left top',
+          }}
+          className="pt-0 md:pt-28 bg-light-grey"
+        >
+          <div className="p-6 md:p-16 xl:px-32">
             <div className="mx-1 md:mx-2">
               <div>
-                <h1 className="text-orange text-3xl font-bold" dangerouslySetInnerHTML={{ __html: content.titre }}></h1>
+                <h1 className="text-orange text-2xl font-bold" dangerouslySetInnerHTML={{ __html: content.titre }}></h1>
                 <p className="py-6 text-xl leading-normal my-8 font-medium">{content.description}</p>
               </div>
               <SearchInput handleChange={handleSearchChanged}></SearchInput>
@@ -188,7 +190,7 @@ function Ideas({
             {isVisibleSeeMore && (
               <Button
                 className={clsx(
-                  'flex flex-row justify-center uppercase rounded-full bg-orange text-xss py-2 px-6 text-white font-semibold mx-auto see-more',
+                  'flex flex-row justify-center uppercase rounded-full bg-orange text-xss py-2 px-6 text-white font-semibold mx-auto see-more shadow-md',
                   { 'mb-8': whitePapers.length < 2 }
                 )}
                 onClick={() => handleFetchIdeas()}

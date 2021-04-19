@@ -105,7 +105,7 @@ export default function offer({ pageContent, errorCode, offers }: Props): React.
               </Link>
 
               <div className="flex flex-col lg:flex-row">
-                <div className="w-2/5 border-orange-right">
+                <div className="w-2/5 border-orange border-r">
                   {offers !== undefined &&
                     offers.map((offer, index) => (
                       <Button
