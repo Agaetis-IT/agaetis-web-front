@@ -3,6 +3,8 @@ import React from 'react'
 import { createMarkup } from '../Services/textUtilities'
 import publicRuntimeConfig from '../config/env.config'
 
+import './IdeasCard.css'
+
 interface Props {
   title: string
   slug: string
@@ -25,17 +27,14 @@ export default function IdeasCard({ slug, title, image, description }: Props) {
   return (
     <Link href={`/${slug}`}>
       <a className="text-black w-full">
-        <div className="bg-white flex">
-          <div style={getBackgroundStyle(image)} className="w-3/10"></div>
-          <div className="py-6 px-8 h-ideas-lg w-7/10">
+        <div className="bg-white sm:flex">
+          <div style={getBackgroundStyle(image)} className="w-full sm:w-3/10 h-ideas-lg"></div>
+          <div className="py-6 px-8 h-ideas-lg w-full sm:w-7/10">
             <div className="h-1/3">
               <h3 dangerouslySetInnerHTML={createMarkup(title)} className="font-semibold text-xs md:text-base" />
             </div>
             <div className="h-1/2">
-              <div
-                className="overflow-hidden"
-                style={{ display: '-webkit-box', WebkitLineClamp: 4, WebkitBoxOrient: 'vertical' }}
-              >
+              <div className="h-full overflow-hidden fade">
                 <p className="text-xs text-justify leading-normal">{description}</p>
               </div>
             </div>
