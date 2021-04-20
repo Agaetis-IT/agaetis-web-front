@@ -7,6 +7,7 @@ import AccessTime from '../static/icons/access_time-24px.svg'
 import Back from '../static/icons/Btn_Retour.svg'
 import Link from 'next/link'
 import Button from './Button'
+import { formatPostAuthors } from '../Services/textUtilities'
 
 interface Props {
   content: IdeasContent
@@ -28,9 +29,7 @@ function IdeaContent({ content }: Props) {
               <span className="pr-1">
                 {content.date.slice(8, 10)}/{content.date.slice(5, 7)}/{content.date.slice(0, 4)}
               </span>
-              <span className="text-blue">
-                | {`${content.author}`} {content.coAuthor && ` & ${content.coAuthor}`}
-              </span>
+              <span className="text-blue">| {`${formatPostAuthors(content.authors)}`}</span>
             </span>
             <span className="flex items-center">
               <img src={AccessTime} style={{ width: 15, height: 15 }} alt="read_time" />

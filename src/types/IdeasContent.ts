@@ -34,8 +34,7 @@ export interface IdeasPageContent {
 export default interface IdeasContent {
   title: string
   date: string
-  author: string
-  coAuthor: string
+  authors: string[]
   content: string
   imageUrl: string
   category: string

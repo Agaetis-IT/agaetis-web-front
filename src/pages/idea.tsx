@@ -21,6 +21,7 @@ import ContactFormFooter from '../components/ContactFormFooter'
 import { FooterFormInput } from '../yup/ContactFormValidation'
 import { footerSend } from '../Services/contactService'
 import ContactMessage from '../components/ContactMessage'
+import { formatPostAuthors } from '../Services/textUtilities'
 
 interface Props {
   data: IdeasContent
@@ -101,7 +102,7 @@ export default function Idea({ data, related, errorCode, meta }: Props) {
         <meta name="twitter:label1" value="Auteur" />
         {/*
         // @ts-ignore */}
-        <meta name="twitter:data1" value={`${data.author}`} />
+        <meta name="twitter:data1" value={`${formatPostAuthors(data.authors)}`} />
         {/*
         // @ts-ignore */}
         <meta name="twitter:label2" value="Temps de lecture" />
@@ -159,6 +160,7 @@ export async function getServerSideProps({ query }: Context) {
     getIdeaBySlug(escape(query.slug)),
     getIdeaMeta(escape(query.slug)),
   ])
+  const authors = []
 
   if (!!data.acf || !!data.content) {
     const related = []
@@ -166,6 +168,14 @@ export async function getServerSideProps({ query }: Context) {
       for (const idea of data.acf.related_ideas) {
         const data2 = await getIdeaBySlug(idea.post_name)
         related.push(data2)
+      }
+
+      if (data._embedded.author[0].name) authors.push(data._embedded.author[0].name)
+
+      if (data.acf.co_author) {
+        for (const auth of data.acf.co_author) {
+          authors.push(auth.data.display_name)
+        }
       }
     }
 
@@ -175,8 +185,7 @@ export async function getServerSideProps({ query }: Context) {
           title: data.title.rendered || '',
           imageUrl: data.acf.idea_image || '',
           date: data.date || '',
-          author: data._embedded.author[0].name || '',
-          coAuthor: data.acf.co_author ? data.acf.co_author.data.display_name : '',
+          authors: authors || '',
           categories: data._embedded['wp:term'][0].map((category: { name: string }) => category.name) || [],
           content: data.content.rendered || '',
           slug: data.slug || '',
