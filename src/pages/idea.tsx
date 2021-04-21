@@ -117,7 +117,7 @@ export default function Idea({ data, related, errorCode, meta }: Props) {
               backgroundImage: `url("${Particles}")`,
               backgroundRepeat: 'no-repeat',
             }}
-            className="bg-light-grey p-6 md:p-16 xl:px-32 shadow-none md:shadow-top"
+            className="bg-light-grey p-6 md:p-16 lg:px-32 xl:px-48"
           >
             <IdeaContent content={data} />
             {related && related.length > 0 && (
@@ -162,6 +162,8 @@ export async function getServerSideProps({ query }: Context) {
   ])
   const authors = []
 
+  if (data._embedded.author[0].name) authors.push(data._embedded.author[0].name)
+  console.log(data._embedded.author)
   if (!!data.acf || !!data.content) {
     const related = []
     if (!!data.acf) {
@@ -169,8 +171,6 @@ export async function getServerSideProps({ query }: Context) {
         const data2 = await getIdeaBySlug(idea.post_name)
         related.push(data2)
       }
-
-      if (data._embedded.author[0].name) authors.push(data._embedded.author[0].name)
 
       if (data.acf.co_author) {
         for (const auth of data.acf.co_author) {
