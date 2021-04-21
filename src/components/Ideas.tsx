@@ -163,7 +163,7 @@ function Ideas({
               backgroundPosition: 'left top',
               backgroundSize: 'contain',
             }}
-            className="p-6 md:p-16 xl:px-32 bg-light-grey"
+            className="p-6 md:p-16 lg:px-32 xl:px-48 bg-light-grey"
           >
             <div className="mx-1 md:mx-2">
               <div>
