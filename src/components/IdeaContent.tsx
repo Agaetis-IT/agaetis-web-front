@@ -15,6 +15,7 @@ import Facebook from '../static/icons/facebook.png'
 import { useRouter } from 'next/router'
 
 import './Common.css'
+import publicRuntimeConfig from '../config/env.config'
 
 interface Props {
   content: IdeasContent
@@ -46,6 +47,17 @@ function formatAuthorList(authors: string[]) {
   return res
 }
 
+function getBackgroundStyle(url: string) {
+  return {
+    background: url
+      ? `url("${url}")`
+      : `url("${publicRuntimeConfig.NEXT_APP_SITE_URL}/static/images/blog-post-placeholder.jpg")`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+  }
+}
+
 function IdeaContent({ content }: Props) {
   const router = useRouter()
 
@@ -68,8 +80,9 @@ function IdeaContent({ content }: Props) {
           </Link>
         </div>
       </div>
-      <div className="px-4 md:px-8 py-4 bg-white shadow-md">
-        <div className="text-xs text-orange font-semibold flex items-center justify-between py-4">
+      <div className="pb-4 bg-white shadow-md">
+        <div style={getBackgroundStyle(content.imageUrl)} className="w-full h-24 md:h-48"></div>
+        <div className="px-4 md:px-8 text-xs text-orange font-semibold flex items-center justify-between py-4">
           <span className="flex items-center">
             <span className="pr-8">
               {content.date.slice(8, 10)} / {content.date.slice(5, 7)} / {content.date.slice(0, 4)}
@@ -100,7 +113,7 @@ function IdeaContent({ content }: Props) {
             </Button>
           </div>
         </div>
-        <div className="text-xs text-orange font-semibold lg:flex lg:justify-between lg:items-center">
+        <div className="px-4 md:px-8 text-xs text-orange font-semibold lg:flex lg:justify-between lg:items-center">
           {content.authors.length > 0 && <div className="py-4">{formatAuthorList(content.authors)}</div>}
           {content.tags.length > 0 && (
             <div className="md:my-0 flex flex-row flex-wrap py-4">
@@ -119,7 +132,7 @@ function IdeaContent({ content }: Props) {
         <div
           dangerouslySetInnerHTML={createMarkup(content.content)}
           id="content"
-          className="leading-normal text-sm text-justify"
+          className="px-4 md:px-8 leading-normal text-sm text-justify"
         />
 
         <hr className="Footer-separator" />
