@@ -7,12 +7,14 @@ import AccessTime from '../static/icons/access_time-24px.svg'
 import Back from '../static/icons/Btn_Retour.svg'
 import Link from 'next/link'
 import Button from './Button'
-import { createMarkup, formatPostAuthors } from '../Services/textUtilities'
+import { createMarkup } from '../Services/textUtilities'
 
 import Twitter from '../static/icons/twitter.png'
 import Linkedin from '../static/icons/linkedin.png'
 import Facebook from '../static/icons/facebook.png'
 import { useRouter } from 'next/router'
+
+import './Common.css'
 
 interface Props {
   content: IdeasContent
@@ -43,14 +45,20 @@ function IdeaContent({ content }: Props) {
       <div className="mx-auto px-4 md:px-8 py-4 bg-white shadow-md">
         <div className="text-xs text-orange font-semibold flex items-center justify-between py-4">
           <span className="flex items-center">
-            <span className="pr-4">
+            <span className="pr-8">
               {content.date.slice(8, 10)} / {content.date.slice(5, 7)} / {content.date.slice(0, 4)}
             </span>
-            <span className="flex items-center pr-4">
-              <img src={AccessTime} style={{ width: 15, height: 15 }} alt="read_time" />
-              &nbsp;{content.readTime} min.
-            </span>
-            <span className="">{`${formatPostAuthors(content.authors)}`}</span>
+            <div>
+              {content.authors.map((element) => (
+                <span key={element} className="pr-4">
+                  <Link href={'#'} /*author page route*/ passHref={true}>
+                    <Button className="text-orange">
+                      <span>{element}</span>
+                    </Button>
+                  </Link>
+                </span>
+              ))}
+            </div>
           </span>
           <div className="flex flex-row items-center">
             <Button
@@ -73,17 +81,27 @@ function IdeaContent({ content }: Props) {
             </Button>
           </div>
         </div>
-        {content.tags.length > 0 && (
-          <div className="my-4 md:my-0 flex flex-row flex-wrap">
-            {content.tags.map((tag) => (
-              <span key={tag.name} className="tag text-xs">
-                <Link href={`/tags/${tag.slug}`}>
-                  <a className="text-white">{tag.name}</a>
-                </Link>
-              </span>
-            ))}
-          </div>
-        )}
+        <div className="text-xs text-orange font-semibold flex items-center justify-between py-4">
+          <span className="flex items-center">
+            <span className="flex items-center pr-8">
+              <img src={AccessTime} style={{ width: 15, height: 15 }} alt="read_time" />
+              &nbsp;{content.readTime} min.
+            </span>
+            {content.tags.length > 0 && (
+              <div className="my-4 md:my-0 flex flex-row flex-wrap">
+                {content.tags.map((tag) => (
+                  <span key={tag.name} className="text-xs pr-4">
+                    <Link href={`/tags/${tag.slug}`} passHref={true}>
+                      <Button className="text-orange">
+                        <span>#{tag.name}</span>
+                      </Button>
+                    </Link>
+                  </span>
+                ))}
+              </div>
+            )}
+          </span>
+        </div>
         <div
           dangerouslySetInnerHTML={createMarkup(content.content)}
           id="content"
