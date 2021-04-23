@@ -108,23 +108,25 @@ export default function Idea({ data, related, errorCode, meta }: Props) {
             style={{
               backgroundImage: `url("${Particles}")`,
               backgroundRepeat: 'no-repeat',
+              backgroundPosition: 'left top',
+              backgroundSize: 'contain',
             }}
-            className="bg-light-grey p-6 md:p-16 xl:px-32 shadow-none md:shadow-top"
+            className="bg-light-grey py-4 md:p-16 lg:px-32 xl:px-48"
           >
             <IdeaContent content={data} />
             {related && related.length > 0 && (
               <>
-                <div className="pb-12 mb-8 blue-underline">
-                  <h2 className="text-center">Ces idées peuvent vous interesser</h2>
+                <div className="py-8 mb-8">
+                  <h2 className="text-center">Ces posts peuvent vous interesser</h2>
 
                   <div className="md:max-w-md px-4 mt-8 mx-auto flex flex-col md:flex-row justify-center">
-                    {relatedIdeas.slice(0, 3)}
-                    {isOpenedMoreIdeas && relatedIdeas.slice(3)}
+                    {relatedIdeas.slice(0, 5)}
+                    {isOpenedMoreIdeas && relatedIdeas.slice(5)}
                   </div>
                   <Button
                     onClick={handleToggleMoreIdeas}
                     className={clsx(
-                      related.length < 4 ? 'hidden' : 'flex',
+                      related.length < 6 ? 'hidden' : 'flex',
                       'flex-row justify-center uppercase rounded-full bg-orange text-xss py-2 px-6 mt-8 text-white font-semibold mx-auto'
                     )}
                   >
@@ -154,6 +156,8 @@ export async function getServerSideProps({ query }: Context) {
   ])
   const authors = []
 
+  if (data._embedded.author[0].name) authors.push(data._embedded.author[0].name)
+
   if (!!data.acf || !!data.content) {
     const related = []
     if (!!data.acf) {
@@ -161,8 +165,6 @@ export async function getServerSideProps({ query }: Context) {
         const data2 = await getIdeaBySlug(idea.post_name)
         related.push(data2)
       }
-
-      if (data._embedded.author[0].name) authors.push(data._embedded.author[0].name)
 
       if (data.acf.co_author) {
         for (const auth of data.acf.co_author) {
