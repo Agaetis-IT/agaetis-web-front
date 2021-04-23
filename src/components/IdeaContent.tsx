@@ -15,7 +15,7 @@ import Facebook from '../static/icons/facebook.png'
 import { useRouter } from 'next/router'
 
 import './Common.css'
-import publicRuntimeConfig from '../config/env.config'
+import Placeholder from '../static/images/blog-post-placeholder.jpg'
 
 interface Props {
   content: IdeasContent
@@ -37,16 +37,14 @@ function formatAuthorList(authors: string[]) {
   return authors.map((author, i) => [
     i === 0 && 'Par ',
     i > 0 && i < authors.length - 1 && ', ',
-    i === authors.length - 1 && ' et ',
+    i === authors.length - 1 && authors.length > 1 && ' et ',
     formatAuthor(author),
   ])
 }
 
 function getBackgroundStyle(url: string) {
   return {
-    background: url
-      ? `url("${url}")`
-      : `url("${publicRuntimeConfig.NEXT_APP_SITE_URL}/static/images/blog-post-placeholder.jpg")`,
+    background: url ? `url("${url}")` : `url("${Placeholder}")`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
