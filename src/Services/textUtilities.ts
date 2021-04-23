@@ -18,3 +18,7 @@ export function slugify(s: string) {
     .replace(/^-+/, '') // Trim - from start of text
     .replace(/-+$/, '') // Trim - from end of text
 }
+
+export function formatPostAuthors(names: string[]) {
+  return names.join(', ').replace(/, (?=[^,]*$)/, ' et ')
+}
