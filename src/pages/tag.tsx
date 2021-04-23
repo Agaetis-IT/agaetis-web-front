@@ -9,10 +9,8 @@ import './tag.css'
 import CategoryTab from '../components/CategoryTab'
 import Link from 'next/link'
 import LoadingSpinner from '../components/LoadingSpinner'
-import clsx from 'clsx'
 import IdeasCard from '../components/IdeasCard'
-import { getBgColor } from '../Services/categoryColor'
-import { createMarkup, slugify } from '../Services/textUtilities'
+import { slugify } from '../Services/textUtilities'
 
 interface Props {
   articles: IdeasDesc[]
@@ -73,17 +71,8 @@ export default function Tag({ articles, categories, tag }: Props) {
 
     return source.map((idea) => {
       return (
-        <div key={idea.id} className={clsx(source.length > 2 ? 'sm:w-1/3' : 'sm:w-1/2', ' p-2')}>
-          <IdeasCard
-            className={clsx(
-              { 'shadow-xl hidden sm:block': idea.id < 0 },
-              { [getBgColor(idea.categories.filter((category) => !category.includes('_offer-'))[0])]: idea.id > 0 }
-            )}
-            {...idea}
-            categories={idea.categories.filter((category) => !category.includes('_offer-'))}
-          >
-            <p dangerouslySetInnerHTML={createMarkup(idea.descriptionText)} />
-          </IdeasCard>
+        <div key={idea.id} className="w-full m-2 mb-8 shadow-md hover:shadow-lg smooth-transition zoom-in">
+          <IdeasCard slug={idea.slug} title={idea.title} image={idea.image} description={idea.descriptionText} />
         </div>
       )
     })
