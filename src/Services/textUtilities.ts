@@ -20,15 +20,5 @@ export function slugify(s: string) {
 }
 
 export function formatPostAuthors(names: string[]) {
-  let res: string = names[0]
-
-  if (names.length > 1) {
-    for (let i = 1; i < names.length - 1; i++) {
-      res += ', ' + names[i]
-    }
-
-    res += ' & ' + names[names.length - 1]
-  }
-
-  return res
+  return names.join(', ').replace(/, (?=[^,]*$)/, ' et ')
 }
