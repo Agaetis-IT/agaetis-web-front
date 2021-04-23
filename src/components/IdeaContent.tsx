@@ -34,17 +34,18 @@ function formatAuthor(name: string) {
 }
 
 function formatAuthorList(authors: string[]) {
-  const res: JSX.Element[] = [<span key="by">Par </span>, formatAuthor(authors[0])]
-
-  if (authors.length > 1) {
-    for (let i = 1; i < authors.length - 1; i++) {
-      res.push(<span key={'comma' + i}>, </span>, formatAuthor(authors[i]))
-    }
-
-    res.push(<span key="and"> et </span>, formatAuthor(authors[authors.length - 1]))
-  }
-
-  return res
+  return authors.flatMap((author, index) => [
+    index !== 0 ? (
+      index === authors.length - 1 ? (
+        <span key="and"> et </span>
+      ) : (
+        <span key={'comma' + index}>, </span>
+      )
+    ) : (
+      <span key="by">Par </span>
+    ),
+    formatAuthor(author),
+  ])
 }
 
 function getBackgroundStyle(url: string) {

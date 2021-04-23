@@ -116,6 +116,8 @@ export default function Idea({ data, related, errorCode, meta }: Props) {
             style={{
               backgroundImage: `url("${Particles}")`,
               backgroundRepeat: 'no-repeat',
+              backgroundPosition: 'left top',
+              backgroundSize: 'contain',
             }}
             className="bg-light-grey py-4 md:p-16 lg:px-32 xl:px-48"
           >
