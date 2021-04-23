@@ -70,7 +70,7 @@ export default function Idea({ data, related, errorCode, meta }: Props) {
   const relatedIdeas = useMemo(() => {
     if (!!related) {
       return related.map((idea) => (
-        <div key={idea.id} className="md:w-1/3 px-2">
+        <div key={idea.id} className="w-full m-2 mb-8 shadow-md hover:shadow-lg smooth-transition zoom-in">
           <IdeasCard slug={idea.slug} title={idea.title} image={idea.image} description={idea.descriptionText} />
         </div>
       ))
@@ -116,10 +116,10 @@ export default function Idea({ data, related, errorCode, meta }: Props) {
             <IdeaContent content={data} />
             {related && related.length > 0 && (
               <>
-                <div className="py-8 mb-8">
+                <div className="py-8">
                   <h2 className="text-center">Ces posts peuvent vous interesser</h2>
 
-                  <div className="md:max-w-md px-4 mt-8 mx-auto flex flex-col md:flex-row justify-center">
+                  <div className="mt-8 flex flex-col md:flex-row justify-center">
                     {relatedIdeas.slice(0, 5)}
                     {isOpenedMoreIdeas && relatedIdeas.slice(5)}
                   </div>
