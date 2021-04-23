@@ -34,16 +34,10 @@ function formatAuthor(name: string) {
 }
 
 function formatAuthorList(authors: string[]) {
-  return authors.flatMap((author, index) => [
-    index !== 0 ? (
-      index === authors.length - 1 ? (
-        <span key="and"> et </span>
-      ) : (
-        <span key={'comma' + index}>, </span>
-      )
-    ) : (
-      <span key="by">Par </span>
-    ),
+  return authors.map((author, i) => [
+    i === 0 && 'Par ',
+    i > 0 && i < authors.length - 1 && ', ',
+    i === authors.length - 1 && ' et ',
     formatAuthor(author),
   ])
 }

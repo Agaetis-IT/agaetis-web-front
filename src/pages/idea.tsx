@@ -124,17 +124,17 @@ export default function Idea({ data, related, errorCode, meta }: Props) {
             <IdeaContent content={data} />
             {related && related.length > 0 && (
               <>
-                <div className="pb-12 mb-8 blue-underline">
-                  <h2 className="text-center">Ces idées peuvent vous interesser</h2>
+                <div className="py-8 mb-8">
+                  <h2 className="text-center">Ces posts peuvent vous interesser</h2>
 
                   <div className="md:max-w-md px-4 mt-8 mx-auto flex flex-col md:flex-row justify-center">
-                    {relatedIdeas.slice(0, 3)}
-                    {isOpenedMoreIdeas && relatedIdeas.slice(3)}
+                    {relatedIdeas.slice(0, 5)}
+                    {isOpenedMoreIdeas && relatedIdeas.slice(5)}
                   </div>
                   <Button
                     onClick={handleToggleMoreIdeas}
                     className={clsx(
-                      related.length < 4 ? 'hidden' : 'flex',
+                      related.length < 6 ? 'hidden' : 'flex',
                       'flex-row justify-center uppercase rounded-full bg-orange text-xss py-2 px-6 mt-8 text-white font-semibold mx-auto'
                     )}
                   >

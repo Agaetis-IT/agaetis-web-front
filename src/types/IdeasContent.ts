@@ -26,8 +26,6 @@ export interface Category {
 export interface IdeasPageContent {
   titre: string
   description: string
-  ideasimg1: string
-  ideasimg2: string
   white_paper_description: string
 }
 
