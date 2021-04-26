@@ -1,9 +1,10 @@
 import Link from 'next/link'
 import React from 'react'
 import { createMarkup } from '../Services/textUtilities'
-import publicRuntimeConfig from '../config/env.config'
+import Placeholder from '../static/images/blog-post-placeholder.jpg'
 
 import './IdeasCard.css'
+import './Common.css'
 
 interface Props {
   title: string
@@ -12,23 +13,15 @@ interface Props {
   image?: string
 }
 
-function getBackgroundStyle(image?: string) {
-  return {
-    background: image
-      ? `url("${image}")`
-      : `url("${publicRuntimeConfig.NEXT_APP_SITE_URL}/static/images/blog-post-placeholder.jpg")`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat',
-  }
-}
-
 export default function IdeasCard({ slug, title, image, description }: Props) {
   return (
     <Link href={`/${slug}`}>
-      <a className="text-black w-full">
-        <div className="bg-white sm:flex">
-          <div style={getBackgroundStyle(image)} className="w-full sm:w-3/10 h-ideas-lg"></div>
+      <a className="text-black">
+        <div className="bg-white sm:flex round8">
+          <img
+            src={image ? image : Placeholder}
+            className="w-full object-cover sm:w-3/10 h-ideas-lg round8top sm:round8left"
+          />
           <div className="py-6 px-8 h-ideas-lg w-full sm:w-7/10">
             <div className="h-1/3">
               <h3 dangerouslySetInnerHTML={createMarkup(title)} className="font-semibold text-xs md:text-base" />

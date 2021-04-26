@@ -14,8 +14,8 @@ import Linkedin from '../static/icons/linkedin.png'
 import Facebook from '../static/icons/facebook.png'
 import { useRouter } from 'next/router'
 
-import './Common.css'
-import publicRuntimeConfig from '../config/env.config'
+import './IdeaContent.css'
+import Placeholder from '../static/images/blog-post-placeholder.jpg'
 
 interface Props {
   content: IdeasContent
@@ -37,20 +37,9 @@ function formatAuthorList(authors: string[]) {
   return authors.map((author, i) => [
     i === 0 && 'Par ',
     i > 0 && i < authors.length - 1 && ', ',
-    i === authors.length - 1 && ' et ',
+    i === authors.length - 1 && authors.length > 1 && ' et ',
     formatAuthor(author),
   ])
-}
-
-function getBackgroundStyle(url: string) {
-  return {
-    background: url
-      ? `url("${url}")`
-      : `url("${publicRuntimeConfig.NEXT_APP_SITE_URL}/static/images/blog-post-placeholder.jpg")`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat',
-  }
 }
 
 function IdeaContent({ content }: Props) {
@@ -75,8 +64,11 @@ function IdeaContent({ content }: Props) {
           </Link>
         </div>
       </div>
-      <div className="pb-4 bg-white shadow-md">
-        <div style={getBackgroundStyle(content.imageUrl)} className="w-full h-24 md:h-48"></div>
+      <div className="pb-4 bg-white shadow-md md:round8">
+        <img
+          src={content.imageUrl ? content.imageUrl : Placeholder}
+          className="w-full h-80 md:h-128 md:round8top object-cover"
+        />
         <div className="px-4 md:px-8 text-xs text-orange font-semibold flex items-center justify-between py-4">
           <span className="flex items-center">
             <span className="pr-8">
