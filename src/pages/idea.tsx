@@ -23,6 +23,8 @@ import { footerSend } from '../Services/contactService'
 import ContactMessage from '../components/ContactMessage'
 import { formatPostAuthors } from '../Services/textUtilities'
 
+import '../components/Common.css'
+
 interface Props {
   data: IdeasContent
   related?: IdeasDesc[]
@@ -70,7 +72,7 @@ export default function Idea({ data, related, errorCode, meta }: Props) {
   const relatedIdeas = useMemo(() => {
     if (!!related) {
       return related.map((idea) => (
-        <div key={idea.id} className="w-full m-2 mb-8 shadow-md hover:shadow-lg smooth-transition zoom-in">
+        <div key={idea.id} className="m-2 mb-8 shadow-md hover:shadow-lg smooth-transition zoom-in round8">
           <IdeasCard slug={idea.slug} title={idea.title} image={idea.image} description={idea.descriptionText} />
         </div>
       ))
@@ -116,10 +118,10 @@ export default function Idea({ data, related, errorCode, meta }: Props) {
             <IdeaContent content={data} />
             {related && related.length > 0 && (
               <>
-                <div className="py-8">
+                <div className="p-8 md:py-8 md:px-0">
                   <h2 className="text-center">Ces posts peuvent vous interesser</h2>
 
-                  <div className="mt-8 flex flex-col md:flex-row justify-center">
+                  <div className="mt-8 flex flex-col">
                     {relatedIdeas.slice(0, 5)}
                     {isOpenedMoreIdeas && relatedIdeas.slice(5)}
                   </div>

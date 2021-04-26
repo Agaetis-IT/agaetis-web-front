@@ -14,7 +14,7 @@ import Linkedin from '../static/icons/linkedin.png'
 import Facebook from '../static/icons/facebook.png'
 import { useRouter } from 'next/router'
 
-import './Common.css'
+import './IdeaContent.css'
 import Placeholder from '../static/images/blog-post-placeholder.jpg'
 
 interface Props {
@@ -42,15 +42,6 @@ function formatAuthorList(authors: string[]) {
   ])
 }
 
-function getBackgroundStyle(url: string) {
-  return {
-    background: url ? `url("${url}")` : `url("${Placeholder}")`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat',
-  }
-}
-
 function IdeaContent({ content }: Props) {
   const router = useRouter()
 
@@ -73,8 +64,11 @@ function IdeaContent({ content }: Props) {
           </Link>
         </div>
       </div>
-      <div className="pb-4 bg-white shadow-md">
-        <div style={getBackgroundStyle(content.imageUrl)} className="w-full h-24 md:h-48"></div>
+      <div className="pb-4 bg-white shadow-md md:round8">
+        <img
+          src={content.imageUrl ? content.imageUrl : Placeholder}
+          className="w-full h-80 md:h-128 md:round8top object-cover"
+        />
         <div className="px-4 md:px-8 text-xs text-orange font-semibold flex items-center justify-between py-4">
           <span className="flex items-center">
             <span className="pr-8">
