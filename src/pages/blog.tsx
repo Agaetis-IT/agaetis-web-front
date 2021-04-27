@@ -35,6 +35,7 @@ export async function getServerSideProps() {
         .map((category: CategoryAPI) => ({ categoryId: category.id, categoryName: category.name }))
         .filter((category: Category) => !category.categoryName.includes('_offer-')),
       hideSeeMore: ideas.pageCount == 1,
+      tagFilter: null,
     },
   }
 }

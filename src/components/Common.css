@@ -104,3 +104,7 @@ textarea {
 .object-cover {
   object-fit: cover;
 }
+
+.w-inherit {
+  width: inherit;
+}

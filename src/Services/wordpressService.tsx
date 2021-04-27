@@ -120,28 +120,28 @@ export async function getIdeaBySlug(slug: string) {
   const { data } = await axios.get(`${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/agaetis/api/v1/posts/${slug}`)
   return data
 }
-// Remove ?per_page=9 after implementing new site style
+
 export async function getIdeasByPage(page?: number, search?: string) {
   const res = await axios.get(
-    `${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/agaetis/api/v1/posts?per_page=9${page ? `&page=${page}` : ''}${
+    `${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/agaetis/api/v1/posts?per_page=10${page ? `&page=${page}` : ''}${
       search ? `&search=${search}` : ''
     }`
   )
   return { data: res.data, pageCount: res.headers['x-wp-totalpages'] }
 }
 
-export async function getIdeasByTag(slug: string, page?: number, search?: string) {
+export async function getIdeasByTag(slug: string, category?: string, page?: number, search?: string) {
   const res = await axios.get(
-    `${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/agaetis/api/v1/tags/${slug}?per_page=9${
+    `${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/agaetis/api/v1/tags/${slug}?per_page=10${
       page ? `&page=${page}` : ''
-    }${search ? `&search=${search}` : ''}`
+    }${search ? `&search=${search}` : ''}${category ? `&cat_name=${category}` : ''}`
   )
   return { data: res.data, pageCount: res.headers['x-wp-totalpages'] }
 }
 
 export async function getIdeasByCategory(slug: string, page?: number, search?: string) {
   const res = await axios.get(
-    `${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/agaetis/api/v1/categories/${slug}?per_page=9${
+    `${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/agaetis/api/v1/categories/${slug}?per_page=10${
       page ? `&page=${page}` : ''
     }${search ? `&search=${search}` : ''}`
   )

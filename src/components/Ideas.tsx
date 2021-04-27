@@ -6,7 +6,7 @@ import Button from '../components/Button'
 import CategoryTab from '../components/CategoryTab'
 import Layout from '../components/Layout'
 import publicRuntimeConfig from '../config/env.config'
-import { getIdeasByCategory, getIdeasByPage } from '../Services/wordpressService'
+import { getIdeasByCategory, getIdeasByPage, getIdeasByTag } from '../Services/wordpressService'
 import { Category, IdeasDesc, IdeasPageContent, Response } from '../types/IdeasContent'
 import WhitePaper from '../types/WhitePaper'
 import IdeasCard from '../components/IdeasCard'
@@ -34,6 +34,7 @@ interface Props {
   whitePapers: WhitePaper[]
   errorCode?: number
   selectedCategory?: string
+  tagFilter?: string
   hideSeeMore?: boolean
 }
 
@@ -44,6 +45,7 @@ function Ideas({
   content,
   errorCode,
   selectedCategory,
+  tagFilter,
   hideSeeMore,
 }: Props) {
   const [isOpenenedModal, setOpenModal] = useState(false)
@@ -87,9 +89,17 @@ function Ideas({
     ).toLocaleLowerCase()
 
     if (catFilter != 'All') {
-      newData = await getIdeasByCategory(slugify(catFilter), page, searchBarFilter)
+      if (tagFilter) {
+        newData = await getIdeasByTag(tagFilter, slugify(catFilter), page, searchBarFilter)
+      } else {
+        newData = await getIdeasByCategory(slugify(catFilter), page, searchBarFilter)
+      }
     } else {
-      newData = await getIdeasByPage(page, searchBarFilter)
+      if (tagFilter) {
+        newData = await getIdeasByTag(tagFilter, undefined, page, searchBarFilter)
+      } else {
+        newData = await getIdeasByPage(page, searchBarFilter)
+      }
     }
 
     data = newData.data
@@ -118,7 +128,7 @@ function Ideas({
 
   function handleFilterChange(category: string) {
     setCategoryFilter(category)
-    window.history.replaceState({}, '', `/blog${category === 'All' ? '' : '/' + slugify(category)}`)
+    if (!tagFilter) window.history.replaceState({}, '', `/blog${category === 'All' ? '' : '/' + slugify(category)}`)
     handleFetchIdeas(true, category)
   }
 
@@ -127,7 +137,7 @@ function Ideas({
 
     return source.map((idea) => {
       return (
-        <div key={idea.id} className="m-2 mb-8 shadow-md hover:shadow-lg smooth-transition zoom-in round8">
+        <div key={idea.id} className="m-2 mb-8 shadow-md hover:shadow-lg smooth-transition zoom-in round8 w-inherit">
           <IdeasCard slug={idea.slug} title={idea.title} image={idea.image} description={idea.descriptionText} />
         </div>
       )
@@ -187,7 +197,9 @@ function Ideas({
             ) : (
               <div className="invisible">-</div>
             )}
-            <div className="flex flex-row flex-wrap mt-2">{cards.length ? cards : 'Aucun résultat'}</div>
+            <div className="flex flex-row flex-wrap mt-2 w-full justify-center">
+              {cards.length ? cards : 'Aucun résultat'}
+            </div>
             {isVisibleSeeMore && (
               <Button
                 className={clsx(
