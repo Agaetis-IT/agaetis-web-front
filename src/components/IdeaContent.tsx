@@ -7,7 +7,7 @@ import AccessTime from '../static/icons/access_time-24px.svg'
 import Back from '../static/icons/Btn_Retour.svg'
 import Link from 'next/link'
 import Button from './Button'
-import { createMarkup } from '../Services/textUtilities'
+import { createMarkup, slugify } from '../Services/textUtilities'
 
 import Twitter from '../static/icons/twitter.png'
 import Linkedin from '../static/icons/linkedin.png'
@@ -24,7 +24,7 @@ interface Props {
 function formatAuthor(name: string) {
   return (
     <span key={name}>
-      <Link href={'#'} /*author page route*/ passHref={true}>
+      <Link href={`/author/${slugify(name)}`} passHref={true}>
         <Button className="text-orange">
           <span>{name}</span>
         </Button>
