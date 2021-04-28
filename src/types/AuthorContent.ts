@@ -3,6 +3,12 @@ export interface AuthorPageContent {
   posts_description: string
 }
 
+export interface AuthorLink {
+  id: number
+  name: string
+  slug: string
+}
+
 export interface AuthorAPI {
   id: number
   name: string

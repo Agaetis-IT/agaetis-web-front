@@ -154,16 +154,16 @@ export async function getIdeasByCategory(slug: string, page?: number, search?: s
   return { data: res.data, pageCount: res.headers['x-wp-totalpages'] }
 }
 
-export async function getIdeasByAuthor(author: string, page?: number) {
+export async function getIdeasByAuthor(authorId: string, page?: number) {
   const res = await axios.get(
-    `${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/agaetis/api/v1/posts?per_page=10&author=${author}${
+    `${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/agaetis/api/v1/posts?per_page=10&author=${authorId}${
       page ? `&page=${page}` : ''
     }`
   )
   return { data: res.data, pageCount: res.headers['x-wp-totalpages'] }
 }
 
-export async function getAuthorById(id: number) {
+export async function getAuthorById(id: string) {
   const { data } = await axios.get(`${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/wp/v2/users/${id}`)
   return data
 }
