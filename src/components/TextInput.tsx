@@ -31,7 +31,7 @@ function TextInput({ name, label, className, wrapperClassName, type, required }:
         onChange={triggerValidation}
         className={className}
         required={required}
-      ></Component>
+      />
       {errors[name] && <p className="text-xs text-red text-center pt-2">{errors[name].message}</p>}
     </div>
   )

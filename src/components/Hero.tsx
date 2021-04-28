@@ -25,11 +25,11 @@ export default function Hero({ hero, valeurs, subtitle }: Props) {
         <div className=" flex justify-center">
           <div className="flex flex-col p-6 md:p-0 md:my-6 py-16 hero-text text-white w-full">
             <div className="pb-8 md:pb-16 text-center text-sm md:text-2xl">
-              <img src={Quote} id="quoteL"></img>
+              <img src={Quote} id="quoteL" />
               <p className="inline" id="hero-quote">
                 La data au service des hommes et du monde de demain !
               </p>
-              <img src={Quote} id="quoteR"></img>
+              <img src={Quote} id="quoteR" />
             </div>
 
             <div className="flex flex-col md:flex-row justify-center text-white hero-text-valeurs">

@@ -150,10 +150,10 @@ function Blog({ ideasDescription, whitePapers, categories, content, selectedCate
         >
           <div className="mx-1 md:mx-2">
             <div>
-              <h1 className="text-orange text-2xl font-bold" dangerouslySetInnerHTML={{ __html: content.titre }}></h1>
+              <h1 className="text-orange text-2xl font-bold" dangerouslySetInnerHTML={{ __html: content.titre }} />
               <p className="py-6 text-xl leading-normal my-8 font-medium">{content.description}</p>
             </div>
-            <SearchInput handleChange={handleSearchChanged}></SearchInput>
+            <SearchInput handleChange={handleSearchChanged} />
           </div>
           <CategoryTab
             categories={categories.filter(
@@ -226,9 +226,9 @@ function Blog({ ideasDescription, whitePapers, categories, content, selectedCate
           title="Un sujet vous intéresse ? Une question ? Contactez-nous"
           handleSubmit={handleSubmit}
           isSubmited={isSubmited}
-        ></ContactFormFooter>
-        {isOpenenedModal && <ContactMessage error={isError}></ContactMessage>}
-        <ContactSection></ContactSection>
+        />
+        {isOpenenedModal && <ContactMessage error={isError} />}
+        <ContactSection />
       </div>
     </Layout>
   )
