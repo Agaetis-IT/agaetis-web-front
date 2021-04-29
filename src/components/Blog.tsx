@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 
 import Button from '../components/Button'
 import CategoryTab from '../components/CategoryTab'
@@ -16,13 +16,16 @@ import { footerSend } from '../Services/contactService'
 import ContactFormFooter from '../components/ContactFormFooter'
 import ContactMessage from '../components/ContactMessage'
 import SearchInput from '../components/SearchInput'
+import Error from '../pages/_error'
 
-import _ from 'lodash'
+import { useDebouncedCallback } from 'use-debounce'
 import { slugify } from '../Services/textUtilities'
 import LoadingSpinner from './LoadingSpinner'
 import { PostAPI } from '../models/IdeasAPI'
 
 import './Common.css'
+import Head from 'next/head'
+import publicRuntimeConfig from '../config/env.config'
 
 interface Props {
   ideasDescription: IdeasDesc[]
@@ -32,9 +35,19 @@ interface Props {
   selectedCategory?: string
   tagFilter?: string
   hideSeeMore?: boolean
+  errorCode?: number
 }
 
-function Blog({ ideasDescription, whitePapers, categories, content, selectedCategory, tagFilter, hideSeeMore }: Props) {
+function Blog({
+  ideasDescription,
+  whitePapers,
+  categories,
+  content,
+  selectedCategory,
+  tagFilter,
+  hideSeeMore,
+  errorCode,
+}: Props) {
   const [isOpenenedModal, setOpenModal] = useState(false)
   const [isError, setIsError] = useState(true)
   const [isSubmited, setIsSubmited] = useState(false)
@@ -43,7 +56,7 @@ function Blog({ ideasDescription, whitePapers, categories, content, selectedCate
   const [categoryFilter, setCategoryFilter] = useState(selectedCategory || 'All')
   const [lastPage, setLastPage] = useState(1)
   const [isLoadingPosts, setIsLoadingPosts] = useState(false)
-  const [isVisibleSeeMore, setIsVisibleSeeMore] = useState(!hideSeeMore && true)
+  const [isVisibleSeeMore, setIsVisibleSeeMore] = useState(!hideSeeMore)
 
   function handleOpenModal(error: boolean) {
     setIsError(error)
@@ -119,6 +132,13 @@ function Blog({ ideasDescription, whitePapers, categories, content, selectedCate
     handleFetchIdeas(true, category)
   }
 
+  useEffect(() => {
+    setIdeas(ideasDescription)
+    setCategoryFilter('All')
+    setSearchFilter('')
+    setIsVisibleSeeMore(!hideSeeMore)
+  }, [ideasDescription])
+
   const cards = useMemo(() => {
     const source = ideas
 
@@ -129,108 +149,127 @@ function Blog({ ideasDescription, whitePapers, categories, content, selectedCate
         </div>
       )
     })
-  }, [ideas])
+  }, [ideas, tagFilter])
 
-  const handleSearchChanged = _.debounce((value: string) => {
+  const handleSearchChanged = useDebouncedCallback((value: string) => {
+    console.log('debounce')
     setSearchFilter(value)
     handleFetchIdeas(true, undefined, value)
-  }, 400)
+  }, 600)
+
+  if (!!errorCode) {
+    return <Error statusCode={404} />
+  }
 
   return (
-    <Layout invertColors={false}>
-      <div className="pt-0 md:pt-28">
-        <div
-          style={{
-            backgroundImage: `url("${Particles}")`,
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'left top',
-            backgroundSize: 'contain',
-          }}
-          className="p-6 md:p-16 lg:px-32 xl:px-48 bg-light-grey"
-        >
-          <div className="mx-1 md:mx-2">
-            <div>
-              <h1 className="text-orange text-2xl font-bold" dangerouslySetInnerHTML={{ __html: content.titre }} />
-              <p className="py-6 text-xl leading-normal my-8 font-medium">{content.description}</p>
-            </div>
-            <SearchInput handleChange={handleSearchChanged} />
-          </div>
-          <CategoryTab
-            categories={categories.filter(
-              (category) => category.categoryName !== 'Jobs' && category.categoryName !== 'White-paper'
-            )}
-            categoryFilter={categoryFilter}
-            handleFilterChange={handleFilterChange}
-          />
-          {isLoadingPosts ? (
-            <div className="flex flex-row justify-center">
-              <LoadingSpinner color="#ff7f40" size={18} />
-              Chargement
-            </div>
-          ) : (
-            <div className="invisible">-</div>
-          )}
-          <div className="flex flex-row flex-wrap mt-2 w-full justify-center">
-            {cards.length ? cards : 'Aucun résultat'}
-          </div>
-          {isVisibleSeeMore && (
-            <Button
-              className={clsx(
-                'flex flex-row justify-center uppercase rounded-full bg-orange text-xss py-2 px-6 text-white font-semibold mx-auto see-more shadow-md',
-                { 'mb-8': whitePapers.length < 2 }
-              )}
-              onClick={() => handleFetchIdeas()}
-            >
-              {isLoadingPosts ? (
-                <div className="flex flex-row justify-center">
-                  <LoadingSpinner color="#ffffff" size={12} />
-                  Chargement
-                </div>
-              ) : (
-                'Voir plus'
-              )}
-            </Button>
-          )}
-
-          {false && whitePapers && whitePapers.length > 0 && (
-            <div id="whitepapers" className="text-center w-full mx-auto p-6 md:py-12 bg-light-grey my-8 blue-underline">
-              <h2 className="text-2xl mt-4">Livres blancs</h2>
-              <p className="text-sm md:max-w-md md:px-20 py-4 mx-auto leading-normal">
-                {content.white_paper_description}
-              </p>
-              <div className="my-4 md:my-8 flex flex-col md:flex-row justify-center md:max-w-md mx-auto">
-                {whitePapers.map((whitePaper) => (
-                  <div key={whitePaper.title} className="mb-4 md:m-0">
-                    <div
-                      style={{
-                        background: whitePaper.miniature ? 'url(' + whitePaper.miniature + ')' : '#333F48',
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center',
-                        backgroundRepeat: 'no-repeat',
-                      }}
-                      className="shadow-xl md:w-ideas h-40 md:h-32 mx-auto"
-                    />
-                    <h3 className="text-sm px-3 py-4">{whitePaper.title}</h3>
-                    <Link href={`/white-papers/${whitePaper.slug}`}>
-                      <Button className="rounded-full uppercase text-white text-xss md:text-cgu font-semibold bg-orange px-8 py-3 md:px-6 md:py-2">
-                        Télécharger
-                      </Button>
-                    </Link>
-                  </div>
-                ))}
+    <>
+      <Head>
+        <title>Agaetis : nos idées</title>
+        <meta property="og:title" content="Agaetis : nos idées" />
+        <meta property="og:image" content={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/favicon.ico`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:description" content="Chacun d'entre nous a ses idées et le droit de les défendre" />
+        <meta name="description" content="Chacun d'entre nous a ses idées et le droit de les défendre" />
+        <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/blog`} />
+      </Head>
+      <Layout invertColors={false}>
+        <div className="pt-0 md:pt-28">
+          <div
+            style={{
+              backgroundImage: `url("${Particles}")`,
+              backgroundRepeat: 'no-repeat',
+              backgroundPosition: 'left top',
+              backgroundSize: 'contain',
+            }}
+            className="p-6 md:p-16 lg:px-32 xl:px-48 bg-light-grey"
+          >
+            <div className="mx-1 md:mx-2">
+              <div>
+                <h1 className="text-orange text-2xl font-bold" dangerouslySetInnerHTML={{ __html: content.titre }} />
+                <p className="py-6 text-xl leading-normal my-8 font-medium">{content.description}</p>
               </div>
+              <SearchInput handleChange={handleSearchChanged} defaultValue={searchFilter} />
             </div>
-          )}
+            <CategoryTab
+              categories={categories.filter(
+                (category) => category.categoryName !== 'Jobs' && category.categoryName !== 'White-paper'
+              )}
+              categoryFilter={categoryFilter}
+              handleFilterChange={handleFilterChange}
+            />
+            {isLoadingPosts ? (
+              <div className="flex flex-row justify-center">
+                <LoadingSpinner color="#ff7f40" size={18} />
+                Chargement
+              </div>
+            ) : (
+              <div className="invisible">-</div>
+            )}
+            <div className="flex flex-row flex-wrap mt-2 w-full justify-center">
+              {cards.length ? cards : 'Aucun résultat'}
+            </div>
+            {isVisibleSeeMore && (
+              <Button
+                className={clsx(
+                  'flex flex-row justify-center uppercase rounded-full bg-orange text-xss py-2 px-6 text-white font-semibold mx-auto see-more shadow-md',
+                  { 'mb-8': whitePapers.length < 2 }
+                )}
+                onClick={() => handleFetchIdeas()}
+              >
+                {isLoadingPosts ? (
+                  <div className="flex flex-row justify-center">
+                    <LoadingSpinner color="#ffffff" size={12} />
+                    Chargement
+                  </div>
+                ) : (
+                  'Voir plus'
+                )}
+              </Button>
+            )}
+
+            {false && whitePapers && whitePapers.length > 0 && (
+              <div
+                id="whitepapers"
+                className="text-center w-full mx-auto p-6 md:py-12 bg-light-grey my-8 blue-underline"
+              >
+                <h2 className="text-2xl mt-4">Livres blancs</h2>
+                <p className="text-sm md:max-w-md md:px-20 py-4 mx-auto leading-normal">
+                  {content.white_paper_description}
+                </p>
+                <div className="my-4 md:my-8 flex flex-col md:flex-row justify-center md:max-w-md mx-auto">
+                  {whitePapers.map((whitePaper) => (
+                    <div key={whitePaper.title} className="mb-4 md:m-0">
+                      <div
+                        style={{
+                          background: whitePaper.miniature ? 'url(' + whitePaper.miniature + ')' : '#333F48',
+                          backgroundSize: 'cover',
+                          backgroundPosition: 'center',
+                          backgroundRepeat: 'no-repeat',
+                        }}
+                        className="shadow-xl md:w-ideas h-40 md:h-32 mx-auto"
+                      />
+                      <h3 className="text-sm px-3 py-4">{whitePaper.title}</h3>
+                      <Link href={`/white-papers/${whitePaper.slug}`}>
+                        <Button className="rounded-full uppercase text-white text-xss md:text-cgu font-semibold bg-orange px-8 py-3 md:px-6 md:py-2">
+                          Télécharger
+                        </Button>
+                      </Link>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+          <ContactFormFooter
+            title="Un sujet vous intéresse ? Une question ? Contactez-nous"
+            handleSubmit={handleSubmit}
+            isSubmited={isSubmited}
+          />
+          {isOpenenedModal && <ContactMessage error={isError} />}
+          <ContactSection />
         </div>
-        <ContactFormFooter
-          title="Un sujet vous intéresse ? Une question ? Contactez-nous"
-          handleSubmit={handleSubmit}
-          isSubmited={isSubmited}
-        />
-        {isOpenenedModal && <ContactMessage error={isError} />}
-        <ContactSection />
-      </div>
-    </Layout>
+      </Layout>
+    </>
   )
 }
 
