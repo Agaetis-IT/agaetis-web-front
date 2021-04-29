@@ -163,7 +163,6 @@ export async function getServerSideProps({ query }: Context) {
     authors.push({
       id: data._embedded.author[0].id,
       name: data._embedded.author[0].name,
-      slug: data._embedded.author[0].slug,
     })
 
   if (!!data.acf || !!data.content) {
@@ -179,7 +178,6 @@ export async function getServerSideProps({ query }: Context) {
           authors.push({
             id: auth.ID,
             name: auth.data.display_name,
-            slug: auth.data.user_nicename,
           })
         }
       }

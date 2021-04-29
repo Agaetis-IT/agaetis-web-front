@@ -6,7 +6,6 @@ export interface AuthorPageContent {
 export interface AuthorLink {
   id: number
   name: string
-  slug: string
 }
 
 export interface AuthorAPI {
@@ -14,17 +13,13 @@ export interface AuthorAPI {
   name: string
   url: string
   description: string
-  slug: string
   avatar_urls: {
-    '24': string
-    '48': string
     '96': string
   }
 }
 
 export interface AuthorDescription {
   id: number
-  slug: string
   name: string
   descriptionText: string
   avatar?: string

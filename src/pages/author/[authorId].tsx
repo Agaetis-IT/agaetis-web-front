@@ -24,14 +24,14 @@ interface Props {
   author: AuthorDescription
   content: AuthorPageContent
   errorCode?: number
-  hideSeeMore?: boolean
+  hasMore: boolean
 }
 
-export default function author({ ideasDescription, author, content, errorCode, hideSeeMore }: Props) {
+export default function author({ ideasDescription, author, content, errorCode, hasMore }: Props) {
   const [ideas, setIdeas] = useState(ideasDescription)
   const [lastPage, setLastPage] = useState(1)
   const [isLoadingPosts, setIsLoadingPosts] = useState(false)
-  const [isVisibleSeeMore, setIsVisibleSeeMore] = useState(!hideSeeMore && true)
+  const [isVisibleSeeMore, setIsVisibleSeeMore] = useState(hasMore)
 
   async function handleFetchIdeas() {
     setIsLoadingPosts(true)
@@ -39,34 +39,30 @@ export default function author({ ideasDescription, author, content, errorCode, h
     let data: IdeasDesc[] = []
     const newData: Response = await getIdeasByAuthor(author.id.toString(), page)
 
-    data = newData.data
-      .map((idea: PostAPI) => ({
-        id: idea.id,
-        title: idea.title.rendered,
-        categories: idea._embedded['wp:term'][0].map((category: { name: string }) => category.name),
-        tags: [],
-        slug: idea.slug,
-        descriptionText: idea.acf.idea_description,
-        date: idea.date,
-        image: idea.acf.idea_image,
-      }))
-      .filter((idea) => !idea.categories.includes('White-paper') && !idea.categories.includes('Jobs'))
+    if (newData) {
+      data = newData.data
+        .map((idea: PostAPI) => ({
+          id: idea.id,
+          title: idea.title.rendered,
+          categories: idea._embedded['wp:term'][0].map((category: { name: string }) => category.name),
+          tags: [],
+          slug: idea.slug,
+          descriptionText: idea.acf.idea_description,
+          date: idea.date,
+          image: idea.acf.idea_image,
+        }))
+        .filter((idea) => !idea.categories.includes('White-paper') && !idea.categories.includes('Jobs'))
 
-    if (newData.pageCount > page) {
-      setIsVisibleSeeMore(true)
-    } else {
-      setIsVisibleSeeMore(false)
+      setIsVisibleSeeMore(newData.pageCount > page)
+      setLastPage(page)
+      setIdeas(ideas.concat(data))
     }
 
-    setLastPage(page)
-    setIdeas(ideas.concat(data))
     setIsLoadingPosts(false)
   }
 
   const cards = useMemo(() => {
-    const source = ideas
-
-    return source.map((idea) => {
+    return ideas.map((idea) => {
       return (
         <div key={idea.id} className="m-2 mb-8 shadow-md hover:shadow-lg smooth-transition zoom-in round8">
           <IdeasCard slug={idea.slug} title={idea.title} image={idea.image} description={idea.descriptionText} />
@@ -82,13 +78,13 @@ export default function author({ ideasDescription, author, content, errorCode, h
   return (
     <>
       <Head>
-        <title>Agaetis : articles de {'auteur'}</title>
-        <meta property="og:title" content={`Agaetis : articles de ${'auteur'}`} />
+        <title>Agaetis : articles de {author.name}</title>
+        <meta property="og:title" content={`Agaetis : articles de ${author.name}`} />
         <meta property="og:image" content={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/favicon.ico`} />
         <meta property="og:type" content="website" />
-        <meta property="og:description" content="Chacun d'entre nous a ses idées et le droit de les défendre" />
-        <meta name="description" content="Chacun d'entre nous a ses idées et le droit de les défendre" />
-        <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/author/${author.slug}`} />
+        <meta property="og:description" content={`Découvrez tous les articles de ${author.name}`} />
+        <meta name="description" content={`Découvrez tous les articles de ${author.name}`} />
+        <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/author/${author.id}`} />
       </Head>
       <Layout invertColors={false}>
         <div className="pt-0 md:pt-28">
@@ -139,7 +135,7 @@ export default function author({ ideasDescription, author, content, errorCode, h
               </Button>
             )}
           </div>
-          <ContactSection></ContactSection>
+          <ContactSection />
         </div>
       </Layout>
     </>
@@ -170,7 +166,6 @@ export async function getServerSideProps({ query }: Context) {
       })),
       author: {
         id: author.id,
-        slug: author.slug,
         name: author.name,
         descriptionText: author.description,
         avatar: author.avatar_urls['96'],
@@ -178,7 +173,7 @@ export async function getServerSideProps({ query }: Context) {
       },
       content,
       errorCode: author === undefined,
-      hideSeeMore: posts.pageCount <= 1,
+      hasMore: posts.pageCount > 1,
     },
   }
 }
