@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import IdeasContent from '../types/IdeasContent'
 
@@ -44,6 +44,22 @@ function formatAuthorList(authors: string[]) {
 
 function IdeaContent({ content }: Props) {
   const router = useRouter()
+
+  const handleAnchorClick = (e) => {
+    e.stopPropagation()
+    e.preventDefault()
+    document.getElementsByName(e.target.href.split('#')[1])[0].scrollIntoView({ block: 'center', behavior: 'smooth' })
+  }
+
+  useEffect(() => {
+    for (const anchor of document.getElementById('content').getElementsByTagName('a'))
+      if (anchor.href.includes(router.asPath + '#')) anchor.addEventListener('click', handleAnchorClick)
+
+    return () => {
+      for (const anchor of document.getElementById('content').getElementsByTagName('a'))
+        if (anchor.href.includes(router.asPath + '#')) anchor.removeEventListener('click', handleAnchorClick)
+    }
+  }, [])
 
   return (
     <div className="md:mx-2">
