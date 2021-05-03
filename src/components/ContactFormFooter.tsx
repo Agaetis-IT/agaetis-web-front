@@ -1,8 +1,9 @@
 import { FormProvider, useForm } from 'react-hook-form'
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 
 import Button from './Button'
 import TextInput from './TextInput'
+import CheckBox from './CheckBox'
 import { footerContactSchema, FooterFormInput } from '../yup/ContactFormValidation'
 import { yupResolver } from '@hookform/resolvers/yup'
 import clsx from 'clsx'
@@ -12,6 +13,8 @@ import Facebook from '../static/icons/facebook.png'
 import Particles from '../static/images/particles-3-mirror.svg'
 
 import './Common.css'
+import ReCAPTCHA from 'react-google-recaptcha'
+import publicRuntimeConfig from '../config/env.config'
 
 interface Props {
   handleSubmit: (formValues: FooterFormInput) => void
@@ -20,6 +23,7 @@ interface Props {
 }
 
 export default function ContactFormFooter({ title, handleSubmit, isSubmited }: Props) {
+  const recaptchaRef = useRef<ReCAPTCHA>(null)
   const { register, watch, control, clearErrors, ...otherFormProps } = useForm<FooterFormInput>({
     mode: 'onBlur',
     resolver: yupResolver(footerContactSchema),
@@ -93,6 +97,13 @@ export default function ContactFormFooter({ title, handleSubmit, isSubmited }: P
               label="Téléphone"
               type="input"
             ></TextInput>
+            <TextInput
+              wrapperClassName="w-full md:w-1/5 mt-8 md:mt-0"
+              className="appearance-none rounded-full  text-xs p-3 shadow-md text-orange font-semibold leading-tight"
+              name="company"
+              label="Société"
+              type="input"
+            />
           </div>
           <TextInput
             wrapperClassName="my-8"
@@ -108,6 +119,17 @@ export default function ContactFormFooter({ title, handleSubmit, isSubmited }: P
             label="Détails de votre demande"
             type="textarea"
           ></TextInput>
+          <CheckBox
+            wrapperClassName="my-8"
+            boxClassName="shadow-md"
+            labelClassName="text-xs text-orange font-semibold leading-tight text-justify"
+            name="cgu"
+            label="En soumettant ce formulaire et conformément à la politique de traitement des données personnelles, j'accepte
+            que les informations saisies soient exploitées afin d'être contacté par les équipes d'Agaetis."
+          />
+          <div className="flex flex-row justify-center">
+            <ReCAPTCHA ref={recaptchaRef} size="normal" sitekey={publicRuntimeConfig.NEXT_APP_RECAPTCHA_KEY} />
+          </div>
 
           <Button
             className="block px-8 py-2 leading-none rounded-full uppercase mx-auto mt-4 md:mt-8 bg-orange text-white text-xs font-semibold shadow-md"

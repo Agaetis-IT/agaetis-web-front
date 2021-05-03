@@ -5,8 +5,10 @@ export interface FooterFormInput {
   lastname: string
   mail: string
   phone: string
+  company: string
   subject: string
   message: string
+  cgu: boolean
 }
 
 export const footerContactSchema = Yup.object().shape({
@@ -21,4 +23,10 @@ export const footerContactSchema = Yup.object().shape({
     .required(),
   subject: Yup.string().required(),
   message: Yup.string().required(),
+  cgu: Yup.boolean()
+    .required()
+    .oneOf(
+      [true],
+      'Vous devez accepter la politique de traitement des données personnelles pour soumettre ce formulaire'
+    ),
 })
