@@ -140,9 +140,7 @@ function Blog({
   }, [ideasDescription])
 
   const cards = useMemo(() => {
-    const source = ideas
-
-    return source.map((idea) => {
+    return ideas.map((idea) => {
       return (
         <div key={idea.id} className="m-2 mb-8 shadow-md hover:shadow-lg smooth-transition zoom-in round8 w-inherit">
           <IdeasCard slug={idea.slug} title={idea.title} image={idea.image} description={idea.descriptionText} />
@@ -152,7 +150,6 @@ function Blog({
   }, [ideas, tagFilter])
 
   const handleSearchChanged = useDebouncedCallback((value: string) => {
-    console.log('debounce')
     setSearchFilter(value)
     handleFetchIdeas(true, undefined, value)
   }, 600)

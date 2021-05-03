@@ -16,7 +16,6 @@ export default function SearchInput({ handleChange, defaultValue }: Props) {
 
   useEffect(() => {
     setValue(defaultValue)
-    console.log('useeff')
   }, [defaultValue])
 
   return (
