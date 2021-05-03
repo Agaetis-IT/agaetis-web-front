@@ -52,7 +52,7 @@ export default function offers({ pageContent, allOffers }: Props) {
   async function handleSubmit(data: FooterFormInput) {
     try {
       setIsSubmited(true)
-      await footerSend(data.firstname, data.lastname, data.mail, data.message, data.phone, new Date())
+      await footerSend(data.firstname, data.lastname, data.mail, data.subject, data.message, data.phone, new Date())
       handleOpenModal(false)
     } catch {
       handleOpenModal(true)
@@ -148,7 +148,7 @@ export default function offers({ pageContent, allOffers }: Props) {
             </div>
           </div>
           <ContactFormFooter
-            title="Une question, un café, un thé ? Contactez-nous"
+            title="Une question ? Contactez-nous !"
             handleSubmit={handleSubmit}
             isSubmited={isSubmited}
           />

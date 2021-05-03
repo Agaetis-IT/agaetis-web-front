@@ -3,6 +3,7 @@ import { Request, Response } from 'express'
 
 const axios = require('axios')
 const bodyParser = require('body-parser')
+const cors = require('cors')
 const express = require('express')
 const { google } = require('googleapis')
 const sha = require('js-sha256')
@@ -43,6 +44,7 @@ app
     )
     server.use(bodyParser.urlencoded({ extended: true }))
     server.use(bodyParser.json())
+    server.use(cors())
 
     server.get(/sitemap[a-zA-Z-0-9\/\-_]*.xml/, async (req: Request, res: Response) => {
       const { data } = await axios.get(`${process.env.NEXT_APP_BASE_URL}${req.url}`)
@@ -191,7 +193,7 @@ app
 
       const message = {
         from: process.env.NEXT_APP_MAIL_ADDRESS,
-        to: 'benoit.munoz@agaetis.fr',
+        to: 'cedric.klodzinski@agaetis.fr',
         subject: `Prise de contact site web ${req.body.firstname} ${req.body.lastname}`,
         html: req.body.content,
       }

@@ -96,6 +96,13 @@ export default function ContactFormFooter({ title, handleSubmit, isSubmited }: P
           </div>
           <TextInput
             wrapperClassName="my-8"
+            className="appearance-none rounded-full text-xs p-3 shadow-md text-orange font-semibold leading-tight"
+            name="subject"
+            label="Sujet de votre demande"
+            type="input"
+          ></TextInput>
+          <TextInput
+            wrapperClassName="my-8"
             className="appearance-none w-full text-xs p-4 shadow-md text-orange font-semibold leading-tight message-textarea"
             name="message"
             label="Détails de votre demande"

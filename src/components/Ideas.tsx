@@ -68,7 +68,7 @@ function Ideas({
   async function handleSubmit(data: FooterFormInput) {
     try {
       setIsSubmited(true)
-      await footerSend(data.firstname, data.lastname, data.mail, data.message, data.phone, new Date())
+      await footerSend(data.firstname, data.lastname, data.mail, data.subject, data.message, data.phone, new Date())
       handleOpenModal(false)
     } catch {
       handleOpenModal(true)
@@ -241,7 +241,7 @@ function Ideas({
             )}
           </div>
           <ContactFormFooter
-            title="Un sujet vous intéresse ? Une question ? Contactez-nous"
+            title="Un sujet vous intéresse ? Une question ? Contactez-nous !"
             handleSubmit={handleSubmit}
             isSubmited={isSubmited}
           ></ContactFormFooter>

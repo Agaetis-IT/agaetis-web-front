@@ -3,8 +3,8 @@ import sha256 from 'js-sha256'
 
 import publicRuntimeConfig from '../config/env.config'
 
-const formatContent = (content: string, name: string, mail: string, phone: string, company?: string) =>
-  `<html><body><p>${content}</p><h3>Contact</h3><p>${name}</p><p>${mail}</p><p>${phone}</p><p>${
+const formatContent = (subject: string, content: string, name: string, mail: string, phone: string, company?: string) =>
+  `<html><body><h2>${subject}</h2><p>${content}</p><h3>Contact</h3><p>${name}</p><p>${mail}</p><p>${phone}</p><p>${
     company ? company : ''
   }</p></body></html>`
 
@@ -90,6 +90,7 @@ export async function footerSend(
   firstname: string,
   lastname: string,
   mail: string,
+  subject: string,
   message: string,
   phone: string,
   date: Date
@@ -99,7 +100,7 @@ export async function footerSend(
       lastname +
       publicRuntimeConfig.NEXT_APP_CONTACT_SALT +
       mail +
-      formatContent(message, `${firstname} ${lastname}`, mail, phone) +
+      formatContent(subject, message, `${firstname} ${lastname}`, mail, phone) +
       date.getTime(),
     'base64'
   )
@@ -112,7 +113,8 @@ export async function footerSend(
       firstname,
       lastname,
       mail,
-      content: formatContent(message, `${firstname} ${lastname}`, mail, phone),
+      subject,
+      content: formatContent(subject, message, `${firstname} ${lastname}`, mail, phone),
       date: date.getTime(),
       hash: sha256.sha256(key),
     },

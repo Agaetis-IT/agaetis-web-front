@@ -54,7 +54,7 @@ export default function Idea({ data, related, errorCode, meta }: Props) {
   async function handleSubmit(data: FooterFormInput) {
     try {
       setIsSubmited(true)
-      await footerSend(data.firstname, data.lastname, data.mail, data.message, data.phone, new Date())
+      await footerSend(data.firstname, data.lastname, data.mail, data.subject, data.message, data.phone, new Date())
       handleOpenModal(false)
     } catch {
       handleOpenModal(true)
@@ -139,7 +139,7 @@ export default function Idea({ data, related, errorCode, meta }: Props) {
             )}
           </div>
           <ContactFormFooter
-            title="Un sujet vous intéresse ? Une question ? Contactez-nous"
+            title="Un sujet vous intéresse ? Une question ? Contactez-nous !"
             handleSubmit={handleSubmit}
             isSubmited={isSubmited}
           ></ContactFormFooter>
