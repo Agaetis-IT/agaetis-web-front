@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import IdeasContent from '../types/IdeasContent'
 
@@ -44,6 +44,7 @@ function formatAuthorList(authors: string[]) {
 
 function IdeaContent({ content }: Props) {
   const router = useRouter()
+  const [location, setLocation] = useState('')
 
   const handleAnchorClick = (e: MouseEvent) => {
     e.stopPropagation()
@@ -55,24 +56,27 @@ function IdeaContent({ content }: Props) {
         .scrollIntoView({ block: 'center', behavior: 'smooth' })
   }
 
-  useEffect(() => {
-    if (router.asPath.includes('#')) {
+  const setAnchorHandlers = () => {
+    if (router.asPath.includes('#'))
       document.getElementsByName(router.asPath.split('#')[1])[0].scrollIntoView({ block: 'center' })
-      window.history.replaceState({}, '', router.asPath.split('#')[0])
-    }
 
     const contentTag: HTMLElement | null = document.getElementById('content')
 
-    if (!contentTag) return
-
-    for (const anchor of Array.from(contentTag.getElementsByTagName('a')))
-      if (anchor.href.includes(router.asPath.split('#')[0] + '#')) anchor.addEventListener('click', handleAnchorClick)
-
-    return () => {
+    if (contentTag) {
       for (const anchor of Array.from(contentTag.getElementsByTagName('a')))
-        if (anchor.href.includes(router.asPath.split('#')[0] + '#'))
-          anchor.removeEventListener('click', handleAnchorClick)
+        if (anchor.href.includes(router.asPath.split('#')[0] + '#')) anchor.addEventListener('click', handleAnchorClick)
+
+      return () => {
+        for (const anchor of Array.from(contentTag.getElementsByTagName('a')))
+          if (anchor.href.includes(router.asPath.split('#')[0] + '#'))
+            anchor.removeEventListener('click', handleAnchorClick)
+      }
     }
+  }
+
+  useEffect(() => {
+    setLocation(window.location.href)
+    return setAnchorHandlers()
   }, [])
 
   return (
@@ -111,19 +115,19 @@ function IdeaContent({ content }: Props) {
           </span>
           <div className="flex flex-row items-center">
             <Button
-              href={`https://www.facebook.com/sharer/sharer.php?u=www.agaetis.fr${router.asPath.split('#')[0]}`}
+              href={`https://www.facebook.com/sharer/sharer.php?u=${location.split('#')[0]}`}
               className="w-6 h-6 mr-4 self-center shadow-sm hover:shadow-md bg-white rounded-full smooth-transition p-1"
             >
               <img src={Facebook} className="w-4 h-4" />
             </Button>
             <Button
-              href={`https://www.linkedin.com/shareArticle?mini=true&url=www.agaetis.fr${router.asPath.split('#')[0]}`}
+              href={`https://www.linkedin.com/shareArticle?mini=true&url=${location.split('#')[0]}`}
               className="w-6 h-6 mr-4 shadow-sm hover:shadow-md bg-white rounded-full smooth-transition p-1"
             >
               <img src={Linkedin} className="w-4 h-4" />
             </Button>
             <Button
-              href={`https://twitter.com/intent/tweet?text=www.agaetis.fr${router.asPath.split('#')[0]}`}
+              href={`https://twitter.com/intent/tweet?text=${location.split('#')[0]}`}
               className="w-6 h-6 shadow-sm hover:shadow-md bg-white rounded-full smooth-transition p-1"
             >
               <img src={Twitter} className="w-4 h-4" />
