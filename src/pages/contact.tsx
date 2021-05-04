@@ -12,7 +12,7 @@ import ContactSection from '../components/ContactSection'
 import ContactFormFooter from '../components/ContactFormFooter'
 import ContactMessage from '../components/ContactMessage'
 import { FooterFormInput } from '../yup/ContactFormValidation'
-import { footerSend } from '../Services/contactService'
+import send from '../Services/contactService'
 
 interface Props {
   pageContent: ContactContent
@@ -35,7 +35,16 @@ export default function contact({ pageContent }: Props) {
   async function handleSubmit(data: FooterFormInput) {
     try {
       setIsSubmited(true)
-      await footerSend(data.firstname, data.lastname, data.mail, data.subject, data.message, data.phone, new Date())
+      await send(
+        data.firstname,
+        data.lastname,
+        data.mail,
+        data.subject,
+        data.message,
+        data.phone,
+        new Date(),
+        data.captcha
+      )
       handleOpenModal(false)
     } catch {
       handleOpenModal(true)
@@ -66,9 +75,6 @@ export default function contact({ pageContent }: Props) {
               dangerouslySetInnerHTML={{ __html: pageContent.paragraph }}
             />
           </div>
-          {/*<div className="md:max-w-lg mx-auto p-0 md:px-4 mb-8">
-            <ContactTab />
-          </div>*/}
           <ContactFormFooter title="Contact" handleSubmit={handleSubmit} isSubmited={isSubmited} />
           {isOpenenedModal && <ContactMessage error={isError} />}
           <ContactSection></ContactSection>

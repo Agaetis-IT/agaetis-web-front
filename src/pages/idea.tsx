@@ -19,7 +19,7 @@ import { escape } from 'querystring'
 import ContactSection from '../components/ContactSection'
 import ContactFormFooter from '../components/ContactFormFooter'
 import { FooterFormInput } from '../yup/ContactFormValidation'
-import { footerSend } from '../Services/contactService'
+import send from '../Services/contactService'
 import ContactMessage from '../components/ContactMessage'
 import { formatPostAuthors } from '../Services/textUtilities'
 
@@ -54,7 +54,16 @@ export default function Idea({ data, related, errorCode, meta }: Props) {
   async function handleSubmit(data: FooterFormInput) {
     try {
       setIsSubmited(true)
-      await footerSend(data.firstname, data.lastname, data.mail, data.subject, data.message, data.phone, new Date())
+      await send(
+        data.firstname,
+        data.lastname,
+        data.mail,
+        data.subject,
+        data.message,
+        data.phone,
+        new Date(),
+        data.captcha
+      )
       handleOpenModal(false)
     } catch {
       handleOpenModal(true)

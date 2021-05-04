@@ -29,6 +29,10 @@ export default function ContactFormFooter({ title, handleSubmit, isSubmited }: P
     resolver: yupResolver(footerContactSchema),
   })
 
+  const onCaptchaChange = (value) => {
+    otherFormProps.setValue('captcha', value, { shouldValidate: true })
+  }
+
   useEffect(() => {
     clearErrors()
   }, [clearErrors])
@@ -97,13 +101,6 @@ export default function ContactFormFooter({ title, handleSubmit, isSubmited }: P
               label="Téléphone"
               type="input"
             ></TextInput>
-            <TextInput
-              wrapperClassName="w-full md:w-1/5 mt-8 md:mt-0"
-              className="appearance-none rounded-full  text-xs p-3 shadow-md text-orange font-semibold leading-tight"
-              name="company"
-              label="Société"
-              type="input"
-            />
           </div>
           <TextInput
             wrapperClassName="my-8"
@@ -127,8 +124,18 @@ export default function ContactFormFooter({ title, handleSubmit, isSubmited }: P
             label="En soumettant ce formulaire et conformément à la politique de traitement des données personnelles, j'accepte
             que les informations saisies soient exploitées afin d'être contacté par les équipes d'Agaetis."
           />
-          <div className="flex flex-row justify-center">
-            <ReCAPTCHA ref={recaptchaRef} size="normal" sitekey={publicRuntimeConfig.NEXT_APP_RECAPTCHA_KEY} />
+          <div className="flex flex-col justify-center">
+            <ReCAPTCHA
+              {...register('captcha')}
+              className="self-center"
+              ref={recaptchaRef}
+              size="normal"
+              sitekey={publicRuntimeConfig.NEXT_APP_RECAPTCHA_KEY}
+              onChange={onCaptchaChange}
+            />
+            {otherFormProps.errors.captcha && (
+              <p className="text-xs text-red text-center pt-2">{otherFormProps.errors.captcha.message}</p>
+            )}
           </div>
 
           <Button

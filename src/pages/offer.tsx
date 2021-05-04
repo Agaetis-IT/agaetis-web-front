@@ -18,7 +18,7 @@ import ContactFormFooter from '../components/ContactFormFooter'
 import ContactMessage from '../components/ContactMessage'
 import ContactSection from '../components/ContactSection'
 import { FooterFormInput } from '../yup/ContactFormValidation'
-import { footerSend } from '../Services/contactService'
+import send from '../Services/contactService'
 import { useRouter } from 'next/router'
 import PartnerList from '../components/PartnerList'
 
@@ -59,7 +59,16 @@ export default function offer({ pageContent, errorCode, offers }: Props): React.
   async function handleSubmit(data: FooterFormInput) {
     try {
       setIsSubmited(true)
-      await footerSend(data.firstname, data.lastname, data.mail, data.subject, data.message, data.phone, new Date())
+      await send(
+        data.firstname,
+        data.lastname,
+        data.mail,
+        data.subject,
+        data.message,
+        data.phone,
+        new Date(),
+        data.captcha
+      )
       handleOpenModal(false)
     } catch {
       handleOpenModal(true)

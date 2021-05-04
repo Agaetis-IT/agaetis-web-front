@@ -5,10 +5,10 @@ export interface FooterFormInput {
   lastname: string
   mail: string
   phone: string
-  company: string
   subject: string
   message: string
   cgu: boolean
+  captcha: string
 }
 
 export const footerContactSchema = Yup.object().shape({
@@ -28,5 +28,13 @@ export const footerContactSchema = Yup.object().shape({
     .oneOf(
       [true],
       'Vous devez accepter la politique de traitement des données personnelles pour soumettre ce formulaire'
+    ),
+  captcha: Yup.string()
+    .nullable()
+    .required('Vous devez compléter le ReCAPTCHA pour soumettre ce formulaire')
+    .test(
+      'empty-check',
+      'Vous devez compléter le ReCAPTCHA pour soumettre ce formulaire',
+      (captcha) => captcha.length != 0
     ),
 })

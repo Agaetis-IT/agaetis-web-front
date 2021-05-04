@@ -6,7 +6,7 @@ import ContactSection from '../components/ContactSection'
 import Error from './_error'
 import Layout from '../components/Layout'
 import Particles from '../static/images/particles-3.svg'
-import { footerSend } from '../Services/contactService'
+import send from '../Services/contactService'
 import { getLandingPageContent } from '../Services/wordpressService'
 import { convertAPItoLandingPageContent, LandingPage } from '../types/OffersContent'
 import { FooterFormInput } from '../yup/ContactFormValidation'
@@ -39,7 +39,16 @@ export default function Landingpage({ pageContent, errorCode }: Props) {
   async function handleSubmit(data: FooterFormInput) {
     try {
       setIsSubmited(true)
-      await footerSend(data.firstname, data.lastname, data.mail, data.subject, data.message, data.phone, new Date())
+      await send(
+        data.firstname,
+        data.lastname,
+        data.mail,
+        data.subject,
+        data.message,
+        data.phone,
+        new Date(),
+        data.captcha
+      )
       handleOpenModal(false)
     } catch {
       handleOpenModal(true)

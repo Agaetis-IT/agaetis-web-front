@@ -8,7 +8,7 @@ import Head from 'next/head'
 import Layout from '../components/Layout'
 import publicRuntimeConfig from '../config/env.config'
 import { FooterFormInput } from '../yup/ContactFormValidation'
-import { footerSend } from '../Services/contactService'
+import send from '../Services/contactService'
 import ContactMessage from '../components/ContactMessage'
 import ContactSection from '../components/ContactSection'
 import Mask from '../static/images/hero_mask.svg'
@@ -52,7 +52,16 @@ export default function offers({ pageContent, allOffers }: Props) {
   async function handleSubmit(data: FooterFormInput) {
     try {
       setIsSubmited(true)
-      await footerSend(data.firstname, data.lastname, data.mail, data.subject, data.message, data.phone, new Date())
+      await send(
+        data.firstname,
+        data.lastname,
+        data.mail,
+        data.subject,
+        data.message,
+        data.phone,
+        new Date(),
+        data.captcha
+      )
       handleOpenModal(false)
     } catch {
       handleOpenModal(true)
