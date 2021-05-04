@@ -17,6 +17,7 @@ import { PostAPI } from '../models/IdeasAPI'
 import Particles from '../static/images/particles-3.svg'
 import Linkedin from '../static/icons/linkedin.png'
 import Error from '../pages/_error'
+import SnackBar from './SnackBar'
 
 interface Props {
   ideasDescription: IdeasDesc[]
@@ -27,10 +28,18 @@ interface Props {
 }
 
 export default function author({ ideasDescription, author, content, errorCode, hasMore }: Props) {
+  const [isOpenenedModal, setOpenModal] = useState(false)
   const [ideas, setIdeas] = useState(ideasDescription)
   const [lastPage, setLastPage] = useState(1)
   const [isLoadingPosts, setIsLoadingPosts] = useState(false)
   const [isVisibleSeeMore, setIsVisibleSeeMore] = useState(hasMore)
+
+  function handleOpenModal() {
+    setOpenModal(true)
+    setTimeout(() => {
+      setOpenModal(false)
+    }, 3000)
+  }
 
   async function handleFetchIdeas() {
     setIsLoadingPosts(true)
@@ -58,18 +67,23 @@ export default function author({ ideasDescription, author, content, errorCode, h
         setLastPage(page)
         setIdeas(ideas.concat(data))
       }
-    } catch (error) {}
+      handleOpenModal()
+    } catch (error) {
+      handleOpenModal()
+    }
 
     setIsLoadingPosts(false)
   }
 
-  const cards = useMemo(() => {
-    return ideas.map((idea) => (
-      <div key={idea.id} className="m-2 mb-8 shadow-md hover:shadow-lg smooth-transition zoom-in round8">
-        <IdeasCard slug={idea.slug} title={idea.title} image={idea.image} description={idea.descriptionText} />
-      </div>
-    ))
-  }, [ideas])
+  const cards = useMemo(
+    () =>
+      ideas.map((idea) => (
+        <div key={idea.id} className="m-2 mb-8 shadow-md hover:shadow-lg smooth-transition zoom-in round8">
+          <IdeasCard slug={idea.slug} title={idea.title} image={idea.image} description={idea.descriptionText} />
+        </div>
+      )),
+    [ideas]
+  )
 
   if (!!errorCode) {
     return <Error statusCode={404} />
@@ -102,7 +116,7 @@ export default function author({ ideasDescription, author, content, errorCode, h
                 <h1 className="text-orange text-2xl font-bold" dangerouslySetInnerHTML={{ __html: content.titre }}></h1>
                 <div>
                   <div className="flex flex-row items-center">
-                    <img className="pt-6 mt-8 mb-8 round8 shadow-md" src={author.avatar} />
+                    <img className="mt-8 mb-8 round8 shadow-md" src={author.avatar} />
                     <p className="ml-4 text-xl leading-normal font-semibold">{author.name}</p>
                     {author.linkedInLink && (
                       <Button
@@ -138,6 +152,7 @@ export default function author({ ideasDescription, author, content, errorCode, h
           <ContactSection />
         </div>
       </Layout>
+      {isOpenenedModal && <SnackBar errorMessage="Erreur pendant le chargement des posts" />}
     </>
   )
 }
