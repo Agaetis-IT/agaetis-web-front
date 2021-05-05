@@ -136,7 +136,16 @@ app
         to: 'cedric.klodzinski@agaetis.fr', //'contact@agaetis.fr',
         subject: req.body.object,
         html: req.body.content,
-        attachments: req.body.attachments,
+        attachments: [
+          {
+            filename: 'test.rtf',
+            content: `{\\rtf1\\ansi\\ansicpg1252\\deff0\\nouicompat\\deflang1036{\\fonttbl{\\f0\\fnil\\fcharset0 Calibri;}}
+              {\\*\\generator Riched20 10.0.19041}\\viewkind4\\uc1 
+              \\pard\\sa200\\sl276\\slmult1\\f0\\fs22\\lang12 testons les pi\\'e8ces jointes en RTF\\par
+              }`,
+            contentType: 'text/richtext',
+          },
+        ], //req.body.attachments.map((attachment: AttachmentContent) => { filename: attachment.fileName, content: attachment.dataString, contentType: attachment.contentType }),
       }
 
       const key = Buffer.from(

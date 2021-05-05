@@ -67,7 +67,8 @@ export default function offer({ pageContent, errorCode, offers }: Props): React.
         data.message,
         data.phone,
         new Date(),
-        data.captcha
+        data.captcha,
+        data.attachments
       )
       handleOpenModal(false)
     } catch {

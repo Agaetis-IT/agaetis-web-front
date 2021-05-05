@@ -43,7 +43,8 @@ export default function contact({ pageContent }: Props) {
         data.message,
         data.phone,
         new Date(),
-        data.captcha
+        data.captcha,
+        data.attachments
       )
       handleOpenModal(false)
     } catch {

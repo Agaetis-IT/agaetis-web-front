@@ -2,6 +2,7 @@ import axios from 'axios'
 import sha256 from 'js-sha256'
 
 import publicRuntimeConfig from '../config/env.config'
+import { AttachmentContent } from '../yup/ContactFormValidation'
 
 const formatContent = (content: string, name: string, mail: string, phone: string) =>
   `<html><body><p>${content}</p><h3>Contact</h3><p>${name}</p><p>${mail}</p><p>${phone}</p></body></html>`
@@ -17,7 +18,8 @@ export default async function send(
   message: string,
   phone: string,
   date: Date,
-  token: string
+  token: string,
+  attachments: AttachmentContent[]
 ) {
   const key = Buffer.from(
     firstname +
@@ -44,6 +46,7 @@ export default async function send(
       date: date.getTime(),
       hash: sha256.sha256(key),
       token,
+      attachments,
     },
   })
 }

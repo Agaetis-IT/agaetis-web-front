@@ -14,7 +14,7 @@ import clsx from 'clsx'
 import ContactSection from '../components/ContactSection'
 import Particles from '../static/images/particles-3.svg'
 import { FooterFormInput } from '../yup/ContactFormValidation'
-import { footerSend } from '../Services/contactService'
+import send from '../Services/contactService'
 import ContactFormFooter from '../components/ContactFormFooter'
 import ContactMessage from '../components/ContactMessage'
 import SearchInput from '../components/SearchInput'
@@ -68,7 +68,17 @@ function Ideas({
   async function handleSubmit(data: FooterFormInput) {
     try {
       setIsSubmited(true)
-      await footerSend(data.firstname, data.lastname, data.mail, data.subject, data.message, data.phone, new Date())
+      await send(
+        data.firstname,
+        data.lastname,
+        data.mail,
+        data.subject,
+        data.message,
+        data.phone,
+        new Date(),
+        data.captcha,
+        data.attachments
+      )
       handleOpenModal(false)
     } catch {
       handleOpenModal(true)

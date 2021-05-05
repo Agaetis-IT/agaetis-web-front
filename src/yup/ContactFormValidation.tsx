@@ -1,5 +1,11 @@
 import Yup from '../config/yupConfig'
 
+export interface AttachmentContent {
+  fileName: string
+  dataString: string
+  contentType: string
+}
+
 export interface FooterFormInput {
   firstname: string
   lastname: string
@@ -9,12 +15,7 @@ export interface FooterFormInput {
   message: string
   cgu: boolean
   captcha: string
-  attachments: [
-    {
-      filename: string
-      dataString: string
-    }
-  ]
+  attachments: AttachmentContent[]
 }
 
 export const footerContactSchema = Yup.object().shape({

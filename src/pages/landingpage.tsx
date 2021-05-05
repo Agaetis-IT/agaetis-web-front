@@ -47,7 +47,8 @@ export default function Landingpage({ pageContent, errorCode }: Props) {
         data.message,
         data.phone,
         new Date(),
-        data.captcha
+        data.captcha,
+        data.attachments
       )
       handleOpenModal(false)
     } catch {

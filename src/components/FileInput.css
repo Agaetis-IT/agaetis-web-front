@@ -1,0 +1,27 @@
+.hidden-input {
+  position: absolute;
+  height: 29px;
+  width: 232.63px;
+  opacity: 0;
+  top: 0;
+  cursor: pointer;
+}
+
+.hidden-input::-webkit-file-upload-button, .hidden-input::-ms-browse {
+  cursor: pointer;
+}
+
+.upload-button {
+  top: 0;
+  bottom: 0;
+  width: fit-content;
+  cursor: pointer;
+}
+
+.upload-button.drag-over {
+  background-color: #faad63;
+}
+
+.container-label {
+  position: relative;
+}

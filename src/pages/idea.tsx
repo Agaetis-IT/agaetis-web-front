@@ -62,7 +62,8 @@ export default function Idea({ data, related, errorCode, meta }: Props) {
         data.message,
         data.phone,
         new Date(),
-        data.captcha
+        data.captcha,
+        data.attachments
       )
       handleOpenModal(false)
     } catch {

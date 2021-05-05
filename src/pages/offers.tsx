@@ -60,7 +60,8 @@ export default function offers({ pageContent, allOffers }: Props) {
         data.message,
         data.phone,
         new Date(),
-        data.captcha
+        data.captcha,
+        data.attachments
       )
       handleOpenModal(false)
     } catch {

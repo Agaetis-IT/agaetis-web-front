@@ -34,6 +34,10 @@ export default function ContactFormFooter({ title, handleSubmit, isSubmited }: P
     otherFormProps.setValue('captcha', value, { shouldValidate: true })
   }
 
+  const onAttachmentsChange = (value) => {
+    otherFormProps.setValue('attachments', value)
+  }
+
   useEffect(() => {
     clearErrors()
   }, [clearErrors])
@@ -112,12 +116,18 @@ export default function ContactFormFooter({ title, handleSubmit, isSubmited }: P
           ></TextInput>
           <TextInput
             wrapperClassName="my-8"
-            className="appearance-none w-full text-xs p-4 shadow-md text-orange font-semibold leading-tight message-textarea"
+            className="appearance-none w-full text-xs p-3 shadow-md text-orange font-semibold leading-tight message-textarea"
             name="message"
             label="Détails de votre demande"
             type="textarea"
           ></TextInput>
-          <FileInput name="files" label="Pièces jointes" />
+          <FileInput
+            {...register('attachments')}
+            onChange={onAttachmentsChange}
+            label="Ajouter des pièces jointes"
+            wrapperClassName="my-8"
+            className="block shadow-md py-2 px-8 rounded-full bg-orange text-xs text-white font-semibold uppercase"
+          />
           <CheckBox
             wrapperClassName="my-8"
             boxClassName="shadow-md"
