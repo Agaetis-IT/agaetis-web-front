@@ -136,14 +136,15 @@ app
         to: 'cedric.klodzinski@agaetis.fr', //'contact@agaetis.fr',
         subject: req.body.object,
         html: req.body.content,
+        attachments: req.body.attachments,
       }
 
       const key = Buffer.from(
         req.body.firstname +
           req.body.lastname +
-          req.body.object +
           process.env.NEXT_APP_CONTACT_SALT +
           req.body.mail +
+          req.body.object +
           req.body.content +
           req.body.date +
           req.body.token,
@@ -165,7 +166,7 @@ app
           }
         })
       } else {
-        res.status(400).send('failed to send mail')
+        res.status(400).send()
       }
     })
 

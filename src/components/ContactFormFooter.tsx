@@ -15,6 +15,7 @@ import Particles from '../static/images/particles-3-mirror.svg'
 import './Common.css'
 import ReCAPTCHA from 'react-google-recaptcha'
 import publicRuntimeConfig from '../config/env.config'
+import FileInput from './FileInput'
 
 interface Props {
   handleSubmit: (formValues: FooterFormInput) => void
@@ -116,6 +117,7 @@ export default function ContactFormFooter({ title, handleSubmit, isSubmited }: P
             label="Détails de votre demande"
             type="textarea"
           ></TextInput>
+          <FileInput name="files" label="Pièces jointes" />
           <CheckBox
             wrapperClassName="my-8"
             boxClassName="shadow-md"

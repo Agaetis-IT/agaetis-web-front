@@ -9,6 +9,12 @@ export interface FooterFormInput {
   message: string
   cgu: boolean
   captcha: string
+  attachments: [
+    {
+      filename: string
+      dataString: string
+    }
+  ]
 }
 
 export const footerContactSchema = Yup.object().shape({
@@ -31,10 +37,9 @@ export const footerContactSchema = Yup.object().shape({
     ),
   captcha: Yup.string()
     .nullable()
-    .required('Vous devez compléter le ReCAPTCHA pour soumettre ce formulaire')
     .test(
       'empty-check',
       'Vous devez compléter le ReCAPTCHA pour soumettre ce formulaire',
-      (captcha) => captcha.length != 0
+      (captcha) => !(!captcha || captcha.length == 0)
     ),
 })
