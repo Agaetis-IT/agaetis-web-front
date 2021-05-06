@@ -25,15 +25,15 @@ function FileInput({ className, wrapperClassName, onChange }: Props) {
         reader.onload = () =>
           resolve({
             fileName: file.name,
-            dataString: reader.result as string,
+            content: reader.result as string,
           })
 
-        reader.readAsBinaryString(file)
+        reader.readAsDataURL(file)
       })
     })
 
     const files = await Promise.all(results)
-
+    console.log(files)
     setFiles(files)
     onChange(files)
     setIsLoadingFiles(false)
@@ -42,17 +42,19 @@ function FileInput({ className, wrapperClassName, onChange }: Props) {
   return (
     <div className={clsx('flex items-center flex-col md:flex-row', wrapperClassName)}>
       <label htmlFor="fileInput" className="container-label">
-        <div id="button" className={clsx('upload-button', className)}>
-          {isLoadingFiles ? (
-            <div className="flex flex-row justify-center">
-              <LoadingSpinner color="#ffffff" size={12} />
-              Chargement des fichiers
-            </div>
-          ) : files.length > 0 ? (
-            'Modifier les pièces jointes'
-          ) : (
-            'Ajouter des pièces jointes'
-          )}
+        <div>
+          <div id="button" className={clsx('upload-button', className)}>
+            {isLoadingFiles ? (
+              <div className="flex flex-row justify-center">
+                <LoadingSpinner color="#ffffff" size={12} />
+                Chargement des fichiers
+              </div>
+            ) : files.length > 0 ? (
+              'Modifier les pièces jointes'
+            ) : (
+              'Ajouter des pièces jointes'
+            )}
+          </div>
         </div>
         <input
           id="fileInput"
