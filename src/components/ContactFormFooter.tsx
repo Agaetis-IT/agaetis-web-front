@@ -6,7 +6,6 @@ import TextInput from './TextInput'
 import CheckBox from './CheckBox'
 import { footerContactSchema, FooterFormInput } from '../yup/ContactFormValidation'
 import { yupResolver } from '@hookform/resolvers/yup'
-import clsx from 'clsx'
 import Twitter from '../static/icons/twitter.png'
 import Linkedin from '../static/icons/linkedin.png'
 import Facebook from '../static/icons/facebook.png'
@@ -16,6 +15,7 @@ import './Common.css'
 import ReCAPTCHA from 'react-google-recaptcha'
 import publicRuntimeConfig from '../config/env.config'
 import FileInput from './FileInput'
+import LoadingSpinner from './LoadingSpinner'
 
 interface Props {
   handleSubmit: (formValues: FooterFormInput) => void
@@ -124,7 +124,6 @@ export default function ContactFormFooter({ title, handleSubmit, isSubmited }: P
           <FileInput
             {...register('attachments')}
             onChange={onAttachmentsChange}
-            label="Ajouter des pièces jointes"
             wrapperClassName="my-8"
             className="block shadow-md py-2 px-8 rounded-full bg-orange text-xs text-white font-semibold uppercase"
           />
@@ -151,13 +150,18 @@ export default function ContactFormFooter({ title, handleSubmit, isSubmited }: P
           </div>
 
           <Button
-            className="block px-8 py-2 leading-none rounded-full uppercase mx-auto mt-4 md:mt-8 bg-orange text-white text-xs font-semibold shadow-md"
+            className="flex flex-row justify-center uppercase rounded-full bg-orange text-xss py-2 px-6 text-white font-semibold mx-auto see-more shadow-md mt-8"
             type="submit"
             disabled={isSubmited}
           >
-            <div className="self-center">
-              Envoyer <span className={clsx({ loading: isSubmited }, 'float-right')} />
-            </div>
+            {isSubmited ? (
+              <div className="flex flex-row justify-center">
+                <LoadingSpinner color="#ffffff" size={12} />
+                Envoi en cours
+              </div>
+            ) : (
+              'Envoyer'
+            )}
           </Button>
         </form>
       </FormProvider>

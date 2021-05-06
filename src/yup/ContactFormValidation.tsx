@@ -3,7 +3,6 @@ import Yup from '../config/yupConfig'
 export interface AttachmentContent {
   fileName: string
   dataString: string
-  contentType: string
 }
 
 export interface FooterFormInput {
