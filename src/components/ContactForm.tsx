@@ -21,9 +21,10 @@ interface Props {
   handleSubmit: (formValues: FormInput) => void
   isSubmited: boolean
   title: string
+  subText?: string
 }
 
-export default function ContactForm({ title, handleSubmit, isSubmited }: Props) {
+export default function ContactForm({ title, handleSubmit, isSubmited, subText }: Props) {
   const recaptchaRef = useRef<ReCAPTCHA>(null)
   const { register, watch, control, clearErrors, ...otherFormProps } = useForm<FormInput>({
     mode: 'onBlur',
@@ -75,6 +76,13 @@ export default function ContactForm({ title, handleSubmit, isSubmited }: Props) 
           </Button>
         </div>
       </div>
+      {subText ? (
+        <div className="mb-8">
+          <p className="text-sm leading-normal" dangerouslySetInnerHTML={{ __html: subText }} />
+        </div>
+      ) : (
+        ''
+      )}
       <FormProvider register={register} watch={watch} control={control} clearErrors={clearErrors} {...otherFormProps}>
         <form onSubmit={otherFormProps.handleSubmit(handleSubmit)}>
           <div className="flex flex-col md:flex-row justify-between">

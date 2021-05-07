@@ -60,23 +60,18 @@ export default function contact({ pageContent }: Props) {
         <meta property="og:title" content="Agaetis : contactez-nous" />
         <meta property="og:image" content={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/favicon.ico`} />
         <meta property="og:type" content="website" />
-        <meta property="og:description" content="Pour un projet, on peut en parler !" />
-        <meta name="description" content="Pour un projet, on peut en parler !" />
+        <meta property="og:description" content="Un projet, une idée ? Discutons-en !" />
+        <meta name="description" content="Un projet, une idée ? Discutons-en !" />
         <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/contact`} />
       </Head>
       <Layout invertColors={false}>
         <div className="pt-0 md:pt-28">
-          <div className="p-0 md:px-4 bg-light-grey">
-            <h1
-              className="text-center text-2xl md:px-8 py-8 md:pb-0 md:mt-12"
-              dangerouslySetInnerHTML={{ __html: pageContent.title }}
-            />
-            <p
-              className="md:max-w-md mx-auto text-center px-4 md:p-6 mb-8 text-sm leading-normal"
-              dangerouslySetInnerHTML={{ __html: pageContent.paragraph }}
-            />
-          </div>
-          <ContactForm title="Contact" handleSubmit={handleSubmit} isSubmited={isSubmited} />
+          <ContactForm
+            title={pageContent.title}
+            subText={pageContent.paragraph}
+            handleSubmit={handleSubmit}
+            isSubmited={isSubmited}
+          />
           {isOpenenedModal && <ContactMessage error={isError} />}
           <ContactSection></ContactSection>
         </div>
