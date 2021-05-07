@@ -50,26 +50,33 @@ function IdeaContent({ content }: Props) {
     e.stopPropagation()
     e.preventDefault()
 
-    if (e.target)
+    if (e.target) {
       document
         .getElementsByName(e.target['href'].split('#')[1])[0]
         .scrollIntoView({ block: 'center', behavior: 'smooth' })
+    }
   }
 
   const setAnchorHandlers = () => {
-    if (router.asPath.includes('#'))
+    if (router.asPath.includes('#')) {
       document.getElementsByName(router.asPath.split('#')[1])[0].scrollIntoView({ block: 'center' })
+    }
 
     const contentTag: HTMLElement | null = document.getElementById('content')
 
     if (contentTag) {
-      for (const anchor of Array.from(contentTag.getElementsByTagName('a')))
-        if (anchor.href.includes(router.asPath.split('#')[0] + '#')) anchor.addEventListener('click', handleAnchorClick)
+      for (const anchor of Array.from(contentTag.getElementsByTagName('a'))) {
+        if (anchor.href.includes(router.asPath.split('#')[0] + '#')) {
+          anchor.addEventListener('click', handleAnchorClick)
+        }
+      }
 
       return () => {
-        for (const anchor of Array.from(contentTag.getElementsByTagName('a')))
-          if (anchor.href.includes(router.asPath.split('#')[0] + '#'))
+        for (const anchor of Array.from(contentTag.getElementsByTagName('a'))) {
+          if (anchor.href.includes(router.asPath.split('#')[0] + '#')) {
             anchor.removeEventListener('click', handleAnchorClick)
+          }
+        }
       }
     }
   }
