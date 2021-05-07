@@ -5,7 +5,7 @@ export interface AttachmentContent {
   content: string
 }
 
-export interface FooterFormInput {
+export interface FormInput {
   firstname: string
   lastname: string
   mail: string

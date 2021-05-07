@@ -13,9 +13,9 @@ import IdeasCard from '../components/IdeasCard'
 import clsx from 'clsx'
 import ContactSection from '../components/ContactSection'
 import Particles from '../static/images/particles-3.svg'
-import { FooterFormInput } from '../yup/ContactFormValidation'
+import { FormInput } from '../yup/ContactFormValidation'
 import send from '../Services/contactService'
-import ContactFormFooter from '../components/ContactFormFooter'
+import ContactForm from './ContactForm'
 import ContactMessage from '../components/ContactMessage'
 import SearchInput from '../components/SearchInput'
 import Error from '../pages/_error'
@@ -65,7 +65,7 @@ function Ideas({
     }, 3000)
   }
 
-  async function handleSubmit(data: FooterFormInput) {
+  async function handleSubmit(data: FormInput) {
     try {
       setIsSubmited(true)
       await send(
@@ -250,11 +250,11 @@ function Ideas({
               </div>
             )}
           </div>
-          <ContactFormFooter
+          <ContactForm
             title="Un sujet vous intéresse ? Une question ? Contactez-nous !"
             handleSubmit={handleSubmit}
             isSubmited={isSubmited}
-          ></ContactFormFooter>
+          ></ContactForm>
           {isOpenenedModal && <ContactMessage error={isError}></ContactMessage>}
           <ContactSection></ContactSection>
         </div>

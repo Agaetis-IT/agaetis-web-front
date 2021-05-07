@@ -1,6 +1,6 @@
 import { NextPageContext } from 'next'
 import React, { useState } from 'react'
-import ContactFormFooter from '../components/ContactFormFooter'
+import ContactForm from '../components/ContactForm'
 import ContactMessage from '../components/ContactMessage'
 import ContactSection from '../components/ContactSection'
 import Error from './_error'
@@ -9,7 +9,7 @@ import Particles from '../static/images/particles-3.svg'
 import send from '../Services/contactService'
 import { getLandingPageContent } from '../Services/wordpressService'
 import { convertAPItoLandingPageContent, LandingPage } from '../types/OffersContent'
-import { FooterFormInput } from '../yup/ContactFormValidation'
+import { FormInput } from '../yup/ContactFormValidation'
 
 import './landingpage.css'
 
@@ -36,7 +36,7 @@ export default function Landingpage({ pageContent, errorCode }: Props) {
     }, 3000)
   }
 
-  async function handleSubmit(data: FooterFormInput) {
+  async function handleSubmit(data: FormInput) {
     try {
       setIsSubmited(true)
       await send(
@@ -77,11 +77,7 @@ export default function Landingpage({ pageContent, errorCode }: Props) {
             ></div>
           </div>
         </div>
-        <ContactFormFooter
-          title="Une question ? Contactez-nous !"
-          handleSubmit={handleSubmit}
-          isSubmited={isSubmited}
-        />
+        <ContactForm title="Une question ? Contactez-nous !" handleSubmit={handleSubmit} isSubmited={isSubmited} />
         {isOpenenedModal && <ContactMessage error={isError}></ContactMessage>}
         <ContactSection />
       </>

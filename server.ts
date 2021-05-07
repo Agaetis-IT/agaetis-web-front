@@ -139,7 +139,7 @@ app
         html: req.body.content,
         attachments: req.body.attachments.map((attachment: AttachmentContent) => ({
           filename: attachment.fileName,
-          path: attachment.content,
+          content: attachment.content,
         })),
       }
 

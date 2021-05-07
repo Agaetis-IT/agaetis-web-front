@@ -3,11 +3,11 @@ import React, { useState } from 'react'
 import { getAllOffers, getCategoryOffers, getOffersPageContent } from '../Services/wordpressService'
 
 import Button from '../components/Button'
-import ContactFormFooter from '../components/ContactFormFooter'
+import ContactForm from '../components/ContactForm'
 import Head from 'next/head'
 import Layout from '../components/Layout'
 import publicRuntimeConfig from '../config/env.config'
-import { FooterFormInput } from '../yup/ContactFormValidation'
+import { FormInput } from '../yup/ContactFormValidation'
 import send from '../Services/contactService'
 import ContactMessage from '../components/ContactMessage'
 import ContactSection from '../components/ContactSection'
@@ -49,7 +49,7 @@ export default function offers({ pageContent, allOffers }: Props) {
     }, 3000)
   }
 
-  async function handleSubmit(data: FooterFormInput) {
+  async function handleSubmit(data: FormInput) {
     try {
       setIsSubmited(true)
       await send(
@@ -157,11 +157,7 @@ export default function offers({ pageContent, allOffers }: Props) {
               ))}
             </div>
           </div>
-          <ContactFormFooter
-            title="Une question ? Contactez-nous !"
-            handleSubmit={handleSubmit}
-            isSubmited={isSubmited}
-          />
+          <ContactForm title="Une question ? Contactez-nous !" handleSubmit={handleSubmit} isSubmited={isSubmited} />
           {isOpenenedModal && <ContactMessage error={isError}></ContactMessage>}
           <ContactSection />
         </div>

@@ -17,8 +17,8 @@ import Particles from '../static/images/particles-3.svg'
 import Error from './_error'
 import { escape } from 'querystring'
 import ContactSection from '../components/ContactSection'
-import ContactFormFooter from '../components/ContactFormFooter'
-import { FooterFormInput } from '../yup/ContactFormValidation'
+import ContactForm from '../components/ContactForm'
+import { FormInput } from '../yup/ContactFormValidation'
 import send from '../Services/contactService'
 import ContactMessage from '../components/ContactMessage'
 import { formatPostAuthors } from '../Services/textUtilities'
@@ -51,7 +51,7 @@ export default function Idea({ data, related, errorCode, meta }: Props) {
     }, 3000)
   }
 
-  async function handleSubmit(data: FooterFormInput) {
+  async function handleSubmit(data: FormInput) {
     try {
       setIsSubmited(true)
       await send(
@@ -148,11 +148,11 @@ export default function Idea({ data, related, errorCode, meta }: Props) {
               </>
             )}
           </div>
-          <ContactFormFooter
+          <ContactForm
             title="Un sujet vous intéresse ? Une question ? Contactez-nous !"
             handleSubmit={handleSubmit}
             isSubmited={isSubmited}
-          ></ContactFormFooter>
+          ></ContactForm>
           {isOpenenedModal && <ContactMessage error={isError}></ContactMessage>}
           <ContactSection></ContactSection>
         </div>

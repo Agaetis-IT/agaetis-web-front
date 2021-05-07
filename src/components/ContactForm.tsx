@@ -4,7 +4,7 @@ import React, { useEffect, useRef } from 'react'
 import Button from './Button'
 import TextInput from './TextInput'
 import CheckBox from './CheckBox'
-import { footerContactSchema, FooterFormInput } from '../yup/ContactFormValidation'
+import { AttachmentContent, footerContactSchema, FormInput } from '../yup/ContactFormValidation'
 import { yupResolver } from '@hookform/resolvers/yup'
 import Twitter from '../static/icons/twitter.png'
 import Linkedin from '../static/icons/linkedin.png'
@@ -18,23 +18,23 @@ import FileInput from './FileInput'
 import LoadingSpinner from './LoadingSpinner'
 
 interface Props {
-  handleSubmit: (formValues: FooterFormInput) => void
+  handleSubmit: (formValues: FormInput) => void
   isSubmited: boolean
   title: string
 }
 
-export default function ContactFormFooter({ title, handleSubmit, isSubmited }: Props) {
+export default function ContactForm({ title, handleSubmit, isSubmited }: Props) {
   const recaptchaRef = useRef<ReCAPTCHA>(null)
-  const { register, watch, control, clearErrors, ...otherFormProps } = useForm<FooterFormInput>({
+  const { register, watch, control, clearErrors, ...otherFormProps } = useForm<FormInput>({
     mode: 'onBlur',
     resolver: yupResolver(footerContactSchema),
   })
 
-  const onCaptchaChange = (value) => {
+  const onCaptchaChange = (value: string | null) => {
     otherFormProps.setValue('captcha', value, { shouldValidate: true })
   }
 
-  const onAttachmentsChange = (value) => {
+  const onAttachmentsChange = (value: AttachmentContent[]) => {
     otherFormProps.setValue('attachments', value)
   }
 
