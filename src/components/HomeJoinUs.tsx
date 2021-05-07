@@ -31,7 +31,7 @@ export default function HomeJoinUs({
           {
             // eslint-disable-next-line
             // @ts-ignore-next-line
-            <LazyLoadImage effect="blur" src={joinUs_image_desktop}></LazyLoadImage>
+            <LazyLoadImage effect="blur" src={joinUs_image_desktop} />
           }
         </div>
         <div
@@ -73,7 +73,7 @@ export default function HomeJoinUs({
           {
             // eslint-disable-next-line
             // @ts-ignore-next-line
-            <LazyLoadImage effect="blur" src={joinUs_image_mobile_1} className="h-40 w-auto"></LazyLoadImage>
+            <LazyLoadImage effect="blur" src={joinUs_image_mobile_1} className="h-40 w-auto" />
           }
           <Button
             href="/agaetis"
@@ -89,7 +89,7 @@ export default function HomeJoinUs({
           {
             // eslint-disable-next-line
             // @ts-ignore-next-line
-            <LazyLoadImage effect="blur" src={joinUs_image_mobile_2} className="h-40 w-auto"></LazyLoadImage>
+            <LazyLoadImage effect="blur" src={joinUs_image_mobile_2} className="h-40 w-auto" />
           }
           <Button
             href="/jobs"

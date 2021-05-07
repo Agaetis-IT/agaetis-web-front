@@ -1,8 +1,7 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import IdeasContent from '../types/IdeasContent'
 
-import './IdeaContent.css'
 import AccessTime from '../static/icons/access_time-24px.svg'
 import Back from '../static/icons/Btn_Retour.svg'
 import Link from 'next/link'
@@ -16,24 +15,25 @@ import { useRouter } from 'next/router'
 
 import './IdeaContent.css'
 import Placeholder from '../static/images/blog-post-placeholder.jpg'
+import { AuthorLink } from '../types/AuthorContent'
 
 interface Props {
   content: IdeasContent
 }
 
-function formatAuthor(name: string) {
+function formatAuthor(author: AuthorLink) {
   return (
-    <span key={name}>
-      <Link href={'#'} /*author page route*/ passHref={true}>
-        <Button className="text-orange">
-          <span>{name}</span>
+    <span key={author.id}>
+      <Link href={`/author/${author.id}`} passHref={true}>
+        <Button className="text-orange underline">
+          <span>{author.name}</span>
         </Button>
       </Link>
     </span>
   )
 }
 
-function formatAuthorList(authors: string[]) {
+function formatAuthorList(authors: AuthorLink[]) {
   return authors.map((author, i) => [
     i === 0 && 'Par ',
     i > 0 && i < authors.length - 1 && ', ',
@@ -44,6 +44,47 @@ function formatAuthorList(authors: string[]) {
 
 function IdeaContent({ content }: Props) {
   const router = useRouter()
+  const [location, setLocation] = useState('')
+
+  const handleAnchorClick = (e: MouseEvent) => {
+    e.stopPropagation()
+    e.preventDefault()
+
+    if (e.target) {
+      document
+        .getElementsByName(e.target['href'].split('#')[1])[0]
+        .scrollIntoView({ block: 'center', behavior: 'smooth' })
+    }
+  }
+
+  const setAnchorHandlers = () => {
+    if (router.asPath.includes('#')) {
+      document.getElementsByName(router.asPath.split('#')[1])[0].scrollIntoView({ block: 'center' })
+    }
+
+    const contentTag: HTMLElement | null = document.getElementById('content')
+
+    if (contentTag) {
+      for (const anchor of Array.from(contentTag.getElementsByTagName('a'))) {
+        if (anchor.href.includes(router.asPath.split('#')[0] + '#')) {
+          anchor.addEventListener('click', handleAnchorClick)
+        }
+      }
+
+      return () => {
+        for (const anchor of Array.from(contentTag.getElementsByTagName('a'))) {
+          if (anchor.href.includes(router.asPath.split('#')[0] + '#')) {
+            anchor.removeEventListener('click', handleAnchorClick)
+          }
+        }
+      }
+    }
+  }
+
+  useEffect(() => {
+    setLocation(window.location.href)
+    return setAnchorHandlers()
+  }, [])
 
   return (
     <div className="md:mx-2">
@@ -81,19 +122,19 @@ function IdeaContent({ content }: Props) {
           </span>
           <div className="flex flex-row items-center">
             <Button
-              href={`https://www.facebook.com/sharer/sharer.php?u=www.agaetis.fr${router.asPath}`}
+              href={`https://www.facebook.com/sharer/sharer.php?u=${location.split('#')[0]}`}
               className="w-6 h-6 mr-4 self-center shadow-sm hover:shadow-md bg-white rounded-full smooth-transition p-1"
             >
               <img src={Facebook} className="w-4 h-4" />
             </Button>
             <Button
-              href={`https://www.linkedin.com/shareArticle?mini=true&url=www.agaetis.fr${router.asPath}`}
+              href={`https://www.linkedin.com/shareArticle?mini=true&url=${location.split('#')[0]}`}
               className="w-6 h-6 mr-4 shadow-sm hover:shadow-md bg-white rounded-full smooth-transition p-1"
             >
               <img src={Linkedin} className="w-4 h-4" />
             </Button>
             <Button
-              href={`https://twitter.com/intent/tweet?text=www.agaetis.fr${router.asPath}`}
+              href={`https://twitter.com/intent/tweet?text=${location.split('#')[0]}`}
               className="w-6 h-6 shadow-sm hover:shadow-md bg-white rounded-full smooth-transition p-1"
             >
               <img src={Twitter} className="w-4 h-4" />
@@ -101,7 +142,7 @@ function IdeaContent({ content }: Props) {
           </div>
         </div>
         <div className="px-4 md:px-8 text-xs text-orange font-semibold lg:flex lg:justify-between lg:items-center">
-          {content.authors.length > 0 && <div className="py-4">{formatAuthorList(content.authors)}</div>}
+          {content.authors.length > 0 && <div className="py-4 text-black">{formatAuthorList(content.authors)}</div>}
           {content.tags.length > 0 && (
             <div className="md:my-0 flex flex-row flex-wrap py-4">
               {content.tags.map((tag) => (

@@ -82,3 +82,15 @@ textarea {
     -webkit-transform: rotate(0);
   }
 }
+
+.round8 {
+  border-radius: 8px;
+}
+
+.object-cover {
+  object-fit: cover;
+}
+
+.w-inherit {
+  width: inherit;
+}

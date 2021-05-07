@@ -25,6 +25,9 @@ import { formatPostAuthors } from '../Services/textUtilities'
 
 import '../components/Common.css'
 
+import { PostAPI } from '../models/IdeasAPI'
+import { AuthorLink } from '../types/AuthorContent'
+
 interface Props {
   data: IdeasContent
   related?: IdeasDesc[]
@@ -166,9 +169,13 @@ export async function getServerSideProps({ query }: Context) {
     getIdeaBySlug(escape(query.slug)),
     getIdeaMeta(escape(query.slug)),
   ])
-  const authors = []
+  const authors: AuthorLink[] = []
 
-  if (data._embedded.author[0].name) authors.push(data._embedded.author[0].name)
+  if (data._embedded.author[0].name)
+    authors.push({
+      id: data._embedded.author[0].id,
+      name: data._embedded.author[0].name,
+    })
 
   if (!!data.acf || !!data.content) {
     const related = []
@@ -180,7 +187,10 @@ export async function getServerSideProps({ query }: Context) {
 
       if (data.acf.co_author) {
         for (const auth of data.acf.co_author) {
-          authors.push(auth.data.display_name)
+          authors.push({
+            id: auth.ID,
+            name: auth.data.display_name,
+          })
         }
       }
     }
@@ -205,7 +215,7 @@ export async function getServerSideProps({ query }: Context) {
               ? Math.floor(data.content.rendered.split(' ').length / 275)
               : '1',
         },
-        related: related.map((idea) => {
+        related: related.map((idea: PostAPI) => {
           return {
             title: idea.title.rendered || '',
             id: idea.id || '',
@@ -213,6 +223,7 @@ export async function getServerSideProps({ query }: Context) {
             categories: data._embedded['wp:term'][0].map((category: { name: string }) => category.name) || [],
             slug: idea.slug || '',
             descriptionText: idea.acf.idea_description || '',
+            image: idea.acf.idea_image || '',
           }
         }),
         meta: convertMetaAPItoMeta(meta, data._embedded),
@@ -226,7 +237,7 @@ export async function getServerSideProps({ query }: Context) {
         title: '',
         imageUrl: '',
         date: '',
-        author: '',
+        authors: '',
         categories: [],
         content: '',
         slug: '',

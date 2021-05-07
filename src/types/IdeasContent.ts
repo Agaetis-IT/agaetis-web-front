@@ -1,4 +1,5 @@
 import { PostAPI } from '../models/IdeasAPI'
+import { AuthorLink } from './AuthorContent'
 
 export interface IdeasDesc {
   id: number
@@ -32,7 +33,7 @@ export interface IdeasPageContent {
 export default interface IdeasContent {
   title: string
   date: string
-  authors: string[]
+  authors: AuthorLink[]
   content: string
   imageUrl: string
   category: string

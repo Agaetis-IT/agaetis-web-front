@@ -77,7 +77,8 @@ app
           'logo-agaetis-carre.png',
         ].includes(queryParams.slug) ||
         !!queryParams.slug.match(/(workbox)|(worker)-.*\.js/) ||
-        !!queryParams.slug.match(/^blog\/.*/)
+        !!queryParams.slug.match(/^blog\/.*/) ||
+        !!queryParams.slug.match(/^author\/.*/)
       ) {
         return handle(req, res)
       } else if (queryParams.slug === 'ideas') {

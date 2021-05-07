@@ -8,6 +8,7 @@ import IndexContentApi from '../models/IndexAPI'
 import { convertContentAPItoContent } from '../types/SolutionsContent'
 import { OffersPageContent } from '../types/OffersContent'
 import SolutionsAPI from '../models/SolutionsAPI'
+import { AuthorPageContent } from '../types/AuthorContent'
 
 export async function getWordpressPageBySlug<T>(slug: string) {
   const { data } = await axios.get<T>(`${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/agaetis/api/v1/pages/${slug}`)
@@ -26,6 +27,11 @@ export async function getAgaetisContent() {
 
 export async function getIdeasPageContent() {
   const { acf } = await getWordpressPageBySlug<{ acf: IdeasPageContent }>('blog')
+  return acf
+}
+
+export async function getAuthorPageContent() {
+  const { acf } = await getWordpressPageBySlug<{ acf: AuthorPageContent }>('author')
   return acf
 }
 
@@ -120,32 +126,46 @@ export async function getIdeaBySlug(slug: string) {
   const { data } = await axios.get(`${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/agaetis/api/v1/posts/${slug}`)
   return data
 }
-// Remove ?per_page=9 after implementing new site style
+
 export async function getIdeasByPage(page?: number, search?: string) {
   const res = await axios.get(
-    `${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/agaetis/api/v1/posts?per_page=9${page ? `&page=${page}` : ''}${
+    `${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/agaetis/api/v1/posts?per_page=10${page ? `&page=${page}` : ''}${
       search ? `&search=${search}` : ''
     }`
   )
   return { data: res.data, pageCount: res.headers['x-wp-totalpages'] }
 }
 
-export async function getIdeasByTag(slug: string, page?: number, search?: string) {
+export async function getIdeasByTag(slug: string, category?: string, page?: number, search?: string) {
   const res = await axios.get(
-    `${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/agaetis/api/v1/tags/${slug}?per_page=9${
+    `${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/agaetis/api/v1/tags/${slug}?per_page=10${
       page ? `&page=${page}` : ''
-    }${search ? `&search=${search}` : ''}`
+    }${search ? `&search=${search}` : ''}${category ? `&cat_name=${category}` : ''}`
   )
   return { data: res.data, pageCount: res.headers['x-wp-totalpages'] }
 }
 
 export async function getIdeasByCategory(slug: string, page?: number, search?: string) {
   const res = await axios.get(
-    `${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/agaetis/api/v1/categories/${slug}?per_page=9${
+    `${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/agaetis/api/v1/categories/${slug}?per_page=10${
       page ? `&page=${page}` : ''
     }${search ? `&search=${search}` : ''}`
   )
   return { data: res.data, pageCount: res.headers['x-wp-totalpages'] }
+}
+
+export async function getIdeasByAuthor(authorId: string, page?: number) {
+  const res = await axios.get(
+    `${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/agaetis/api/v1/posts?per_page=10&author=${authorId}${
+      page ? `&page=${page}` : ''
+    }`
+  )
+  return { data: res.data, pageCount: res.headers['x-wp-totalpages'] }
+}
+
+export async function getAuthorById(id: string) {
+  const { data } = await axios.get(`${publicRuntimeConfig.NEXT_APP_BASE_URL}/wp-json/wp/v2/users/${id}`)
+  return data
 }
 
 export default { getIndexContent }
