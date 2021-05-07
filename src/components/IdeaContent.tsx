@@ -2,7 +2,6 @@ import React from 'react'
 
 import IdeasContent from '../types/IdeasContent'
 
-import './IdeaContent.css'
 import AccessTime from '../static/icons/access_time-24px.svg'
 import Back from '../static/icons/Btn_Retour.svg'
 import Link from 'next/link'
@@ -16,24 +15,25 @@ import { useRouter } from 'next/router'
 
 import './IdeaContent.css'
 import Placeholder from '../static/images/blog-post-placeholder.jpg'
+import { AuthorLink } from '../types/AuthorContent'
 
 interface Props {
   content: IdeasContent
 }
 
-function formatAuthor(name: string) {
+function formatAuthor(author: AuthorLink) {
   return (
-    <span key={name}>
-      <Link href={'#'} /*author page route*/ passHref={true}>
-        <Button className="text-orange">
-          <span>{name}</span>
+    <span key={author.id}>
+      <Link href={`/author/${author.id}`} passHref={true}>
+        <Button className="text-orange underline">
+          <span>{author.name}</span>
         </Button>
       </Link>
     </span>
   )
 }
 
-function formatAuthorList(authors: string[]) {
+function formatAuthorList(authors: AuthorLink[]) {
   return authors.map((author, i) => [
     i === 0 && 'Par ',
     i > 0 && i < authors.length - 1 && ', ',
@@ -101,7 +101,7 @@ function IdeaContent({ content }: Props) {
           </div>
         </div>
         <div className="px-4 md:px-8 text-xs text-orange font-semibold lg:flex lg:justify-between lg:items-center">
-          {content.authors.length > 0 && <div className="py-4">{formatAuthorList(content.authors)}</div>}
+          {content.authors.length > 0 && <div className="py-4 text-black">{formatAuthorList(content.authors)}</div>}
           {content.tags.length > 0 && (
             <div className="md:my-0 flex flex-row flex-wrap py-4">
               {content.tags.map((tag) => (
