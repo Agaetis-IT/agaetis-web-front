@@ -67,7 +67,6 @@ export default function author({ ideasDescription, author, content, errorCode, h
         setLastPage(page)
         setIdeas(ideas.concat(data))
       }
-      handleOpenModal()
     } catch (error) {
       handleOpenModal()
     }
