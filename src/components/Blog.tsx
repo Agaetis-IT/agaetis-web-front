@@ -139,15 +139,15 @@ function Blog({
     setIsVisibleSeeMore(!hideSeeMore)
   }, [ideasDescription])
 
-  const cards = useMemo(() => {
-    return ideas.map((idea) => {
-      return (
+  const cards = useMemo(
+    () =>
+      ideas.map((idea) => (
         <div key={idea.id} className="m-2 mb-8 shadow-md hover:shadow-lg smooth-transition zoom-in round8 w-inherit">
           <IdeasCard slug={idea.slug} title={idea.title} image={idea.image} description={idea.descriptionText} />
         </div>
-      )
-    })
-  }, [ideas, tagFilter])
+      )),
+    [ideas, tagFilter]
+  )
 
   const handleSearchChanged = useDebouncedCallback((value: string) => {
     setSearchFilter(value)
