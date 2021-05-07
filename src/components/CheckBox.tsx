@@ -25,7 +25,7 @@ export default function CheckBox({ name, label, boxClassName, labelClassName, wr
   return (
     <div className={clsx('flex flex-col', wrapperClassName)}>
       <div className="flex">
-        <label htmlFor={name} className={clsx('check-container', labelClassName)}>
+        <label htmlFor={name} className={clsx('check-container flex items-center', labelClassName)}>
           <input
             id={name}
             name={name}
