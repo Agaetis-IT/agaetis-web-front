@@ -24,7 +24,10 @@ import ContactMessage from '../components/ContactMessage'
 import { formatPostAuthors } from '../Services/textUtilities'
 
 import '../components/Common.css'
+
 import { PostAPI } from '../models/IdeasAPI'
+import { AuthorLink } from '../types/AuthorContent'
+
 
 interface Props {
   data: IdeasContent
@@ -157,9 +160,13 @@ export async function getServerSideProps({ query }: Context) {
     getIdeaBySlug(escape(query.slug)),
     getIdeaMeta(escape(query.slug)),
   ])
-  const authors = []
+  const authors: AuthorLink[] = []
 
-  if (data._embedded.author[0].name) authors.push(data._embedded.author[0].name)
+  if (data._embedded.author[0].name)
+    authors.push({
+      id: data._embedded.author[0].id,
+      name: data._embedded.author[0].name,
+    })
 
   if (!!data.acf || !!data.content) {
     const related = []
@@ -171,7 +178,10 @@ export async function getServerSideProps({ query }: Context) {
 
       if (data.acf.co_author) {
         for (const auth of data.acf.co_author) {
-          authors.push(auth.data.display_name)
+          authors.push({
+            id: auth.ID,
+            name: auth.data.display_name,
+          })
         }
       }
     }
@@ -218,7 +228,7 @@ export async function getServerSideProps({ query }: Context) {
         title: '',
         imageUrl: '',
         date: '',
-        author: '',
+        authors: '',
         categories: [],
         content: '',
         slug: '',
