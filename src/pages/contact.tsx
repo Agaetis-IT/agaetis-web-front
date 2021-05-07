@@ -66,7 +66,7 @@ export default function contact({ pageContent }: Props) {
       </Head>
       <Layout invertColors={false}>
         <div className="pt-0 md:pt-28">
-          <div className="md:max-w-md mx-auto p-0 md:px-4 mb-8">
+          <div className="p-0 md:px-4 bg-light-grey">
             <h1
               className="text-center text-2xl md:px-8 py-8 md:pb-0 md:mt-12"
               dangerouslySetInnerHTML={{ __html: pageContent.title }}

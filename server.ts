@@ -135,7 +135,7 @@ app
 
       const message = {
         from: process.env.NEXT_APP_MAIL_ADDRESS,
-        to: 'cedric.klodzinski@agaetis.fr', //'contact@agaetis.fr',
+        to: 'contact@agaetis.fr',
         subject: req.body.object,
         html: req.body.content,
         attachments: req.body.attachments
