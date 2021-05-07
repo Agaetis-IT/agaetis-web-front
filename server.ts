@@ -44,7 +44,7 @@ app
       )
     )
     server.use(bodyParser.urlencoded({ extended: true }))
-    server.use(bodyParser.json())
+    server.use(bodyParser.json({ limit: '10mb' }))
     server.use(cors())
 
     server.get(/sitemap[a-zA-Z-0-9\/\-_]*.xml/, async (req: Request, res: Response) => {
@@ -137,10 +137,12 @@ app
         to: 'cedric.klodzinski@agaetis.fr', //'contact@agaetis.fr',
         subject: req.body.object,
         html: req.body.content,
-        attachments: req.body.attachments.map((attachment: AttachmentContent) => ({
-          filename: attachment.fileName,
-          content: attachment.content,
-        })),
+        attachments: req.body.attachments
+          ? req.body.attachments.map((attachment: AttachmentContent) => ({
+              filename: attachment.fileName,
+              path: attachment.content,
+            }))
+          : [],
       }
 
       const key = Buffer.from(

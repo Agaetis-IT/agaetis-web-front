@@ -28,12 +28,12 @@ function FileInput({ className, wrapperClassName, onChange }: Props) {
             content: reader.result as string,
           })
 
-        reader.readAsText(file)
+        reader.readAsDataURL(file)
       })
     })
 
     const files = await Promise.all(results)
-    console.log(files)
+
     setFiles(files)
     onChange(files)
     setIsLoadingFiles(false)
