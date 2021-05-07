@@ -7,15 +7,16 @@ import Tick from '../static/images/Flat_tick_icon.svg.png'
 import './SnackBar.css'
 
 interface Props {
-  errorMessage: string
+  message: string
+  isError?: boolean
 }
 
-export default function SnackBar({ errorMessage }: Props) {
+export default function SnackBar({ message, isError }: Props) {
   return (
     <div className={clsx('flex flex-row bg-white p-4 rounded-lg shadow-md snack-bar-modal')}>
-      {!errorMessage && <img src={Tick} alt="tick" className="w-8 h-8 block" />}
-      {errorMessage && <img src={Cross} alt="cross" className="w-8 h-8 block" />}
-      <h4 className="self-center block ml-4 text-black">{errorMessage}</h4>
+      {!isError && <img src={Tick} alt="tick" className="w-8 h-8 block" />}
+      {isError && <img src={Cross} alt="cross" className="w-8 h-8 block" />}
+      <h4 className="self-center block ml-4 text-black">{message}</h4>
     </div>
   )
 }

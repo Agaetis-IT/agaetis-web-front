@@ -10,9 +10,9 @@ import ContactContent from '../types/ContactContent'
 import './contact.css'
 import ContactSection from '../components/ContactSection'
 import ContactForm from '../components/ContactForm'
-import ContactMessage from '../components/ContactMessage'
 import { FormInput } from '../yup/ContactFormValidation'
 import send from '../Services/contactService'
+import SnackBar from '../components/SnackBar'
 
 interface Props {
   pageContent: ContactContent
@@ -72,8 +72,10 @@ export default function contact({ pageContent }: Props) {
             handleSubmit={handleSubmit}
             isSubmited={isSubmited}
           />
-          {isOpenenedModal && <ContactMessage error={isError} />}
-          <ContactSection></ContactSection>
+          {isOpenenedModal && (
+            <SnackBar message={isError ? "Erreur pendant l'envoi du message" : 'Message envoyé'} isError={isError} />
+          )}
+          <ContactSection />
         </div>
       </Layout>
     </>

@@ -20,13 +20,13 @@ import ContactSection from '../components/ContactSection'
 import ContactForm from '../components/ContactForm'
 import { FormInput } from '../yup/ContactFormValidation'
 import send from '../Services/contactService'
-import ContactMessage from '../components/ContactMessage'
 import { formatPostAuthors } from '../Services/textUtilities'
 
 import '../components/Common.css'
 
 import { PostAPI } from '../models/IdeasAPI'
 import { AuthorLink } from '../types/AuthorContent'
+import SnackBar from '../components/SnackBar'
 
 interface Props {
   data: IdeasContent
@@ -156,7 +156,9 @@ export default function Idea({ data, related, errorCode, meta }: Props) {
             handleSubmit={handleSubmit}
             isSubmited={isSubmited}
           ></ContactForm>
-          {isOpenenedModal && <ContactMessage error={isError}></ContactMessage>}
+          {isOpenenedModal && (
+            <SnackBar message={isError ? "Erreur pendant l'envoi du message" : 'Message envoyé'} isError={isError} />
+          )}
           <ContactSection></ContactSection>
         </div>
       </Layout>

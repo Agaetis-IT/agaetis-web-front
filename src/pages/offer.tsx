@@ -15,12 +15,12 @@ import clsx from 'clsx'
 import RelatedArticlesSection from '../components/RelatedArticlesSection'
 import Link from 'next/link'
 import ContactForm from '../components/ContactForm'
-import ContactMessage from '../components/ContactMessage'
 import ContactSection from '../components/ContactSection'
 import { FormInput } from '../yup/ContactFormValidation'
 import send from '../Services/contactService'
 import { useRouter } from 'next/router'
 import PartnerList from '../components/PartnerList'
+import SnackBar from '../components/SnackBar'
 
 interface Context extends NextPageContext {
   query: { slug: string }
@@ -201,7 +201,9 @@ export default function offer({ pageContent, errorCode, offers }: Props): React.
           )}
 
           <ContactForm title="Une question ? Contactez-nous !" handleSubmit={handleSubmit} isSubmited={isSubmited} />
-          {isOpenenedModal && <ContactMessage error={isError}></ContactMessage>}
+          {isOpenenedModal && (
+            <SnackBar message={isError ? "Erreur pendant l'envoi du message" : 'Message envoyé'} isError={isError} />
+          )}
           <ContactSection />
         </div>
       </Layout>

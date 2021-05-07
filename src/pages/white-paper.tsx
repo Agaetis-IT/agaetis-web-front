@@ -3,7 +3,6 @@ import { NextPageContext } from 'next'
 import Head from 'next/head'
 import React, { useState } from 'react'
 
-import ContactMessage from '../components/ContactMessage'
 import WhitePaperForm from '../components/form/WhitePaperForm'
 import Layout from '../components/Layout'
 import publicRuntimeConfig from '../config/env.config'
@@ -15,6 +14,7 @@ import Logo from '../static/icons/Agaetis - Ico logo - Orange.png'
 
 import Error from './_error'
 import Link from 'next/link'
+import SnackBar from '../components/SnackBar'
 
 interface Props {
   pageContent?: WhitePaper
@@ -101,7 +101,9 @@ export default function whitePaper({ pageContent, errorCode }: Props) {
               />
             </div>
           </div>
-          {isOpenenedModal && <ContactMessage error={isError} />}
+          {isOpenenedModal && (
+            <SnackBar message={isError ? "Erreur pendant l'envoi du message" : 'Message envoyé'} isError={isError} />
+          )}
           <div className=" blue-underline my-4" />
         </>
       </Layout>

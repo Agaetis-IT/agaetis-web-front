@@ -14,7 +14,6 @@ import Particles from '../static/images/particles-3.svg'
 import { FormInput } from '../yup/ContactFormValidation'
 import send from '../Services/contactService'
 import ContactForm from './ContactForm'
-import ContactMessage from '../components/ContactMessage'
 import SearchInput from '../components/SearchInput'
 import Error from '../pages/_error'
 
@@ -26,6 +25,7 @@ import { PostAPI } from '../models/IdeasAPI'
 import './Common.css'
 import Head from 'next/head'
 import publicRuntimeConfig from '../config/env.config'
+import SnackBar from './SnackBar'
 
 interface Props {
   ideasDescription: IdeasDesc[]
@@ -49,6 +49,7 @@ function Blog({
   errorCode,
 }: Props) {
   const [isOpenenedModal, setOpenModal] = useState(false)
+  const [isOpenenedPostModal, setOpenPostModal] = useState(false)
   const [isError, setIsError] = useState(true)
   const [isSubmited, setIsSubmited] = useState(false)
   const [ideas, setIdeas] = useState(ideasDescription)
@@ -64,6 +65,13 @@ function Blog({
     setIsSubmited(false)
     setTimeout(() => {
       setOpenModal(false)
+    }, 3000)
+  }
+
+  function handleOpenPostModal() {
+    setOpenPostModal(true)
+    setTimeout(() => {
+      setOpenPostModal(false)
     }, 3000)
   }
 
@@ -89,50 +97,56 @@ function Blog({
 
   async function handleFetchIdeas(reset?: boolean, changedCategory?: string, changedSearchFilter?: string) {
     setIsLoadingPosts(true)
-    let data: IdeasDesc[] = []
-    let newData: Response
-    const page = reset ? 1 : lastPage + 1
-    const catFilter = changedCategory ? changedCategory : categoryFilter
-    const searchBarFilter = (changedSearchFilter || changedSearchFilter === ''
-      ? changedSearchFilter
-      : searchFilter
-    ).toLocaleLowerCase()
 
-    if (catFilter != 'All') {
-      if (tagFilter) {
-        newData = await getIdeasByTag(tagFilter, slugify(catFilter), page, searchBarFilter)
+    try {
+      let data: IdeasDesc[] = []
+      let newData: Response
+      const page = reset ? 1 : lastPage + 1
+      const catFilter = changedCategory ? changedCategory : categoryFilter
+      const searchBarFilter = (changedSearchFilter || changedSearchFilter === ''
+        ? changedSearchFilter
+        : searchFilter
+      ).toLocaleLowerCase()
+
+      if (catFilter != 'All') {
+        if (tagFilter) {
+          newData = await getIdeasByTag(tagFilter, slugify(catFilter), page, searchBarFilter)
+        } else {
+          newData = await getIdeasByCategory(slugify(catFilter), page, searchBarFilter)
+        }
       } else {
-        newData = await getIdeasByCategory(slugify(catFilter), page, searchBarFilter)
+        if (tagFilter) {
+          newData = await getIdeasByTag(tagFilter, undefined, page, searchBarFilter)
+        } else {
+          newData = await getIdeasByPage(page, searchBarFilter)
+        }
       }
-    } else {
-      if (tagFilter) {
-        newData = await getIdeasByTag(tagFilter, undefined, page, searchBarFilter)
+
+      data = newData.data
+        .map((idea: PostAPI) => ({
+          id: idea.id,
+          title: idea.title.rendered,
+          categories: idea._embedded['wp:term'][0].map((category: { name: string }) => category.name),
+          tags: [],
+          slug: idea.slug,
+          descriptionText: idea.acf.idea_description,
+          date: idea.date,
+          image: idea.acf.idea_image,
+        }))
+        .filter((idea) => !idea.categories.includes('White-paper') && !idea.categories.includes('Jobs'))
+
+      if (newData.pageCount > page) {
+        setIsVisibleSeeMore(true)
       } else {
-        newData = await getIdeasByPage(page, searchBarFilter)
+        setIsVisibleSeeMore(false)
       }
+
+      setLastPage(page)
+      setIdeas(reset ? data : ideas.concat(data))
+    } catch (error) {
+      handleOpenPostModal()
     }
 
-    data = newData.data
-      .map((idea: PostAPI) => ({
-        id: idea.id,
-        title: idea.title.rendered,
-        categories: idea._embedded['wp:term'][0].map((category: { name: string }) => category.name),
-        tags: [],
-        slug: idea.slug,
-        descriptionText: idea.acf.idea_description,
-        date: idea.date,
-        image: idea.acf.idea_image,
-      }))
-      .filter((idea) => !idea.categories.includes('White-paper') && !idea.categories.includes('Jobs'))
-
-    if (newData.pageCount > page) {
-      setIsVisibleSeeMore(true)
-    } else {
-      setIsVisibleSeeMore(false)
-    }
-
-    setLastPage(page)
-    setIdeas(reset ? data : ideas.concat(data))
     setIsLoadingPosts(false)
   }
 
@@ -272,7 +286,10 @@ function Blog({
             handleSubmit={handleSubmit}
             isSubmited={isSubmited}
           />
-          {isOpenenedModal && <ContactMessage error={isError} />}
+          {isOpenenedPostModal && <SnackBar message="Erreur pendant le chargement des posts" isError />}
+          {isOpenenedModal && (
+            <SnackBar message={isError ? "Erreur pendant l'envoi du message" : 'Message envoyé'} isError={isError} />
+          )}
           <ContactSection />
         </div>
       </Layout>

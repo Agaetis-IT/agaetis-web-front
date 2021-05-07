@@ -151,7 +151,7 @@ export default function author({ ideasDescription, author, content, errorCode, h
           <ContactSection />
         </div>
       </Layout>
-      {isOpenenedModal && <SnackBar errorMessage="Erreur pendant le chargement des posts" />}
+      {isOpenenedModal && <SnackBar message="Erreur pendant le chargement des posts" isError />}
     </>
   )
 }

@@ -1,7 +1,6 @@
 import { NextPageContext } from 'next'
 import React, { useState } from 'react'
 import ContactForm from '../components/ContactForm'
-import ContactMessage from '../components/ContactMessage'
 import ContactSection from '../components/ContactSection'
 import Error from './_error'
 import Layout from '../components/Layout'
@@ -12,6 +11,7 @@ import { convertAPItoLandingPageContent, LandingPage } from '../types/OffersCont
 import { FormInput } from '../yup/ContactFormValidation'
 
 import './landingpage.css'
+import SnackBar from '../components/SnackBar'
 
 interface Context extends NextPageContext {
   query: { slug: string }
@@ -78,7 +78,9 @@ export default function Landingpage({ pageContent, errorCode }: Props) {
           </div>
         </div>
         <ContactForm title="Une question ? Contactez-nous !" handleSubmit={handleSubmit} isSubmited={isSubmited} />
-        {isOpenenedModal && <ContactMessage error={isError}></ContactMessage>}
+        {isOpenenedModal && (
+          <SnackBar message={isError ? "Erreur pendant l'envoi du message" : 'Message envoyé'} isError={isError} />
+        )}
         <ContactSection />
       </>
     </Layout>

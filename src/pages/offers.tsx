@@ -9,12 +9,12 @@ import Layout from '../components/Layout'
 import publicRuntimeConfig from '../config/env.config'
 import { FormInput } from '../yup/ContactFormValidation'
 import send from '../Services/contactService'
-import ContactMessage from '../components/ContactMessage'
 import ContactSection from '../components/ContactSection'
 import Mask from '../static/images/hero_mask.svg'
 import Plus from '../static/icons/squared_plus_white.svg'
 import clsx from 'clsx'
 import Link from 'next/link'
+import SnackBar from '../components/SnackBar'
 
 /* eslint-disable react-hooks/rules-of-hooks */
 
@@ -158,7 +158,9 @@ export default function offers({ pageContent, allOffers }: Props) {
             </div>
           </div>
           <ContactForm title="Une question ? Contactez-nous !" handleSubmit={handleSubmit} isSubmited={isSubmited} />
-          {isOpenenedModal && <ContactMessage error={isError}></ContactMessage>}
+          {isOpenenedModal && (
+            <SnackBar message={isError ? "Erreur pendant l'envoi du message" : 'Message envoyé'} isError={isError} />
+          )}
           <ContactSection />
         </div>
       </Layout>
