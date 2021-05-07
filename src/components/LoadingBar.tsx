@@ -27,7 +27,7 @@ export default function LoadingBar({ animationDuration, progress, color, height 
           boxShadow: `0 0 10px ${color}, 0 0 5px ${color}`,
           transform: 'rotate(3deg) translate(0px, -4px)',
         }}
-      ></div>
+      />
     </div>
   )
 }

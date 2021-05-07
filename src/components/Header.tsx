@@ -79,7 +79,7 @@ export default function Header({ invertColors, className }: Props) {
                     className={clsx({ 'md:inline': invertColors && position < 200 }, 'logoAgaetis hidden')}
                     src={logoAgaetisDesktop}
                     alt="logo agaetis"
-                  ></LazyLoadImage>
+                  />
                 }
                 {
                   // eslint-disable-next-line
@@ -92,7 +92,7 @@ export default function Header({ invertColors, className }: Props) {
                     )}
                     src={logoAgaetisMobile}
                     alt="logo agaetis"
-                  ></LazyLoadImage>
+                  />
                 }
               </a>
             </Link>

@@ -1,5 +1,4 @@
 import { NextPageContext } from 'next'
-import Ideas from '../../components/Ideas'
 import { CategoryAPI, PostAPI } from '../../models/IdeasAPI'
 import { slugify } from '../../Services/textUtilities'
 import {
@@ -11,6 +10,9 @@ import {
 } from '../../Services/wordpressService'
 import { Category, Response } from '../../types/IdeasContent'
 import WhitePaper from '../../types/WhitePaper'
+import Blog from '../../components/Blog'
+
+export default Blog
 
 interface Context extends NextPageContext {
   query: { categoryName: string }
@@ -76,5 +78,3 @@ export async function getServerSideProps({ query }: Context) {
     },
   }
 }
-
-export default Ideas

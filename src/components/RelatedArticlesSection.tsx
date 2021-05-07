@@ -22,14 +22,14 @@ export default function RelatedArticlesSection({ posts, className }: Props) {
               })}
               key={post.title}
             >
-              <img src={post.image} className="w-full md:w-1/4"></img>
+              <img src={post.image} className="w-full md:w-1/4" />
               <div className="flex flex-col p-4 lg:p-8 justify-between">
                 <div>
-                  <p dangerouslySetInnerHTML={{ __html: post.title }} className="pb-2 lg:pb-4"></p>
+                  <p dangerouslySetInnerHTML={{ __html: post.title }} className="pb-2 lg:pb-4" />
                   <p
                     dangerouslySetInnerHTML={{ __html: post.description }}
                     className="text-xs lg:text-sm leading-normal text-justify"
-                  ></p>
+                  />
                 </div>
 
                 <Link href={`/${post.slug}`}>

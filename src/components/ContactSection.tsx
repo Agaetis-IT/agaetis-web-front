@@ -39,7 +39,7 @@ export default function ContactSection() {
         {
           // eslint-disable-next-line
           // @ts-ignore-next-line
-          <LazyLoadImage effect="blur" src={Logo}></LazyLoadImage>
+          <LazyLoadImage effect="blur" src={Logo} />
         }
       </div>
 
@@ -50,7 +50,7 @@ export default function ContactSection() {
             <Address key={address.agency} {...address} />
           ))}
         </div>
-        <BottomNav></BottomNav>
+        <BottomNav />
       </div>
     </div>
   )

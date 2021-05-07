@@ -17,7 +17,7 @@ export default function HomeExpertises({ expertises_title, expertises_image_desk
       <div className="hidden lg:block  md:p-16 xl:px-32">
         <h2 className="text-orange font-semibold text-center md:text-left">{expertises_title}</h2>
         <div className="md:my-16 relative" id="expertise-container-desktop">
-          <img src={expertises_image_desktop} className="block mx-auto human"></img>
+          <img src={expertises_image_desktop} className="block mx-auto human" />
         </div>
       </div>
       <div className="block lg:hidden p-4 py-8 relative" id="expertise-container">

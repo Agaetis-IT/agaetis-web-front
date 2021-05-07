@@ -71,28 +71,28 @@ export default function ContactFormFooter({ title, handleSubmit, isSubmited }: P
               name="lastname"
               label="Nom"
               type="input"
-            ></TextInput>
+            />
             <TextInput
               wrapperClassName="w-full md:w-1/5 mt-8 md:mt-0"
               className="appearance-none rounded-full  text-xs p-3 shadow-md text-orange font-semibold leading-tight"
               name="firstname"
               label="Prénom"
               type="input"
-            ></TextInput>
+            />
             <TextInput
               wrapperClassName="w-full md:w-1/5 mt-8 md:mt-0"
               className="appearance-none rounded-full  text-xs p-3 shadow-md text-orange font-semibold leading-tight"
               name="mail"
               label="Mail"
               type="input"
-            ></TextInput>
+            />
             <TextInput
               wrapperClassName="w-full md:w-1/5 mt-8 md:mt-0"
               className="appearance-none rounded-full  text-xs p-3 shadow-md text-orange font-semibold leading-tight"
               name="phone"
               label="Téléphone"
               type="input"
-            ></TextInput>
+            />
           </div>
           <TextInput
             wrapperClassName="my-8"
@@ -100,7 +100,7 @@ export default function ContactFormFooter({ title, handleSubmit, isSubmited }: P
             name="message"
             label="Détails de votre demande"
             type="textarea"
-          ></TextInput>
+          />
 
           <Button
             className="block px-8 py-2 leading-none rounded-full uppercase mx-auto mt-4 md:mt-8 bg-orange text-white text-xs font-semibold shadow-md"

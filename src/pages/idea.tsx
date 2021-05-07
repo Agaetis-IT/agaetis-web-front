@@ -24,7 +24,10 @@ import ContactMessage from '../components/ContactMessage'
 import { formatPostAuthors } from '../Services/textUtilities'
 
 import '../components/Common.css'
+
+import { PostAPI } from '../models/IdeasAPI'
 import { AuthorLink } from '../types/AuthorContent'
+
 
 interface Props {
   data: IdeasContent
@@ -203,7 +206,7 @@ export async function getServerSideProps({ query }: Context) {
               ? Math.floor(data.content.rendered.split(' ').length / 275)
               : '1',
         },
-        related: related.map((idea) => {
+        related: related.map((idea: PostAPI) => {
           return {
             title: idea.title.rendered || '',
             id: idea.id || '',
@@ -211,6 +214,7 @@ export async function getServerSideProps({ query }: Context) {
             categories: data._embedded['wp:term'][0].map((category: { name: string }) => category.name) || [],
             slug: idea.slug || '',
             descriptionText: idea.acf.idea_description || '',
+            image: idea.acf.idea_image || '',
           }
         }),
         meta: convertMetaAPItoMeta(meta, data._embedded),
