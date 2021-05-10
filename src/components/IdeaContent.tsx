@@ -51,15 +51,25 @@ function IdeaContent({ content }: Props) {
     e.preventDefault()
 
     if (e.target) {
-      document
-        .getElementsByName(e.target['href'].split('#')[1])[0]
-        .scrollIntoView({ block: 'center', behavior: 'smooth' })
+      window.scroll({
+        top:
+          document.getElementsByName(e.target['href'].split('#')[1])[0].getBoundingClientRect().top -
+          90 +
+          window.pageYOffset,
+        behavior: 'smooth',
+      })
     }
   }
 
   const setAnchorHandlers = () => {
     if (router.asPath.includes('#')) {
-      document.getElementsByName(router.asPath.split('#')[1])[0].scrollIntoView({ block: 'center' })
+      window.scroll({
+        top:
+          document.getElementsByName(router.asPath.split('#')[1])[0].getBoundingClientRect().top -
+          90 +
+          window.pageYOffset,
+        behavior: 'smooth',
+      })
     }
 
     const contentTag: HTMLElement | null = document.getElementById('content')
