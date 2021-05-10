@@ -44,7 +44,7 @@ app
       )
     )
     server.use(bodyParser.urlencoded({ extended: true }))
-    server.use(bodyParser.json({ limit: '10mb' }))
+    server.use(bodyParser.json({ limit: '11mb' }))
     server.use(cors())
 
     server.get(/sitemap[a-zA-Z-0-9\/\-_]*.xml/, async (req: Request, res: Response) => {

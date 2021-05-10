@@ -4,6 +4,7 @@ import clsx from 'clsx'
 import './FileInput.css'
 import { AttachmentContent } from '../yup/ContactFormValidation'
 import LoadingSpinner from './LoadingSpinner'
+import SnackBar from './SnackBar'
 
 type Props = {
   className?: string
@@ -11,31 +12,55 @@ type Props = {
   onChange: (value: AttachmentContent[]) => void
 }
 
+function checkSizeAndCount(files: FileList) {
+  if (files.length > 10) return false
+
+  let total = 0
+  for (const file of files) {
+    total += file.size
+  }
+
+  return total < 10000000
+}
+
 function FileInput({ className, wrapperClassName, onChange }: Props) {
   const [files, setFiles] = useState([] as AttachmentContent[])
   const [isLoadingFiles, setIsLoadingFiles] = useState(false)
+  const [isOpenenedModal, setOpenModal] = useState(false)
+
+  function handleOpenModal() {
+    setOpenModal(true)
+    setTimeout(() => {
+      setOpenModal(false)
+    }, 3000)
+  }
 
   const onChangeHandler = async (e: ChangeEvent<HTMLInputElement>) => {
     setIsLoadingFiles(true)
 
-    const results: Promise<AttachmentContent>[] = Array.from(e.target.files as FileList).map((file: File) => {
-      const reader: FileReader = new FileReader()
+    if (checkSizeAndCount(e.target.files)) {
+      const results: Promise<AttachmentContent>[] = Array.from(e.target.files as FileList).map((file: File) => {
+        const reader: FileReader = new FileReader()
 
-      return new Promise((resolve) => {
-        reader.onload = () =>
-          resolve({
-            fileName: file.name,
-            content: reader.result as string,
-          })
+        return new Promise((resolve) => {
+          reader.onload = () =>
+            resolve({
+              fileName: file.name,
+              content: reader.result as string,
+            })
 
-        reader.readAsDataURL(file)
+          reader.readAsDataURL(file)
+        })
       })
-    })
 
-    const files = await Promise.all(results)
+      const files = await Promise.all(results)
 
-    setFiles(files)
-    onChange(files)
+      setFiles(files)
+      onChange(files)
+    } else {
+      handleOpenModal()
+    }
+
     setIsLoadingFiles(false)
   }
 
@@ -56,7 +81,8 @@ function FileInput({ className, wrapperClassName, onChange }: Props) {
             )}
           </div>
           <span className="import-legend text-grey text-xs mt-4">
-            Sont acceptés les fichiers DOC, DOCX, ODT, RTF, PDF, BMP, JPEG et PNG
+            Sont acceptés les fichiers DOC, DOCX, ODT, RTF, PDF, BMP, JPEG et PNG<br></br>10 fichiers maximum<br></br>
+            Taille totale maximale des fichiers : 10 Mo
           </span>
         </div>
         <input
@@ -93,6 +119,14 @@ function FileInput({ className, wrapperClassName, onChange }: Props) {
       <span id="fileNames" className="mt-4 md:ml-4 md:mt-0">
         {files.map((file, index) => (index ? ' | ' : '') + file.fileName)}
       </span>
+      {isOpenenedModal && (
+        <SnackBar
+          message={
+            'Pièces jointes invalides : vous avez sélectionné trop de fichiers ou bien la taille totale dépasse 10 Mo'
+          }
+          isError
+        />
+      )}
     </div>
   )
 }
