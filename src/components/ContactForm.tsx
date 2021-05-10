@@ -50,7 +50,7 @@ export default function ContactForm({ title, handleSubmit, isSubmited, subText }
         backgroundImage: `url("${Particles}")`,
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'right bottom',
-        backgroundSize: 'cover',
+        backgroundSize: '100%',
       }}
     >
       <div className="flex flex-col md:flex-row justify-between mb-8">
