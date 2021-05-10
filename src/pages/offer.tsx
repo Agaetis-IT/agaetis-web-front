@@ -17,10 +17,10 @@ import Link from 'next/link'
 import ContactForm from '../components/ContactForm'
 import ContactSection from '../components/ContactSection'
 import { FormInput } from '../yup/ContactFormValidation'
-import send from '../Services/contactService'
 import { useRouter } from 'next/router'
 import PartnerList from '../components/PartnerList'
 import SnackBar from '../components/SnackBar'
+import handleMailSending from '../Services/contactService'
 
 interface Context extends NextPageContext {
   query: { slug: string }
@@ -35,17 +35,17 @@ interface Props {
 
 export default function offer({ pageContent, errorCode, offers }: Props): React.ReactElement {
   const [selectedOffer, setSelectedOffer] = useState(0)
-  const [isOpenenedModal, setOpenModal] = useState(false)
+  const [isOpenenedMessage, setOpenMessage] = useState(false)
   const [isError, setIsError] = useState(true)
   const [isSubmited, setIsSubmited] = useState(false)
   const router = useRouter()
 
-  function handleOpenModal(error: boolean) {
+  function handleOpenMessage(error: boolean) {
     setIsError(error)
-    setOpenModal(true)
+    setOpenMessage(true)
     setIsSubmited(false)
     setTimeout(() => {
-      setOpenModal(false)
+      setOpenMessage(false)
     }, 3000)
   }
 
@@ -57,27 +57,13 @@ export default function offer({ pageContent, errorCode, offers }: Props): React.
   }, [offers, router.query.offer])
 
   async function handleSubmit(data: FormInput) {
-    try {
-      setIsSubmited(true)
-      await send(
-        data.firstname,
-        data.lastname,
-        data.mail,
-        data.subject,
-        data.message,
-        data.phone,
-        new Date(),
-        data.captcha,
-        data.attachments
-      )
-      handleOpenModal(false)
-    } catch {
-      handleOpenModal(true)
-    }
+    handleMailSending(data, setIsSubmited, handleOpenMessage)
   }
+
   if (!!errorCode) {
     return <Error statusCode={404} />
   }
+
   return (
     <>
       <Head>
@@ -201,7 +187,7 @@ export default function offer({ pageContent, errorCode, offers }: Props): React.
           )}
 
           <ContactForm title="Une question ? Contactez-nous !" handleSubmit={handleSubmit} isSubmited={isSubmited} />
-          {isOpenenedModal && (
+          {isOpenenedMessage && (
             <SnackBar message={isError ? "Erreur pendant l'envoi du message" : 'Message envoyé'} isError={isError} />
           )}
           <ContactSection />

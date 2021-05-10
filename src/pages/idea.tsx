@@ -19,7 +19,6 @@ import { escape } from 'querystring'
 import ContactSection from '../components/ContactSection'
 import ContactForm from '../components/ContactForm'
 import { FormInput } from '../yup/ContactFormValidation'
-import send from '../Services/contactService'
 import { formatPostAuthors } from '../Services/textUtilities'
 
 import '../components/Common.css'
@@ -27,6 +26,7 @@ import '../components/Common.css'
 import { PostAPI } from '../models/IdeasAPI'
 import { AuthorLink } from '../types/AuthorContent'
 import SnackBar from '../components/SnackBar'
+import handleMailSending from '../Services/contactService'
 
 interface Props {
   data: IdeasContent
@@ -41,37 +41,21 @@ interface Context extends NextPageContext {
 
 export default function Idea({ data, related, errorCode, meta }: Props) {
   const [isOpenedMoreIdeas, setIsOpenedMoreIdeas] = useState(false)
-  const [isOpenenedModal, setOpenModal] = useState(false)
+  const [isOpenenedMessage, setOpenMessage] = useState(false)
   const [isError, setIsError] = useState(true)
   const [isSubmited, setIsSubmited] = useState(false)
 
-  function handleOpenModal(error: boolean) {
+  function handleOpenMessage(error: boolean) {
     setIsError(error)
-    setOpenModal(true)
+    setOpenMessage(true)
     setIsSubmited(false)
     setTimeout(() => {
-      setOpenModal(false)
+      setOpenMessage(false)
     }, 3000)
   }
 
   async function handleSubmit(data: FormInput) {
-    try {
-      setIsSubmited(true)
-      await send(
-        data.firstname,
-        data.lastname,
-        data.mail,
-        data.subject,
-        data.message,
-        data.phone,
-        new Date(),
-        data.captcha,
-        data.attachments
-      )
-      handleOpenModal(false)
-    } catch {
-      handleOpenModal(true)
-    }
+    handleMailSending(data, setIsSubmited, handleOpenMessage)
   }
 
   function handleToggleMoreIdeas() {
@@ -156,7 +140,7 @@ export default function Idea({ data, related, errorCode, meta }: Props) {
             handleSubmit={handleSubmit}
             isSubmited={isSubmited}
           ></ContactForm>
-          {isOpenenedModal && (
+          {isOpenenedMessage && (
             <SnackBar message={isError ? "Erreur pendant l'envoi du message" : 'Message envoyé'} isError={isError} />
           )}
           <ContactSection></ContactSection>

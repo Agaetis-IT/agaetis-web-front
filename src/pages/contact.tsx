@@ -11,45 +11,29 @@ import './contact.css'
 import ContactSection from '../components/ContactSection'
 import ContactForm from '../components/ContactForm'
 import { FormInput } from '../yup/ContactFormValidation'
-import send from '../Services/contactService'
 import SnackBar from '../components/SnackBar'
+import handleMailSending from '../Services/contactService'
 
 interface Props {
   pageContent: ContactContent
 }
 
 export default function contact({ pageContent }: Props) {
-  const [isOpenenedModal, setOpenModal] = useState(false)
+  const [isOpenenedMessage, setIsOpennedMessage] = useState(false)
   const [isError, setIsError] = useState(true)
   const [isSubmited, setIsSubmited] = useState(false)
 
-  function handleOpenModal(error: boolean) {
+  function handleOpenMessage(error: boolean) {
     setIsError(error)
-    setOpenModal(true)
+    setIsOpennedMessage(true)
     setIsSubmited(false)
     setTimeout(() => {
-      setOpenModal(false)
+      setIsOpennedMessage(false)
     }, 3000)
   }
 
   async function handleSubmit(data: FormInput) {
-    try {
-      setIsSubmited(true)
-      await send(
-        data.firstname,
-        data.lastname,
-        data.mail,
-        data.subject,
-        data.message,
-        data.phone,
-        new Date(),
-        data.captcha,
-        data.attachments
-      )
-      handleOpenModal(false)
-    } catch {
-      handleOpenModal(true)
-    }
+    handleMailSending(data, setIsSubmited, handleOpenMessage)
   }
 
   return (
@@ -72,7 +56,7 @@ export default function contact({ pageContent }: Props) {
             handleSubmit={handleSubmit}
             isSubmited={isSubmited}
           />
-          {isOpenenedModal && (
+          {isOpenenedMessage && (
             <SnackBar message={isError ? "Erreur pendant l'envoi du message" : 'Message envoyé'} isError={isError} />
           )}
           <ContactSection />

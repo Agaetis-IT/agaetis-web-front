@@ -5,13 +5,13 @@ import ContactSection from '../components/ContactSection'
 import Error from './_error'
 import Layout from '../components/Layout'
 import Particles from '../static/images/particles-3.svg'
-import send from '../Services/contactService'
 import { getLandingPageContent } from '../Services/wordpressService'
 import { convertAPItoLandingPageContent, LandingPage } from '../types/OffersContent'
 import { FormInput } from '../yup/ContactFormValidation'
 
 import './landingpage.css'
 import SnackBar from '../components/SnackBar'
+import handleMailSending from '../Services/contactService'
 
 interface Context extends NextPageContext {
   query: { slug: string }
@@ -23,37 +23,21 @@ interface Props {
 }
 
 export default function Landingpage({ pageContent, errorCode }: Props) {
-  const [isOpenenedModal, setOpenModal] = useState(false)
+  const [isOpenenedMessage, setOpenMessage] = useState(false)
   const [isError, setIsError] = useState(true)
   const [isSubmited, setIsSubmited] = useState(false)
 
-  function handleOpenModal(error: boolean) {
+  function handleOpenMessage(error: boolean) {
     setIsError(error)
-    setOpenModal(true)
+    setOpenMessage(true)
     setIsSubmited(false)
     setTimeout(() => {
-      setOpenModal(false)
+      setOpenMessage(false)
     }, 3000)
   }
 
   async function handleSubmit(data: FormInput) {
-    try {
-      setIsSubmited(true)
-      await send(
-        data.firstname,
-        data.lastname,
-        data.mail,
-        data.subject,
-        data.message,
-        data.phone,
-        new Date(),
-        data.captcha,
-        data.attachments
-      )
-      handleOpenModal(false)
-    } catch {
-      handleOpenModal(true)
-    }
+    handleMailSending(data, setIsSubmited, handleOpenMessage)
   }
 
   if (!!errorCode) {
@@ -78,7 +62,7 @@ export default function Landingpage({ pageContent, errorCode }: Props) {
           </div>
         </div>
         <ContactForm title="Une question ? Contactez-nous !" handleSubmit={handleSubmit} isSubmited={isSubmited} />
-        {isOpenenedModal && (
+        {isOpenenedMessage && (
           <SnackBar message={isError ? "Erreur pendant l'envoi du message" : 'Message envoyé'} isError={isError} />
         )}
         <ContactSection />

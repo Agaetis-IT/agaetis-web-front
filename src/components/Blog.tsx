@@ -12,7 +12,6 @@ import clsx from 'clsx'
 import ContactSection from '../components/ContactSection'
 import Particles from '../static/images/particles-3.svg'
 import { FormInput } from '../yup/ContactFormValidation'
-import send from '../Services/contactService'
 import ContactForm from './ContactForm'
 import SearchInput from '../components/SearchInput'
 import Error from '../pages/_error'
@@ -26,6 +25,7 @@ import './Common.css'
 import Head from 'next/head'
 import publicRuntimeConfig from '../config/env.config'
 import SnackBar from './SnackBar'
+import handleMailSending from '../Services/contactService'
 
 interface Props {
   ideasDescription: IdeasDesc[]
@@ -48,8 +48,8 @@ function Blog({
   hideSeeMore,
   errorCode,
 }: Props) {
-  const [isOpenenedModal, setOpenModal] = useState(false)
-  const [isOpenenedPostModal, setOpenPostModal] = useState(false)
+  const [isOpenenedMessage, setOpenMessage] = useState(false)
+  const [isOpenenedPostMessage, setOpenPostMessage] = useState(false)
   const [isError, setIsError] = useState(true)
   const [isSubmited, setIsSubmited] = useState(false)
   const [ideas, setIdeas] = useState(ideasDescription)
@@ -59,40 +59,24 @@ function Blog({
   const [isLoadingPosts, setIsLoadingPosts] = useState(false)
   const [isVisibleSeeMore, setIsVisibleSeeMore] = useState(!hideSeeMore)
 
-  function handleOpenModal(error: boolean) {
+  function handleOpenMessage(error: boolean) {
     setIsError(error)
-    setOpenModal(true)
+    setOpenMessage(true)
     setIsSubmited(false)
     setTimeout(() => {
-      setOpenModal(false)
+      setOpenMessage(false)
     }, 3000)
   }
 
   function handleOpenPostModal() {
-    setOpenPostModal(true)
+    setOpenPostMessage(true)
     setTimeout(() => {
-      setOpenPostModal(false)
+      setOpenPostMessage(false)
     }, 3000)
   }
 
   async function handleSubmit(data: FormInput) {
-    try {
-      setIsSubmited(true)
-      await send(
-        data.firstname,
-        data.lastname,
-        data.mail,
-        data.subject,
-        data.message,
-        data.phone,
-        new Date(),
-        data.captcha,
-        data.attachments
-      )
-      handleOpenModal(false)
-    } catch {
-      handleOpenModal(true)
-    }
+    handleMailSending(data, setIsSubmited, handleOpenMessage)
   }
 
   async function handleFetchIdeas(reset?: boolean, changedCategory?: string, changedSearchFilter?: string) {
@@ -161,7 +145,7 @@ function Blog({
     setCategoryFilter('All')
     setSearchFilter('')
     setIsVisibleSeeMore(!hideSeeMore)
-  }, [ideasDescription])
+  }, [ideasDescription, hideSeeMore])
 
   const cards = useMemo(
     () =>
@@ -170,7 +154,7 @@ function Blog({
           <IdeasCard slug={idea.slug} title={idea.title} image={idea.image} description={idea.descriptionText} />
         </div>
       )),
-    [ideas, tagFilter]
+    [ideas]
   )
 
   const handleSearchChanged = useDebouncedCallback((value: string) => {
@@ -286,8 +270,8 @@ function Blog({
             handleSubmit={handleSubmit}
             isSubmited={isSubmited}
           />
-          {isOpenenedPostModal && <SnackBar message="Erreur pendant le chargement des posts" isError />}
-          {isOpenenedModal && (
+          {isOpenenedPostMessage && <SnackBar message="Erreur pendant le chargement des posts" isError />}
+          {isOpenenedMessage && (
             <SnackBar message={isError ? "Erreur pendant l'envoi du message" : 'Message envoyé'} isError={isError} />
           )}
           <ContactSection />

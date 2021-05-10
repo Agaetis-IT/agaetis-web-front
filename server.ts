@@ -44,8 +44,10 @@ app
       )
     )
     server.use(bodyParser.urlencoded({ extended: true }))
-    server.use(bodyParser.json({ limit: '11mb' }))
     server.use(cors())
+
+    const json10MBParser = bodyParser.json({ limit: '11mb' })
+    const jsonParser = bodyParser.json()
 
     server.get(/sitemap[a-zA-Z-0-9\/\-_]*.xml/, async (req: Request, res: Response) => {
       const { data } = await axios.get(`${process.env.NEXT_APP_BASE_URL}${req.url}`)
@@ -110,7 +112,7 @@ app
       app.render(req, res, '/tag', { ...req.params, ...req.query })
     })
 
-    server.post('/send', async (req: Request, res: Response) => {
+    server.post('/send', json10MBParser, async (req: Request, res: Response) => {
       oAuth2Client.setCredentials({
         // eslint-disable-next-line @typescript-eslint/camelcase
         refresh_token: process.env.NEXT_APP_GMAIL_REFRESH_TOKEN,
@@ -135,7 +137,7 @@ app
 
       const message = {
         from: process.env.NEXT_APP_MAIL_ADDRESS,
-        to: 'contact@agaetis.fr',
+        to: process.env.NEXT_APP_MAIL_DEST,
         subject: req.body.object,
         html: req.body.content,
         attachments: req.body.attachments
@@ -177,7 +179,7 @@ app
       }
     })
 
-    server.post('/send/white-paper', (req: Request, res: Response) => {
+    server.post('/send/white-paper', jsonParser, (req: Request, res: Response) => {
       oAuth2Client.setCredentials({
         // eslint-disable-next-line @typescript-eslint/camelcase
         refresh_token: process.env.NEXT_APP_GMAIL_REFRESH_TOKEN,

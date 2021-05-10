@@ -8,13 +8,13 @@ import Head from 'next/head'
 import Layout from '../components/Layout'
 import publicRuntimeConfig from '../config/env.config'
 import { FormInput } from '../yup/ContactFormValidation'
-import send from '../Services/contactService'
 import ContactSection from '../components/ContactSection'
 import Mask from '../static/images/hero_mask.svg'
 import Plus from '../static/icons/squared_plus_white.svg'
 import clsx from 'clsx'
 import Link from 'next/link'
 import SnackBar from '../components/SnackBar'
+import handleMailSending from '../Services/contactService'
 
 /* eslint-disable react-hooks/rules-of-hooks */
 
@@ -36,38 +36,23 @@ interface Props {
 export default function offers({ pageContent, allOffers }: Props) {
   const [selectedOffer, setSelectedOffer] = useState(0)
   const [wasSelected, setWasSelected] = useState(0)
-  const [isOpenenedModal, setOpenModal] = useState(false)
+  const [isOpenenedMessage, setOpenMessage] = useState(false)
   const [isError, setIsError] = useState(true)
   const [isSubmited, setIsSubmited] = useState(false)
 
-  function handleOpenModal(error: boolean) {
+  function handleOpenMessage(error: boolean) {
     setIsError(error)
-    setOpenModal(true)
+    setOpenMessage(true)
     setIsSubmited(false)
     setTimeout(() => {
-      setOpenModal(false)
+      setOpenMessage(false)
     }, 3000)
   }
 
   async function handleSubmit(data: FormInput) {
-    try {
-      setIsSubmited(true)
-      await send(
-        data.firstname,
-        data.lastname,
-        data.mail,
-        data.subject,
-        data.message,
-        data.phone,
-        new Date(),
-        data.captcha,
-        data.attachments
-      )
-      handleOpenModal(false)
-    } catch {
-      handleOpenModal(true)
-    }
+    handleMailSending(data, setIsSubmited, handleOpenMessage)
   }
+
   return (
     <>
       <Head>
@@ -158,7 +143,7 @@ export default function offers({ pageContent, allOffers }: Props) {
             </div>
           </div>
           <ContactForm title="Une question ? Contactez-nous !" handleSubmit={handleSubmit} isSubmited={isSubmited} />
-          {isOpenenedModal && (
+          {isOpenenedMessage && (
             <SnackBar message={isError ? "Erreur pendant l'envoi du message" : 'Message envoyé'} isError={isError} />
           )}
           <ContactSection />

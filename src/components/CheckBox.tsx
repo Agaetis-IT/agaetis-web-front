@@ -17,9 +17,11 @@ export default function CheckBox({ name, label, boxClassName, labelClassName, wr
   const { register, errors, trigger, formState } = useFormContext()
 
   const triggerValidation = () => {
-    // eslint-disable-next-line
-    // @ts-ignore
-    formState.isDirty && trigger(name)
+    if (formState.isDirty) {
+      // eslint-disable-next-line
+      // @ts-ignore
+      return trigger(name)
+    }
   }
 
   return (

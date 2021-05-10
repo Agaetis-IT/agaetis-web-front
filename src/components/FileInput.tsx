@@ -12,7 +12,7 @@ type Props = {
   onChange: (value: AttachmentContent[]) => void
 }
 
-function checkSizeAndCount(files: FileList) {
+function isWithinAcceptableSizeAndCount(files: FileList) {
   if (files.length > 10) return false
 
   let total = 0
@@ -27,6 +27,7 @@ function FileInput({ className, wrapperClassName, onChange }: Props) {
   const [files, setFiles] = useState([] as AttachmentContent[])
   const [isLoadingFiles, setIsLoadingFiles] = useState(false)
   const [isOpenenedModal, setOpenModal] = useState(false)
+  const [isDraggingOver, setIsDraggingOver] = useState(false)
 
   function handleOpenModal() {
     setOpenModal(true)
@@ -38,7 +39,9 @@ function FileInput({ className, wrapperClassName, onChange }: Props) {
   const onChangeHandler = async (e: ChangeEvent<HTMLInputElement>) => {
     setIsLoadingFiles(true)
 
-    if (checkSizeAndCount(e.target.files)) {
+    if (!isWithinAcceptableSizeAndCount(e.target.files)) {
+      handleOpenModal()
+    } else {
       const results: Promise<AttachmentContent>[] = Array.from(e.target.files as FileList).map((file: File) => {
         const reader: FileReader = new FileReader()
 
@@ -57,8 +60,6 @@ function FileInput({ className, wrapperClassName, onChange }: Props) {
 
       setFiles(files)
       onChange(files)
-    } else {
-      handleOpenModal()
     }
 
     setIsLoadingFiles(false)
@@ -90,22 +91,10 @@ function FileInput({ className, wrapperClassName, onChange }: Props) {
           disabled={isLoadingFiles}
           type="file"
           onChange={onChangeHandler}
-          onDragEnter={() => {
-            const button = document.getElementById('button')
-
-            if (button) button.classList.add('drag-over')
-          }}
-          onDragLeave={() => {
-            const button = document.getElementById('button')
-
-            if (button) button.classList.remove('drag-over')
-          }}
-          onDrop={() => {
-            const button = document.getElementById('button')
-
-            if (button) button.classList.remove('drag-over')
-          }}
-          className="hidden-input rounded-full"
+          onDragEnter={() => setIsDraggingOver(true)}
+          onDragLeave={() => setIsDraggingOver(false)}
+          onDrop={() => setIsDraggingOver(false)}
+          className={clsx('hidden-input rounded-full', 'drag-over' && isDraggingOver)}
           multiple
           accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,
           .rtf,application/rtf,application/x-rtf,text/richtext,

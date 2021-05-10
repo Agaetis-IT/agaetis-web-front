@@ -76,12 +76,10 @@ export default function ContactForm({ title, handleSubmit, isSubmited, subText }
           </Button>
         </div>
       </div>
-      {subText ? (
+      {subText && (
         <div className="mb-8">
           <p className="text-sm leading-normal" dangerouslySetInnerHTML={{ __html: subText }} />
         </div>
-      ) : (
-        ''
       )}
       <FormProvider register={register} watch={watch} control={control} clearErrors={clearErrors} {...otherFormProps}>
         <form onSubmit={otherFormProps.handleSubmit(handleSubmit)}>

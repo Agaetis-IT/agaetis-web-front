@@ -15,9 +15,11 @@ function TextInput({ name, label, className, wrapperClassName, type, required }:
   const { register, errors, trigger, formState } = useFormContext()
 
   const triggerValidation = () => {
-    // eslint-disable-next-line
-    // @ts-ignore
-    formState.isDirty && trigger(name)
+    if (formState.isDirty) {
+      // eslint-disable-next-line
+      // @ts-ignore
+      return trigger(name)
+    }
   }
 
   const Component = type

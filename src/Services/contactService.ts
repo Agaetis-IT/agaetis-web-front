@@ -1,8 +1,9 @@
 import axios from 'axios'
 import sha256 from 'js-sha256'
+import React from 'react'
 
 import publicRuntimeConfig from '../config/env.config'
-import { AttachmentContent } from '../yup/ContactFormValidation'
+import { FormInput } from '../yup/ContactFormValidation'
 
 const formatContent = (content: string, name: string, mail: string, phone: string) =>
   `<html><body><p>${content}</p><h3>Contact</h3><p>${name}</p><p>${mail}</p><p>${phone}</p></body></html>`
@@ -10,26 +11,18 @@ const formatContent = (content: string, name: string, mail: string, phone: strin
 const formatWPContent = () =>
   `<html><body><p>Bonjour,<br/><br/>Nous vous remercions de l'intérêt que vous portez à Agaetis et son activité. Vous trouverez ci-joint le fichier .pdf que vous avez choisi. <br/><br/>Cordialement,<br/>Agaetis</p></body></html>`
 
-export default async function send(
-  firstname: string,
-  lastname: string,
-  mail: string,
-  subject: string,
-  message: string,
-  phone: string,
-  date: Date,
-  token: string,
-  attachments: AttachmentContent[]
-) {
+export async function send(data: FormInput) {
+  const now = new Date()
+
   const key = Buffer.from(
-    firstname +
-      lastname +
+    data.firstname +
+      data.lastname +
       publicRuntimeConfig.NEXT_APP_CONTACT_SALT +
-      mail +
-      subject +
-      formatContent(message, `${firstname} ${lastname}`, mail, phone) +
-      date.getTime() +
-      token,
+      data.mail +
+      data.subject +
+      formatContent(data.message, `${data.firstname} ${data.lastname}`, data.mail, data.phone) +
+      now.getTime() +
+      data.captcha,
     'base64'
   )
 
@@ -38,17 +31,31 @@ export default async function send(
     url: `${publicRuntimeConfig.NEXT_APP_SITE_URL}/send`,
     headers: {},
     data: {
-      firstname,
-      lastname,
-      mail,
-      object: subject,
-      content: formatContent(message, `${firstname} ${lastname}`, mail, phone),
-      date: date.getTime(),
+      firstname: data.firstname,
+      lastname: data.lastname,
+      mail: data.mail,
+      object: data.subject,
+      content: formatContent(data.message, `${data.firstname} ${data.lastname}`, data.mail, data.phone),
+      date: now.getTime(),
       hash: sha256.sha256(key),
-      token,
-      attachments,
+      token: data.captcha,
+      attachments: data.attachments,
     },
   })
+}
+
+export default async function handleMailSending(
+  data: FormInput,
+  submittedState: (value: React.SetStateAction<boolean>) => void,
+  opennedMessageState: (value: React.SetStateAction<boolean>) => void
+) {
+  try {
+    submittedState(true)
+    await send(data)
+    opennedMessageState(false)
+  } catch {
+    opennedMessageState(true)
+  }
 }
 
 export async function sendWhitePaper(
