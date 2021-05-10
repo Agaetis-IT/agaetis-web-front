@@ -28,7 +28,6 @@ import '../components/Common.css'
 import { PostAPI } from '../models/IdeasAPI'
 import { AuthorLink } from '../types/AuthorContent'
 
-
 interface Props {
   data: IdeasContent
   related?: IdeasDesc[]
@@ -115,7 +114,7 @@ export default function Idea({ data, related, errorCode, meta }: Props) {
               backgroundImage: `url("${Particles}")`,
               backgroundRepeat: 'no-repeat',
               backgroundPosition: 'left top',
-              backgroundSize: 'contain',
+              backgroundSize: '100%',
             }}
             className="bg-light-grey py-4 md:p-16 lg:px-32 xl:px-48"
           >

@@ -176,7 +176,7 @@ function Blog({
               backgroundImage: `url("${Particles}")`,
               backgroundRepeat: 'no-repeat',
               backgroundPosition: 'left top',
-              backgroundSize: 'contain',
+              backgroundSize: '100%',
             }}
             className="p-6 md:p-16 lg:px-32 xl:px-48 bg-light-grey"
           >
