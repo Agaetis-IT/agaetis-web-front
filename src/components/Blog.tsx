@@ -25,7 +25,7 @@ import './Common.css'
 import Head from 'next/head'
 import publicRuntimeConfig from '../config/env.config'
 import SnackBar from './SnackBar'
-import handleMailSending from '../Services/contactService'
+import send from '../Services/contactService'
 
 interface Props {
   ideasDescription: IdeasDesc[]
@@ -76,7 +76,13 @@ export default function Blog({
   }
 
   async function handleSubmit(data: FormInput) {
-    handleMailSending(data, setIsSubmited, handleOpenModal)
+    try {
+      setIsSubmited(true)
+      await send(data)
+      handleOpenModal(false)
+    } catch {
+      handleOpenModal(true)
+    }
   }
 
   async function handleFetchIdeas(reset?: boolean, changedCategory?: string, changedSearchFilter?: string) {

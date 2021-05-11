@@ -1,6 +1,5 @@
 import axios from 'axios'
 import sha256 from 'js-sha256'
-import React from 'react'
 
 import publicRuntimeConfig from '../config/env.config'
 import { FormInput } from '../yup/ContactFormValidation'
@@ -11,7 +10,7 @@ const formatContent = (content: string, name: string, mail: string, phone: strin
 const formatWPContent = () =>
   `<html><body><p>Bonjour,<br/><br/>Nous vous remercions de l'intérêt que vous portez à Agaetis et son activité. Vous trouverez ci-joint le fichier .pdf que vous avez choisi. <br/><br/>Cordialement,<br/>Agaetis</p></body></html>`
 
-export async function send(data: FormInput) {
+export default async function send(data: FormInput) {
   const now = new Date()
 
   const key = Buffer.from(
@@ -42,20 +41,6 @@ export async function send(data: FormInput) {
       attachments: data.attachments,
     },
   })
-}
-
-export default async function handleMailSending(
-  data: FormInput,
-  submittedState: (value: React.SetStateAction<boolean>) => void,
-  opennedMessageState: (value: boolean) => void
-) {
-  try {
-    submittedState(true)
-    await send(data)
-    opennedMessageState(false)
-  } catch {
-    opennedMessageState(true)
-  }
 }
 
 export async function sendWhitePaper(

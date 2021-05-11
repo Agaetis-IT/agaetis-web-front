@@ -11,7 +11,7 @@ import { FormInput } from '../yup/ContactFormValidation'
 
 import './landingpage.css'
 import SnackBar from '../components/SnackBar'
-import handleMailSending from '../Services/contactService'
+import send from '../Services/contactService'
 
 interface Context extends NextPageContext {
   query: { slug: string }
@@ -36,7 +36,13 @@ export default function Landingpage({ pageContent, errorCode }: Props) {
   }
 
   async function handleSubmit(data: FormInput) {
-    handleMailSending(data, setIsSubmited, handleOpenModal)
+    try {
+      setIsSubmited(true)
+      await send(data)
+      handleOpenModal(false)
+    } catch {
+      handleOpenModal(true)
+    }
   }
 
   if (!!errorCode) {

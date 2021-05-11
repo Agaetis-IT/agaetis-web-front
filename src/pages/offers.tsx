@@ -14,7 +14,7 @@ import Plus from '../static/icons/squared_plus_white.svg'
 import clsx from 'clsx'
 import Link from 'next/link'
 import SnackBar from '../components/SnackBar'
-import handleMailSending from '../Services/contactService'
+import send from '../Services/contactService'
 
 /* eslint-disable react-hooks/rules-of-hooks */
 
@@ -49,7 +49,13 @@ export default function offers({ pageContent, allOffers }: Props) {
   }
 
   async function handleSubmit(data: FormInput) {
-    handleMailSending(data, setIsSubmited, handleOpenModal)
+    try {
+      setIsSubmited(true)
+      await send(data)
+      handleOpenModal(false)
+    } catch {
+      handleOpenModal(true)
+    }
   }
 
   return (

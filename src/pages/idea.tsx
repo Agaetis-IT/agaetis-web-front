@@ -26,7 +26,7 @@ import '../components/Common.css'
 import { PostAPI } from '../models/IdeasAPI'
 import { AuthorLink } from '../types/AuthorContent'
 import SnackBar from '../components/SnackBar'
-import handleMailSending from '../Services/contactService'
+import send from '../Services/contactService'
 
 interface Props {
   data: IdeasContent
@@ -54,7 +54,13 @@ export default function Idea({ data, related, errorCode, meta }: Props) {
   }
 
   async function handleSubmit(data: FormInput) {
-    handleMailSending(data, setIsSubmited, handleOpenModal)
+    try {
+      setIsSubmited(true)
+      await send(data)
+      handleOpenModal(false)
+    } catch {
+      handleOpenModal(true)
+    }
   }
 
   function handleToggleMoreIdeas() {
