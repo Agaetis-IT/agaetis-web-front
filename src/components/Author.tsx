@@ -27,18 +27,19 @@ interface Props {
   hasMore: boolean
 }
 
-export default function author({ ideasDescription, author, content, errorCode, hasMore }: Props) {
-  const [isOpenenedModal, setOpenModal] = useState(false)
+export default function Author({ ideasDescription, author, content, errorCode, hasMore }: Props) {
+  const [postModalOpen, setPostModalOpen] = useState<boolean | undefined>(undefined)
   const [ideas, setIdeas] = useState(ideasDescription)
   const [lastPage, setLastPage] = useState(1)
   const [isLoadingPosts, setIsLoadingPosts] = useState(false)
   const [isVisibleSeeMore, setIsVisibleSeeMore] = useState(hasMore)
 
-  function handleOpenModal() {
-    setOpenModal(true)
-    setTimeout(() => {
-      setOpenModal(false)
-    }, 3000)
+  function handleOpenPostModal() {
+    setPostModalOpen(true)
+  }
+
+  function handleClosePostModal() {
+    setPostModalOpen(undefined)
   }
 
   async function handleFetchIdeas() {
@@ -68,7 +69,7 @@ export default function author({ ideasDescription, author, content, errorCode, h
         setIdeas(ideas.concat(data))
       }
     } catch (error) {
-      handleOpenModal()
+      handleOpenPostModal()
     }
 
     setIsLoadingPosts(false)
@@ -148,10 +149,15 @@ export default function author({ ideasDescription, author, content, errorCode, h
               </Button>
             )}
           </div>
+          <SnackBar
+            message="Erreur pendant le chargement des posts"
+            isError
+            open={postModalOpen}
+            onClose={handleClosePostModal}
+          />
           <ContactSection />
         </div>
       </Layout>
-      {isOpenenedModal && <SnackBar errorMessage="Erreur pendant le chargement des posts" />}
     </>
   )
 }

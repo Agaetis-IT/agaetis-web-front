@@ -14,13 +14,13 @@ import Button from '../components/Button'
 import clsx from 'clsx'
 import RelatedArticlesSection from '../components/RelatedArticlesSection'
 import Link from 'next/link'
-import ContactFormFooter from '../components/ContactFormFooter'
-import ContactMessage from '../components/ContactMessage'
+import ContactForm from '../components/ContactForm'
 import ContactSection from '../components/ContactSection'
-import { FooterFormInput } from '../yup/ContactFormValidation'
-import { footerSend } from '../Services/contactService'
+import { FormInput } from '../yup/ContactFormValidation'
 import { useRouter } from 'next/router'
 import PartnerList from '../components/PartnerList'
+import SnackBar from '../components/SnackBar'
+import send from '../Services/contactService'
 
 interface Context extends NextPageContext {
   query: { slug: string }
@@ -35,18 +35,17 @@ interface Props {
 
 export default function offer({ pageContent, errorCode, offers }: Props): React.ReactElement {
   const [selectedOffer, setSelectedOffer] = useState(0)
-  const [isOpenenedModal, setOpenModal] = useState(false)
-  const [isError, setIsError] = useState(true)
+  const [modalOpenWithError, setModalOpenWithError] = useState<boolean | undefined>(undefined)
   const [isSubmited, setIsSubmited] = useState(false)
   const router = useRouter()
 
   function handleOpenModal(error: boolean) {
-    setIsError(error)
-    setOpenModal(true)
+    setModalOpenWithError(error)
     setIsSubmited(false)
-    setTimeout(() => {
-      setOpenModal(false)
-    }, 3000)
+  }
+
+  function handleCloseModal() {
+    setModalOpenWithError(undefined)
   }
 
   useEffect(() => {
@@ -56,18 +55,20 @@ export default function offer({ pageContent, errorCode, offers }: Props): React.
     }
   }, [offers, router.query.offer])
 
-  async function handleSubmit(data: FooterFormInput) {
+  async function handleSubmit(data: FormInput) {
     try {
       setIsSubmited(true)
-      await footerSend(data.firstname, data.lastname, data.mail, data.message, data.phone, new Date())
+      await send(data)
       handleOpenModal(false)
     } catch {
       handleOpenModal(true)
     }
   }
+
   if (!!errorCode) {
     return <Error statusCode={404} />
   }
+
   return (
     <>
       <Head>
@@ -190,12 +191,13 @@ export default function offer({ pageContent, errorCode, offers }: Props): React.
             />
           )}
 
-          <ContactFormFooter
-            title="Une question, un café, un thé ? Contactez-nous"
-            handleSubmit={handleSubmit}
-            isSubmited={isSubmited}
+          <ContactForm title="Une question ? Contactez-nous !" handleSubmit={handleSubmit} isSubmited={isSubmited} />
+          <SnackBar
+            message={modalOpenWithError ? "Erreur pendant l'envoi du message" : 'Message envoyé'}
+            isError={modalOpenWithError}
+            open={modalOpenWithError}
+            onClose={handleCloseModal}
           />
-          {isOpenenedModal && <ContactMessage error={isError}></ContactMessage>}
           <ContactSection />
         </div>
       </Layout>

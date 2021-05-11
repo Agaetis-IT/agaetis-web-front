@@ -2,33 +2,26 @@ import axios from 'axios'
 import sha256 from 'js-sha256'
 
 import publicRuntimeConfig from '../config/env.config'
+import { FormInput } from '../yup/ContactFormValidation'
 
-const formatContent = (content: string, name: string, mail: string, phone: string, company?: string) =>
-  `<html><body><p>${content}</p><h3>Contact</h3><p>${name}</p><p>${mail}</p><p>${phone}</p><p>${
-    company ? company : ''
-  }</p></body></html>`
+const formatContent = (content: string, name: string, mail: string, phone: string) =>
+  `<html><body><p>${content}</p><h3>Contact</h3><p>${name}</p><p>${mail}</p><p>${phone}</p></body></html>`
 
 const formatWPContent = () =>
   `<html><body><p>Bonjour,<br/><br/>Nous vous remercions de l'intérêt que vous portez à Agaetis et son activité. Vous trouverez ci-joint le fichier .pdf que vous avez choisi. <br/><br/>Cordialement,<br/>Agaetis</p></body></html>`
 
-export default async function send(
-  name: string,
-  object: string,
-  mail: string,
-  company: string,
-  content: string,
-  phone: string,
-  date: Date,
-  token: string
-) {
+export default async function send(data: FormInput) {
+  const now = new Date()
+
   const key = Buffer.from(
-    name +
-      object +
+    data.firstname +
+      data.lastname +
       publicRuntimeConfig.NEXT_APP_CONTACT_SALT +
-      mail +
-      formatContent(content, name, mail, company, phone) +
-      date.getTime() +
-      token,
+      data.mail +
+      data.subject +
+      formatContent(data.message, `${data.firstname} ${data.lastname}`, data.mail, data.phone) +
+      now.getTime() +
+      data.captcha,
     'base64'
   )
 
@@ -37,13 +30,15 @@ export default async function send(
     url: `${publicRuntimeConfig.NEXT_APP_SITE_URL}/send`,
     headers: {},
     data: {
-      name,
-      object,
-      mail,
-      content: formatContent(content, name, mail, company, phone),
-      date: date.getTime(),
+      firstname: data.firstname,
+      lastname: data.lastname,
+      mail: data.mail,
+      object: data.subject,
+      content: formatContent(data.message, `${data.firstname} ${data.lastname}`, data.mail, data.phone),
+      date: now.getTime(),
       hash: sha256.sha256(key),
-      token,
+      token: data.captcha,
+      attachments: data.attachments,
     },
   })
 }
@@ -82,39 +77,6 @@ export async function sendWhitePaper(
       file,
       hash: sha256.sha256(key),
       token,
-    },
-  })
-}
-
-export async function footerSend(
-  firstname: string,
-  lastname: string,
-  mail: string,
-  message: string,
-  phone: string,
-  date: Date
-) {
-  const key = Buffer.from(
-    firstname +
-      lastname +
-      publicRuntimeConfig.NEXT_APP_CONTACT_SALT +
-      mail +
-      formatContent(message, `${firstname} ${lastname}`, mail, phone) +
-      date.getTime(),
-    'base64'
-  )
-
-  return axios({
-    method: 'post',
-    url: `${publicRuntimeConfig.NEXT_APP_SITE_URL}/send/fastcontact`,
-    headers: {},
-    data: {
-      firstname,
-      lastname,
-      mail,
-      content: formatContent(message, `${firstname} ${lastname}`, mail, phone),
-      date: date.getTime(),
-      hash: sha256.sha256(key),
     },
   })
 }

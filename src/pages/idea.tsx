@@ -17,17 +17,16 @@ import Particles from '../static/images/particles-3.svg'
 import Error from './_error'
 import { escape } from 'querystring'
 import ContactSection from '../components/ContactSection'
-import ContactFormFooter from '../components/ContactFormFooter'
-import { FooterFormInput } from '../yup/ContactFormValidation'
-import { footerSend } from '../Services/contactService'
-import ContactMessage from '../components/ContactMessage'
+import ContactForm from '../components/ContactForm'
+import { FormInput } from '../yup/ContactFormValidation'
 import { formatPostAuthors } from '../Services/textUtilities'
 
 import '../components/Common.css'
 
 import { PostAPI } from '../models/IdeasAPI'
 import { AuthorLink } from '../types/AuthorContent'
-
+import SnackBar from '../components/SnackBar'
+import send from '../Services/contactService'
 
 interface Props {
   data: IdeasContent
@@ -42,23 +41,22 @@ interface Context extends NextPageContext {
 
 export default function Idea({ data, related, errorCode, meta }: Props) {
   const [isOpenedMoreIdeas, setIsOpenedMoreIdeas] = useState(false)
-  const [isOpenenedModal, setOpenModal] = useState(false)
-  const [isError, setIsError] = useState(true)
+  const [modalOpenWithError, setModalOpenWithError] = useState<boolean | undefined>(undefined)
   const [isSubmited, setIsSubmited] = useState(false)
 
   function handleOpenModal(error: boolean) {
-    setIsError(error)
-    setOpenModal(true)
+    setModalOpenWithError(error)
     setIsSubmited(false)
-    setTimeout(() => {
-      setOpenModal(false)
-    }, 3000)
   }
 
-  async function handleSubmit(data: FooterFormInput) {
+  function handleCloseModal() {
+    setModalOpenWithError(undefined)
+  }
+
+  async function handleSubmit(data: FormInput) {
     try {
       setIsSubmited(true)
-      await footerSend(data.firstname, data.lastname, data.mail, data.message, data.phone, new Date())
+      await send(data)
       handleOpenModal(false)
     } catch {
       handleOpenModal(true)
@@ -142,13 +140,18 @@ export default function Idea({ data, related, errorCode, meta }: Props) {
               </>
             )}
           </div>
-          <ContactFormFooter
-            title="Un sujet vous intéresse ? Une question ? Contactez-nous"
+          <ContactForm
+            title="Un sujet vous intéresse ? Une question ? Contactez-nous !"
             handleSubmit={handleSubmit}
             isSubmited={isSubmited}
-          ></ContactFormFooter>
-          {isOpenenedModal && <ContactMessage error={isError}></ContactMessage>}
-          <ContactSection></ContactSection>
+          />
+          <SnackBar
+            message={modalOpenWithError ? "Erreur pendant l'envoi du message" : 'Message envoyé'}
+            isError={modalOpenWithError}
+            open={modalOpenWithError}
+            onClose={handleCloseModal}
+          />
+          <ContactSection />
         </div>
       </Layout>
     </>

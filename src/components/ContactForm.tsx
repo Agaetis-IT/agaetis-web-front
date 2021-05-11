@@ -1,153 +1,181 @@
-import clsx from 'clsx'
-import React, { useState } from 'react'
+import { FormProvider, useForm } from 'react-hook-form'
+import React, { useEffect, useRef } from 'react'
 
-import send from '../Services/contactService'
-import FormValues, { defaultValues } from '../types/ContactFormValues'
+import Button from './Button'
+import TextInput from './TextInput'
+import CheckBox from './CheckBox'
+import { AttachmentContent, footerContactSchema, FormInput } from '../yup/ContactFormValidation'
+import { yupResolver } from '@hookform/resolvers/yup'
+import Twitter from '../static/icons/twitter.png'
+import Linkedin from '../static/icons/linkedin.png'
+import Facebook from '../static/icons/facebook.png'
+import Particles from '../static/images/particles-3-mirror.svg'
 
-import ContactMessage from './ContactMessage'
-import Step1 from './form/Step1'
-import Step2 from './form/Step2'
-import Step3 from './form/Step3'
-const stepHeaderClassNames =
-  'text-xs uppercase text-center py-4 md:inline border border-white font-semibold self-center md:w-1/3 cursor-pointer'
+import './Common.css'
+import ReCAPTCHA from 'react-google-recaptcha'
+import publicRuntimeConfig from '../config/env.config'
+import FileInput from './FileInput'
+import LoadingSpinner from './LoadingSpinner'
 
-function getHeadersClassNames(index: number, currentIndex: number) {
-  if (index === 0) {
-    if (currentIndex === 0) {
-      return 'text-white w-2/3 bg-blue'
-    }
-    if (currentIndex === 1) {
-      return 'w-1/6 text-blue md:text-dark-grey whitespace-no-wrap overflow-hidden px-4 bg-blue'
-    }
-    return 'text-dark-grey hidden bg-blue'
-  } else if (index === 1) {
-    if (currentIndex === 1) {
-      return 'text-white w-2/3 bg-blue'
-    } else if (currentIndex === 0) {
-      return 'w-1/3 text-dark-grey whitespace-no-wrap overflow-hidden px-4 bg-light-grey'
-    }
-    return 'w-1/3 text-dark-grey whitespace-no-wrap overflow-hidden px-4 bg-blue reverseText'
-  } else {
-    if (currentIndex === 2) {
-      return 'bg-blue text-white w-2/3'
-    }
-    if (currentIndex === 1) {
-      return 'bg-light-grey text-dark-grey w-1/6 whitespace-no-wrap overflow-hidden px-4'
-    }
-    return 'bg-light-grey text-dark-grey hidden'
-  }
+interface Props {
+  handleSubmit: (formValues: FormInput) => void
+  isSubmited: boolean
+  title: string
+  subText?: string
 }
 
-export default function ContactTab() {
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [isOpenenedModal, setOpenModal] = useState(false)
-  const [isError, setIsError] = useState(true)
-  const [formValues, setFormValues] = useState(defaultValues)
-  const [isSubmitted, setIsSubmitted] = useState(false)
-  function handleNext(values: FormValues) {
-    setFormValues(values)
-    setCurrentIndex(currentIndex + 1)
+export default function ContactForm({ title, handleSubmit, isSubmited, subText }: Props) {
+  const recaptchaRef = useRef<ReCAPTCHA>(null)
+
+  const { register, watch, control, clearErrors, ...otherFormProps } = useForm<FormInput>({
+    mode: 'onBlur',
+    resolver: yupResolver(footerContactSchema),
+  })
+
+  const onCaptchaChange = (value: string | null) => {
+    otherFormProps.setValue('captcha', value, { shouldValidate: true })
   }
 
-  function handleOpenModal(error: boolean) {
-    setIsError(error)
-    setCurrentIndex(0)
-    setOpenModal(true)
-    setIsSubmitted(false)
-    setTimeout(() => {
-      setOpenModal(false)
-    }, 3000)
+  const onAttachmentsChange = (value: AttachmentContent[]) => {
+    otherFormProps.setValue('attachments', value)
   }
 
-  async function handleSubmit(values: FormValues, token: string) {
-    setIsSubmitted(true)
-    if (
-      values &&
-      values.firstName &&
-      values.lastName &&
-      values.email &&
-      values.message &&
-      values.company &&
-      values.objet &&
-      values.phone &&
-      values.cgu &&
-      token
-    ) {
-      try {
-        await send(
-          values.firstName + ' ' + values.lastName,
-          values.objet,
-          values.email,
-          values.company,
-          values.message,
-          values.phone,
-          new Date(),
-          token
-        )
-        handleOpenModal(false)
-      } catch {
-        handleOpenModal(true)
-      }
-    } else {
-      handleOpenModal(true)
-    }
-  }
+  const watchAttachments = watch('attachments', [])
+
+  useEffect(() => {
+    clearErrors()
+  }, [clearErrors])
 
   return (
-    <div>
-      <div className="flex flex-row md:max-w-lg mx-auto">
-        <div
-          className={clsx(getHeadersClassNames(0, currentIndex), stepHeaderClassNames)}
-          onClick={() => {
-            if (currentIndex > 0) {
-              setCurrentIndex(0)
-            }
-          }}
-        >
-          Votre profil
-        </div>
-        <div
-          className={clsx(getHeadersClassNames(1, currentIndex), stepHeaderClassNames)}
-          onClick={() => {
-            if (currentIndex > 1) {
-              setCurrentIndex(1)
-            }
-          }}
-        >
-          Vos coordonnées
-        </div>
-        <div className={clsx(getHeadersClassNames(2, currentIndex), stepHeaderClassNames)}>Votre message</div>
-      </div>
-      <div className="border border-white md:max-w-lg mx-auto ">
-        <div className="bg-light-grey py-8 md:p-12 flex flex-col justify-center">
-          <h2 className={clsx({ hidden: currentIndex !== 0 }, 'text-center text-lg md:text-2xl md:mt-0')}>
-            Votre demande concerne...
-          </h2>
-          <h2 className={clsx({ hidden: currentIndex !== 1 }, 'text-center text-lg md:text-2xl md:mt-0')}>
-            Saisissez vos coordonnées :
-          </h2>
-          <h2 className={clsx({ hidden: currentIndex !== 2 }, 'text-center text-lg md:text-2xl md:mt-0')}>
-            Saisissez votre message :
-          </h2>
-          <Step1
-            className={clsx(currentIndex === 0 ? 'flex flex-col' : 'hidden')}
-            handleNextStep={handleNext}
-            formValues={formValues}
-          />
-          <Step2
-            className={clsx(currentIndex === 1 ? 'flex flex-col' : 'hidden', 'px-4 md:px-0')}
-            handleNextStep={handleNext}
-            formValues={formValues}
-          />
-          <Step3
-            className={clsx(currentIndex === 2 ? 'flex flex-col' : 'hidden', 'px-4 md:px-0')}
-            handleNextStep={handleSubmit}
-            formValues={formValues}
-            isSubmitted={isSubmitted}
-          />
-          {isOpenenedModal && <ContactMessage error={isError} />}
+    <div
+      className="bg-light-grey p-0 p-6 md:p-12 lg:px-24 lg:p-16"
+      style={{
+        backgroundImage: `url("${Particles}")`,
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'right bottom',
+        backgroundSize: '100%',
+      }}
+    >
+      <div className="flex flex-col md:flex-row justify-between mb-8">
+        <h2 className="text-orange text-2xl mb-4 md:mb-0">{title}</h2>
+        <div className="flex flex-row items-center">
+          <Button
+            href="https://fr-fr.facebook.com/AgaetisIT"
+            className="w-6 h-6 mr-4 self-center shadow-sm hover:shadow-md bg-white rounded-full smooth-transition p-1"
+          >
+            <img src={Facebook} className="w-4 h-4" />
+          </Button>
+          <Button
+            href="https://www.linkedin.com/company/agaetis/"
+            className="w-6 h-6 mr-4 shadow-sm hover:shadow-md bg-white rounded-full smooth-transition p-1"
+          >
+            <img src={Linkedin} className="w-4 h-4" />
+          </Button>
+          <Button
+            href="https://twitter.com/agaetisit"
+            className="w-6 h-6 shadow-sm hover:shadow-md bg-white rounded-full smooth-transition p-1"
+          >
+            <img src={Twitter} className="w-4 h-4" />
+          </Button>
         </div>
       </div>
+      {subText && (
+        <div className="mb-8">
+          <p className="text-sm leading-normal" dangerouslySetInnerHTML={{ __html: subText }} />
+        </div>
+      )}
+      <FormProvider register={register} watch={watch} control={control} clearErrors={clearErrors} {...otherFormProps}>
+        <form onSubmit={otherFormProps.handleSubmit(handleSubmit)}>
+          <div className="flex flex-col md:flex-row justify-between">
+            <TextInput
+              wrapperClassName="w-full md:w-1/5"
+              className="appearance-none rounded-full  text-xs p-3 shadow-md text-orange font-semibold leading-tight"
+              name="lastname"
+              label="Nom"
+              type="input"
+            ></TextInput>
+            <TextInput
+              wrapperClassName="w-full md:w-1/5 mt-8 md:mt-0"
+              className="appearance-none rounded-full  text-xs p-3 shadow-md text-orange font-semibold leading-tight"
+              name="firstname"
+              label="Prénom"
+              type="input"
+            ></TextInput>
+            <TextInput
+              wrapperClassName="w-full md:w-1/5 mt-8 md:mt-0"
+              className="appearance-none rounded-full  text-xs p-3 shadow-md text-orange font-semibold leading-tight"
+              name="mail"
+              label="Mail"
+              type="input"
+            ></TextInput>
+            <TextInput
+              wrapperClassName="w-full md:w-1/5 mt-8 md:mt-0"
+              className="appearance-none rounded-full  text-xs p-3 shadow-md text-orange font-semibold leading-tight"
+              name="phone"
+              label="Téléphone"
+              type="input"
+            ></TextInput>
+          </div>
+          <TextInput
+            wrapperClassName="my-8"
+            className="appearance-none rounded-full text-xs p-3 shadow-md text-orange font-semibold leading-tight"
+            name="subject"
+            label="Sujet de votre demande"
+            type="input"
+          ></TextInput>
+          <TextInput
+            wrapperClassName="my-8"
+            className="appearance-none w-full text-xs p-3 shadow-md text-orange font-semibold leading-tight message-textarea"
+            name="message"
+            label="Détails de votre demande"
+            type="textarea"
+          ></TextInput>
+          <FileInput
+            {...register('attachments')}
+            onChange={onAttachmentsChange}
+            wrapperClassName="my-8"
+            className="block shadow-md py-2 px-8 rounded-full bg-orange text-xs text-white font-semibold uppercase"
+            fileCount={watchAttachments.length}
+            fileNames={watchAttachments.map((file) => file.fileName)}
+          />
+          <CheckBox
+            wrapperClassName="my-8"
+            boxClassName="shadow-md"
+            labelClassName="text-xs text-orange font-semibold leading-tight text-justify"
+            name="cgu"
+            label="En soumettant ce formulaire et conformément à la politique de traitement des données personnelles, j'accepte
+            que les informations saisies soient exploitées afin d'être contacté par les équipes d'Agaetis."
+          />
+          <div className="flex flex-col justify-center">
+            <ReCAPTCHA
+              {...register('captcha')}
+              className="self-center"
+              ref={recaptchaRef}
+              size="normal"
+              sitekey={publicRuntimeConfig.NEXT_APP_RECAPTCHA_KEY}
+              onChange={onCaptchaChange}
+            />
+            {otherFormProps.errors.captcha && (
+              <p className="text-xs text-red text-center pt-2">{otherFormProps.errors.captcha.message}</p>
+            )}
+          </div>
+
+          <Button
+            className="flex flex-row justify-center uppercase rounded-full bg-orange text-xss py-2 px-6 text-white font-semibold mx-auto see-more shadow-md mt-8"
+            type="submit"
+            disabled={isSubmited}
+          >
+            {isSubmited ? (
+              <div className="flex flex-row justify-center">
+                <LoadingSpinner color="#ffffff" size={12} />
+                Envoi en cours
+              </div>
+            ) : (
+              'Envoyer'
+            )}
+          </Button>
+        </form>
+      </FormProvider>
     </div>
   )
 }
