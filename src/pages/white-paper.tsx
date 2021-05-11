@@ -26,17 +26,15 @@ interface Context extends NextPageContext {
 }
 
 export default function whitePaper({ pageContent, errorCode }: Props) {
-  const [isOpenenedModal, setOpenModal] = useState(false)
-  const [isError, setIsError] = useState(true)
+  const [modalOpenWithError, setModalOpenWithError] = useState<boolean | undefined>(undefined)
   const [isLoading, setIsLoading] = useState(false)
 
   function handleOpenModal(error: boolean) {
-    setIsError(error)
-    setOpenModal(true)
-    setIsLoading(false)
-    setTimeout(() => {
-      setOpenModal(false)
-    }, 3000)
+    setModalOpenWithError(error)
+  }
+
+  function handleCloseModal() {
+    setModalOpenWithError(undefined)
   }
 
   async function handleSubmit(values: WhitepaperFormValues, title: string, file: string, token: string) {
@@ -101,9 +99,12 @@ export default function whitePaper({ pageContent, errorCode }: Props) {
               />
             </div>
           </div>
-          {isOpenenedModal && (
-            <SnackBar message={isError ? "Erreur pendant l'envoi du message" : 'Message envoyé'} isError={isError} />
-          )}
+          <SnackBar
+            message={modalOpenWithError ? "Erreur pendant l'envoi du message" : 'Message envoyé'}
+            isError={modalOpenWithError}
+            open={modalOpenWithError}
+            onClose={handleCloseModal}
+          />
           <div className=" blue-underline my-4" />
         </>
       </Layout>

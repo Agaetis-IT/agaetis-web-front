@@ -26,16 +26,17 @@ function isWithinAcceptableSizeAndCount(files: FileList | null) {
   return total < 10000000
 }
 
-function FileInput({ className, wrapperClassName, onChange, fileCount, fileNames }: Props) {
+export default function FileInput({ className, wrapperClassName, onChange, fileCount, fileNames }: Props) {
   const [isLoadingFiles, setIsLoadingFiles] = useState(false)
-  const [isOpenenedModal, setOpenModal] = useState(false)
+  const [isOpenenedModal, setOpenModal] = useState<boolean | undefined>(undefined)
   const [isDraggingOver, setIsDraggingOver] = useState(false)
 
   function handleOpenModal() {
     setOpenModal(true)
-    setTimeout(() => {
-      setOpenModal(false)
-    }, 3000)
+  }
+
+  function handleCloseModal() {
+    setOpenModal(undefined)
   }
 
   const onChangeHandler = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -109,16 +110,12 @@ function FileInput({ className, wrapperClassName, onChange, fileCount, fileNames
       <span id="fileNames" className="mt-4 md:ml-4 md:mt-0">
         {fileNames.map((file, index) => (index ? ' | ' : '') + file)}
       </span>
-      {isOpenenedModal && (
-        <SnackBar
-          message={
-            'Pièces jointes invalides : vous avez sélectionné trop de fichiers ou bien la taille totale dépasse 10 Mo'
-          }
-          isError
-        />
-      )}
+      <SnackBar
+        message="Pièces jointes invalides : vous avez sélectionné trop de fichiers ou bien la taille totale dépasse 10 Mo"
+        isError
+        open={isOpenenedModal}
+        onClose={handleCloseModal}
+      />
     </div>
   )
 }
-
-export default FileInput

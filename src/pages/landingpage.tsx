@@ -23,21 +23,20 @@ interface Props {
 }
 
 export default function Landingpage({ pageContent, errorCode }: Props) {
-  const [isOpenenedMessage, setOpenMessage] = useState(false)
-  const [isError, setIsError] = useState(true)
+  const [modalOpenWithError, setModalOpenWithError] = useState<boolean | undefined>(undefined)
   const [isSubmited, setIsSubmited] = useState(false)
 
-  function handleOpenMessage(error: boolean) {
-    setIsError(error)
-    setOpenMessage(true)
+  function handleOpenModal(error: boolean) {
+    setModalOpenWithError(error)
     setIsSubmited(false)
-    setTimeout(() => {
-      setOpenMessage(false)
-    }, 3000)
+  }
+
+  function handleCloseModal() {
+    setModalOpenWithError(undefined)
   }
 
   async function handleSubmit(data: FormInput) {
-    handleMailSending(data, setIsSubmited, handleOpenMessage)
+    handleMailSending(data, setIsSubmited, handleOpenModal)
   }
 
   if (!!errorCode) {
@@ -62,9 +61,12 @@ export default function Landingpage({ pageContent, errorCode }: Props) {
           </div>
         </div>
         <ContactForm title="Une question ? Contactez-nous !" handleSubmit={handleSubmit} isSubmited={isSubmited} />
-        {isOpenenedMessage && (
-          <SnackBar message={isError ? "Erreur pendant l'envoi du message" : 'Message envoyé'} isError={isError} />
-        )}
+        <SnackBar
+          message={modalOpenWithError ? "Erreur pendant l'envoi du message" : 'Message envoyé'}
+          isError={modalOpenWithError}
+          open={modalOpenWithError}
+          onClose={handleCloseModal}
+        />
         <ContactSection />
       </>
     </Layout>

@@ -41,21 +41,20 @@ interface Context extends NextPageContext {
 
 export default function Idea({ data, related, errorCode, meta }: Props) {
   const [isOpenedMoreIdeas, setIsOpenedMoreIdeas] = useState(false)
-  const [isOpenenedMessage, setOpenMessage] = useState(false)
-  const [isError, setIsError] = useState(true)
+  const [modalOpenWithError, setModalOpenWithError] = useState<boolean | undefined>(undefined)
   const [isSubmited, setIsSubmited] = useState(false)
 
-  function handleOpenMessage(error: boolean) {
-    setIsError(error)
-    setOpenMessage(true)
+  function handleOpenModal(error: boolean) {
+    setModalOpenWithError(error)
     setIsSubmited(false)
-    setTimeout(() => {
-      setOpenMessage(false)
-    }, 3000)
+  }
+
+  function handleCloseModal() {
+    setModalOpenWithError(undefined)
   }
 
   async function handleSubmit(data: FormInput) {
-    handleMailSending(data, setIsSubmited, handleOpenMessage)
+    handleMailSending(data, setIsSubmited, handleOpenModal)
   }
 
   function handleToggleMoreIdeas() {
@@ -139,11 +138,14 @@ export default function Idea({ data, related, errorCode, meta }: Props) {
             title="Un sujet vous intéresse ? Une question ? Contactez-nous !"
             handleSubmit={handleSubmit}
             isSubmited={isSubmited}
-          ></ContactForm>
-          {isOpenenedMessage && (
-            <SnackBar message={isError ? "Erreur pendant l'envoi du message" : 'Message envoyé'} isError={isError} />
-          )}
-          <ContactSection></ContactSection>
+          />
+          <SnackBar
+            message={modalOpenWithError ? "Erreur pendant l'envoi du message" : 'Message envoyé'}
+            isError={modalOpenWithError}
+            open={modalOpenWithError}
+            onClose={handleCloseModal}
+          />
+          <ContactSection />
         </div>
       </Layout>
     </>

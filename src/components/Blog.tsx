@@ -38,7 +38,7 @@ interface Props {
   errorCode?: number
 }
 
-function Blog({
+export default function Blog({
   ideasDescription,
   whitePapers,
   categories,
@@ -48,9 +48,8 @@ function Blog({
   hideSeeMore,
   errorCode,
 }: Props) {
-  const [isOpenenedMessage, setOpenMessage] = useState(false)
-  const [isOpenenedPostMessage, setOpenPostMessage] = useState(false)
-  const [isError, setIsError] = useState(true)
+  const [modalOpenWithError, setModalOpenWithError] = useState<boolean | undefined>(undefined)
+  const [postModalOpen, setPostModalOpen] = useState<boolean | undefined>(undefined)
   const [isSubmited, setIsSubmited] = useState(false)
   const [ideas, setIdeas] = useState(ideasDescription)
   const [searchFilter, setSearchFilter] = useState('')
@@ -59,24 +58,25 @@ function Blog({
   const [isLoadingPosts, setIsLoadingPosts] = useState(false)
   const [isVisibleSeeMore, setIsVisibleSeeMore] = useState(!hideSeeMore)
 
-  function handleOpenMessage(error: boolean) {
-    setIsError(error)
-    setOpenMessage(true)
+  function handleOpenModal(error: boolean) {
+    setModalOpenWithError(error)
     setIsSubmited(false)
-    setTimeout(() => {
-      setOpenMessage(false)
-    }, 3000)
+  }
+
+  function handleCloseModal() {
+    setModalOpenWithError(undefined)
   }
 
   function handleOpenPostModal() {
-    setOpenPostMessage(true)
-    setTimeout(() => {
-      setOpenPostMessage(false)
-    }, 3000)
+    setPostModalOpen(true)
+  }
+
+  function handleClosePostModal() {
+    setPostModalOpen(undefined)
   }
 
   async function handleSubmit(data: FormInput) {
-    handleMailSending(data, setIsSubmited, handleOpenMessage)
+    handleMailSending(data, setIsSubmited, handleOpenModal)
   }
 
   async function handleFetchIdeas(reset?: boolean, changedCategory?: string, changedSearchFilter?: string) {
@@ -270,15 +270,21 @@ function Blog({
             handleSubmit={handleSubmit}
             isSubmited={isSubmited}
           />
-          {isOpenenedPostMessage && <SnackBar message="Erreur pendant le chargement des posts" isError />}
-          {isOpenenedMessage && (
-            <SnackBar message={isError ? "Erreur pendant l'envoi du message" : 'Message envoyé'} isError={isError} />
-          )}
+          <SnackBar
+            message="Erreur pendant le chargement des posts"
+            isError
+            open={postModalOpen}
+            onClose={handleClosePostModal}
+          />
+          <SnackBar
+            message={modalOpenWithError ? "Erreur pendant l'envoi du message" : 'Message envoyé'}
+            isError={modalOpenWithError}
+            open={modalOpenWithError}
+            onClose={handleCloseModal}
+          />
           <ContactSection />
         </div>
       </Layout>
     </>
   )
 }
-
-export default Blog

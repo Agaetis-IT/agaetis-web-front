@@ -35,18 +35,17 @@ interface Props {
 
 export default function offer({ pageContent, errorCode, offers }: Props): React.ReactElement {
   const [selectedOffer, setSelectedOffer] = useState(0)
-  const [isOpenenedMessage, setOpenMessage] = useState(false)
-  const [isError, setIsError] = useState(true)
+  const [modalOpenWithError, setModalOpenWithError] = useState<boolean | undefined>(undefined)
   const [isSubmited, setIsSubmited] = useState(false)
   const router = useRouter()
 
-  function handleOpenMessage(error: boolean) {
-    setIsError(error)
-    setOpenMessage(true)
+  function handleOpenModal(error: boolean) {
+    setModalOpenWithError(error)
     setIsSubmited(false)
-    setTimeout(() => {
-      setOpenMessage(false)
-    }, 3000)
+  }
+
+  function handleCloseModal() {
+    setModalOpenWithError(undefined)
   }
 
   useEffect(() => {
@@ -57,7 +56,7 @@ export default function offer({ pageContent, errorCode, offers }: Props): React.
   }, [offers, router.query.offer])
 
   async function handleSubmit(data: FormInput) {
-    handleMailSending(data, setIsSubmited, handleOpenMessage)
+    handleMailSending(data, setIsSubmited, handleOpenModal)
   }
 
   if (!!errorCode) {
@@ -187,9 +186,12 @@ export default function offer({ pageContent, errorCode, offers }: Props): React.
           )}
 
           <ContactForm title="Une question ? Contactez-nous !" handleSubmit={handleSubmit} isSubmited={isSubmited} />
-          {isOpenenedMessage && (
-            <SnackBar message={isError ? "Erreur pendant l'envoi du message" : 'Message envoyé'} isError={isError} />
-          )}
+          <SnackBar
+            message={modalOpenWithError ? "Erreur pendant l'envoi du message" : 'Message envoyé'}
+            isError={modalOpenWithError}
+            open={modalOpenWithError}
+            onClose={handleCloseModal}
+          />
           <ContactSection />
         </div>
       </Layout>

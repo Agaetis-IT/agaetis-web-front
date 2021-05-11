@@ -19,20 +19,20 @@ interface Props {
 }
 
 export default function contact({ pageContent }: Props) {
-  const [modalOpenWithSuccess, setModalOpenWithSuccess] = useState<boolean | undefined>(undefined)
+  const [modalOpenWithError, setModalOpenWithError] = useState<boolean | undefined>(undefined)
   const [isSubmited, setIsSubmited] = useState(false)
 
-  function handleOpenMessage(error: boolean) {
-    setModalOpenWithSuccess(error)
+  function handleOpenModal(error: boolean) {
+    setModalOpenWithError(error)
     setIsSubmited(false)
   }
 
-  function handleCloseMessage() {
-    setModalOpenWithSuccess(undefined)
+  function handleCloseModal() {
+    setModalOpenWithError(undefined)
   }
 
   async function handleSubmit(data: FormInput) {
-    handleMailSending(data, setIsSubmited, handleOpenMessage)
+    handleMailSending(data, setIsSubmited, handleOpenModal)
   }
 
   return (
@@ -56,10 +56,10 @@ export default function contact({ pageContent }: Props) {
             isSubmited={isSubmited}
           />
           <SnackBar
-            message={modalOpenWithSuccess ? "Erreur pendant l'envoi du message" : 'Message envoyé'}
-            isError={modalOpenWithSuccess}
-            open={modalOpenWithSuccess}
-            onClose={handleCloseMessage}
+            message={modalOpenWithError ? "Erreur pendant l'envoi du message" : 'Message envoyé'}
+            isError={modalOpenWithError}
+            open={modalOpenWithError}
+            onClose={handleCloseModal}
           />
           <ContactSection />
         </div>
