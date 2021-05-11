@@ -47,7 +47,7 @@ export async function send(data: FormInput) {
 export default async function handleMailSending(
   data: FormInput,
   submittedState: (value: React.SetStateAction<boolean>) => void,
-  opennedMessageState: (value: React.SetStateAction<boolean>) => void
+  opennedMessageState: (value: boolean) => void
 ) {
   try {
     submittedState(true)

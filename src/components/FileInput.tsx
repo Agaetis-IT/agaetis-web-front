@@ -10,21 +10,23 @@ type Props = {
   className?: string
   wrapperClassName?: string
   onChange: (value: AttachmentContent[]) => void
+  fileCount: number
+  fileNames: string[]
 }
 
-function isWithinAcceptableSizeAndCount(files: FileList) {
+function isWithinAcceptableSizeAndCount(files: FileList | null) {
+  if (files === null) return true
   if (files.length > 10) return false
 
   let total = 0
-  for (const file of files) {
-    total += file.size
+  for (let i = 0; i < files.length; i++) {
+    total += files[i].size
   }
 
   return total < 10000000
 }
 
-function FileInput({ className, wrapperClassName, onChange }: Props) {
-  const [files, setFiles] = useState([] as AttachmentContent[])
+function FileInput({ className, wrapperClassName, onChange, fileCount, fileNames }: Props) {
   const [isLoadingFiles, setIsLoadingFiles] = useState(false)
   const [isOpenenedModal, setOpenModal] = useState(false)
   const [isDraggingOver, setIsDraggingOver] = useState(false)
@@ -58,7 +60,6 @@ function FileInput({ className, wrapperClassName, onChange }: Props) {
 
       const files = await Promise.all(results)
 
-      setFiles(files)
       onChange(files)
     }
 
@@ -69,13 +70,13 @@ function FileInput({ className, wrapperClassName, onChange }: Props) {
     <div className={clsx('flex items-center flex-col md:flex-row', wrapperClassName)}>
       <label htmlFor="fileInput" className="container-label">
         <div className="flex flex-col items-center md:items-left">
-          <div id="button" className={clsx('upload-button', className)}>
+          <div id="button" className={clsx('upload-button', className, { 'drag-over': isDraggingOver })}>
             {isLoadingFiles ? (
               <div className="flex flex-row justify-center">
                 <LoadingSpinner color="#ffffff" size={12} />
                 Chargement des fichiers
               </div>
-            ) : files.length > 0 ? (
+            ) : fileCount > 0 ? (
               'Modifier les pièces jointes'
             ) : (
               'Ajouter des pièces jointes'
@@ -94,7 +95,7 @@ function FileInput({ className, wrapperClassName, onChange }: Props) {
           onDragEnter={() => setIsDraggingOver(true)}
           onDragLeave={() => setIsDraggingOver(false)}
           onDrop={() => setIsDraggingOver(false)}
-          className={clsx('hidden-input rounded-full', 'drag-over' && isDraggingOver)}
+          className="hidden-input rounded-full"
           multiple
           accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,
           .rtf,application/rtf,application/x-rtf,text/richtext,
@@ -106,7 +107,7 @@ function FileInput({ className, wrapperClassName, onChange }: Props) {
         />
       </label>
       <span id="fileNames" className="mt-4 md:ml-4 md:mt-0">
-        {files.map((file, index) => (index ? ' | ' : '') + file.fileName)}
+        {fileNames.map((file, index) => (index ? ' | ' : '') + file)}
       </span>
       {isOpenenedModal && (
         <SnackBar

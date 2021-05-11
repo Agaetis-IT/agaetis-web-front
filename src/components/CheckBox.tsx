@@ -14,28 +14,13 @@ type Props = {
 }
 
 export default function CheckBox({ name, label, boxClassName, labelClassName, wrapperClassName, required }: Props) {
-  const { register, errors, trigger, formState } = useFormContext()
-
-  const triggerValidation = () => {
-    if (formState.isDirty) {
-      // eslint-disable-next-line
-      // @ts-ignore
-      return trigger(name)
-    }
-  }
+  const { register, errors } = useFormContext()
 
   return (
     <div className={clsx('flex flex-col', wrapperClassName)}>
       <div className="flex">
         <label htmlFor={name} className={clsx('check-container flex items-center', labelClassName)}>
-          <input
-            id={name}
-            name={name}
-            type="checkbox"
-            ref={register()}
-            onChange={triggerValidation}
-            required={required}
-          />
+          <input id={name} name={name} type="checkbox" ref={register()} required={required} />
           <span className={clsx('checkmark', boxClassName)} />
           {label}
         </label>

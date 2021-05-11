@@ -26,6 +26,7 @@ interface Props {
 
 export default function ContactForm({ title, handleSubmit, isSubmited, subText }: Props) {
   const recaptchaRef = useRef<ReCAPTCHA>(null)
+
   const { register, watch, control, clearErrors, ...otherFormProps } = useForm<FormInput>({
     mode: 'onBlur',
     resolver: yupResolver(footerContactSchema),
@@ -38,6 +39,8 @@ export default function ContactForm({ title, handleSubmit, isSubmited, subText }
   const onAttachmentsChange = (value: AttachmentContent[]) => {
     otherFormProps.setValue('attachments', value)
   }
+
+  const watchAttachments = watch('attachments', [])
 
   useEffect(() => {
     clearErrors()
@@ -132,6 +135,8 @@ export default function ContactForm({ title, handleSubmit, isSubmited, subText }
             onChange={onAttachmentsChange}
             wrapperClassName="my-8"
             className="block shadow-md py-2 px-8 rounded-full bg-orange text-xs text-white font-semibold uppercase"
+            fileCount={watchAttachments.length}
+            fileNames={watchAttachments.map((file) => file.fileName)}
           />
           <CheckBox
             wrapperClassName="my-8"

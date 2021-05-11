@@ -19,17 +19,16 @@ interface Props {
 }
 
 export default function contact({ pageContent }: Props) {
-  const [isOpenenedMessage, setIsOpennedMessage] = useState(false)
-  const [isError, setIsError] = useState(true)
+  const [modalOpenWithSuccess, setModalOpenWithSuccess] = useState<boolean | undefined>(undefined)
   const [isSubmited, setIsSubmited] = useState(false)
 
   function handleOpenMessage(error: boolean) {
-    setIsError(error)
-    setIsOpennedMessage(true)
+    setModalOpenWithSuccess(error)
     setIsSubmited(false)
-    setTimeout(() => {
-      setIsOpennedMessage(false)
-    }, 3000)
+  }
+
+  function handleCloseMessage() {
+    setModalOpenWithSuccess(undefined)
   }
 
   async function handleSubmit(data: FormInput) {
@@ -56,9 +55,12 @@ export default function contact({ pageContent }: Props) {
             handleSubmit={handleSubmit}
             isSubmited={isSubmited}
           />
-          {isOpenenedMessage && (
-            <SnackBar message={isError ? "Erreur pendant l'envoi du message" : 'Message envoyé'} isError={isError} />
-          )}
+          <SnackBar
+            message={modalOpenWithSuccess ? "Erreur pendant l'envoi du message" : 'Message envoyé'}
+            isError={modalOpenWithSuccess}
+            open={modalOpenWithSuccess}
+            onClose={handleCloseMessage}
+          />
           <ContactSection />
         </div>
       </Layout>
@@ -66,10 +68,12 @@ export default function contact({ pageContent }: Props) {
   )
 }
 
-contact.getInitialProps = async () => {
-  // tslint:disable-next-line
+export async function getServerSideProps() {
   const data = await getContactPageContent()
+
   return {
-    pageContent: data,
+    props: {
+      pageContent: data,
+    },
   }
 }
