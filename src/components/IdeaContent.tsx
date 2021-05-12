@@ -42,6 +42,12 @@ function formatAuthorList(authors: AuthorLink[]) {
   ])
 }
 
+function getTopOffset() {
+  const floating = document.getElementsByClassName('header-2')[0]
+
+  return floating && !floating.classList.contains('hidden') && window.innerWidth >= 820 ? floating.clientHeight : 0
+}
+
 function IdeaContent({ content }: Props) {
   const router = useRouter()
   const [location, setLocation] = useState('')
@@ -54,7 +60,7 @@ function IdeaContent({ content }: Props) {
       window.scroll({
         top:
           document.getElementsByName(e.target['href'].split('#')[1])[0].getBoundingClientRect().top -
-          90 +
+          getTopOffset() +
           window.pageYOffset,
         behavior: 'smooth',
       })
@@ -66,7 +72,7 @@ function IdeaContent({ content }: Props) {
       window.scroll({
         top:
           document.getElementsByName(router.asPath.split('#')[1])[0].getBoundingClientRect().top -
-          90 +
+          getTopOffset() +
           window.pageYOffset,
         behavior: 'smooth',
       })
