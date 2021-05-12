@@ -42,6 +42,12 @@ function formatAuthorList(authors: AuthorLink[]) {
   ])
 }
 
+function getTopOffset() {
+  const floating = document.getElementsByClassName('header-2')[0]
+
+  return floating && !floating.classList.contains('hidden') && window.innerWidth >= 820 ? floating.clientHeight : 0
+}
+
 function IdeaContent({ content }: Props) {
   const router = useRouter()
   const [location, setLocation] = useState('')
@@ -51,15 +57,25 @@ function IdeaContent({ content }: Props) {
     e.preventDefault()
 
     if (e.target) {
-      document
-        .getElementsByName(e.target['href'].split('#')[1])[0]
-        .scrollIntoView({ block: 'center', behavior: 'smooth' })
+      window.scroll({
+        top:
+          document.getElementsByName(e.target['href'].split('#')[1])[0].getBoundingClientRect().top -
+          getTopOffset() +
+          window.pageYOffset,
+        behavior: 'smooth',
+      })
     }
   }
 
   const setAnchorHandlers = () => {
     if (router.asPath.includes('#')) {
-      document.getElementsByName(router.asPath.split('#')[1])[0].scrollIntoView({ block: 'center' })
+      window.scroll({
+        top:
+          document.getElementsByName(router.asPath.split('#')[1])[0].getBoundingClientRect().top -
+          getTopOffset() +
+          window.pageYOffset,
+        behavior: 'smooth',
+      })
     }
 
     const contentTag: HTMLElement | null = document.getElementById('content')

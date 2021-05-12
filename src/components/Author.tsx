@@ -19,6 +19,8 @@ import Linkedin from '../static/icons/linkedin.png'
 import Error from '../pages/_error'
 import SnackBar from './SnackBar'
 
+import './Common.css'
+
 interface Props {
   ideasDescription: IdeasDesc[]
   author: AuthorDescription
@@ -78,7 +80,7 @@ export default function Author({ ideasDescription, author, content, errorCode, h
   const cards = useMemo(
     () =>
       ideas.map((idea) => (
-        <div key={idea.id} className="m-2 mb-8 shadow-md hover:shadow-lg smooth-transition zoom-in round8">
+        <div key={idea.id} className="m-2 mb-8 shadow-md hover:shadow-lg smooth-transition zoom-in round8 w-inherit">
           <IdeasCard slug={idea.slug} title={idea.title} image={idea.image} description={idea.descriptionText} />
         </div>
       )),
@@ -107,7 +109,7 @@ export default function Author({ ideasDescription, author, content, errorCode, h
               backgroundImage: `url("${Particles}")`,
               backgroundRepeat: 'no-repeat',
               backgroundPosition: 'left top',
-              backgroundSize: 'contain',
+              backgroundSize: '100%',
             }}
             className="p-6 md:p-16 lg:px-32 xl:px-48 bg-light-grey"
           >
@@ -132,7 +134,9 @@ export default function Author({ ideasDescription, author, content, errorCode, h
                 <p className="py-6 text-xl leading-normal mt-4 font-medium">{content.posts_description}</p>
               </div>
             </div>
-            <div className="flex flex-row flex-wrap mt-2">{cards.length ? cards : 'Aucun résultat'}</div>
+            <div className="flex flex-row flex-wrap mt-2 w-full justify-center">
+              {cards.length ? cards : 'Aucun résultat'}
+            </div>
             {isVisibleSeeMore && (
               <Button
                 className="flex flex-row justify-center uppercase rounded-full bg-orange text-xss py-2 px-6 text-white font-semibold mx-auto see-more shadow-md"

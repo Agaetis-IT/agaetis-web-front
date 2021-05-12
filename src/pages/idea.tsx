@@ -95,10 +95,10 @@ export default function Idea({ data, related, errorCode, meta }: Props) {
         <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/${data.slug}`} />
         {/*
         // @ts-ignore */}
-        <meta name="twitter:label1" value="Auteur" />
+        <meta name="twitter:label1" value={`Auteur${data.authors.length > 1 ? 's' : ''}`} />
         {/*
         // @ts-ignore */}
-        <meta name="twitter:data1" value={`${formatPostAuthors(data.authors)}`} />
+        <meta name="twitter:data1" value={`${formatPostAuthors(data.authors.map((author) => author.name))}`} />
         {/*
         // @ts-ignore */}
         <meta name="twitter:label2" value="Temps de lecture" />
@@ -113,7 +113,7 @@ export default function Idea({ data, related, errorCode, meta }: Props) {
               backgroundImage: `url("${Particles}")`,
               backgroundRepeat: 'no-repeat',
               backgroundPosition: 'left top',
-              backgroundSize: 'contain',
+              backgroundSize: '100%',
             }}
             className="bg-light-grey py-4 md:p-16 lg:px-32 xl:px-48"
           >

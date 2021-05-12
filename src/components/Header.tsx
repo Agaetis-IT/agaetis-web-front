@@ -114,7 +114,7 @@ export default function Header({ invertColors, className }: Props) {
       </header>
       <header
         className={clsx(
-          'p-3 md:py-16',
+          'p-3 md:py-16 header-2',
           'header md:absolute md:mx-auto',
           className,
           getHeaderClass(!!invertColors, position),
