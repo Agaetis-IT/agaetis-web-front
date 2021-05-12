@@ -21,7 +21,7 @@ interface Props {
   offers: OfferDesc[]
 }
 
-function Index({ pageContent, offers }: Props) {
+export default function Index({ pageContent, offers }: Props) {
   return (
     <>
       <Head>
@@ -42,17 +42,14 @@ function Index({ pageContent, offers }: Props) {
             subtitle={pageContent.hero_subtitle}
           />
           <div className="sm:px-0">
-            {offers && <HomeOffers offers={offers} title={pageContent.offres_title}></HomeOffers>}
-            <HomeSectors sectors={pageContent.secteurs} title={pageContent.secteurs_title}></HomeSectors>
+            {offers && <HomeOffers offers={offers} title={pageContent.offres_title} />}
+            <HomeSectors sectors={pageContent.secteurs} title={pageContent.secteurs_title} />
             <HomeExpertises
               expertises_title={pageContent.expertises_title}
               expertises_image_desktop={pageContent.expertises_image_desktop}
               expertises={pageContent.expertises}
-            ></HomeExpertises>
-            <HomeConvictions
-              convictions={pageContent.convictions}
-              title={pageContent.convictions_title}
-            ></HomeConvictions>
+            />
+            <HomeConvictions convictions={pageContent.convictions} title={pageContent.convictions_title} />
             <HomeJoinUs
               joinUs_agaetis_title={pageContent.joinUs_agaetis_title}
               joinUs_agaetis_desc={pageContent.joinUs_agaetis_desc}
@@ -62,7 +59,7 @@ function Index({ pageContent, offers }: Props) {
               joinUs_image_desktop={pageContent.joinUs_image_desktop}
               joinUs_image_mobile_1={pageContent.joinUs_image_mobile_1}
               joinUs_image_mobile_2={pageContent.joinUs_image_mobile_2}
-            ></HomeJoinUs>
+            />
           </div>
           <ContactSection />
         </>
@@ -77,5 +74,3 @@ Index.getInitialProps = async () => {
 
   return { pageContent, offers: allOffersData.map((offer: OfferAPI) => offer.acf).sort(compareOffer) }
 }
-
-export default Index

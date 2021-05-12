@@ -24,7 +24,7 @@ export default function Hero({ hero, values: values, subtitle }: Props) {
         backgroundRepeat: 'no-repeat',
         backgroundSize: '100%',
       }}
-      className="m-0 hero bg-orange"
+      className="m-0 hero bg-orange shadow-md"
     >
       <div>
         <div className=" flex justify-center">
