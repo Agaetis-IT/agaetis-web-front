@@ -38,7 +38,7 @@ function Index({ pageContent, offers }: Props) {
         <>
           <Hero
             hero={pageContent.hero_image}
-            valeurs={pageContent.hero_valeurs.split(' ')}
+            values={pageContent.hero_valeurs.split(' ')}
             subtitle={pageContent.hero_subtitle}
           />
           <div className="sm:px-0">
