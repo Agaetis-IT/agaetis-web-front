@@ -3,18 +3,18 @@ import React, { useState } from 'react'
 import { getAllOffers, getCategoryOffers, getOffersPageContent } from '../Services/wordpressService'
 
 import Button from '../components/Button'
-import ContactFormFooter from '../components/ContactFormFooter'
+import ContactForm from '../components/ContactForm'
 import Head from 'next/head'
 import Layout from '../components/Layout'
 import publicRuntimeConfig from '../config/env.config'
-import { FooterFormInput } from '../yup/ContactFormValidation'
-import { footerSend } from '../Services/contactService'
-import ContactMessage from '../components/ContactMessage'
+import { FormInput } from '../yup/ContactFormValidation'
 import ContactSection from '../components/ContactSection'
 import Mask from '../static/images/hero_mask.svg'
 import Plus from '../static/icons/squared_plus_white.svg'
 import clsx from 'clsx'
 import Link from 'next/link'
+import SnackBar from '../components/SnackBar'
+import send from '../Services/contactService'
 
 /* eslint-disable react-hooks/rules-of-hooks */
 
@@ -36,28 +36,28 @@ interface Props {
 export default function offers({ pageContent, allOffers }: Props) {
   const [selectedOffer, setSelectedOffer] = useState(0)
   const [wasSelected, setWasSelected] = useState(0)
-  const [isOpenenedModal, setOpenModal] = useState(false)
-  const [isError, setIsError] = useState(true)
+  const [modalOpenWithError, setModalOpenWithError] = useState<boolean | undefined>(undefined)
   const [isSubmited, setIsSubmited] = useState(false)
 
   function handleOpenModal(error: boolean) {
-    setIsError(error)
-    setOpenModal(true)
+    setModalOpenWithError(error)
     setIsSubmited(false)
-    setTimeout(() => {
-      setOpenModal(false)
-    }, 3000)
   }
 
-  async function handleSubmit(data: FooterFormInput) {
+  function handleCloseModal() {
+    setModalOpenWithError(undefined)
+  }
+
+  async function handleSubmit(data: FormInput) {
     try {
       setIsSubmited(true)
-      await footerSend(data.firstname, data.lastname, data.mail, data.message, data.phone, new Date())
+      await send(data)
       handleOpenModal(false)
     } catch {
       handleOpenModal(true)
     }
   }
+
   return (
     <>
       <Head>
@@ -147,12 +147,13 @@ export default function offers({ pageContent, allOffers }: Props) {
               ))}
             </div>
           </div>
-          <ContactFormFooter
-            title="Une question, un café, un thé ? Contactez-nous"
-            handleSubmit={handleSubmit}
-            isSubmited={isSubmited}
+          <ContactForm title="Une question ? Contactez-nous !" handleSubmit={handleSubmit} isSubmited={isSubmited} />
+          <SnackBar
+            message={modalOpenWithError ? "Erreur pendant l'envoi du message" : 'Message envoyé'}
+            isError={modalOpenWithError}
+            open={modalOpenWithError}
+            onClose={handleCloseModal}
           />
-          {isOpenenedModal && <ContactMessage error={isError}></ContactMessage>}
           <ContactSection />
         </div>
       </Layout>

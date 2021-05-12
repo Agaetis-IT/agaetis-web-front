@@ -95,6 +95,8 @@ function IdeaContent({ content }: Props) {
         }
       }
     }
+
+    return undefined
   }
 
   useEffect(() => {

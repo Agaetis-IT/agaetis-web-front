@@ -11,10 +11,8 @@ import IdeasCard from '../components/IdeasCard'
 import clsx from 'clsx'
 import ContactSection from '../components/ContactSection'
 import Particles from '../static/images/particles-3.svg'
-import { FooterFormInput } from '../yup/ContactFormValidation'
-import { footerSend } from '../Services/contactService'
-import ContactFormFooter from '../components/ContactFormFooter'
-import ContactMessage from '../components/ContactMessage'
+import { FormInput } from '../yup/ContactFormValidation'
+import ContactForm from './ContactForm'
 import SearchInput from '../components/SearchInput'
 import Error from '../pages/_error'
 
@@ -26,6 +24,8 @@ import { PostAPI } from '../models/IdeasAPI'
 import './Common.css'
 import Head from 'next/head'
 import publicRuntimeConfig from '../config/env.config'
+import SnackBar from './SnackBar'
+import send from '../Services/contactService'
 
 interface Props {
   ideasDescription: IdeasDesc[]
@@ -38,7 +38,7 @@ interface Props {
   errorCode?: number
 }
 
-function Blog({
+export default function Blog({
   ideasDescription,
   whitePapers,
   categories,
@@ -48,8 +48,8 @@ function Blog({
   hideSeeMore,
   errorCode,
 }: Props) {
-  const [isOpenenedModal, setOpenModal] = useState(false)
-  const [isError, setIsError] = useState(true)
+  const [modalOpenWithError, setModalOpenWithError] = useState<boolean | undefined>(undefined)
+  const [postModalOpen, setPostModalOpen] = useState<boolean | undefined>(undefined)
   const [isSubmited, setIsSubmited] = useState(false)
   const [ideas, setIdeas] = useState(ideasDescription)
   const [searchFilter, setSearchFilter] = useState('')
@@ -59,18 +59,26 @@ function Blog({
   const [isVisibleSeeMore, setIsVisibleSeeMore] = useState(!hideSeeMore)
 
   function handleOpenModal(error: boolean) {
-    setIsError(error)
-    setOpenModal(true)
+    setModalOpenWithError(error)
     setIsSubmited(false)
-    setTimeout(() => {
-      setOpenModal(false)
-    }, 3000)
   }
 
-  async function handleSubmit(data: FooterFormInput) {
+  function handleCloseModal() {
+    setModalOpenWithError(undefined)
+  }
+
+  function handleOpenPostModal() {
+    setPostModalOpen(true)
+  }
+
+  function handleClosePostModal() {
+    setPostModalOpen(undefined)
+  }
+
+  async function handleSubmit(data: FormInput) {
     try {
       setIsSubmited(true)
-      await footerSend(data.firstname, data.lastname, data.mail, data.message, data.phone, new Date())
+      await send(data)
       handleOpenModal(false)
     } catch {
       handleOpenModal(true)
@@ -79,50 +87,56 @@ function Blog({
 
   async function handleFetchIdeas(reset?: boolean, changedCategory?: string, changedSearchFilter?: string) {
     setIsLoadingPosts(true)
-    let data: IdeasDesc[] = []
-    let newData: Response
-    const page = reset ? 1 : lastPage + 1
-    const catFilter = changedCategory ? changedCategory : categoryFilter
-    const searchBarFilter = (changedSearchFilter || changedSearchFilter === ''
-      ? changedSearchFilter
-      : searchFilter
-    ).toLocaleLowerCase()
 
-    if (catFilter != 'All') {
-      if (tagFilter) {
-        newData = await getIdeasByTag(tagFilter, slugify(catFilter), page, searchBarFilter)
+    try {
+      let data: IdeasDesc[] = []
+      let newData: Response
+      const page = reset ? 1 : lastPage + 1
+      const catFilter = changedCategory ? changedCategory : categoryFilter
+      const searchBarFilter = (changedSearchFilter || changedSearchFilter === ''
+        ? changedSearchFilter
+        : searchFilter
+      ).toLocaleLowerCase()
+
+      if (catFilter != 'All') {
+        if (tagFilter) {
+          newData = await getIdeasByTag(tagFilter, slugify(catFilter), page, searchBarFilter)
+        } else {
+          newData = await getIdeasByCategory(slugify(catFilter), page, searchBarFilter)
+        }
       } else {
-        newData = await getIdeasByCategory(slugify(catFilter), page, searchBarFilter)
+        if (tagFilter) {
+          newData = await getIdeasByTag(tagFilter, undefined, page, searchBarFilter)
+        } else {
+          newData = await getIdeasByPage(page, searchBarFilter)
+        }
       }
-    } else {
-      if (tagFilter) {
-        newData = await getIdeasByTag(tagFilter, undefined, page, searchBarFilter)
+
+      data = newData.data
+        .map((idea: PostAPI) => ({
+          id: idea.id,
+          title: idea.title.rendered,
+          categories: idea._embedded['wp:term'][0].map((category: { name: string }) => category.name),
+          tags: [],
+          slug: idea.slug,
+          descriptionText: idea.acf.idea_description,
+          date: idea.date,
+          image: idea.acf.idea_image,
+        }))
+        .filter((idea) => !idea.categories.includes('White-paper') && !idea.categories.includes('Jobs'))
+
+      if (newData.pageCount > page) {
+        setIsVisibleSeeMore(true)
       } else {
-        newData = await getIdeasByPage(page, searchBarFilter)
+        setIsVisibleSeeMore(false)
       }
+
+      setLastPage(page)
+      setIdeas(reset ? data : ideas.concat(data))
+    } catch (error) {
+      handleOpenPostModal()
     }
 
-    data = newData.data
-      .map((idea: PostAPI) => ({
-        id: idea.id,
-        title: idea.title.rendered,
-        categories: idea._embedded['wp:term'][0].map((category: { name: string }) => category.name),
-        tags: [],
-        slug: idea.slug,
-        descriptionText: idea.acf.idea_description,
-        date: idea.date,
-        image: idea.acf.idea_image,
-      }))
-      .filter((idea) => !idea.categories.includes('White-paper') && !idea.categories.includes('Jobs'))
-
-    if (newData.pageCount > page) {
-      setIsVisibleSeeMore(true)
-    } else {
-      setIsVisibleSeeMore(false)
-    }
-
-    setLastPage(page)
-    setIdeas(reset ? data : ideas.concat(data))
     setIsLoadingPosts(false)
   }
 
@@ -137,7 +151,7 @@ function Blog({
     setCategoryFilter('All')
     setSearchFilter('')
     setIsVisibleSeeMore(!hideSeeMore)
-  }, [ideasDescription])
+  }, [ideasDescription, hideSeeMore])
 
   const cards = useMemo(
     () =>
@@ -146,7 +160,7 @@ function Blog({
           <IdeasCard slug={idea.slug} title={idea.title} image={idea.image} description={idea.descriptionText} />
         </div>
       )),
-    [ideas, tagFilter]
+    [ideas]
   )
 
   const handleSearchChanged = useDebouncedCallback((value: string) => {
@@ -257,17 +271,26 @@ function Blog({
               </div>
             )}
           </div>
-          <ContactFormFooter
-            title="Un sujet vous intéresse ? Une question ? Contactez-nous"
+          <ContactForm
+            title="Un sujet vous intéresse ? Une question ? Contactez-nous !"
             handleSubmit={handleSubmit}
             isSubmited={isSubmited}
           />
-          {isOpenenedModal && <ContactMessage error={isError} />}
+          <SnackBar
+            message="Erreur pendant le chargement des posts"
+            isError
+            open={postModalOpen}
+            onClose={handleClosePostModal}
+          />
+          <SnackBar
+            message={modalOpenWithError ? "Erreur pendant l'envoi du message" : 'Message envoyé'}
+            isError={modalOpenWithError}
+            open={modalOpenWithError}
+            onClose={handleCloseModal}
+          />
           <ContactSection />
         </div>
       </Layout>
     </>
   )
 }
-
-export default Blog

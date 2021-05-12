@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 import { Request, Response } from 'express'
+import { AttachmentContent } from './src/yup/ContactFormValidation'
 
 const axios = require('axios')
 const bodyParser = require('body-parser')
+const cors = require('cors')
 const express = require('express')
 const { google } = require('googleapis')
 const sha = require('js-sha256')
@@ -42,7 +44,10 @@ app
       )
     )
     server.use(bodyParser.urlencoded({ extended: true }))
-    server.use(bodyParser.json())
+    server.use(cors())
+
+    const json10MBParser = bodyParser.json({ limit: '11mb' })
+    const jsonParser = bodyParser.json()
 
     server.get(/sitemap[a-zA-Z-0-9\/\-_]*.xml/, async (req: Request, res: Response) => {
       const { data } = await axios.get(`${process.env.NEXT_APP_BASE_URL}${req.url}`)
@@ -107,7 +112,7 @@ app
       app.render(req, res, '/tag', { ...req.params, ...req.query })
     })
 
-    server.post('/send', async (req: Request, res: Response) => {
+    server.post('/send', json10MBParser, async (req: Request, res: Response) => {
       oAuth2Client.setCredentials({
         // eslint-disable-next-line @typescript-eslint/camelcase
         refresh_token: process.env.NEXT_APP_GMAIL_REFRESH_TOKEN,
@@ -132,16 +137,23 @@ app
 
       const message = {
         from: process.env.NEXT_APP_MAIL_ADDRESS,
-        to: 'contact@agaetis.fr',
+        to: process.env.NEXT_APP_MAIL_DEST,
         subject: req.body.object,
         html: req.body.content,
+        attachments: req.body.attachments
+          ? req.body.attachments.map((attachment: AttachmentContent) => ({
+              filename: attachment.fileName,
+              path: attachment.content,
+            }))
+          : [],
       }
 
       const key = Buffer.from(
-        req.body.name +
-          req.body.object +
+        req.body.firstname +
+          req.body.lastname +
           process.env.NEXT_APP_CONTACT_SALT +
           req.body.mail +
+          req.body.object +
           req.body.content +
           req.body.date +
           req.body.token,
@@ -153,7 +165,6 @@ app
         captcha &&
         mailRegex.test(message.from!) &&
         mailRegex.test(message.to!) &&
-        ['Un projet ?', 'Une candidature ?', 'Un cafe ?'].includes(message.subject) &&
         message.html.length > 0
       ) {
         transporter.sendMail(message, (err: any) => {
@@ -168,64 +179,7 @@ app
       }
     })
 
-    server.post('/send/fastcontact', async (req: Request, res: Response) => {
-      oAuth2Client.setCredentials({
-        // eslint-disable-next-line @typescript-eslint/camelcase
-        refresh_token: process.env.NEXT_APP_GMAIL_REFRESH_TOKEN,
-      })
-      const accessToken = oAuth2Client.getAccessToken()
-
-      const transporter = nodemailer.createTransport({
-        host: 'smtp.gmail.com',
-        port: 465,
-        secure: true,
-        auth: {
-          type: 'OAuth2',
-          user: String(process.env.NEXT_APP_MAIL_ADDRESS),
-          clientId: String(process.env.NEXT_APP_GMAIL_CLIENT_ID),
-          clientSecret: String(process.env.NEXT_APP_GMAIL_CLIENT_SECRET),
-          refreshToken: String(process.env.NEXT_APP_GMAIL_REFRESH_TOKEN),
-          accessToken: String(accessToken),
-          expires: Date.now() + 3600,
-        },
-      })
-
-      const message = {
-        from: process.env.NEXT_APP_MAIL_ADDRESS,
-        to: 'benoit.munoz@agaetis.fr',
-        subject: `Prise de contact site web ${req.body.firstname} ${req.body.lastname}`,
-        html: req.body.content,
-      }
-
-      const key = Buffer.from(
-        req.body.firstname +
-          req.body.lastname +
-          process.env.NEXT_APP_CONTACT_SALT +
-          req.body.mail +
-          req.body.content +
-          req.body.date,
-        'base64'
-      )
-
-      if (
-        req.body.hash === sha256(key) &&
-        mailRegex.test(message.from!) &&
-        mailRegex.test(message.to!) &&
-        message.html.length > 0
-      ) {
-        transporter.sendMail(message, (err: any) => {
-          if (err) {
-            res.status(500).send()
-          } else {
-            res.status(200).send()
-          }
-        })
-      } else {
-        res.status(400).send()
-      }
-    })
-
-    server.post('/send/white-paper', (req: Request, res: Response) => {
+    server.post('/send/white-paper', jsonParser, (req: Request, res: Response) => {
       oAuth2Client.setCredentials({
         // eslint-disable-next-line @typescript-eslint/camelcase
         refresh_token: process.env.NEXT_APP_GMAIL_REFRESH_TOKEN,

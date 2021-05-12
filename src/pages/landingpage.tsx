@@ -1,17 +1,17 @@
 import { NextPageContext } from 'next'
 import React, { useState } from 'react'
-import ContactFormFooter from '../components/ContactFormFooter'
-import ContactMessage from '../components/ContactMessage'
+import ContactForm from '../components/ContactForm'
 import ContactSection from '../components/ContactSection'
 import Error from './_error'
 import Layout from '../components/Layout'
 import Particles from '../static/images/particles-3.svg'
-import { footerSend } from '../Services/contactService'
 import { getLandingPageContent } from '../Services/wordpressService'
 import { convertAPItoLandingPageContent, LandingPage } from '../types/OffersContent'
-import { FooterFormInput } from '../yup/ContactFormValidation'
+import { FormInput } from '../yup/ContactFormValidation'
 
 import './landingpage.css'
+import SnackBar from '../components/SnackBar'
+import send from '../Services/contactService'
 
 interface Context extends NextPageContext {
   query: { slug: string }
@@ -23,23 +23,22 @@ interface Props {
 }
 
 export default function Landingpage({ pageContent, errorCode }: Props) {
-  const [isOpenenedModal, setOpenModal] = useState(false)
-  const [isError, setIsError] = useState(true)
+  const [modalOpenWithError, setModalOpenWithError] = useState<boolean | undefined>(undefined)
   const [isSubmited, setIsSubmited] = useState(false)
 
   function handleOpenModal(error: boolean) {
-    setIsError(error)
-    setOpenModal(true)
+    setModalOpenWithError(error)
     setIsSubmited(false)
-    setTimeout(() => {
-      setOpenModal(false)
-    }, 3000)
   }
 
-  async function handleSubmit(data: FooterFormInput) {
+  function handleCloseModal() {
+    setModalOpenWithError(undefined)
+  }
+
+  async function handleSubmit(data: FormInput) {
     try {
       setIsSubmited(true)
-      await footerSend(data.firstname, data.lastname, data.mail, data.message, data.phone, new Date())
+      await send(data)
       handleOpenModal(false)
     } catch {
       handleOpenModal(true)
@@ -67,12 +66,13 @@ export default function Landingpage({ pageContent, errorCode }: Props) {
             ></div>
           </div>
         </div>
-        <ContactFormFooter
-          title="Une question, un café, un thé ? Contactez-nous"
-          handleSubmit={handleSubmit}
-          isSubmited={isSubmited}
+        <ContactForm title="Une question ? Contactez-nous !" handleSubmit={handleSubmit} isSubmited={isSubmited} />
+        <SnackBar
+          message={modalOpenWithError ? "Erreur pendant l'envoi du message" : 'Message envoyé'}
+          isError={modalOpenWithError}
+          open={modalOpenWithError}
+          onClose={handleCloseModal}
         />
-        {isOpenenedModal && <ContactMessage error={isError}></ContactMessage>}
         <ContactSection />
       </>
     </Layout>
