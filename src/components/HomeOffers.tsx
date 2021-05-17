@@ -26,8 +26,8 @@ export default function HomeOffers({ title, offers }: Props) {
   return (
     <div className="flex flex-col md:flex-row my-8 bg-grey-darker md:bg-white md:my-0 shadow-md">
       <div className="home-offers-left p-4 md:p-12 lg:px-24 lg:p-16">
-        <h2 className="mb-4 md:mb-0 text-white md:text-orange font-bold text-center md:text-left">{title}</h2>
-        <div className="md:my-12">
+        <h2 className="mt-2 md:mt-0 text-white md:text-orange font-bold text-center md:text-left">{title}</h2>
+        <div className="md:mt-12">
           {offers.map((offer, index) => (
             <div key={index} className="my-6" id={`offer-${index}`}>
               <Button onClick={() => handleOfferChange(index)} className="w-full">
@@ -59,7 +59,7 @@ export default function HomeOffers({ title, offers }: Props) {
                     src={arrowR}
                     alt="arrow"
                     className={clsx(
-                      'm-2 md:hidden',
+                      'm-4 md:hidden',
                       index === selectedOffer && isOpennedOffer ? 'offer-selected-arrow' : 'offer-arrow'
                     )}
                   />
@@ -67,41 +67,33 @@ export default function HomeOffers({ title, offers }: Props) {
               </Button>
               <div
                 style={{
-                  backgroundImage: `url(${offers[selectedOffer].image})`,
+                  backgroundImage: `url(${offer.image})`,
                   backgroundPosition: 'center',
                   backgroundSize: 'cover',
                 }}
                 className={clsx(
-                  'md:hidden home-offers-right offer-flyout',
+                  'md:hidden offer-flyout ml-10',
                   index === selectedOffer && isOpennedOffer ? 'block offer-flyout-open' : 'offer-flyout-close'
                 )}
               >
                 <div style={{ backgroundColor: 'rgba(0,0,0,0.5)' }} className="m-4 p-4 round8 background-blur">
-                  {offers.map((offer, index) => (
-                    <div key={index} className={clsx({ hidden: selectedOffer != index })}>
-                      <p className="text-sm leading-normal text-justify text-white">{offer.offers_description}</p>
-                      {offers[selectedOffer].related_landingpage && (
-                        <Link
-                          href={`/landingpages/${
-                            offers[selectedOffer].related_landingpage!.split('/')[
-                              offers[selectedOffer].related_landingpage!.split('/').length - 2
-                            ]
-                          }`}
-                        >
-                          <Button
-                            className="flex flex-row justify-center bg-white text-orange uppercase mx-auto rounded-full px-6 py-2 mt-8 shadow-md font-semibold text-xs w-48"
-                            href={`/landingpages/${
-                              offers[selectedOffer].related_landingpage!.split('/')[
-                                offers[selectedOffer].related_landingpage!.split('/').length - 2
-                              ]
-                            }`}
-                          >
-                            En savoir plus
-                          </Button>
-                        </Link>
-                      )}
-                    </div>
-                  ))}
+                  <p className="text-sm leading-normal text-justify text-white">{offer.offers_description}</p>
+                  {offer.related_landingpage && (
+                    <Link
+                      href={`/landingpages/${
+                        offer.related_landingpage!.split('/')[offer.related_landingpage!.split('/').length - 2]
+                      }`}
+                    >
+                      <Button
+                        className="flex flex-row justify-center bg-white text-orange uppercase mx-auto rounded-full px-6 py-2 mt-8 shadow-md font-semibold text-xs w-48"
+                        href={`/landingpages/${
+                          offer.related_landingpage!.split('/')[offer.related_landingpage!.split('/').length - 2]
+                        }`}
+                      >
+                        En savoir plus
+                      </Button>
+                    </Link>
+                  )}
                 </div>
               </div>
             </div>

@@ -55,11 +55,11 @@
   }
 
   .offer-header-open {
-    border-radius: 48px 8px 0 0;
+    border-radius: 40px 8px 0 40px;
   }
 
   .offer-header-close {
-    border-radius: 48px 8px 8px 48px;
+    border-radius: 40px 8px 8px 40px;
   }
 }
 /* purgecss end ignore */
