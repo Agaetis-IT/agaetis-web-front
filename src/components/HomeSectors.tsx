@@ -22,7 +22,7 @@ export default function HomeSectors({ title, sectors }: Props) {
   }
 
   return (
-    <div className="bg-light-grey p-4 md:p-12 lg:px-24 lg:p-16 my-8 shadow-md">
+    <div className="bg-light-grey p-4 md:p-12 lg:px-24 lg:p-16 mt-8 shadow-md">
       <h2 className="mt-2 mb-6 md:my-0 text-orange font-semibold text-center md:text-left">{title}</h2>
       <div className="mb-6 md:mt-12" id="sectors">
         {sectors

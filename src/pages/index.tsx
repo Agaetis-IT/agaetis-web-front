@@ -45,20 +45,21 @@ export default function Index({ pageContent, offers }: Props) {
             {offers && <HomeOffers offers={offers} title={pageContent.offres_title} />}
             <HomeSectors sectors={pageContent.secteurs} title={pageContent.secteurs_title} />
             <HomeExpertises
-              expertises_title={pageContent.expertises_title}
-              expertises_image_desktop={pageContent.expertises_image_desktop}
+              expertisesTitle={pageContent.expertises_title}
+              expertisesImageDesktop={pageContent.expertises_image_desktop}
+              expertisesImageMobile={pageContent.expertises_image_mobile}
               expertises={pageContent.expertises}
             />
             <HomeConvictions convictions={pageContent.convictions} title={pageContent.convictions_title} />
             <HomeJoinUs
-              joinUs_agaetis_title={pageContent.joinUs_agaetis_title}
-              joinUs_agaetis_desc={pageContent.joinUs_agaetis_desc}
-              joinUs_carreer_title={pageContent.joinUs_carreer_title}
-              joinUs_carreer_desc={pageContent.joinUs_carreer_desc}
-              joinUs_human={pageContent.joinUs_human}
-              joinUs_image_desktop={pageContent.joinUs_image_desktop}
-              joinUs_image_mobile_1={pageContent.joinUs_image_mobile_1}
-              joinUs_image_mobile_2={pageContent.joinUs_image_mobile_2}
+              joinUsAgaetisTitle={pageContent.joinUs_agaetis_title}
+              joinUsAgaetisDesc={pageContent.joinUs_agaetis_desc}
+              joinUsCarreerTitle={pageContent.joinUs_carreer_title}
+              joinUsCarreerDesc={pageContent.joinUs_carreer_desc}
+              joinUsHuman={pageContent.joinUs_human}
+              joinUsImageDesktop={pageContent.joinUs_image_desktop}
+              joinUsImageMobile1={pageContent.joinUs_image_mobile_1}
+              joinUsImageMobile2={pageContent.joinUs_image_mobile_2}
             />
           </div>
           <ContactSection />

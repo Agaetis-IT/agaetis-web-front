@@ -491,6 +491,7 @@ module.exports = {
     '1/6': '16.667%',
     full: '100%',
     screen: '100vh',
+    fit: 'fit-content',
   },
 
   /*
@@ -662,6 +663,7 @@ module.exports = {
     '32': '8rem',
     '36': '10rem',
     '64': '16rem',
+    '1/2': '50%',
   },
 
   /*
