@@ -39,7 +39,7 @@
     "i18next": "^15.0.9",
     "i18next-browser-languagedetector": "^3.0.1",
     "js-sha256": "^0.9.0",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "morgan": "^1.10.0",
     "next": "^9.3.5",
     "next-images": "^1.4.0",
