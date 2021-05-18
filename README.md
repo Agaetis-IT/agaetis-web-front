@@ -43,6 +43,7 @@ You can find below an example of `.env` file:
 NEXT_APP_BASE_URL=<URL to Wordpress>
 NEXT_APP_SITE_URL=http://127.0.0.1:5000
 NEXT_APP_MAIL_ADDRESS=<Mail address>
+NEXT_APP_MAIL_DEST=<Mail address to send contact mails to>
 NEXT_APP_GMAIL_CLIENT_ID=<GMail client ID>
 NEXT_APP_GMAIL_CLIENT_SECRET=<GMail client secret key>
 NEXT_APP_GMAIL_REFRESH_TOKEN=<GMail client refresh token>
