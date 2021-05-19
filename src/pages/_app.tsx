@@ -7,7 +7,6 @@ import initBugsnag, { getBugsnagClient } from '../bugsnag/bugsnag'
 import publicRuntimeConfig from '../config/env.config'
 import '../index.css'
 import 'react-lazy-load-image-component/src/effects/blur.css'
-import ServiceWorkerManager from '../components/ServiceWorkerManager'
 import LoadingComponent from '../components/LoadingComponent'
 
 initBugsnag()
@@ -16,11 +15,6 @@ declare global {
     GoogleAnalyticsObject: string
     CRISP_WEBSITE_ID: string
     $crisp: []
-    workbox: {
-      active: Promise<any>
-      messageSW: (param: { action: string }) => void
-      addEventListener: (listener: string, cb: () => void) => void
-    }
   }
 }
 
@@ -67,7 +61,6 @@ export default class MyApp extends App {
     return (
       <>
         <this.ErrorBoundary>
-          <ServiceWorkerManager />
           <Head>
             <title>Agaetis</title>
             <meta name="keywords" content="Agaetis, Data science, Web development, Digital Twin" />
@@ -78,9 +71,6 @@ export default class MyApp extends App {
             <meta name="twitter:site" content="@AgaetisIT" />
             <link rel="shortcut icon" type="image/ico" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/favicon.ico`} />
             <link rel="preconnect" href="https://wordpress.agaetis.fr" />
-            <link rel="manifest" href="/manifest.json" />
-            <meta name="theme-color" content="#ff7f40" />
-            <link rel="apple-touch-icon" href="/logo-agaetis-carre-apple.png" />
           </Head>
 
           <LoadingComponent color="#ff7f40" startPosition={0.25} stopDelayMs={50} height={3} />

@@ -1,8 +1,6 @@
-const withTypescript = require('@zeit/next-typescript')
-const withCSS = require('@zeit/next-css')
-const withPurgeCSS = require('next-purgecss')
-const withImages = require('next-images')
-const withPWA = require('next-pwa')
+import withCSS from '@zeit/next-css'
+import withPurgeCSS from 'next-purgecss'
+import withImages from 'next-images'
 
 require('dotenv').config()
 
@@ -13,19 +11,10 @@ const publicRuntimeConfig = Object.keys(process.env).reduce((acc, key) => {
   return acc
 }, {})
 
-module.exports = withPWA(
-  withCSS(
-    withTypescript(
-      withPurgeCSS(
-        withImages({
-          publicRuntimeConfig,
-          pwa: {
-            disable: process.env.NODE_ENV !== 'production',
-            dest: 'public',
-            swSrc: 'service-worker.js',
-          }
-        })
-      )
-    )
+export default withCSS(
+  withPurgeCSS(
+    withImages({
+      publicRuntimeConfig,
+    })
   )
 )

@@ -70,15 +70,10 @@ app
           'cookies',
           'personal-data',
           'mentions-legales',
-          'sw.js',
-          'offline.html',
-          'manifest.json',
           'google80ae36db41235209.html',
           'robots.txt',
           'favicon.ico',
-          'logo-agaetis-carre.png',
         ].includes(queryParams.slug) ||
-        !!queryParams.slug.match(/(workbox)|(worker)-.*\.js/) ||
         !!queryParams.slug.match(/^blog\/.*/) ||
         !!queryParams.slug.match(/^author\/.*/)
       ) {
