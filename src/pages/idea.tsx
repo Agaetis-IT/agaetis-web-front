@@ -21,7 +21,7 @@ import ContactForm from '../components/ContactForm'
 import { FormInput } from '../yup/ContactFormValidation'
 import { formatPostAuthors } from '../Services/textUtilities'
 
-import '../components/Common.css'
+import styles from '../components/Common.module.css'
 
 import { PostAPI } from '../models/IdeasAPI'
 import { AuthorLink } from '../types/AuthorContent'
@@ -74,7 +74,10 @@ export default function Idea({ data, related, errorCode, meta }: Props) {
   const relatedIdeas = useMemo(() => {
     if (!!related) {
       return related.map((idea) => (
-        <div key={idea.id} className="m-2 mb-8 shadow-md hover:shadow-lg smooth-transition zoom-in round8">
+        <div
+          key={idea.id}
+          className={`m-2 mb-8 shadow-md hover:shadow-lg ${styles.smoothTransition} ${styles.zoomIn} ${styles.round8}`}
+        >
           <IdeasCard slug={idea.slug} title={idea.title} image={idea.image} description={idea.descriptionText} />
         </div>
       ))
@@ -115,7 +118,7 @@ export default function Idea({ data, related, errorCode, meta }: Props) {
               backgroundPosition: 'left top',
               backgroundSize: '100%',
             }}
-            className="bg-light-grey py-4 md:p-16 lg:px-32 xl:px-48"
+            className="bg-gray-400 py-4 md:p-16 lg:px-32 xl:px-48"
           >
             <IdeaContent content={data} />
             {related && related.length > 0 && (
@@ -131,7 +134,7 @@ export default function Idea({ data, related, errorCode, meta }: Props) {
                     onClick={handleToggleMoreIdeas}
                     className={clsx(
                       related.length < 6 ? 'hidden' : 'flex',
-                      'flex-row justify-center uppercase rounded-full bg-orange text-xss py-2 px-6 mt-8 text-white font-semibold mx-auto'
+                      'flex-row justify-center uppercase rounded-full bg-orange-500 text-xss leading-normal py-2 px-6 mt-8 text-white font-semibold mx-auto'
                     )}
                   >
                     {!isOpenedMoreIdeas ? 'Voir plus' : 'Voir moins'}

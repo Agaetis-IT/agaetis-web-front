@@ -1,6 +1,5 @@
-import withCSS from '@zeit/next-css'
-import withPurgeCSS from 'next-purgecss'
-import withImages from 'next-images'
+/* eslint-disable @typescript-eslint/no-var-requires */
+const withImages = require('next-images')
 
 require('dotenv').config()
 
@@ -11,10 +10,4 @@ const publicRuntimeConfig = Object.keys(process.env).reduce((acc, key) => {
   return acc
 }, {})
 
-export default withCSS(
-  withPurgeCSS(
-    withImages({
-      publicRuntimeConfig,
-    })
-  )
-)
+module.exports = withImages({ publicRuntimeConfig })

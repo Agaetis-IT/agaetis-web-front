@@ -1,6 +1,5 @@
 import React from 'react'
 
-import './ContactSection.css'
 import BottomNav from './BottomNav'
 import Address from './Address'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
@@ -34,8 +33,8 @@ export default function ContactSection() {
   ]
 
   return (
-    <div className="bg-orange py-8 flex flex-col md:flex-row justify-center text-white text-center md:text-left">
-      <div className="max-w-xxs py-4 px-16 md:px-0 md:pr-16 mx-auto md:mx-0 md:mr-8 mb-4 md:my-0 vert-line flex flex-col justify-center ">
+    <div className="bg-orange-500 py-8 flex flex-col md:flex-row justify-center text-white text-center md:text-left">
+      <div className="max-w-xxs py-4 px-16 md:px-0 md:pr-16 mx-auto md:mx-0 md:mr-8 mb-4 md:my-0 border-white border-solid border-b md:border-b-0 md:border-r flex flex-col justify-center">
         {
           // eslint-disable-next-line
           // @ts-ignore-next-line
@@ -44,8 +43,8 @@ export default function ContactSection() {
       </div>
 
       <div className="flex flex-col justify-center">
-        <h4 className="text-white my-4  mb-4 uppercase text-sm">Nos adresses</h4>
-        <div className="flex flex-col md:flex-row justify-center font-thin mb-4">
+        <h4 className="text-white my-4 mb-4 uppercase text-sm leading-normal">Nos adresses</h4>
+        <div className="flex flex-col md:flex-row justify-center font-extralight mb-4">
           {addresses.map((address) => (
             <Address key={address.agency} {...address} />
           ))}

@@ -19,9 +19,9 @@ export default function SearchInput({ handleChange, defaultValue }: Props) {
   }, [defaultValue])
 
   return (
-    <div className="w-full md:w-1/2 mr-auto px-4 flex flex-row items-center shadow-md border-2 border-orange bg-light-grey rounded-full w-full">
+    <div className="w-full md:w-1/2 mr-auto px-4 flex flex-row items-center shadow-md border-2 border-orange-500 bg-gray-400 rounded-full w-full">
       <input
-        className="bg-light-grey w-full text-xs py-2 text-orange font-semibold leading-tight"
+        className="bg-gray-400 w-full text-xs py-2 text-orange-500 font-semibold leading-tight"
         type="text"
         id="search-input"
         placeholder="Rechercher"

@@ -10,11 +10,6 @@
 }
 
 @media (min-width: 820px) {
-  header {
-    left: 0;
-    right: 0;
-  }
-
   .logoAgaetis {
     position: absolute;
     top: 22px;
@@ -32,12 +27,12 @@
     margin-top: 0;
   }
 
-  .animation-up {
+  .animationUp {
     animation: nav-scroll-up 1s;
     animation-fill-mode: both;
   }
 
-  .animation-down {
+  .animationDown {
     animation: nav-scroll-down 1s;
     animation-fill-mode: both;
     animation-timing-function: ease-out;

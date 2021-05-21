@@ -1,0 +1,45 @@
+.navMenu {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-top: 0.75rem;
+  z-index: 1000;
+}
+
+.menuLinkWhiteUnderline::after,
+.menuLinkBlackUnderline::after {
+  position: relative;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+  content: '';
+  margin-top: 2px;
+  display: block;
+  transition: width 0.2s ease-out;
+  background-color: none;
+  width: 0px;
+  height: 2px;
+  text-align: center;
+}
+
+.menuLinkWhiteUnderline:hover::after,
+.menuLinkBlackUnderline:hover::after {
+  width: 100%;
+}
+
+@media (min-width: 820px) {
+  .navMenu {
+    position: relative;
+    margin-top: 0rem;
+  }
+
+  .menuLinkBlackUnderline::after {
+    background-color: black;
+  }
+
+  .menuLinkWhiteUnderline::after {
+    background-color: white;
+  }
+}

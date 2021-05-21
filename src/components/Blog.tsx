@@ -21,7 +21,7 @@ import { slugify } from '../Services/textUtilities'
 import LoadingSpinner from './LoadingSpinner'
 import { PostAPI } from '../models/IdeasAPI'
 
-import './Common.css'
+import styles from './Common.module.css'
 import Head from 'next/head'
 import publicRuntimeConfig from '../config/env.config'
 import SnackBar from './SnackBar'
@@ -156,7 +156,10 @@ export default function Blog({
   const cards = useMemo(
     () =>
       ideas.map((idea) => (
-        <div key={idea.id} className="m-2 mb-8 shadow-md hover:shadow-lg smooth-transition zoom-in round8 w-inherit">
+        <div
+          key={idea.id}
+          className={`m-2 mb-8 shadow-md hover:shadow-lg ${styles.smoothTransition} ${styles.zoomIn} ${styles.round8} ${styles.wInherit}`}
+        >
           <IdeasCard slug={idea.slug} title={idea.title} image={idea.image} description={idea.descriptionText} />
         </div>
       )),
@@ -192,11 +195,14 @@ export default function Blog({
               backgroundPosition: 'left top',
               backgroundSize: '100%',
             }}
-            className="p-6 md:p-16 lg:px-32 xl:px-48 bg-light-grey"
+            className="p-6 md:p-16 lg:px-32 xl:px-48 bg-gray-400"
           >
             <div className="mx-1 md:mx-2">
               <div>
-                <h1 className="text-orange text-2xl font-bold" dangerouslySetInnerHTML={{ __html: content.titre }} />
+                <h1
+                  className="text-orange-500 text-2xl leading-normal font-bold"
+                  dangerouslySetInnerHTML={{ __html: content.titre }}
+                />
                 <p className="py-6 text-xl leading-normal my-8 font-medium">{content.description}</p>
               </div>
               <SearchInput handleChange={handleSearchChanged} defaultValue={searchFilter} />
@@ -222,7 +228,7 @@ export default function Blog({
             {isVisibleSeeMore && (
               <Button
                 className={clsx(
-                  'flex flex-row justify-center uppercase rounded-full bg-orange text-xss py-2 px-6 text-white font-semibold mx-auto see-more shadow-md',
+                  'flex flex-row justify-center uppercase rounded-full bg-orange-500 text-xss leading-normal py-2 px-6 text-white font-semibold mx-auto shadow-md',
                   { 'mb-8': whitePapers.length < 2 }
                 )}
                 onClick={() => handleFetchIdeas()}
@@ -239,11 +245,8 @@ export default function Blog({
             )}
 
             {false && whitePapers && whitePapers.length > 0 && (
-              <div
-                id="whitepapers"
-                className="text-center w-full mx-auto p-6 md:py-12 bg-light-grey my-8 blue-underline"
-              >
-                <h2 className="text-2xl mt-4">Livres blancs</h2>
+              <div id="whitepapers" className="text-center w-full mx-auto p-6 md:py-12 bg-gray-400 my-8 underline">
+                <h2 className="text-2xl leading-normal mt-4">Livres blancs</h2>
                 <p className="text-sm md:max-w-md md:px-20 py-4 mx-auto leading-normal">
                   {content.white_paper_description}
                 </p>
@@ -257,11 +260,11 @@ export default function Blog({
                           backgroundPosition: 'center',
                           backgroundRepeat: 'no-repeat',
                         }}
-                        className="shadow-xl md:w-ideas h-40 md:h-32 mx-auto"
+                        className="shadow-xl md:w-52 h-40 md:h-32 mx-auto"
                       />
-                      <h3 className="text-sm px-3 py-4">{whitePaper.title}</h3>
+                      <h3 className="text-sm px-3 py-4 leading-normal">{whitePaper.title}</h3>
                       <Link href={`/white-papers/${whitePaper.slug}`}>
-                        <Button className="rounded-full uppercase text-white text-xss md:text-cgu font-semibold bg-orange px-8 py-3 md:px-6 md:py-2">
+                        <Button className="rounded-full uppercase text-white text-xss md:text-cgu leading-normal font-semibold bg-orange-500 px-8 py-3 md:px-6 md:py-2">
                           Télécharger
                         </Button>
                       </Link>

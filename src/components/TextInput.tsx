@@ -19,7 +19,7 @@ function TextInput({ name, label, className, wrapperClassName, type, required }:
   return (
     <div className={clsx('flex flex-col', wrapperClassName)}>
       <Component name={name} placeholder={label} ref={register()} className={className} required={required} />
-      {errors[name] && <p className="text-xs text-red text-center pt-2">{errors[name].message}</p>}
+      {errors[name] && <p className="text-xs leading-normal text-red-500 text-center pt-2">{errors[name].message}</p>}
     </div>
   )
 }

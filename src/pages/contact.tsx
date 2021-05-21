@@ -7,7 +7,6 @@ import publicRuntimeConfig from '../config/env.config'
 import { getContactPageContent } from '../Services/wordpressService'
 import ContactContent from '../types/ContactContent'
 
-import './contact.css'
 import ContactSection from '../components/ContactSection'
 import ContactForm from '../components/ContactForm'
 import { FormInput } from '../yup/ContactFormValidation'

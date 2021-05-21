@@ -41,25 +41,25 @@ export default function HomeJoinUs({
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
           }}
-          className="flex flex-row justify-between  w-2/3 py-32 px-8"
+          className="flex flex-row justify-between w-2/3 py-32 px-8"
         >
           <div className="my-auto w-2/5 pr-8">
-            <h3 className="text-black text-2xl">{joinUs_agaetis_title}</h3>
+            <h3 className="text-black text-2xl leading-normal">{joinUs_agaetis_title}</h3>
             <p className="my-8 text-sm leading-normal text-justify">{joinUs_agaetis_desc}</p>
             <Button
               href="/agaetis"
-              className="bg-orange text-white rounded-full text-sm font-semibold px-6 py-3 shadow-md"
+              className="bg-orange-500 text-white rounded-full text-sm leading-normal font-semibold px-6 py-3 shadow-md"
             >
               En savoir plus
             </Button>
           </div>
 
           <div className="my-auto w-2/5 pl-8">
-            <h3 className="text-black text-2xl">{joinUs_carreer_title}</h3>
+            <h3 className="text-black text-2xl leading-normal">{joinUs_carreer_title}</h3>
             <p className="my-8 text-sm leading-normal text-justify">{joinUs_carreer_desc}</p>
             <Button
               href="/jobs"
-              className="bg-white text-orange rounded-full text-sm font-semibold px-6 py-3 shadow-md"
+              className="bg-white text-orange-500 rounded-full text-sm leading-normal font-semibold px-6 py-3 shadow-md"
             >
               Jobs
             </Button>
@@ -67,7 +67,7 @@ export default function HomeJoinUs({
         </div>
       </div>
       <div className="flex flex-col lg:hidden p-4 py-8 md:p-16">
-        <h3 className="text-orange">{joinUs_agaetis_title}</h3>
+        <h3 className="text-orange-500">{joinUs_agaetis_title}</h3>
         <p className="my-8 text-sm leading-normal text-justify">{joinUs_agaetis_desc}</p>
         <div className="flex flex-row-reverse justify-between sm:justify-around mb-8">
           {
@@ -77,15 +77,15 @@ export default function HomeJoinUs({
           }
           <Button
             href="/agaetis"
-            className="bg-orange text-white rounded-full text-xs sm:text-sm font-semibold px-4 sm:px-12 py-2 sm:py-3 shadow-md h-12 flex flex-col justify-center my-auto"
+            className="bg-orange-500 text-white rounded-full text-xs sm:text-sm leading-normal font-semibold px-4 sm:px-12 py-2 sm:py-3 shadow-md h-12 flex flex-col justify-center my-auto"
           >
             En savoir plus
           </Button>
         </div>
 
-        <h3 className="text-orange">{joinUs_carreer_title}</h3>
+        <h3 className="text-orange-500">{joinUs_carreer_title}</h3>
         <p className="my-8 text-sm leading-normal text-justify">{joinUs_carreer_desc}</p>
-        <div className="flex flex-row justify-between sm:justify-around ">
+        <div className="flex flex-row justify-between sm:justify-around">
           {
             // eslint-disable-next-line
             // @ts-ignore-next-line
@@ -93,7 +93,7 @@ export default function HomeJoinUs({
           }
           <Button
             href="/jobs"
-            className="bg-white text-orange rounded-full text-xs sm:text-sm font-semibold px-4 sm:px-12 py-2 sm:py-3 shadow-md h-12 flex flex-col justify-center my-auto"
+            className="bg-white text-orange-500 rounded-full text-xs sm:text-sm leading-normal font-semibold px-4 sm:px-12 py-2 sm:py-3 shadow-md h-12 flex flex-col justify-center my-auto"
           >
             Jobs
           </Button>

@@ -9,7 +9,7 @@ import { getLandingPageContent } from '../Services/wordpressService'
 import { convertAPItoLandingPageContent, LandingPage } from '../types/OffersContent'
 import { FormInput } from '../yup/ContactFormValidation'
 
-import './landingpage.css'
+import styles from './landingpage.module.css'
 import SnackBar from '../components/SnackBar'
 import send from '../Services/contactService'
 
@@ -57,11 +57,11 @@ export default function Landingpage({ pageContent, errorCode }: Props) {
               backgroundImage: `url("${Particles}")`,
               backgroundRepeat: 'no-repeat',
             }}
-            className="bg-light-grey p-6 md:p-12 md:p-16 xl:px-32 shadow-none md:shadow-top"
+            className="bg-gray-400 p-6 md:p-12 md:p-16 xl:px-32 shadow-none md:shadow-md"
           >
             <h1>{pageContent.title}</h1>
             <div
-              className="xl:mt-20 landingpage-content"
+              className={`xl:mt-20 ${styles.landingpageContent}`}
               dangerouslySetInnerHTML={{ __html: pageContent.content }}
             ></div>
           </div>

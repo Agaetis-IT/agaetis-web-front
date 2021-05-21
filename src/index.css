@@ -1,5 +1,5 @@
 @tailwind base;
-@tailwind preflight;
+@tailwind components;
 @tailwind utilities;
 
 @import url('https://fonts.googleapis.com/css?family=Poppins');
@@ -24,6 +24,11 @@ a {
 
 button:focus {
   outline: 0;
+}
+
+input,
+textarea {
+  outline: none;
 }
 
 textarea {

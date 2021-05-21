@@ -13,7 +13,9 @@ import Linkedin from '../static/icons/linkedin.png'
 import Facebook from '../static/icons/facebook.png'
 import { useRouter } from 'next/router'
 
-import './IdeaContent.css'
+import styles from './IdeaContent.module.css'
+import commonStyles from './Common.module.css'
+
 import Placeholder from '../static/images/blog-post-placeholder.jpg'
 import { AuthorLink } from '../types/AuthorContent'
 
@@ -25,7 +27,7 @@ function formatAuthor(author: AuthorLink) {
   return (
     <span key={author.id}>
       <Link href={`/author/${author.id}`} passHref={true}>
-        <Button className="text-orange underline">
+        <Button className="text-orange-500 underline">
           <span>{author.name}</span>
         </Button>
       </Link>
@@ -78,7 +80,7 @@ function IdeaContent({ content }: Props) {
       })
     }
 
-    const contentTag: HTMLElement | null = document.getElementById('content')
+    const contentTag: Element | null = document.getElementsByClassName('content')[0]
 
     if (contentTag) {
       for (const anchor of Array.from(contentTag.getElementsByTagName('a'))) {
@@ -102,12 +104,12 @@ function IdeaContent({ content }: Props) {
   useEffect(() => {
     setLocation(window.location.href)
     return setAnchorHandlers()
-  }, [])
+  }, [setAnchorHandlers])
 
   return (
     <div className="md:mx-2">
       <div className="p-6 md:p-0">
-        <h1 className="text-orange text-2xl font-bold">Blog Agaetis</h1>
+        <h1 className="text-orange-500 text-2xl leading-normal font-bold">Blog Agaetis</h1>
         <p
           className="py-3 md:py-6 text-xl leading-normal my-8 font-medium"
           dangerouslySetInnerHTML={createMarkup(content.title)}
@@ -117,18 +119,18 @@ function IdeaContent({ content }: Props) {
             <Button>
               <div className="flex flex-row items-center">
                 <img className="mr-4" src={Back} />
-                <span className="text-orange text-xs font-semibold">Retour au blog</span>
+                <span className="text-orange-500 text-xs leading-normal font-semibold">Retour au blog</span>
               </div>
             </Button>
           </Link>
         </div>
       </div>
-      <div className="pb-4 bg-white shadow-md md:round8">
+      <div className={`pb-4 bg-white shadow-md ${styles['md:round8']}`}>
         <img
           src={content.imageUrl ? content.imageUrl : Placeholder}
-          className="w-full h-80 md:h-128 md:round8top object-cover"
+          className={`w-full h-80 md:h-128 ${styles['md:round8top']} object-cover`}
         />
-        <div className="px-4 md:px-8 text-xs text-orange font-semibold flex items-center justify-between py-4">
+        <div className="px-4 md:px-8 text-xs leading-normal text-orange-500 font-semibold flex items-center justify-between py-4">
           <span className="flex items-center">
             <span className="pr-8">
               {content.date.slice(8, 10)} / {content.date.slice(5, 7)} / {content.date.slice(0, 4)}
@@ -141,32 +143,32 @@ function IdeaContent({ content }: Props) {
           <div className="flex flex-row items-center">
             <Button
               href={`https://www.facebook.com/sharer/sharer.php?u=${location.split('#')[0]}`}
-              className="w-6 h-6 mr-4 self-center shadow-sm hover:shadow-md bg-white rounded-full smooth-transition p-1"
+              className={`w-6 h-6 mr-4 self-center shadow-sm hover:shadow-md bg-white rounded-full ${commonStyles.smoothTransition} p-1`}
             >
               <img src={Facebook} className="w-4 h-4" />
             </Button>
             <Button
               href={`https://www.linkedin.com/shareArticle?mini=true&url=${location.split('#')[0]}`}
-              className="w-6 h-6 mr-4 shadow-sm hover:shadow-md bg-white rounded-full smooth-transition p-1"
+              className={`w-6 h-6 mr-4 shadow-sm hover:shadow-md bg-white rounded-full ${commonStyles.smoothTransition} p-1`}
             >
               <img src={Linkedin} className="w-4 h-4" />
             </Button>
             <Button
               href={`https://twitter.com/intent/tweet?text=${location.split('#')[0]}`}
-              className="w-6 h-6 shadow-sm hover:shadow-md bg-white rounded-full smooth-transition p-1"
+              className={`w-6 h-6 shadow-sm hover:shadow-md bg-white rounded-full ${commonStyles.smoothTransition} p-1`}
             >
               <img src={Twitter} className="w-4 h-4" />
             </Button>
           </div>
         </div>
-        <div className="px-4 md:px-8 text-xs text-orange font-semibold lg:flex lg:justify-between lg:items-center">
+        <div className="px-4 md:px-8 text-xs leading-normal text-orange-500 font-semibold lg:flex lg:justify-between lg:items-center">
           {content.authors.length > 0 && <div className="py-4 text-black">{formatAuthorList(content.authors)}</div>}
           {content.tags.length > 0 && (
             <div className="md:my-0 flex flex-row flex-wrap py-4">
               {content.tags.map((tag) => (
-                <span key={tag.name} className="text-xs pr-4">
+                <span key={tag.name} className="text-xs leading-normal pr-4">
                   <Link href={`/tags/${tag.slug}`} passHref={true}>
-                    <Button className="text-orange">
+                    <Button className="text-orange-500">
                       <span>#{tag.name}</span>
                     </Button>
                   </Link>
@@ -177,11 +179,8 @@ function IdeaContent({ content }: Props) {
         </div>
         <div
           dangerouslySetInnerHTML={createMarkup(content.content)}
-          id="content"
-          className="px-4 md:px-8 leading-normal text-sm text-justify"
+          className={`${styles.content} px-4 md:px-8 leading-normal text-sm text-justify`}
         />
-
-        <hr className="Footer-separator" />
       </div>
     </div>
   )

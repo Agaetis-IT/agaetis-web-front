@@ -88,11 +88,11 @@ export default function offer({ pageContent, errorCode, offers }: Props): React.
               backgroundPosition: 'center',
               backgroundSize: 'cover',
             }}
-            className="bg-black-light p-0 md:p-12 lg:px-24 lg:p-16 hidden lg:block shadow-none md:shadow-top"
+            className="bg-gray-900 p-0 md:p-12 lg:px-24 lg:p-16 hidden lg:block shadow-none md:shadow-md"
           >
-            <div className="flex flex-row items-center ">
+            <div className="flex flex-row items-center">
               <img src={pageContent.offers_image1} className="block h-16"></img>
-              <h1 className="text-white text-2xl ml-8">{pageContent.title}</h1>
+              <h1 className="text-white text-2xl leading-normal ml-8">{pageContent.title}</h1>
             </div>
             <p className="text-white py-8 leading-normal text-sm">{pageContent.paragraph}</p>
             <div className="bg-white p-8">
@@ -100,13 +100,13 @@ export default function offer({ pageContent, errorCode, offers }: Props): React.
                 <Button>
                   <div className="flex flex-row items-center mb-8">
                     <img className="mr-4" src={Back} />
-                    <span className="text-orange">Retour aux catégories d'offres</span>
+                    <span className="text-orange-500">Retour aux catégories d'offres</span>
                   </div>
                 </Button>
               </Link>
 
               <div className="flex flex-col lg:flex-row">
-                <div className="w-2/5 border-orange border-r">
+                <div className="w-2/5 border-orange-500 border-r">
                   {offers !== undefined &&
                     offers.map((offer, index) => (
                       <Button
@@ -115,8 +115,8 @@ export default function offer({ pageContent, errorCode, offers }: Props): React.
                           setSelectedOffer(index)
                         }}
                         className={clsx(
-                          'block border border-orange bg-transparent rounded-full my-8 mx-auto w-3/4 py-2 text-sm',
-                          { 'text-white bg-orange': selectedOffer === index }
+                          'block border border-orange-500 bg-transparent rounded-full my-8 mx-auto w-3/4 py-2 text-sm leading-normal',
+                          { 'text-white bg-orange-500': selectedOffer === index }
                         )}
                       >
                         <div dangerouslySetInnerHTML={{ __html: offer.title }}></div>
@@ -125,11 +125,11 @@ export default function offer({ pageContent, errorCode, offers }: Props): React.
                 </div>
                 <div className="w-3/5 my-8 pl-8">
                   <h2
-                    className="text-2xl text-orange mb-8"
+                    className="text-2xl leading-normal text-orange-500 mb-8"
                     dangerouslySetInnerHTML={{ __html: offers[selectedOffer].title }}
                   ></h2>
                   <div
-                    className="text-sm"
+                    className="text-sm leading-normal"
                     dangerouslySetInnerHTML={{ __html: offers[selectedOffer].description }}
                   ></div>
                 </div>
@@ -137,18 +137,18 @@ export default function offer({ pageContent, errorCode, offers }: Props): React.
             </div>
           </div>
           <div className="block lg:hidden">
-            <div className="bg-light-grey p-4">
+            <div className="bg-gray-400 p-4">
               <Link href="/offers">
                 <Button>
                   <div className="flex flex-row items-center mb-8">
                     <img className="mr-4 h-8" src={Back} />
-                    <span className="text-orange">Retour aux catégories d'offres</span>
+                    <span className="text-orange-500">Retour aux catégories d'offres</span>
                   </div>
                 </Button>
               </Link>
               <div className="flex flex-row items-center mt-0 md:mt-20">
                 <img src={pageContent.offers_image1} className="block h-12"></img>
-                <h1 className="text-black text-2xl ml-8">{pageContent.title}</h1>
+                <h1 className="text-black text-2xl leading-normal ml-8">{pageContent.title}</h1>
               </div>
               <div>
                 {offers !== undefined &&
@@ -159,8 +159,8 @@ export default function offer({ pageContent, errorCode, offers }: Props): React.
                         setSelectedOffer(index)
                       }}
                       className={clsx(
-                        'block border border-orange bg-transparent rounded-full my-8 mx-auto w-full py-2 text-sm',
-                        { 'text-white bg-orange': selectedOffer === index }
+                        'block border border-orange-500 bg-transparent rounded-full my-8 mx-auto w-full py-2 text-sm leading-normal',
+                        { 'text-white bg-orange-500': selectedOffer === index }
                       )}
                     >
                       <div dangerouslySetInnerHTML={{ __html: offer.title }}></div>
@@ -168,25 +168,25 @@ export default function offer({ pageContent, errorCode, offers }: Props): React.
                   ))}
               </div>
             </div>
-            <div className="bg-black-light p-4">
+            <div className="bg-gray-900 p-4">
               <div>
                 <h2
-                  className="text-2xl text-white mb-8"
+                  className="text-2xl leading-normal text-white mb-8"
                   dangerouslySetInnerHTML={{ __html: offers[selectedOffer].title }}
                 ></h2>
                 <div
-                  className="text-sm text-justify text-white"
+                  className="text-sm leading-normal text-justify text-white"
                   dangerouslySetInnerHTML={{ __html: offers[selectedOffer].description }}
                 ></div>
               </div>
             </div>
           </div>
           {offers[selectedOffer].partners.length > 0 && (
-            <PartnerList partners={offers[selectedOffer].partners} className=" p-4 md:p-12 lg:px-24 lg:p-16 " />
+            <PartnerList partners={offers[selectedOffer].partners} className="p-4 md:p-12 lg:px-24 lg:p-16" />
           )}
           {offers[selectedOffer].posts.length > 0 && (
             <RelatedArticlesSection
-              className="bg-light-grey p-4 md:p-12 lg:px-24 lg:p-16 pb-2"
+              className="bg-gray-400 p-4 md:p-12 lg:px-24 lg:p-16 pb-2"
               posts={offers[selectedOffer].posts}
             />
           )}

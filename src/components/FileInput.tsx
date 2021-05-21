@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState } from 'react'
 import clsx from 'clsx'
 
-import './FileInput.css'
+import styles from './FileInput.module.css'
 import { AttachmentContent } from '../yup/ContactFormValidation'
 import LoadingSpinner from './LoadingSpinner'
 import SnackBar from './SnackBar'
@@ -69,9 +69,12 @@ export default function FileInput({ className, wrapperClassName, onChange, fileC
 
   return (
     <div className={clsx('flex items-center flex-col md:flex-row', wrapperClassName)}>
-      <label htmlFor="fileInput" className="container-label">
+      <label htmlFor="fileInput" className="relative">
         <div className="flex flex-col items-center md:items-left">
-          <div id="button" className={clsx('upload-button', className, { 'drag-over': isDraggingOver })}>
+          <div
+            id="button"
+            className={clsx(`${styles.uploadButton} top-0 cursor-pointer`, className, { 'drag-over': isDraggingOver })}
+          >
             {isLoadingFiles ? (
               <div className="flex flex-row justify-center">
                 <LoadingSpinner color="#ffffff" size={12} />
@@ -83,7 +86,7 @@ export default function FileInput({ className, wrapperClassName, onChange, fileC
               'Ajouter des pièces jointes'
             )}
           </div>
-          <span className="import-legend text-grey text-xs mt-4">
+          <span className={`${styles.importLegend} text-gray-500 text-xs leading-normal mt-4`}>
             Sont acceptés les fichiers DOC, DOCX, ODT, RTF, PDF, BMP, JPEG et PNG<br></br>10 fichiers maximum<br></br>
             Taille totale maximale des fichiers : 10 Mo
           </span>
@@ -96,7 +99,7 @@ export default function FileInput({ className, wrapperClassName, onChange, fileC
           onDragEnter={() => setIsDraggingOver(true)}
           onDragLeave={() => setIsDraggingOver(false)}
           onDrop={() => setIsDraggingOver(false)}
-          className="hidden-input rounded-full"
+          className={`${styles.hiddenInput} rounded-full absolute top-0 opacity-0 cursor-pointer`}
           multiple
           accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,
           .rtf,application/rtf,application/x-rtf,text/richtext,
