@@ -1,5 +1,5 @@
 import { NextPageContext } from 'next'
-import { getAuthorById, getAuthorPageContent, getIdeasByAuthor } from '../../Services/wordpressService'
+import { getAuthorById, getAuthorPageContent, getIdeasByAuthor } from '../../services/wordpressService'
 import { PostAPI } from '../../models/IdeasAPI'
 
 import Author from '../../components/Author'

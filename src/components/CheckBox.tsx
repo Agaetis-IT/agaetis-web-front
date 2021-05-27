@@ -2,7 +2,7 @@ import React from 'react'
 import clsx from 'clsx'
 import { useFormContext } from 'react-hook-form'
 
-import './CheckBox.css'
+import styles from '../styles/CheckBox.module.css'
 
 type Props = {
   name: string
@@ -14,18 +14,32 @@ type Props = {
 }
 
 export default function CheckBox({ name, label, boxClassName, labelClassName, wrapperClassName, required }: Props) {
-  const { register, errors } = useFormContext()
+  const { register, formState } = useFormContext()
 
   return (
     <div className={clsx('flex flex-col', wrapperClassName)}>
       <div className="flex">
-        <label htmlFor={name} className={clsx('check-container flex items-center', labelClassName)}>
-          <input id={name} name={name} type="checkbox" ref={register()} required={required} />
-          <span className={clsx('checkmark', boxClassName)} />
+        <label
+          htmlFor={name}
+          className={clsx(
+            styles.checkContainer,
+            'relative cursor-pointer select-none flex items-center',
+            labelClassName
+          )}
+        >
+          <input
+            {...register(name)}
+            className="absolute opacity-0 cursor-pointer h-0 w-0"
+            id={name}
+            name={name}
+            type="checkbox"
+            required={required}
+          />
+          <span className={clsx(styles.checkmark, 'absolute left-0 bg-white rounded-md', boxClassName)} />
           {label}
         </label>
       </div>
-      {errors[name] && <p className="text-xs text-red text-center pt-2">{errors[name].message}</p>}
+      {formState.errors[name] && <p className="text-xs leading-normal text-red-500 text-center pt-2">{formState.errors[name].message}</p>}
     </div>
   )
 }

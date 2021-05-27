@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import Head from 'next/head'
 import React, { useMemo, useState } from 'react'
-import publicRuntimeConfig from '../config/env.config'
 
 import Button from './Button'
 import Layout from './Layout'
@@ -11,15 +10,15 @@ import ContactSection from './ContactSection'
 
 import { AuthorDescription, AuthorPageContent } from '../types/AuthorContent'
 import { IdeasDesc, Response } from '../types/IdeasContent'
-import { getIdeasByAuthor } from '../Services/wordpressService'
+import { getIdeasByAuthor } from '../services/wordpressService'
 import { PostAPI } from '../models/IdeasAPI'
 
-import Particles from '../static/images/particles-3.svg'
-import Linkedin from '../static/icons/linkedin.png'
+const Particles = '/images/particles-3.svg'
+const Linkedin = '/icons/linkedin.png'
 import Error from '../pages/_error'
 import SnackBar from './SnackBar'
 
-import './Common.css'
+import styles from '../styles/Common.module.css'
 
 interface Props {
   ideasDescription: IdeasDesc[]
@@ -80,7 +79,10 @@ export default function Author({ ideasDescription, author, content, errorCode, h
   const cards = useMemo(
     () =>
       ideas.map((idea) => (
-        <div key={idea.id} className="m-2 mb-8 shadow-md hover:shadow-lg smooth-transition zoom-in round8 w-inherit">
+        <div
+          key={idea.id}
+          className={`m-2 mb-8 shadow-md hover:shadow-lg ${styles.smoothTransition} ${styles.zoomIn} ${styles.round8} ${styles.wInherit}`}
+        >
           <IdeasCard slug={idea.slug} title={idea.title} image={idea.image} description={idea.descriptionText} />
         </div>
       )),
@@ -96,11 +98,11 @@ export default function Author({ ideasDescription, author, content, errorCode, h
       <Head>
         <title>Agaetis : articles de {author.name}</title>
         <meta property="og:title" content={`Agaetis : articles de ${author.name}`} />
-        <meta property="og:image" content={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/favicon.ico`} />
+        <meta property="og:image" content={`${process.env.NEXT_PUBLIC_SITE_URL}/favicon.ico`} />
         <meta property="og:type" content="website" />
         <meta property="og:description" content={`Découvrez tous les articles de ${author.name}`} />
         <meta name="description" content={`Découvrez tous les articles de ${author.name}`} />
-        <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/author/${author.id}`} />
+        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/author/${author.id}`} />
       </Head>
       <Layout invertColors={false}>
         <div className="pt-0 md:pt-28">
@@ -111,19 +113,22 @@ export default function Author({ ideasDescription, author, content, errorCode, h
               backgroundPosition: 'left top',
               backgroundSize: '100%',
             }}
-            className="p-6 md:p-16 lg:px-32 xl:px-48 bg-light-grey"
+            className="p-6 md:p-16 lg:px-32 xl:px-48 bg-gray-400"
           >
             <div className="mx-1 md:mx-2">
               <div>
-                <h1 className="text-orange text-2xl font-bold" dangerouslySetInnerHTML={{ __html: content.titre }}></h1>
+                <h1
+                  className="text-orange-500 text-2xl font-bold leading-normal"
+                  dangerouslySetInnerHTML={{ __html: content.titre }}
+                ></h1>
                 <div>
                   <div className="flex flex-row items-center">
-                    <img className="mt-8 mb-8 round8 shadow-md" src={author.avatar} />
+                    <img className={`my-8 ${styles.round8} shadow-md`} src={author.avatar} />
                     <p className="ml-4 text-xl leading-normal font-semibold">{author.name}</p>
                     {author.linkedInLink && (
                       <Button
                         href={author.linkedInLink}
-                        className="w-6 h-6 ml-4 shadow-sm hover:shadow-md bg-white rounded-full smooth-transition p-1"
+                        className={`w-6 h-6 ml-4 shadow-sm hover:shadow-md bg-white rounded-full ${styles.smoothTransition} p-1`}
                       >
                         <img src={Linkedin} className="w-4 h-4" />
                       </Button>
@@ -139,7 +144,7 @@ export default function Author({ ideasDescription, author, content, errorCode, h
             </div>
             {isVisibleSeeMore && (
               <Button
-                className="flex flex-row justify-center uppercase rounded-full bg-orange text-xss py-2 px-6 text-white font-semibold mx-auto see-more shadow-md"
+                className="flex flex-row justify-center uppercase rounded-full bg-orange-500 text-xss leading-normal py-2 px-6 text-white font-semibold mx-auto shadow-md"
                 onClick={() => handleFetchIdeas()}
               >
                 {isLoadingPosts ? (

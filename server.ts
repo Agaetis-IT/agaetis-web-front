@@ -1,27 +1,27 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-import { Request, Response } from 'express'
+import express, { Request, Response } from 'express'
 import { AttachmentContent } from './src/yup/ContactFormValidation'
 
-const axios = require('axios')
-const bodyParser = require('body-parser')
-const cors = require('cors')
-const express = require('express')
-const { google } = require('googleapis')
-const sha = require('js-sha256')
-const next = require('next')
-const nodemailer = require('nodemailer')
-const http = require('http')
-const logger = require('morgan')
+import axios from 'axios'
+import bodyParser from 'body-parser'
+import cors from 'cors'
+import { google } from 'googleapis'
+import sha from 'js-sha256'
+import next from 'next'
+import nodemailer from 'nodemailer'
+import http from 'http'
+import logger from 'morgan'
+import { ParsedUrlQuery } from 'querystring'
 
 const dev = process.env.NODE_ENV !== 'production'
-const app = next({ dev, dir: './src' })
+const app = next({ dev })
 const handle = app.getRequestHandler()
 const sha256 = sha.sha256
 
 const oAuth2Client = new google.auth.OAuth2(
-  process.env.NEXT_APP_GMAIL_CLIENT_ID,
-  process.env.NEXT_APP_GMAIL_CLIENT_SECRET,
-  process.env.NEXT_APP_SITE_URL
+  process.env.NEXT_PUBLIC_GMAIL_CLIENT_ID,
+  process.env.NEXT_PUBLIC_GMAIL_CLIENT_SECRET,
+  process.env.NEXT_PUBLIC_SITE_URL
 )
 
 const mailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -29,7 +29,7 @@ const mailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
 
 const verifyCaptcha = async (token: string) => {
-  const url = `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.NEXT_APP_RECAPTCHA_SECRET}&response=${token}`
+  const url = `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.NEXT_PUBLIC_RECAPTCHA_SECRET}&response=${token}`
   const { data } = await axios.get(url)
   return data.success
 }
@@ -50,16 +50,16 @@ app
     const jsonParser = bodyParser.json()
 
     server.get(/sitemap[a-zA-Z-0-9\/\-_]*.xml/, async (req: Request, res: Response) => {
-      const { data } = await axios.get(`${process.env.NEXT_APP_BASE_URL}${req.url}`)
+      const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}${req.url}`)
       res.set('Content-Type', 'text/xml')
-      res.send(data.replace(new RegExp(process.env.NEXT_APP_BASE_URL!, 'g'), process.env.NEXT_APP_SITE_URL))
+      res.send(data.replace(new RegExp(process.env.NEXT_PUBLIC_BASE_URL!, 'g'), process.env.NEXT_PUBLIC_SITE_URL))
     })
 
     /*
       /:slug : existing ideas url are /:postname, we have to respect this pattern 
     */
     server.get('/:slug', (req: Request, res: Response) => {
-      const queryParams = { ...req.params, ...req.query }
+      const queryParams: any = { ...req.params, ...req.query }
       if (
         [
           'solutions',
@@ -96,21 +96,21 @@ app
     })
 
     server.get('/landingpages/:slug', (req: Request, res: Response) => {
-      app.render(req, res, '/landingpage', { ...req.params, ...req.query })
+      app.render(req, res, '/landingpage', { ...req.params, ...req.query } as ParsedUrlQuery)
     })
 
     server.get('/white-papers/:slug', (req: Request, res: Response) => {
-      app.render(req, res, '/white-paper', { ...req.params, ...req.query })
+      app.render(req, res, '/white-paper', { ...req.params, ...req.query } as ParsedUrlQuery)
     })
 
     server.get('/tags/:slug', (req: Request, res: Response) => {
-      app.render(req, res, '/tag', { ...req.params, ...req.query })
+      app.render(req, res, '/tag', { ...req.params, ...req.query } as ParsedUrlQuery)
     })
 
     server.post('/send', json10MBParser, async (req: Request, res: Response) => {
       oAuth2Client.setCredentials({
         // eslint-disable-next-line @typescript-eslint/camelcase
-        refresh_token: process.env.NEXT_APP_GMAIL_REFRESH_TOKEN,
+        refresh_token: process.env.NEXT_PUBLIC_GMAIL_REFRESH_TOKEN,
       })
       const captcha = verifyCaptcha(req.body.token)
       const accessToken = oAuth2Client.getAccessToken()
@@ -121,18 +121,18 @@ app
         secure: true,
         auth: {
           type: 'OAuth2',
-          user: String(process.env.NEXT_APP_MAIL_ADDRESS),
-          clientId: String(process.env.NEXT_APP_GMAIL_CLIENT_ID),
-          clientSecret: String(process.env.NEXT_APP_GMAIL_CLIENT_SECRET),
-          refreshToken: String(process.env.NEXT_APP_GMAIL_REFRESH_TOKEN),
+          user: String(process.env.NEXT_PUBLIC_MAIL_ADDRESS),
+          clientId: String(process.env.NEXT_PUBLIC_GMAIL_CLIENT_ID),
+          clientSecret: String(process.env.NEXT_PUBLIC_GMAIL_CLIENT_SECRET),
+          refreshToken: String(process.env.NEXT_PUBLIC_GMAIL_REFRESH_TOKEN),
           accessToken: String(accessToken),
           expires: Date.now() + 3600,
         },
       })
 
       const message = {
-        from: process.env.NEXT_APP_MAIL_ADDRESS,
-        to: process.env.NEXT_APP_MAIL_DEST,
+        from: process.env.NEXT_PUBLIC_MAIL_ADDRESS,
+        to: process.env.NEXT_PUBLIC_MAIL_DEST,
         subject: req.body.object,
         html: req.body.content,
         attachments: req.body.attachments
@@ -146,7 +146,7 @@ app
       const key = Buffer.from(
         req.body.firstname +
           req.body.lastname +
-          process.env.NEXT_APP_CONTACT_SALT +
+          process.env.NEXT_PUBLIC_CONTACT_SALT +
           req.body.mail +
           req.body.object +
           req.body.content +
@@ -177,7 +177,7 @@ app
     server.post('/send/white-paper', jsonParser, (req: Request, res: Response) => {
       oAuth2Client.setCredentials({
         // eslint-disable-next-line @typescript-eslint/camelcase
-        refresh_token: process.env.NEXT_APP_GMAIL_REFRESH_TOKEN,
+        refresh_token: process.env.NEXT_PUBLIC_GMAIL_REFRESH_TOKEN,
       })
 
       const captcha = verifyCaptcha(req.body.token)
@@ -190,17 +190,17 @@ app
         secure: true,
         auth: {
           type: 'OAuth2',
-          user: String(process.env.NEXT_APP_MAIL_ADDRESS),
-          clientId: String(process.env.NEXT_APP_GMAIL_CLIENT_ID),
-          clientSecret: String(process.env.NEXT_APP_GMAIL_CLIENT_SECRET),
-          refreshToken: String(process.env.NEXT_APP_GMAIL_REFRESH_TOKEN),
+          user: String(process.env.NEXT_PUBLIC_MAIL_ADDRESS),
+          clientId: String(process.env.NEXT_PUBLIC_GMAIL_CLIENT_ID),
+          clientSecret: String(process.env.NEXT_PUBLIC_GMAIL_CLIENT_SECRET),
+          refreshToken: String(process.env.NEXT_PUBLIC_GMAIL_REFRESH_TOKEN),
           accessToken: String(accessToken),
           expires: Date.now() + 3600,
         },
       })
 
       const message = {
-        from: process.env.NEXT_APP_MAIL_ADDRESS,
+        from: process.env.NEXT_PUBLIC_MAIL_ADDRESS,
         to: req.body.mail,
         subject: req.body.object,
         html: req.body.content,
@@ -215,7 +215,7 @@ app
       const key = Buffer.from(
         req.body.name +
           req.body.object +
-          process.env.NEXT_APP_CONTACT_SALT +
+          process.env.NEXT_PUBLIC_CONTACT_SALT +
           req.body.mail +
           req.body.content +
           req.body.file +
@@ -234,7 +234,7 @@ app
         message.html.length > 0 &&
         message.attachments[0].filename &&
         message.attachments[0].path &&
-        baseUrl === process.env.NEXT_APP_BASE_URL
+        baseUrl === process.env.NEXT_PUBLIC_BASE_URL
       ) {
         transporter.sendMail(message, (err: Error) => {
           if (err) {

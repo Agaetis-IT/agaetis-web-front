@@ -4,14 +4,14 @@ import ContactForm from '../components/ContactForm'
 import ContactSection from '../components/ContactSection'
 import Error from './_error'
 import Layout from '../components/Layout'
-import Particles from '../static/images/particles-3.svg'
-import { getLandingPageContent } from '../Services/wordpressService'
+const Particles = '/images/particles-3.svg'
+import { getLandingPageContent } from '../services/wordpressService'
 import { convertAPItoLandingPageContent, LandingPage } from '../types/OffersContent'
 import { FormInput } from '../yup/ContactFormValidation'
 
-import './landingpage.css'
+import styles from '../styles/landingpage.module.css'
 import SnackBar from '../components/SnackBar'
-import send from '../Services/contactService'
+import send from '../services/contactService'
 
 interface Context extends NextPageContext {
   query: { slug: string }
@@ -57,11 +57,11 @@ export default function Landingpage({ pageContent, errorCode }: Props) {
               backgroundImage: `url("${Particles}")`,
               backgroundRepeat: 'no-repeat',
             }}
-            className="bg-light-grey p-6 md:p-12 md:p-16 xl:px-32 shadow-none md:shadow-top"
+            className="bg-gray-400 p-6 md:p-12 md:p-16 xl:px-32 shadow-none md:shadow-md"
           >
             <h1>{pageContent.title}</h1>
             <div
-              className="xl:mt-20 landingpage-content"
+              className={`xl:mt-20 ${styles.landingpageContent}`}
               dangerouslySetInnerHTML={{ __html: pageContent.content }}
             ></div>
           </div>

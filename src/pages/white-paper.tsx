@@ -5,12 +5,11 @@ import React, { useState } from 'react'
 
 import WhitePaperForm from '../components/form/WhitePaperForm'
 import Layout from '../components/Layout'
-import publicRuntimeConfig from '../config/env.config'
-import { sendWhitePaper } from '../Services/contactService'
-import { getWhitePaperContent } from '../Services/wordpressService'
+import { sendWhitePaper } from '../services/contactService'
+import { getWhitePaperContent } from '../services/wordpressService'
 import WhitePaper from '../types/WhitePaper'
 import { WhitepaperFormValues } from '../yup/WhitePaperFormValidation'
-import Logo from '../static/icons/Agaetis - Ico logo - Orange.png'
+const Logo = '../static/icons/Agaetis - Ico logo - Orange.png'
 
 import Error from './_error'
 import Link from 'next/link'
@@ -59,17 +58,17 @@ export default function whitePaper({ pageContent, errorCode }: Props) {
       <Head>
         <title>Agaetis : {pageContent.title}</title>
         <meta property="og:title" content={`Agaetis : ${pageContent.title}`} />
-        <meta property="og:image" content={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/favicon.ico`} />
+        <meta property="og:image" content={`${process.env.NEXT_PUBLIC_SITE_URL}/favicon.ico`} />
         <meta property="og:type" content="website" />
         <meta property="og:description" content={pageContent.description} />
         <meta name="description" content={pageContent.description} />
-        <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/${pageContent.slug}`} />
+        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/${pageContent.slug}`} />
       </Head>
       <Layout invertColors={false}>
         <>
           <div className="md:max-w-md mx-auto p-0 md:px-8">
-            <div className="text-xs px-4 md:px-0">
-              <span className="text-underline text-black">
+            <div className="text-xs leading-normal px-4 md:px-0">
+              <span className="underline text-black">
                 <Link href="/">
                   <a>Accueil</a>
                 </Link>
@@ -77,7 +76,7 @@ export default function whitePaper({ pageContent, errorCode }: Props) {
               {' > '}
               <b>{pageContent.title}</b>
             </div>
-            <h1 className="text-center text-2xl py-8 md:pb-0">{pageContent.title}</h1>
+            <h1 className="text-center text-2xl leading-normal py-8 md:pb-0">{pageContent.title}</h1>
             <p className="md:max-w-md mx-auto text-center px-4 md:py-6 md:px-0 text-xs leading-normal">
               {pageContent.description}
             </p>
@@ -88,8 +87,8 @@ export default function whitePaper({ pageContent, errorCode }: Props) {
             alt="header"
           />
           <div className="md:max-w-lg mx-auto mb-8 px-4">
-            <img src={Logo} className="bg-img-left-wp" alt="logo agaetis"></img>
-            <img src={Logo} className="bg-img-right-wp" alt="logo agaetis"></img>
+            <img src={Logo} className="bg-img-left-wp" alt="logo agaetis" />
+            <img src={Logo} className="bg-img-right-wp" alt="logo agaetis" />
             <div className=" md:px-12 flex flex-col justify-center">
               <WhitePaperForm
                 title={pageContent.title}
@@ -105,7 +104,7 @@ export default function whitePaper({ pageContent, errorCode }: Props) {
             open={modalOpenWithError}
             onClose={handleCloseModal}
           />
-          <div className=" blue-underline my-4" />
+          <div className="underline my-4" />
         </>
       </Layout>
     </>

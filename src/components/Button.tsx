@@ -4,7 +4,7 @@ import React from 'react'
 interface Props {
   href?: string
   htmlFor?: string
-  component?: React.ReactType
+  component?: React.ElementType
   children?: string | React.ReactElement
   className?: string
   type?: string
@@ -13,7 +13,8 @@ interface Props {
   onClick?(e: React.MouseEvent): void
 }
 
-const tabClassNames = 'text-xs uppercase text-center py-4 md:inline border border-white font-semibold self-center'
+const tabClassNames =
+  'text-xs leading-normal uppercase text-center py-4 md:inline border border-white font-semibold self-center'
 
 export default function Button({
   href,
@@ -45,7 +46,7 @@ export default function Button({
       className={clsx(
         { [tabClassNames]: styleType === 'tab' },
         className,
-        { 'text-light-grey cursor-default': disabled },
+        { 'text-gray-400 cursor-default': disabled },
         { 'cursor-pointer': !disabled }
       )}
     >

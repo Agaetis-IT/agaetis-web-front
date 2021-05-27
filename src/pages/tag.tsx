@@ -1,6 +1,6 @@
 import { NextPageContext } from 'next'
 import { CategoryAPI, PostAPI } from '../models/IdeasAPI'
-import { getCategories, getIdeasPageContent, getAllWhitePapers, getIdeasByTag } from '../Services/wordpressService'
+import { getCategories, getIdeasPageContent, getAllWhitePapers, getIdeasByTag } from '../services/wordpressService'
 import WhitePaper from '../types/WhitePaper'
 
 import { Category } from '../types/IdeasContent'

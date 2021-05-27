@@ -1,20 +1,19 @@
 import OffersContent, { OfferDesc, convertAPItoOffersContent, OfferLeaf } from '../types/OffersContent'
 import React, { useState } from 'react'
-import { getAllOffers, getCategoryOffers, getOffersPageContent } from '../Services/wordpressService'
+import { getAllOffers, getCategoryOffers, getOffersPageContent } from '../services/wordpressService'
 
 import Button from '../components/Button'
 import ContactForm from '../components/ContactForm'
 import Head from 'next/head'
 import Layout from '../components/Layout'
-import publicRuntimeConfig from '../config/env.config'
 import { FormInput } from '../yup/ContactFormValidation'
 import ContactSection from '../components/ContactSection'
-import Mask from '../static/images/hero_mask.svg'
-import Plus from '../static/icons/squared_plus_white.svg'
+const Mask = '/images/hero_mask.svg'
+const Plus = '/icons/squared_plus_white.svg'
 import clsx from 'clsx'
 import Link from 'next/link'
 import SnackBar from '../components/SnackBar'
-import send from '../Services/contactService'
+import send from '../services/contactService'
 
 /* eslint-disable react-hooks/rules-of-hooks */
 
@@ -23,7 +22,7 @@ function getRotation(selected: boolean, wasSelected: boolean) {
     return 'rotate45'
   }
   if (wasSelected) {
-    return 'rotate0-45'
+    return 'rotate0to45'
   }
   return ''
 }
@@ -64,7 +63,7 @@ export default function offers({ pageContent, allOffers }: Props) {
         <title>Agaetis : nos offres</title>
         <meta property="og:description" content={"Présentation d'Agaetis, de son histoire et de sa vision"} />
         <meta name="description" content={"Présentation d'Agaetis, de son histoire et de sa vision"} />
-        <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/agaetis`} />
+        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/agaetis`} />
       </Head>
 
       <Layout invertColors={false}>
@@ -75,10 +74,10 @@ export default function offers({ pageContent, allOffers }: Props) {
               backgroundPosition: 'center',
               backgroundSize: 'cover',
             }}
-            className="bg-black-light md:bg-orange p-0 md:p-12 lg:px-24 lg:p-16 shadow-none md:shadow-top"
+            className="bg-gray-900 md:bg-orange-500 p-0 md:p-12 lg:px-24 lg:p-16 shadow-none md:shadow-md"
           >
             <div className="hidden md:block">
-              <h1 className="text-white text-2xl pb-2 white-underline-thin">{pageContent.title}</h1>
+              <h1 className="text-white text-2xl leading-normal pb-2">{pageContent.title}</h1>
               <p className="text-white py-8 leading-normal text-sm">{pageContent.paragraph}</p>
               <div className="mx-auto p-8">
                 <div className="flex flex-row items-center">
@@ -90,7 +89,7 @@ export default function offers({ pageContent, allOffers }: Props) {
                   dangerouslySetInnerHTML={{ __html: allOffers[selectedOffer].offers_description }}
                 ></p>
                 <Button
-                  className="text-sm flex flex-row justify-center font-semibold text-white"
+                  className="text-sm leading-normal flex flex-row justify-center font-semibold text-white"
                   href={`/offers/${allOffers[selectedOffer].slug}?offer=${allOffers[selectedOffer].childrens[0].post_name}`}
                 >
                   <div className="flex flex-row items-center">
@@ -111,10 +110,10 @@ export default function offers({ pageContent, allOffers }: Props) {
                     }}
                   >
                     <img src={offre.offers_image1} className="h-8 md:h-24"></img>
-                    <h2 className="text-sm">{offre.title}</h2>
+                    <h2 className="text-sm leading-normal">{offre.title}</h2>
                     <div
                       className={clsx(
-                        'inline-block md:hidden offer-icon',
+                        'inline-block md:hidden offerIcon',
                         getRotation(selectedOffer === index, wasSelected === index)
                       )}
                     >
@@ -122,7 +121,7 @@ export default function offers({ pageContent, allOffers }: Props) {
                     </div>
                   </div>
                   <div
-                    className={clsx('block md:hidden px-8 text-white text-sm', {
+                    className={clsx('block md:hidden px-8 text-white text-sm leading-normal', {
                       'mb-8': allOffers.length === index + 1 && selectedOffer === index,
                     })}
                   >

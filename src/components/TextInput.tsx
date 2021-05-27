@@ -12,14 +12,14 @@ type Props = {
 }
 
 function TextInput({ name, label, className, wrapperClassName, type, required }: Props) {
-  const { register, errors } = useFormContext()
+  const { register, formState } = useFormContext()
 
   const Component = type
 
   return (
     <div className={clsx('flex flex-col', wrapperClassName)}>
-      <Component name={name} placeholder={label} ref={register()} className={className} required={required} />
-      {errors[name] && <p className="text-xs text-red text-center pt-2">{errors[name].message}</p>}
+      <Component {...register(name)} name={name} placeholder={label} className={className} required={required} />
+      {formState.errors[name] && <p className="text-xs leading-normal text-red-500 text-center pt-2">{formState.errors[name].message}</p>}
     </div>
   )
 }

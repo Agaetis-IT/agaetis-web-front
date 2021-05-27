@@ -12,7 +12,7 @@ interface Props {
 export default function RelatedArticlesSection({ posts, className }: Props) {
   return (
     <div className={className}>
-      <h2 className="text-orange">Nos articles associés</h2>
+      <h2 className="text-orange-500">Nos articles associés</h2>
       <div className="mt-8 md:mt-16 pb-8">
         {posts.map((post, index) => {
           return (
@@ -33,7 +33,7 @@ export default function RelatedArticlesSection({ posts, className }: Props) {
                 </div>
 
                 <Link href={`/${post.slug}`}>
-                  <Button className="text-orange text-sm mt-4 md:m-0" href={`/${post.slug}`}>
+                  <Button className="text-orange-500 text-sm leading-normal mt-4 md:m-0" href={`/${post.slug}`}>
                     <span>{'> Lire la suite de cet article'}</span>
                   </Button>
                 </Link>
@@ -43,7 +43,7 @@ export default function RelatedArticlesSection({ posts, className }: Props) {
         })}
       </div>
       <Link href="/blog">
-        <Button className="bg-white text-orange rounded-full text-xs sm:text-sm font-semibold px-4 sm:px-12 py-2 sm:py-3 shadow-md h-12 w-64 flex flex-col justify-center mx-auto">
+        <Button className="bg-white text-orange-500 rounded-full text-xs sm:text-sm leading-normal font-semibold px-4 sm:px-12 py-2 sm:py-3 shadow-md h-12 w-64 flex flex-col justify-center mx-auto">
           Consulter notre blog
         </Button>
       </Link>

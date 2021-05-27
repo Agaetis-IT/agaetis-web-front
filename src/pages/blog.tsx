@@ -1,5 +1,5 @@
 import { CategoryAPI, PostAPI } from '../models/IdeasAPI'
-import { getIdeasByPage, getCategories, getIdeasPageContent, getAllWhitePapers } from '../Services/wordpressService'
+import { getIdeasByPage, getCategories, getIdeasPageContent, getAllWhitePapers } from '../services/wordpressService'
 import WhitePaper from '../types/WhitePaper'
 
 import { Category } from '../types/IdeasContent'

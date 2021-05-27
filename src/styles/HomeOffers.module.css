@@ -1,0 +1,10 @@
+.offerArrow {
+  transform: rotate(90deg);
+  fill: orange;
+  stroke: orange;
+  transition: transform 1s;
+}
+
+.offerSelectedArrow {
+  transform: rotate(-90deg);
+}

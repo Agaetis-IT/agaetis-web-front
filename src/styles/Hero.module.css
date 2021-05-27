@@ -1,37 +1,33 @@
-.darkener {
-  background: rgba(0, 0, 0, 0.65);
-}
-
-#quoteL,
-#quoteR {
+.quoteL,
+.quoteR {
   position: absolute;
   width: 50px;
   height: auto;
   z-index: 1;
 }
 
-#quoteL {
+.quoteL {
   top: 110px;
   left: 20px;
 }
 
-#quoteR {
+.quoteR {
   top: 40px;
   left: calc(100% - 50px);
   transform: rotate(180deg);
 }
 
-.hero-text-valeurs {
+.heroTextValeurs {
   z-index: 800;
 }
 
 @media (min-width: 450px) {
-  #quoteL {
+  .quoteL {
     top: 110px;
     left: calc(20% - 20px);
   }
 
-  #quoteR {
+  .quoteR {
     top: 40px;
     left: calc(80% - 20px);
     transform: rotate(180deg);
@@ -39,20 +35,11 @@
 }
 
 @media (min-width: 820px) {
-  .hero {
-    height: 100vh;
-  }
-
-  .hero-text {
+  .heroText {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-  }
-
-  .hero-text h1 {
-    display: inline;
-    margin-right: auto;
   }
 
   .hoverEffect::after {
@@ -68,18 +55,18 @@
     width: 100%;
   }
 
-  #quoteL,
-  #quoteR {
+  .quoteL,
+  .quoteR {
     width: 100px;
     height: auto;
     z-index: 1;
   }
-  #quoteL {
+  .quoteL {
     top: -80px;
     left: calc(15% - 50px);
   }
 
-  #quoteR {
+  .quoteR {
     top: -220px;
     left: calc(85% - 30px);
     transform: rotate(180deg);
@@ -87,12 +74,12 @@
 }
 
 @media (min-width: 1200px) {
-  #quoteL {
+  .quoteL {
     top: -80px;
     left: calc(20% + 20px);
   }
 
-  #quoteR {
+  .quoteR {
     top: -220px;
     left: calc(75% - 30px);
     transform: rotate(180deg);
@@ -100,12 +87,12 @@
 }
 
 @media (min-width: 1400px) {
-  #quoteL {
+  .quoteL {
     top: -80px;
     left: calc(25% + 20px);
   }
 
-  #quoteR {
+  .quoteR {
     top: -220px;
     left: calc(70% - 30px);
     transform: rotate(180deg);

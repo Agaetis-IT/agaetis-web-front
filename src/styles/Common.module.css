@@ -1,27 +1,13 @@
-.smooth-transition {
+.smoothTransition {
   transition: all 250ms ease-in-out;
   -webkit-transition: all 250ms ease-in-out;
 }
 
-.zoom-in:hover {
+.zoomIn:hover {
   transform: scale(1.025);
 }
 
-.text-underline {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.034);
-}
-
-.separator {
-  border-bottom: 1px solid grey;
-  opacity: 0.5;
-}
-
-input,
-textarea {
-  outline: none;
-}
-
-.message-textarea {
+.messageTextarea {
   display: block;
   height: 200px;
   border-radius: 20px;
@@ -31,11 +17,7 @@ textarea {
   border-radius: 8px;
 }
 
-.object-cover {
-  object-fit: cover;
-}
-
-.offer-icon {
+.offerIcon {
   border: 2px solid white;
   width: 20px;
   height: 20px;
@@ -49,9 +31,9 @@ textarea {
   animation-fill-mode: both;
 }
 
-.rotate0-45 {
-  animation: rotate0-45 1s ease-in-out;
-  -webkit-animation: rotate0-45 1s ease-in-out;
+.rotate0to45 {
+  animation: rotate0to45 1s ease-in-out;
+  -webkit-animation: rotate0to45 1s ease-in-out;
   animation-fill-mode: both;
 }
 
@@ -66,7 +48,7 @@ textarea {
   }
 }
 
-@keyframes rotate0-45 {
+@keyframes rotate0to45 {
   from {
     -webkit-transform: rotate(45deg);
   }
@@ -74,7 +56,7 @@ textarea {
     -webkit-transform: rotate(0);
   }
 }
-@-webkit-keyframes rotate0-45 {
+@-webkit-keyframes rotate0to45 {
   from {
     -webkit-transform: rotate(45deg);
   }
@@ -83,14 +65,6 @@ textarea {
   }
 }
 
-.round8 {
-  border-radius: 8px;
-}
-
-.object-cover {
-  object-fit: cover;
-}
-
-.w-inherit {
+.wInherit {
   width: inherit;
 }

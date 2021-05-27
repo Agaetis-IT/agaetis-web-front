@@ -1,5 +1,4 @@
-.snack-bar-modal {
-  position: fixed;
+.snackBarModal {
   top: 100px;
   right: 10px;
   z-index: 2000;

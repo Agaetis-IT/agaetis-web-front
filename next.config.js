@@ -1,20 +1,5 @@
-import withCSS from '@zeit/next-css'
-import withPurgeCSS from 'next-purgecss'
-import withImages from 'next-images'
-
-require('dotenv').config()
-
-const publicRuntimeConfig = Object.keys(process.env).reduce((acc, key) => {
-  if (key.startsWith('NEXT_APP_')) {
-    return { ...acc, [key]: process.env[key] }
+module.exports = {
+  images: {
+    domains: ['wordpress.agaetis.fr', '82defcf324571e70b0521d79cce2bf3fffccd69.wordpress.agaetis.fr'],
   }
-  return acc
-}, {})
-
-export default withCSS(
-  withPurgeCSS(
-    withImages({
-      publicRuntimeConfig,
-    })
-  )
-)
+}

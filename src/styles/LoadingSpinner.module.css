@@ -3,7 +3,7 @@
   margin-bottom: -.1rem;
 }
 
-.spinner-icon {
+.spinnerIcon {
   -webkit-animation: nprogress-spinner 400ms linear infinite;
   animation: nprogress-spinner 400ms linear infinite;
 }

@@ -1,15 +1,14 @@
-import App from 'next/app'
+import '../styles/globals.css'
 import Head from 'next/head'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import initReactGA, { trackUrl } from '../analytics/analytics'
-import initBugsnag, { getBugsnagClient } from '../bugsnag/bugsnag'
-import publicRuntimeConfig from '../config/env.config'
-import '../index.css'
-import 'react-lazy-load-image-component/src/effects/blur.css'
+import Bugsnag from '@bugsnag/js'
+import initBugsnag from '../bugsnag/bugsnag'
 import LoadingComponent from '../components/LoadingComponent'
 
 initBugsnag()
+
 declare global {
   interface Window {
     GoogleAnalyticsObject: string
@@ -23,19 +22,8 @@ interface Context {
   ctx: any
 }
 
-export default class MyApp extends App {
-  static async getInitialProps({ Component, ctx }: Context) {
-    let pageProps = {}
-    if (Component.getInitialProps) {
-      pageProps = await Component.getInitialProps(ctx)
-    }
-
-    return { pageProps }
-  }
-
-  ErrorBoundary = getBugsnagClient().getPlugin('react')
-
-  componentDidMount() {
+export default function MyApp({ Component, pageProps }) {
+  useEffect(() => {
     const cookies = localStorage.getItem('cookies')
     if (cookies && JSON.parse(cookies)) {
       if (!window.GoogleAnalyticsObject) {
@@ -53,30 +41,30 @@ export default class MyApp extends App {
       s.async = true
       d.getElementsByTagName('head')[0].appendChild(s)
     })()
-  }
+  }, [])
 
-  render() {
-    const { Component, pageProps } = this.props
+  const ErrorBoundary = Bugsnag.getPlugin('react')!.createErrorBoundary(React)
 
-    return (
-      <>
-        <this.ErrorBoundary>
-          <Head>
-            <title>Agaetis</title>
-            <meta name="keywords" content="Agaetis, Data science, Web development, Digital Twin" />
-            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-            <meta name="Language" content="fr" />
-            <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
-            <meta name="twitter:card" content="summary_large_image" />
-            <meta name="twitter:site" content="@AgaetisIT" />
-            <link rel="shortcut icon" type="image/ico" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/favicon.ico`} />
-            <link rel="preconnect" href="https://wordpress.agaetis.fr" />
-          </Head>
+  return (
+    <>
+      <ErrorBoundary>
+        <Head>
+          <title>Agaetis</title>
+          <meta name="keywords" content="Agaetis, Data science, Web development, Digital Twin" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <meta name="Language" content="fr" />
+          <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:site" content="@AgaetisIT" />
+          <link rel="shortcut icon" type="image/ico" href={`${process.env.NEXT_PUBLIC_SITE_URL}/favicon.ico`} />
+          <link rel="preconnect" href="https://wordpress.agaetis.fr" />
+          <link href="https://fonts.googleapis.com/css2?family=Poppins" rel="stylesheet"/>
+          <link href="https://fonts.googleapis.com/css2?family=Open+Sans" rel="stylesheet"/>
+        </Head>
 
-          <LoadingComponent color="#ff7f40" startPosition={0.25} stopDelayMs={50} height={3} />
-          <Component {...pageProps} />
-        </this.ErrorBoundary>
-      </>
-    )
-  }
+        <LoadingComponent color="#ff7f40" startPosition={0.25} stopDelayMs={50} height={3} />
+        <Component {...pageProps} />
+      </ErrorBoundary>
+    </>
+  )
 }

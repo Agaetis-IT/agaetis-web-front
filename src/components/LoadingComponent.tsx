@@ -5,7 +5,7 @@ import LoadingSpinner from './LoadingSpinner'
 import LoadingBar from './LoadingBar'
 import LoadingContainer from './LoadingContainer'
 
-import './LoadingComponent.css'
+import styles from '../styles/LoadingComponent.module.css'
 
 interface Props {
   color: string
@@ -36,6 +36,12 @@ export default function LoadingComponent({ color, startPosition, stopDelayMs, he
     Router.events.on('routeChangeStart', routeChangeStart)
     Router.events.on('routeChangeComplete', routeChangeEnd)
     Router.events.on('routeChangeError', routeChangeEnd)
+
+    return () => {
+      Router.events.off('routeChangeStart', routeChangeStart)
+      Router.events.off('routeChangeComplete', routeChangeEnd)
+      Router.events.off('routeChangeError', routeChangeEnd)
+    }
   })
 
   return (
@@ -44,7 +50,7 @@ export default function LoadingComponent({ color, startPosition, stopDelayMs, he
         {({ animationDuration, isFinished, progress }) => (
           <LoadingContainer animationDuration={animationDuration} isFinished={isFinished}>
             <LoadingBar animationDuration={animationDuration} progress={progress} color={color} height={height} />
-            <div className="fixed block loading-spinner">
+            <div className={`fixed block ${styles.loadingSpinner}`}>
               <LoadingSpinner color={color} size={18} />
             </div>
           </LoadingContainer>

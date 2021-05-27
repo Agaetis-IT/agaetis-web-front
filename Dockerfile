@@ -1,6 +1,6 @@
 # You should always specify a full version here to ensure all of your developers
 # are running the same version of Node.
-FROM node:10-alpine
+FROM node:14-alpine
 
 # Copy all local files into the image.
 WORKDIR /app
@@ -12,7 +12,7 @@ RUN npm i -g typescript && \
     yarn install --ignore-scripts --non-interactive --frozen-lockfile && \
     yarn build
 
-FROM node:10-alpine
+FROM node:14-alpine
 WORKDIR /home/node
 # Override the base log level (info).
 ENV NPM_CONFIG_LOGLEVEL=warn \

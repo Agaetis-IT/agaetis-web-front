@@ -1,14 +1,14 @@
-.home-img {
+.homeImg {
   background-position: center;
   background-size: cover;
   width: 500px;
   height: 420px;
 }
 
-.card-visible {
+.cardVisible {
   animation: onVisible 1s;
 }
-.card-visible-reverse {
+.cardVisibleReverse {
   animation: onVisibleReverse 1s;
 }
 @keyframes onVisible {
@@ -37,44 +37,44 @@
 }
 
 @media screen and (max-width: 1200px) {
-  .home-img {
+  .homeImg {
     width: 400px;
     height: 350px;
   }
 }
 
 @media screen and (max-width: 1024px) {
-  .home-img {
+  .homeImg {
     width: 350px;
     height: 300px;
   }
 }
 
 @media screen and (max-width: 820px) {
-  .home-img {
+  .homeImg {
     width: 300px;
     height: 260px;
   }
-  .card-visible,
-  .card-visible-reverse {
+  .cardVisible,
+  .cardVisibleReverse {
     animation: none;
   }
 }
 
 @media screen and (max-width: 640px) {
-  .home-img-mobile {
+  .homeImgMobile {
     background-position: center;
     background-size: cover;
     width: auto;
     height: auto;
   }
-  .card-visible,
-  .card-visible-reverse {
+  .cardVisible,
+  .cardVisibleReverse {
     animation: none;
   }
 }
 
-.img-shadow {
+.imgShadow {
   -webkit-box-shadow: 3px 12px 53px -19px rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 3px 12px 53px -19px rgba(0, 0, 0, 0.5);
   box-shadow: 3px 12px 53px -19px rgba(0, 0, 0, 0.5);
