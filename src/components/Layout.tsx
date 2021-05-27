@@ -1,9 +1,7 @@
 import React from 'react'
 
 import '../config/yupConfig'
-import '../i18n'
 
-//import './Common.css'
 import Cookies from './Cookies'
 import Header from './Header'
 import clsx from 'clsx'

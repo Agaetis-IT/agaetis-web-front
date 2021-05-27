@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import Button from './Button'
 
-import styles from './HomeOffers.module.css'
-import arrowR from '../static/images/right-arrow.svg'
+import styles from '../styles/HomeOffers.module.css'
+const arrowR = '/images/right-arrow.svg'
 import clsx from 'clsx'
 import { OfferDesc } from '../types/OffersContent'
 import Link from 'next/link'

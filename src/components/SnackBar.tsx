@@ -1,10 +1,10 @@
 import clsx from 'clsx'
 import React, { useEffect } from 'react'
 
-import Cross from '../static/images/cross-icon-png-1.png'
-import Tick from '../static/images/Flat_tick_icon.svg.png'
+const Cross = '/images/cross-icon-png-1.png'
+const Tick = '/images/Flat_tick_icon.svg.png'
 
-import styles from './SnackBar.module.css'
+import styles from '../styles/SnackBar.module.css'
 
 interface Props {
   message: string

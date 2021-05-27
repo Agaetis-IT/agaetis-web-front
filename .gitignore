@@ -1,44 +1,47 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
+
 # dependencies
 /node_modules
-# nextjs
-.next
+node_modules
+/.pnp
+.pnp.js
+
 # testing
 /coverage
+coverage
+
+# next.js
+/.next/
+src/.next
+
 # production
 /build
+
 # misc
 /src/dist
+dist
 .DS_Store
-.env.*
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+*.log
 .vscode
-*.iml
-.idea
-.env
-cypress/integration/examples
-cypress/fixtures/example.json
-cypress/screenshots
-cypress/videos
-/.env.review
-
+*.pem
+key.pem
 .gitignore
 .git
-*.iml
-.idea
-README.md
-Dockerfile
-.dockerignore
-.prettierrc
-node_modules
-src/.next
-coverage
-*.log
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# local env files
 .env
-key.pem
-dist
-**/public/workbox-*.js*
-**/public/sw.js*
-**/public/worker-*.js
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# vercel
+.vercel

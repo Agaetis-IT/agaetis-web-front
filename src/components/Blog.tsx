@@ -4,28 +4,27 @@ import React, { useEffect, useMemo, useState } from 'react'
 import Button from '../components/Button'
 import CategoryTab from '../components/CategoryTab'
 import Layout from '../components/Layout'
-import { getIdeasByCategory, getIdeasByPage, getIdeasByTag } from '../Services/wordpressService'
+import { getIdeasByCategory, getIdeasByPage, getIdeasByTag } from '../services/wordpressService'
 import { Category, IdeasDesc, IdeasPageContent, Response } from '../types/IdeasContent'
 import WhitePaper from '../types/WhitePaper'
 import IdeasCard from '../components/IdeasCard'
 import clsx from 'clsx'
 import ContactSection from '../components/ContactSection'
-import Particles from '../static/images/particles-3.svg'
+const Particles = '/images/particles-3.svg'
 import { FormInput } from '../yup/ContactFormValidation'
 import ContactForm from './ContactForm'
 import SearchInput from '../components/SearchInput'
 import Error from '../pages/_error'
 
 import { useDebouncedCallback } from 'use-debounce'
-import { slugify } from '../Services/textUtilities'
+import { slugify } from '../services/textUtilities'
 import LoadingSpinner from './LoadingSpinner'
 import { PostAPI } from '../models/IdeasAPI'
 
-import styles from './Common.module.css'
+import styles from '../styles/Common.module.css'
 import Head from 'next/head'
-import publicRuntimeConfig from '../config/env.config'
 import SnackBar from './SnackBar'
-import send from '../Services/contactService'
+import send from '../services/contactService'
 
 interface Props {
   ideasDescription: IdeasDesc[]
@@ -180,11 +179,11 @@ export default function Blog({
       <Head>
         <title>Agaetis : nos idées</title>
         <meta property="og:title" content="Agaetis : nos idées" />
-        <meta property="og:image" content={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/favicon.ico`} />
+        <meta property="og:image" content={`${process.env.NEXT_PUBLIC_SITE_URL}/favicon.ico`} />
         <meta property="og:type" content="website" />
         <meta property="og:description" content="Chacun d'entre nous a ses idées et le droit de les défendre" />
         <meta name="description" content="Chacun d'entre nous a ses idées et le droit de les défendre" />
-        <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/blog`} />
+        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/blog`} />
       </Head>
       <Layout invertColors={false}>
         <div className="pt-0 md:pt-28">

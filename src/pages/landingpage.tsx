@@ -4,14 +4,14 @@ import ContactForm from '../components/ContactForm'
 import ContactSection from '../components/ContactSection'
 import Error from './_error'
 import Layout from '../components/Layout'
-import Particles from '../static/images/particles-3.svg'
-import { getLandingPageContent } from '../Services/wordpressService'
+const Particles = '/images/particles-3.svg'
+import { getLandingPageContent } from '../services/wordpressService'
 import { convertAPItoLandingPageContent, LandingPage } from '../types/OffersContent'
 import { FormInput } from '../yup/ContactFormValidation'
 
-import styles from './landingpage.module.css'
+import styles from '../styles/landingpage.module.css'
 import SnackBar from '../components/SnackBar'
-import send from '../Services/contactService'
+import send from '../services/contactService'
 
 interface Context extends NextPageContext {
   query: { slug: string }

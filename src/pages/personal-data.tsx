@@ -2,10 +2,10 @@ import Link from 'next/link'
 import React from 'react'
 
 import Layout from '../components/Layout'
-import { getPersonalDataContent } from '../Services/wordpressService'
+import { getPersonalDataContent } from '../services/wordpressService'
 import PersonalDataContent from '../types/PersonalDataContent'
 
-import styles from './personal-data.module.css'
+import styles from '../styles/personal-data.module.css'
 
 interface Props {
   pageContent: PersonalDataContent

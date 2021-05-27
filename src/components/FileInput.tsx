@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState } from 'react'
 import clsx from 'clsx'
 
-import styles from './FileInput.module.css'
+import styles from '../styles/FileInput.module.css'
 import { AttachmentContent } from '../yup/ContactFormValidation'
 import LoadingSpinner from './LoadingSpinner'
 import SnackBar from './SnackBar'
@@ -111,7 +111,7 @@ export default function FileInput({ className, wrapperClassName, onChange, fileC
         />
       </label>
       <span id="fileNames" className="mt-4 md:ml-4 md:mt-0">
-        {fileNames.map((file, index) => (index ? ' | ' : '') + file)}
+        {fileNames?.map((file, index) => (index ? ' | ' : '') + file)}
       </span>
       <SnackBar
         message="Pièces jointes invalides : vous avez sélectionné trop de fichiers ou bien la taille totale dépasse 10 Mo"

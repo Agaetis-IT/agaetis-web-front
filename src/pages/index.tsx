@@ -4,8 +4,7 @@ import React from 'react'
 import ContactSection from '../components/ContactSection'
 import Hero from '../components/Hero'
 import Layout from '../components/Layout'
-import publicRuntimeConfig from '../config/env.config'
-import { getAllOffers, getIndexContent } from '../Services/wordpressService'
+import { getAllOffers, getIndexContent } from '../services/wordpressService'
 import IndexContent, { convertIndexContentAPItoContentAPI } from '../types/IndexContent'
 import HomeOffers from '../components/HomeOffers'
 import HomeSectors from '../components/HomeSectors'
@@ -28,11 +27,11 @@ function Index({ pageContent, offers }: Props) {
         <title>Agaetis</title>
 
         <meta property="og:title" content="Agaetis" />
-        <meta property="og:image" content={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/favicon.ico`} />
+        <meta property="og:image" content={`${process.env.NEXT_PUBLIC_SITE_URL}/favicon.ico`} />
         <meta property="og:type" content="website" />
         <meta property="og:description" content={pageContent.hero_subtitle} />
         <meta name="description" content={pageContent.hero_subtitle} />
-        <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/`} />
+        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/`} />
       </Head>
       <Layout invertColors={true}>
         <>

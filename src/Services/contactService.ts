@@ -1,7 +1,6 @@
 import axios from 'axios'
 import sha256 from 'js-sha256'
 
-import publicRuntimeConfig from '../config/env.config'
 import { FormInput } from '../yup/ContactFormValidation'
 
 const formatContent = (content: string, name: string, mail: string, phone: string) =>
@@ -16,7 +15,7 @@ export default async function send(data: FormInput) {
   const key = Buffer.from(
     data.firstname +
       data.lastname +
-      publicRuntimeConfig.NEXT_APP_CONTACT_SALT +
+      process.env.NEXT_PUBLIC_CONTACT_SALT +
       data.mail +
       data.subject +
       formatContent(data.message, `${data.firstname} ${data.lastname}`, data.mail, data.phone) +
@@ -27,7 +26,7 @@ export default async function send(data: FormInput) {
 
   return axios({
     method: 'post',
-    url: `${publicRuntimeConfig.NEXT_APP_SITE_URL}/send`,
+    url: `${process.env.NEXT_PUBLIC_SITE_URL}/send`,
     headers: {},
     data: {
       firstname: data.firstname,
@@ -55,7 +54,7 @@ export async function sendWhitePaper(
     name +
       'Envoi du livre blanc : ' +
       whitepaperTitle +
-      publicRuntimeConfig.NEXT_APP_CONTACT_SALT +
+      process.env.NEXT_PUBLIC_CONTACT_SALT +
       mail +
       formatWPContent() +
       file +
@@ -66,7 +65,7 @@ export async function sendWhitePaper(
 
   await axios({
     method: 'post',
-    url: `${publicRuntimeConfig.NEXT_APP_SITE_URL}/send/white-paper`,
+    url: `${process.env.NEXT_PUBLIC_SITE_URL}/send/white-paper`,
     headers: {},
     data: {
       name,

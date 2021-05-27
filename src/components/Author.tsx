@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import Head from 'next/head'
 import React, { useMemo, useState } from 'react'
-import publicRuntimeConfig from '../config/env.config'
 
 import Button from './Button'
 import Layout from './Layout'
@@ -11,15 +10,15 @@ import ContactSection from './ContactSection'
 
 import { AuthorDescription, AuthorPageContent } from '../types/AuthorContent'
 import { IdeasDesc, Response } from '../types/IdeasContent'
-import { getIdeasByAuthor } from '../Services/wordpressService'
+import { getIdeasByAuthor } from '../services/wordpressService'
 import { PostAPI } from '../models/IdeasAPI'
 
-import Particles from '../static/images/particles-3.svg'
-import Linkedin from '../static/icons/linkedin.png'
+const Particles = '/images/particles-3.svg'
+const Linkedin = '/icons/linkedin.png'
 import Error from '../pages/_error'
 import SnackBar from './SnackBar'
 
-import styles from './Common.module.css'
+import styles from '../styles/Common.module.css'
 
 interface Props {
   ideasDescription: IdeasDesc[]
@@ -99,11 +98,11 @@ export default function Author({ ideasDescription, author, content, errorCode, h
       <Head>
         <title>Agaetis : articles de {author.name}</title>
         <meta property="og:title" content={`Agaetis : articles de ${author.name}`} />
-        <meta property="og:image" content={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/favicon.ico`} />
+        <meta property="og:image" content={`${process.env.NEXT_PUBLIC_SITE_URL}/favicon.ico`} />
         <meta property="og:type" content="website" />
         <meta property="og:description" content={`Découvrez tous les articles de ${author.name}`} />
         <meta name="description" content={`Découvrez tous les articles de ${author.name}`} />
-        <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/author/${author.id}`} />
+        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/author/${author.id}`} />
       </Head>
       <Layout invertColors={false}>
         <div className="pt-0 md:pt-28">

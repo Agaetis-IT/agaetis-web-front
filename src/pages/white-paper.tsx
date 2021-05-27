@@ -5,12 +5,11 @@ import React, { useState } from 'react'
 
 import WhitePaperForm from '../components/form/WhitePaperForm'
 import Layout from '../components/Layout'
-import publicRuntimeConfig from '../config/env.config'
-import { sendWhitePaper } from '../Services/contactService'
-import { getWhitePaperContent } from '../Services/wordpressService'
+import { sendWhitePaper } from '../services/contactService'
+import { getWhitePaperContent } from '../services/wordpressService'
 import WhitePaper from '../types/WhitePaper'
 import { WhitepaperFormValues } from '../yup/WhitePaperFormValidation'
-import Logo from '../static/icons/Agaetis - Ico logo - Orange.png'
+const Logo = '../static/icons/Agaetis - Ico logo - Orange.png'
 
 import Error from './_error'
 import Link from 'next/link'
@@ -59,11 +58,11 @@ export default function whitePaper({ pageContent, errorCode }: Props) {
       <Head>
         <title>Agaetis : {pageContent.title}</title>
         <meta property="og:title" content={`Agaetis : ${pageContent.title}`} />
-        <meta property="og:image" content={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/favicon.ico`} />
+        <meta property="og:image" content={`${process.env.NEXT_PUBLIC_SITE_URL}/favicon.ico`} />
         <meta property="og:type" content="website" />
         <meta property="og:description" content={pageContent.description} />
         <meta name="description" content={pageContent.description} />
-        <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/${pageContent.slug}`} />
+        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/${pageContent.slug}`} />
       </Head>
       <Layout invertColors={false}>
         <>

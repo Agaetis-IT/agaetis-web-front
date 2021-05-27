@@ -6,10 +6,10 @@ interface Props {
   subtitle: string
 }
 
-import Mask from '../static/images/hero_mask.svg'
-import Quote from '../static/images/quote.png'
+const Mask = '/images/hero_mask.svg'
+const Quote = '/images/quote.png'
 
-import styles from './Hero.module.css'
+import styles from '../styles/Hero.module.css'
 
 export default function Hero({ hero, valeurs, subtitle }: Props) {
   return (

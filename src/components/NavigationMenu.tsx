@@ -1,10 +1,9 @@
 import clsx from 'clsx'
 import Link from 'next/link'
 import React from 'react'
-import { useTranslation } from 'react-i18next'
 
 import Button from './Button'
-import styles from './NavigationMenu.module.css'
+import styles from '../styles/NavigationMenu.module.css'
 
 interface Props {
   invertColors?: boolean
@@ -12,7 +11,6 @@ interface Props {
 }
 
 export default function NavigationMenu({ invertColors, position }: Props) {
-  const { t } = useTranslation()
   const pages = [
     ['Blog', '/blog'],
     ['Agaetis', '/agaetis'],
@@ -50,7 +48,7 @@ export default function NavigationMenu({ invertColors, position }: Props) {
               'block md:inline-block px-6 py-3 leading-none rounded-full uppercase mt-4 md:mt-0 text-base font-extralight shadow-md'
             )}
           >
-            {t('navigation.contact')}
+            Contact
           </Button>
         </Link>
       </div>
@@ -60,7 +58,7 @@ export default function NavigationMenu({ invertColors, position }: Props) {
             href="/contact"
             className="block md:inline-block block md:mt-0 md:mr-16 md:ml-1 p-2 py-3 md:p-0 text-white text-base leading-normal font-extralight"
           >
-            {t('navigation.contact')}
+            Contact
           </Button>
         </Link>
       </div>

@@ -5,8 +5,7 @@ import ContactSection from '../components/ContactSection'
 
 import Layout from '../components/Layout'
 import SoluceTab from '../components/SoluceTab'
-import publicRuntimeConfig from '../config/env.config'
-import { getSolutionsPageContent } from '../Services/wordpressService'
+import { getSolutionsPageContent } from '../services/wordpressService'
 import { SolutionsContent } from '../types/SolutionsContent'
 
 interface Props {
@@ -19,7 +18,7 @@ function solutions({ pageContent }: Props) {
       <Head>
         <title>Agaetis : secteurs d'activités</title>
         <meta property="og:title" content="Agaetis : solutions" />
-        <meta property="og:image" content={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/favicon.ico`} />
+        <meta property="og:image" content={`${process.env.NEXT_PUBLIC_SITE_URL}/favicon.ico`} />
         <meta property="og:type" content="website" />
         <meta
           property="og:description"
@@ -29,7 +28,7 @@ function solutions({ pageContent }: Props) {
           name="description"
           content="Chaque client a des besoins propres, nous leur apportons des solutions sur mesure"
         />
-        <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/sectors`} />
+        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/sectors`} />
       </Head>
       <Layout invertColors={false}>
         <div className="mx-auto px-0">

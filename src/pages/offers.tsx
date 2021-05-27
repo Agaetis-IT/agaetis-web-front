@@ -1,20 +1,19 @@
 import OffersContent, { OfferDesc, convertAPItoOffersContent, OfferLeaf } from '../types/OffersContent'
 import React, { useState } from 'react'
-import { getAllOffers, getCategoryOffers, getOffersPageContent } from '../Services/wordpressService'
+import { getAllOffers, getCategoryOffers, getOffersPageContent } from '../services/wordpressService'
 
 import Button from '../components/Button'
 import ContactForm from '../components/ContactForm'
 import Head from 'next/head'
 import Layout from '../components/Layout'
-import publicRuntimeConfig from '../config/env.config'
 import { FormInput } from '../yup/ContactFormValidation'
 import ContactSection from '../components/ContactSection'
-import Mask from '../static/images/hero_mask.svg'
-import Plus from '../static/icons/squared_plus_white.svg'
+const Mask = '/images/hero_mask.svg'
+const Plus = '/icons/squared_plus_white.svg'
 import clsx from 'clsx'
 import Link from 'next/link'
 import SnackBar from '../components/SnackBar'
-import send from '../Services/contactService'
+import send from '../services/contactService'
 
 /* eslint-disable react-hooks/rules-of-hooks */
 
@@ -64,7 +63,7 @@ export default function offers({ pageContent, allOffers }: Props) {
         <title>Agaetis : nos offres</title>
         <meta property="og:description" content={"Présentation d'Agaetis, de son histoire et de sa vision"} />
         <meta name="description" content={"Présentation d'Agaetis, de son histoire et de sa vision"} />
-        <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/agaetis`} />
+        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/agaetis`} />
       </Head>
 
       <Layout invertColors={false}>

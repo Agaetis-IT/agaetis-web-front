@@ -1,3 +1,7 @@
+.content {
+  z-index: 2;
+}
+
 .content,
 .content p {
   margin: 10px 0px;

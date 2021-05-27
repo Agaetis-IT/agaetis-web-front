@@ -1,11 +1,11 @@
 import clsx from 'clsx'
 import React from 'react'
-import { slugify } from '../Services/textUtilities'
+import { slugify } from '../services/textUtilities'
 
 import { Category } from '../types/IdeasContent'
 
 import Button from './Button'
-import styles from './Common.module.css'
+import styles from '../styles/Common.module.css'
 
 interface Props {
   categories: Category[]

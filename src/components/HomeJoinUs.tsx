@@ -1,6 +1,6 @@
 import React from 'react'
 import Button from './Button'
-import { LazyLoadImage } from 'react-lazy-load-image-component'
+import Image from 'next/image'
 
 interface Props {
   joinUs_image_desktop: string
@@ -29,9 +29,7 @@ export default function HomeJoinUs({
       <div className="hidden py-8 md:p-16 xl:px-32 lg:flex flex-row">
         <div className="my-auto w-1/3">
           {
-            // eslint-disable-next-line
-            // @ts-ignore-next-line
-            <LazyLoadImage effect="blur" src={joinUs_image_desktop} />
+            <Image src={joinUs_image_desktop} width={559} height={443}/>
           }
         </div>
         <div
@@ -71,9 +69,7 @@ export default function HomeJoinUs({
         <p className="my-8 text-sm leading-normal text-justify">{joinUs_agaetis_desc}</p>
         <div className="flex flex-row-reverse justify-between sm:justify-around mb-8">
           {
-            // eslint-disable-next-line
-            // @ts-ignore-next-line
-            <LazyLoadImage effect="blur" src={joinUs_image_mobile_1} className="h-40 w-auto" />
+            <Image src={joinUs_image_mobile_1} className="h-40 w-auto" width={321} height={321}/>
           }
           <Button
             href="/agaetis"
@@ -87,9 +83,7 @@ export default function HomeJoinUs({
         <p className="my-8 text-sm leading-normal text-justify">{joinUs_carreer_desc}</p>
         <div className="flex flex-row justify-between sm:justify-around">
           {
-            // eslint-disable-next-line
-            // @ts-ignore-next-line
-            <LazyLoadImage effect="blur" src={joinUs_image_mobile_2} className="h-40 w-auto" />
+            <Image src={joinUs_image_mobile_2} className="h-40 w-auto" width={360} height={360}/>
           }
           <Button
             href="/jobs"

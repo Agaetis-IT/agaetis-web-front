@@ -2,10 +2,10 @@ import Link from 'next/link'
 import React from 'react'
 
 import Layout from '../components/Layout'
-import { getMentionsLegalesContent } from '../Services/wordpressService'
+import { getMentionsLegalesContent } from '../services/wordpressService'
 import MentionsLegalesContent from '../types/MentionsLegalesContent'
 
-import styles from './personal-data.module.css'
+import styles from '../styles/personal-data.module.css'
 
 interface Props {
   pageContent: MentionsLegalesContent

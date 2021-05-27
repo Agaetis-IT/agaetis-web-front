@@ -2,13 +2,12 @@
 import React, { useEffect } from 'react'
 import { NextPageContext } from 'next'
 import { convertAPItoOfferleaf, OfferContent, OfferLeafContent } from '../types/OffersContent'
-import { getCategoryOffers, getIdeasByCategory, getOfferContent, getOfferLeaf } from '../Services/wordpressService'
-import Back from '../static/icons/Btn_Retour.svg'
+import { getCategoryOffers, getIdeasByCategory, getOfferContent, getOfferLeaf } from '../services/wordpressService'
+const Back = '/icons/Btn_Retour.svg'
 import Error from './_error'
 import Head from 'next/head'
-import publicRuntimeConfig from '../config/env.config'
 import Layout from '../components/Layout'
-import Particles from '../static/images/particles-2.svg'
+const Particles = '/images/particles-2.svg'
 import { useState } from 'react'
 import Button from '../components/Button'
 import clsx from 'clsx'
@@ -20,7 +19,7 @@ import { FormInput } from '../yup/ContactFormValidation'
 import { useRouter } from 'next/router'
 import PartnerList from '../components/PartnerList'
 import SnackBar from '../components/SnackBar'
-import send from '../Services/contactService'
+import send from '../services/contactService'
 
 interface Context extends NextPageContext {
   query: { slug: string }
@@ -74,11 +73,11 @@ export default function offer({ pageContent, errorCode, offers }: Props): React.
       <Head>
         <title>Agaetis : {pageContent.title}</title>
         <meta property="og:title" content={`Agaetis : ${pageContent.title}`} />
-        <meta property="og:image" content={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/favicon.ico`} />
+        <meta property="og:image" content={`${process.env.NEXT_PUBLIC_SITE_URL}/favicon.ico`} />
         <meta property="og:type" content="website" />
         <meta property="og:description" content={pageContent.paragraph} />
         <meta name="description" content={pageContent.paragraph} />
-        <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}${pageContent.slug}`} />
+        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}${pageContent.slug}`} />
       </Head>
       <Layout invertColors={false}>
         <div className="mx-auto pt-0 md:pt-28">

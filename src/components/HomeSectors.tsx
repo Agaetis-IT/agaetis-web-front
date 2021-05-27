@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 import { SectorDesc } from '../types/IndexContent'
-import arrowR from '../static/images/right-arrow.svg'
+const arrowR = '/images/right-arrow.svg'
 import clsx from 'clsx'
 
 interface Props {

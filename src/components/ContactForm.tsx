@@ -6,14 +6,13 @@ import TextInput from './TextInput'
 import CheckBox from './CheckBox'
 import { AttachmentContent, footerContactSchema, FormInput } from '../yup/ContactFormValidation'
 import { yupResolver } from '@hookform/resolvers/yup'
-import Twitter from '../static/icons/twitter.png'
-import Linkedin from '../static/icons/linkedin.png'
-import Facebook from '../static/icons/facebook.png'
-import Particles from '../static/images/particles-3-mirror.svg'
+const Twitter = '/icons/twitter.png'
+const Linkedin = '/icons/linkedin.png'
+const Facebook = '/icons/facebook.png'
+const Particles = '/images/particles-3-mirror.svg'
 
-import styles from './Common.module.css'
+import styles from '../styles/Common.module.css'
 import ReCAPTCHA from 'react-google-recaptcha'
-import publicRuntimeConfig from '../config/env.config'
 import FileInput from './FileInput'
 import LoadingSpinner from './LoadingSpinner'
 
@@ -135,8 +134,8 @@ export default function ContactForm({ title, handleSubmit, isSubmited, subText }
             onChange={onAttachmentsChange}
             wrapperClassName="my-8"
             className="block shadow-md py-2 px-8 rounded-full bg-orange-500 text-xs leading-normal text-white font-semibold uppercase"
-            fileCount={watchAttachments.length}
-            fileNames={watchAttachments.map((file) => file.fileName)}
+            fileCount={watchAttachments?.length}
+            fileNames={watchAttachments?.map((file) => file.fileName)}
           />
           <CheckBox
             wrapperClassName="my-8"
@@ -146,18 +145,17 @@ export default function ContactForm({ title, handleSubmit, isSubmited, subText }
             label="En soumettant ce formulaire et conformément à la politique de traitement des données personnelles, j'accepte
             que les informations saisies soient exploitées afin d'être contacté par les équipes d'Agaetis."
           />
-          <div className="flex flex-col justify-center">
+          <div className="flex flex-col justify-center items-center">
             <ReCAPTCHA
               {...register('captcha')}
-              className="self-center"
               ref={recaptchaRef}
               size="normal"
-              sitekey={publicRuntimeConfig.NEXT_APP_RECAPTCHA_KEY}
+              sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_KEY}
               onChange={onCaptchaChange}
             />
-            {otherFormProps.errors.captcha && (
+            {otherFormProps.formState.errors.captcha && (
               <p className="text-xs leading-normal text-red-500 text-center pt-2">
-                {otherFormProps.errors.captcha.message}
+                {otherFormProps.formState.errors.captcha.message}
               </p>
             )}
           </div>

@@ -1,13 +1,13 @@
 import clsx from 'clsx'
 import Link from 'next/link'
 import React, { useState, useEffect } from 'react'
+import Image from 'next/image'
 
-import styles from './Header.module.css'
+import styles from '../styles/Header.module.css'
 import NavigationMenu from './NavigationMenu'
 
-import { LazyLoadImage } from 'react-lazy-load-image-component'
-import logoAgaetisDesktop from '../static/images/logo-agaetis-hor-white-rgb-150.png'
-import logoAgaetisMobile from '../static/images/logo-agaetis-hor-p164-rgb-150.png'
+const logoAgaetisDesktop = '/images/logo-agaetis-hor-white-rgb-150.png'
+const logoAgaetisMobile = '/images/logo-agaetis-hor-p164-rgb-150.png'
 
 interface Props {
   invertColors: boolean
@@ -72,26 +72,24 @@ export default function Header({ invertColors, className }: Props) {
             <Link href="/">
               <a className="ml-auto mr-auto md:ml-0 flex items-center">
                 {
-                  // eslint-disable-next-line
-                  // @ts-ignore-next-line
-                  <LazyLoadImage
-                    effect="blur"
+                  <Image
                     className={clsx({ 'md:inline': invertColors && position < 200 }, `${styles.logoAgaetis} hidden`)}
                     src={logoAgaetisDesktop}
                     alt="logo agaetis"
+                    width={1035}
+                    height={330}
                   />
                 }
                 {
-                  // eslint-disable-next-line
-                  // @ts-ignore-next-line
-                  <LazyLoadImage
-                    effect="blur"
+                  <Image
                     className={clsx(
                       invertColors && position < 200 ? 'md:hidden' : 'inline',
                       position > 200 ? styles.logoSticky : styles.logoAgaetis
                     )}
                     src={logoAgaetisMobile}
                     alt="logo agaetis"
+                    width={1035}
+                    height={330}
                   />
                 }
               </a>

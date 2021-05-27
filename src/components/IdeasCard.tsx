@@ -1,10 +1,10 @@
 import Link from 'next/link'
 import React from 'react'
-import { createMarkup } from '../Services/textUtilities'
-import Placeholder from '../static/images/blog-post-placeholder.jpg'
+import { createMarkup } from '../services/textUtilities'
+const Placeholder = '/images/blog-post-placeholder.jpg'
 
-import styles from './IdeasCard.module.css'
-import commonStyles from './Common.module.css'
+import styles from '../styles/IdeasCard.module.css'
+import commonStyles from '../styles/Common.module.css'
 
 interface Props {
   title: string

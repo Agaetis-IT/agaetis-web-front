@@ -1,13 +1,13 @@
 import { NextPageContext } from 'next'
 import { CategoryAPI, PostAPI } from '../../models/IdeasAPI'
-import { slugify } from '../../Services/textUtilities'
+import { slugify } from '../../services/textUtilities'
 import {
   getIdeasByPage,
   getCategories,
   getIdeasPageContent,
   getAllWhitePapers,
   getIdeasByCategory,
-} from '../../Services/wordpressService'
+} from '../../services/wordpressService'
 import { Category, Response } from '../../types/IdeasContent'
 import WhitePaper from '../../types/WhitePaper'
 import Blog from '../../components/Blog'

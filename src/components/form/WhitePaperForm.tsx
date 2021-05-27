@@ -2,7 +2,6 @@
 import React, { useRef } from 'react'
 import ReCAPTCHA from 'react-google-recaptcha'
 
-import publicRuntimeConfig from '../../config/env.config'
 import { WhitepaperFormValues, whitePaperInitialValues, whitePaperSchema } from '../../yup/WhitePaperFormValidation'
 import Button from '../Button'
 import LoadingSpinner from '../LoadingSpinner'
@@ -76,7 +75,7 @@ export default function WhitePaperForm({ title, file, className, handleNextStep,
           />
 
           <div className="flex flex-row justify-center">
-            <ReCAPTCHA ref={recaptchaRef} size="normal" sitekey={publicRuntimeConfig.NEXT_APP_RECAPTCHA_KEY} />
+            <ReCAPTCHA ref={recaptchaRef} size="normal" sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_KEY} />
           </div>
           <Button
             className="flex flex-row justify-center uppercase rounded-full bg-orange-500 text-xss leading-normal py-2 px-6 text-white font-semibold mx-auto shadow-md"
