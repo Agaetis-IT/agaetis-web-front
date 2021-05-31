@@ -4,7 +4,6 @@ import Button from './Button'
 import './HomeOffers.css'
 import './Common.css'
 import arrowR from '../static/images/right-arrow.svg'
-import test from '../static/icons/cyber-secu.png'
 import clsx from 'clsx'
 import { OfferDesc } from '../types/OffersContent'
 import Link from 'next/link'
@@ -19,7 +18,7 @@ export default function HomeOffers({ title, offers }: Props) {
   const [isOpennedOffer, setIsOpennedOffer] = useState(false)
 
   const handleOfferChange = (index: number) => {
-    selectedOffer !== index ? setIsOpennedOffer(true) : setIsOpennedOffer(!isOpennedOffer)
+    setIsOpennedOffer((isOpenned) => (selectedOffer !== index ? true : !isOpenned))
     setSelectedOffer(index)
   }
 
@@ -37,7 +36,11 @@ export default function HomeOffers({ title, offers }: Props) {
                     index === selectedOffer && isOpennedOffer ? 'offer-header-open' : 'offer-header-close'
                   )}
                 >
-                  <img src={test} alt="icon" className="absolute bg-white h-20 w-20 shadow-md md:hidden rounded-full" />
+                  <img
+                    src={offer.offers_image1}
+                    alt="icon"
+                    className="absolute bg-white h-20 w-20 shadow-md md:hidden rounded-full"
+                  />
                   <div className="w-9/10 ml-22 md:ml-0 py-2 md:p-0">
                     <h4 className="text-grey-darker md:text-orange text-xs md:text-sm font-bold uppercase text-left">
                       {offer.title}

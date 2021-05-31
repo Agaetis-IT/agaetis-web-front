@@ -15,7 +15,7 @@ function convertToMultiline(text: string) {
   return text.replace(/\n/g, '</br>')
 }
 
-export default function Hero({ hero, values: values, subtitle }: Props) {
+export default function Hero({ hero, values, subtitle }: Props) {
   return (
     <div
       style={{
@@ -36,7 +36,7 @@ export default function Hero({ hero, values: values, subtitle }: Props) {
               </p>
               <img src={Quote} id="quoteR" />
             </div>
-            <div className="bg-white h-px mb-4 w-16 md:mb-0 md:h-0 md:bg-transparent self-center"></div>
+            <div className="bg-white h-px mb-4 w-16 md:mb-0 md:h-0 md:bg-transparent self-center" />
             <div className="flex flex-col md:flex-row justify-center text-white hero-text-valeurs md:mx-16">
               <div className="self-center md:pr-16 xl:pr-24">
                 <h1 className="flex flex-row md:flex-col justify-center pb-4 md:pb-0">
