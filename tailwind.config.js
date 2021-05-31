@@ -193,6 +193,7 @@ module.exports = {
       mono: ['Menlo', 'Monaco', 'Consolas', '"Liberation Mono"', '"Courier New"', 'monospace'],
     },
     fontSize: {
+      none: '0',
       xxs: '.4rem',
       cgu: '.6rem',
       xss: '.7rem',

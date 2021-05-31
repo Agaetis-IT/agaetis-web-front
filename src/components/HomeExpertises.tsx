@@ -1,4 +1,4 @@
-import React from 'react'
+import Image from 'next/image'
 
 import { Expertise } from '../types/IndexContent'
 
@@ -15,7 +15,7 @@ export default function HomeExpertises({ expertises_title, expertises_image_desk
       <div className="hidden lg:block md:p-16 xl:px-32">
         <h2 className="text-orange-500 font-semibold text-center md:text-left">{expertises_title}</h2>
         <div className="md:my-16 relative" id="expertise-container-desktop">
-          <img src={expertises_image_desktop} className="block mx-auto w-full h-auto" />
+          <Image src={expertises_image_desktop} width={1537} height={750} layout="responsive" quality={100}/>
         </div>
       </div>
       <div className="block lg:hidden p-4 py-8 relative" id="expertise-container">
@@ -23,7 +23,7 @@ export default function HomeExpertises({ expertises_title, expertises_image_desk
         <div className="mt-8">
           {expertises.map((e) => (
             <div key={e.title} className="flex flex-row py-4">
-              <img className="h-16 w-16" src={e.logo} />
+              <Image className="h-16 w-16" src={e.logo} width={64} height={64} layout="fixed" quality={100}/>
               <div className="text-orange-500 self-center pl-2">
                 <h3 className="pb-2 uppercase text-sm leading-normal">{e.title}</h3>
                 <p className="text-xs leading-normal">{e.items.split(',').join(' - ')}</p>

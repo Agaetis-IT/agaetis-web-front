@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { SectorDesc } from '../types/IndexContent'
 const arrowR = '/images/right-arrow.svg'
 import clsx from 'clsx'
+import Image from 'next/image'
 
 interface Props {
   title: string
@@ -42,8 +43,7 @@ export default function HomeSectors({ title, sectors }: Props) {
                     <h3>{sector.title}</h3>
                     <p className="text-xs text-justify leading-normal py-4 hidden md:block">{sector.desc}</p>
                   </div>
-                  <img
-                    style={{ width: 10, height: 10 }}
+                  <Image
                     src={arrowR}
                     alt="arrow"
                     onClick={() => {
@@ -53,6 +53,9 @@ export default function HomeSectors({ title, sectors }: Props) {
                       index === selectedSector ? 'offer-selected-arrow' : 'offer-arrow',
                       'block md:hidden'
                     )}
+                    width={10}
+                    height={10}
+                    quality={100}
                   />
                 </div>
               </div>

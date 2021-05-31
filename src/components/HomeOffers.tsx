@@ -6,6 +6,7 @@ const arrowR = '/images/right-arrow.svg'
 import clsx from 'clsx'
 import { OfferDesc } from '../types/OffersContent'
 import Link from 'next/link'
+import Image from 'next/image'
 
 interface Props {
   title: string
@@ -43,11 +44,13 @@ export default function HomeOffers({ title, offers }: Props) {
                       handleOfferChange(index)
                     }}
                   >
-                    <img
-                      style={{ width: 10, height: 10 }}
+                    <Image
                       src={arrowR}
                       alt="arrow"
                       className={clsx(index === selectedOffer ? styles.offerSelectedArrow : styles.offerArrow)}
+                      width={10}
+                      height={10}
+                      quality={100}
                     />
                   </Button>
                 </span>

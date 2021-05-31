@@ -29,7 +29,7 @@ export default function HomeJoinUs({
       <div className="hidden py-8 md:p-16 xl:px-32 lg:flex flex-row">
         <div className="my-auto w-1/3">
           {
-            <Image src={joinUs_image_desktop} width={559} height={443}/>
+            <Image src={joinUs_image_desktop} width={559} height={443} quality={100}/>
           }
         </div>
         <div
@@ -69,7 +69,7 @@ export default function HomeJoinUs({
         <p className="my-8 text-sm leading-normal text-justify">{joinUs_agaetis_desc}</p>
         <div className="flex flex-row-reverse justify-between sm:justify-around mb-8">
           {
-            <Image src={joinUs_image_mobile_1} className="h-40 w-auto" width={321} height={321}/>
+            <Image src={joinUs_image_mobile_1} className="h-40 w-auto" width={321} height={321} quality={100}/>
           }
           <Button
             href="/agaetis"
@@ -83,7 +83,7 @@ export default function HomeJoinUs({
         <p className="my-8 text-sm leading-normal text-justify">{joinUs_carreer_desc}</p>
         <div className="flex flex-row justify-between sm:justify-around">
           {
-            <Image src={joinUs_image_mobile_2} className="h-40 w-auto" width={360} height={360}/>
+            <Image src={joinUs_image_mobile_2} className="h-40 w-auto" width={360} height={360} quality={100}/>
           }
           <Button
             href="/jobs"

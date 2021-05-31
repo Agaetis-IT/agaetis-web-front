@@ -1,6 +1,5 @@
 import clsx from 'clsx'
 import Link from 'next/link'
-import React from 'react'
 import { PostOffer } from '../types/OffersContent'
 import Button from './Button'
 

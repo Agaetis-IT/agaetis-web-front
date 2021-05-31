@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import React from 'react'
+import Image from 'next/image'
 
 import styles from '../styles/HomeCard.module.css'
 
@@ -21,7 +21,7 @@ export default function AgaetisCard({ className, title, description, imgShadow, 
         <p className="text-sm leading-normal text-justify">{description}</p>
       </div>
       {imgUrl && (
-        <img
+        <Image
           className={clsx(
             imgShadow ? styles.imgShadow : '',
             styles.homeImgMobile,
@@ -30,6 +30,9 @@ export default function AgaetisCard({ className, title, description, imgShadow, 
           )}
           src={imgUrl}
           alt={imgUrl}
+          width={500}
+          height={420}
+          quality={100}
         />
       )}
     </div>

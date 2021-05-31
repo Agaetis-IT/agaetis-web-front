@@ -1,6 +1,5 @@
-import React from 'react'
-
 import clsx from 'clsx'
+import Image from 'next/image'
 import { Conviction } from '../types/IndexContent'
 
 interface Props {
@@ -23,7 +22,9 @@ export default function HomeConvictions({ title, convictions }: Props) {
                 : 'flex-row-reverse md:flex-row lg:pl-8 xl:pl-16 pr-0'
             )}
           >
-            <img className="md:m-0 max-w-xxxxs max-h-xxxxs md:max-w-xxxs md:max-h-xxxs" src={conviction.image} />
+            <div className="md:m-0 max-w-xxxxs max-h-xxxxs md:max-w-xxxs md:max-h-xxxs">
+              <Image src={conviction.image} width={113} height={113} layout="fixed" quality={100}/>
+            </div>
             <span className={clsx(index % 2 === 0 ? 'pl-4' : 'pr-4', 'flex flex-col justify-center md:px-8')}>
               <h3 className="uppercase font-semibold mb-2 md:mb-4 text-base leading-normal">{conviction.title}</h3>
               <p className="text-xs md:text-sm leading-normal">{conviction.desc}</p>

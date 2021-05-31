@@ -19,8 +19,8 @@ ENV NPM_CONFIG_LOGLEVEL=warn \
     NODE_ENV=production \
     NODE_PORT=5000
 
-COPY --from=0 --chown=node:node /app/src/.next src/.next
-COPY --from=0 --chown=node:node /app/src/public src/public
+COPY --from=0 --chown=node:node /app/.next ./.next
+COPY --from=0 --chown=node:node /app/public ./public
 COPY --from=0 --chown=node:node /app/dist/server.js app/package.json app/yarn.lock app/next.config.js ./
 
 RUN yarn --frozen-lockfile --non-interactive && \

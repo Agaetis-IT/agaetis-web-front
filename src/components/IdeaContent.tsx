@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-
+import { useEffect, useState } from 'react'
+import Image from 'next/image'
 import IdeasContent from '../types/IdeasContent'
 
 const AccessTime = '/icons/access_time-24px.svg'
@@ -118,7 +118,7 @@ function IdeaContent({ content }: Props) {
           <Link href="/blog" passHref={true}>
             <Button>
               <div className="flex flex-row items-center">
-                <img className="mr-4" src={Back} />
+                <div className="mr-4 text-none"><Image src={Back} width={52} height={52} layout="fixed" quality={100}/></div>
                 <span className="text-orange-500 text-xs leading-normal font-semibold">Retour au blog</span>
               </div>
             </Button>
@@ -126,17 +126,20 @@ function IdeaContent({ content }: Props) {
         </div>
       </div>
       <div className={`pb-4 bg-white shadow-md ${styles['md:round8']}`}>
-        <img
+        <div className="relative h-80 md:h-128"><Image
           src={content.imageUrl ? content.imageUrl : Placeholder}
-          className={`w-full h-80 md:h-128 ${styles['md:round8top']} object-cover`}
-        />
+          className={styles['md:round8top']}
+          layout="fill"
+          objectFit="cover"
+          quality={100}
+        /></div>
         <div className="px-4 md:px-8 text-xs leading-normal text-orange-500 font-semibold flex items-center justify-between py-4">
           <span className="flex items-center">
             <span className="pr-8">
               {content.date.slice(8, 10)} / {content.date.slice(5, 7)} / {content.date.slice(0, 4)}
             </span>
             <span className="flex items-center pr-8">
-              <img src={AccessTime} style={{ width: 15, height: 15 }} alt="read_time" />
+              <Image src={AccessTime} width={15} height={15} alt="read_time" layout="fixed" quality={100}/>
               &nbsp;{content.readTime} min.
             </span>
           </span>
@@ -145,19 +148,19 @@ function IdeaContent({ content }: Props) {
               href={`https://www.facebook.com/sharer/sharer.php?u=${location.split('#')[0]}`}
               className={`w-6 h-6 mr-4 self-center shadow-sm hover:shadow-md bg-white rounded-full ${commonStyles.smoothTransition} p-1`}
             >
-              <img src={Facebook} className="w-4 h-4" />
+              <Image src={Facebook} className="w-4 h-4" width={24} height={24} quality={100}/>
             </Button>
             <Button
               href={`https://www.linkedin.com/shareArticle?mini=true&url=${location.split('#')[0]}`}
               className={`w-6 h-6 mr-4 shadow-sm hover:shadow-md bg-white rounded-full ${commonStyles.smoothTransition} p-1`}
             >
-              <img src={Linkedin} className="w-4 h-4" />
+            <Image src={Linkedin} className="w-4 h-4" width={24} height={24} quality={100}/>
             </Button>
             <Button
               href={`https://twitter.com/intent/tweet?text=${location.split('#')[0]}`}
               className={`w-6 h-6 shadow-sm hover:shadow-md bg-white rounded-full ${commonStyles.smoothTransition} p-1`}
             >
-              <img src={Twitter} className="w-4 h-4" />
+            <Image src={Twitter} className="w-4 h-4" width={24} height={24} quality={100}/>
             </Button>
           </div>
         </div>

@@ -70,27 +70,28 @@ export default function Header({ invertColors, className }: Props) {
 
           <div className="flex items-center flex-shrink-0 text-orange-500 md:text-white">
             <Link href="/">
-              <a className="ml-auto mr-auto md:ml-0 flex items-center">
+              <a className="mx-auto md:ml-0 flex items-center">
                 {
-                  <Image
-                    className={clsx({ 'md:inline': invertColors && position < 200 }, `${styles.logoAgaetis} hidden`)}
-                    src={logoAgaetisDesktop}
-                    alt="logo agaetis"
-                    width={1035}
-                    height={330}
-                  />
+                  <div className={clsx({ 'md:inline': invertColors && position < 200 }, `${styles.logoAgaetis} hidden`)}>
+                    <Image
+                      src={logoAgaetisDesktop}
+                      alt="logo agaetis"
+                      width={1035}
+                      height={330}
+                      quality={100}
+                    />
+                  </div>
                 }
                 {
-                  <Image
-                    className={clsx(
-                      invertColors && position < 200 ? 'md:hidden' : 'inline',
-                      position > 200 ? styles.logoSticky : styles.logoAgaetis
-                    )}
-                    src={logoAgaetisMobile}
-                    alt="logo agaetis"
-                    width={1035}
-                    height={330}
-                  />
+                  <div className={clsx(invertColors && position < 200 ? 'md:hidden' : 'inline', position > 200 ? styles.logoSticky : styles.logoAgaetis)}>
+                    <Image
+                      src={logoAgaetisMobile}
+                      alt="logo agaetis"
+                      width={1035}
+                      height={330}
+                      quality={100}
+                    />
+                  </div>
                 }
               </a>
             </Link>
@@ -127,20 +128,25 @@ export default function Header({ invertColors, className }: Props) {
 
           <div className="flex items-center flex-shrink-0 text-orange-500 md:text-white">
             <Link href="/">
-              <a className="ml-auto mr-auto md:ml-0 flex items-center">
-                <img
-                  className={clsx({ 'md:inline': invertColors && position < 200 }, `${styles.logoAgaetis} hidden`)}
-                  src={logoAgaetisDesktop}
-                  alt="logo agaetis"
-                />
-                <img
-                  className={clsx(
-                    invertColors && position < 200 ? 'md:hidden' : 'inline',
-                    position > 200 ? styles.logoSticky : styles.logoAgaetis
-                  )}
-                  src={logoAgaetisMobile}
-                  alt="logo agaetis"
-                />
+              <a className="mx-full md:ml-0 flex items-center">
+                <div className={clsx({ 'md:inline': invertColors && position < 200 }, `${styles.logoAgaetis} hidden`)}>
+                  <Image
+                    src={logoAgaetisDesktop}
+                    alt="logo agaetis"
+                    width={1035}
+                    height={330}
+                    quality={100}
+                  />
+                </div>
+                <div className={clsx(invertColors && position < 200 ? 'md:hidden' : 'inline', position > 200 ? styles.logoSticky : styles.logoAgaetis)}>
+                  <Image
+                    src={logoAgaetisMobile}
+                    alt="logo agaetis"
+                    width={1035}
+                    height={330}
+                    quality={100}
+                  />
+                </div>
               </a>
             </Link>
             <button

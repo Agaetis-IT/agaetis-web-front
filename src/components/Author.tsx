@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import Head from 'next/head'
-import React, { useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 
 import Button from './Button'
 import Layout from './Layout'
@@ -19,6 +19,7 @@ import Error from '../pages/_error'
 import SnackBar from './SnackBar'
 
 import styles from '../styles/Common.module.css'
+import Image from 'next/image'
 
 interface Props {
   ideasDescription: IdeasDesc[]
@@ -105,16 +106,11 @@ export default function Author({ ideasDescription, author, content, errorCode, h
         <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/author/${author.id}`} />
       </Head>
       <Layout invertColors={false}>
-        <div className="pt-0 md:pt-28">
-          <div
-            style={{
-              backgroundImage: `url("${Particles}")`,
-              backgroundRepeat: 'no-repeat',
-              backgroundPosition: 'left top',
-              backgroundSize: '100%',
-            }}
-            className="p-6 md:p-16 lg:px-32 xl:px-48 bg-gray-400"
-          >
+        <div className="relative pt-0 md:pt-28 bg-gray-400">
+          <div className="absolute w-full">
+          <Image src={Particles} layout="responsive" height={960} width={1920}
+            quality={100}/></div>
+          <div className="p-6 md:p-16 lg:px-32 xl:px-48">
             <div className="mx-1 md:mx-2">
               <div>
                 <h1
@@ -123,14 +119,16 @@ export default function Author({ ideasDescription, author, content, errorCode, h
                 ></h1>
                 <div>
                   <div className="flex flex-row items-center">
-                    <img className={`my-8 ${styles.round8} shadow-md`} src={author.avatar} />
+                    <div className={`my-8 ${styles.round8} shadow-md text-none`}>
+                      <Image className={`block ${styles.round8}`} src={author.avatar as string} width={96} height={96} quality={100}/>
+                    </div>
                     <p className="ml-4 text-xl leading-normal font-semibold">{author.name}</p>
                     {author.linkedInLink && (
                       <Button
                         href={author.linkedInLink}
-                        className={`w-6 h-6 ml-4 shadow-sm hover:shadow-md bg-white rounded-full ${styles.smoothTransition} p-1`}
+                        className={`w-6 h-6 ml-4 shadow-sm hover:shadow-md bg-white rounded-full ${styles.smoothTransition} p-1 text-none`}
                       >
-                        <img src={Linkedin} className="w-4 h-4" />
+                        <Image src={Linkedin} className="w-4 h-4" width={24} height={24} quality={100}/>
                       </Button>
                     )}
                   </div>
