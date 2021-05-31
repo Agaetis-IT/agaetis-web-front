@@ -2,7 +2,7 @@
 import clsx from 'clsx'
 import { NextPageContext } from 'next'
 import Head from 'next/head'
-import React, { useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 
 import Button from '../components/Button'
 import IdeaContent from '../components/IdeaContent'
@@ -25,6 +25,7 @@ import { PostAPI } from '../models/IdeasAPI'
 import { AuthorLink } from '../types/AuthorContent'
 import SnackBar from '../components/SnackBar'
 import send from '../services/contactService'
+import Image from 'next/image'
 
 interface Props {
   data: IdeasContent
@@ -110,16 +111,11 @@ export default function Idea({ data, related, errorCode, meta }: Props) {
         <meta name="twitter:data2" value={`${data.readTime} min.`} />
       </Head>
       <Layout invertColors={false}>
-        <div className="pt-0 md:pt-28">
-          <div
-            style={{
-              backgroundImage: `url("${Particles}")`,
-              backgroundRepeat: 'no-repeat',
-              backgroundPosition: 'left top',
-              backgroundSize: '100%',
-            }}
-            className="bg-gray-400 py-4 md:p-16 lg:px-32 xl:px-48"
-          >
+        <div className="relative pt-0 md:pt-28">
+          <div className="absolute mt-0 md:mt-28 bg-gray-400 top-0 left-0 right-0 bottom-0 z-back">
+            <Image src={Particles} layout="responsive" height={960} width={1920} quality={100}/>
+          </div>
+          <div className="py-4 md:p-16 lg:px-32 xl:px-48">
             <IdeaContent content={data} />
             {related && related.length > 0 && (
               <>

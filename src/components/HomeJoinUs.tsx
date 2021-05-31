@@ -28,39 +28,34 @@ export default function HomeJoinUs({
     <>
       <div className="hidden py-8 md:p-16 xl:px-32 lg:flex flex-row">
         <div className="my-auto w-1/3">
-          {
-            <Image src={joinUs_image_desktop} width={559} height={443} quality={100}/>
-          }
+          <Image src={joinUs_image_desktop} width={559} height={443} quality={100}/>
         </div>
-        <div
-          style={{
-            backgroundImage: `url("${joinUs_human}")`,
-            backgroundSize: 'contain',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat',
-          }}
-          className="flex flex-row justify-between w-2/3 py-32 px-8"
-        >
-          <div className="my-auto w-2/5 pr-8">
-            <h3 className="text-black text-2xl leading-normal">{joinUs_agaetis_title}</h3>
-            <p className="my-8 text-sm leading-normal text-justify">{joinUs_agaetis_desc}</p>
-            <Button
-              href="/agaetis"
-              className="bg-orange-500 text-white rounded-full text-sm leading-normal font-semibold px-6 py-3 shadow-md"
-            >
-              En savoir plus
-            </Button>
+        <div className="relative w-2/3">
+          <div className="absolute top-0 left-0 right-0 bottom-0 z-back">
+            <Image src={joinUs_human} layout="fill" objectFit="contain" quality={100}/>
           </div>
+          <div className="flex flex-row justify-between py-32 px-8">
+            <div className="my-auto w-2/5 pr-8">
+              <h3 className="text-black text-2xl leading-normal">{joinUs_agaetis_title}</h3>
+              <p className="my-8 text-sm leading-normal text-justify">{joinUs_agaetis_desc}</p>
+              <Button
+                href="/agaetis"
+                className="bg-orange-500 text-white rounded-full text-sm leading-normal font-semibold px-6 py-3 shadow-md"
+              >
+                En savoir plus
+              </Button>
+            </div>
 
-          <div className="my-auto w-2/5 pl-8">
-            <h3 className="text-black text-2xl leading-normal">{joinUs_carreer_title}</h3>
-            <p className="my-8 text-sm leading-normal text-justify">{joinUs_carreer_desc}</p>
-            <Button
-              href="/jobs"
-              className="bg-white text-orange-500 rounded-full text-sm leading-normal font-semibold px-6 py-3 shadow-md"
-            >
-              Jobs
-            </Button>
+            <div className="my-auto w-2/5 pl-8">
+              <h3 className="text-black text-2xl leading-normal">{joinUs_carreer_title}</h3>
+              <p className="my-8 text-sm leading-normal text-justify">{joinUs_carreer_desc}</p>
+              <Button
+                href="/jobs"
+                className="bg-white text-orange-500 rounded-full text-sm leading-normal font-semibold px-6 py-3 shadow-md"
+              >
+                Jobs
+              </Button>
+            </div>
           </div>
         </div>
       </div>

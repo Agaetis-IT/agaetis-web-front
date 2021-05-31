@@ -60,89 +60,84 @@ export default function HomeOffers({ title, offers }: Props) {
               {index !== selectedOffer && (
                 <hr className="block md:hidden border-b border-solid border-gray-500 opacity-50 mx-4" />
               )}
-
-              <div
-                style={{
-                  backgroundImage: `url(${offers[selectedOffer].image})`,
-                  backgroundPosition: 'center',
-                  backgroundSize: 'cover',
-                }}
-                className={clsx('md:hidden w-full md:w-1/2 p-4', index === selectedOffer ? 'block' : 'hidden')}
-              >
-                <div style={{ backgroundColor: 'rgba(0,0,0,0.5)' }} className="p-4">
-                  <ul className="p-0 list-none">
-                    {offers.map((offer, index) => (
-                      <li key={index} className={clsx({ hidden: selectedOffer != index }, 'my-4')}>
-                        <h3 className="text-orange-500">{offer.title}</h3>
-                        <p className="text-sm leading-normal text-justify text-white py-8">
-                          {offer.offers_description}
-                        </p>
-                        {offers[selectedOffer].related_landingpage && (
-                          <Link
-                            href={`/landingpages/${
-                              offers[selectedOffer].related_landingpage!.split('/')[
-                                offers[selectedOffer].related_landingpage!.split('/').length - 2
-                              ]
-                            }`}
-                          >
-                            <Button
-                              className="flex flex-row justify-center w-40 bg-orange-500 text-white mx-auto rounded-full px-4 py-2 mt-4"
+              <div className={clsx('relative md:hidden w-full md:w-1/2', index === selectedOffer ? 'block' : 'hidden')}>
+                <div className="absolute bg-gray-800 top-0 left-0 right-0 bottom-0 z-back">
+                  <Image src={offers[selectedOffer].image} layout="fill" objectFit="cover" quality={100}/>
+                </div>
+                <div className="p-4">
+                  <div style={{ backgroundColor: 'rgba(0,0,0,0.5)' }} className="p-4">
+                    <ul className="p-0 list-none">
+                      {offers.map((offer, index) => (
+                        <li key={index} className={clsx({ hidden: selectedOffer != index }, 'my-4')}>
+                          <h3 className="text-orange-500">{offer.title}</h3>
+                          <p className="text-sm leading-normal text-justify text-white py-8">
+                            {offer.offers_description}
+                          </p>
+                          {offers[selectedOffer].related_landingpage && (
+                            <Link
                               href={`/landingpages/${
                                 offers[selectedOffer].related_landingpage!.split('/')[
                                   offers[selectedOffer].related_landingpage!.split('/').length - 2
                                 ]
                               }`}
                             >
-                              En savoir plus
-                            </Button>
-                          </Link>
-                        )}
-                      </li>
-                    ))}
-                  </ul>
+                              <Button
+                                className="flex flex-row justify-center w-40 bg-orange-500 text-white mx-auto rounded-full px-4 py-2 mt-4"
+                                href={`/landingpages/${
+                                  offers[selectedOffer].related_landingpage!.split('/')[
+                                    offers[selectedOffer].related_landingpage!.split('/').length - 2
+                                  ]
+                                }`}
+                              >
+                                En savoir plus
+                              </Button>
+                            </Link>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
               </div>
             </li>
           ))}
         </ul>
       </div>
-      <div
-        style={{
-          backgroundImage: `url(${offers[selectedOffer].image})`,
-          backgroundPosition: 'center',
-          backgroundSize: 'cover',
-        }}
-        className="hidden md:block bg-gray-800 w-full md:w-1/2 md:p-12 lg:p-16"
-      >
-        <div style={{ backgroundColor: 'rgba(0,0,0,0.3)' }} className="p-4">
-          <ul className="p-0 list-none">
-            {offers.map((offer, index) => (
-              <li key={index} className={clsx({ hidden: selectedOffer != index }, 'my-4')}>
-                <h3 className="text-orange-500">{offer.title}</h3>
-                <p className="text-sm leading-normal text-justify text-white py-8 pb-4">{offer.offers_description}</p>
-                {offers[selectedOffer].related_landingpage && (
-                  <Link
-                    href={`/landingpages/${
-                      offers[selectedOffer].related_landingpage!.split('/')[
-                        offers[selectedOffer].related_landingpage!.split('/').length - 2
-                      ]
-                    }`}
-                  >
-                    <Button
-                      className="flex flex-row justify-center w-40 bg-orange-500 text-white mx-auto rounded-full px-4 py-2 mt-4"
+      <div className="relative hidden md:block w-full md:w-1/2">
+        <div className="absolute bg-gray-800 top-0 left-0 right-0 bottom-0 z-back">
+          <Image src={offers[selectedOffer].image} layout="fill" objectFit="cover" quality={100}/>
+        </div>
+        <div className="md:p-12 lg:p-16">
+          <div style={{ backgroundColor: 'rgba(0,0,0,0.3)' }} className="p-4">
+            <ul className="p-0 list-none">
+              {offers.map((offer, index) => (
+                <li key={index} className={clsx({ hidden: selectedOffer != index }, 'my-4')}>
+                  <h3 className="text-orange-500">{offer.title}</h3>
+                  <p className="text-sm leading-normal text-justify text-white py-8 pb-4">{offer.offers_description}</p>
+                  {offers[selectedOffer].related_landingpage && (
+                    <Link
                       href={`/landingpages/${
                         offers[selectedOffer].related_landingpage!.split('/')[
                           offers[selectedOffer].related_landingpage!.split('/').length - 2
                         ]
                       }`}
                     >
-                      En savoir plus
-                    </Button>
-                  </Link>
-                )}
-              </li>
-            ))}
-          </ul>
+                      <Button
+                        className="flex flex-row justify-center w-40 bg-orange-500 text-white mx-auto rounded-full px-4 py-2 mt-4"
+                        href={`/landingpages/${
+                          offers[selectedOffer].related_landingpage!.split('/')[
+                            offers[selectedOffer].related_landingpage!.split('/').length - 2
+                          ]
+                        }`}
+                      >
+                        En savoir plus
+                      </Button>
+                    </Link>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </div>

@@ -29,14 +29,15 @@ export default function HomeSectors({ title, sectors }: Props) {
               })}
             >
               <div className={clsx('md:bg-white w-full md:shadow-md flex flex-row justify-between')}>
-                <div
-                  style={{
-                    backgroundImage: `url("${sector.image}")`,
-                    backgroundPosition: 'center',
-                    backgroundSize: 'cover',
-                  }}
-                  className="bg-white h-24 w-24 absolute md:relative md:h-auto md:w-1/2 rounded-full md:rounded-none shadow-md"
-                ></div>
+                <div className="bg-white h-24 w-24 absolute md:relative md:h-auto md:w-1/2 rounded-full md:rounded-none shadow-md">
+                  <Image
+                    src={sector.image}
+                    className="rounded-full md:rounded-none"
+                    layout="fill"
+                    objectFit="cover"
+                    quality={100}
+                  />
+                </div>
 
                 <div className="bg-white md:bg-none h-24 md:h-auto p-4 md:py-8 w-full md:w-1/2 flex flex-row md:flex-col items-center justify-between md:justify-center ml-12 md:m-0 shadow-md">
                   <div className="p-0 ml-12 md:m-0 md:p-4 pt-0">

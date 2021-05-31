@@ -19,13 +19,15 @@ export default function IdeasCard({ slug, title, image, description }: Props) {
     <Link href={`/${slug}`}>
       <a className="text-black">
         <div className={`bg-white sm:flex ${commonStyles.round8}`}>
-          <div className={`relative w-full sm:w-3/10 h-56 ${styles.round8top} ${styles['sm:round8left']}`}><Image
-            src={image ? image : Placeholder}
-            className={`${styles.round8top} ${styles['sm:round8left']}`}
-            layout="fill"
-            objectFit="cover"
-            quality={100}
-          /></div>
+          <div className={`relative w-full sm:w-3/10 h-56 ${styles.round8top} ${styles['sm:round8left']}`}>
+            <Image
+              src={image ? image : Placeholder}
+              className={`${styles.round8top} ${styles['sm:round8left']}`}
+              layout="fill"
+              objectFit="cover"
+              quality={100}
+            />
+          </div>
           <div className="py-6 px-8 h-56 w-full sm:w-7/10">
             <div className="h-1/3">
               <h3

@@ -277,6 +277,16 @@ module.exports = {
       full: '100%',
       screen: '100vw',
     }),
+    zIndex: {
+      auto: 'auto',
+      'back': '-1',
+      '0': '0',
+      '10': '10',
+      '20': '20',
+      '30': '30',
+      '40': '40',
+      '50': '50',
+    },
     extend: {},
   },
   variants: {
