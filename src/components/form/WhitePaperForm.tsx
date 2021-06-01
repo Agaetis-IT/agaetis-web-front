@@ -1,5 +1,5 @@
 /*import clsx from 'clsx'
-import React, { useRef } from 'react'
+import { useRef } from 'react'
 import ReCAPTCHA from 'react-google-recaptcha'
 
 import { WhitepaperFormValues, whitePaperInitialValues, whitePaperSchema } from '../../yup/WhitePaperFormValidation'
@@ -92,7 +92,7 @@ export default function WhitePaperForm({ title, file, className, handleNextStep,
           </Button>
           <Button
             href="/ideas#whitepapers"
-            className="w-64 block border text-center border-orange-500 text-orange-500 px-8 py-3 leading-none rounded-full uppercase mx-auto mt-4 bg-transparent text-black text-xs font-semibold"
+            className="w-64 block border text-center border-orange-500 text-orange-500 px-8 py-3 leading-none rounded-full uppercase mx-auto mt-4 bg-transparent text-xs font-semibold"
           >
             Voir les autres livres blancs
           </Button>

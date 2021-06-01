@@ -10,22 +10,22 @@ export interface SolutionsContent {
 
 interface WhyUs {
   title: string
-  sections: Array<{
+  sections: {
     index: number
     icon: string
     title: string
     description: string
-  }>
+  }[]
 }
 
 export interface Tab {
   index: number
   header: string
-  sections: Array<{
+  sections: {
     index: number
     title: string
     description: string
-  }>
+  }[]
   solutions_img: string
   whyUs: WhyUs
   partnerTitle: string

@@ -1,6 +1,6 @@
 import Router from 'next/router'
 import { NProgress } from '@tanem/react-nprogress'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import LoadingSpinner from './LoadingSpinner'
 import LoadingBar from './LoadingBar'
 import LoadingContainer from './LoadingContainer'

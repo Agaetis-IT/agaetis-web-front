@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import Head from 'next/head'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import Layout from '../components/Layout'
 import { getContactPageContent } from '../services/wordpressService'
@@ -72,12 +72,11 @@ export default function contact({ pageContent }: Props) {
   )
 }
 
-export async function getServerSideProps() {
-  const data = await getContactPageContent()
-
+export async function getStaticProps() {
   return {
     props: {
-      pageContent: data,
+      pageContent: await getContactPageContent(),
     },
+    revalidate: 30,
   }
 }

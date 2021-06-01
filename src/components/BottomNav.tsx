@@ -1,10 +1,7 @@
-import React from 'react'
-
 import Button from './Button'
 
 export default function BottomNav() {
   const links = [
-    // { title: t('footer.faq'), href: '/faq' },
     { title: 'Contact', href: '/contact' },
     { title: 'Données personnelles', href: '/personal-data' },
     { title: 'Mentions légales', href: '/mentions-legales' },

@@ -1,5 +1,5 @@
 import { FormProvider, useForm } from 'react-hook-form'
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 
 import Button from './Button'
 import TextInput from './TextInput'

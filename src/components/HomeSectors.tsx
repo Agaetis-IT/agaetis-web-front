@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import { SectorDesc } from '../types/IndexContent'
 const arrowR = '/images/right-arrow.svg'

@@ -1,5 +1,5 @@
 import OffersContent, { OfferDesc, convertAPItoOffersContent, OfferLeaf } from '../types/OffersContent'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { getAllOffers, getCategoryOffers, getOffersPageContent } from '../services/wordpressService'
 
 import Button from '../components/Button'
@@ -160,7 +160,7 @@ export default function offers({ pageContent, allOffers }: Props) {
   )
 }
 
-offers.getInitialProps = async () => {
+export async function getStaticProps() {
   const { [0]: data, [1]: allOffersData } = await Promise.all([getOffersPageContent(), getAllOffers()])
   const pageContent = convertAPItoOffersContent(data)
   const allOffers = allOffersData.map(
@@ -179,5 +179,12 @@ offers.getInitialProps = async () => {
     }
   )
   const allOffersChildrens = await Promise.all(allOffers)
-  return { pageContent, allOffers: allOffersChildrens }
+
+  return {
+    props: {
+      pageContent,
+      allOffers: allOffersChildrens,
+    },
+    revalidate: 30,
+  }
 }

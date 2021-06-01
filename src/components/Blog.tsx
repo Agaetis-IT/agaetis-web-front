@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import React, { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import Button from '../components/Button'
 import CategoryTab from '../components/CategoryTab'

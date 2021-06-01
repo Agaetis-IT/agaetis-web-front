@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import React from 'react'
 
 import ContactSection from '../components/ContactSection'
 import Hero from '../components/Hero'
@@ -44,8 +43,8 @@ function Index({ pageContent, offers }: Props) {
             {offers && <HomeOffers offers={offers} title={pageContent.offres_title}></HomeOffers>}
             <HomeSectors sectors={pageContent.secteurs} title={pageContent.secteurs_title}></HomeSectors>
             <HomeExpertises
-              expertises_title={pageContent.expertises_title}
-              expertises_image_desktop={pageContent.expertises_image_desktop}
+              expertisesTitle={pageContent.expertises_title}
+              expertisesImageDesktop={pageContent.expertises_image_desktop}
               expertises={pageContent.expertises}
             ></HomeExpertises>
             <HomeConvictions
@@ -53,14 +52,14 @@ function Index({ pageContent, offers }: Props) {
               title={pageContent.convictions_title}
             ></HomeConvictions>
             <HomeJoinUs
-              joinUs_agaetis_title={pageContent.joinUs_agaetis_title}
-              joinUs_agaetis_desc={pageContent.joinUs_agaetis_desc}
-              joinUs_carreer_title={pageContent.joinUs_carreer_title}
-              joinUs_carreer_desc={pageContent.joinUs_carreer_desc}
-              joinUs_human={pageContent.joinUs_human}
-              joinUs_image_desktop={pageContent.joinUs_image_desktop}
-              joinUs_image_mobile_1={pageContent.joinUs_image_mobile_1}
-              joinUs_image_mobile_2={pageContent.joinUs_image_mobile_2}
+              joinUsAgaetisTitle={pageContent.joinUs_agaetis_title}
+              joinUsAgaetisDesc={pageContent.joinUs_agaetis_desc}
+              joinUsCareerTitle={pageContent.joinUs_carreer_title}
+              joinUsCareerDesc={pageContent.joinUs_carreer_desc}
+              joinUsHuman={pageContent.joinUs_human}
+              joinUsImageDesktop={pageContent.joinUs_image_desktop}
+              joinUsImageMobile1={pageContent.joinUs_image_mobile_1}
+              joinUsImageMobile2={pageContent.joinUs_image_mobile_2}
             ></HomeJoinUs>
           </div>
           <ContactSection />
@@ -70,11 +69,16 @@ function Index({ pageContent, offers }: Props) {
   )
 }
 
-Index.getInitialProps = async () => {
+export async function getStaticProps() {
   const { [0]: data, [1]: allOffersData } = await Promise.all([getIndexContent(), getAllOffers()])
-  const pageContent = convertIndexContentAPItoContentAPI(data)
 
-  return { pageContent, offers: allOffersData.map((offer: OfferAPI) => offer.acf).sort(compareOffer) }
+  return { 
+    props: {
+      pageContent: JSON.parse(JSON.stringify(convertIndexContentAPItoContentAPI(data))),
+      offers: allOffersData.map((offer: OfferAPI) => offer.acf).sort(compareOffer),
+    },
+    revalidate: 30,
+  }
 }
 
 export default Index

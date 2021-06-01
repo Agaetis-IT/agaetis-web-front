@@ -1,6 +1,5 @@
 import clsx from 'clsx'
 import Link from 'next/link'
-import React from 'react'
 
 import Button from './Button'
 import styles from '../styles/NavigationMenu.module.css'
@@ -56,7 +55,7 @@ export default function NavigationMenu({ invertColors, position }: Props) {
         <Link href="/contact">
           <Button
             href="/contact"
-            className="block md:inline-block block md:mt-0 md:mr-16 md:ml-1 p-2 py-3 md:p-0 text-white text-base leading-normal font-extralight"
+            className="block md:inline-block md:mt-0 md:mr-16 md:ml-1 p-2 py-3 md:p-0 text-white text-base leading-normal font-extralight"
           >
             Contact
           </Button>

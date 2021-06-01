@@ -1,5 +1,4 @@
 import clsx from 'clsx'
-import React from 'react'
 import { slugify } from '../services/textUtilities'
 
 import { Category } from '../types/IdeasContent'

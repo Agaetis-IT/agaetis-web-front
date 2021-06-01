@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 interface Props {
   handleChange: (value: string) => void
@@ -19,7 +19,7 @@ export default function SearchInput({ handleChange, defaultValue }: Props) {
   }, [defaultValue])
 
   return (
-    <div className="w-full md:w-1/2 mr-auto px-4 flex flex-row items-center shadow-md border-2 border-orange-500 bg-gray-400 rounded-full w-full">
+    <div className="w-full md:w-1/2 mr-auto px-4 flex flex-row items-center shadow-md border-2 border-orange-500 bg-gray-400 rounded-full">
       <input
         className="bg-gray-400 w-full text-xs py-2 text-orange-500 font-semibold leading-tight"
         type="text"

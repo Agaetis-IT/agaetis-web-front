@@ -1,5 +1,3 @@
-import React from 'react'
-
 const Facebook = '/icons/facebook.png'
 const Linkedin = '/icons/linkedin.png'
 const Twitter = '/icons/twitter.png'

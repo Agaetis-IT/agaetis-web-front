@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { NextPageContext } from 'next'
 import { convertAPItoOfferleaf, OfferContent, OfferLeafContent } from '../types/OffersContent'
 import { getCategoryOffers, getIdeasByCategory, getOfferContent, getOfferLeaf } from '../services/wordpressService'
@@ -204,30 +204,43 @@ export default function offer({ pageContent, errorCode, offers }: Props): React.
   )
 }
 
-offer.getInitialProps = async ({ query }: Context) => {
-  // tslint:disable-next-line
-  const { [0]: data, [1]: offers } = await Promise.all([getOfferContent(query.slug!), getCategoryOffers(query.slug)])
-  const pageContent = { ...data.acf, slug: data.slug }
-  const allOffers = offers.map(
-    async (offer: {
-      acf: {
-        title: string
-        paragraph: string
-        offers_description: string
+export async function getStaticProps({ query }: Context) {
+  if (query) {
+    const { [0]: data, [1]: offers } = await Promise.all([getOfferContent(query.slug!), getCategoryOffers(query.slug)])
+    const pageContent = { ...data.acf, slug: data.slug }
+    const allOffers = offers.map(
+      async (offer: {
+        acf: {
+          title: string
+          paragraph: string
+          offers_description: string
+        }
+        post_name: string
+      }) => {
+        const { [0]: children, [1]: posts } = await Promise.all([
+          getOfferLeaf(query.slug, offer.post_name),
+          getIdeasByCategory(`_offer-${escape(offer.post_name)}`),
+        ])
+        return convertAPItoOfferleaf(children, posts.data)
       }
-      post_name: string
-    }) => {
-      const { [0]: children, [1]: posts } = await Promise.all([
-        getOfferLeaf(query.slug, offer.post_name),
-        getIdeasByCategory(`_offer-${escape(offer.post_name)}`),
-      ])
-      return convertAPItoOfferleaf(children, posts.data)
+    )
+    const offerChildrens = await Promise.all(allOffers)
+
+    return {
+      props: {
+        pageContent,
+        offers: offerChildrens,
+      },
+      notFound: !!!data.acf,
+      revalidate: 30,
     }
-  )
-  const offerChildrens = await Promise.all(allOffers)
+  }
+
   return {
-    pageContent,
-    errorCode: !!data.acf ? undefined : 404,
-    offers: offerChildrens,
+    props: {
+      pageContent: {},
+      offers: [],
+    },
+    revalidate: 30,
   }
 }

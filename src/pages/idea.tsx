@@ -117,7 +117,7 @@ export default function Idea({ data, related, errorCode, meta }: Props) {
           </div>
           <div className="py-4 md:p-16 lg:px-32 xl:px-48">
             <IdeaContent content={data} />
-            {related && related.length > 0 && (
+            {!!related && related.length > 0 && (
               <>
                 <div className="p-8 md:py-8 md:px-0">
                   <h2 className="text-center">Ces posts peuvent vous interesser</h2>
@@ -157,100 +157,98 @@ export default function Idea({ data, related, errorCode, meta }: Props) {
   )
 }
 
-export async function getServerSideProps({ query }: Context) {
-  const { [0]: data, [1]: meta } = await Promise.all([
-    getIdeaBySlug(escape(query.slug)),
-    getIdeaMeta(escape(query.slug)),
-  ])
-  const authors: AuthorLink[] = []
+export async function getStaticProps({ query }: Context) {
+  if (query) {
+    const { [0]: data, [1]: meta } = await Promise.all([
+      getIdeaBySlug(escape(query.slug)),
+      getIdeaMeta(escape(query.slug)),
+    ])
+    const authors: AuthorLink[] = []
 
-  if (data._embedded.author[0].name)
-    authors.push({
-      id: data._embedded.author[0].id,
-      name: data._embedded.author[0].name,
-    })
+    if (data._embedded.author[0].name) {
+      authors.push({
+        id: data._embedded.author[0].id,
+        name: data._embedded.author[0].name,
+      })
+    }
 
-  if (!!data.acf || !!data.content) {
-    const related = []
-    if (!!data.acf) {
-      for (const idea of data.acf.related_ideas) {
-        const data2 = await getIdeaBySlug(idea.post_name)
-        related.push(data2)
+    if (!!data.acf || !!data.content) {
+      const related = []
+      if (!!data.acf) {
+        for (const idea of data.acf.related_ideas) {
+          const data2 = await getIdeaBySlug(idea.post_name)
+          related.push(data2)
+        }
+
+        if (data.acf.co_author) {
+          for (const auth of data.acf.co_author) {
+            authors.push({
+              id: auth.ID,
+              name: auth.data.display_name,
+            })
+          }
+        }
       }
 
-      if (data.acf.co_author) {
-        for (const auth of data.acf.co_author) {
-          authors.push({
-            id: auth.ID,
-            name: auth.data.display_name,
-          })
-        }
+      return {
+        props: {
+          data: {
+            title: data.title.rendered || '',
+            imageUrl: data.acf.idea_image || '',
+            date: data.date || '',
+            authors: authors || [],
+            categories: data._embedded['wp:term'][0].map((category: { name: string }) => category.name) || [],
+            content: data.content.rendered || '',
+            slug: data.slug || '',
+            descriptionText: data.acf.idea_description || '',
+            tags:
+              data._embedded['wp:term'][1].map((tag: { name: string; slug: string }) => {
+                return { name: tag.name, slug: tag.slug }
+              }) || [],
+            readTime:
+              data.content.rendered && Math.floor(data.content.rendered.split(' ').length / 275)
+                ? Math.floor(data.content.rendered.split(' ').length / 275)
+                : '1',
+          },
+          related: related.map((idea: PostAPI) => {
+            return {
+              title: idea.title.rendered || '',
+              id: idea.id || '',
+              date: idea.date || '',
+              categories: data._embedded['wp:term'][0].map((category: { name: string }) => category.name) || [],
+              slug: idea.slug || '',
+              descriptionText: idea.acf.idea_description || '',
+              image: idea.acf.idea_image || '',
+            }
+          }),
+          meta: convertMetaAPItoMeta(meta, data._embedded),
+        },
+        revalidate: 30,
       }
     }
 
     return {
-      props: {
-        data: {
-          title: data.title.rendered || '',
-          imageUrl: data.acf.idea_image || '',
-          date: data.date || '',
-          authors: authors || '',
-          categories: data._embedded['wp:term'][0].map((category: { name: string }) => category.name) || [],
-          content: data.content.rendered || '',
-          slug: data.slug || '',
-          descriptionText: data.acf.idea_description || '',
-          tags:
-            data._embedded['wp:term'][1].map((tag: { name: string; slug: string }) => {
-              return { name: tag.name, slug: tag.slug }
-            }) || [],
-          readTime:
-            data.content.rendered && Math.floor(data.content.rendered.split(' ').length / 275)
-              ? Math.floor(data.content.rendered.split(' ').length / 275)
-              : '1',
-        },
-        related: related.map((idea: PostAPI) => {
-          return {
-            title: idea.title.rendered || '',
-            id: idea.id || '',
-            date: idea.date || '',
-            categories: data._embedded['wp:term'][0].map((category: { name: string }) => category.name) || [],
-            slug: idea.slug || '',
-            descriptionText: idea.acf.idea_description || '',
-            image: idea.acf.idea_image || '',
-          }
-        }),
-        meta: convertMetaAPItoMeta(meta, data._embedded),
-      },
+      notFound: true,
+      revalidate: 30,
     }
   }
-
+  
   return {
     props: {
       data: {
         title: '',
         imageUrl: '',
         date: '',
-        authors: '',
+        authors: [],
         categories: [],
         content: '',
         slug: '',
       },
-      related: {
-        title: '',
-        id: '',
-        date: '',
-        categories: [],
-        slug: '',
-        descriptionText: '',
-      },
+      related: [],
       meta: {
         description: '',
       },
-      errorCode: 404,
     },
+    revalidate: 30,
   }
-  // Next.js v10
-  /*return {
-    notFound: true,
-  }*/
 }

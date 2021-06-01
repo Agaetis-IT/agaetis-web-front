@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { NextPageContext } from 'next'
 import Head from 'next/head'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import WhitePaperForm from '../components/form/WhitePaperForm'
 import Layout from '../components/Layout'
@@ -111,13 +111,21 @@ export default function whitePaper({ pageContent, errorCode }: Props) {
   )
 }
 
-whitePaper.getInitialProps = async ({ query }: Context) => {
-  // tslint:disable-next-line
-  const data = await getWhitePaperContent(query.slug!)
-  if (!!data.acf) {
-    return {
-      pageContent: { ...data.acf, slug: data.slug },
+export async function getStaticProps({ query }: Context) {
+  if (query) {
+    const data = await getWhitePaperContent(query.slug!)
+    if (!!data.acf) {
+      return {
+        props: {
+          pageContent: { ...data.acf, slug: data.slug },
+        },
+        revalidate: 30,
+      }
     }
   }
-  return { errorCode: 404 }
+
+  return { 
+    notFound: true,
+    revalidate: 30,
+  }
 }

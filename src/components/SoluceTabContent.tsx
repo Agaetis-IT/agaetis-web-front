@@ -35,7 +35,6 @@ export default function SoluceTabContent({ content, className }: Props) {
             />
           </div>
         </div>
-
         <div>
           <h2 className="text-2xl leading-normal font-semibold py-8 text-center">{content.whyUs.title}</h2>
           <div className="flex flex-col sm:flex-row justify-between">

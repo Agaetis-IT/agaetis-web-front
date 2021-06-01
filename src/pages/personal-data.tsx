@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import React from 'react'
 
 import Layout from '../components/Layout'
 import { getPersonalDataContent } from '../services/wordpressService'
@@ -44,12 +43,16 @@ export default function personalData({ pageContent }: Props) {
   )
 }
 
-personalData.getInitialProps = async () => {
+export async function getStaticProps() {
   const data = await getPersonalDataContent()
+  
   return {
-    pageContent: {
-      title: data.title.rendered,
-      content: data.content.rendered,
+    props: {
+      pageContent: {
+        title: data.title.rendered,
+        content: data.content.rendered,
+      },
     },
+    revalidate: 30,
   }
 }

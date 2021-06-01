@@ -6,9 +6,9 @@
   "scripts": {
     "test": "jest",
     "dev": "ts-node --project tsconfig.server.json ./server.ts",
-    "build": "next build ./src && tsc -p ./src",
+    "build": "next build . && tsc -p .",
     "build:start": "node server.js",
-    "start": "next start ./src",
+    "start": "next start .",
     "typecheck": "tsc --project tsconfig.json --noEmit",
     "precommit": "lint-staged && npm test",
     "lint": "eslint \"src/**/*.{ts,tsx,js,jsx}\"",

@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import React from 'react'
 
 import Layout from '../components/Layout'
 import { getMentionsLegalesContent } from '../services/wordpressService'
@@ -44,12 +43,16 @@ export default function mentionsLegales({ pageContent }: Props) {
   )
 }
 
-mentionsLegales.getInitialProps = async () => {
+export async function getStaticProps() {
   const data = await getMentionsLegalesContent()
+
   return {
-    pageContent: {
-      title: data.title.rendered,
-      content: data.content.rendered,
+    props: {
+      pageContent: {
+        title: data.title.rendered,
+        content: data.content.rendered,
+      },
     },
+    revalidate: 30,
   }
 }

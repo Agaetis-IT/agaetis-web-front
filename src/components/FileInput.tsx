@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 import clsx from 'clsx'
 
 import styles from '../styles/FileInput.module.css'

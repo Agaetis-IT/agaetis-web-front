@@ -17,11 +17,6 @@ declare global {
   }
 }
 
-interface Context {
-  Component: any
-  ctx: any
-}
-
 export default function MyApp({ Component, pageProps }) {
   useEffect(() => {
     const cookies = localStorage.getItem('cookies')

@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import React from 'react'
 import { createMarkup } from '../services/textUtilities'
 const Placeholder = '/images/blog-post-placeholder.jpg'
 

@@ -1,6 +1,5 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import React from 'react'
 import ContactSection from '../components/ContactSection'
 
 import Layout from '../components/Layout'
@@ -57,9 +56,13 @@ function solutions({ pageContent }: Props) {
   )
 }
 
-solutions.getInitialProps = async () => {
-  const pageContent = await getSolutionsPageContent()
-  return { pageContent }
+export async function getStaticProps() {
+  return { 
+    props: {
+      pageContent: JSON.parse(JSON.stringify(await getSolutionsPageContent())),
+    },
+    revalidate: 30,
+  }
 }
 
 export default solutions

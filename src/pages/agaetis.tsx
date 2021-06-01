@@ -1,7 +1,6 @@
 import clsx from 'clsx'
 import Head from 'next/head'
 import Link from 'next/link'
-import React from 'react'
 
 import AgaetisCard from '../components/AgaetisCard'
 import ContactSection from '../components/ContactSection'
@@ -73,7 +72,11 @@ export default function agaetis({ pageContent }: Props) {
   )
 }
 
-agaetis.getInitialProps = async () => {
-  const pageContent = await getAgaetisContent()
-  return { pageContent: convertAgaetisAPItoContent(pageContent) }
+export async function getStaticProps() {
+  return {
+    props: {
+      pageContent: JSON.parse(JSON.stringify(convertAgaetisAPItoContent(await getAgaetisContent())))
+    }, 
+    revalidate: 30,
+  }
 }

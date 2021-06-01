@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import Link from 'next/link'
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
 
 import styles from '../styles/Header.module.css'
@@ -66,8 +66,6 @@ export default function Header({ invertColors, className }: Props) {
     <>
       <header className={clsx('p-3 md:py-8 header-1', 'md:right-0 md:left-0 md:absolute md:mx-auto', className)}>
         <nav className="flex flex-col md:flex-row items-start md:items-center flex-wrap justify-between lg:justify-center">
-          {/*Site logo + Hamburger icon */}
-
           <div className="flex items-center flex-shrink-0 text-orange-500 md:text-white">
             <Link href="/">
               <a className="mx-auto md:ml-0 flex items-center">
@@ -124,8 +122,6 @@ export default function Header({ invertColors, className }: Props) {
         )}
       >
         <nav className="flex flex-col md:flex-row item-start md:items-center flex-wrap justify-between lg:justify-center">
-          {/*Site logo + Hamburger icon */}
-
           <div className="flex items-center flex-shrink-0 text-orange-500 md:text-white">
             <Link href="/">
               <a className="mx-full md:ml-0 flex items-center">

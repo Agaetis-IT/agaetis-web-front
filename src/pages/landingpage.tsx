@@ -77,12 +77,24 @@ export default function Landingpage({ pageContent, errorCode }: Props) {
   )
 }
 
-Landingpage.getInitialProps = async ({ query }: Context) => {
-  // tslint:disable-next-line
-  const { [0]: data } = await Promise.all([getLandingPageContent(query.slug!)])
-  const pageContent = convertAPItoLandingPageContent({ ...data })
+export async function getStaticProps({ query }: Context) {
+  if (query) {
+    const { [0]: data } = await Promise.all([getLandingPageContent(query.slug!)])
+    const pageContent = convertAPItoLandingPageContent({ ...data })
+
+    return {
+      props: {
+        pageContent,
+      },
+      notFound: !!!data.acf,
+      revalidate: 30,
+    }
+  }
+
   return {
-    pageContent,
-    errorCode: !!data.acf ? undefined : 404,
+    props: {
+      pageContent: {},
+    },
+    revalidate: 30,
   }
 }

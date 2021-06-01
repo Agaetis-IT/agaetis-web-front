@@ -2,24 +2,23 @@ import Image from 'next/image'
 
 import { Expertise } from '../types/IndexContent'
 
-/* eslint-disable @typescript-eslint/camelcase */
 interface Props {
-  expertises_title: string
-  expertises_image_desktop: string
+  expertisesTitle: string
+  expertisesImageDesktop: string
   expertises: Expertise[]
 }
 
-export default function HomeExpertises({ expertises_title, expertises_image_desktop, expertises }: Props) {
+export default function HomeExpertises({ expertisesTitle, expertisesImageDesktop, expertises }: Props) {
   return (
     <>
       <div className="hidden lg:block md:p-16 xl:px-32">
-        <h2 className="text-orange-500 font-semibold text-center md:text-left">{expertises_title}</h2>
+        <h2 className="text-orange-500 font-semibold text-center md:text-left">{expertisesTitle}</h2>
         <div className="md:my-16 relative" id="expertise-container-desktop">
-          <Image src={expertises_image_desktop} width={1537} height={750} layout="responsive" quality={100}/>
+          <Image src={expertisesImageDesktop} width={1537} height={750} layout="responsive" quality={100}/>
         </div>
       </div>
       <div className="block lg:hidden p-4 py-8 relative" id="expertise-container">
-        <h2 className="text-orange-500 font-semibold text-center md:text-left">{expertises_title}</h2>
+        <h2 className="text-orange-500 font-semibold text-center md:text-left">{expertisesTitle}</h2>
         <div className="mt-8">
           {expertises.map((e) => (
             <div key={e.title} className="flex flex-row py-4">

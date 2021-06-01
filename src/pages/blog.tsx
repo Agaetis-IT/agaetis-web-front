@@ -8,7 +8,7 @@ import Blog from '../components/Blog'
 
 export default Blog
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const { [0]: ideas, [1]: categories, [2]: content, [3]: whitepapers } = await Promise.all([
     getIdeasByPage(),
     getCategories(),
@@ -41,5 +41,6 @@ export async function getServerSideProps() {
       hideSeeMore: ideas.pageCount == 1,
       tagFilter: null,
     },
+    revalidate: 30,
   }
 }
