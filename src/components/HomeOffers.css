@@ -14,11 +14,12 @@
   transform: rotate(90deg);
   fill: orange;
   stroke: orange;
-  transition: transform 1s;
+  transition: transform 0.5s;
 }
 
 .offer-selected-arrow {
   transform: rotate(-90deg);
+  transition: transform 0.5s;
 }
 
 @media (min-width: 820px) {
@@ -28,4 +29,37 @@
   }
 }
 
+.background-blur {
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.offer-flyout-open {
+  max-height: 650px;
+}
+
+.offer-flyout-close {
+  max-height: 0;
+}
+
+.offer-flyout {
+  overflow: hidden;
+  transition: max-height 0.5s;
+  border-radius: 0 0 8px 8px;
+}
+
+@media (max-width: 820px) {
+  .offer-header {
+    overflow: hidden;
+    transition: border-radius 0.5s;
+  }
+
+  .offer-header-open {
+    border-radius: 40px 8px 0 40px;
+  }
+
+  .offer-header-close {
+    border-radius: 40px 8px 8px 40px;
+  }
+}
 /* purgecss end ignore */

@@ -3,97 +3,97 @@ import Button from './Button'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 
 interface Props {
-  joinUs_image_desktop: string
-  joinUs_image_mobile_1: string
-  joinUs_image_mobile_2: string
-  joinUs_human: string
-  joinUs_agaetis_title: string
-  joinUs_agaetis_desc: string
-  joinUs_carreer_title: string
-  joinUs_carreer_desc: string
+  joinUsImageDesktop: string
+  joinUsImageMobile1: string
+  joinUsImageMobile2: string
+  joinUsHuman: string
+  joinUsAgaetisTitle: string
+  joinUsAgaetisDesc: string
+  joinUsCarreerTitle: string
+  joinUsCarreerDesc: string
 }
 
 /* eslint-disable @typescript-eslint/camelcase */
 export default function HomeJoinUs({
-  joinUs_image_desktop,
-  joinUs_image_mobile_1,
-  joinUs_image_mobile_2,
-  joinUs_human,
-  joinUs_agaetis_title,
-  joinUs_agaetis_desc,
-  joinUs_carreer_title,
-  joinUs_carreer_desc,
+  joinUsImageDesktop,
+  joinUsImageMobile1,
+  joinUsImageMobile2,
+  joinUsHuman,
+  joinUsAgaetisTitle,
+  joinUsAgaetisDesc,
+  joinUsCarreerTitle,
+  joinUsCarreerDesc,
 }: Props) {
   return (
     <>
-      <div className="hidden py-8 md:p-16 xl:px-32 lg:flex flex-row">
+      <div className="hidden p-16 lg:px-24 lg:p-16 md:flex flex-row">
         <div className="my-auto w-1/3">
           {
             // eslint-disable-next-line
             // @ts-ignore-next-line
-            <LazyLoadImage effect="blur" src={joinUs_image_desktop} />
+            <LazyLoadImage effect="blur" src={joinUsImageDesktop} />
           }
         </div>
         <div
           style={{
-            backgroundImage: `url("${joinUs_human}")`,
+            backgroundImage: `url("${joinUsHuman}")`,
             backgroundSize: 'contain',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
           }}
-          className="flex flex-row justify-between  w-2/3 py-32 px-8"
+          className="flex flex-row justify-between w-2/3 py-32 px-8"
         >
-          <div className="my-auto w-2/5 pr-8">
-            <h3 className="text-black text-2xl">{joinUs_agaetis_title}</h3>
-            <p className="my-8 text-sm leading-normal text-justify">{joinUs_agaetis_desc}</p>
+          <div className="w-2/5 pr-8">
+            <h2 className="text-black text-2xl">{joinUsAgaetisTitle}</h2>
+            <p className="my-8 text-sm leading-normal text-justify">{joinUsAgaetisDesc}</p>
             <Button
               href="/agaetis"
-              className="bg-orange text-white rounded-full text-sm font-semibold px-6 py-3 shadow-md"
+              className="flex flex-row justify-center bg-orange text-white uppercase rounded-full px-6 py-2 shadow-md font-semibold text-xs h-fit w-48"
             >
               En savoir plus
             </Button>
           </div>
 
-          <div className="my-auto w-2/5 pl-8">
-            <h3 className="text-black text-2xl">{joinUs_carreer_title}</h3>
-            <p className="my-8 text-sm leading-normal text-justify">{joinUs_carreer_desc}</p>
+          <div className="w-2/5 pl-8">
+            <h2 className="text-black text-2xl">{joinUsCarreerTitle}</h2>
+            <p className="my-8 text-sm leading-normal text-justify">{joinUsCarreerDesc}</p>
             <Button
               href="/jobs"
-              className="bg-white text-orange rounded-full text-sm font-semibold px-6 py-3 shadow-md"
+              className="flex flex-row justify-center bg-white text-orange uppercase rounded-full px-6 py-2 shadow-md font-semibold text-xs h-fit w-48"
             >
               Jobs
             </Button>
           </div>
         </div>
       </div>
-      <div className="flex flex-col lg:hidden p-4 py-8 md:p-16">
-        <h3 className="text-orange">{joinUs_agaetis_title}</h3>
-        <p className="my-8 text-sm leading-normal text-justify">{joinUs_agaetis_desc}</p>
+      <div className="flex flex-col md:flex-row md:hidden p-4">
+        <h2 className="text-orange text-center mt-2 mb-6">{joinUsAgaetisTitle}</h2>
+        <p className="mb-8 text-sm leading-normal text-justify">{joinUsAgaetisDesc}</p>
         <div className="flex flex-row-reverse justify-between sm:justify-around mb-8">
           {
             // eslint-disable-next-line
             // @ts-ignore-next-line
-            <LazyLoadImage effect="blur" src={joinUs_image_mobile_1} className="h-40 w-auto" />
+            <LazyLoadImage effect="blur" src={joinUsImageMobile1} className="h-32 w-auto" />
           }
           <Button
             href="/agaetis"
-            className="bg-orange text-white rounded-full text-xs sm:text-sm font-semibold px-4 sm:px-12 py-2 sm:py-3 shadow-md h-12 flex flex-col justify-center my-auto"
+            className="flex flex-row justify-center bg-orange text-white uppercase rounded-full px-6 py-2 shadow-md font-semibold text-xs h-fit my-auto w-40 sm:w-48"
           >
             En savoir plus
           </Button>
         </div>
 
-        <h3 className="text-orange">{joinUs_carreer_title}</h3>
-        <p className="my-8 text-sm leading-normal text-justify">{joinUs_carreer_desc}</p>
-        <div className="flex flex-row justify-between sm:justify-around ">
+        <h2 className="text-orange text-center mt-2 mb-6">{joinUsCarreerTitle}</h2>
+        <p className="mb-8 text-sm leading-normal text-justify">{joinUsCarreerDesc}</p>
+        <div className="flex flex-row justify-between sm:justify-around mb-8">
           {
             // eslint-disable-next-line
             // @ts-ignore-next-line
-            <LazyLoadImage effect="blur" src={joinUs_image_mobile_2} className="h-40 w-auto" />
+            <LazyLoadImage effect="blur" src={joinUsImageMobile2} className="h-32 w-auto" />
           }
           <Button
             href="/jobs"
-            className="bg-white text-orange rounded-full text-xs sm:text-sm font-semibold px-4 sm:px-12 py-2 sm:py-3 shadow-md h-12 flex flex-col justify-center my-auto"
+            className="flex flex-row justify-center bg-white text-orange uppercase rounded-full px-6 py-2 shadow-md font-semibold text-xs h-fit my-auto w-40 sm:w-48"
           >
             Jobs
           </Button>

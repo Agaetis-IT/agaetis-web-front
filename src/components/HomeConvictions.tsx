@@ -11,9 +11,9 @@ interface Props {
 
 export default function HomeConvictions({ title, convictions }: Props) {
   return (
-    <div className="bg-orange py-8 md:p-16 xl:px-32">
-      <h2 className=" mb-4 md:my-0 text-white text-center md:text-left">{title}</h2>
-      <div className="convictions-container text-white mb-0 mt-8 md:my-8  lg:my-0 px-4 sm:px-12 md:px-4">
+    <div className="bg-orange p-4 md:p-16 lg:px-24 lg:p-16 shadow-md">
+      <h2 className="mb-6 mt-2 md:my-0 text-white text-center md:text-left">{title}</h2>
+      <div className="convictions-container text-white mb-0 mt-8 md:my-8 lg:my-0">
         {convictions.map((conviction, index) => (
           <div
             key={conviction.title}
