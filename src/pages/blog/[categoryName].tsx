@@ -61,7 +61,7 @@ export async function getServerSideProps({ query }: Context) {
         descriptionText: idea.acf.idea_description,
         date: idea.date,
         image:
-          (idea._embedded['wp:featuredimage'] &&
+          (idea._embedded['wp:featuredmedia'] &&
             idea._embedded['wp:featuredmedia'][0] &&
             idea._embedded['wp:featuredmedia'][0].source_url) ||
           '',
