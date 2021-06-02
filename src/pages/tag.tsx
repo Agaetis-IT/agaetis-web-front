@@ -32,7 +32,11 @@ export async function getServerSideProps({ query }: Context) {
         slug: idea.slug,
         descriptionText: idea.acf.idea_description,
         date: idea.date,
-        image: idea.acf.idea_image,
+        image:
+          (idea._embedded['wp:featuredimage'] &&
+            idea._embedded['wp:featuredmedia'][0] &&
+            idea._embedded['wp:featuredmedia'][0].source_url) ||
+          '',
       })),
       whitePapers:
         whitepapers && whitepapers.length > 0

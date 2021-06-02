@@ -16,9 +16,11 @@ import { useRouter } from 'next/router'
 import './IdeaContent.css'
 import Placeholder from '../static/images/blog-post-placeholder.jpg'
 import { AuthorLink } from '../types/AuthorContent'
+import Meta from '../types/Meta'
 
 interface Props {
   content: IdeasContent
+  meta: Meta
 }
 
 function formatAuthor(author: AuthorLink) {
@@ -48,7 +50,7 @@ function getTopOffset() {
   return floating && !floating.classList.contains('hidden') && window.innerWidth >= 820 ? floating.clientHeight : 0
 }
 
-function IdeaContent({ content }: Props) {
+function IdeaContent({ content, meta }: Props) {
   const router = useRouter()
   const [location, setLocation] = useState('')
 
@@ -125,7 +127,7 @@ function IdeaContent({ content }: Props) {
       </div>
       <div className="pb-4 bg-white shadow-md md:round8">
         <img
-          src={content.imageUrl ? content.imageUrl : Placeholder}
+          src={meta.featuredImage ? meta.featuredImage : Placeholder}
           className="w-full h-80 md:h-128 md:round8top object-cover"
         />
         <div className="px-4 md:px-8 text-xs text-orange font-semibold flex items-center justify-between py-4">
