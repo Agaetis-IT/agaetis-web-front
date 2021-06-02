@@ -117,7 +117,7 @@ export default function Idea({ data, related, errorCode, meta }: Props) {
             }}
             className="bg-light-grey py-4 md:p-16 lg:px-32 xl:px-48"
           >
-            <IdeaContent content={data} />
+            <IdeaContent content={data} meta={meta} />
             {related && related.length > 0 && (
               <>
                 <div className="p-8 md:py-8 md:px-0">
