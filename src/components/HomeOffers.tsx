@@ -15,10 +15,10 @@ interface Props {
 
 export default function HomeOffers({ title, offers }: Props) {
   const [selectedOffer, setSelectedOffer] = useState(0)
-  const [isOpennedOffer, setIsOpennedOffer] = useState(false)
+  const [isOpenedOffer, setIsOpenedOffer] = useState(false)
 
   const handleOfferChange = (index: number) => {
-    setIsOpennedOffer((isOpenned) => (selectedOffer !== index ? true : !isOpenned))
+    setIsOpenedOffer((isOpened) => (selectedOffer !== index ? true : !isOpened))
     setSelectedOffer(index)
   }
 
@@ -33,7 +33,7 @@ export default function HomeOffers({ title, offers }: Props) {
                 <div
                   className={clsx(
                     'flex items-center justify-between bg-white shadow-md md:shadow-none h-20 offer-header',
-                    index === selectedOffer && isOpennedOffer ? 'offer-header-open' : 'offer-header-close'
+                    index === selectedOffer && isOpenedOffer ? 'offer-header-open' : 'offer-header-close'
                   )}
                 >
                   <img
@@ -63,7 +63,7 @@ export default function HomeOffers({ title, offers }: Props) {
                     alt="arrow"
                     className={clsx(
                       'm-4 md:hidden',
-                      index === selectedOffer && isOpennedOffer ? 'offer-selected-arrow' : 'offer-arrow'
+                      index === selectedOffer && isOpenedOffer ? 'offer-selected-arrow' : 'offer-arrow'
                     )}
                   />
                 </div>
@@ -76,7 +76,7 @@ export default function HomeOffers({ title, offers }: Props) {
                 }}
                 className={clsx(
                   'md:hidden offer-flyout ml-10',
-                  index === selectedOffer && isOpennedOffer ? 'block offer-flyout-open' : 'offer-flyout-close'
+                  index === selectedOffer && isOpenedOffer ? 'block offer-flyout-open' : 'offer-flyout-close'
                 )}
               >
                 <div style={{ backgroundColor: 'rgba(0,0,0,0.5)' }} className="m-4 p-4 round8 background-blur">

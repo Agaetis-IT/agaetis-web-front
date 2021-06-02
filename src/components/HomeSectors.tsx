@@ -13,10 +13,10 @@ interface Props {
 }
 
 export default function HomeSectors({ title, sectors }: Props) {
-  const [opennedSector, setOpennedSector] = useState(-1)
+  const [openedSector, setOpenedSector] = useState(-1)
 
   const handleSectorChange = (index: number) => {
-    setOpennedSector(opennedSector !== index ? index : -1)
+    setOpenedSector(openedSector !== index ? index : -1)
   }
 
   return (
@@ -43,7 +43,7 @@ export default function HomeSectors({ title, sectors }: Props) {
                 <div
                   className={clsx(
                     'md:bg-white w-full flex flex-row justify-between shadow-md sector-header md:round8',
-                    index === opennedSector ? 'sector-header-open' : 'sector-header-close'
+                    index === openedSector ? 'sector-header-open' : 'sector-header-close'
                   )}
                 >
                   <div
@@ -58,7 +58,7 @@ export default function HomeSectors({ title, sectors }: Props) {
                   <div
                     className={clsx(
                       'bg-white md:bg-none h-20 md:h-56 p-4 w-full md:w-1/2 flex flex-row md:flex-col items-center justify-between md:justify-center ml-10 md:m-0 md:round8 sector-header',
-                      index === opennedSector ? 'sector-header-open' : 'sector-header-close'
+                      index === openedSector ? 'sector-header-open' : 'sector-header-close'
                     )}
                   >
                     <div className="p-0 ml-8 md:m-0 md:p-4 pt-0">
@@ -72,7 +72,7 @@ export default function HomeSectors({ title, sectors }: Props) {
                       src={arrowR}
                       alt="arrow"
                       className={clsx(
-                        index === opennedSector ? 'offer-selected-arrow' : 'offer-arrow',
+                        index === openedSector ? 'offer-selected-arrow' : 'offer-arrow',
                         'block md:hidden'
                       )}
                     />
@@ -82,7 +82,7 @@ export default function HomeSectors({ title, sectors }: Props) {
               <div
                 className={clsx(
                   'ml-10 bg-white block md:hidden sector-flyout',
-                  index === opennedSector ? 'sector-flyout-open' : 'sector-flyout-close'
+                  index === openedSector ? 'sector-flyout-open' : 'sector-flyout-close'
                 )}
               >
                 <div className="m-4">
