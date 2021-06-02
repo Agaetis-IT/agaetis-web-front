@@ -167,4 +167,9 @@ export async function getAuthorById(id: string) {
   return data
 }
 
+export async function getAllAuthors() {
+  const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/wp-json/wp/v2/users`)
+  return data
+}
+
 export default { getIndexContent }

@@ -1,18 +1,27 @@
-import { NextPageContext } from 'next'
-import { getAuthorById, getAuthorPageContent, getIdeasByAuthor } from '../../services/wordpressService'
+import { getAllAuthors, getAuthorById, getAuthorPageContent, getIdeasByAuthor } from '../../services/wordpressService'
 import { PostAPI } from '../../models/IdeasAPI'
 
 import Author from '../../components/Author'
+import { AuthorAPI } from '../../types/AuthorContent'
 
-interface Context extends NextPageContext {
-  query: { authorId: string }
+export async function getStaticPaths() {
+  const authors = await getAllAuthors()
+
+  return {
+    paths: authors.map((author: AuthorAPI) => ({
+      params: {
+        authorId: author.id.toString()
+      }
+    })),
+    fallback: 'blocking',
+  }
 }
 
-export async function getServerSideProps({ query }: Context) {
+export async function getStaticProps({ params }) {
   const { [0]: author, [1]: content, [2]: posts } = await Promise.all([
-    getAuthorById(query.authorId),
+    getAuthorById(params.authorId),
     getAuthorPageContent(),
-    getIdeasByAuthor(query.authorId),
+    getIdeasByAuthor(params.authorId),
   ])
 
   return {

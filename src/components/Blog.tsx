@@ -148,10 +148,10 @@ export default function Blog({
 
   useEffect(() => {
     setIdeas(ideasDescription)
-    setCategoryFilter('All')
+    setCategoryFilter(selectedCategory || 'All')
     setSearchFilter('')
     setIsVisibleSeeMore(!hideSeeMore)
-  }, [ideasDescription, hideSeeMore])
+  }, [ideasDescription, hideSeeMore, selectedCategory])
 
   const cards = useMemo(
     () =>
