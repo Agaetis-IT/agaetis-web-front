@@ -58,7 +58,7 @@
 
 .content pre {
   font-size: 1.2em;
-  overflow-x: auto;
+  white-space: pre-wrap;
 }
 
 .content table,
