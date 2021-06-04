@@ -18,34 +18,42 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const { [0]: author, [1]: content, [2]: posts } = await Promise.all([
-    getAuthorById(params.authorId),
-    getAuthorPageContent(),
-    getIdeasByAuthor(params.authorId),
-  ])
-
-  return {
-    props: {
-      ideasDescription: posts.data.map((idea: PostAPI) => ({
-        id: idea.id,
-        title: idea.title.rendered,
-        tags: [],
-        slug: idea.slug,
-        descriptionText: idea.acf.idea_description,
-        date: idea.date,
-        image: idea.acf.idea_image,
-      })),
-      author: {
-        id: author.id,
-        name: author.name,
-        descriptionText: author.description,
-        avatar: author.avatar_urls['96'],
-        linkedInLink: author.url,
+  try {
+    const { [0]: author, [1]: content, [2]: posts } = await Promise.all([
+      getAuthorById(params.authorId),
+      getAuthorPageContent(),
+      getIdeasByAuthor(params.authorId),
+    ])
+    
+    return {
+      props: {
+        ideasDescription: posts.data.map((idea: PostAPI) => ({
+          id: idea.id,
+          title: idea.title.rendered,
+          tags: [],
+          slug: idea.slug,
+          descriptionText: idea.acf.idea_description,
+          date: idea.date,
+          image: idea.acf.idea_image,
+        })),
+        author: {
+          id: author.id,
+          name: author.name,
+          descriptionText: author.description,
+          avatar: author.avatar_urls['96'],
+          linkedInLink: author.url,
+        },
+        content,
+        hasMore: posts.pageCount > 1,
       },
-      content,
-      errorCode: author === undefined,
-      hasMore: posts.pageCount > 1,
-    },
+      revalidate: 30,
+    }
+  }
+  catch {
+    return {
+      notFound: true,
+      revalidate: 30,
+    }
   }
 }
 

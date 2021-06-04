@@ -24,3 +24,9 @@ export interface CategoryAPI {
   name: string
   slug: string
 }
+
+export interface TagAPI {
+  term_id: number
+  name: string
+  slug: string
+}

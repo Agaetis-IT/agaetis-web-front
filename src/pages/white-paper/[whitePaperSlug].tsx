@@ -1,27 +1,22 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { NextPageContext } from 'next'
 import Head from 'next/head'
 import { useState } from 'react'
 
-import WhitePaperForm from '../components/form/WhitePaperForm'
-import Layout from '../components/Layout'
-import { sendWhitePaper } from '../services/contactService'
-import { getWhitePaperContent } from '../services/wordpressService'
-import WhitePaper from '../types/WhitePaper'
-import { WhitepaperFormValues } from '../yup/WhitePaperFormValidation'
+import WhitePaperForm from '../../components/form/WhitePaperForm'
+import Layout from '../../components/Layout'
+import { sendWhitePaper } from '../../services/contactService'
+import { getAllWhitePapers, getWhitePaperContent } from '../../services/wordpressService'
+import WhitePaper from '../../types/WhitePaper'
+import { WhitepaperFormValues } from '../../yup/WhitePaperFormValidation'
 const Logo = '../static/icons/Agaetis - Ico logo - Orange.png'
 
-import Error from './_error'
+import Error from '../_error'
 import Link from 'next/link'
-import SnackBar from '../components/SnackBar'
+import SnackBar from '../../components/SnackBar'
 
 interface Props {
   pageContent?: WhitePaper
   errorCode?: number
-}
-
-interface Context extends NextPageContext {
-  query: { slug: string }
 }
 
 export default function whitePaper({ pageContent, errorCode }: Props) {
@@ -111,21 +106,37 @@ export default function whitePaper({ pageContent, errorCode }: Props) {
   )
 }
 
-export async function getStaticProps({ query }: Context) {
-  if (query) {
-    const data = await getWhitePaperContent(query.slug!)
-    if (!!data.acf) {
-      return {
-        props: {
-          pageContent: { ...data.acf, slug: data.slug },
-        },
-        revalidate: 30,
+interface WhitePaperAPI {
+  slug: string
+}
+
+export async function getStaticPaths() {
+  const whitePapers = await getAllWhitePapers()
+
+  return {
+    paths: whitePapers.map((whitePaper: WhitePaperAPI) => ({
+      params: {
+        whitePaperSlug: whitePaper.slug
       }
+    })),
+    fallback: 'blocking',
+  }
+}
+
+export async function getStaticProps({ params }) {
+  const data = await getWhitePaperContent(params.whitePaperSlug)
+
+  if (!!!data.acf) {
+    return { 
+      notFound: true,
+      revalidate: 30,
     }
   }
 
-  return { 
-    notFound: true,
+  return {
+    props: {
+      pageContent: { ...data.acf, slug: data.slug },
+    },
     revalidate: 30,
   }
 }

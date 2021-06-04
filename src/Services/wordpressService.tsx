@@ -75,6 +75,11 @@ export async function getOfferContent(slug: string) {
   return data
 }
 
+export async function getAllLandingPages() {
+  const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/wp-json/agaetis/api/v1/landingpages`)
+  return data
+}
+
 export async function getLandingPageContent(offer: string) {
   const { data } = await axios.get(
     `${process.env.NEXT_PUBLIC_BASE_URL}/wp-json/agaetis/api/v1/landingpages/${offer}`
@@ -113,6 +118,11 @@ export async function getOfferLeaf(offer: string, slug: string) {
 
 export async function getCategories() {
   const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/wp-json/wp/v2/categories?per_page=100`)
+  return data
+}
+
+export async function getTags() {
+  const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/wp-json/agaetis/api/v1/tags`)
   return data
 }
 

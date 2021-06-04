@@ -62,6 +62,7 @@ app
       const queryParams: any = { ...req.params, ...req.query }
       if (
         [
+          'offers',
           'solutions',
           'blog',
           'agaetis',
@@ -75,7 +76,8 @@ app
           'favicon.ico',
         ].includes(queryParams.slug) ||
         !!queryParams.slug.match(/^blog\/.*/) ||
-        !!queryParams.slug.match(/^author\/.*/)
+        !!queryParams.slug.match(/^author\/.*/) ||
+        !!queryParams.slug.match(/^offers\/.*/)
       ) {
         return handle(req, res)
       } else if (queryParams.slug === 'ideas') {
@@ -84,11 +86,11 @@ app
         res.redirect(301, 'https://agaetis.welcomekit.co/')
       }
 
-      return app.render(req, res, '/idea', queryParams)
+      res.redirect(301, `/blogpost/${req.params.slug}`)
     })
 
     server.get('^/[0-9]{4}/[0-9]{2}/[0-9]{2}/:slug', async (req: Request, res: Response) => {
-      res.status(301).redirect(`/${req.params.slug}`)
+      res.redirect(301, `/${req.params.slug}`)
     })
 
     server.get('/jobs/:slug', async (_: Request, res: Response) => {
@@ -96,15 +98,15 @@ app
     })
 
     server.get('/landingpages/:slug', (req: Request, res: Response) => {
-      app.render(req, res, '/landingpage', { ...req.params, ...req.query } as ParsedUrlQuery)
+      res.redirect(301, `/landingpage/${req.params.slug}`)
     })
 
     server.get('/white-papers/:slug', (req: Request, res: Response) => {
-      app.render(req, res, '/white-paper', { ...req.params, ...req.query } as ParsedUrlQuery)
+      res.redirect(301, `/white-paper/${req.params.slug}`)
     })
 
     server.get('/tags/:slug', (req: Request, res: Response) => {
-      app.render(req, res, '/tag', { ...req.params, ...req.query } as ParsedUrlQuery)
+      res.redirect(301, `/blog/tag/${req.params.slug}`)
     })
 
     server.post('/send', json10MBParser, async (req: Request, res: Response) => {

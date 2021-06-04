@@ -1,30 +1,25 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useEffect } from 'react'
-import { NextPageContext } from 'next'
-import { convertAPItoOfferleaf, OfferContent, OfferLeafContent } from '../types/OffersContent'
-import { getCategoryOffers, getIdeasByCategory, getOfferContent, getOfferLeaf } from '../services/wordpressService'
+import { convertAPItoOfferleaf, OfferContent, OfferLeafContent } from '../../types/OffersContent'
+import { getAllOffers, getCategoryOffers, getIdeasByCategory, getOfferContent, getOfferLeaf } from '../../services/wordpressService'
 const Back = '/icons/Btn_Retour.svg'
-import Error from './_error'
+import Error from '../_error'
 import Head from 'next/head'
-import Layout from '../components/Layout'
+import Layout from '../../components/Layout'
 const Particles = '/images/particles-2.svg'
 import { useState } from 'react'
-import Button from '../components/Button'
+import Button from '../../components/Button'
 import clsx from 'clsx'
-import RelatedArticlesSection from '../components/RelatedArticlesSection'
+import RelatedArticlesSection from '../../components/RelatedArticlesSection'
 import Link from 'next/link'
-import ContactForm from '../components/ContactForm'
-import ContactSection from '../components/ContactSection'
-import { FormInput } from '../yup/ContactFormValidation'
+import ContactForm from '../../components/ContactForm'
+import ContactSection from '../../components/ContactSection'
+import { FormInput } from '../../yup/ContactFormValidation'
 import { useRouter } from 'next/router'
-import PartnerList from '../components/PartnerList'
-import SnackBar from '../components/SnackBar'
-import send from '../services/contactService'
-
-interface Context extends NextPageContext {
-  query: { slug: string }
-  params: { offer: string }
-}
+import PartnerList from '../../components/PartnerList'
+import SnackBar from '../../components/SnackBar'
+import send from '../../services/contactService'
+import OfferAPI from '../../models/OfferAPI'
 
 interface Props {
   pageContent: OfferContent
@@ -204,42 +199,53 @@ export default function offer({ pageContent, errorCode, offers }: Props): React.
   )
 }
 
-export async function getStaticProps({ query }: Context) {
-  if (query) {
-    const { [0]: data, [1]: offers } = await Promise.all([getOfferContent(query.slug!), getCategoryOffers(query.slug)])
-    const pageContent = { ...data.acf, slug: data.slug }
-    const allOffers = offers.map(
-      async (offer: {
-        acf: {
-          title: string
-          paragraph: string
-          offers_description: string
-        }
-        post_name: string
-      }) => {
-        const { [0]: children, [1]: posts } = await Promise.all([
-          getOfferLeaf(query.slug, offer.post_name),
-          getIdeasByCategory(`_offer-${escape(offer.post_name)}`),
-        ])
-        return convertAPItoOfferleaf(children, posts.data)
-      }
-    )
-    const offerChildrens = await Promise.all(allOffers)
+export async function getStaticPaths() {
+  const offers = await getAllOffers()
 
+  return {
+    paths: offers.map((offer: OfferAPI) => ({
+      params: {
+        offerSlug: offer.slug
+      }
+    })),
+    fallback: 'blocking',
+  }
+}
+
+export async function getStaticProps({ params }) {
+  const { [0]: data, [1]: offers } = await Promise.all([getOfferContent(params.offerSlug), getCategoryOffers(params.offerSlug)])
+  const pageContent = { ...data.acf, slug: data.slug }
+
+  if (!!!data.acf) {
     return {
-      props: {
-        pageContent,
-        offers: offerChildrens,
-      },
       notFound: !!!data.acf,
       revalidate: 30,
     }
   }
 
+  const allOffers = offers.map(
+    async (offer: {
+      acf: {
+        title: string
+        paragraph: string
+        offers_description: string
+      }
+      post_name: string
+    }) => {
+      const { [0]: children, [1]: posts } = await Promise.all([
+        getOfferLeaf(params.offerSlug, offer.post_name),
+        getIdeasByCategory(`_offer-${escape(offer.post_name)}`),
+      ])
+      return convertAPItoOfferleaf(children, posts.data)
+    }
+  )
+
+  const offerChildrens = await Promise.all(allOffers)
+
   return {
     props: {
-      pageContent: {},
-      offers: [],
+      pageContent,
+      offers: offerChildrens,
     },
     revalidate: 30,
   }

@@ -15,7 +15,7 @@ interface Props {
 
 export default function IdeasCard({ slug, title, image, description }: Props) {
   return (
-    <Link href={`/${slug}`}>
+    <Link href={`/blogpost/${slug}`}>
       <a className="text-black">
         <div className={`bg-white sm:flex ${commonStyles.round8}`}>
           <div className={`relative w-full sm:w-3/10 h-56 ${styles.round8top} ${styles['sm:round8left']}`}>

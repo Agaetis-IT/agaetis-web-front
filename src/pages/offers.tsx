@@ -182,7 +182,7 @@ export async function getStaticProps() {
 
   return {
     props: {
-      pageContent,
+      pageContent: JSON.parse(JSON.stringify(pageContent)),
       allOffers: allOffersChildrens,
     },
     revalidate: 30,

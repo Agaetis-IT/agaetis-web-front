@@ -1,22 +1,18 @@
-import { NextPageContext } from 'next'
 import { useState } from 'react'
-import ContactForm from '../components/ContactForm'
-import ContactSection from '../components/ContactSection'
-import Error from './_error'
-import Layout from '../components/Layout'
+import ContactForm from '../../components/ContactForm'
+import ContactSection from '../../components/ContactSection'
+import Error from '../_error'
+import Layout from '../../components/Layout'
 const Particles = '/images/particles-3.svg'
-import { getLandingPageContent } from '../services/wordpressService'
-import { convertAPItoLandingPageContent, LandingPage } from '../types/OffersContent'
-import { FormInput } from '../yup/ContactFormValidation'
+import { getAllLandingPages, getLandingPageContent } from '../../services/wordpressService'
+import { convertAPItoLandingPageContent, LandingPage } from '../../types/OffersContent'
+import { FormInput } from '../../yup/ContactFormValidation'
 import Image from 'next/image'
 
-import styles from '../styles/landingpage.module.css'
-import SnackBar from '../components/SnackBar'
-import send from '../services/contactService'
-
-interface Context extends NextPageContext {
-  query: { slug: string }
-}
+import styles from '../../styles/landingpage.module.css'
+import SnackBar from '../../components/SnackBar'
+import send from '../../services/contactService'
+import LandingPageAPI from '../../models/LandingPageAPI'
 
 interface Props {
   pageContent: LandingPage
@@ -77,23 +73,33 @@ export default function Landingpage({ pageContent, errorCode }: Props) {
   )
 }
 
-export async function getStaticProps({ query }: Context) {
-  if (query) {
-    const { [0]: data } = await Promise.all([getLandingPageContent(query.slug!)])
-    const pageContent = convertAPItoLandingPageContent({ ...data })
+export async function getStaticPaths() {
+  const pages = await getAllLandingPages()
 
+  return {
+    paths: pages.map((page: LandingPageAPI) => ({
+      params: {
+        pageSlug: page.slug
+      }
+    })),
+    fallback: 'blocking',
+  }
+}
+
+export async function getStaticProps({ params }) {
+  const data = await getLandingPageContent(params.pageSlug)
+  const pageContent = convertAPItoLandingPageContent({ ...data })
+
+  if (!!!data.acf) {
     return {
-      props: {
-        pageContent,
-      },
-      notFound: !!!data.acf,
+      notFound: true,
       revalidate: 30,
     }
   }
 
   return {
     props: {
-      pageContent: {},
+      pageContent,
     },
     revalidate: 30,
   }

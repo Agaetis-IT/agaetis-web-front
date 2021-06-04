@@ -1,4 +1,5 @@
 import { PostAPI } from '../models/IdeasAPI'
+import LandingPageAPI from '../models/LandingPageAPI'
 import OfferAPI from '../models/OfferAPI'
 
 export default interface OffersContent {
@@ -38,11 +39,6 @@ export interface OfferContent {
 export interface OfferLeaf {
   post_title: string
   post_name: string
-}
-
-interface LandingPageAPI {
-  content: { rendered: string }
-  title: { rendered: string }
 }
 
 export interface LandingPage {

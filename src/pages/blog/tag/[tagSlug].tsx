@@ -1,27 +1,35 @@
-import { NextPageContext } from 'next'
-import { CategoryAPI, PostAPI } from '../models/IdeasAPI'
-import { getCategories, getIdeasPageContent, getAllWhitePapers, getIdeasByTag } from '../services/wordpressService'
-import WhitePaper from '../types/WhitePaper'
+import { TagAPI, PostAPI, CategoryAPI } from '../../../models/IdeasAPI'
+import { getCategories, getIdeasPageContent, getAllWhitePapers, getIdeasByTag, getTags } from '../../../services/wordpressService'
+import WhitePaper from '../../../types/WhitePaper'
 
-import { Category } from '../types/IdeasContent'
+import { Category } from '../../../types/IdeasContent'
 
-import Blog from '../components/Blog'
+import Blog from '../../../components/Blog'
 
 export default Blog
 
-interface Context extends NextPageContext {
-  query: { slug: string }
+export async function getStaticPaths() {
+  const tags = await getTags()
+
+  return {
+    paths: tags.map((tag: TagAPI) => ({
+      params: {
+        tagSlug: tag.slug
+      }
+    })),
+    fallback: 'blocking',
+  }
 }
 
-export async function getServerSideProps({ query }: Context) {
+export async function getStaticProps({ params }) {
   const { [0]: ideas, [1]: categories, [2]: content, [3]: whitepapers } = await Promise.all([
-    getIdeasByTag(query.slug),
+    getIdeasByTag(params.tagSlug),
     getCategories(),
     getIdeasPageContent(),
     getAllWhitePapers(),
   ])
 
-  content.description = `Découvrez nos articles avec le tag #${query.slug}.`
+  content.description = `Découvrez nos articles avec le tag #${params.tagSlug}.`
 
   return {
     props: {
@@ -46,7 +54,7 @@ export async function getServerSideProps({ query }: Context) {
         .map((category: CategoryAPI) => ({ categoryId: category.id, categoryName: category.name }))
         .filter((category: Category) => !category.categoryName.includes('_offer-')),
       hideSeeMore: ideas.pageCount == 1,
-      tagFilter: query.slug.charAt(0).toUpperCase() + query.slug.slice(1),
+      tagFilter: params.tagSlug.charAt(0).toUpperCase() + params.tagSlug.slice(1),
     },
   }
 }

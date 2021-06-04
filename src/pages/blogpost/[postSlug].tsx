@@ -4,27 +4,27 @@ import { NextPageContext } from 'next'
 import Head from 'next/head'
 import { useMemo, useState } from 'react'
 
-import Button from '../components/Button'
-import IdeaContent from '../components/IdeaContent'
-import IdeasCard from '../components/IdeasCard'
-import Layout from '../components/Layout'
-import { getIdeaBySlug, getIdeaMeta } from '../services/wordpressService'
-import IdeasContent, { IdeasDesc } from '../types/IdeasContent'
-import Meta, { convertMetaAPItoMeta } from '../types/Meta'
+import Button from '../../components/Button'
+import IdeaContent from '../../components/IdeaContent'
+import IdeasCard from '../../components/IdeasCard'
+import Layout from '../../components/Layout'
+import { getIdeaBySlug, getIdeaMeta, getIdeasByPage } from '../../services/wordpressService'
+import IdeasContent, { IdeasDesc } from '../../types/IdeasContent'
+import Meta, { convertMetaAPItoMeta } from '../../types/Meta'
 
-import Error from './_error'
+import Error from './../_error'
 import { escape } from 'querystring'
-import ContactSection from '../components/ContactSection'
-import ContactForm from '../components/ContactForm'
-import { FormInput } from '../yup/ContactFormValidation'
-import { formatPostAuthors } from '../services/textUtilities'
+import ContactSection from '../../components/ContactSection'
+import ContactForm from '../../components/ContactForm'
+import { FormInput } from '../../yup/ContactFormValidation'
+import { formatPostAuthors } from '../../services/textUtilities'
 
-import styles from '../styles/Common.module.css'
+import styles from '../../styles/Common.module.css'
 
-import { PostAPI } from '../models/IdeasAPI'
-import { AuthorLink } from '../types/AuthorContent'
-import SnackBar from '../components/SnackBar'
-import send from '../services/contactService'
+import { PostAPI } from '../../models/IdeasAPI'
+import { AuthorLink } from '../../types/AuthorContent'
+import SnackBar from '../../components/SnackBar'
+import send from '../../services/contactService'
 import Image from 'next/image'
 
 interface Props {
@@ -34,13 +34,9 @@ interface Props {
   errorCode?: number
 }
 
-interface Context extends NextPageContext {
-  query: { slug: string }
-}
-
 const Particles = '/images/particles-3.svg'
 
-export default function Idea({ data, related, errorCode, meta }: Props) {
+export default function BlogPost({ data, related, errorCode, meta }: Props) {
   const [isOpenedMoreIdeas, setIsOpenedMoreIdeas] = useState(false)
   const [modalOpenWithError, setModalOpenWithError] = useState<boolean | undefined>(undefined)
   const [isSubmited, setIsSubmited] = useState(false)
@@ -157,14 +153,27 @@ export default function Idea({ data, related, errorCode, meta }: Props) {
   )
 }
 
-export async function getStaticProps({ query }: Context) {
-  if (query) {
-    const { [0]: data, [1]: meta } = await Promise.all([
-      getIdeaBySlug(escape(query.slug)),
-      getIdeaMeta(escape(query.slug)),
-    ])
-    const authors: AuthorLink[] = []
+export async function getStaticPaths() {
+  const posts = await getIdeasByPage()
 
+  return {
+    paths: posts.data.map((post: PostAPI) => ({
+      params: {
+        postSlug: post.slug
+      }
+    })),
+    fallback: 'blocking',
+  }
+}
+
+export async function getStaticProps({ params }) {
+  const { [0]: data, [1]: meta } = await Promise.all([
+    getIdeaBySlug(escape(params.postSlug)),
+    getIdeaMeta(escape(params.postSlug)),
+  ])
+
+  if (data !== '{"errorCode":404}') {
+    const authors: AuthorLink[] = []
     if (data._embedded.author[0].name) {
       authors.push({
         id: data._embedded.author[0].id,
@@ -226,29 +235,10 @@ export async function getStaticProps({ query }: Context) {
         revalidate: 30,
       }
     }
-
-    return {
-      notFound: true,
-      revalidate: 30,
-    }
   }
-  
+
   return {
-    props: {
-      data: {
-        title: '',
-        imageUrl: '',
-        date: '',
-        authors: [],
-        categories: [],
-        content: '',
-        slug: '',
-      },
-      related: [],
-      meta: {
-        description: '',
-      },
-    },
+    notFound: true,
     revalidate: 30,
   }
 }
