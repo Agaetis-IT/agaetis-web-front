@@ -19,7 +19,7 @@ interface Props {
   offers: OfferDesc[]
 }
 
-function Index({ pageContent, offers }: Props) {
+export default function Index({ pageContent, offers }: Props) {
   return (
     <>
       <Head>
@@ -36,21 +36,19 @@ function Index({ pageContent, offers }: Props) {
         <>
           <Hero
             hero={pageContent.hero_image}
-            valeurs={pageContent.hero_valeurs.split(' ')}
+            values={pageContent.hero_valeurs.split(' ')}
             subtitle={pageContent.hero_subtitle}
           />
           <div className="sm:px-0">
-            {offers && <HomeOffers offers={offers} title={pageContent.offres_title}></HomeOffers>}
-            <HomeSectors sectors={pageContent.secteurs} title={pageContent.secteurs_title}></HomeSectors>
+            {offers && <HomeOffers offers={offers} title={pageContent.offres_title} />}
+            <HomeSectors sectors={pageContent.secteurs} title={pageContent.secteurs_title} />
             <HomeExpertises
               expertisesTitle={pageContent.expertises_title}
               expertisesImageDesktop={pageContent.expertises_image_desktop}
+              expertisesImageMobile={pageContent.expertises_image_mobile}
               expertises={pageContent.expertises}
-            ></HomeExpertises>
-            <HomeConvictions
-              convictions={pageContent.convictions}
-              title={pageContent.convictions_title}
-            ></HomeConvictions>
+            />
+            <HomeConvictions convictions={pageContent.convictions} title={pageContent.convictions_title} />
             <HomeJoinUs
               joinUsAgaetisTitle={pageContent.joinUs_agaetis_title}
               joinUsAgaetisDesc={pageContent.joinUs_agaetis_desc}
@@ -60,7 +58,7 @@ function Index({ pageContent, offers }: Props) {
               joinUsImageDesktop={pageContent.joinUs_image_desktop}
               joinUsImageMobile1={pageContent.joinUs_image_mobile_1}
               joinUsImageMobile2={pageContent.joinUs_image_mobile_2}
-            ></HomeJoinUs>
+            />
           </div>
           <ContactSection />
         </>
@@ -80,5 +78,3 @@ export async function getStaticProps() {
     revalidate: 30,
   }
 }
-
-export default Index

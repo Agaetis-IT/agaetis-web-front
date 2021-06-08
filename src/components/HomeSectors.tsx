@@ -1,9 +1,11 @@
 import { useState } from 'react'
 
+import styles from '../styles/HomeSectors.module.css'
 import { SectorDesc } from '../types/IndexContent'
 const arrowR = '/images/right-arrow.svg'
 import clsx from 'clsx'
 import Image from 'next/image'
+import Button from './Button'
 
 interface Props {
   title: string
@@ -11,12 +13,16 @@ interface Props {
 }
 
 export default function HomeSectors({ title, sectors }: Props) {
-  const [selectedSector, setSelectedSector] = useState(0)
+  const [openedSector, setOpenedSector] = useState(-1)
+
+  const handleSectorChange = (index: number) => {
+    setOpenedSector(openedSector !== index ? index : -1)
+  }
 
   return (
-    <div className="bg-gray-400 py-8 px-4 md:p-16 xl:px-32">
-      <h2 className="mb-4 md:my-0 text-orange-500 font-semibold text-center md:text-left">{title}</h2>
-      <div className="py-4 pb-0 md:mt-12" id="sectors">
+    <div className="bg-gray-400 p-4 md:p-12 lg:px-24 lg:p-16 mt-8 shadow-md">
+      <h2 className="mt-2 mb-6 md:my-0 text-orange-500 font-semibold text-center md:text-left">{title}</h2>
+      <div className="mb-6 md:mt-12">
         {sectors
           .filter((sector) => sector.title != '' && sector.desc != '' && sector.image != '')
           .map((sector, index) => (
@@ -28,30 +34,41 @@ export default function HomeSectors({ title, sectors }: Props) {
                   sectors.filter((sector) => sector.title != '' && sector.desc != '' && sector.image != '').length - 1,
               })}
             >
-              <div className={clsx('md:bg-white w-full md:shadow-md flex flex-row justify-between')}>
-                <div className="bg-white h-24 w-24 absolute md:relative md:h-auto md:w-1/2 rounded-full md:rounded-none shadow-md">
+            <Button
+              className="w-full md:cursor-default"
+              onClick={() => {
+                handleSectorChange(index)
+              }}
+            >
+              <div
+                className={clsx(
+                  `md:bg-white w-full flex flex-row justify-between shadow-md ${styles.sectorHeader} ${styles['md:round8']}`,
+                  index === openedSector ? styles.sectorHeaderOpen : styles.sectorHeaderClose
+                )}
+              >
+                <div className={`bg-white h-20 w-20 absolute md:relative md:h-56 md:w-1/2 rounded-full ${styles['md:round8Image']} shadow-md md:shadow-none`}>
                   <Image
                     src={sector.image}
-                    className="rounded-full md:rounded-none"
+                    className={`rounded-full ${styles['md:round8Image']}`}
                     layout="fill"
                     objectFit="cover"
                     quality={100}
                   />
                 </div>
-
-                <div className="bg-white md:bg-none h-24 md:h-auto p-4 md:py-8 w-full md:w-1/2 flex flex-row md:flex-col items-center justify-between md:justify-center ml-12 md:m-0 shadow-md">
-                  <div className="p-0 ml-12 md:m-0 md:p-4 pt-0">
-                    <h3>{sector.title}</h3>
+                <div  
+                  className={clsx(
+                    `bg-white md:bg-none h-20 md:h-56 p-4 w-full md:w-1/2 flex flex-row md:flex-col items-center justify-between md:justify-center ml-10 md:m-0 ${styles['md:round8']} ${styles.sectorHeader}`,
+                    index === openedSector ? styles.sectorHeaderOpen : styles.sectorHeaderClose
+                )}>
+                  <div className="p-0 ml-8 md:m-0 md:p-4 pt-0">
+                    <h3 className="text-gray-800 md:text-black font-bold uppercase text-left text-sm">{sector.title}</h3>
                     <p className="text-xs text-justify leading-normal py-4 hidden md:block">{sector.desc}</p>
                   </div>
                   <Image
                     src={arrowR}
                     alt="arrow"
-                    onClick={() => {
-                      setSelectedSector(index)
-                    }}
                     className={clsx(
-                      index === selectedSector ? 'offer-selected-arrow' : 'offer-arrow',
+                      index === openedSector ? styles.offerSelectedArrow : styles.offerArrow,
                       'block md:hidden'
                     )}
                     width={10}
@@ -60,11 +77,17 @@ export default function HomeSectors({ title, sectors }: Props) {
                   />
                 </div>
               </div>
-              {index === selectedSector && (
-                <p className="ml-24 px-4 bg-white text-xs text-justify leading-normal py-4 block md:hidden">
-                  {sector.desc}
-                </p>
-              )}
+            </Button>
+              <div
+                className={clsx(
+                  `ml-10 bg-white block md:hidden ${styles.sectorFlyout}`,
+                  index === openedSector ? styles.sectorFlyoutOpen : styles.sectorFlyoutClose
+                )}
+              >
+                <div className="m-4">
+                  <p className="text-xs text-justify leading-normal">{sector.desc}</p>
+                </div>
+              </div>
             </div>
           ))}
       </div>

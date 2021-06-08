@@ -9,6 +9,11 @@ export interface PostAPI {
     coAuthor: [{ data: { display_name: string } }]
   }
   _embedded: {
+    'wp:featuredmedia': [
+      {
+        source_url: string
+      }
+    ]
     'wp:term': [
       [
         {

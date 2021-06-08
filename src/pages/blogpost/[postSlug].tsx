@@ -112,7 +112,7 @@ export default function BlogPost({ data, related, errorCode, meta }: Props) {
             <Image src={Particles} layout="responsive" height={960} width={1920} quality={100}/>
           </div>
           <div className="py-4 md:p-16 lg:px-32 xl:px-48">
-            <IdeaContent content={data} />
+            <IdeaContent content={data} meta={meta} />
             {!!related && related.length > 0 && (
               <>
                 <div className="p-8 md:py-8 md:px-0">
@@ -227,7 +227,10 @@ export async function getStaticProps({ params }) {
               categories: data._embedded['wp:term'][0].map((category: { name: string }) => category.name) || [],
               slug: idea.slug || '',
               descriptionText: idea.acf.idea_description || '',
-              image: idea.acf.idea_image || '',
+              image: (idea._embedded['wp:featuredmedia'] &&
+                idea._embedded['wp:featuredmedia'][0] &&
+                idea._embedded['wp:featuredmedia'][0].source_url) ||
+              '',
             }
           }),
           meta: convertMetaAPItoMeta(meta, data._embedded),
