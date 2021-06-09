@@ -22,7 +22,7 @@ export default function Hero({ hero, values, subtitle }: Props) {
         <div className="absolute bottom-0 left-0 right-0">
         <Image src={hero ? hero : Mask} layout="responsive" height={960} width={1920} quality={100}/></div>
       </div>
-      <div className="m-0 md:h-screen">
+      <div className="m-0 md:h-screen md:min-h-hero">
         <div>
           <div className="flex justify-center">
             <div className={`flex flex-col p-6 md:p-0 md:my-6 py-16 ${styles.heroText} text-white w-full`}>
@@ -43,7 +43,7 @@ export default function Hero({ hero, values, subtitle }: Props) {
                   <h1 className="flex flex-row md:flex-col justify-center pb-4 md:pb-0 md:inline md:mr-auto">
                     {values.map((value) => (
                       <div
-                        className={`text-base md:text-6xl leading-normal font-bold ${styles.hoverEffect} px-4`}
+                        className={`text-base md:text-6xl leading-tight font-bold ${styles.hoverEffect} px-4`}
                         key={value}
                       >
                         {value}

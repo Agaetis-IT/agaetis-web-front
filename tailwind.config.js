@@ -221,17 +221,19 @@ module.exports = {
       screen: '100vh',
       fit: 'fit-content',
     }),
+    minHeight: (theme, { breakpoints }) => ({
+      hero: '40rem',
+      full: '100%',
+      screen: '100vh',
+      ...breakpoints(theme('screens')),
+    }),
     maxHeight: (theme, { breakpoints }) => ({
-      xxxxs: '5rem',
-      xxxs: '7rem',
       full: '100%',
       screen: '100vh',
       ...breakpoints(theme('screens')),
     }),
     maxWidth: (theme, { breakpoints }) => ({
       none: 'none',
-      xxxxs: '5rem',
-      xxxs: '7rem',
       xxs: '17rem',
       xs: '22rem',
       sm: '30rem',

@@ -21,7 +21,7 @@ export default function HomeSectors({ title, sectors }: Props) {
 
   return (
     <div className="bg-gray-400 p-4 md:p-12 lg:px-24 lg:p-16 mt-8 shadow-md">
-      <h2 className="mt-2 mb-6 md:my-0 text-orange-500 font-semibold text-center md:text-left">{title}</h2>
+      <h2 className="mt-2 mb-6 md:my-0 text-orange-500 font-semibold text-2xl text-center md:text-left">{title}</h2>
       <div className="mb-6 md:mt-12">
         {sectors
           .filter((sector) => sector.title != '' && sector.desc != '' && sector.image != '')
@@ -56,25 +56,23 @@ export default function HomeSectors({ title, sectors }: Props) {
                   />
                 </div>
                 <div  
-                  className={clsx(
-                    `bg-white md:bg-none h-20 md:h-56 p-4 w-full md:w-1/2 flex flex-row md:flex-col items-center justify-between md:justify-center ml-10 md:m-0 ${styles['md:round8']} ${styles.sectorHeader}`,
-                    index === openedSector ? styles.sectorHeaderOpen : styles.sectorHeaderClose
-                )}>
+                  className={`bg-white md:bg-none h-20 md:h-56 p-4 w-full md:w-1/2 flex flex-row md:flex-col items-center justify-between md:justify-center ml-10 md:m-0 ${styles['md:round8']} ${styles.sectorHeader}`}>
                   <div className="p-0 ml-8 md:m-0 md:p-4 pt-0">
                     <h3 className="text-gray-800 md:text-black font-bold uppercase text-left text-sm">{sector.title}</h3>
                     <p className="text-xs text-justify leading-normal py-4 hidden md:block">{sector.desc}</p>
                   </div>
-                  <Image
-                    src={arrowR}
-                    alt="arrow"
-                    className={clsx(
-                      index === openedSector ? styles.offerSelectedArrow : styles.offerArrow,
-                      'block md:hidden'
-                    )}
-                    width={10}
-                    height={10}
-                    quality={100}
-                  />
+                  <div className="block md:hidden">
+                    <Image
+                      src={arrowR}
+                      alt="arrow"
+                      className={clsx(
+                        index === openedSector ? styles.offerSelectedArrow : styles.offerArrow
+                      )}
+                      width={10}
+                      height={10}
+                      quality={100}
+                    />
+                  </div>
                 </div>
               </div>
             </Button>
