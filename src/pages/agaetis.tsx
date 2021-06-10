@@ -38,7 +38,7 @@ export default function agaetis({ pageContent }: Props) {
                 </span>
               </div>
               <div className="md:max-w-md mx-auto md:px-8">
-                <h1 className="text-center text-3xl leading-normal py-8 md:pb-0 md:mt-12">{pageContent.title}</h1>
+                <h1 className="text-center text-3xl font-bold leading-normal py-8 md:pb-0 md:mt-12">{pageContent.title}</h1>
                 <p className="text-center px-4 md:py-6 md:px-0 text-sm leading-normal">{pageContent.paragraph}</p>
               </div>
             </div>
@@ -57,8 +57,8 @@ export default function agaetis({ pageContent }: Props) {
               <div className="md:max-w-full mx-auto md:px-8 flex flex-col md:flex-row justify-around bg-gray-400 p-8">
                 {pageContent.chiffres.map((chiffre) => (
                   <div key={chiffre.title} className="text-center my-6 md:my-0 px-4">
-                    <h3 className="uppercase text-sm leading-normal">{chiffre.title}</h3>
-                    <h3 className="text-5xl leading-normal text-orange-500 my-2 md:my-4">{chiffre.data}</h3>
+                    <h3 className="uppercase text-sm font-bold leading-normal">{chiffre.title}</h3>
+                    <h3 className="text-5xl font-bold leading-normal text-orange-500 my-2 md:my-4">{chiffre.data}</h3>
                     <p className="text-sm leading-normal">{chiffre.desc}</p>
                   </div>
                 ))}

@@ -27,7 +27,7 @@ export default function mentionsLegales({ pageContent }: Props) {
                   </span>
                 </div>
                 <h1
-                  className="text-center text-2xl leading-normal py-8 md:pb-0 md:mt-12"
+                  className="text-center text-2xl font-bold leading-normal py-8 md:pb-0 md:mt-12"
                   dangerouslySetInnerHTML={{ __html: pageContent.title }}
                 />
               </div>

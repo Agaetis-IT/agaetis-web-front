@@ -86,7 +86,7 @@ export default function FileInput({ className, wrapperClassName, onChange, fileC
               'Ajouter des pièces jointes'
             )}
           </div>
-          <span className={`${styles.importLegend} text-gray-500 text-xs leading-normal mt-4`}>
+          <span className={`${styles.importLegend} text-gray-500 text-xs leading-tight mt-4`}>
             Sont acceptés les fichiers DOC, DOCX, ODT, RTF, PDF, BMP, JPEG et PNG<br></br>10 fichiers maximum<br></br>
             Taille totale maximale des fichiers : 10 Mo
           </span>

@@ -19,6 +19,22 @@ interface Props {
   errorCode?: number
 }
 
+function setStyles(htmlString: string) {
+  let dummy = document.createElement('div')
+  dummy.innerHTML = htmlString
+
+  let elems = dummy.getElementsByTagName('*')
+  for (let i = 0; i < elems.length; i++) {
+    for (let cl of elems[i].classList) {
+      if (styles[cl]) {
+        elems[i].classList.add(styles[cl])
+      }
+    }
+  }
+
+  return dummy.innerHTML
+}
+
 export default function Landingpage({ pageContent, errorCode }: Props) {
   const [modalOpenWithError, setModalOpenWithError] = useState<boolean | undefined>(undefined)
   const [isSubmited, setIsSubmited] = useState(false)
@@ -53,10 +69,10 @@ export default function Landingpage({ pageContent, errorCode }: Props) {
             <Image src={Particles} layout="responsive" height={960} width={1920} quality={100}/>
           </div>
           <div className="p-6 md:p-16 xl:px-32">
-            <h1>{pageContent.title}</h1>
+            <h1 className="font-bold text-4xl">{pageContent.title}</h1>
             <div
               className={`xl:mt-20 ${styles.landingpageContent}`}
-              dangerouslySetInnerHTML={{ __html: pageContent.content }}
+              dangerouslySetInnerHTML={{ __html: setStyles(pageContent.content) }}
             />
           </div>
           <ContactForm title="Une question ? Contactez-nous !" handleSubmit={handleSubmit} isSubmited={isSubmited} />

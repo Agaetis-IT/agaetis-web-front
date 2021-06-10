@@ -82,7 +82,7 @@ function IdeaContent({ content, meta }: Props) {
       })
     }
 
-    const contentTag: Element | null = document.getElementsByClassName('content')[0]
+    const contentTag: HTMLElement = document.getElementById('ideaContent')
 
     if (contentTag) {
       for (const anchor of Array.from(contentTag.getElementsByTagName('a'))) {
@@ -185,6 +185,7 @@ function IdeaContent({ content, meta }: Props) {
           )}
         </div>
         <div
+          id="ideaContent"
           dangerouslySetInnerHTML={createMarkup(content.content)}
           className={`${styles.content} px-4 md:px-8 leading-normal text-sm text-justify`}
         />

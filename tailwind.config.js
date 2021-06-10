@@ -4,6 +4,7 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     screens: {
+      xs: '450px',
       sm: '640px',
       md: '820px',
       lg: '1000px',
@@ -42,7 +43,7 @@ module.exports = {
         100: '#fffaf0',
         200: '#feebc8',
         300: '#fbd38d',
-        400: '#FFE5D9',
+        400: '#ffc2a3',
         500: '#ff7f40',
         600: '#dd6b20',
         700: '#c05621',
@@ -206,7 +207,7 @@ module.exports = {
       xl: '1.25rem',
       '2xl': '1.5rem',
       '3xl': '1.875rem',
-      '4xl': '2.5rem',
+      '4xl': '2rem',
       '5xl': '3rem',
       '6xl': '3.5rem',
     },
@@ -294,7 +295,11 @@ module.exports = {
       '40': '40',
       '50': '50',
     },
-    extend: {},
+    extend: {
+      gridTemplateColumns: {
+        fit: 'repeat(auto-fit, minmax(12rem, 1fr))',
+      },
+    },
   },
   variants: {
     extend: {},

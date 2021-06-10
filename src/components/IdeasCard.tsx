@@ -25,6 +25,7 @@ export default function IdeasCard({ slug, title, image, description }: Props) {
               layout="fill"
               objectFit="cover"
               quality={100}
+              alt={title}
             />
           </div>
           <div className="py-6 px-8 h-56 w-full sm:w-7/10">

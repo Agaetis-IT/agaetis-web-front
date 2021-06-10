@@ -32,9 +32,7 @@ export default function ContactSection() {
   return (
     <div className="bg-orange-500 py-8 flex flex-col md:flex-row justify-center text-white text-center md:text-left">
       <div className="max-w-xxs py-4 px-16 md:px-0 md:pr-16 mx-auto md:mx-0 md:mr-8 mb-4 md:my-0 border-white border-solid border-b md:border-b-0 md:border-r flex flex-col justify-center">
-        {
-          <Image src={Logo} width={1129} height={728} quality={100}/>
-        }
+        <Image src={Logo} width={1129} height={728} quality={100} alt="Logo"/>
       </div>
 
       <div className="flex flex-col justify-center">

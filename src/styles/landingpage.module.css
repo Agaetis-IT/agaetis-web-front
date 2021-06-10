@@ -8,6 +8,21 @@
   text-align: justify;
 }
 
+.landingpageContent h1, .landingpageContent h2, .landingpageContent h3, .landingpageContent h4, .landingpageContent h5, .landingpageContent h6 {
+  font-weight: revert;
+  font-size: revert;
+}
+
+.landingpageContent blockquote, .landingpageContent dl, .landingpageContent dd, .landingpageContent h1, .landingpageContent h2, .landingpageContent h3, .landingpageContent h4, .landingpageContent h5, .landingpageContent h6, .landingpageContent hr, .landingpageContent figure, .landingpageContent pre {
+  margin: revert;
+}
+
+.landingpageContent ol, .landingpageContent ul {
+  list-style: revert;
+  margin: revert;
+  padding: revert;
+}
+
 .landingpageContent .separator {
   height: 1px;
   width: 100%;
@@ -15,7 +30,7 @@
   background-color: rgba(0, 0, 0, 0.034);
 }
 
-.landingpageContent .row :nth-child(n) {
+.landingpageContent .row * {
   margin-top: 10px;
   margin-bottom: 10px;
 }

@@ -42,7 +42,7 @@ export default function SoluceTabContent({ content, className }: Props) {
               <div key={section.index} className="sm:w-1/3 p-2 flex flex-col align-middle">
                 <div className="w-24 h-24 mx-auto text-center mb-4"><Image src={section.icon} alt="step" width={133} height={131} quality={100}/></div>
                 <div>
-                  <h3 className="text-lg leading-normal uppercase text-center">{section.title}</h3>
+                  <h3 className="text-lg font-bold leading-normal uppercase text-center">{section.title}</h3>
                   <p className="text-sm leading-normal text-center py-2">{section.description}</p>
                 </div>
               </div>
@@ -50,7 +50,7 @@ export default function SoluceTabContent({ content, className }: Props) {
           </div>
         </div>
       </div>
-      <div className="bg-gray-400 underline px-4 py-8 my-4">
+      <div className="bg-gray-400 px-4 py-8 my-4">
         <h2 className="text-2xl leading-normal font-semibold text-center">{content.partnerTitle}</h2>
         <div className="flex flex-row flex-wrap justify-center p-4">
           {content.partners.map((partner) => (

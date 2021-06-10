@@ -2,6 +2,20 @@
   z-index: 2;
 }
 
+.content h1, .content h2, .content h3, .content h4, .content h5, .content h6 {
+  font-weight: revert;
+  font-size: revert;
+}
+
+.content blockquote, .content dl, .content dd, .content h1, .content h2, .content h3, .content h4, .content h5, .content h6, .content hr, .content figure, .content p, .content pre {
+  margin: revert;
+}
+
+.content a {
+  color: revert;
+  cursor: revert;
+}
+
 .content,
 .content p {
   margin: 10px 0px;
@@ -77,6 +91,12 @@
   display: block;
   margin: 0 auto;
   padding: 20px 0;
+}
+
+.content ol, .content ul {
+  list-style: revert;
+  margin: revert;
+  padding: revert;
 }
 
 .content ol li,
