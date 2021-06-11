@@ -23,8 +23,8 @@ export default async function send(data: FormInput) {
       data.captcha,
     'base64'
   )
-
-  return axios({
+  
+  await axios({
     method: 'post',
     url: `${process.env.NEXT_PUBLIC_SITE_URL}/send`,
     headers: {},

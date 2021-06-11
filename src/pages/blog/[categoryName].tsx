@@ -21,7 +21,7 @@ export async function getStaticPaths() {
       params: {
         categoryName: slugify(category.name)
       }
-    })).filter((path: {params: {categoryName: string}}) => !path.params.categoryName.includes('_offer-')),
+    })).filter((path: {params: {categoryName: string}}) => !path.params.categoryName.includes('offer-')),
     fallback: 'blocking',
   }
 }
@@ -51,7 +51,7 @@ export async function getStaticProps({ params }) {
           content: null,
         },
         notFound: true,
-        revalidate: 30,
+        revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
       }
     }
 
@@ -89,6 +89,6 @@ export async function getStaticProps({ params }) {
       selectedCategory: selectedCategory,
       hideSeeMore: promiseResult.pageCount <= 1,
     },
-    revalidate: 30,
+    revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
   }
 }

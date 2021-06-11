@@ -6,13 +6,10 @@ export default function initBugsnag() {
     apiKey: '53ba0f9a8bba328258d4d7c8a14f8e52',
     onError(_: any) {
       // Disable reporting of errors in dev env
-      if (
+      return !(
         !process.env.REACT_APP_ENV ||
         (process.env.REACT_APP_ENV !== 'PROD' && process.env.REACT_APP_ENV !== 'ACC')
-      ) {
-        return false
-      }
-      return true
+      )
     },
     plugins: [new BugsnagPluginReact()]
   })

@@ -53,6 +53,6 @@ export async function getStaticProps() {
         content: data.content.rendered,
       },
     },
-    revalidate: 30,
+    revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
   }
 }

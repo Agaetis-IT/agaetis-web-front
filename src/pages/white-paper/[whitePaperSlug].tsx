@@ -126,10 +126,10 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   const data = await getWhitePaperContent(params.whitePaperSlug)
 
-  if (!!!data.acf) {
+  if (!data.acf) {
     return { 
       notFound: true,
-      revalidate: 30,
+      revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
     }
   }
 
@@ -137,6 +137,6 @@ export async function getStaticProps({ params }) {
     props: {
       pageContent: { ...data.acf, slug: data.slug },
     },
-    revalidate: 30,
+    revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
   }
 }

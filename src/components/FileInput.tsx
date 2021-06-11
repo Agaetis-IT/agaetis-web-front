@@ -111,7 +111,7 @@ export default function FileInput({ className, wrapperClassName, onChange, fileC
         />
       </label>
       <span id="fileNames" className="mt-4 md:ml-4 md:mt-0">
-        {fileNames?.map((file, index) => (index ? ' | ' : '') + file)}
+        {fileNames?.join(' | ')}
       </span>
       <SnackBar
         message="Pièces jointes invalides : vous avez sélectionné trop de fichiers ou bien la taille totale dépasse 10 Mo"

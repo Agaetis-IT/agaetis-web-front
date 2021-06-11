@@ -235,13 +235,13 @@ export async function getStaticProps({ params }) {
           }),
           meta: convertMetaAPItoMeta(meta, data._embedded),
         },
-        revalidate: 30,
+        revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
       }
     }
   }
 
   return {
     notFound: true,
-    revalidate: 30,
+    revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
   }
 }

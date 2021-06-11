@@ -216,10 +216,10 @@ export async function getStaticProps({ params }) {
   const { [0]: data, [1]: offers } = await Promise.all([getOfferContent(params.offerSlug), getCategoryOffers(params.offerSlug)])
   const pageContent = { ...data.acf, slug: data.slug }
 
-  if (!!!data.acf) {
+  if (!data.acf) {
     return {
-      notFound: !!!data.acf,
-      revalidate: 30,
+      notFound: !data.acf,
+      revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
     }
   }
 
@@ -247,6 +247,6 @@ export async function getStaticProps({ params }) {
       pageContent,
       offers: offerChildrens,
     },
-    revalidate: 30,
+    revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
   }
 }

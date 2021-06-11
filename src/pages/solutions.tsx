@@ -61,7 +61,7 @@ export async function getStaticProps() {
     props: {
       pageContent: JSON.parse(JSON.stringify(await getSolutionsPageContent())),
     },
-    revalidate: 30,
+    revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
   }
 }
 

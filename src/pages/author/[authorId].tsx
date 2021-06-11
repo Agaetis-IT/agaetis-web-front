@@ -50,13 +50,13 @@ export async function getStaticProps({ params }) {
         content,
         hasMore: posts.pageCount > 1,
       },
-      revalidate: 30,
+      revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
     }
   }
   catch {
     return {
       notFound: true,
-      revalidate: 30,
+      revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
     }
   }
 }

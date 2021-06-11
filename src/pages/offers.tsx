@@ -185,6 +185,6 @@ export async function getStaticProps() {
       pageContent: JSON.parse(JSON.stringify(pageContent)),
       allOffers: allOffersChildrens,
     },
-    revalidate: 30,
+    revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
   }
 }

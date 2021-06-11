@@ -11,7 +11,6 @@ import next from 'next'
 import nodemailer from 'nodemailer'
 import http from 'http'
 import logger from 'morgan'
-import { ParsedUrlQuery } from 'querystring'
 
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
@@ -19,8 +18,8 @@ const handle = app.getRequestHandler()
 const sha256 = sha.sha256
 
 const oAuth2Client = new google.auth.OAuth2(
-  process.env.NEXT_PUBLIC_GMAIL_CLIENT_ID,
-  process.env.NEXT_PUBLIC_GMAIL_CLIENT_SECRET,
+  process.env.NEXT_GMAIL_CLIENT_ID,
+  process.env.NEXT_GMAIL_CLIENT_SECRET,
   process.env.NEXT_PUBLIC_SITE_URL
 )
 
@@ -29,7 +28,7 @@ const mailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
 
 const verifyCaptcha = async (token: string) => {
-  const url = `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.NEXT_PUBLIC_RECAPTCHA_SECRET}&response=${token}`
+  const url = `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.NEXT_RECAPTCHA_SECRET}&response=${token}`
   const { data } = await axios.get(url)
   return data.success
 }
@@ -59,7 +58,6 @@ app
       /:slug : existing ideas url are /:postname, we have to respect this pattern 
     */
     server.get('/:slug', (req: Request, res: Response) => {
-      const queryParams: any = { ...req.params, ...req.query }
       if (
         [
           'offers',
@@ -74,15 +72,15 @@ app
           'google80ae36db41235209.html',
           'robots.txt',
           'favicon.ico',
-        ].includes(queryParams.slug) ||
-        !!queryParams.slug.match(/^blog\/.*/) ||
-        !!queryParams.slug.match(/^author\/.*/) ||
-        !!queryParams.slug.match(/^offers\/.*/)
+        ].includes(req.params.slug) ||
+        !!req.params.slug.match(/^blog\/.*/) ||
+        !!req.params.slug.match(/^author\/.*/) ||
+        !!req.params.slug.match(/^offers\/.*/)
       ) {
         return handle(req, res)
-      } else if (queryParams.slug === 'ideas') {
+      } else if (req.params.slug === 'ideas') {
         res.redirect(301, '/blog')
-      } else if (queryParams.slug === 'jobs') {
+      } else if (req.params.slug === 'jobs') {
         res.redirect(301, 'https://agaetis.welcomekit.co/')
       }
 
@@ -112,7 +110,7 @@ app
     server.post('/send', json10MBParser, async (req: Request, res: Response) => {
       oAuth2Client.setCredentials({
         // eslint-disable-next-line @typescript-eslint/camelcase
-        refresh_token: process.env.NEXT_PUBLIC_GMAIL_REFRESH_TOKEN,
+        refresh_token: process.env.NEXT_GMAIL_REFRESH_TOKEN,
       })
       const captcha = verifyCaptcha(req.body.token)
       const accessToken = oAuth2Client.getAccessToken()
@@ -124,9 +122,9 @@ app
         auth: {
           type: 'OAuth2',
           user: String(process.env.NEXT_PUBLIC_MAIL_ADDRESS),
-          clientId: String(process.env.NEXT_PUBLIC_GMAIL_CLIENT_ID),
-          clientSecret: String(process.env.NEXT_PUBLIC_GMAIL_CLIENT_SECRET),
-          refreshToken: String(process.env.NEXT_PUBLIC_GMAIL_REFRESH_TOKEN),
+          clientId: String(process.env.NEXT_GMAIL_CLIENT_ID),
+          clientSecret: String(process.env.NEXT_GMAIL_CLIENT_SECRET),
+          refreshToken: String(process.env.NEXT_GMAIL_REFRESH_TOKEN),
           accessToken: String(accessToken),
           expires: Date.now() + 3600,
         },
@@ -179,7 +177,7 @@ app
     server.post('/send/white-paper', jsonParser, (req: Request, res: Response) => {
       oAuth2Client.setCredentials({
         // eslint-disable-next-line @typescript-eslint/camelcase
-        refresh_token: process.env.NEXT_PUBLIC_GMAIL_REFRESH_TOKEN,
+        refresh_token: process.env.NEXT_GMAIL_REFRESH_TOKEN,
       })
 
       const captcha = verifyCaptcha(req.body.token)
@@ -193,9 +191,9 @@ app
         auth: {
           type: 'OAuth2',
           user: String(process.env.NEXT_PUBLIC_MAIL_ADDRESS),
-          clientId: String(process.env.NEXT_PUBLIC_GMAIL_CLIENT_ID),
-          clientSecret: String(process.env.NEXT_PUBLIC_GMAIL_CLIENT_SECRET),
-          refreshToken: String(process.env.NEXT_PUBLIC_GMAIL_REFRESH_TOKEN),
+          clientId: String(process.env.NEXT_GMAIL_CLIENT_ID),
+          clientSecret: String(process.env.NEXT_GMAIL_CLIENT_SECRET),
+          refreshToken: String(process.env.NEXT_GMAIL_REFRESH_TOKEN),
           accessToken: String(accessToken),
           expires: Date.now() + 3600,
         },

@@ -44,12 +44,12 @@ NEXT_PUBLIC_BASE_URL=<URL to Wordpress>
 NEXT_PUBLIC_SITE_URL=http://127.0.0.1:5000
 NEXT_PUBLIC_MAIL_ADDRESS=<Mail address for the website>
 NEXT_PUBLIC_MAIL_DEST=<Mail to send contact mails to>
-NEXT_PUBLIC_GMAIL_CLIENT_ID=<GMail client ID>
-NEXT_PUBLIC_GMAIL_CLIENT_SECRET=<GMail client secret key>
-NEXT_PUBLIC_GMAIL_REFRESH_TOKEN=<GMail client refresh token>
+NEXT_GMAIL_CLIENT_ID=<GMail client ID>
+NEXT_GMAIL_CLIENT_SECRET=<GMail client secret key>
+NEXT_GMAIL_REFRESH_TOKEN=<GMail client refresh token>
 NEXT_PUBLIC_GOOGLE_ANALYTICS_KEY=<Analytics key>
 NEXT_PUBLIC_RECAPTCHA_KEY=<ReCaptcha key>
-NEXT_PUBLIC_RECAPTCHA_SECRET=<ReCaptcha secret key>
+NEXT_RECAPTCHA_SECRET=<ReCaptcha secret key>
 NEXT_PUBLIC_CONTACT_SALT=<Contact salt key>
 ```
 
@@ -66,14 +66,14 @@ To follow the steps below, you have to create a gmail account (or have one alrea
 5. Create Credentials by clicking the button on top and select ID Client OAuth
 6. Choose Web App as Application type
 7. Add site url and https://developers.google.com/oauthplayground as authorized redirect URI
-8. A Modal should appear then copy Client ID and Client Secret and paste them in the .env NEXT_PUBLIC_GMAIL_CLIENT_ID & NEXT_PUBLIC_GMAIL_CLIENT_SECRET
+8. A Modal should appear then copy Client ID and Client Secret and paste them in the .env NEXT_GMAIL_CLIENT_ID & NEXT_GMAIL_CLIENT_SECRET
 9. Visit https://developers.google.com/oauthplayground
 10. Change the settings by clicking the setting button ont top right
 11. Check "use your own OAuth credentials and provide your clientID and clientSecret
 12. In the Step1 list find Gmail API v1 and select https://mail.google.com, gmail.insert, readonly and send
 13. Click 'Authorize API'
 14. Go to Step 2 and exchange authorization code for tokens
-15. Copy Refresh Token and paste it in the .env NEXT_PUBLIC_GMAIL_REFRESH_TOKEN veriable
+15. Copy Refresh Token and paste it in the .env NEXT_GMAIL_REFRESH_TOKEN veriable
 16. Add your email address to the .env NEXT_PUBLIC_MAIL_ADDRESS
 
 It should be correctly working, if not clap your hands and i'll try to solve the problem and update the README.

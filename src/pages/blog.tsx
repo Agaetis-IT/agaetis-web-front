@@ -45,6 +45,6 @@ export async function getStaticProps() {
       hideSeeMore: ideas.pageCount == 1,
       tagFilter: null,
     },
-    revalidate: 30,
+    revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
   }
 }

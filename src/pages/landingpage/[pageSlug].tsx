@@ -20,19 +20,9 @@ interface Props {
 }
 
 function setStyles(htmlString: string) {
-  let dummy = document.createElement('div')
-  dummy.innerHTML = htmlString
-
-  let elems = dummy.getElementsByTagName('*')
-  for (let i = 0; i < elems.length; i++) {
-    for (let cl of elems[i].classList) {
-      if (styles[cl]) {
-        elems[i].classList.add(styles[cl])
-      }
-    }
-  }
-
-  return dummy.innerHTML
+  return htmlString.replace(/(?<=<.*class=")[^">]*(?=.*>)/g, (classes) => {
+    return classes.split(' ').map((cl) => styles[cl] ? styles[cl] : cl).join(' ')
+  })
 }
 
 export default function Landingpage({ pageContent, errorCode }: Props) {
@@ -106,10 +96,10 @@ export async function getStaticProps({ params }) {
   const data = await getLandingPageContent(params.pageSlug)
   const pageContent = convertAPItoLandingPageContent({ ...data })
 
-  if (!!!data.acf) {
+  if (!data.acf) {
     return {
       notFound: true,
-      revalidate: 30,
+      revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
     }
   }
 
@@ -117,6 +107,6 @@ export async function getStaticProps({ params }) {
     props: {
       pageContent,
     },
-    revalidate: 30,
+    revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
   }
 }
