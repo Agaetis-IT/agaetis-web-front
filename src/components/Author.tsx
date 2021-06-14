@@ -15,7 +15,6 @@ import { PostAPI } from '../models/IdeasAPI'
 
 const Particles = '/images/particles-3.svg'
 const Linkedin = '/icons/linkedin.png'
-import Error from '../pages/_error'
 import SnackBar from './SnackBar'
 
 import styles from '../styles/Common.module.css'
@@ -25,11 +24,10 @@ interface Props {
   ideasDescription: IdeasDesc[]
   author: AuthorDescription
   content: AuthorPageContent
-  errorCode?: number
   hasMore: boolean
 }
 
-export default function Author({ ideasDescription, author, content, errorCode, hasMore }: Props) {
+export default function Author({ ideasDescription, author, content, hasMore }: Props) {
   const [postModalOpen, setPostModalOpen] = useState<boolean | undefined>(undefined)
   const [ideas, setIdeas] = useState(ideasDescription)
   const [lastPage, setLastPage] = useState(1)
@@ -92,10 +90,6 @@ export default function Author({ ideasDescription, author, content, errorCode, h
       )),
     [ideas]
   )
-
-  if (!!errorCode) {
-    return <Error statusCode={404} />
-  }
 
   return (
     <>

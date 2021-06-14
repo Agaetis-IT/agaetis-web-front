@@ -10,16 +10,14 @@ import WhitePaper from '../../types/WhitePaper'
 import { WhitepaperFormValues } from '../../yup/WhitePaperFormValidation'
 const Logo = '../static/icons/Agaetis - Ico logo - Orange.png'
 
-import Error from '../_error'
 import Link from 'next/link'
 import SnackBar from '../../components/SnackBar'
 
 interface Props {
   pageContent?: WhitePaper
-  errorCode?: number
 }
 
-export default function whitePaper({ pageContent, errorCode }: Props) {
+export default function whitePaper({ pageContent }: Props) {
   const [modalOpenWithError, setModalOpenWithError] = useState<boolean | undefined>(undefined)
   const [isLoading, setIsLoading] = useState(false)
 
@@ -45,9 +43,6 @@ export default function whitePaper({ pageContent, errorCode }: Props) {
     }
   }
 
-  if (!pageContent) {
-    return <Error statusCode={errorCode!} />
-  }
   return (
     <>
       <Head>

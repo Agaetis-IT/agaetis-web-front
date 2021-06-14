@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import clsx from 'clsx'
-import { NextPageContext } from 'next'
 import Head from 'next/head'
 import { useMemo, useState } from 'react'
 
@@ -12,7 +11,6 @@ import { getIdeaBySlug, getIdeaMeta, getIdeasByPage } from '../../services/wordp
 import IdeasContent, { IdeasDesc } from '../../types/IdeasContent'
 import Meta, { convertMetaAPItoMeta } from '../../types/Meta'
 
-import Error from './../_error'
 import { escape } from 'querystring'
 import ContactSection from '../../components/ContactSection'
 import ContactForm from '../../components/ContactForm'
@@ -31,12 +29,11 @@ interface Props {
   data: IdeasContent
   related?: IdeasDesc[]
   meta: Meta
-  errorCode?: number
 }
 
 const Particles = '/images/particles-3.svg'
 
-export default function BlogPost({ data, related, errorCode, meta }: Props) {
+export default function BlogPost({ data, related, meta }: Props) {
   const [isOpenedMoreIdeas, setIsOpenedMoreIdeas] = useState(false)
   const [modalOpenWithError, setModalOpenWithError] = useState<boolean | undefined>(undefined)
   const [isSubmited, setIsSubmited] = useState(false)
@@ -62,10 +59,6 @@ export default function BlogPost({ data, related, errorCode, meta }: Props) {
 
   function handleToggleMoreIdeas() {
     setIsOpenedMoreIdeas(!isOpenedMoreIdeas)
-  }
-
-  if (!!errorCode) {
-    return <Error statusCode={404} />
   }
 
   const relatedIdeas = useMemo(() => {

@@ -1,14 +1,10 @@
 import Head from 'next/head'
-import Link from 'next/link'
 
 import Button from '../components/Button'
+import ContactSection from '../components/ContactSection'
 import Layout from '../components/Layout'
 
-interface Props {
-  statusCode: number
-}
-
-export default function Error({ statusCode }: Props) {
+export default function Custom404() {
   return (
     <>
       <Head>
@@ -16,22 +12,10 @@ export default function Error({ statusCode }: Props) {
         <title>Agaetis : Erreur 404</title>
       </Head>
       <Layout invertColors={false}>
-        <>
-          <div className="md:max-w-md flex flex-col mx-auto">
-            <div className="text-xs leading-normal px-4 mt-32">
-              <span>
-                <Link href="/">
-                  <a className="underline">Accueil</a>
-                </Link>
-
-                {' > '}
-                <b>Page introuvable</b>
-              </span>
-            </div>
-          </div>
-          <div className="my-8 flex flex-col mx-auto bg-orange-500 text-white text-center p-20">
+        <div className="pt-0 md:pt-28">
+          <div className="shadow-md mb-8 py-8 flex flex-col bg-orange-500 text-white text-center">
             <h1 className="text-4xl leading-normal font-semibold">
-              Page introuvable ({statusCode ? statusCode : 404})
+              Page introuvable (HTTP 404)
             </h1>
             <h2 className="text-sm leading-normal font-normal my-6">La page que vous cherchez n'existe pas ou plus</h2>
             <Button
@@ -41,7 +25,8 @@ export default function Error({ statusCode }: Props) {
               Retourner à l'accueil
             </Button>
           </div>
-        </>
+          <ContactSection/>
+        </div>
       </Layout>
     </>
   )

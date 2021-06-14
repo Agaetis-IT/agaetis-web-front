@@ -3,7 +3,6 @@ import { useEffect } from 'react'
 import { convertAPItoOfferleaf, OfferContent, OfferLeafContent } from '../../types/OffersContent'
 import { getAllOffers, getCategoryOffers, getIdeasByCategory, getOfferContent, getOfferLeaf } from '../../services/wordpressService'
 const Back = '/icons/Btn_Retour.svg'
-import Error from '../_error'
 import Head from 'next/head'
 import Layout from '../../components/Layout'
 const Particles = '/images/particles-2.svg'
@@ -23,11 +22,10 @@ import OfferAPI from '../../models/OfferAPI'
 
 interface Props {
   pageContent: OfferContent
-  errorCode?: number
   offers: OfferLeafContent[]
 }
 
-export default function offer({ pageContent, errorCode, offers }: Props): React.ReactElement {
+export default function offer({ pageContent, offers }: Props): React.ReactElement {
   const [selectedOffer, setSelectedOffer] = useState(0)
   const [modalOpenWithError, setModalOpenWithError] = useState<boolean | undefined>(undefined)
   const [isSubmited, setIsSubmited] = useState(false)
@@ -57,10 +55,6 @@ export default function offer({ pageContent, errorCode, offers }: Props): React.
     } catch {
       handleOpenModal(true)
     }
-  }
-
-  if (!!errorCode) {
-    return <Error statusCode={404} />
   }
 
   return (

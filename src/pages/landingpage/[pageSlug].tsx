@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import ContactForm from '../../components/ContactForm'
 import ContactSection from '../../components/ContactSection'
-import Error from '../_error'
 import Layout from '../../components/Layout'
 const Particles = '/images/particles-3.svg'
 import { getAllLandingPages, getLandingPageContent } from '../../services/wordpressService'
@@ -16,7 +15,6 @@ import LandingPageAPI from '../../models/LandingPageAPI'
 
 interface Props {
   pageContent: LandingPage
-  errorCode?: number
 }
 
 function setStyles(htmlString: string) {
@@ -25,7 +23,7 @@ function setStyles(htmlString: string) {
   })
 }
 
-export default function Landingpage({ pageContent, errorCode }: Props) {
+export default function Landingpage({ pageContent }: Props) {
   const [modalOpenWithError, setModalOpenWithError] = useState<boolean | undefined>(undefined)
   const [isSubmited, setIsSubmited] = useState(false)
 
@@ -48,9 +46,6 @@ export default function Landingpage({ pageContent, errorCode }: Props) {
     }
   }
 
-  if (!!errorCode) {
-    return <Error statusCode={404} />
-  }
   return (
     <Layout invertColors={false}>
       <>
@@ -94,14 +89,15 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const data = await getLandingPageContent(params.pageSlug)
-  const pageContent = convertAPItoLandingPageContent({ ...data })
-
+  
   if (!data.acf) {
     return {
       notFound: true,
       revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
     }
   }
+
+  const pageContent = convertAPItoLandingPageContent({ ...data })
 
   return {
     props: {

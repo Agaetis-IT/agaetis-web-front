@@ -14,7 +14,6 @@ const Particles = '/images/particles-3.svg'
 import { FormInput } from '../yup/ContactFormValidation'
 import ContactForm from './ContactForm'
 import SearchInput from '../components/SearchInput'
-import Error from '../pages/_error'
 
 import { useDebouncedCallback } from 'use-debounce'
 import { slugify } from '../services/textUtilities'
@@ -35,7 +34,6 @@ interface Props {
   selectedCategory?: string
   tagFilter?: string
   hideSeeMore?: boolean
-  errorCode?: number
 }
 
 export default function Blog({
@@ -46,7 +44,6 @@ export default function Blog({
   selectedCategory,
   tagFilter,
   hideSeeMore,
-  errorCode,
 }: Props) {
   const [modalOpenWithError, setModalOpenWithError] = useState<boolean | undefined>(undefined)
   const [postModalOpen, setPostModalOpen] = useState<boolean | undefined>(undefined)
@@ -173,10 +170,6 @@ export default function Blog({
     setSearchFilter(value)
     handleFetchIdeas(true, undefined, value)
   }, 600)
-
-  if (!!errorCode) {
-    return <Error statusCode={404} />
-  }
 
   return (
     <>
