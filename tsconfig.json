@@ -10,7 +10,7 @@
     "skipLibCheck": true,
     "strict": false,
     "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
+    "noEmit": false,
     "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "node",
@@ -18,12 +18,14 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "rootDir": "./",
-    "outDir": "dist"
+    "outDir": "./dist"
   },
   "include": [
     "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx"
+    "images.d.ts",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "server.ts"
   ],
   "exclude": [
     "node_modules",
