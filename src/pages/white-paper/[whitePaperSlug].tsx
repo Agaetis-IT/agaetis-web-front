@@ -12,12 +12,15 @@ const Logo = '../static/icons/Agaetis - Ico logo - Orange.png'
 
 import Link from 'next/link'
 import SnackBar from '../../components/SnackBar'
+import Error from '../_error'
+import axios from 'axios'
 
 interface Props {
   pageContent?: WhitePaper
+  errorCode?: number
 }
 
-export default function whitePaper({ pageContent }: Props) {
+export default function whitePaper({ pageContent, errorCode }: Props) {
   const [modalOpenWithError, setModalOpenWithError] = useState<boolean | undefined>(undefined)
   const [isLoading, setIsLoading] = useState(false)
 
@@ -41,6 +44,10 @@ export default function whitePaper({ pageContent }: Props) {
     } else {
       handleOpenModal(true)
     }
+  }
+
+  if (errorCode) {
+    return <Error statusCode={errorCode}/>
   }
 
   return (
@@ -119,10 +126,20 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const data = await getWhitePaperContent(params.whitePaperSlug)
+  let data
+  try {
+    data = await axios.get('https://httpstat.us/500?sleep=15000', { timeout: 10000 })//await getWhitePaperContent(params.whitePaperSlug)
+  } catch (error) {
+    return {
+      props: {
+        errorCode: 500,
+      },
+      revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
+    }
+  }
 
   if (!data.acf) {
-    return { 
+    return {
       notFound: true,
       revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
     }

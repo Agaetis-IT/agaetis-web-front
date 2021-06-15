@@ -91,6 +91,7 @@ export async function getWhitePaperContent(slug: string) {
   const { data } = await axios.get(
     `${process.env.NEXT_PUBLIC_BASE_URL}/wp-json/agaetis/api/v1/white-papers/${slug}`
   )
+  console.log(data)
   return data
 }
 
