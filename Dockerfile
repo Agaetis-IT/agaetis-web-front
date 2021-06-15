@@ -19,7 +19,6 @@ ENV NPM_CONFIG_LOGLEVEL=warn \
     NODE_ENV=production \
     NODE_PORT=5000
 
-COPY --from=0 --chown=node:node /app/.env ./.env
 COPY --from=0 --chown=node:node /app/.next ./.next
 COPY --from=0 --chown=node:node /app/public ./public
 COPY --from=0 --chown=node:node /app/package.json /app/yarn.lock /app/next.config.js ./
@@ -32,4 +31,4 @@ USER node
 EXPOSE 5000
 
 # launch on port 5000
-CMD ["yarn", "start"]
+CMD ["yarn", "build:start"]

@@ -39,7 +39,7 @@ app
     const server = express()
     server.use(
       logger(
-        ':date[iso] :req[x-real-ip] :method :url :status :res[content-length] - :response-time ms --- from: :referrer'
+        ':date[iso] :req[x-real-ip] :method :url :status :res[content-length] - :response-time ms --- from: :referrer '+process.env.NEXT_PUBLIC_ENVIRON
       )
     )
     server.use(bodyParser.urlencoded({ extended: true }))
@@ -121,7 +121,7 @@ app
         secure: true,
         auth: {
           type: 'OAuth2',
-          user: String(process.env.NEXT_PUBLIC_MAIL_ADDRESS),
+          user: String(process.env.NEXT_MAIL_ADDRESS),
           clientId: String(process.env.NEXT_GMAIL_CLIENT_ID),
           clientSecret: String(process.env.NEXT_GMAIL_CLIENT_SECRET),
           refreshToken: String(process.env.NEXT_GMAIL_REFRESH_TOKEN),
@@ -131,8 +131,8 @@ app
       })
 
       const message = {
-        from: process.env.NEXT_PUBLIC_MAIL_ADDRESS,
-        to: process.env.NEXT_PUBLIC_MAIL_DEST,
+        from: process.env.NEXT_MAIL_ADDRESS,
+        to: process.env.NEXT_MAIL_DEST,
         subject: req.body.object,
         html: req.body.content,
         attachments: req.body.attachments
@@ -190,7 +190,7 @@ app
         secure: true,
         auth: {
           type: 'OAuth2',
-          user: String(process.env.NEXT_PUBLIC_MAIL_ADDRESS),
+          user: String(process.env.NEXT_MAIL_ADDRESS),
           clientId: String(process.env.NEXT_GMAIL_CLIENT_ID),
           clientSecret: String(process.env.NEXT_GMAIL_CLIENT_SECRET),
           refreshToken: String(process.env.NEXT_GMAIL_REFRESH_TOKEN),
@@ -200,7 +200,7 @@ app
       })
 
       const message = {
-        from: process.env.NEXT_PUBLIC_MAIL_ADDRESS,
+        from: process.env.NEXT_MAIL_ADDRESS,
         to: req.body.mail,
         subject: req.body.object,
         html: req.body.content,

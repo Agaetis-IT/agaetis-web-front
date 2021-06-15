@@ -42,8 +42,8 @@ You can find below an example of `.env` file:
 ```
 NEXT_PUBLIC_BASE_URL=<URL to Wordpress>
 NEXT_PUBLIC_SITE_URL=http://127.0.0.1:5000
-NEXT_PUBLIC_MAIL_ADDRESS=<Mail address for the website>
-NEXT_PUBLIC_MAIL_DEST=<Mail to send contact mails to>
+NEXT_MAIL_ADDRESS=<Mail address for the website>
+NEXT_MAIL_DEST=<Mail to send contact mails to>
 NEXT_GMAIL_CLIENT_ID=<GMail client ID>
 NEXT_GMAIL_CLIENT_SECRET=<GMail client secret key>
 NEXT_GMAIL_REFRESH_TOKEN=<GMail client refresh token>
@@ -74,7 +74,7 @@ To follow the steps below, you have to create a gmail account (or have one alrea
 13. Click 'Authorize API'
 14. Go to Step 2 and exchange authorization code for tokens
 15. Copy Refresh Token and paste it in the .env NEXT_GMAIL_REFRESH_TOKEN veriable
-16. Add your email address to the .env NEXT_PUBLIC_MAIL_ADDRESS
+16. Add your email address to the .env NEXT_MAIL_ADDRESS
 
 It should be correctly working, if not clap your hands and i'll try to solve the problem and update the README.
 
