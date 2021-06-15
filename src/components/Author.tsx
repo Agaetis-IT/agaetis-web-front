@@ -105,7 +105,7 @@ export default function Author({ ideasDescription, author, content, hasMore }: P
       <Layout invertColors={false}>
         <div className="relative pt-0 md:pt-28">
           <div className="absolute mt-0 md:mt-28 bg-gray-400 top-0 left-0 right-0 bottom-0 z-back">
-            <Image src={Particles} layout="responsive" height={960} width={1920} quality={100}/>
+            <Image src={Particles} layout="responsive" alt="" height={960} width={1920} quality={100}/>
           </div>
           <div>
             <div className="p-6 md:p-16 lg:px-32 xl:px-48">
@@ -118,7 +118,7 @@ export default function Author({ ideasDescription, author, content, hasMore }: P
                   <div>
                     <div className="flex flex-row items-center">
                       <div className={`my-8 ${styles.round8} shadow-md text-none`}>
-                        <Image className={`block ${styles.round8}`} src={author.avatar as string} width={96} height={96} quality={100}/>
+                        <Image className={`block ${styles.round8}`} src={author.avatar as string} alt="author avatar" width={96} height={96} quality={100}/>
                       </div>
                       <p className="ml-4 text-xl leading-normal font-semibold">{author.name}</p>
                       {author.linkedInLink && (
@@ -126,7 +126,7 @@ export default function Author({ ideasDescription, author, content, hasMore }: P
                           href={author.linkedInLink}
                           className={`w-6 h-6 ml-4 shadow-sm hover:shadow-md bg-white rounded-full ${styles.smoothTransition} p-1 text-none`}
                         >
-                          <Image src={Linkedin} className="w-4 h-4" width={24} height={24} quality={100}/>
+                          <Image src={Linkedin} alt="author's LinkedIn" className="w-4 h-4" width={24} height={24} quality={100}/>
                         </Button>
                       )}
                     </div>

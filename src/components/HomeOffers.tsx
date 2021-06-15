@@ -82,7 +82,7 @@ export default function HomeOffers({ title, offers }: Props) {
                   index === selectedOffer && isOpenedOffer ? `block ${styles.offerFlyoutOpen}` : styles.offerFlyoutClose
                 )}>
                 <div className="absolute bg-gray-800 top-0 left-0 right-0 bottom-0">
-                  <Image src={offer.image} layout="fill" objectFit="cover" quality={100}/>
+                  <Image src={offer.image} layout="fill" objectFit="cover" quality={100} alt=""/>
                 </div>
                 <div style={{ backgroundColor: 'rgba(0,0,0,0.4)' }} className={`p-4 m-4 ${commonStyles.round8} ${styles.backgroundBlur}`}>
                   <p className="text-sm leading-normal text-justify text-white">
@@ -116,7 +116,7 @@ export default function HomeOffers({ title, offers }: Props) {
       </div>
       <div className="relative hidden md:block bg-gray-800 w-full md:w-1/2 md:p-12 lg:p-16">
         <div className="absolute bg-gray-800 top-0 left-0 right-0 bottom-0">
-          <Image src={offers[selectedOffer].image} layout="fill" objectFit="cover" quality={100}/>
+          <Image src={offers[selectedOffer].image} layout="fill" objectFit="cover" quality={100} alt=""/>
         </div>
         <div style={{ backgroundColor: 'rgba(0,0,0,0.4)' }} className={`p-4 ${commonStyles.round8} ${styles.backgroundBlur}`}>
           {offers.map((offer, index) => (

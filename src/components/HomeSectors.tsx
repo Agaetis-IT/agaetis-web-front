@@ -53,6 +53,7 @@ export default function HomeSectors({ title, sectors }: Props) {
                     layout="fill"
                     objectFit="cover"
                     quality={100}
+                    alt=""
                   />
                 </div>
                 <div  

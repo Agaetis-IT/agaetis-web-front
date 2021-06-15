@@ -120,7 +120,9 @@ function IdeaContent({ content, meta }: Props) {
           <Link href="/blog" passHref={true}>
             <Button>
               <div className="flex flex-row items-center">
-                <div className="mr-4 text-none"><Image src={Back} width={52} height={52} layout="fixed" quality={100}/></div>
+                <div className="mr-4 text-none">
+                  <Image src={Back} width={52} height={52} layout="fixed" quality={100} alt=""/>
+                </div>
                 <span className="text-orange-500 text-xs leading-normal font-semibold">Retour au blog</span>
               </div>
             </Button>
@@ -135,6 +137,7 @@ function IdeaContent({ content, meta }: Props) {
             layout="fill"
             objectFit="cover"
             quality={100}
+            alt=""
           />
         </div>
         <div className="px-4 md:px-8 text-xs leading-normal text-orange-500 font-semibold flex items-center justify-between py-4">
@@ -143,7 +146,7 @@ function IdeaContent({ content, meta }: Props) {
               {content.date.slice(8, 10)} / {content.date.slice(5, 7)} / {content.date.slice(0, 4)}
             </span>
             <span className="flex items-center pr-8">
-              <Image src={AccessTime} width={15} height={15} alt="read_time" layout="fixed" quality={100}/>
+              <Image src={AccessTime} width={15} height={15} alt="read time" layout="fixed" quality={100}/>
               &nbsp;{content.readTime} min.
             </span>
           </span>
@@ -152,19 +155,19 @@ function IdeaContent({ content, meta }: Props) {
               href={`https://www.facebook.com/sharer/sharer.php?u=${location.split('#')[0]}`}
               className={`w-6 h-6 mr-4 self-center shadow-sm hover:shadow-md bg-white rounded-full ${commonStyles.smoothTransition} p-1`}
             >
-              <Image src={Facebook} className="w-4 h-4" width={24} height={24} quality={100}/>
+              <Image src={Facebook} className="w-4 h-4" width={24} height={24} quality={100} alt="Facebook"/>
             </Button>
             <Button
               href={`https://www.linkedin.com/shareArticle?mini=true&url=${location.split('#')[0]}`}
               className={`w-6 h-6 mr-4 shadow-sm hover:shadow-md bg-white rounded-full ${commonStyles.smoothTransition} p-1`}
             >
-            <Image src={Linkedin} className="w-4 h-4" width={24} height={24} quality={100}/>
+            <Image src={Linkedin} className="w-4 h-4" width={24} height={24} quality={100} alt="LinkedIn"/>
             </Button>
             <Button
               href={`https://twitter.com/intent/tweet?text=${location.split('#')[0]}`}
               className={`w-6 h-6 shadow-sm hover:shadow-md bg-white rounded-full ${commonStyles.smoothTransition} p-1`}
             >
-            <Image src={Twitter} className="w-4 h-4" width={24} height={24} quality={100}/>
+            <Image src={Twitter} className="w-4 h-4" width={24} height={24} quality={100} alt="Twitter"/>
             </Button>
           </div>
         </div>

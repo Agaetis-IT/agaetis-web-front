@@ -26,11 +26,11 @@ export default function HomeJoinUs({
     <>
       <div className="hidden p-16 lg:px-24 lg:p-16 md:flex flex-row">
         <div className="my-auto w-1/3">
-          <Image src={joinUsImageDesktop} width={559} height={443} quality={100}/>
+          <Image src={joinUsImageDesktop} width={559} height={443} quality={100} alt=""/>
         </div>
         <div className="relative w-2/3">
           <div className="absolute top-0 left-0 right-0 bottom-0 z-back">
-            <Image src={joinUsHuman} layout="fill" objectFit="contain" quality={100}/>
+            <Image src={joinUsHuman} layout="fill" objectFit="contain" quality={100} alt=""/>
           </div>
           <div className="flex flex-row justify-between py-32 px-8">
             <div className="w-2/5 pr-8">
@@ -61,7 +61,7 @@ export default function HomeJoinUs({
         <p className="mb-8 text-sm leading-normal text-justify">{joinUsAgaetisDesc}</p>
         <div className="flex flex-row-reverse justify-between sm:justify-around mb-8">
           <div className="h-32 w-32">
-            <Image src={joinUsImageMobile1} width={321} height={321} quality={100}/>
+            <Image src={joinUsImageMobile1} width={321} height={321} quality={100} alt=""/>
           </div>
           <Button
             href="/agaetis"
@@ -74,7 +74,7 @@ export default function HomeJoinUs({
         <p className="mb-8 text-sm leading-normal text-justify">{joinUsCareerDesc}</p>
         <div className="flex flex-row justify-between sm:justify-around mb-8">
           <div className="h-32 w-32">
-            <Image src={joinUsImageMobile2} width={360} height={360} quality={100}/>
+            <Image src={joinUsImageMobile2} width={360} height={360} quality={100} alt=""/>
           </div>
           <Button
             href="/jobs"

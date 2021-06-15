@@ -51,7 +51,7 @@ export default function Landingpage({ pageContent }: Props) {
       <>
         <div className="relative pt-0 md:pt-28">
           <div className="absolute mt-0 md:mt-28 bg-gray-400 top-0 left-0 right-0 bottom-0 z-back">
-            <Image src={Particles} layout="responsive" height={960} width={1920} quality={100}/>
+            <Image src={Particles} layout="responsive" height={960} width={1920} quality={100} alt=""/>
           </div>
           <div className="p-6 md:p-16 xl:px-32">
             <h1 className="font-bold text-4xl">{pageContent.title}</h1>

@@ -20,7 +20,8 @@ export default function Hero({ hero, values, subtitle }: Props) {
     <div className="relative">
       <div className="absolute bg-orange-500 top-0 left-0 right-0 bottom-0 z-back">
         <div className="absolute bottom-0 left-0 right-0">
-        <Image src={hero ? hero : Mask} layout="responsive" height={960} width={1920} quality={100}/></div>
+          <Image src={hero ? hero : Mask} layout="responsive" alt="" height={960} width={1920} quality={100}/>
+        </div>
       </div>
       <div className="m-0 md:h-screen md:min-h-hero">
         <div>
@@ -28,13 +29,13 @@ export default function Hero({ hero, values, subtitle }: Props) {
             <div className={`flex flex-col p-6 md:p-0 md:my-6 py-16 ${styles.heroText} text-white w-full`}>
               <div className="pb-4 md:pb-16 text-center text-sm md:text-3xl mx-16">
                 <div className={`${styles.quoteL}`}>
-                  <Image src={Quote} width={214} height={692} quality={100}/>
+                  <Image src={Quote} width={214} height={692} quality={100} alt=""/>
                 </div>
                 <p className="inline italic" id="hero-quote">
                   La data au service des hommes et du monde de demain !
                 </p>
                 <div className={`${styles.quoteR}`}>
-                  <Image src={Quote} width={214} height={692} quality={100}/>
+                  <Image src={Quote} width={214} height={692} quality={100} alt=""/>
                 </div>
               </div>
               <div className="bg-white h-px mb-4 w-16 md:mb-0 md:h-0 md:bg-transparent self-center"/>
