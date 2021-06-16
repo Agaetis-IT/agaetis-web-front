@@ -36,6 +36,7 @@ export default function MyApp({ Component, pageProps }) {
       s.async = true
       d.getElementsByTagName('head')[0].appendChild(s)
     })()
+    navigator.serviceWorker.getRegistrations().then((registrations) => registrations.map((registration) => registration.unregister()))
   }, [])
 
   const ErrorBoundary = Bugsnag.getPlugin('react')!.createErrorBoundary(React)
