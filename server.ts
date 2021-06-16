@@ -39,7 +39,7 @@ app
     const server = express()
     server.use(
       logger(
-        ':date[iso] :req[x-real-ip] :method :url :status :res[content-length] - :response-time ms --- from: :referrer '+process.env.NEXT_PUBLIC_ENVIRON
+        ':date[iso] :req[x-real-ip] :method :url :status :res[content-length] - :response-time ms --- from: :referrer'
       )
     )
     server.use(bodyParser.urlencoded({ extended: true }))
