@@ -1,0 +1,6 @@
+.snackBarModal {
+  top: 100px;
+  right: 10px;
+  z-index: 2000;
+  margin-left: 10px;
+}

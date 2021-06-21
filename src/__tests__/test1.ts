@@ -1,4 +1,4 @@
-import { validateMail, validatePhoneNumber } from '../Services/VerifForm'
+import { validateMail, validatePhoneNumber } from '../services/VerifForm'
 
 test('test of test', () => {
   expect(4).toBe(4)

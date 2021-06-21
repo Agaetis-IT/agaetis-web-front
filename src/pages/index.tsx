@@ -1,11 +1,9 @@
 import Head from 'next/head'
-import React from 'react'
 
 import ContactSection from '../components/ContactSection'
 import Hero from '../components/Hero'
 import Layout from '../components/Layout'
-import publicRuntimeConfig from '../config/env.config'
-import { getAllOffers, getIndexContent } from '../Services/wordpressService'
+import { getAllOffers, getIndexContent } from '../services/wordpressService'
 import IndexContent, { convertIndexContentAPItoContentAPI } from '../types/IndexContent'
 import HomeOffers from '../components/HomeOffers'
 import HomeSectors from '../components/HomeSectors'
@@ -28,11 +26,11 @@ export default function Index({ pageContent, offers }: Props) {
         <title>Agaetis</title>
 
         <meta property="og:title" content="Agaetis" />
-        <meta property="og:image" content={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/favicon.ico`} />
+        <meta property="og:image" content={`${process.env.NEXT_PUBLIC_SITE_URL}/favicon.ico`} />
         <meta property="og:type" content="website" />
         <meta property="og:description" content={pageContent.hero_subtitle} />
         <meta name="description" content={pageContent.hero_subtitle} />
-        <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/`} />
+        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/`} />
       </Head>
       <Layout invertColors={true}>
         <>
@@ -54,8 +52,8 @@ export default function Index({ pageContent, offers }: Props) {
             <HomeJoinUs
               joinUsAgaetisTitle={pageContent.joinUs_agaetis_title}
               joinUsAgaetisDesc={pageContent.joinUs_agaetis_desc}
-              joinUsCarreerTitle={pageContent.joinUs_carreer_title}
-              joinUsCarreerDesc={pageContent.joinUs_carreer_desc}
+              joinUsCareerTitle={pageContent.joinUs_carreer_title}
+              joinUsCareerDesc={pageContent.joinUs_carreer_desc}
               joinUsHuman={pageContent.joinUs_human}
               joinUsImageDesktop={pageContent.joinUs_image_desktop}
               joinUsImageMobile1={pageContent.joinUs_image_mobile_1}
@@ -69,9 +67,14 @@ export default function Index({ pageContent, offers }: Props) {
   )
 }
 
-Index.getInitialProps = async () => {
+export async function getStaticProps() {
   const { [0]: data, [1]: allOffersData } = await Promise.all([getIndexContent(), getAllOffers()])
-  const pageContent = convertIndexContentAPItoContentAPI(data)
 
-  return { pageContent, offers: allOffersData.map((offer: OfferAPI) => offer.acf).sort(compareOffer) }
+  return { 
+    props: {
+      pageContent: JSON.parse(JSON.stringify(convertIndexContentAPItoContentAPI(data))),
+      offers: allOffersData.map((offer: OfferAPI) => offer.acf).sort(compareOffer),
+    },
+    revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
+  }
 }

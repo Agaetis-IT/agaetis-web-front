@@ -1,18 +1,16 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import Head from 'next/head'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import Layout from '../components/Layout'
-import publicRuntimeConfig from '../config/env.config'
-import { getContactPageContent } from '../Services/wordpressService'
+import { getContactPageContent } from '../services/wordpressService'
 import ContactContent from '../types/ContactContent'
 
-import './contact.css'
 import ContactSection from '../components/ContactSection'
 import ContactForm from '../components/ContactForm'
 import { FormInput } from '../yup/ContactFormValidation'
 import SnackBar from '../components/SnackBar'
-import send from '../Services/contactService'
+import send from '../services/contactService'
 
 interface Props {
   pageContent: ContactContent
@@ -47,11 +45,11 @@ export default function contact({ pageContent }: Props) {
         <title>Agaetis : contactez-nous</title>
 
         <meta property="og:title" content="Agaetis : contactez-nous" />
-        <meta property="og:image" content={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/favicon.ico`} />
+        <meta property="og:image" content={`${process.env.NEXT_PUBLIC_SITE_URL}/favicon.ico`} />
         <meta property="og:type" content="website" />
         <meta property="og:description" content="Un projet, une idée ? Discutons-en !" />
         <meta name="description" content="Un projet, une idée ? Discutons-en !" />
-        <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/contact`} />
+        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/contact`} />
       </Head>
       <Layout invertColors={false}>
         <div className="pt-0 md:pt-28">
@@ -74,12 +72,11 @@ export default function contact({ pageContent }: Props) {
   )
 }
 
-export async function getServerSideProps() {
-  const data = await getContactPageContent()
-
+export async function getStaticProps() {
   return {
     props: {
-      pageContent: data,
+      pageContent: await getContactPageContent(),
     },
+    revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
   }
 }

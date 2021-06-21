@@ -1,0 +1,42 @@
+.homeImg {
+  background-position: center;
+  background-size: cover;
+  width: 500px;
+  height: 420px;
+}
+
+@media screen and (max-width: 1200px) {
+  .homeImg {
+    width: 400px;
+    height: 350px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .homeImg {
+    width: 350px;
+    height: 300px;
+  }
+}
+
+@media screen and (max-width: 820px) {
+  .homeImg {
+    width: 300px;
+    height: 260px;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .homeImgMobile {
+    background-position: center;
+    background-size: cover;
+    width: auto;
+    height: auto;
+  }
+}
+
+.imgShadow {
+  -webkit-box-shadow: 3px 12px 53px -19px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 3px 12px 53px -19px rgba(0, 0, 0, 0.5);
+  box-shadow: 3px 12px 53px -19px rgba(0, 0, 0, 0.5);
+}

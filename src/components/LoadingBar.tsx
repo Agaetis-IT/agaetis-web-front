@@ -1,6 +1,4 @@
-import React from 'react'
-
-import './LoadingBar.css'
+import styles from '../styles/LoadingBar.module.css'
 
 interface Props {
   animationDuration: number
@@ -12,7 +10,7 @@ interface Props {
 export default function LoadingBar({ animationDuration, progress, color, height }: Props) {
   return (
     <div
-      className="bar fixed"
+      className={`${styles.bar} fixed top-0 left-0 w-full`}
       role="bar"
       style={{
         background: color,
@@ -22,7 +20,7 @@ export default function LoadingBar({ animationDuration, progress, color, height 
       }}
     >
       <div
-        className="light-effect block absolute"
+        className={`${styles.lightEffect} opacity-100 right-0 h-full block absolute`}
         style={{
           boxShadow: `0 0 10px ${color}, 0 0 5px ${color}`,
           transform: 'rotate(3deg) translate(0px, -4px)',

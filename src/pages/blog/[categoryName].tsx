@@ -1,24 +1,32 @@
-import { NextPageContext } from 'next'
 import { CategoryAPI, PostAPI } from '../../models/IdeasAPI'
-import { slugify } from '../../Services/textUtilities'
+import { slugify } from '../../services/textUtilities'
 import {
   getIdeasByPage,
   getCategories,
   getIdeasPageContent,
   getAllWhitePapers,
   getIdeasByCategory,
-} from '../../Services/wordpressService'
+} from '../../services/wordpressService'
 import { Category, Response } from '../../types/IdeasContent'
 import WhitePaper from '../../types/WhitePaper'
 import Blog from '../../components/Blog'
 
 export default Blog
 
-interface Context extends NextPageContext {
-  query: { categoryName: string }
+export async function getStaticPaths() {
+  const categories = await getCategories()
+
+  return {
+    paths: categories.map((category: CategoryAPI) => ({
+      params: {
+        categoryName: slugify(category.name)
+      }
+    })).filter((path: {params: {categoryName: string}}) => !path.params.categoryName.includes('offer-')),
+    fallback: 'blocking',
+  }
 }
 
-export async function getServerSideProps({ query }: Context) {
+export async function getStaticProps({ params }) {
   let selectedCategory = ''
   const { [0]: categories, [1]: content, [2]: whitepapers } = await Promise.all([
     getCategories(),
@@ -27,26 +35,27 @@ export async function getServerSideProps({ query }: Context) {
   ])
   let promiseResult: Response
 
-  if (!query.categoryName) {
+  if (!params.categoryName) {
     promiseResult = await getIdeasByPage()
   } else {
     const names = categories
       .map((category: CategoryAPI) => slugify(category.name))
       .filter((name: string) => !name.includes('_offer-'))
 
-    if (!names.includes(query.categoryName)) {
+    if (!names.includes(params.categoryName)) {
       return {
         props: {
           ideasDescription: [],
           whitePapers: [],
           categories: [],
           content: null,
-          errorCode: 404,
         },
+        notFound: true,
+        revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
       }
     }
 
-    selectedCategory = categories.filter((category: CategoryAPI) => category.slug == query.categoryName)[0].slug
+    selectedCategory = categories.filter((category: CategoryAPI) => category.slug == params.categoryName)[0].slug
     promiseResult = await getIdeasByCategory(selectedCategory)
   }
 
@@ -80,5 +89,6 @@ export async function getServerSideProps({ query }: Context) {
       selectedCategory: selectedCategory,
       hideSeeMore: promiseResult.pageCount <= 1,
     },
+    revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
   }
 }

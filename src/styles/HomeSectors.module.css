@@ -1,0 +1,50 @@
+@media (min-width: 820px) {
+  .md\:round8 {
+    border-radius: 8px;
+  }
+
+  .md\:round8Image {
+    border-radius: 8px 0 0 8px;
+  }
+}
+
+.sectorFlyoutOpen {
+  max-height: 200px;
+}
+
+.sectorFlyoutClose {
+  max-height: 0;
+}
+
+.sectorFlyout {
+  overflow: hidden;
+  transition: max-height 0.5s;
+  border-radius: 0 0 8px 8px;
+}
+
+@media (max-width: 820px) {
+  .sectorHeader {
+    overflow: hidden;
+    transition: border-radius 0.5s;
+  }
+
+  .sectorHeaderOpen {
+    border-radius: 40px 8px 0 40px;
+  }
+
+  .sectorHeaderClose {
+    border-radius: 40px 8px 8px 40px;
+  }
+}
+
+.offerArrow {
+  transform: rotate(90deg);
+  fill: orange;
+  stroke: orange;
+  transition: transform 0.5s;
+}
+
+.offerSelectedArrow {
+  transform: rotate(-90deg);
+  transition: transform 0.5s;
+}

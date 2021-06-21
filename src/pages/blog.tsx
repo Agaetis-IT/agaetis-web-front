@@ -1,5 +1,5 @@
 import { CategoryAPI, PostAPI } from '../models/IdeasAPI'
-import { getIdeasByPage, getCategories, getIdeasPageContent, getAllWhitePapers } from '../Services/wordpressService'
+import { getIdeasByPage, getCategories, getIdeasPageContent, getAllWhitePapers } from '../services/wordpressService'
 import WhitePaper from '../types/WhitePaper'
 
 import { Category } from '../types/IdeasContent'
@@ -8,7 +8,7 @@ import Blog from '../components/Blog'
 
 export default Blog
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const { [0]: ideas, [1]: categories, [2]: content, [3]: whitepapers } = await Promise.all([
     getIdeasByPage(),
     getCategories(),
@@ -45,5 +45,6 @@ export async function getServerSideProps() {
       hideSeeMore: ideas.pageCount == 1,
       tagFilter: null,
     },
+    revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
   }
 }
