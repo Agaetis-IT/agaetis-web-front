@@ -1,6 +1,6 @@
-const Facebook = '/icons/facebook.png'
-const Linkedin = '/icons/linkedin.png'
-const Twitter = '/icons/twitter.png'
+const Facebook = '../../public/icons/facebook.png'
+const Linkedin = '../../public/icons/linkedin.png'
+const Twitter = '../../public/icons/twitter.png'
 
 import Button from './Button'
 

@@ -2,7 +2,7 @@ import Image from 'next/image'
 
 import BottomNav from './BottomNav'
 import Address from './Address'
-import Logo from '/images/logo-agaetis-vert.png'
+import Logo from '../../public/images/logo-agaetis-vert.png'
 
 export default function ContactSection() {
   const addresses = [

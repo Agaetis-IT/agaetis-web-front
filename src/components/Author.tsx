@@ -13,8 +13,8 @@ import { IdeasDesc, Response } from '../types/IdeasContent'
 import { getIdeasByAuthor } from '../services/wordpressService'
 import { PostAPI } from '../models/IdeasAPI'
 
-import Particles from '/images/particles-3.svg'
-import Linkedin from '/icons/linkedin.png'
+import Particles from '../../public/images/particles-3.svg'
+import Linkedin from '../../public/icons/linkedin.png'
 import Error from '../pages/_error'
 import SnackBar from './SnackBar'
 

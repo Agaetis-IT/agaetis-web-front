@@ -6,8 +6,8 @@ interface Props {
   subtitle: string
 }
 
-const Mask = '/images/hero_mask.svg'
-import Quote from '/images/quote.png'
+const Mask = '../../public/images/hero_mask.svg'
+import Quote from '../../public/images/quote.png'
 
 import styles from '../styles/Hero.module.css'
 

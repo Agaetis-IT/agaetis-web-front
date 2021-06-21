@@ -6,8 +6,8 @@ import Image from 'next/image'
 import styles from '../styles/Header.module.css'
 import NavigationMenu from './NavigationMenu'
 
-import logoAgaetisDesktop from '/images/logo-agaetis-hor-white-rgb-150.png'
-import logoAgaetisMobile from '/images/logo-agaetis-hor-p164-rgb-150.png'
+import logoAgaetisDesktop from '../../public/images/logo-agaetis-hor-white-rgb-150.png'
+import logoAgaetisMobile from '../../public/images/logo-agaetis-hor-p164-rgb-150.png'
 
 interface Props {
   invertColors: boolean

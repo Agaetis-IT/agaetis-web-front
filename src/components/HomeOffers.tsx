@@ -3,7 +3,7 @@ import Button from './Button'
 
 import styles from '../styles/HomeOffers.module.css'
 import commonStyles from '../styles/Common.module.css'
-import arrowR from '/images/right-arrow.svg'
+import arrowR from '../../public/images/right-arrow.svg'
 import clsx from 'clsx'
 import { OfferDesc } from '../types/OffersContent'
 import Link from 'next/link'

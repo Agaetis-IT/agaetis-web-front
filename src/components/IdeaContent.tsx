@@ -2,21 +2,21 @@ import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import IdeasContent from '../types/IdeasContent'
 
-import AccessTime from '/icons/access_time-24px.svg'
-import Back from '/icons/Btn_Retour.svg'
+import AccessTime from '../../public/icons/access_time-24px.svg'
+import Back from '../../public/icons/Btn_Retour.svg'
 import Link from 'next/link'
 import Button from './Button'
 import { createMarkup } from '../services/textUtilities'
 
-import Twitter from '/icons/twitter.png'
-import Linkedin from '/icons/linkedin.png'
-import Facebook from '/icons/facebook.png'
+import Twitter from '../../public/icons/twitter.png'
+import Linkedin from '../../public/icons/linkedin.png'
+import Facebook from '../../public/icons/facebook.png'
 import { useRouter } from 'next/router'
 
 import styles from '../styles/IdeaContent.module.css'
 import commonStyles from '../styles/Common.module.css'
 
-const Placeholder = '/images/blog-post-placeholder.jpg'
+const Placeholder = '../../public/images/blog-post-placeholder.jpg'
 import { AuthorLink } from '../types/AuthorContent'
 import Meta from '../types/Meta'
 

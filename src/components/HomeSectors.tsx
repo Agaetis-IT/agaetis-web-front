@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import styles from '../styles/HomeSectors.module.css'
 import { SectorDesc } from '../types/IndexContent'
-import arrowR from '/images/right-arrow.svg'
+import arrowR from '../../public/images/right-arrow.svg'
 import clsx from 'clsx'
 import Image from 'next/image'
 import Button from './Button'

@@ -2,8 +2,8 @@ import clsx from 'clsx'
 import Image from 'next/image'
 import { useEffect } from 'react'
 
-import Cross from '/images/cross-icon-png-1.png'
-import Tick from '/images/Flat_tick_icon.svg.png'
+import Cross from '../../public/images/cross-icon-png-1.png'
+import Tick from '../../public/images/Flat_tick_icon.svg.png'
 
 import styles from '../styles/SnackBar.module.css'
 

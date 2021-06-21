@@ -34,7 +34,7 @@ interface Props {
   errorCode?: number
 }
 
-const Particles = '/images/particles-3.svg'
+const Particles = '../../public/images/particles-3.svg'
 
 export default function BlogPost({ data, related, errorCode, meta }: Props) {
   const [isOpenedMoreIdeas, setIsOpenedMoreIdeas] = useState(false)

@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { createMarkup } from '../services/textUtilities'
-const Placeholder = '/images/blog-post-placeholder.jpg'
+const Placeholder = '../../public/images/blog-post-placeholder.jpg'
 
 import styles from '../styles/IdeasCard.module.css'
 import commonStyles from '../styles/Common.module.css'
