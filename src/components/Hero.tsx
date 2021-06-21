@@ -7,7 +7,7 @@ interface Props {
 }
 
 const Mask = '/images/hero_mask.svg'
-const Quote = '/images/quote.png'
+import Quote from '/images/quote.png'
 
 import styles from '../styles/Hero.module.css'
 
@@ -28,13 +28,13 @@ export default function Hero({ hero, values, subtitle }: Props) {
             <div className={`flex flex-col p-6 md:p-0 md:my-6 py-16 ${styles.heroText} text-white w-full`}>
               <div className="pb-4 md:pb-16 text-center text-sm md:text-3xl mx-16">
                 <div className={`${styles.quoteL}`}>
-                  <Image src={Quote} width={214} height={692} quality={100}/>
+                  <Image src={Quote} quality={100}/>
                 </div>
                 <p className="inline italic" id="hero-quote">
                   La data au service des hommes et du monde de demain !
                 </p>
                 <div className={`${styles.quoteR}`}>
-                  <Image src={Quote} width={214} height={692} quality={100}/>
+                  <Image src={Quote} quality={100}/>
                 </div>
               </div>
               <div className="bg-white h-px mb-4 w-16 md:mb-0 md:h-0 md:bg-transparent self-center"/>

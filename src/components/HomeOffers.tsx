@@ -3,7 +3,7 @@ import Button from './Button'
 
 import styles from '../styles/HomeOffers.module.css'
 import commonStyles from '../styles/Common.module.css'
-const arrowR = '/images/right-arrow.svg'
+import arrowR from '/images/right-arrow.svg'
 import clsx from 'clsx'
 import { OfferDesc } from '../types/OffersContent'
 import Link from 'next/link'
@@ -70,8 +70,6 @@ export default function HomeOffers({ title, offers }: Props) {
                       className={clsx(
                         index === selectedOffer && isOpenedOffer ? styles.offerSelectedArrow : styles.offerArrow
                       )}
-                      width={10}
-                      height={10}
                       quality={100}
                     />
                   </div>

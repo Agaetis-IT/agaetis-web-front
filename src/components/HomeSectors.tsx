@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import styles from '../styles/HomeSectors.module.css'
 import { SectorDesc } from '../types/IndexContent'
-const arrowR = '/images/right-arrow.svg'
+import arrowR from '/images/right-arrow.svg'
 import clsx from 'clsx'
 import Image from 'next/image'
 import Button from './Button'
@@ -68,8 +68,6 @@ export default function HomeSectors({ title, sectors }: Props) {
                       className={clsx(
                         index === openedSector ? styles.offerSelectedArrow : styles.offerArrow
                       )}
-                      width={10}
-                      height={10}
                       quality={100}
                     />
                   </div>

@@ -13,8 +13,8 @@ import { IdeasDesc, Response } from '../types/IdeasContent'
 import { getIdeasByAuthor } from '../services/wordpressService'
 import { PostAPI } from '../models/IdeasAPI'
 
-const Particles = '/images/particles-3.svg'
-const Linkedin = '/icons/linkedin.png'
+import Particles from '/images/particles-3.svg'
+import Linkedin from '/icons/linkedin.png'
 import Error from '../pages/_error'
 import SnackBar from './SnackBar'
 
@@ -111,7 +111,7 @@ export default function Author({ ideasDescription, author, content, errorCode, h
       <Layout invertColors={false}>
         <div className="relative pt-0 md:pt-28">
           <div className="absolute mt-0 md:mt-28 bg-gray-400 top-0 left-0 right-0 bottom-0 z-back">
-            <Image src={Particles} layout="responsive" height={960} width={1920} quality={100}/>
+            <Image src={Particles} layout="responsive" quality={100}/>
           </div>
           <div>
             <div className="p-6 md:p-16 lg:px-32 xl:px-48">
@@ -132,7 +132,7 @@ export default function Author({ ideasDescription, author, content, errorCode, h
                           href={author.linkedInLink}
                           className={`w-6 h-6 ml-4 shadow-sm hover:shadow-md bg-white rounded-full ${styles.smoothTransition} p-1 text-none`}
                         >
-                          <Image src={Linkedin} className="w-4 h-4" width={24} height={24} quality={100}/>
+                          <Image src={Linkedin} className="w-4 h-4" quality={100}/>
                         </Button>
                       )}
                     </div>

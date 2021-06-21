@@ -10,7 +10,7 @@ import WhitePaper from '../types/WhitePaper'
 import IdeasCard from '../components/IdeasCard'
 import clsx from 'clsx'
 import ContactSection from '../components/ContactSection'
-const Particles = '/images/particles-3.svg'
+import Particles from '/images/particles-3.svg'
 import { FormInput } from '../yup/ContactFormValidation'
 import ContactForm from './ContactForm'
 import SearchInput from '../components/SearchInput'
@@ -192,7 +192,7 @@ export default function Blog({
       <Layout invertColors={false}>
         <div className="relative pt-0 md:pt-28">
           <div className="absolute mt-0 md:mt-28 bg-gray-400 top-0 left-0 right-0 bottom-0 z-back">
-            <Image src={Particles} layout="responsive" height={960} width={1920} quality={100} alt=""/>
+            <Image src={Particles} layout="responsive" quality={100} alt=""/>
           </div>
           <div className="p-6 md:p-16 lg:px-32 xl:px-48">
             <div className="mx-1 md:mx-2">

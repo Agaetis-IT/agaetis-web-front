@@ -6,8 +6,8 @@ import Image from 'next/image'
 import styles from '../styles/Header.module.css'
 import NavigationMenu from './NavigationMenu'
 
-const logoAgaetisDesktop = '/images/logo-agaetis-hor-white-rgb-150.png'
-const logoAgaetisMobile = '/images/logo-agaetis-hor-p164-rgb-150.png'
+import logoAgaetisDesktop from '/images/logo-agaetis-hor-white-rgb-150.png'
+import logoAgaetisMobile from '/images/logo-agaetis-hor-p164-rgb-150.png'
 
 interface Props {
   invertColors: boolean
@@ -74,8 +74,6 @@ export default function Header({ invertColors, className }: Props) {
                     <Image
                       src={logoAgaetisDesktop}
                       alt="logo agaetis"
-                      width={1035}
-                      height={330}
                       quality={100}
                     />
                   </div>
@@ -85,8 +83,6 @@ export default function Header({ invertColors, className }: Props) {
                     <Image
                       src={logoAgaetisMobile}
                       alt="logo agaetis"
-                      width={1035}
-                      height={330}
                       quality={100}
                     />
                   </div>
@@ -129,8 +125,6 @@ export default function Header({ invertColors, className }: Props) {
                   <Image
                     src={logoAgaetisDesktop}
                     alt="logo agaetis"
-                    width={1035}
-                    height={330}
                     quality={100}
                   />
                 </div>
@@ -138,8 +132,6 @@ export default function Header({ invertColors, className }: Props) {
                   <Image
                     src={logoAgaetisMobile}
                     alt="logo agaetis"
-                    width={1035}
-                    height={330}
                     quality={100}
                   />
                 </div>

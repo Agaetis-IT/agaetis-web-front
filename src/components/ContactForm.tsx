@@ -6,10 +6,10 @@ import TextInput from './TextInput'
 import CheckBox from './CheckBox'
 import { AttachmentContent, footerContactSchema, FormInput } from '../yup/ContactFormValidation'
 import { yupResolver } from '@hookform/resolvers/yup'
-const Twitter = '/icons/twitter.png'
-const Linkedin = '/icons/linkedin.png'
-const Facebook = '/icons/facebook.png'
-const Particles = '/images/particles-3-mirror.svg'
+import Twitter from '/icons/twitter.png'
+import Linkedin from '/icons/linkedin.png'
+import Facebook from '/icons/facebook.png'
+import Particles from '/images/particles-3-mirror.svg'
 
 import styles from '../styles/Common.module.css'
 import ReCAPTCHA from 'react-google-recaptcha'
@@ -49,7 +49,7 @@ export default function ContactForm({ title, handleSubmit, isSubmited, subText }
   return (
     <div className="relative">
       <div className="absolute bg-gray-400 left-0 right-0 bottom-0 z-back">
-        <Image src={Particles} layout="responsive" height={960} width={1920} quality={100} alt=""/>
+        <Image src={Particles} layout="responsive" quality={100} alt=""/>
       </div>
       <div className="p-6 md:p-12 lg:px-24 lg:p-16">
         <div className="flex flex-col md:flex-row justify-between mb-8">
@@ -59,19 +59,19 @@ export default function ContactForm({ title, handleSubmit, isSubmited, subText }
               href="https://fr-fr.facebook.com/AgaetisIT"
               className={`w-6 h-6 mr-4 self-center shadow-sm hover:shadow-md bg-white rounded-full ${styles.smoothTransition} p-1 text-none`}
             >
-              <Image src={Facebook} className="w-4 h-4" width={24} height={24} quality={100} alt="Facebook"/>
+              <Image src={Facebook} className="w-4 h-4" quality={100} alt="Facebook"/>
             </Button>
             <Button
               href="https://www.linkedin.com/company/agaetis/"
               className={`w-6 h-6 mr-4 shadow-sm hover:shadow-md bg-white rounded-full ${styles.smoothTransition} p-1 text-none`}
             >
-              <Image src={Linkedin} className="w-4 h-4" width={24} height={24} quality={100} alt="LinkedIn"/>
+              <Image src={Linkedin} className="w-4 h-4" quality={100} alt="LinkedIn"/>
             </Button>
             <Button
               href="https://twitter.com/agaetisit"
               className={`w-6 h-6 shadow-sm hover:shadow-md bg-white rounded-full ${styles.smoothTransition} p-1 text-none`}
             >
-              <Image src={Twitter} className="w-4 h-4" width={24} height={24} quality={100} alt="Twitter"/>
+              <Image src={Twitter} className="w-4 h-4" quality={100} alt="Twitter"/>
             </Button>
           </div>
         </div>
