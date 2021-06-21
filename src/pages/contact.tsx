@@ -14,9 +14,10 @@ import send from '../services/contactService'
 
 interface Props {
   pageContent: ContactContent
+  errorCode?: number
 }
 
-export default function contact({ pageContent }: Props) {
+export default function contact({ pageContent, errorCode }: Props) {
   const [modalOpenWithError, setModalOpenWithError] = useState<boolean | undefined>(undefined)
   const [isSubmited, setIsSubmited] = useState(false)
 
@@ -73,10 +74,19 @@ export default function contact({ pageContent }: Props) {
 }
 
 export async function getStaticProps() {
-  return {
-    props: {
-      pageContent: await getContactPageContent(),
-    },
-    revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
+  try {
+    return {
+      props: {
+        pageContent: await getContactPageContent(),
+      },
+      revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
+    }
+  } catch (error) {
+    return {
+      props: {
+        errorCode: 500,
+      },
+      revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
+    }
   }
 }

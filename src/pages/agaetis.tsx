@@ -7,12 +7,18 @@ import ContactSection from '../components/ContactSection'
 import Layout from '../components/Layout'
 import { getAgaetisContent } from '../services/wordpressService'
 import { AgaetisContent, convertAgaetisAPItoContent } from '../types/AgaetisContent'
+import Error from './_error'
 
 interface Props {
   pageContent: AgaetisContent
+  errorCode?: number
 }
 
-export default function agaetis({ pageContent }: Props) {
+export default function agaetis({ pageContent, errorCode }: Props) {
+  if (errorCode) {
+    return <Error statusCode={errorCode}/>
+  }
+
   return (
     <>
       <Head>
@@ -73,10 +79,19 @@ export default function agaetis({ pageContent }: Props) {
 }
 
 export async function getStaticProps() {
-  return {
-    props: {
-      pageContent: JSON.parse(JSON.stringify(convertAgaetisAPItoContent(await getAgaetisContent())))
-    }, 
-    revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
+  try {
+    return {
+      props: {
+        pageContent: JSON.parse(JSON.stringify(convertAgaetisAPItoContent(await getAgaetisContent())))
+      }, 
+      revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
+    }  
+  } catch (error) {
+    return {
+      props: {
+        errorCode: 500,
+      },
+      revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
+    }
   }
 }

@@ -19,13 +19,15 @@ import PartnerList from '../../components/PartnerList'
 import SnackBar from '../../components/SnackBar'
 import send from '../../services/contactService'
 import OfferAPI from '../../models/OfferAPI'
+import Error from '../_error'
 
 interface Props {
   pageContent: OfferContent
   offers: OfferLeafContent[]
+  errorCode?: number
 }
 
-export default function offer({ pageContent, offers }: Props): React.ReactElement {
+export default function offer({ pageContent, offers, errorCode }: Props): React.ReactElement {
   const [selectedOffer, setSelectedOffer] = useState(0)
   const [modalOpenWithError, setModalOpenWithError] = useState<boolean | undefined>(undefined)
   const [isSubmited, setIsSubmited] = useState(false)
@@ -55,6 +57,10 @@ export default function offer({ pageContent, offers }: Props): React.ReactElemen
     } catch {
       handleOpenModal(true)
     }
+  }
+
+  if (errorCode) {
+    return <Error statusCode={errorCode}/>
   }
 
   return (
@@ -207,40 +213,49 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const { [0]: data, [1]: offers } = await Promise.all([getOfferContent(params.offerSlug), getCategoryOffers(params.offerSlug)])
-  const pageContent = { ...data.acf, slug: data.slug }
+  try {
+    const { [0]: data, [1]: offers } = await Promise.all([getOfferContent(params.offerSlug), getCategoryOffers(params.offerSlug)])
+    const pageContent = { ...data.acf, slug: data.slug }
 
-  if (!data.acf) {
+    if (!data.acf) {
+      return {
+        notFound: !data.acf,
+        revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
+      }
+    }
+
+    const allOffers = offers.map(
+      async (offer: {
+        acf: {
+          title: string
+          paragraph: string
+          offers_description: string
+        }
+        post_name: string
+      }) => {
+        const { [0]: children, [1]: posts } = await Promise.all([
+          getOfferLeaf(params.offerSlug, offer.post_name),
+          getIdeasByCategory(`_offer-${escape(offer.post_name)}`),
+        ])
+        return convertAPItoOfferleaf(children, posts.data)
+      }
+    )
+
+    const offerChildrens = await Promise.all(allOffers)
+
     return {
-      notFound: !data.acf,
+      props: {
+        pageContent,
+        offers: offerChildrens,
+      },
+      revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
+    }  
+  } catch (error) {
+    return {
+      props: {
+        errorCode: 500,
+      },
       revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
     }
-  }
-
-  const allOffers = offers.map(
-    async (offer: {
-      acf: {
-        title: string
-        paragraph: string
-        offers_description: string
-      }
-      post_name: string
-    }) => {
-      const { [0]: children, [1]: posts } = await Promise.all([
-        getOfferLeaf(params.offerSlug, offer.post_name),
-        getIdeasByCategory(`_offer-${escape(offer.post_name)}`),
-      ])
-      return convertAPItoOfferleaf(children, posts.data)
-    }
-  )
-
-  const offerChildrens = await Promise.all(allOffers)
-
-  return {
-    props: {
-      pageContent,
-      offers: offerChildrens,
-    },
-    revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
   }
 }

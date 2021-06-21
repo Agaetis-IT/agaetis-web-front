@@ -12,9 +12,11 @@ import styles from '../../styles/landingpage.module.css'
 import SnackBar from '../../components/SnackBar'
 import send from '../../services/contactService'
 import LandingPageAPI from '../../models/LandingPageAPI'
+import Error from '../_error'
 
 interface Props {
   pageContent: LandingPage
+  errorCode?: number
 }
 
 function setStyles(htmlString: string) {
@@ -23,7 +25,7 @@ function setStyles(htmlString: string) {
   })
 }
 
-export default function Landingpage({ pageContent }: Props) {
+export default function Landingpage({ pageContent, errorCode }: Props) {
   const [modalOpenWithError, setModalOpenWithError] = useState<boolean | undefined>(undefined)
   const [isSubmited, setIsSubmited] = useState(false)
 
@@ -44,6 +46,10 @@ export default function Landingpage({ pageContent }: Props) {
     } catch {
       handleOpenModal(true)
     }
+  }
+
+  if (errorCode) {
+    return <Error statusCode={errorCode}/>
   }
 
   return (
@@ -88,21 +94,30 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const data = await getLandingPageContent(params.pageSlug)
-  
-  if (!data.acf) {
+  try {
+    const data = await getLandingPageContent(params.pageSlug)
+    
+    if (!data.acf) {
+      return {
+        notFound: true,
+        revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
+      }
+    }
+
+    const pageContent = convertAPItoLandingPageContent({ ...data })
+
     return {
-      notFound: true,
+      props: {
+        pageContent,
+      },
+      revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
+    }  
+  } catch (error) {
+    return {
+      props: {
+        errorCode: 500,
+      },
       revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
     }
-  }
-
-  const pageContent = convertAPItoLandingPageContent({ ...data })
-
-  return {
-    props: {
-      pageContent,
-    },
-    revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
   }
 }

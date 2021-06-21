@@ -19,15 +19,17 @@ import SnackBar from './SnackBar'
 
 import styles from '../styles/Common.module.css'
 import Image from 'next/image'
+import Error from '../pages/_error'
 
 interface Props {
   ideasDescription: IdeasDesc[]
   author: AuthorDescription
   content: AuthorPageContent
   hasMore: boolean
+  errorCode?: number
 }
 
-export default function Author({ ideasDescription, author, content, hasMore }: Props) {
+export default function Author({ ideasDescription, author, content, hasMore, errorCode }: Props) {
   const [postModalOpen, setPostModalOpen] = useState<boolean | undefined>(undefined)
   const [ideas, setIdeas] = useState(ideasDescription)
   const [lastPage, setLastPage] = useState(1)
@@ -90,6 +92,10 @@ export default function Author({ ideasDescription, author, content, hasMore }: P
       )),
     [ideas]
   )
+
+  if (errorCode) {
+    return <Error statusCode={errorCode}/>
+  }
 
   return (
     <>

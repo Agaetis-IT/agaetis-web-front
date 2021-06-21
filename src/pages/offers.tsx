@@ -14,6 +14,7 @@ import clsx from 'clsx'
 import Link from 'next/link'
 import SnackBar from '../components/SnackBar'
 import send from '../services/contactService'
+import Error from './_error'
 
 /* eslint-disable react-hooks/rules-of-hooks */
 
@@ -30,9 +31,10 @@ function getRotation(selected: boolean, wasSelected: boolean) {
 interface Props {
   pageContent: OffersContent
   allOffers: OfferDesc[]
+  errorCode?: number
 }
 
-export default function offers({ pageContent, allOffers }: Props) {
+export default function offers({ pageContent, allOffers, errorCode }: Props) {
   const [selectedOffer, setSelectedOffer] = useState(0)
   const [wasSelected, setWasSelected] = useState(0)
   const [modalOpenWithError, setModalOpenWithError] = useState<boolean | undefined>(undefined)
@@ -55,6 +57,10 @@ export default function offers({ pageContent, allOffers }: Props) {
     } catch {
       handleOpenModal(true)
     }
+  }
+
+  if (errorCode) {
+    return <Error statusCode={errorCode}/>
   }
 
   return (
@@ -161,30 +167,39 @@ export default function offers({ pageContent, allOffers }: Props) {
 }
 
 export async function getStaticProps() {
-  const { [0]: data, [1]: allOffersData } = await Promise.all([getOffersPageContent(), getAllOffers()])
-  const pageContent = convertAPItoOffersContent(data)
-  const allOffers = allOffersData.map(
-    async (offer: {
-      acf: {
-        title: string
-        paragraph: string
-        offers_description: string
-        offers_image1: string
-        offers_image2: string
+  try {
+    const { [0]: data, [1]: allOffersData } = await Promise.all([getOffersPageContent(), getAllOffers()])
+    const pageContent = convertAPItoOffersContent(data)
+    const allOffers = allOffersData.map(
+      async (offer: {
+        acf: {
+          title: string
+          paragraph: string
+          offers_description: string
+          offers_image1: string
+          offers_image2: string
+        }
+        slug: string
+      }) => {
+        const childrens = await getCategoryOffers(offer.slug)
+        return { ...offer.acf, slug: offer.slug, childrens }
       }
-      slug: string
-    }) => {
-      const childrens = await getCategoryOffers(offer.slug)
-      return { ...offer.acf, slug: offer.slug, childrens }
-    }
-  )
-  const allOffersChildrens = await Promise.all(allOffers)
+    )
+    const allOffersChildrens = await Promise.all(allOffers)
 
-  return {
-    props: {
-      pageContent: JSON.parse(JSON.stringify(pageContent)),
-      allOffers: allOffersChildrens,
-    },
-    revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
+    return {
+      props: {
+        pageContent: JSON.parse(JSON.stringify(pageContent)),
+        allOffers: allOffersChildrens,
+      },
+      revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
+    }
+  } catch (error) {
+    return {
+      props: {
+        errorCode: 500,
+      },
+      revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
+    }
   }
 }

@@ -13,13 +13,19 @@ import HomeJoinUs from '../components/HomeJoinUs'
 import HomeExpertises from '../components/HomeExpertises'
 import { compareOffer, OfferDesc } from '../types/OffersContent'
 import OfferAPI from '../models/OfferAPI'
+import Error from './_error'
 
 interface Props {
   pageContent: IndexContent
   offers: OfferDesc[]
+  errorCode?: number
 }
 
-export default function Index({ pageContent, offers }: Props) {
+export default function Index({ pageContent, offers, errorCode }: Props) {
+  if (errorCode) {
+    return <Error statusCode={errorCode}/>
+  }
+
   return (
     <>
       <Head>
@@ -68,13 +74,22 @@ export default function Index({ pageContent, offers }: Props) {
 }
 
 export async function getStaticProps() {
-  const { [0]: data, [1]: allOffersData } = await Promise.all([getIndexContent(), getAllOffers()])
+  try {
+    const { [0]: data, [1]: allOffersData } = await Promise.all([getIndexContent(), getAllOffers()])
 
-  return { 
-    props: {
-      pageContent: JSON.parse(JSON.stringify(convertIndexContentAPItoContentAPI(data))),
-      offers: allOffersData.map((offer: OfferAPI) => offer.acf).sort(compareOffer),
-    },
-    revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
+    return { 
+      props: {
+        pageContent: JSON.parse(JSON.stringify(convertIndexContentAPItoContentAPI(data))),
+        offers: allOffersData.map((offer: OfferAPI) => offer.acf).sort(compareOffer),
+      },
+      revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
+    }
+  } catch (error) {
+    return {
+      props: {
+        errorCode: 500,
+      },
+      revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
+    }
   }
 }

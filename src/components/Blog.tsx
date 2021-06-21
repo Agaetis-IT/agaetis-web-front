@@ -25,6 +25,7 @@ import Head from 'next/head'
 import SnackBar from './SnackBar'
 import send from '../services/contactService'
 import Image from 'next/image'
+import Error from '../pages/_error'
 
 interface Props {
   ideasDescription: IdeasDesc[]
@@ -34,6 +35,7 @@ interface Props {
   selectedCategory?: string
   tagFilter?: string
   hideSeeMore?: boolean
+  errorCode?: number
 }
 
 export default function Blog({
@@ -44,6 +46,7 @@ export default function Blog({
   selectedCategory,
   tagFilter,
   hideSeeMore,
+  errorCode
 }: Props) {
   const [modalOpenWithError, setModalOpenWithError] = useState<boolean | undefined>(undefined)
   const [postModalOpen, setPostModalOpen] = useState<boolean | undefined>(undefined)
@@ -170,6 +173,10 @@ export default function Blog({
     setSearchFilter(value)
     handleFetchIdeas(true, undefined, value)
   }, 600)
+
+  if (errorCode) {
+    return <Error statusCode={errorCode}/>
+  }
 
   return (
     <>

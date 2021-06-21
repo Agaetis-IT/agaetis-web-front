@@ -5,12 +5,18 @@ import { getMentionsLegalesContent } from '../services/wordpressService'
 import MentionsLegalesContent from '../types/MentionsLegalesContent'
 
 import styles from '../styles/personal-data.module.css'
+import Error from './_error'
 
 interface Props {
   pageContent: MentionsLegalesContent
+  errorCode?: number
 }
 
-export default function mentionsLegales({ pageContent }: Props) {
+export default function mentionsLegales({ pageContent, errorCode }: Props) {
+  if (errorCode) {
+    return <Error statusCode={errorCode}/>
+  }
+
   return (
     <Layout invertColors={false}>
       <>
@@ -44,15 +50,24 @@ export default function mentionsLegales({ pageContent }: Props) {
 }
 
 export async function getStaticProps() {
-  const data = await getMentionsLegalesContent()
+  try {
+    const data = await getMentionsLegalesContent()
 
-  return {
-    props: {
-      pageContent: {
-        title: data.title.rendered,
-        content: data.content.rendered,
+    return {
+      props: {
+        pageContent: {
+          title: data.title.rendered,
+          content: data.content.rendered,
+        },
       },
-    },
-    revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
+      revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
+    }
+  } catch (error) {
+    return {
+      props: {
+        errorCode: 500,
+      },
+      revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
+    }
   }
 }

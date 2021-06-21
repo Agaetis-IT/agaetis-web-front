@@ -13,7 +13,6 @@ const Logo = '../static/icons/Agaetis - Ico logo - Orange.png'
 import Link from 'next/link'
 import SnackBar from '../../components/SnackBar'
 import Error from '../_error'
-import axios from 'axios'
 
 interface Props {
   pageContent?: WhitePaper
@@ -63,7 +62,7 @@ export default function whitePaper({ pageContent, errorCode }: Props) {
       </Head>
       <Layout invertColors={false}>
         <>
-          <div className="md:max-w-md mx-auto p-0 md:px-8">
+          <div className="md:max-w-md mx-auto pt-8 md:px-8">
             <div className="text-xs leading-normal px-4 md:px-0">
               <span className="underline text-black">
                 <Link href="/">
@@ -126,9 +125,22 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  let data
   try {
-    data = await axios.get('https://httpstat.us/500?sleep=15000', { timeout: 10000 })//await getWhitePaperContent(params.whitePaperSlug)
+    const data = await getWhitePaperContent(params.whitePaperSlug)
+
+    if (!data.acf) {
+      return {
+        notFound: true,
+        revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
+      }
+    }
+
+    return {
+      props: {
+        pageContent: { ...data.acf, slug: data.slug },
+      },
+      revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
+    }
   } catch (error) {
     return {
       props: {
@@ -136,19 +148,5 @@ export async function getStaticProps({ params }) {
       },
       revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
     }
-  }
-
-  if (!data.acf) {
-    return {
-      notFound: true,
-      revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
-    }
-  }
-
-  return {
-    props: {
-      pageContent: { ...data.acf, slug: data.slug },
-    },
-    revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
   }
 }
