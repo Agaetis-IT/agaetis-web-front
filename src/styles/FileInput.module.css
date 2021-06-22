@@ -3,7 +3,8 @@
   width: 232.63px;
 }
 
-.hiddenInput::-webkit-file-upload-button, .hiddenInput::-ms-browse {
+.hiddenInput::-webkit-file-upload-button,
+.hiddenInput::-ms-browse {
   cursor: pointer;
 }
 

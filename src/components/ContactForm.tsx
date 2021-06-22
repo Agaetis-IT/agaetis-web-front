@@ -51,7 +51,7 @@ export default function ContactForm({ title, handleSubmit, isSubmited, subText }
         backgroundImage: `url("${Particles}")`,
         backgroundPosition: 'bottom',
         backgroundSize: 'contain',
-        backgroundRepeat: 'no-repeat'
+        backgroundRepeat: 'no-repeat',
       }}
       className="p-6 md:p-12 lg:px-24 lg:p-16 bg-gray-400"
     >
@@ -62,19 +62,19 @@ export default function ContactForm({ title, handleSubmit, isSubmited, subText }
             href="https://fr-fr.facebook.com/AgaetisIT"
             className={`w-6 h-6 mr-4 self-center shadow-sm hover:shadow-md bg-white rounded-full ${styles.smoothTransition} p-1 text-none`}
           >
-            <img src={Facebook} className="w-4 h-4" alt="Facebook"/>
+            <img src={Facebook} className="w-4 h-4" alt="Facebook" />
           </Button>
           <Button
             href="https://www.linkedin.com/company/agaetis/"
             className={`w-6 h-6 mr-4 shadow-sm hover:shadow-md bg-white rounded-full ${styles.smoothTransition} p-1 text-none`}
           >
-            <img src={Linkedin} className="w-4 h-4" alt="LinkedIn"/>
+            <img src={Linkedin} className="w-4 h-4" alt="LinkedIn" />
           </Button>
           <Button
             href="https://twitter.com/agaetisit"
             className={`w-6 h-6 shadow-sm hover:shadow-md bg-white rounded-full ${styles.smoothTransition} p-1 text-none`}
           >
-            <img src={Twitter} className="w-4 h-4" alt="Twitter"/>
+            <img src={Twitter} className="w-4 h-4" alt="Twitter" />
           </Button>
         </div>
       </div>

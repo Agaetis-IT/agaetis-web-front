@@ -42,14 +42,16 @@ function solutions({ pageContent }: Props) {
                   <b>Solutions</b>
                 </span>
               </div>
-              <h1 className="text-center text-3xl font-bold leading-normal py-8 md:pb-0 md:mt-12">{pageContent.title}</h1>
+              <h1 className="text-center text-3xl font-bold leading-normal py-8 md:pb-0 md:mt-12">
+                {pageContent.title}
+              </h1>
               <p className="md:max-w-md mx-auto text-center px-4 md:py-6 md:px-0 text-sm leading-normal">
                 {pageContent.description}
               </p>
             </div>
           </div>
           <SoluceTab tabs={pageContent.tabs} />
-          <ContactSection/>
+          <ContactSection />
         </div>
       </Layout>
     </>
@@ -57,11 +59,11 @@ function solutions({ pageContent }: Props) {
 }
 
 export async function getStaticProps() {
-  return { 
+  return {
     props: {
       pageContent: JSON.parse(JSON.stringify(await getSolutionsPageContent())),
     },
-    revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
+    revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
   }
 }
 

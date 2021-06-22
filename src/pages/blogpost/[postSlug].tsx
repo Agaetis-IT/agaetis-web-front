@@ -111,7 +111,7 @@ export default function BlogPost({ data, related, errorCode, meta }: Props) {
               backgroundImage: `url("${Particles}")`,
               backgroundPosition: 'top',
               backgroundSize: 'contain',
-              backgroundRepeat: 'no-repeat'
+              backgroundRepeat: 'no-repeat',
             }}
             className="p-6 md:p-16 lg:px-32 xl:px-48 bg-gray-400"
           >
@@ -162,8 +162,8 @@ export async function getStaticPaths() {
   return {
     paths: posts.data.map((post: PostAPI) => ({
       params: {
-        postSlug: post.slug
-      }
+        postSlug: post.slug,
+      },
     })),
     fallback: 'blocking',
   }
@@ -230,21 +230,22 @@ export async function getStaticProps({ params }) {
               categories: data._embedded['wp:term'][0].map((category: { name: string }) => category.name) || [],
               slug: idea.slug || '',
               descriptionText: idea.acf.idea_description || '',
-              image: (idea._embedded['wp:featuredmedia'] &&
-                idea._embedded['wp:featuredmedia'][0] &&
-                idea._embedded['wp:featuredmedia'][0].source_url) ||
-              '',
+              image:
+                (idea._embedded['wp:featuredmedia'] &&
+                  idea._embedded['wp:featuredmedia'][0] &&
+                  idea._embedded['wp:featuredmedia'][0].source_url) ||
+                '',
             }
           }),
           meta: convertMetaAPItoMeta(meta, data._embedded),
         },
-        revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
+        revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
       }
     }
   }
 
   return {
     notFound: true,
-    revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
+    revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
   }
 }

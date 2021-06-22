@@ -70,11 +70,11 @@ export default function Index({ pageContent, offers }: Props) {
 export async function getStaticProps() {
   const { [0]: data, [1]: allOffersData } = await Promise.all([getIndexContent(), getAllOffers()])
 
-  return { 
+  return {
     props: {
       pageContent: JSON.parse(JSON.stringify(convertIndexContentAPItoContentAPI(data))),
       offers: allOffersData.map((offer: OfferAPI) => offer.acf).sort(compareOffer),
     },
-    revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
+    revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
   }
 }

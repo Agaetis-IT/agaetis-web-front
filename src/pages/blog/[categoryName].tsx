@@ -17,22 +17,24 @@ export async function getStaticPaths() {
   const categories = await getCategories()
 
   return {
-    paths: categories.map((category: CategoryAPI) => ({
-      params: {
-        categoryName: slugify(category.name)
-      }
-    })).filter((path: {params: {categoryName: string}}) => !path.params.categoryName.includes('offer-')),
+    paths: categories
+      .map((category: CategoryAPI) => ({
+        params: {
+          categoryName: slugify(category.name),
+        },
+      }))
+      .filter((path: { params: { categoryName: string } }) => !path.params.categoryName.includes('offer-')),
     fallback: 'blocking',
   }
 }
 
 export async function getStaticProps({ params }) {
   let selectedCategory = ''
-  const { [0]: categories, [1]: content, [2]: whitepapers } = await Promise.all([
-    getCategories(),
-    getIdeasPageContent(),
-    getAllWhitePapers(),
-  ])
+  const {
+    [0]: categories,
+    [1]: content,
+    [2]: whitepapers,
+  } = await Promise.all([getCategories(), getIdeasPageContent(), getAllWhitePapers()])
   let promiseResult: Response
 
   if (!params.categoryName) {
@@ -51,7 +53,7 @@ export async function getStaticProps({ params }) {
           content: null,
         },
         notFound: true,
-        revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
+        revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
       }
     }
 
@@ -89,6 +91,6 @@ export async function getStaticProps({ params }) {
       selectedCategory: selectedCategory,
       hideSeeMore: promiseResult.pageCount <= 1,
     },
-    revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
+    revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
   }
 }

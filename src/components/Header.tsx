@@ -68,11 +68,16 @@ export default function Header({ invertColors, className }: Props) {
           <div className="flex items-center flex-shrink-0 text-orange-500 md:text-white">
             <Link href="/">
               <a className="mx-auto md:ml-0 flex items-center">
-                <img className={clsx({ 'md:inline': invertColors && position < 200 }, `${styles.logoAgaetis} hidden`)}
+                <img
+                  className={clsx({ 'md:inline': invertColors && position < 200 }, `${styles.logoAgaetis} hidden`)}
                   src={logoAgaetisDesktop}
                   alt="Logo Agaetis"
                 />
-                <img className={clsx(invertColors && position < 200 ? 'md:hidden' : 'inline', position > 200 ? styles.logoSticky : styles.logoAgaetis)}
+                <img
+                  className={clsx(
+                    invertColors && position < 200 ? 'md:hidden' : 'inline',
+                    position > 200 ? styles.logoSticky : styles.logoAgaetis
+                  )}
                   src={logoAgaetisMobile}
                   alt="Logo Agaetis"
                 />
@@ -110,11 +115,16 @@ export default function Header({ invertColors, className }: Props) {
           <div className="flex items-center flex-shrink-0 text-orange-500 md:text-white">
             <Link href="/">
               <a className="mx-full md:ml-0 flex items-center">
-                <img className={clsx({ 'md:inline': invertColors && position < 200 }, `${styles.logoAgaetis} hidden`)}
+                <img
+                  className={clsx({ 'md:inline': invertColors && position < 200 }, `${styles.logoAgaetis} hidden`)}
                   src={logoAgaetisDesktop}
                   alt="Logo Agaetis"
                 />
-                <img className={clsx(invertColors && position < 200 ? 'md:hidden' : 'inline', position > 200 ? styles.logoSticky : styles.logoAgaetis)}
+                <img
+                  className={clsx(
+                    invertColors && position < 200 ? 'md:hidden' : 'inline',
+                    position > 200 ? styles.logoSticky : styles.logoAgaetis
+                  )}
                   src={logoAgaetisMobile}
                   alt="Logo Agaetis"
                 />

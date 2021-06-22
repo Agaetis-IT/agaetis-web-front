@@ -20,7 +20,10 @@ interface Props {
 
 function setStyles(htmlString: string) {
   return htmlString.replace(/(?<=<.*class=")[^">]*(?=.*>)/g, (classes) => {
-    return classes.split(' ').map((cl) => styles[cl] ? styles[cl] : cl).join(' ')
+    return classes
+      .split(' ')
+      .map((cl) => (styles[cl] ? styles[cl] : cl))
+      .join(' ')
   })
 }
 
@@ -59,7 +62,7 @@ export default function Landingpage({ pageContent, errorCode }: Props) {
             backgroundImage: `url("${Particles}")`,
             backgroundPosition: 'top',
             backgroundSize: 'contain',
-            backgroundRepeat: 'no-repeat'
+            backgroundRepeat: 'no-repeat',
           }}
           className="p-6 md:p-16 xl:px-32 bg-gray-400"
         >
@@ -88,8 +91,8 @@ export async function getStaticPaths() {
   return {
     paths: pages.map((page: LandingPageAPI) => ({
       params: {
-        pageSlug: page.slug
-      }
+        pageSlug: page.slug,
+      },
     })),
     fallback: 'blocking',
   }
@@ -102,7 +105,7 @@ export async function getStaticProps({ params }) {
   if (!data.acf) {
     return {
       notFound: true,
-      revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
+      revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
     }
   }
 
@@ -110,6 +113,6 @@ export async function getStaticProps({ params }) {
     props: {
       pageContent,
     },
-    revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
+    revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
   }
 }

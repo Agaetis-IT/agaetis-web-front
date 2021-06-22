@@ -15,7 +15,7 @@ function convertToMultiline(text: string) {
 
 export default function Hero({ hero, values, subtitle }: Props) {
   return (
-    <div 
+    <div
       style={{
         backgroundImage: `url("${hero ? hero : Mask}")`,
         backgroundPosition: 'bottom',
@@ -26,13 +26,13 @@ export default function Hero({ hero, values, subtitle }: Props) {
       <div className="flex justify-center">
         <div className={`flex flex-col p-6 md:p-0 md:my-6 py-16 ${styles.heroText} text-white w-full`}>
           <div className="pb-4 md:pb-16 text-center text-sm md:text-3xl mx-16">
-            <img className={`${styles.quoteL}`} src={Quote} alt=""/>
+            <img className={`${styles.quoteL}`} src={Quote} alt="" />
             <p className="inline italic" id="hero-quote">
               La data au service des hommes et du monde de demain !
             </p>
-            <img className={`${styles.quoteR}`} src={Quote} alt=""/>
+            <img className={`${styles.quoteR}`} src={Quote} alt="" />
           </div>
-          <div className="bg-white h-px mb-4 w-16 md:mb-0 md:h-0 md:bg-transparent self-center"/>
+          <div className="bg-white h-px mb-4 w-16 md:mb-0 md:h-0 md:bg-transparent self-center" />
           <div className={`flex flex-col md:flex-row justify-center text-white md:mx-16 ${styles.heroTextValeurs}`}>
             <div className="self-center md:pr-16 xl:pr-24">
               <h1 className="flex flex-row md:flex-col justify-center pb-4 md:pb-0 md:inline md:mr-auto">
@@ -46,7 +46,7 @@ export default function Hero({ hero, values, subtitle }: Props) {
                 ))}
               </h1>
             </div>
-            <div className="md:w-px md:bg-white"/>
+            <div className="md:w-px md:bg-white" />
             <p
               className="text-sm md:text-lg font-extralight md:font-normal md:pl-12 xl:pl-24 md:pt-0 pt-4 leading-normal md:max-w-lg justify-center self-center text-justify"
               dangerouslySetInnerHTML={{ __html: convertToMultiline(subtitle) }}

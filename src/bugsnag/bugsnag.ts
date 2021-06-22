@@ -8,7 +8,7 @@ export default function initBugsnag() {
       // Disable reporting of errors in dev env
       return process.env.REACT_APP_ENV && (process.env.REACT_APP_ENV === 'PROD' || process.env.REACT_APP_ENV === 'ACC')
     },
-    plugins: [new BugsnagPluginReact()]
+    plugins: [new BugsnagPluginReact()],
   })
   return
 }

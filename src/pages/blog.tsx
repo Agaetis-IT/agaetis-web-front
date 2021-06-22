@@ -9,12 +9,12 @@ import Blog from '../components/Blog'
 export default Blog
 
 export async function getStaticProps() {
-  const { [0]: ideas, [1]: categories, [2]: content, [3]: whitepapers } = await Promise.all([
-    getIdeasByPage(),
-    getCategories(),
-    getIdeasPageContent(),
-    getAllWhitePapers(),
-  ])
+  const {
+    [0]: ideas,
+    [1]: categories,
+    [2]: content,
+    [3]: whitepapers,
+  } = await Promise.all([getIdeasByPage(), getCategories(), getIdeasPageContent(), getAllWhitePapers()])
 
   return {
     props: {
@@ -45,6 +45,6 @@ export async function getStaticProps() {
       hideSeeMore: ideas.pageCount == 1,
       tagFilter: null,
     },
-    revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
+    revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
   }
 }

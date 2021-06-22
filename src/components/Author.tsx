@@ -61,10 +61,11 @@ export default function Author({ ideasDescription, author, content, errorCode, h
             slug: idea.slug,
             descriptionText: idea.acf.idea_description,
             date: idea.date,
-            image: (idea._embedded['wp:featuredmedia'] &&
-            idea._embedded['wp:featuredmedia'][0] &&
-            idea._embedded['wp:featuredmedia'][0].source_url) ||
-          '',
+            image:
+              (idea._embedded['wp:featuredmedia'] &&
+                idea._embedded['wp:featuredmedia'][0] &&
+                idea._embedded['wp:featuredmedia'][0].source_url) ||
+              '',
           }))
           .filter((idea) => !idea.categories.includes('White-paper') && !idea.categories.includes('Jobs'))
 
@@ -109,12 +110,15 @@ export default function Author({ ideasDescription, author, content, errorCode, h
       </Head>
       <Layout invertColors={false}>
         <div className="pt-0 md:pt-28">
-          <div style={{
+          <div
+            style={{
               backgroundImage: `url("${Particles}")`,
               backgroundRepeat: 'no-repeat',
               backgroundPosition: 'left top',
               backgroundSize: '100%',
-            }} className="p-6 md:p-16 lg:px-32 xl:px-48 bg-gray-400">
+            }}
+            className="p-6 md:p-16 lg:px-32 xl:px-48 bg-gray-400"
+          >
             <div className="mx-1 md:mx-2">
               <div>
                 <h1
@@ -123,14 +127,20 @@ export default function Author({ ideasDescription, author, content, errorCode, h
                 />
                 <div>
                   <div className="flex flex-row items-center">
-                    <img className={`my-8 ${styles.round8} shadow-md`} src={author.avatar as string} width={96} height={96} alt="Photo de l'auteur"/>
+                    <img
+                      className={`my-8 ${styles.round8} shadow-md`}
+                      src={author.avatar as string}
+                      width={96}
+                      height={96}
+                      alt="Photo de l'auteur"
+                    />
                     <p className="ml-4 text-xl leading-normal font-semibold">{author.name}</p>
                     {author.linkedInLink && (
                       <Button
                         href={author.linkedInLink}
                         className={`w-6 h-6 ml-4 shadow-sm hover:shadow-md bg-white rounded-full ${styles.smoothTransition} p-1 text-none`}
                       >
-                        <img src={Linkedin} className="w-4 h-4" alt="Profil LinkedIn"/>
+                        <img src={Linkedin} className="w-4 h-4" alt="Profil LinkedIn" />
                       </Button>
                     )}
                   </div>

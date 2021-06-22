@@ -10,8 +10,8 @@ export async function getStaticPaths() {
   return {
     paths: authors.map((author: AuthorAPI) => ({
       params: {
-        authorId: author.id.toString()
-      }
+        authorId: author.id.toString(),
+      },
     })),
     fallback: 'blocking',
   }
@@ -19,12 +19,12 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   try {
-    const { [0]: author, [1]: content, [2]: posts } = await Promise.all([
-      getAuthorById(params.authorId),
-      getAuthorPageContent(),
-      getIdeasByAuthor(params.authorId),
-    ])
-    
+    const {
+      [0]: author,
+      [1]: content,
+      [2]: posts,
+    } = await Promise.all([getAuthorById(params.authorId), getAuthorPageContent(), getIdeasByAuthor(params.authorId)])
+
     return {
       props: {
         ideasDescription: posts.data.map((idea: PostAPI) => ({
@@ -50,13 +50,12 @@ export async function getStaticProps({ params }) {
         content,
         hasMore: posts.pageCount > 1,
       },
-      revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
+      revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
     }
-  }
-  catch {
+  } catch {
     return {
       notFound: true,
-      revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
+      revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
     }
   }
 }

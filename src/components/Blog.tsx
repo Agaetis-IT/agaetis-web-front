@@ -92,9 +92,8 @@ export default function Blog({
       let newData: Response
       const page = reset ? 1 : lastPage + 1
       const catFilter = changedCategory ? changedCategory : categoryFilter
-      const searchBarFilter = (changedSearchFilter || changedSearchFilter === ''
-        ? changedSearchFilter
-        : searchFilter
+      const searchBarFilter = (
+        changedSearchFilter || changedSearchFilter === '' ? changedSearchFilter : searchFilter
       ).toLocaleLowerCase()
 
       if (catFilter != 'All') {
@@ -120,10 +119,11 @@ export default function Blog({
           slug: idea.slug,
           descriptionText: idea.acf.idea_description,
           date: idea.date,
-          image: (idea._embedded['wp:featuredmedia'] &&
-          idea._embedded['wp:featuredmedia'][0] &&
-          idea._embedded['wp:featuredmedia'][0].source_url) ||
-        '',
+          image:
+            (idea._embedded['wp:featuredmedia'] &&
+              idea._embedded['wp:featuredmedia'][0] &&
+              idea._embedded['wp:featuredmedia'][0].source_url) ||
+            '',
         }))
         .filter((idea) => !idea.categories.includes('White-paper') && !idea.categories.includes('Jobs'))
 
@@ -195,7 +195,7 @@ export default function Blog({
               backgroundImage: `url("${Particles}")`,
               backgroundPosition: 'top',
               backgroundSize: 'contain',
-              backgroundRepeat: 'no-repeat'
+              backgroundRepeat: 'no-repeat',
             }}
             className="p-6 md:p-16 lg:px-32 xl:px-48 bg-gray-400"
           >

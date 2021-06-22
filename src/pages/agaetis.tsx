@@ -38,7 +38,9 @@ export default function agaetis({ pageContent }: Props) {
                 </span>
               </div>
               <div className="md:max-w-md mx-auto md:px-8">
-                <h1 className="text-center text-3xl font-bold leading-normal py-8 md:pb-0 md:mt-12">{pageContent.title}</h1>
+                <h1 className="text-center text-3xl font-bold leading-normal py-8 md:pb-0 md:mt-12">
+                  {pageContent.title}
+                </h1>
                 <p className="text-center px-4 md:py-6 md:px-0 text-sm leading-normal">{pageContent.paragraph}</p>
               </div>
             </div>
@@ -75,8 +77,8 @@ export default function agaetis({ pageContent }: Props) {
 export async function getStaticProps() {
   return {
     props: {
-      pageContent: JSON.parse(JSON.stringify(convertAgaetisAPItoContent(await getAgaetisContent())))
-    }, 
-    revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
+      pageContent: JSON.parse(JSON.stringify(convertAgaetisAPItoContent(await getAgaetisContent()))),
+    },
+    revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
   }
 }

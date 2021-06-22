@@ -1,7 +1,13 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useEffect } from 'react'
 import { convertAPItoOfferleaf, OfferContent, OfferLeafContent } from '../../types/OffersContent'
-import { getAllOffers, getCategoryOffers, getIdeasByCategory, getOfferContent, getOfferLeaf } from '../../services/wordpressService'
+import {
+  getAllOffers,
+  getCategoryOffers,
+  getIdeasByCategory,
+  getOfferContent,
+  getOfferLeaf,
+} from '../../services/wordpressService'
 const Back = '../../../public/icons/Btn_Retour.svg'
 import Error from '../_error'
 import Head from 'next/head'
@@ -85,7 +91,7 @@ export default function offer({ pageContent, errorCode, offers }: Props): React.
             className="bg-gray-900 p-0 md:p-12 lg:px-24 lg:p-16 hidden lg:block shadow-none md:shadow-md"
           >
             <div className="flex flex-row items-center">
-              <img src={pageContent.offers_image1} className="block h-16" alt=""/>
+              <img src={pageContent.offers_image1} className="block h-16" alt="" />
               <h1 className="text-white text-2xl leading-normal ml-8">{pageContent.title}</h1>
             </div>
             <p className="text-white py-8 leading-normal text-sm">{pageContent.paragraph}</p>
@@ -93,7 +99,7 @@ export default function offer({ pageContent, errorCode, offers }: Props): React.
               <Link href="/offers">
                 <Button>
                   <div className="flex flex-row items-center mb-8">
-                    <img className="mr-4" src={Back} alt=""/>
+                    <img className="mr-4" src={Back} alt="" />
                     <span className="text-orange-500">Retour aux catégories d'offres</span>
                   </div>
                 </Button>
@@ -135,13 +141,13 @@ export default function offer({ pageContent, errorCode, offers }: Props): React.
               <Link href="/offers">
                 <Button>
                   <div className="flex flex-row items-center mb-8">
-                    <img className="mr-4 h-8" src={Back} alt=""/>
+                    <img className="mr-4 h-8" src={Back} alt="" />
                     <span className="text-orange-500">Retour aux catégories d'offres</span>
                   </div>
                 </Button>
               </Link>
               <div className="flex flex-row items-center mt-0 md:mt-20">
-                <img src={pageContent.offers_image1} className="block h-12" alt=""/>
+                <img src={pageContent.offers_image1} className="block h-12" alt="" />
                 <h1 className="text-black text-2xl leading-normal ml-8">{pageContent.title}</h1>
               </div>
               <div>
@@ -205,21 +211,24 @@ export async function getStaticPaths() {
   return {
     paths: offers.map((offer: OfferAPI) => ({
       params: {
-        offerSlug: offer.slug
-      }
+        offerSlug: offer.slug,
+      },
     })),
     fallback: 'blocking',
   }
 }
 
 export async function getStaticProps({ params }) {
-  const { [0]: data, [1]: offers } = await Promise.all([getOfferContent(params.offerSlug), getCategoryOffers(params.offerSlug)])
+  const { [0]: data, [1]: offers } = await Promise.all([
+    getOfferContent(params.offerSlug),
+    getCategoryOffers(params.offerSlug),
+  ])
   const pageContent = { ...data.acf, slug: data.slug }
 
   if (!data.acf) {
     return {
       notFound: !data.acf,
-      revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
+      revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
     }
   }
 
@@ -247,6 +256,6 @@ export async function getStaticProps({ params }) {
       pageContent,
       offers: offerChildrens,
     },
-    revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
+    revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
   }
 }

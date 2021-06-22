@@ -1,5 +1,11 @@
 import { TagAPI, PostAPI, CategoryAPI } from '../../../models/IdeasAPI'
-import { getCategories, getIdeasPageContent, getAllWhitePapers, getIdeasByTag, getTags } from '../../../services/wordpressService'
+import {
+  getCategories,
+  getIdeasPageContent,
+  getAllWhitePapers,
+  getIdeasByTag,
+  getTags,
+} from '../../../services/wordpressService'
 import WhitePaper from '../../../types/WhitePaper'
 
 import { Category } from '../../../types/IdeasContent'
@@ -14,20 +20,20 @@ export async function getStaticPaths() {
   return {
     paths: tags.map((tag: TagAPI) => ({
       params: {
-        tagSlug: tag.slug
-      }
+        tagSlug: tag.slug,
+      },
     })),
     fallback: 'blocking',
   }
 }
 
 export async function getStaticProps({ params }) {
-  const { [0]: ideas, [1]: categories, [2]: content, [3]: whitepapers } = await Promise.all([
-    getIdeasByTag(params.tagSlug),
-    getCategories(),
-    getIdeasPageContent(),
-    getAllWhitePapers(),
-  ])
+  const {
+    [0]: ideas,
+    [1]: categories,
+    [2]: content,
+    [3]: whitepapers,
+  } = await Promise.all([getIdeasByTag(params.tagSlug), getCategories(), getIdeasPageContent(), getAllWhitePapers()])
 
   content.description = `Découvrez nos articles avec le tag #${params.tagSlug}.`
 

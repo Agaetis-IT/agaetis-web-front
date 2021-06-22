@@ -38,7 +38,9 @@ export default function CheckBox({ name, label, boxClassName, labelClassName, wr
           {label}
         </label>
       </div>
-      {formState.errors[name] && <p className="text-xs leading-normal text-red-500 text-center pt-2">{formState.errors[name].message}</p>}
+      {formState.errors[name] && (
+        <p className="text-xs leading-normal text-red-500 text-center pt-2">{formState.errors[name].message}</p>
+      )}
     </div>
   )
 }
