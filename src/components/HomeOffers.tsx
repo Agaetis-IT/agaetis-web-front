@@ -3,11 +3,10 @@ import Button from './Button'
 
 import styles from '../styles/HomeOffers.module.css'
 import commonStyles from '../styles/Common.module.css'
-import arrowR from '../../public/images/right-arrow.svg'
+const arrowR = '/images/right-arrow.svg'
 import clsx from 'clsx'
 import { OfferDesc } from '../types/OffersContent'
 import Link from 'next/link'
-import Image from 'next/image'
 
 interface Props {
   title: string
@@ -38,13 +37,10 @@ export default function HomeOffers({ title, offers }: Props) {
                   )}
                 >
                   <div className="absolute bg-white h-20 w-20 shadow-md md:hidden rounded-full">
-                    <Image
+                    <img
                       src={offer.offers_image1}
                       alt="offer icon"
                       className="rounded-full"
-                      layout="fill"
-                      objectFit="cover"
-                      quality={100}
                     />
                   </div>
                   <div className="w-9/10 ml-22 md:ml-0 py-2 md:p-0">
@@ -63,25 +59,28 @@ export default function HomeOffers({ title, offers }: Props) {
                   >
                     {'>'}
                   </span>
-                  <div className="m-4 block md:hidden">
-                    <Image
-                      src={arrowR}
-                      alt="arrow"
-                      className={clsx(
-                        index === selectedOffer && isOpenedOffer ? styles.offerSelectedArrow : styles.offerArrow
-                      )}
-                      quality={100}
-                    />
-                  </div>
+                  <img
+                    src={arrowR}
+                    alt="arrow"
+                    className={clsx('m-4 block md:hidden',
+                      index === selectedOffer && isOpenedOffer ? styles.offerSelectedArrow : styles.offerArrow
+                    )}
+                    width={10}
+                    height={10}
+                  />
                 </div>
               </Button>
-              <div className={clsx(
-                  `relative md:hidden ${styles.offerFlyout} ml-10`,
+              <div
+                style={{
+                  backgroundImage: `url(${offer.image})`,
+                  backgroundPosition: 'top',
+                  backgroundSize: 'cover',
+                }}
+                className={clsx(
+                  `bg-gray-800 md:hidden ${styles.offerFlyout} ml-10`,
                   index === selectedOffer && isOpenedOffer ? `block ${styles.offerFlyoutOpen}` : styles.offerFlyoutClose
-                )}>
-                <div className="absolute bg-gray-800 top-0 left-0 right-0 bottom-0">
-                  <Image src={offer.image} layout="fill" objectFit="cover" quality={100}/>
-                </div>
+                )}
+              >
                 <div style={{ backgroundColor: 'rgba(0,0,0,0.4)' }} className={`p-4 m-4 ${commonStyles.round8} ${styles.backgroundBlur}`}>
                   <p className="text-sm leading-normal text-justify text-white">
                     {offer.offers_description}
@@ -112,10 +111,14 @@ export default function HomeOffers({ title, offers }: Props) {
           ))}
         </div>
       </div>
-      <div className="relative hidden md:block bg-gray-800 w-full md:w-1/2 md:p-12 lg:p-16">
-        <div className="absolute bg-gray-800 top-0 left-0 right-0 bottom-0">
-          <Image src={offers[selectedOffer].image} layout="fill" objectFit="cover" quality={100}/>
-        </div>
+      <div
+        style={{
+          backgroundImage: `url(${offers[selectedOffer].image})`,
+          backgroundPosition: 'center',
+          backgroundSize: 'cover',
+        }}
+        className="relative hidden md:block bg-gray-800 w-full md:w-1/2 md:p-12 lg:p-16"
+      >
         <div style={{ backgroundColor: 'rgba(0,0,0,0.4)' }} className={`p-4 ${commonStyles.round8} ${styles.backgroundBlur}`}>
           {offers.map((offer, index) => (
             <div key={index} className={clsx({ hidden: selectedOffer != index })}>

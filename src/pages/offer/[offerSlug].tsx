@@ -2,11 +2,11 @@
 import { useEffect } from 'react'
 import { convertAPItoOfferleaf, OfferContent, OfferLeafContent } from '../../types/OffersContent'
 import { getAllOffers, getCategoryOffers, getIdeasByCategory, getOfferContent, getOfferLeaf } from '../../services/wordpressService'
-const Back = '../../public/icons/Btn_Retour.svg'
+const Back = '../../../public/icons/Btn_Retour.svg'
 import Error from '../_error'
 import Head from 'next/head'
 import Layout from '../../components/Layout'
-const Particles = '../../public/images/particles-2.svg'
+const Particles = '../../../public/images/particles-2.svg'
 import { useState } from 'react'
 import Button from '../../components/Button'
 import clsx from 'clsx'
@@ -59,7 +59,7 @@ export default function offer({ pageContent, errorCode, offers }: Props): React.
     }
   }
 
-  if (!!errorCode) {
+  if (errorCode) {
     return <Error statusCode={404} />
   }
 
@@ -85,7 +85,7 @@ export default function offer({ pageContent, errorCode, offers }: Props): React.
             className="bg-gray-900 p-0 md:p-12 lg:px-24 lg:p-16 hidden lg:block shadow-none md:shadow-md"
           >
             <div className="flex flex-row items-center">
-              <img src={pageContent.offers_image1} className="block h-16"></img>
+              <img src={pageContent.offers_image1} className="block h-16"/>
               <h1 className="text-white text-2xl leading-normal ml-8">{pageContent.title}</h1>
             </div>
             <p className="text-white py-8 leading-normal text-sm">{pageContent.paragraph}</p>

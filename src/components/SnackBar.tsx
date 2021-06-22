@@ -1,9 +1,8 @@
 import clsx from 'clsx'
-import Image from 'next/image'
 import { useEffect } from 'react'
 
-import Cross from '../../public/images/cross-icon-png-1.png'
-import Tick from '../../public/images/Flat_tick_icon.svg.png'
+const Cross = '/images/cross-icon-png-1.png'
+const Tick = '/images/Flat_tick_icon.svg.png'
 
 import styles from '../styles/SnackBar.module.css'
 
@@ -33,13 +32,9 @@ export default function SnackBar({ message, isError, timeoutDuration = 3000, ope
   return (
     <div className={clsx('flex flex-row bg-white p-4 rounded-lg shadow-md fixed', styles.snackBarModal)}>
       {isError ? (
-        <div className="w-8 h-8">
-          <Image src={Cross} alt="cross" quality={100}/>
-        </div>
+        <img className="w-8 h-8" src={Cross} alt="cross"/>
       ) : (
-        <div className="w-8 h-8">
-          <Image src={Tick} alt="tick" quality={100}/>
-        </div>
+        <img className="w-8 h-8" src={Tick} alt="tick"/>
       )}
       <h4 className="self-center block ml-4 text-black">{message}</h4>
     </div>

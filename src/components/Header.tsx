@@ -1,13 +1,12 @@
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
-import Image from 'next/image'
 
 import styles from '../styles/Header.module.css'
 import NavigationMenu from './NavigationMenu'
 
-import logoAgaetisDesktop from '../../public/images/logo-agaetis-hor-white-rgb-150.png'
-import logoAgaetisMobile from '../../public/images/logo-agaetis-hor-p164-rgb-150.png'
+const logoAgaetisDesktop = '/images/logo-agaetis-hor-white-rgb-150.png'
+const logoAgaetisMobile = '/images/logo-agaetis-hor-p164-rgb-150.png'
 
 interface Props {
   invertColors: boolean
@@ -69,24 +68,14 @@ export default function Header({ invertColors, className }: Props) {
           <div className="flex items-center flex-shrink-0 text-orange-500 md:text-white">
             <Link href="/">
               <a className="mx-auto md:ml-0 flex items-center">
-                {
-                  <div className={clsx({ 'md:inline': invertColors && position < 200 }, `${styles.logoAgaetis} hidden`)}>
-                    <Image
-                      src={logoAgaetisDesktop}
-                      alt="logo agaetis"
-                      quality={100}
-                    />
-                  </div>
-                }
-                {
-                  <div className={clsx(invertColors && position < 200 ? 'md:hidden' : 'inline', position > 200 ? styles.logoSticky : styles.logoAgaetis)}>
-                    <Image
-                      src={logoAgaetisMobile}
-                      alt="logo agaetis"
-                      quality={100}
-                    />
-                  </div>
-                }
+                <img className={clsx({ 'md:inline': invertColors && position < 200 }, `${styles.logoAgaetis} hidden`)}
+                  src={logoAgaetisDesktop}
+                  alt="logo agaetis"
+                />
+                <img className={clsx(invertColors && position < 200 ? 'md:hidden' : 'inline', position > 200 ? styles.logoSticky : styles.logoAgaetis)}
+                  src={logoAgaetisMobile}
+                  alt="logo agaetis"
+                />
               </a>
             </Link>
             <button
@@ -121,20 +110,14 @@ export default function Header({ invertColors, className }: Props) {
           <div className="flex items-center flex-shrink-0 text-orange-500 md:text-white">
             <Link href="/">
               <a className="mx-full md:ml-0 flex items-center">
-                <div className={clsx({ 'md:inline': invertColors && position < 200 }, `${styles.logoAgaetis} hidden`)}>
-                  <Image
-                    src={logoAgaetisDesktop}
-                    alt="logo agaetis"
-                    quality={100}
-                  />
-                </div>
-                <div className={clsx(invertColors && position < 200 ? 'md:hidden' : 'inline', position > 200 ? styles.logoSticky : styles.logoAgaetis)}>
-                  <Image
-                    src={logoAgaetisMobile}
-                    alt="logo agaetis"
-                    quality={100}
-                  />
-                </div>
+                <img className={clsx({ 'md:inline': invertColors && position < 200 }, `${styles.logoAgaetis} hidden`)}
+                  src={logoAgaetisDesktop}
+                  alt="logo agaetis"
+                />
+                <img className={clsx(invertColors && position < 200 ? 'md:hidden' : 'inline', position > 200 ? styles.logoSticky : styles.logoAgaetis)}
+                  src={logoAgaetisMobile}
+                  alt="logo agaetis"
+                />
               </a>
             </Link>
             <button

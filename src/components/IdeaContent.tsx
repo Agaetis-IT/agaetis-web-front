@@ -1,22 +1,21 @@
 import { useEffect, useState } from 'react'
-import Image from 'next/image'
 import IdeasContent from '../types/IdeasContent'
 
-import AccessTime from '../../public/icons/access_time-24px.svg'
-import Back from '../../public/icons/Btn_Retour.svg'
+const AccessTime = '/icons/access_time-24px.svg'
+const Back = '/icons/Btn_Retour.svg'
 import Link from 'next/link'
 import Button from './Button'
 import { createMarkup } from '../services/textUtilities'
 
-import Twitter from '../../public/icons/twitter.png'
-import Linkedin from '../../public/icons/linkedin.png'
-import Facebook from '../../public/icons/facebook.png'
+const Twitter = '/icons/twitter.png'
+const Linkedin = '/icons/linkedin.png'
+const Facebook = '/icons/facebook.png'
 import { useRouter } from 'next/router'
 
 import styles from '../styles/IdeaContent.module.css'
 import commonStyles from '../styles/Common.module.css'
 
-const Placeholder = '../../public/images/blog-post-placeholder.jpg'
+const Placeholder = '/images/blog-post-placeholder.jpg'
 import { AuthorLink } from '../types/AuthorContent'
 import Meta from '../types/Meta'
 
@@ -120,7 +119,7 @@ function IdeaContent({ content, meta }: Props) {
           <Link href="/blog" passHref={true}>
             <Button>
               <div className="flex flex-row items-center">
-                <div className="mr-4 text-none"><Image src={Back} layout="fixed" quality={100}/></div>
+                <img className="mr-4" src={Back}/>
                 <span className="text-orange-500 text-xs leading-normal font-semibold">Retour au blog</span>
               </div>
             </Button>
@@ -128,22 +127,20 @@ function IdeaContent({ content, meta }: Props) {
         </div>
       </div>
       <div className={`pb-4 bg-white shadow-md ${styles['md:round8']}`}>
-        <div className={`relative h-80 md:h-128 w-full object-cover ${styles['md:round8top']}`}>
-          <Image
-            src={meta.featuredImage ? meta.featuredImage : Placeholder}
-            className={styles['md:round8top']}
-            layout="fill"
-            objectFit="cover"
-            quality={100}
-          />
-        </div>
+        <div
+          style={{
+            backgroundImage: `url("${meta.featuredImage ? meta.featuredImage : Placeholder}")`,
+            backgroundPosition: 'center',
+            backgroundSize: 'cover',
+          }} className={`h-80 md:h-128 w-full object-cover ${styles['md:round8top']}`}
+        />
         <div className="px-4 md:px-8 text-xs leading-normal text-orange-500 font-semibold flex items-center justify-between py-4">
           <span className="flex items-center">
             <span className="pr-8">
               {content.date.slice(8, 10)} / {content.date.slice(5, 7)} / {content.date.slice(0, 4)}
             </span>
             <span className="flex items-center pr-8">
-              <Image src={AccessTime} alt="read_time" layout="fixed" quality={100}/>
+              <img src={AccessTime} alt="read_time" width={15} height={15}/>
               &nbsp;{content.readTime} min.
             </span>
           </span>
@@ -152,19 +149,19 @@ function IdeaContent({ content, meta }: Props) {
               href={`https://www.facebook.com/sharer/sharer.php?u=${location.split('#')[0]}`}
               className={`w-6 h-6 mr-4 self-center shadow-sm hover:shadow-md bg-white rounded-full ${commonStyles.smoothTransition} p-1`}
             >
-              <Image src={Facebook} className="w-4 h-4" quality={100}/>
+              <img src={Facebook} className="w-4 h-4"/>
             </Button>
             <Button
               href={`https://www.linkedin.com/shareArticle?mini=true&url=${location.split('#')[0]}`}
               className={`w-6 h-6 mr-4 shadow-sm hover:shadow-md bg-white rounded-full ${commonStyles.smoothTransition} p-1`}
             >
-            <Image src={Linkedin} className="w-4 h-4" quality={100}/>
+              <img src={Linkedin} className="w-4 h-4"/>
             </Button>
             <Button
               href={`https://twitter.com/intent/tweet?text=${location.split('#')[0]}`}
               className={`w-6 h-6 shadow-sm hover:shadow-md bg-white rounded-full ${commonStyles.smoothTransition} p-1`}
             >
-            <Image src={Twitter} className="w-4 h-4" quality={100}/>
+              <img src={Twitter} className="w-4 h-4"/>
             </Button>
           </div>
         </div>

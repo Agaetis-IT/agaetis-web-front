@@ -3,11 +3,10 @@ import ContactForm from '../../components/ContactForm'
 import ContactSection from '../../components/ContactSection'
 import Error from '../_error'
 import Layout from '../../components/Layout'
-import Particles from '../../public/images/particles-3.svg'
+const Particles = '/images/particles-3.svg'
 import { getAllLandingPages, getLandingPageContent } from '../../services/wordpressService'
 import { convertAPItoLandingPageContent, LandingPage } from '../../types/OffersContent'
 import { FormInput } from '../../yup/ContactFormValidation'
-import Image from 'next/image'
 
 import styles from '../../styles/landingpage.module.css'
 import SnackBar from '../../components/SnackBar'
@@ -48,33 +47,37 @@ export default function Landingpage({ pageContent, errorCode }: Props) {
     }
   }
 
-  if (!!errorCode) {
+  if (errorCode) {
     return <Error statusCode={404} />
   }
+
   return (
     <Layout invertColors={false}>
-      <>
-        <div className="relative pt-0 md:pt-28">
-          <div className="absolute mt-0 md:mt-28 bg-gray-400 top-0 left-0 right-0 bottom-0 z-back">
-            <Image src={Particles} layout="responsive" quality={100}/>
-          </div>
-          <div className="p-6 md:p-16 xl:px-32">
-            <h1 className="font-bold text-4xl">{pageContent.title}</h1>
-            <div
-              className={`xl:mt-20 ${styles.landingpageContent}`}
-              dangerouslySetInnerHTML={{ __html: setStyles(pageContent.content) }}
-            />
-          </div>
-          <ContactForm title="Une question ? Contactez-nous !" handleSubmit={handleSubmit} isSubmited={isSubmited} />
-          <SnackBar
-            message={modalOpenWithError ? "Erreur pendant l'envoi du message" : 'Message envoyé'}
-            isError={modalOpenWithError}
-            open={modalOpenWithError}
-            onClose={handleCloseModal}
+      <div className="pt-0 md:pt-28">
+        <div
+          style={{
+            backgroundImage: `url("${Particles}")`,
+            backgroundPosition: 'top',
+            backgroundSize: 'contain',
+            backgroundRepeat: 'no-repeat'
+          }}
+          className="p-6 md:p-16 xl:px-32 bg-gray-400"
+        >
+          <h1 className="font-bold text-4xl">{pageContent.title}</h1>
+          <div
+            className={`xl:mt-20 ${styles.landingpageContent}`}
+            dangerouslySetInnerHTML={{ __html: setStyles(pageContent.content) }}
           />
-          <ContactSection />
         </div>
-      </>
+        <ContactForm title="Une question ? Contactez-nous !" handleSubmit={handleSubmit} isSubmited={isSubmited} />
+        <SnackBar
+          message={modalOpenWithError ? "Erreur pendant l'envoi du message" : 'Message envoyé'}
+          isError={modalOpenWithError}
+          open={modalOpenWithError}
+          onClose={handleCloseModal}
+        />
+        <ContactSection />
+      </div>
     </Layout>
   )
 }

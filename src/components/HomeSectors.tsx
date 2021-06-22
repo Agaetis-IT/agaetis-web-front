@@ -2,9 +2,8 @@ import { useState } from 'react'
 
 import styles from '../styles/HomeSectors.module.css'
 import { SectorDesc } from '../types/IndexContent'
-import arrowR from '../../public/images/right-arrow.svg'
+const arrowR = '/images/right-arrow.svg'
 import clsx from 'clsx'
-import Image from 'next/image'
 import Button from './Button'
 
 interface Props {
@@ -46,46 +45,44 @@ export default function HomeSectors({ title, sectors }: Props) {
                   index === openedSector ? styles.sectorHeaderOpen : styles.sectorHeaderClose
                 )}
               >
-                <div className={`bg-white h-20 w-20 absolute md:relative md:h-56 md:w-1/2 rounded-full ${styles['md:round8Image']} shadow-md md:shadow-none`}>
-                  <Image
-                    src={sector.image}
-                    className={`rounded-full ${styles['md:round8Image']}`}
-                    layout="fill"
-                    objectFit="cover"
-                    quality={100}
-                  />
-                </div>
+                <div
+                  style={{
+                    backgroundImage: `url("${sector.image}")`,
+                    backgroundPosition: 'center',
+                    backgroundSize: 'cover',
+                  }}
+                  className={`bg-white h-20 w-20 absolute md:relative md:h-56 md:w-1/2 rounded-full ${styles['md:round8Image']} shadow-md md:shadow-none`}
+                />
                 <div  
                   className={`bg-white md:bg-none h-20 md:h-56 p-4 w-full md:w-1/2 flex flex-row md:flex-col items-center justify-between md:justify-center ml-10 md:m-0 ${styles['md:round8']} ${styles.sectorHeader}`}>
                   <div className="p-0 ml-8 md:m-0 md:p-4 pt-0">
                     <h3 className="text-gray-800 md:text-black font-bold uppercase text-left text-sm">{sector.title}</h3>
                     <p className="text-xs text-justify leading-normal py-4 hidden md:block">{sector.desc}</p>
                   </div>
-                  <div className="block md:hidden">
-                    <Image
-                      src={arrowR}
-                      alt="arrow"
-                      className={clsx(
-                        index === openedSector ? styles.offerSelectedArrow : styles.offerArrow
-                      )}
-                      quality={100}
-                    />
-                  </div>
+                  <img
+                    src={arrowR}
+                    alt="arrow"
+                    className={clsx('block md:hidden',
+                      index === openedSector ? styles.offerSelectedArrow : styles.offerArrow
+                    )}
+                    width={10}
+                    height={10}
+                  />
                 </div>
               </div>
             </Button>
-              <div
-                className={clsx(
-                  `ml-10 bg-white block md:hidden ${styles.sectorFlyout}`,
-                  index === openedSector ? styles.sectorFlyoutOpen : styles.sectorFlyoutClose
-                )}
-              >
-                <div className="m-4">
-                  <p className="text-xs text-justify leading-normal">{sector.desc}</p>
-                </div>
+            <div
+              className={clsx(
+                `ml-10 bg-white block md:hidden ${styles.sectorFlyout}`,
+                index === openedSector ? styles.sectorFlyoutOpen : styles.sectorFlyoutClose
+              )}
+            >
+              <div className="m-4">
+                <p className="text-xs text-justify leading-normal">{sector.desc}</p>
               </div>
             </div>
-          ))}
+          </div>
+        ))}
       </div>
     </div>
   )
