@@ -12,13 +12,13 @@ export default function Footer() {
           <h2 className="text-xs leading-normal">Suivez-nous</h2>
           <div className="flex flex-row my-4 justify-center md:justify-start">
             <Button href="https://fr-fr.facebook.com/AgaetisIT" className="mr-4 w-4">
-              <img src={Facebook} alt="facebook" />
+              <img src={Facebook} alt="Facebook" />
             </Button>
             <Button href="https://www.linkedin.com/company/agaetis/" className="mr-4 w-4">
-              <img src={Linkedin} alt="linkedin" />
+              <img src={Linkedin} alt="LinkedIn" />
             </Button>
             <Button href="https://twitter.com/agaetisit" className="w-4">
-              <img src={Twitter} alt="twitter" />
+              <img src={Twitter} alt="Twitter" />
             </Button>
           </div>
         </div>

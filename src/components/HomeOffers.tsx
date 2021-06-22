@@ -39,7 +39,7 @@ export default function HomeOffers({ title, offers }: Props) {
                   <div className="absolute bg-white h-20 w-20 shadow-md md:hidden rounded-full">
                     <img
                       src={offer.offers_image1}
-                      alt="offer icon"
+                      alt="Offer Icon"
                       className="rounded-full"
                     />
                   </div>
@@ -61,7 +61,7 @@ export default function HomeOffers({ title, offers }: Props) {
                   </span>
                   <img
                     src={arrowR}
-                    alt="arrow"
+                    alt=""
                     className={clsx('m-4 block md:hidden',
                       index === selectedOffer && isOpenedOffer ? styles.offerSelectedArrow : styles.offerArrow
                     )}

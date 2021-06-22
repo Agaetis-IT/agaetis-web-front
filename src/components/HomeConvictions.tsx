@@ -21,7 +21,7 @@ export default function HomeConvictions({ title, convictions }: Props) {
                 : 'flex-row-reverse md:flex-row lg:pl-8 xl:pl-16 pr-0'
             )}
           >
-            <img className="md:m-0 w-20 h-20 md:w-28 md:h-28 flex-shrink-0" src={conviction.image}/>
+            <img className="md:m-0 w-20 h-20 md:w-28 md:h-28 flex-shrink-0" src={conviction.image} alt={conviction.title}/>
             <span className={clsx(index % 2 === 0 ? 'pl-4' : 'pr-4', 'flex flex-col justify-center md:px-8')}>
               <h3 className="uppercase font-semibold mb-2 md:mb-4 text-base leading-normal">{conviction.title}</h3>
               <p className="text-xs md:text-sm leading-tight">{conviction.desc}</p>

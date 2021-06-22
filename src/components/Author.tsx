@@ -123,14 +123,14 @@ export default function Author({ ideasDescription, author, content, errorCode, h
                 />
                 <div>
                   <div className="flex flex-row items-center">
-                    <img className={`my-8 ${styles.round8} shadow-md`} src={author.avatar as string} width={96} height={96}/>
+                    <img className={`my-8 ${styles.round8} shadow-md`} src={author.avatar as string} width={96} height={96} alt="Photo de l'auteur"/>
                     <p className="ml-4 text-xl leading-normal font-semibold">{author.name}</p>
                     {author.linkedInLink && (
                       <Button
                         href={author.linkedInLink}
                         className={`w-6 h-6 ml-4 shadow-sm hover:shadow-md bg-white rounded-full ${styles.smoothTransition} p-1 text-none`}
                       >
-                        <img src={Linkedin} className="w-4 h-4"/>
+                        <img src={Linkedin} className="w-4 h-4" alt="Profil LinkedIn"/>
                       </Button>
                     )}
                   </div>

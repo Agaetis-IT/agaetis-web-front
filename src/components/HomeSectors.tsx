@@ -61,7 +61,7 @@ export default function HomeSectors({ title, sectors }: Props) {
                   </div>
                   <img
                     src={arrowR}
-                    alt="arrow"
+                    alt=""
                     className={clsx('block md:hidden',
                       index === openedSector ? styles.offerSelectedArrow : styles.offerArrow
                     )}

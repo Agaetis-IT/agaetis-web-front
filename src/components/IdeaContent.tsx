@@ -119,7 +119,7 @@ function IdeaContent({ content, meta }: Props) {
           <Link href="/blog" passHref={true}>
             <Button>
               <div className="flex flex-row items-center">
-                <img className="mr-4" src={Back}/>
+                <img className="mr-4" src={Back} alt=""/>
                 <span className="text-orange-500 text-xs leading-normal font-semibold">Retour au blog</span>
               </div>
             </Button>
@@ -140,7 +140,7 @@ function IdeaContent({ content, meta }: Props) {
               {content.date.slice(8, 10)} / {content.date.slice(5, 7)} / {content.date.slice(0, 4)}
             </span>
             <span className="flex items-center pr-8">
-              <img src={AccessTime} alt="read_time" width={15} height={15}/>
+              <img src={AccessTime} alt="Temps de lecture" width={15} height={15}/>
               &nbsp;{content.readTime} min.
             </span>
           </span>
@@ -149,19 +149,19 @@ function IdeaContent({ content, meta }: Props) {
               href={`https://www.facebook.com/sharer/sharer.php?u=${location.split('#')[0]}`}
               className={`w-6 h-6 mr-4 self-center shadow-sm hover:shadow-md bg-white rounded-full ${commonStyles.smoothTransition} p-1`}
             >
-              <img src={Facebook} className="w-4 h-4"/>
+              <img src={Facebook} className="w-4 h-4" alt="Facebook"/>
             </Button>
             <Button
               href={`https://www.linkedin.com/shareArticle?mini=true&url=${location.split('#')[0]}`}
               className={`w-6 h-6 mr-4 shadow-sm hover:shadow-md bg-white rounded-full ${commonStyles.smoothTransition} p-1`}
             >
-              <img src={Linkedin} className="w-4 h-4"/>
+              <img src={Linkedin} className="w-4 h-4" alt="LinkedIn"/>
             </Button>
             <Button
               href={`https://twitter.com/intent/tweet?text=${location.split('#')[0]}`}
               className={`w-6 h-6 shadow-sm hover:shadow-md bg-white rounded-full ${commonStyles.smoothTransition} p-1`}
             >
-              <img src={Twitter} className="w-4 h-4"/>
+              <img src={Twitter} className="w-4 h-4" alt="Twitter"/>
             </Button>
           </div>
         </div>
