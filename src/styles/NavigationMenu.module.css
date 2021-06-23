@@ -25,7 +25,8 @@
 }
 
 .menuLinkWhiteUnderline:hover::after,
-.menuLinkBlackUnderline:hover::after {
+.menuLinkBlackUnderline:hover::after,
+.menuLinkUnderlineSelected::after {
   width: 100%;
 }
 

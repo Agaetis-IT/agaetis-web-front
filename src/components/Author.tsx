@@ -108,7 +108,7 @@ export default function Author({ ideasDescription, author, content, errorCode, h
         <meta name="description" content={`Découvrez tous les articles de ${author.name}`} />
         <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/author/${author.id}`} />
       </Head>
-      <Layout invertColors={false}>
+      <Layout invertColors={false} displayedPage={'/blog'}>
         <div className="pt-0 md:pt-28">
           <div
             style={{
@@ -121,14 +121,10 @@ export default function Author({ ideasDescription, author, content, errorCode, h
           >
             <div className="mx-1 md:mx-2">
               <div>
-                <h1
-                  className="text-orange-500 text-2xl font-bold leading-normal"
-                  dangerouslySetInnerHTML={{ __html: content.titre }}
-                />
                 <div>
-                  <div className="flex flex-row items-center">
+                  <div className="mb-8 flex flex-row items-center">
                     <img
-                      className={`my-8 ${styles.round8} shadow-md`}
+                      className={`${styles.round8} shadow-md`}
                       src={author.avatar as string}
                       width={96}
                       height={96}
@@ -146,7 +142,7 @@ export default function Author({ ideasDescription, author, content, errorCode, h
                   </div>
                   {author.descriptionText && <p className="py-2 my-4">{author.descriptionText}</p>}
                 </div>
-                <p className="py-6 text-xl leading-normal mt-4 font-medium">{content.posts_description}</p>
+                <h2 className="py-6 text-xl leading-normal mt-4 font-medium">{content.posts_description}</h2>
               </div>
             </div>
             <div className="flex flex-row flex-wrap mt-2 w-full justify-center">

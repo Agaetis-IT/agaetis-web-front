@@ -110,12 +110,7 @@ function IdeaContent({ content, meta }: Props) {
   return (
     <div className="md:mx-2">
       <div className="p-6 md:p-0">
-        <h1 className="text-orange-500 text-2xl leading-normal font-bold">Blog Agaetis</h1>
-        <p
-          className="py-3 md:py-6 text-xl leading-normal my-8 font-medium"
-          dangerouslySetInnerHTML={createMarkup(content.title)}
-        />
-        <div className="my-4 md:my-8">
+        <div className="mb-4 w-fit">
           <Link href="/blog" passHref={true}>
             <Button>
               <div className="flex flex-row items-center">
@@ -125,6 +120,10 @@ function IdeaContent({ content, meta }: Props) {
             </Button>
           </Link>
         </div>
+        <p
+          className="md:py-6 text-xl leading-normal mt-4 md:my-4 font-medium"
+          dangerouslySetInnerHTML={createMarkup(content.title)}
+        />
       </div>
       <div className={`pb-4 bg-white shadow-md ${styles['md:round8']}`}>
         <div
@@ -133,7 +132,7 @@ function IdeaContent({ content, meta }: Props) {
             backgroundPosition: 'center',
             backgroundSize: 'cover',
           }}
-          className={`h-80 md:h-128 w-full object-cover ${styles['md:round8top']}`}
+          className={`h-80 md:h-100 w-full object-cover ${styles['md:round8top']}`}
         />
         <div className="px-4 md:px-8 text-xs leading-normal text-orange-500 font-semibold flex items-center justify-between py-4">
           <span className="flex items-center">

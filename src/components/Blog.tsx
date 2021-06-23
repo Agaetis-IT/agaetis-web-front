@@ -188,7 +188,7 @@ export default function Blog({
         <meta name="description" content="Chacun d'entre nous a ses idées et le droit de les défendre" />
         <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/blog`} />
       </Head>
-      <Layout invertColors={false}>
+      <Layout invertColors={false} displayedPage={'/blog'}>
         <div className="pt-0 md:pt-28">
           <div
             style={{
@@ -200,13 +200,7 @@ export default function Blog({
             className="p-6 md:p-16 lg:px-32 xl:px-48 bg-gray-400"
           >
             <div className="mx-1 md:mx-2">
-              <div>
-                <h1
-                  className="text-orange-500 text-2xl leading-normal font-bold"
-                  dangerouslySetInnerHTML={{ __html: content.titre }}
-                />
-                <p className="py-6 text-xl leading-normal my-8 font-medium">{content.description}</p>
-              </div>
+              <h2 className="text-xl leading-normal mb-14 font-medium">{content.description}</h2>
               <SearchInput handleChange={handleSearchChanged} defaultValue={searchFilter} />
             </div>
             <CategoryTab

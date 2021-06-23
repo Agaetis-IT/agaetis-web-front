@@ -104,7 +104,7 @@ export default function BlogPost({ data, related, errorCode, meta }: Props) {
         // @ts-ignore */}
         <meta name="twitter:data2" value={`${data.readTime} min.`} />
       </Head>
-      <Layout invertColors={false}>
+      <Layout invertColors={false} displayedPage={'/blog'}>
         <div className="pt-0 md:pt-28">
           <div
             style={{
@@ -113,7 +113,7 @@ export default function BlogPost({ data, related, errorCode, meta }: Props) {
               backgroundSize: 'contain',
               backgroundRepeat: 'no-repeat',
             }}
-            className="p-6 md:p-16 lg:px-32 xl:px-48 bg-gray-400"
+            className="py-4 md:p-16 lg:px-32 xl:px-48 bg-gray-400"
           >
             <IdeaContent content={data} meta={meta} />
             {related && related.length > 0 && (

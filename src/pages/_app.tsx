@@ -59,7 +59,6 @@ export default function MyApp({ Component, pageProps }) {
           <link href="https://fonts.googleapis.com/css2?family=Poppins&diplay=swap" rel="stylesheet" />
           <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet" />
         </Head>
-
         <LoadingComponent color="#ff7f40" startPosition={0.25} stopDelayMs={50} height={3} />
         <Component {...pageProps} />
       </ErrorBoundary>
