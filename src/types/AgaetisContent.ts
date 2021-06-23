@@ -1,87 +1,78 @@
-import { AgaetisContentApi } from '../models/AgaetisAPI'
+import { AgaetisAPI } from '../models/AgaetisAPI'
 
 export interface AgaetisContent {
   title: string
+  background: string
   paragraph: string
   questions: Question[]
-  chiffres_title: string
-  chiffres: Chiffre[]
+  numbersTitle: string
+  numbers: Number[]
 }
 
 interface Question {
-  intitule: string
-  reponse: string
+  question: string
+  answer: string
   index: number
 }
 
-interface Chiffre {
+interface Number {
   index: number
   title: string
   data: string
   desc: string
 }
 
-function createChiffreArray(contentApi: AgaetisContentApi, keys: string[]) {
-  const chiffres: Chiffre[] = []
+function createNumberArray(contentApi: AgaetisAPI, keys: string[]) {
+  const numbers: Number[] = []
 
   keys.forEach((key) => {
-    const tabIndex = chiffres.findIndex((tab) => tab.index === parseInt(key[7], 10))
-    if (!Number.isNaN(parseInt(key[7], 10))) {
+    const tabIndex = numbers.findIndex((tab) => tab.index === parseInt(key[6], 10))
+    if (!Number.isNaN(parseInt(key[6], 10))) {
       if (tabIndex === -1) {
         const newTab = Object.create({ index: 0, title: '', data: '', desc: '' })
-        newTab.index = parseInt(key[7], 10)
-        newTab.sections = []
-        chiffres.push(newTab)
+        newTab.index = parseInt(key[6], 10)
+        numbers.push(newTab)
       }
-      const newindex = chiffres.findIndex((tab) => tab.index === parseInt(key[7], 10))
-      if (key.includes('title')) {
-        chiffres[newindex].title = contentApi[key]
-      }
-      if (key.includes('description')) {
-        chiffres[newindex].desc = contentApi[key]
-      }
-      if (key.includes('data')) {
-        chiffres[newindex].data = contentApi[key]
-      }
+      const newindex = numbers.findIndex((tab) => tab.index === parseInt(key[6], 10))
+      numbers[newindex].title = contentApi[key].title
+      numbers[newindex].desc = contentApi[key].description
+      numbers[newindex].data = contentApi[key].data
     }
   })
-  return chiffres
+  return numbers
 }
 
-function createQuestionArray(contentApi: AgaetisContentApi, keys: string[]) {
+function createQuestionArray(contentApi: AgaetisAPI, keys: string[]) {
   const questions: Question[] = []
 
   keys.forEach((key) => {
     const tabIndex = questions.findIndex((tab) => tab.index === parseInt(key[8], 10))
     if (!Number.isNaN(parseInt(key[8], 10))) {
       if (tabIndex === -1) {
-        const newTab = Object.create({ index: 0, intitule: '', reponse: '' })
+        const newTab = Object.create({ index: 0, question: '', answer: '' })
         newTab.index = parseInt(key[8], 10)
-        newTab.sections = []
         questions.push(newTab)
       }
       const newindex = questions.findIndex((tab) => tab.index === parseInt(key[8], 10))
-      if (key.includes('intitule')) {
-        questions[newindex].intitule = contentApi[key]
-      }
-      if (key.includes('reponse')) {
-        questions[newindex].reponse = contentApi[key]
-      }
+      questions[newindex].question = contentApi[key].question
+      questions[newindex].answer = contentApi[key].answer
     }
   })
 
   return questions
 }
 
-export function convertAgaetisAPItoContent(contentApi: AgaetisContentApi) {
-  const regexChiffres = /chiffre[0-9]/g
+export function convertAgaetisAPItoContent(contentApi: AgaetisAPI) {
+  const regexNumbers = /number[0-9]/g
   const regexQuestions = /question[0-9]/g
   return {
     title: contentApi.title,
+    background: contentApi.background,
     paragraph: contentApi.paragraph,
-    chiffres: createChiffreArray(
+    numbersTitle: contentApi.numbersTitle,
+    numbers: createNumberArray(
       contentApi,
-      Object.keys(contentApi).filter((key) => key.match(regexChiffres))
+      Object.keys(contentApi).filter((key) => key.match(regexNumbers))
     ),
     questions: createQuestionArray(
       contentApi,

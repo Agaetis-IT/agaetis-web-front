@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { AgaetisContentApi } from '../models/AgaetisAPI'
+import { AgaetisAPI } from '../models/AgaetisAPI'
 import ContactContentApi from '../models/ContactAPI'
 import { IdeasPageContent } from '../types/IdeasContent'
 import IndexContentApi from '../models/IndexAPI'
@@ -20,7 +20,7 @@ export async function getIndexContent() {
 }
 
 export async function getAgaetisContent() {
-  const { acf } = await getWordpressPageBySlug<{ acf: AgaetisContentApi }>('agaetis')
+  const { acf } = await getWordpressPageBySlug<{ acf: AgaetisAPI }>('agaetis')
   return acf
 }
 

@@ -40,24 +40,14 @@ export default function NavigationMenu({ invertColors, position, displayedPage }
           </Link>
         ))}
       </div>
-      <div className="hidden md:inline md:ml-14 xl:mr-8">
+      <div className="md:ml-14 xl:mr-8 text-base leading-normal font-medium md:flex-grow">
         <Link href="/contact">
           <Button
             href="/contact"
             className={clsx(
-              !invertColors || position > 200 ? 'bg-orange-500 text-white' : 'bg-white text-orange-500',
-              'block md:inline-block px-6 py-3 leading-none rounded-full uppercase mt-4 md:mt-0 text-base font-extralight shadow-md'
+              !invertColors || position > 200 ? 'md:bg-orange-500 md:text-white' : 'md:bg-white md:text-orange-500',
+              'block md:inline-block px-2 md:px-6 pt-3 pb-4 md:py-3 text-white leading-normal md:leading-none md:rounded-full md:uppercase text-base md:font-extralight md:shadow-md'
             )}
-          >
-            Contact
-          </Button>
-        </Link>
-      </div>
-      <div className="inline md:hidden text-base leading-normal font-medium md:flex-grow">
-        <Link href="/contact">
-          <Button
-            href="/contact"
-            className="block md:inline-block md:mt-0 md:mr-16 md:ml-1 p-2 py-3 md:p-0 text-white text-base leading-normal font-extralight"
           >
             Contact
           </Button>
