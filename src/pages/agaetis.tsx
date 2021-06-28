@@ -1,5 +1,5 @@
-import clsx from 'clsx'
 import Head from 'next/head'
+import clsx from 'clsx'
 
 import AgaetisCard from '../components/AgaetisCard'
 import ContactSection from '../components/ContactSection'
@@ -7,6 +7,8 @@ import Layout from '../components/Layout'
 import { getAgaetisContent } from '../services/wordpressService'
 import { AgaetisContent, convertAgaetisAPItoContent } from '../types/AgaetisContent'
 
+import styles from '../styles/agaetis.module.css'
+import commonStyles from '../styles/Common.module.css'
 const Particles = '/images/particles-3.svg'
 
 interface Props {
@@ -34,10 +36,10 @@ export default function agaetis({ pageContent }: Props) {
               backgroundSize: 'cover',
               backgroundRepeat: 'no-repeat',
             }}
-            className="py-4 md:p-16 lg:px-32 xl:px-48"
+            className="p-6 md:p-16 lg:px-32 xl:px-48"
           >
-            <h1 className="px-4 md:py-6 md:px-0 text-2xl font-bold leading-normal text-orange-500">{pageContent.title}</h1>
-            <h2 className="px-4 md:py-6 md:px-0 text-md leading-normal">{pageContent.paragraph}</h2>
+            <h1 className={`py-2 md:py-6 text-2xl font-bold leading-normal text-orange-500 ${styles.headerText}`}>{pageContent.title}</h1>
+            <h2 className={`py-2 md:py-6 text-md leading-normal text-white ${styles.headerText}`}>{pageContent.paragraph}</h2>
           </div>
           <div
             style={{
@@ -46,26 +48,36 @@ export default function agaetis({ pageContent }: Props) {
               backgroundSize: 'contain',
               backgroundRepeat: 'no-repeat',
             }}
-            className="py-4 md:p-16 lg:px-32 xl:px-48 bg-gray-400"
+            className="p-6 md:p-16 lg:px-32 xl:px-48 bg-gray-400"
           >
-            <div className="md:max-w-full mx-auto mt-8 md:mt-0 md:px-6 xl:px-32">
-              {pageContent.questions.map((question) => (
-                <AgaetisCard
-                  key={question.index}
-                  className={clsx('md:flex-row', { 'bg-gray-600': question.index % 2 === 1 })}
-                  title={question.question}
-                  description={question.answer}
-                />
-              ))}
-            </div>
-            <div className="mb-8 md:mb-16 md:px-8">
-              <h2 className="text-md font-bold text-center mt-12 mb-8">{pageContent.numbersTitle}</h2>
-              <div className="md:max-w-full mx-auto md:px-8 flex flex-col md:flex-row justify-around bg-gray-600 p-8">
-                {pageContent.numbers.map((number) => (
-                  <div key={number.index} className="text-center my-6 md:my-0 px-4">
-                    <h3 className="uppercase text-sm font-bold leading-normal">{number.title}</h3>
+            {pageContent.questions.map((question) => (
+              <AgaetisCard
+                key={question.index}
+                title={question.question}
+                description={question.answer}
+              />
+            ))}
+          </div>
+          <div
+            style={{
+              backgroundImage: `url("${pageContent.numbersBackground}")`,
+              backgroundPosition: 'top',
+              backgroundSize: 'cover',
+              backgroundRepeat: 'no-repeat',
+            }}
+            className="p-6 md:p-16 lg:px-32 xl:px-48"
+          >
+            <div
+              style={{ backgroundColor: 'rgba(0,0,0,0.4)' }}
+              className={`p-4 ${commonStyles.round8} ${styles.backgroundBlur}`}
+            >
+              <h2 className="text-lg font-bold mb-4 text-white">{pageContent.numbersTitle}</h2>
+              <div className="flex flex-col md:flex-row justify-around p-8">
+                {pageContent.numbers.map((number, index) => (
+                  <div key={number.index} className={clsx('text-center md:py-0 p-6', index && 'border-white md:border-l md:border-t-0 border-t')}>
+                    <h3 className="uppercase text-sm font-bold leading-normal text-white">{number.title}</h3>
                     <h3 className="text-5xl font-bold leading-normal text-orange-500 my-2 md:my-4">{number.data}</h3>
-                    <p className="text-sm leading-normal">{number.desc}</p>
+                    <p className="text-sm leading-normal text-white">{number.desc}</p>
                   </div>
                 ))}
               </div>

@@ -1,0 +1,8 @@
+.headerText {
+  text-shadow: 0 0 5px black;
+}
+
+.backgroundBlur {
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}

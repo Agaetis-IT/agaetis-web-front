@@ -6,6 +6,7 @@ export interface AgaetisContent {
   paragraph: string
   questions: Question[]
   numbersTitle: string
+  numbersBackground: string
   numbers: Number[]
 }
 
@@ -70,6 +71,7 @@ export function convertAgaetisAPItoContent(contentApi: AgaetisAPI) {
     background: contentApi.background,
     paragraph: contentApi.paragraph,
     numbersTitle: contentApi.numbersTitle,
+    numbersBackground: contentApi.numbersBack,
     numbers: createNumberArray(
       contentApi,
       Object.keys(contentApi).filter((key) => key.match(regexNumbers))

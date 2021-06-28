@@ -1,16 +1,17 @@
-import clsx from 'clsx'
-
 interface Props {
-  className?: string
   title: string
   description: string
 }
 
-export default function AgaetisCard({ className, title, description }: Props) {
+export default function AgaetisCard({ title, description }: Props) {
   return (
-    <div className={clsx('md:my-12 justify-between p-8 mx-auto md:max-w-full', className)}>
-      <h2 className="pb-4 font-bold text-2xl text-black">{title}</h2>
-      <p className="text-sm leading-normal text-justify">{description}</p>
+    <div className="justify-between flex flex-col">
+      <div className="rounded-3xl rounded-bl-none bg-white shadow-md p-8 mb-8 w-fit max-w-4/5">
+        <h2 className="font-bold text-lg text-black">{title}</h2>
+      </div>
+      <div className="rounded-3xl rounded-br-none bg-orange-500 shadow-md p-8 mb-8 max-w-4/5 self-end">
+        <p className="text-sm leading-normal text-justify text-white">{description}</p>
+      </div>
     </div>
   )
 }

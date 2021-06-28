@@ -14,6 +14,7 @@ export interface AgaetisAPI {
   background: string
   paragraph: string
   numbersTitle: string
+  numbersBack: string
   number1: NumberAPI
   number2: NumberAPI
   number3: NumberAPI
