@@ -92,28 +92,28 @@ export default function ContactForm({ title, handleSubmit, isSubmited, subText }
               name="lastname"
               label="Nom"
               type="input"
-            ></TextInput>
+            />
             <TextInput
               wrapperClassName="w-full md:w-1/5 mt-8 md:mt-0"
               className="appearance-none rounded-full text-xs p-3 shadow-md text-orange-500 placeholder-orange-400 font-semibold leading-tight"
               name="firstname"
               label="Prénom"
               type="input"
-            ></TextInput>
+            />
             <TextInput
               wrapperClassName="w-full md:w-1/5 mt-8 md:mt-0"
               className="appearance-none rounded-full text-xs p-3 shadow-md text-orange-500 placeholder-orange-400 font-semibold leading-tight"
               name="mail"
               label="Mail"
               type="input"
-            ></TextInput>
+            />
             <TextInput
               wrapperClassName="w-full md:w-1/5 mt-8 md:mt-0"
               className="appearance-none rounded-full text-xs p-3 shadow-md text-orange-500 placeholder-orange-400 font-semibold leading-tight"
               name="phone"
               label="Téléphone"
               type="input"
-            ></TextInput>
+            />
           </div>
           <TextInput
             wrapperClassName="my-8"
@@ -121,14 +121,14 @@ export default function ContactForm({ title, handleSubmit, isSubmited, subText }
             name="subject"
             label="Sujet de votre demande"
             type="input"
-          ></TextInput>
+          />
           <TextInput
             wrapperClassName="my-8"
             className={`appearance-none w-full text-xs p-3 shadow-md text-orange-500 placeholder-orange-400 font-semibold leading-tight ${styles.messageTextarea}`}
             name="message"
             label="Détails de votre demande"
             type="textarea"
-          ></TextInput>
+          />
           <FileInput
             {...register('attachments')}
             onChange={onAttachmentsChange}

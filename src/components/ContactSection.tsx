@@ -32,7 +32,7 @@ export default function ContactSection() {
       <img
         className="max-w-xxs py-4 px-16 md:px-0 md:pr-16 mx-auto md:mx-0 md:mr-8 mb-4 md:my-0 border-white border-solid border-b md:border-b-0 md:border-r flex flex-col justify-center"
         src={Logo}
-        alt="Logo"
+        alt="Logo Agaetis"
       />
       <div className="flex flex-col justify-center">
         <h4 className="text-white my-4 mb-4 uppercase text-sm leading-normal">Nos adresses</h4>

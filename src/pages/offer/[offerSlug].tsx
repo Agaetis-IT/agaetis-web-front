@@ -91,7 +91,7 @@ export default function offer({ pageContent, errorCode, offers }: Props): React.
             className="bg-gray-900 p-0 md:p-12 lg:px-24 lg:p-16 hidden lg:block shadow-none md:shadow-md"
           >
             <div className="flex flex-row items-center">
-              <img src={pageContent.offers_image1} className="block h-16" alt="" />
+              <img src={pageContent.offers_image1} className="block h-16" alt={pageContent.title} />
               <h1 className="text-white text-2xl leading-normal ml-8">{pageContent.title}</h1>
             </div>
             <p className="text-white py-8 leading-normal text-sm">{pageContent.paragraph}</p>
@@ -99,7 +99,7 @@ export default function offer({ pageContent, errorCode, offers }: Props): React.
               <Link href="/offers">
                 <Button>
                   <div className="flex flex-row items-center mb-8">
-                    <img className="mr-4" src={Back} alt="" />
+                    <img className="mr-4" src={Back} alt="Retour" />
                     <span className="text-orange-500">Retour aux catégories d'offres</span>
                   </div>
                 </Button>
@@ -119,7 +119,7 @@ export default function offer({ pageContent, errorCode, offers }: Props): React.
                           { 'text-white bg-orange-500': selectedOffer === index }
                         )}
                       >
-                        <div dangerouslySetInnerHTML={{ __html: offer.title }}></div>
+                        <div dangerouslySetInnerHTML={{ __html: offer.title }} />
                       </Button>
                     ))}
                 </div>
@@ -127,11 +127,11 @@ export default function offer({ pageContent, errorCode, offers }: Props): React.
                   <h2
                     className="text-2xl leading-normal text-orange-500 mb-8"
                     dangerouslySetInnerHTML={{ __html: offers[selectedOffer].title }}
-                  ></h2>
+                  />
                   <div
                     className="text-sm leading-normal"
                     dangerouslySetInnerHTML={{ __html: offers[selectedOffer].description }}
-                  ></div>
+                  />
                 </div>
               </div>
             </div>
@@ -141,13 +141,13 @@ export default function offer({ pageContent, errorCode, offers }: Props): React.
               <Link href="/offers">
                 <Button>
                   <div className="flex flex-row items-center mb-8">
-                    <img className="mr-4 h-8" src={Back} alt="" />
+                    <img className="mr-4 h-8" src={Back} alt="Retour" />
                     <span className="text-orange-500">Retour aux catégories d'offres</span>
                   </div>
                 </Button>
               </Link>
               <div className="flex flex-row items-center mt-0 md:mt-20">
-                <img src={pageContent.offers_image1} className="block h-12" alt="" />
+                <img src={pageContent.offers_image1} className="block h-12" alt={pageContent.title} />
                 <h1 className="text-black text-2xl leading-normal ml-8">{pageContent.title}</h1>
               </div>
               <div>
@@ -163,7 +163,7 @@ export default function offer({ pageContent, errorCode, offers }: Props): React.
                         { 'text-white bg-orange-500': selectedOffer === index }
                       )}
                     >
-                      <div dangerouslySetInnerHTML={{ __html: offer.title }}></div>
+                      <div dangerouslySetInnerHTML={{ __html: offer.title }} />
                     </Button>
                   ))}
               </div>
@@ -173,11 +173,11 @@ export default function offer({ pageContent, errorCode, offers }: Props): React.
                 <h2
                   className="text-2xl leading-normal text-white mb-8"
                   dangerouslySetInnerHTML={{ __html: offers[selectedOffer].title }}
-                ></h2>
+                />
                 <div
                   className="text-sm leading-normal text-justify text-white"
                   dangerouslySetInnerHTML={{ __html: offers[selectedOffer].description }}
-                ></div>
+                />
               </div>
             </div>
           </div>
