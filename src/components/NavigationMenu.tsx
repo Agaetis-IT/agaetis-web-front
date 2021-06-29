@@ -31,7 +31,7 @@ export default function NavigationMenu({ invertColors, position, displayedPage }
                 !invertColors || position > 200
                   ? `text-white md:text-black ${styles.menuLinkBlackUnderline}`
                   : `text-white ${styles.menuLinkWhiteUnderline}`,
-                  displayedPage === page[1] ? `${styles.menuLinkUnderlineSelected}` : '',
+                  displayedPage === page[1] && `${styles.menuLinkUnderlineSelected}`,
                 'block md:inline-block p-2 py-3 md:p-3 md:px-6 xl:px-8 text-base leading-normal font-extralight'
               )}
             >
