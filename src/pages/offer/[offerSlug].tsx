@@ -1,6 +1,21 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import clsx from 'clsx'
+import Head from 'next/head'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+
+import Button from '../../components/Button'
+import ContactForm from '../../components/ContactForm'
+import ContactSection from '../../components/ContactSection'
+import Error from '../_error'
+import Layout from '../../components/Layout'
+import PartnerList from '../../components/PartnerList'
+import RelatedArticlesSection from '../../components/RelatedArticlesSection'
+import SnackBar from '../../components/SnackBar'
+
 import { convertAPItoOfferleaf, OfferContent, OfferLeafContent } from '../../types/OffersContent'
+import { FormInput } from '../../yup/ContactFormValidation'
 import {
   getAllOffers,
   getCategoryOffers,
@@ -8,24 +23,11 @@ import {
   getOfferContent,
   getOfferLeaf,
 } from '../../services/wordpressService'
-const Back = '../../../public/icons/Btn_Retour.svg'
-import Error from '../_error'
-import Head from 'next/head'
-import Layout from '../../components/Layout'
-const Particles = '../../../public/images/particles-2.svg'
-import { useState } from 'react'
-import Button from '../../components/Button'
-import clsx from 'clsx'
-import RelatedArticlesSection from '../../components/RelatedArticlesSection'
-import Link from 'next/link'
-import ContactForm from '../../components/ContactForm'
-import ContactSection from '../../components/ContactSection'
-import { FormInput } from '../../yup/ContactFormValidation'
-import { useRouter } from 'next/router'
-import PartnerList from '../../components/PartnerList'
-import SnackBar from '../../components/SnackBar'
-import send from '../../services/contactService'
 import OfferAPI from '../../models/OfferAPI'
+import send from '../../services/contactService'
+
+const Back = '../../../public/icons/Btn_Retour.svg'
+const Particles = '../../../public/images/particles-2.svg'
 
 interface Props {
   pageContent: OfferContent
@@ -33,7 +35,7 @@ interface Props {
   offers: OfferLeafContent[]
 }
 
-export default function offer({ pageContent, errorCode, offers }: Props): React.ReactElement {
+export default function offer({ pageContent, offers, errorCode }: Props): React.ReactElement {
   const [selectedOffer, setSelectedOffer] = useState(0)
   const [modalOpenWithError, setModalOpenWithError] = useState<boolean | undefined>(undefined)
   const [isSubmited, setIsSubmited] = useState(false)
@@ -66,7 +68,7 @@ export default function offer({ pageContent, errorCode, offers }: Props): React.
   }
 
   if (errorCode) {
-    return <Error statusCode={404} />
+    return <Error statusCode={errorCode} />
   }
 
   return (
@@ -104,7 +106,6 @@ export default function offer({ pageContent, errorCode, offers }: Props): React.
                   </div>
                 </Button>
               </Link>
-
               <div className="flex flex-col lg:flex-row">
                 <div className="w-2/5 border-orange-500 border-r">
                   {offers !== undefined &&
@@ -127,11 +128,11 @@ export default function offer({ pageContent, errorCode, offers }: Props): React.
                   <h2
                     className="text-2xl leading-normal text-orange-500 mb-8"
                     dangerouslySetInnerHTML={{ __html: offers[selectedOffer].title }}
-                  ></h2>
+                  />
                   <div
                     className="text-sm leading-normal"
                     dangerouslySetInnerHTML={{ __html: offers[selectedOffer].description }}
-                  ></div>
+                  />
                 </div>
               </div>
             </div>
@@ -173,11 +174,11 @@ export default function offer({ pageContent, errorCode, offers }: Props): React.
                 <h2
                   className="text-2xl leading-normal text-white mb-8"
                   dangerouslySetInnerHTML={{ __html: offers[selectedOffer].title }}
-                ></h2>
+                />
                 <div
                   className="text-sm leading-normal text-justify text-white"
                   dangerouslySetInnerHTML={{ __html: offers[selectedOffer].description }}
-                ></div>
+                />
               </div>
             </div>
           </div>
@@ -219,43 +220,49 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const { [0]: data, [1]: offers } = await Promise.all([
-    getOfferContent(params.offerSlug),
-    getCategoryOffers(params.offerSlug),
-  ])
-  const pageContent = { ...data.acf, slug: data.slug }
+  try {
+    const { [0]: data, [1]: offers } = await Promise.all([getOfferContent(params.offerSlug), getCategoryOffers(params.offerSlug)])
+    const pageContent = { ...data.acf, slug: data.slug }
 
-  if (!data.acf) {
+    if (!data.acf) {
+      return {
+        notFound: !data.acf,
+        revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
+      }
+    }
+
+    const allOffers = offers.map(
+      async (offer: {
+        acf: {
+          title: string
+          paragraph: string
+          offers_description: string
+        }
+        post_name: string
+      }) => {
+        const { [0]: children, [1]: posts } = await Promise.all([
+          getOfferLeaf(params.offerSlug, offer.post_name),
+          getIdeasByCategory(`_offer-${escape(offer.post_name)}`),
+        ])
+        return convertAPItoOfferleaf(children, posts.data)
+      }
+    )
+
+    const offerChildrens = await Promise.all(allOffers)
+
     return {
-      notFound: !data.acf,
+      props: {
+        pageContent,
+        offers: offerChildrens,
+      },
+      revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
+    }  
+  } catch (error) {
+    return {
+      props: {
+        errorCode: 500,
+      },
       revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
     }
-  }
-
-  const allOffers = offers.map(
-    async (offer: {
-      acf: {
-        title: string
-        paragraph: string
-        offers_description: string
-      }
-      post_name: string
-    }) => {
-      const { [0]: children, [1]: posts } = await Promise.all([
-        getOfferLeaf(params.offerSlug, offer.post_name),
-        getIdeasByCategory(`_offer-${escape(offer.post_name)}`),
-      ])
-      return convertAPItoOfferleaf(children, posts.data)
-    }
-  )
-
-  const offerChildrens = await Promise.all(allOffers)
-
-  return {
-    props: {
-      pageContent,
-      offers: offerChildrens,
-    },
-    revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
   }
 }

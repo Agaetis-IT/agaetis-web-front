@@ -1,25 +1,31 @@
 import Head from 'next/head'
 
 import ContactSection from '../components/ContactSection'
+import Error from './_error'
 import Hero from '../components/Hero'
-import Layout from '../components/Layout'
-import { getAllOffers, getIndexContent } from '../services/wordpressService'
-import IndexContent, { convertIndexContentAPItoContentAPI } from '../types/IndexContent'
+import HomeConvictions from '../components/HomeConvictions'
+import HomeExpertises from '../components/HomeExpertises'
+import HomeJoinUs from '../components/HomeJoinUs'
 import HomeOffers from '../components/HomeOffers'
 import HomeSectors from '../components/HomeSectors'
-import HomeConvictions from '../components/HomeConvictions'
+import Layout from '../components/Layout'
 
-import HomeJoinUs from '../components/HomeJoinUs'
-import HomeExpertises from '../components/HomeExpertises'
 import { compareOffer, OfferDesc } from '../types/OffersContent'
+import { getAllOffers, getIndexContent } from '../services/wordpressService'
+import IndexContent, { convertIndexContentAPItoContentAPI } from '../types/IndexContent'
 import OfferAPI from '../models/OfferAPI'
 
 interface Props {
   pageContent: IndexContent
   offers: OfferDesc[]
+  errorCode?: number
 }
 
-export default function Index({ pageContent, offers }: Props) {
+export default function Index({ pageContent, offers, errorCode }: Props) {
+  if (errorCode) {
+    return <Error statusCode={errorCode} />
+  }
+
   return (
     <>
       <Head>
@@ -68,13 +74,22 @@ export default function Index({ pageContent, offers }: Props) {
 }
 
 export async function getStaticProps() {
-  const { [0]: data, [1]: allOffersData } = await Promise.all([getIndexContent(), getAllOffers()])
+  try {
+    const { [0]: data, [1]: allOffersData } = await Promise.all([getIndexContent(), getAllOffers()])
 
-  return {
-    props: {
-      pageContent: JSON.parse(JSON.stringify(convertIndexContentAPItoContentAPI(data))),
-      offers: allOffersData.map((offer: OfferAPI) => offer.acf).sort(compareOffer),
-    },
-    revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
+    return { 
+      props: {
+        pageContent: JSON.parse(JSON.stringify(convertIndexContentAPItoContentAPI(data))),
+        offers: allOffersData.map((offer: OfferAPI) => offer.acf).sort(compareOffer),
+      },
+      revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
+    }
+  } catch (error) {
+    return {
+      props: {
+        errorCode: 500,
+      },
+      revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
+    }
   }
 }

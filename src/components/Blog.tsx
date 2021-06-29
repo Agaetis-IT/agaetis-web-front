@@ -1,30 +1,30 @@
-import Link from 'next/link'
 import { useEffect, useMemo, useState } from 'react'
-
-import Button from '../components/Button'
-import CategoryTab from '../components/CategoryTab'
-import Layout from '../components/Layout'
-import { getIdeasByCategory, getIdeasByPage, getIdeasByTag } from '../services/wordpressService'
-import { Category, IdeasDesc, IdeasPageContent, Response } from '../types/IdeasContent'
-import WhitePaper from '../types/WhitePaper'
-import IdeasCard from '../components/IdeasCard'
 import clsx from 'clsx'
-import ContactSection from '../components/ContactSection'
-const Particles = '/images/particles-3.svg'
-import { FormInput } from '../yup/ContactFormValidation'
-import ContactForm from './ContactForm'
-import SearchInput from '../components/SearchInput'
-import Error from '../pages/_error'
-
-import { useDebouncedCallback } from 'use-debounce'
-import { slugify } from '../services/textUtilities'
-import LoadingSpinner from './LoadingSpinner'
-import { PostAPI } from '../models/IdeasAPI'
-
-import styles from '../styles/Common.module.css'
 import Head from 'next/head'
+import Link from 'next/link'
+
+import Button from './Button'
+import CategoryTab from './CategoryTab'
+import ContactForm from './ContactForm'
+import ContactSection from './ContactSection'
+import Error from '../pages/_error'
+import IdeasCard from './IdeasCard'
+import Layout from './Layout'
+import LoadingSpinner from './LoadingSpinner'
+import SearchInput from './SearchInput'
 import SnackBar from './SnackBar'
+
+import { Category, IdeasDesc, IdeasPageContent, Response } from '../types/IdeasContent'
+import { FormInput } from '../yup/ContactFormValidation'
+import { getIdeasByCategory, getIdeasByPage, getIdeasByTag } from '../services/wordpressService'
+import { PostAPI } from '../models/IdeasAPI'
 import send from '../services/contactService'
+import { slugify } from '../services/textUtilities'
+import { useDebouncedCallback } from 'use-debounce'
+import WhitePaper from '../types/WhitePaper'
+
+const Particles = '/images/particles-3.svg'
+import styles from '../styles/Common.module.css'
 
 interface Props {
   ideasDescription: IdeasDesc[]
@@ -174,7 +174,7 @@ export default function Blog({
   }, 600)
 
   if (errorCode) {
-    return <Error statusCode={404} />
+    return <Error statusCode={errorCode} />
   }
 
   return (

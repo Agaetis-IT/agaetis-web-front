@@ -1,34 +1,33 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import Head from 'next/head'
 import { useMemo, useState } from 'react'
+import Head from 'next/head'
 
 import Button from './Button'
+import ContactSection from './ContactSection'
+import Error from '../pages/_error'
+import IdeasCard from './IdeasCard'
 import Layout from './Layout'
 import LoadingSpinner from './LoadingSpinner'
-import IdeasCard from './IdeasCard'
-import ContactSection from './ContactSection'
+import SnackBar from './SnackBar'
 
 import { AuthorDescription, AuthorPageContent } from '../types/AuthorContent'
-import { IdeasDesc, Response } from '../types/IdeasContent'
 import { getIdeasByAuthor } from '../services/wordpressService'
+import { IdeasDesc, Response } from '../types/IdeasContent'
 import { PostAPI } from '../models/IdeasAPI'
 
 const Particles = '/images/particles-3.svg'
 const Linkedin = '/icons/linkedin.png'
-import Error from '../pages/_error'
-import SnackBar from './SnackBar'
-
 import styles from '../styles/Common.module.css'
 
 interface Props {
   ideasDescription: IdeasDesc[]
   author: AuthorDescription
   content: AuthorPageContent
-  errorCode?: number
   hasMore: boolean
+  errorCode?: number
 }
 
-export default function Author({ ideasDescription, author, content, errorCode, hasMore }: Props) {
+export default function Author({ ideasDescription, author, content, hasMore, errorCode }: Props) {
   const [postModalOpen, setPostModalOpen] = useState<boolean | undefined>(undefined)
   const [ideas, setIdeas] = useState(ideasDescription)
   const [lastPage, setLastPage] = useState(1)
@@ -94,7 +93,7 @@ export default function Author({ ideasDescription, author, content, errorCode, h
   )
 
   if (errorCode) {
-    return <Error statusCode={404} />
+    return <Error statusCode={errorCode} />
   }
 
   return (

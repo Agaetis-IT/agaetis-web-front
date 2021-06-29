@@ -1,21 +1,28 @@
-import Head from 'next/head'
 import clsx from 'clsx'
+import Head from 'next/head'
 
 import AgaetisCard from '../components/AgaetisCard'
 import ContactSection from '../components/ContactSection'
+import Error from './_error'
 import Layout from '../components/Layout'
-import { getAgaetisContent } from '../services/wordpressService'
-import { AgaetisContent, convertAgaetisAPItoContent } from '../types/AgaetisContent'
 
-import styles from '../styles/agaetis.module.css'
+import { AgaetisContent, convertAgaetisAPItoContent } from '../types/AgaetisContent'
+import { getAgaetisContent } from '../services/wordpressService'
+
 import commonStyles from '../styles/Common.module.css'
+import styles from '../styles/agaetis.module.css'
 const Particles = '/images/particles-3.svg'
 
 interface Props {
   pageContent: AgaetisContent
+  errorCode?: number
 }
 
-export default function agaetis({ pageContent }: Props) {
+export default function agaetis({ pageContent, errorCode }: Props) {
+  if (errorCode) {
+    return <Error statusCode={errorCode} />
+  }
+
   return (
     <>
       <Head>
@@ -91,10 +98,19 @@ export default function agaetis({ pageContent }: Props) {
 }
 
 export async function getStaticProps() {
-  return {
-    props: {
-      pageContent: JSON.parse(JSON.stringify(convertAgaetisAPItoContent(await getAgaetisContent()))),
-    },
-    revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
+  try {
+    return {
+      props: {
+        pageContent: JSON.parse(JSON.stringify(convertAgaetisAPItoContent(await getAgaetisContent())))
+      }, 
+      revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
+    }  
+  } catch (error) {
+    return {
+      props: {
+        errorCode: 500,
+      },
+      revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
+    }
   }
 }

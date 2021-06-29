@@ -1,29 +1,28 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import clsx from 'clsx'
-import Head from 'next/head'
 import { useMemo, useState } from 'react'
+import clsx from 'clsx'
+import { escape } from 'querystring'
+import Head from 'next/head'
 
 import Button from '../../components/Button'
+import ContactForm from '../../components/ContactForm'
+import ContactSection from '../../components/ContactSection'
+import Error from '../_error'
 import IdeaContent from '../../components/IdeaContent'
 import IdeasCard from '../../components/IdeasCard'
 import Layout from '../../components/Layout'
+import SnackBar from '../../components/SnackBar'
+
+import { AuthorLink } from '../../types/AuthorContent'
+import { formatPostAuthors } from '../../services/textUtilities'
+import { FormInput } from '../../yup/ContactFormValidation'
 import { getIdeaBySlug, getIdeaMeta, getIdeasByPage } from '../../services/wordpressService'
 import IdeasContent, { IdeasDesc } from '../../types/IdeasContent'
 import Meta, { convertMetaAPItoMeta } from '../../types/Meta'
-
-import Error from './../_error'
-import { escape } from 'querystring'
-import ContactSection from '../../components/ContactSection'
-import ContactForm from '../../components/ContactForm'
-import { FormInput } from '../../yup/ContactFormValidation'
-import { formatPostAuthors } from '../../services/textUtilities'
+import { PostAPI } from '../../models/IdeasAPI'
+import send from '../../services/contactService'
 
 import styles from '../../styles/Common.module.css'
-
-import { PostAPI } from '../../models/IdeasAPI'
-import { AuthorLink } from '../../types/AuthorContent'
-import SnackBar from '../../components/SnackBar'
-import send from '../../services/contactService'
 
 interface Props {
   data: IdeasContent
@@ -34,7 +33,7 @@ interface Props {
 
 const Particles = '/images/particles-3.svg'
 
-export default function BlogPost({ data, related, errorCode, meta }: Props) {
+export default function BlogPost({ data, related, meta, errorCode }: Props) {
   const [isOpenedMoreIdeas, setIsOpenedMoreIdeas] = useState(false)
   const [modalOpenWithError, setModalOpenWithError] = useState<boolean | undefined>(undefined)
   const [isSubmited, setIsSubmited] = useState(false)
@@ -63,7 +62,7 @@ export default function BlogPost({ data, related, errorCode, meta }: Props) {
   }
 
   if (errorCode) {
-    return <Error statusCode={404} />
+    return <Error statusCode={errorCode} />
   }
 
   const relatedIdeas = useMemo(() => {
@@ -170,82 +169,90 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const { [0]: data, [1]: meta } = await Promise.all([
-    getIdeaBySlug(escape(params.postSlug)),
-    getIdeaMeta(escape(params.postSlug)),
-  ])
+  try {
+    const { [0]: data, [1]: meta } = await Promise.all([
+      getIdeaBySlug(escape(params.postSlug)),
+      getIdeaMeta(escape(params.postSlug)),
+    ])
 
-  if (data !== '{"errorCode":404}') {
-    const authors: AuthorLink[] = []
-    if (data._embedded.author[0].name) {
-      authors.push({
-        id: data._embedded.author[0].id,
-        name: data._embedded.author[0].name,
-      })
-    }
-
-    if (data.acf || data.content) {
-      const related = []
-      if (data.acf) {
-        for (const idea of data.acf.related_ideas) {
-          const data2 = await getIdeaBySlug(idea.post_name)
-          related.push(data2)
-        }
-
-        if (data.acf.co_author) {
-          for (const auth of data.acf.co_author) {
-            authors.push({
-              id: auth.ID,
-              name: auth.data.display_name,
-            })
-          }
-        }
+    if (data !== '{"errorCode":404}') {
+      const authors: AuthorLink[] = []
+      if (data._embedded.author[0].name) {
+        authors.push({
+          id: data._embedded.author[0].id,
+          name: data._embedded.author[0].name,
+        })
       }
 
-      return {
-        props: {
-          data: {
-            title: data.title.rendered || '',
-            imageUrl: data.acf.idea_image || '',
-            date: data.date || '',
-            authors: authors || [],
-            categories: data._embedded['wp:term'][0].map((category: { name: string }) => category.name) || [],
-            content: data.content.rendered || '',
-            slug: data.slug || '',
-            descriptionText: data.acf.idea_description || '',
-            tags:
-              data._embedded['wp:term'][1].map((tag: { name: string; slug: string }) => {
-                return { name: tag.name, slug: tag.slug }
-              }) || [],
-            readTime:
-              data.content.rendered && Math.floor(data.content.rendered.split(' ').length / 275)
-                ? Math.floor(data.content.rendered.split(' ').length / 275)
-                : '1',
-          },
-          related: related.map((idea: PostAPI) => {
-            return {
-              title: idea.title.rendered || '',
-              id: idea.id || '',
-              date: idea.date || '',
+      if (!!data.acf || !!data.content) {
+        const related = []
+        if (!!data.acf) {
+          for (const idea of data.acf.related_ideas) {
+            const data2 = await getIdeaBySlug(idea.post_name)
+            related.push(data2)
+          }
+
+          if (data.acf.co_author) {
+            for (const auth of data.acf.co_author) {
+              authors.push({
+                id: auth.ID,
+                name: auth.data.display_name,
+              })
+            }
+          }
+        }
+
+        return {
+          props: {
+            data: {
+              title: data.title.rendered || '',
+              imageUrl: data.acf.idea_image || '',
+              date: data.date || '',
+              authors: authors || [],
               categories: data._embedded['wp:term'][0].map((category: { name: string }) => category.name) || [],
-              slug: idea.slug || '',
-              descriptionText: idea.acf.idea_description || '',
-              image:
-                (idea._embedded['wp:featuredmedia'] &&
+              content: data.content.rendered || '',
+              slug: data.slug || '',
+              descriptionText: data.acf.idea_description || '',
+              tags:
+                data._embedded['wp:term'][1].map((tag: { name: string; slug: string }) => {
+                  return { name: tag.name, slug: tag.slug }
+                }) || [],
+              readTime:
+                data.content.rendered && Math.floor(data.content.rendered.split(' ').length / 275)
+                  ? Math.floor(data.content.rendered.split(' ').length / 275)
+                  : '1',
+            },
+            related: related.map((idea: PostAPI) => {
+              return {
+                title: idea.title.rendered || '',
+                id: idea.id || '',
+                date: idea.date || '',
+                categories: data._embedded['wp:term'][0].map((category: { name: string }) => category.name) || [],
+                slug: idea.slug || '',
+                descriptionText: idea.acf.idea_description || '',
+                image: (idea._embedded['wp:featuredmedia'] &&
                   idea._embedded['wp:featuredmedia'][0] &&
                   idea._embedded['wp:featuredmedia'][0].source_url) ||
                 '',
-            }
-          }),
-          meta: convertMetaAPItoMeta(meta, data._embedded),
-        },
-        revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
+              }
+            }),
+            meta: convertMetaAPItoMeta(meta, data._embedded),
+          },
+          revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
+        }
       }
     }
-  }
 
-  return {
-    notFound: true,
-    revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
+    return {
+      notFound: true,
+      revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
+    }  
+  } catch (error) {
+    return {
+      props: {
+        errorCode: 500,
+      },
+      revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
+    }
   }
 }

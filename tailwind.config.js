@@ -227,6 +227,7 @@ module.exports = {
       hero: '40rem',
       full: '100%',
       screen: '100vh',
+      error: '20rem',
       ...breakpoints(theme('screens')),
     }),
     maxHeight: (theme, { breakpoints }) => ({

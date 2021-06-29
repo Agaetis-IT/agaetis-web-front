@@ -1,17 +1,19 @@
 import { useState } from 'react'
+
 import ContactForm from '../../components/ContactForm'
 import ContactSection from '../../components/ContactSection'
 import Error from '../_error'
 import Layout from '../../components/Layout'
-const Particles = '/images/particles-3.svg'
-import { getAllLandingPages, getLandingPageContent } from '../../services/wordpressService'
+import SnackBar from '../../components/SnackBar'
+
 import { convertAPItoLandingPageContent, LandingPage } from '../../types/OffersContent'
 import { FormInput } from '../../yup/ContactFormValidation'
+import { getAllLandingPages, getLandingPageContent } from '../../services/wordpressService'
+import LandingPageAPI from '../../models/LandingPageAPI'
+import send from '../../services/contactService'
 
 import styles from '../../styles/landingpage.module.css'
-import SnackBar from '../../components/SnackBar'
-import send from '../../services/contactService'
-import LandingPageAPI from '../../models/LandingPageAPI'
+const Particles = '/images/particles-3.svg'
 
 interface Props {
   pageContent: LandingPage
@@ -51,7 +53,7 @@ export default function Landingpage({ pageContent, errorCode }: Props) {
   }
 
   if (errorCode) {
-    return <Error statusCode={404} />
+    return <Error statusCode={errorCode} />
   }
 
   return (
@@ -99,20 +101,30 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const data = await getLandingPageContent(params.pageSlug)
-  const pageContent = convertAPItoLandingPageContent({ ...data })
+  try {
+    const data = await getLandingPageContent(params.pageSlug)
 
-  if (!data.acf) {
+    if (!data.acf) {
+      return {
+        notFound: true,
+        revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
+      }
+    }
+
+    const pageContent = convertAPItoLandingPageContent({ ...data })
+
     return {
-      notFound: true,
+      props: {
+        pageContent,
+      },
+      revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
+    }  
+  } catch (error) {
+    return {
+      props: {
+        errorCode: 500,
+      },
       revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
     }
-  }
-
-  return {
-    props: {
-      pageContent,
-    },
-    revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
   }
 }

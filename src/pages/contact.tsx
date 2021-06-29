@@ -1,22 +1,24 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import Head from 'next/head'
 import { useState } from 'react'
+import Head from 'next/head'
 
-import Layout from '../components/Layout'
-import { getContactPageContent } from '../services/wordpressService'
-import ContactContent from '../types/ContactContent'
-
-import ContactSection from '../components/ContactSection'
 import ContactForm from '../components/ContactForm'
-import { FormInput } from '../yup/ContactFormValidation'
+import ContactSection from '../components/ContactSection'
+import Error from './_error'
+import Layout from '../components/Layout'
 import SnackBar from '../components/SnackBar'
+
+import ContactContent from '../types/ContactContent'
+import { FormInput } from '../yup/ContactFormValidation'
+import { getContactPageContent } from '../services/wordpressService'
 import send from '../services/contactService'
 
 interface Props {
   pageContent: ContactContent
+  errorCode?: number
 }
 
-export default function contact({ pageContent }: Props) {
+export default function contact({ pageContent, errorCode }: Props) {
   const [modalOpenWithError, setModalOpenWithError] = useState<boolean | undefined>(undefined)
   const [isSubmited, setIsSubmited] = useState(false)
 
@@ -39,11 +41,14 @@ export default function contact({ pageContent }: Props) {
     }
   }
 
+  if (errorCode) {
+    return <Error statusCode={errorCode} />
+  }
+
   return (
     <>
       <Head>
         <title>Agaetis : contactez-nous</title>
-
         <meta property="og:title" content="Agaetis : contactez-nous" />
         <meta property="og:image" content={`${process.env.NEXT_PUBLIC_SITE_URL}/favicon.ico`} />
         <meta property="og:type" content="website" />
@@ -73,10 +78,19 @@ export default function contact({ pageContent }: Props) {
 }
 
 export async function getStaticProps() {
-  return {
-    props: {
-      pageContent: await getContactPageContent(),
-    },
-    revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
+  try {
+    return {
+      props: {
+        pageContent: await getContactPageContent(),
+      },
+      revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
+    }
+  } catch (error) {
+    return {
+      props: {
+        errorCode: 500,
+      },
+      revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
+    }
   }
 }

@@ -1,17 +1,23 @@
 import Head from 'next/head'
-import Link from 'next/link'
-import ContactSection from '../components/ContactSection'
 
+import ContactSection from '../components/ContactSection'
+import Error from './_error'
 import Layout from '../components/Layout'
 import SoluceTab from '../components/SoluceTab'
+
 import { getSolutionsPageContent } from '../services/wordpressService'
 import { SolutionsContent } from '../types/SolutionsContent'
 
 interface Props {
   pageContent: SolutionsContent
+  errorCode?: number
 }
 
-function solutions({ pageContent }: Props) {
+function solutions({ pageContent, errorCode }: Props) {
+  if (errorCode) {
+    return <Error statusCode={errorCode} />
+  }
+
   return (
     <>
       <Head>
@@ -47,11 +53,20 @@ function solutions({ pageContent }: Props) {
 }
 
 export async function getStaticProps() {
-  return {
-    props: {
-      pageContent: JSON.parse(JSON.stringify(await getSolutionsPageContent())),
-    },
-    revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
+  try {
+    return { 
+      props: {
+        pageContent: JSON.parse(JSON.stringify(await getSolutionsPageContent())),
+      },
+      revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
+    }
+  } catch (error) {
+    return {
+      props: {
+        errorCode: 500,
+      },
+      revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
+    }
   }
 }
 

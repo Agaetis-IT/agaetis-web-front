@@ -9,6 +9,8 @@ import { OffersPageContent } from '../types/OffersContent'
 import SolutionsAPI from '../models/SolutionsAPI'
 import { AuthorPageContent } from '../types/AuthorContent'
 
+axios.defaults.timeout = 10000
+
 export async function getWordpressPageBySlug<T>(slug: string) {
   const { data } = await axios.get<T>(`${process.env.NEXT_PUBLIC_BASE_URL}/wp-json/agaetis/api/v1/pages/${slug}`)
   return data

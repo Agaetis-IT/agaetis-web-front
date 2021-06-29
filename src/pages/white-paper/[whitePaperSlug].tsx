@@ -1,18 +1,19 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import Head from 'next/head'
 import { useState } from 'react'
-
-import WhitePaperForm from '../../components/form/WhitePaperForm'
-import Layout from '../../components/Layout'
-import { sendWhitePaper } from '../../services/contactService'
-import { getAllWhitePapers, getWhitePaperContent } from '../../services/wordpressService'
-import WhitePaper from '../../types/WhitePaper'
-import { WhitepaperFormValues } from '../../yup/WhitePaperFormValidation'
-const Logo = '../static/icons/Agaetis - Ico logo - Orange.png'
+import Head from 'next/head'
+import Link from 'next/link'
 
 import Error from '../_error'
-import Link from 'next/link'
+import Layout from '../../components/Layout'
 import SnackBar from '../../components/SnackBar'
+import WhitePaperForm from '../../components/form/WhitePaperForm'
+
+import { getAllWhitePapers, getWhitePaperContent } from '../../services/wordpressService'
+import { sendWhitePaper } from '../../services/contactService'
+import WhitePaper from '../../types/WhitePaper'
+import { WhitepaperFormValues } from '../../yup/WhitePaperFormValidation'
+
+const Logo = '../static/icons/Agaetis - Ico logo - Orange.png'
 
 interface Props {
   pageContent?: WhitePaper
@@ -45,9 +46,10 @@ export default function whitePaper({ pageContent, errorCode }: Props) {
     }
   }
 
-  if (!pageContent) {
-    return <Error statusCode={errorCode!} />
+  if (errorCode) {
+    return <Error statusCode={errorCode} />
   }
+
   return (
     <>
       <Head>
@@ -61,7 +63,7 @@ export default function whitePaper({ pageContent, errorCode }: Props) {
       </Head>
       <Layout invertColors={false}>
         <>
-          <div className="md:max-w-md mx-auto p-0 md:px-8">
+          <div className="md:max-w-md mx-auto pt-8 md:px-8">
             <div className="text-xs leading-normal px-4 md:px-0">
               <span className="underline text-black">
                 <Link href="/">
@@ -124,19 +126,28 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const data = await getWhitePaperContent(params.whitePaperSlug)
+  try {
+    const data = await getWhitePaperContent(params.whitePaperSlug)
 
-  if (!data.acf) {
+    if (!data.acf) {
+      return {
+        notFound: true,
+        revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
+      }
+    }
+
     return {
-      notFound: true,
+      props: {
+        pageContent: { ...data.acf, slug: data.slug },
+      },
       revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
     }
-  }
-
-  return {
-    props: {
-      pageContent: { ...data.acf, slug: data.slug },
-    },
-    revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
+  } catch (error) {
+    return {
+      props: {
+        errorCode: 500,
+      },
+      revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
+    }
   }
 }

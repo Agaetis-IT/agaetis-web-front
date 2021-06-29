@@ -6,16 +6,12 @@ import Layout from '../components/Layout'
 
 const Mask = '/images/hero_mask.svg'
 
-interface Props {
-  statusCode: number
-}
-
-export default function Error({ statusCode }: Props) {
+export default function Custom404() {
   return (
     <>
       <Head>
         <meta name="robots" content="noindex,nofollow" />
-        <title>Agaetis : Erreur {statusCode}</title>
+        <title>Agaetis : Erreur 404</title>
       </Head>
       <Layout invertColors={true}>
         <div className="pt-0 md:pt-28 min-h-screen flex flex-col bg-orange-500">
@@ -29,9 +25,9 @@ export default function Error({ statusCode }: Props) {
             className="mb-8 py-20 flex flex-col flex-auto flex-shrink-0 text-white text-center"
           >
             <h1 className="text-4xl leading-normal font-semibold">
-              Erreur serveur (HTTP {statusCode})
+              Page introuvable (HTTP 404)
             </h1>
-            <h2 className="text-sm leading-normal font-normal my-6">Une erreur s'est produite sur le serveur, veuillez réessayer ultérieurement</h2>
+            <h2 className="text-sm leading-normal font-normal my-6">La page que vous cherchez n'existe pas ou plus</h2>
             <Button
               href="/"
               className="flex flex-row justify-center bg-black text-white py-2 uppercase rounded-full text-xss leading-tight font-semibold w-48 mx-auto"

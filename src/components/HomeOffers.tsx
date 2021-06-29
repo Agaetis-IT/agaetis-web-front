@@ -39,7 +39,7 @@ export default function HomeOffers({ title, offers }: Props) {
                   )}
                 >
                   <div className="absolute bg-white h-20 w-20 shadow-md md:hidden rounded-full">
-                    <img src={offer.offers_image1} alt="Offer Icon" className="rounded-full" />
+                    <img src={offer.offers_image1} alt="Offre" className="rounded-full" />
                   </div>
                   <div className="w-9/10 ml-22 md:ml-0 py-2 md:p-0">
                     <h4 className="text-gray-800 md:text-orange-500 text-xs md:text-sm leading-normal uppercase text-left font-bold">
