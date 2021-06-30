@@ -1,9 +1,10 @@
 import clsx from 'clsx'
-import { slugify } from '../services/textUtilities'
-
-import { Category } from '../types/IdeasContent'
 
 import Button from './Button'
+
+import { Category } from '../types/IdeasContent'
+import { slugify } from '../services/textUtilities'
+
 import styles from '../styles/Common.module.css'
 
 interface Props {

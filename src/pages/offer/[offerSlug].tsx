@@ -120,7 +120,7 @@ export default function offer({ pageContent, offers, errorCode }: Props): React.
                           { 'text-white bg-orange-500': selectedOffer === index }
                         )}
                       >
-                        <div dangerouslySetInnerHTML={{ __html: offer.title }}></div>
+                        <div dangerouslySetInnerHTML={{ __html: offer.title }} />
                       </Button>
                     ))}
                 </div>
@@ -164,7 +164,7 @@ export default function offer({ pageContent, offers, errorCode }: Props): React.
                         { 'text-white bg-orange-500': selectedOffer === index }
                       )}
                     >
-                      <div dangerouslySetInnerHTML={{ __html: offer.title }}></div>
+                      <div dangerouslySetInnerHTML={{ __html: offer.title }} />
                     </Button>
                   ))}
               </div>

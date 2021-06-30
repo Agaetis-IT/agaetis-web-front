@@ -1,20 +1,21 @@
-import { FormProvider, useForm } from 'react-hook-form'
 import { useEffect, useRef } from 'react'
+import { FormProvider, useForm } from 'react-hook-form'
+import ReCAPTCHA from 'react-google-recaptcha'
+import { yupResolver } from '@hookform/resolvers/yup'
 
 import Button from './Button'
-import TextInput from './TextInput'
 import CheckBox from './CheckBox'
+import FileInput from './FileInput'
+import LoadingSpinner from './LoadingSpinner'
+import TextInput from './TextInput'
+
 import { AttachmentContent, footerContactSchema, FormInput } from '../yup/ContactFormValidation'
-import { yupResolver } from '@hookform/resolvers/yup'
+
+import styles from '../styles/Common.module.css'
 const Twitter = '/icons/twitter.png'
 const Linkedin = '/icons/linkedin.png'
 const Facebook = '/icons/facebook.png'
 const Particles = '/images/particles-3-mirror.svg'
-
-import styles from '../styles/Common.module.css'
-import ReCAPTCHA from 'react-google-recaptcha'
-import FileInput from './FileInput'
-import LoadingSpinner from './LoadingSpinner'
 
 interface Props {
   handleSubmit: (formValues: FormInput) => void
@@ -92,28 +93,28 @@ export default function ContactForm({ title, handleSubmit, isSubmited, subText }
               name="lastname"
               label="Nom"
               type="input"
-            ></TextInput>
+            />
             <TextInput
               wrapperClassName="w-full md:w-1/5 mt-8 md:mt-0"
               className="appearance-none rounded-full text-xs p-3 shadow-md text-orange-500 placeholder-orange-400 font-semibold leading-tight"
               name="firstname"
               label="Prénom"
               type="input"
-            ></TextInput>
+            />
             <TextInput
               wrapperClassName="w-full md:w-1/5 mt-8 md:mt-0"
               className="appearance-none rounded-full text-xs p-3 shadow-md text-orange-500 placeholder-orange-400 font-semibold leading-tight"
               name="mail"
               label="Mail"
               type="input"
-            ></TextInput>
+            />
             <TextInput
               wrapperClassName="w-full md:w-1/5 mt-8 md:mt-0"
               className="appearance-none rounded-full text-xs p-3 shadow-md text-orange-500 placeholder-orange-400 font-semibold leading-tight"
               name="phone"
               label="Téléphone"
               type="input"
-            ></TextInput>
+            />
           </div>
           <TextInput
             wrapperClassName="my-8"
@@ -121,14 +122,14 @@ export default function ContactForm({ title, handleSubmit, isSubmited, subText }
             name="subject"
             label="Sujet de votre demande"
             type="input"
-          ></TextInput>
+          />
           <TextInput
             wrapperClassName="my-8"
             className={`appearance-none w-full text-xs p-3 shadow-md text-orange-500 placeholder-orange-400 font-semibold leading-tight ${styles.messageTextarea}`}
             name="message"
             label="Détails de votre demande"
             type="textarea"
-          ></TextInput>
+          />
           <FileInput
             {...register('attachments')}
             onChange={onAttachmentsChange}

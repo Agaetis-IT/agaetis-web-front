@@ -1,10 +1,12 @@
 import { ChangeEvent, useState } from 'react'
 import clsx from 'clsx'
 
-import styles from '../styles/FileInput.module.css'
-import { AttachmentContent } from '../yup/ContactFormValidation'
 import LoadingSpinner from './LoadingSpinner'
 import SnackBar from './SnackBar'
+
+import { AttachmentContent } from '../yup/ContactFormValidation'
+
+import styles from '../styles/FileInput.module.css'
 
 type Props = {
   className?: string

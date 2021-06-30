@@ -1,13 +1,12 @@
-import BottomNav from './BottomNav'
 import Address from './Address'
 import Button from './Button'
+import BottomNav from './BottomNav'
 
+import styles from '../styles/Common.module.css'
 const Twitter = '/icons/twitter.png'
 const Linkedin = '/icons/linkedin.png'
 const Facebook = '/icons/facebook.png'
 const Logo = '/images/logo-agaetis-vert.png'
-
-import styles from '../styles/Common.module.css'
 
 export default function ContactSection() {
   const addresses = [

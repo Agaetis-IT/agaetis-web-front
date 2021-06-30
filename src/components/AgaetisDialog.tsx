@@ -3,7 +3,7 @@ interface Props {
   description: string
 }
 
-export default function AgaetisCard({ title, description }: Props) {
+export default function AgaetisDialog({ title, description }: Props) {
   return (
     <div className="justify-between flex flex-col">
       <div className="rounded-3xl rounded-bl-none bg-white shadow-md p-8 mb-8 w-fit max-w-4/5">

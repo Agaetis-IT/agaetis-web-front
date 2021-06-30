@@ -124,7 +124,7 @@ export default function Author({ ideasDescription, author, content, hasMore, err
                   <div className="mb-8 flex flex-row items-center">
                     <img
                       className={`${styles.round8} shadow-md`}
-                      src={author.avatar as string}
+                      src={author.avatar}
                       width={96}
                       height={96}
                       alt="Photo de l'auteur"

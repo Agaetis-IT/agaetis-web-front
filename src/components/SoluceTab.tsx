@@ -53,29 +53,25 @@ export default function SoluceTab({ tabs }: Props) {
       <div className="md:max-w-full mx-auto p-0 md:px-8 xl:px-32">
         <div className="flex flex-row w-full mt-8 md:mt-0">
           <Button
-            className={clsx('text-sm leading-normal sm:w-1/4', getTabsClassNames(0, currentIndex))}
-            styleType="tab"
+            className={clsx('text-sm leading-normal sm:w-1/4 uppercase text-center py-4 md:inline border border-white font-semibold self-center', getTabsClassNames(0, currentIndex))}
             onClick={onTabChange(0)}
           >
             {tabs[0].header}
           </Button>
           <Button
-            className={clsx('text-sm leading-normal sm:w-1/4', getTabsClassNames(1, currentIndex))}
-            styleType="tab"
+            className={clsx('text-sm leading-normal sm:w-1/4 uppercase text-center py-4 md:inline border border-white font-semibold self-center', getTabsClassNames(1, currentIndex))}
             onClick={onTabChange(1)}
           >
             {tabs[1].header}
           </Button>
           <Button
-            className={clsx('text-sm leading-normal sm:w-1/4', getTabsClassNames(2, currentIndex))}
-            styleType="tab"
+            className={clsx('text-sm leading-normal sm:w-1/4 uppercase text-center py-4 md:inline border border-white font-semibold self-center', getTabsClassNames(2, currentIndex))}
             onClick={onTabChange(2)}
           >
             {tabs[2].header}
           </Button>
           <Button
-            className={clsx('text-sm leading-normal sm:w-1/4', getTabsClassNames(3, currentIndex))}
-            styleType="tab"
+            className={clsx('text-sm leading-normal sm:w-1/4 uppercase text-center py-4 md:inline border border-white font-semibold self-center', getTabsClassNames(3, currentIndex))}
             onClick={onTabChange(3)}
           >
             {tabs[3].header}

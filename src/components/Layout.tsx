@@ -16,7 +16,7 @@ export default function Layout({ invertColors, children, displayedPage }: Props)
       <div className="mt-1 md:mt-0 md:pt-30">
         {children}
       </div>
-      <Cookies className="cookie-fixed" />
+      <Cookies />
     </div>
   )
 }

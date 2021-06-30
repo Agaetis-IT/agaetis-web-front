@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import clsx from 'clsx'
 import Head from 'next/head'
 import Link from 'next/link'
+import { useDebouncedCallback } from 'use-debounce'
 
 import Button from './Button'
 import CategoryTab from './CategoryTab'
@@ -20,7 +21,6 @@ import { getIdeasByCategory, getIdeasByPage, getIdeasByTag } from '../services/w
 import { PostAPI } from '../models/IdeasAPI'
 import send from '../services/contactService'
 import { slugify } from '../services/textUtilities'
-import { useDebouncedCallback } from 'use-debounce'
 import WhitePaper from '../types/WhitePaper'
 
 const Particles = '/images/particles-3.svg'

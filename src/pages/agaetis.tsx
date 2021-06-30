@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import Head from 'next/head'
 
-import AgaetisCard from '../components/AgaetisCard'
+import AgaetisDialog from '../components/AgaetisDialog'
 import ContactSection from '../components/ContactSection'
 import Error from './_error'
 import Layout from '../components/Layout'
@@ -58,7 +58,7 @@ export default function agaetis({ pageContent, errorCode }: Props) {
             className="p-6 md:p-16 lg:px-32 xl:px-48 bg-gray-400"
           >
             {pageContent.questions.map((question) => (
-              <AgaetisCard
+              <AgaetisDialog
                 key={question.index}
                 title={question.question}
                 description={question.answer}

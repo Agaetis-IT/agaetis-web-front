@@ -7,13 +7,9 @@ interface Props {
   children?: string | React.ReactElement
   className?: string
   type?: string
-  styleType?: string
   disabled?: boolean
   onClick?(e: React.MouseEvent): void
 }
-
-const tabClassNames =
-  'text-xs leading-normal uppercase text-center py-4 md:inline border border-white font-semibold self-center'
 
 export default function Button({
   href,
@@ -23,17 +19,9 @@ export default function Button({
   onClick,
   className,
   type,
-  styleType,
   disabled,
 }: Props) {
-  let ComponentProp
-  if (component) {
-    ComponentProp = component
-  } else if (href) {
-    ComponentProp = 'a'
-  } else {
-    ComponentProp = 'button'
-  }
+  let ComponentProp = component || (href ? 'a' : 'button')
 
   return (
     <ComponentProp
@@ -43,10 +31,8 @@ export default function Button({
       onClick={!disabled ? onClick : undefined}
       type={type}
       className={clsx(
-        { [tabClassNames]: styleType === 'tab' },
         className,
-        { 'text-gray-400 cursor-default': disabled },
-        { 'cursor-pointer': !disabled }
+        disabled ? 'text-gray-400 cursor-default' : 'cursor-pointer'
       )}
     >
       {children}

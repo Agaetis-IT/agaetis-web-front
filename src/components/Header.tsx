@@ -1,10 +1,10 @@
+import { useState, useEffect } from 'react'
 import clsx from 'clsx'
 import Link from 'next/link'
-import { useState, useEffect } from 'react'
 
-import styles from '../styles/Header.module.css'
 import NavigationMenu from './NavigationMenu'
 
+import styles from '../styles/Header.module.css'
 const logoAgaetisDesktop = '/images/logo-agaetis-hor-white-rgb-150.png'
 const logoAgaetisMobile = '/images/logo-agaetis-hor-p164-rgb-150.png'
 
@@ -16,12 +16,13 @@ interface Props {
 
 export default function Header({ invertColors, className, displayedPage }: Props) {
   const [isMenuOpen, setMenuOpen] = useState(false)
-  function handleToggleMenu(): void {
-    setMenuOpen(!isMenuOpen)
-  }
   const [scrollPos, setScrollPos] = useState(0)
   const [scrollDir, setScrollDir] = useState('DOWN')
   const [position, setPosition] = useState(0)
+  
+  function handleToggleMenu(): void {
+    setMenuOpen(!isMenuOpen)
+  }
 
   useEffect(() => {
     if (window) {

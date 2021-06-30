@@ -14,7 +14,7 @@ interface Props {
   onClose?: () => void
 }
 
-export default function SnackBar({ message, isError, timeoutDuration = 3000, open, onClose }: Props) {
+export default function SnackBar({ message, isError, timeoutDuration = 7000, open, onClose }: Props) {
   useEffect(() => {
     if (open !== undefined) {
       setTimeout(() => {
