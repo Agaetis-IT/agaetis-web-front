@@ -25,7 +25,7 @@ export default function Hero({ hero, values, subtitle }: Props) {
     >
       <div className="flex justify-center">
         <div className={`flex flex-col p-6 md:p-0 md:my-6 py-16 ${styles.heroText} text-white w-full`}>
-          <div className="pb-4 md:pb-16 text-center text-sm md:text-3xl mx-16">
+          <div className="relative pb-4 md:pb-16 text-center text-sm md:text-3xl mx-16">
             <img className={`${styles.quoteL}`} src={Quote} alt="" />
             <p className="inline italic" id="hero-quote">
               La data au service des hommes et du monde de demain !

@@ -3,16 +3,15 @@
   position: absolute;
   width: 50px;
   height: auto;
-  z-index: 1;
 }
 
 .quoteL {
-  top: 20px;
+  top: 90px;
   left: 20px;
 }
 
 .quoteR {
-  top: -50px;
+  top: 20px;
   left: calc(100% - 50px);
   transform: rotate(180deg);
 }
@@ -23,12 +22,12 @@
 
 @media (min-width: 450px) {
   .quoteL {
-    top: 20px;
+    top: 90px;
     left: calc(20% - 20px);
   }
 
   .quoteR {
-    top: -50px;
+    top: 20px;
     left: calc(80% - 20px);
     transform: rotate(180deg);
   }

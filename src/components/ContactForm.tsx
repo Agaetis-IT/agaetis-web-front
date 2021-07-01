@@ -160,7 +160,6 @@ export default function ContactForm({ title, handleSubmit, isSubmited, subText }
               </p>
             )}
           </div>
-
           <Button
             className="flex flex-row justify-center uppercase rounded-full bg-orange-500 text-xss leading-tight py-2 px-6 text-white font-semibold mx-auto shadow-md mt-8"
             type="submit"
