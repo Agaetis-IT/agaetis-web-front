@@ -1,12 +1,14 @@
 import { useState } from 'react'
+import clsx from 'clsx'
+import Link from 'next/link'
+
 import Button from './Button'
+
+import { OfferDesc } from '../types/OffersContent'
 
 import styles from '../styles/HomeOffers.module.css'
 import commonStyles from '../styles/Common.module.css'
 const arrowR = '/images/right-arrow.svg'
-import clsx from 'clsx'
-import { OfferDesc } from '../types/OffersContent'
-import Link from 'next/link'
 
 interface Props {
   title: string
@@ -70,16 +72,12 @@ export default function HomeOffers({ title, offers }: Props) {
                 </div>
               </Button>
               <div
-                style={{
-                  backgroundImage: `url(${offer.image})`,
-                  backgroundPosition: 'top',
-                  backgroundSize: 'cover',
-                }}
                 className={clsx(
-                  `bg-gray-800 md:hidden ${styles.offerFlyout} ml-10`,
+                  `bg-gray-800 md:hidden relative ${styles.offerFlyout} ml-10`,
                   index === selectedOffer && isOpenedOffer ? `block ${styles.offerFlyoutOpen}` : styles.offerFlyoutClose
                 )}
               >
+                <img className="absolute object-cover h-full w-full object-top" src={offer.image} alt={offer.title} />
                 <div
                   style={{ backgroundColor: 'rgba(0,0,0,0.4)' }}
                   className={`p-4 m-4 ${commonStyles.round8} ${styles.backgroundBlur}`}
@@ -107,17 +105,11 @@ export default function HomeOffers({ title, offers }: Props) {
           ))}
         </div>
       </div>
-      <div
-        style={{
-          backgroundImage: `url(${offers[selectedOffer].image})`,
-          backgroundPosition: 'center',
-          backgroundSize: 'cover',
-        }}
-        className="relative hidden md:block bg-gray-800 w-full md:w-1/2 md:p-12 lg:p-16"
-      >
+      <div className="relative hidden md:block bg-gray-800 w-full md:w-1/2">
+        <img className="absolute object-cover h-full w-full object-center" src={offers[selectedOffer].image} alt={offers[selectedOffer].title} />
         <div
           style={{ backgroundColor: 'rgba(0,0,0,0.4)' }}
-          className={`p-4 ${commonStyles.round8} ${styles.backgroundBlur}`}
+          className={`p-4 md:m-12 lg:m-16 ${commonStyles.round8} ${styles.backgroundBlur}`}
         >
           {offers.map((offer, index) => (
             <div key={index} className={clsx({ hidden: selectedOffer != index })}>

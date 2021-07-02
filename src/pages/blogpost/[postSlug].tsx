@@ -8,9 +8,9 @@ import Button from '../../components/Button'
 import ContactForm from '../../components/ContactForm'
 import ContactSection from '../../components/ContactSection'
 import Error from '../_error'
-import IdeaContent from '../../components/IdeaContent'
-import IdeasCard from '../../components/IdeasCard'
 import Layout from '../../components/Layout'
+import PostCard from '../../components/PostCard'
+import PostContent from '../../components/PostContent'
 import SnackBar from '../../components/SnackBar'
 
 import { AuthorLink } from '../../types/AuthorContent'
@@ -72,7 +72,7 @@ export default function BlogPost({ data, related, meta, errorCode }: Props) {
           key={idea.id}
           className={`m-2 mb-8 shadow-md hover:shadow-lg ${styles.smoothTransition} ${styles.zoomIn} ${styles.round8}`}
         >
-          <IdeasCard slug={idea.slug} title={idea.title} image={idea.image} description={idea.descriptionText} />
+          <PostCard slug={idea.slug} title={idea.title} image={idea.image} description={idea.descriptionText} />
         </div>
       ))
     }
@@ -103,7 +103,7 @@ export default function BlogPost({ data, related, meta, errorCode }: Props) {
         // @ts-ignore */}
         <meta name="twitter:data2" value={`${data.readTime} min.`} />
       </Head>
-      <Layout invertColors={false} displayedPage={'/blog'}>
+      <Layout displayedPage={'/blog'}>
         <div className="pt-0 md:pt-25">
           <div
             style={{
@@ -114,7 +114,7 @@ export default function BlogPost({ data, related, meta, errorCode }: Props) {
             }}
             className="py-4 md:p-16 lg:px-32 xl:px-48 bg-gray-400"
           >
-            <IdeaContent content={data} meta={meta} />
+            <PostContent content={data} meta={meta} />
             {related && related.length > 0 && (
               <>
                 <div className="p-8 md:py-8 md:px-0">

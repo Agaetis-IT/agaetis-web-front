@@ -1,11 +1,10 @@
-import Router from 'next/router'
-import { NProgress } from '@tanem/react-nprogress'
 import { useEffect, useState } from 'react'
-import LoadingSpinner from './LoadingSpinner'
+import { NProgress } from '@tanem/react-nprogress'
+import Router from 'next/router'
+
 import LoadingBar from './LoadingBar'
 import LoadingContainer from './LoadingContainer'
-
-import styles from '../styles/LoadingComponent.module.css'
+import LoadingSpinner from './LoadingSpinner'
 
 interface Props {
   color: string
@@ -15,7 +14,7 @@ interface Props {
 }
 
 export default function LoadingComponent({ color, startPosition, stopDelayMs, height }: Props) {
-  let timer: any = null
+  let timer = null
 
   const [animating, setAnimating] = useState(false)
   const [stateKey, setStateKey] = useState(0)
@@ -50,7 +49,7 @@ export default function LoadingComponent({ color, startPosition, stopDelayMs, he
         {({ animationDuration, isFinished, progress }) => (
           <LoadingContainer animationDuration={animationDuration} isFinished={isFinished}>
             <LoadingBar animationDuration={animationDuration} progress={progress} color={color} height={height} />
-            <div className={`fixed block ${styles.loadingSpinner}`}>
+            <div className="fixed block z-spinner top-4 right-4">
               <LoadingSpinner color={color} size={18} />
             </div>
           </LoadingContainer>

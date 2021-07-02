@@ -17,54 +17,6 @@
   border-radius: 8px;
 }
 
-.offerIcon {
-  border: 2px solid white;
-  width: 20px;
-  height: 20px;
-  align-items: center;
-  line-height: 1;
-}
-
-.rotate45 {
-  animation: rotate45 1s ease-in-out;
-  -webkit-animation: rotate45 1s ease-in-out;
-  animation-fill-mode: both;
-}
-
-.rotate0to45 {
-  animation: rotate0to45 1s ease-in-out;
-  -webkit-animation: rotate0to45 1s ease-in-out;
-  animation-fill-mode: both;
-}
-
-@keyframes rotate45 {
-  to {
-    -webkit-transform: rotate(45deg);
-  }
-}
-@-webkit-keyframes rotate45 {
-  to {
-    -webkit-transform: rotate(45deg);
-  }
-}
-
-@keyframes rotate0to45 {
-  from {
-    -webkit-transform: rotate(45deg);
-  }
-  to {
-    -webkit-transform: rotate(0);
-  }
-}
-@-webkit-keyframes rotate0to45 {
-  from {
-    -webkit-transform: rotate(45deg);
-  }
-  to {
-    -webkit-transform: rotate(0);
-  }
-}
-
 .wInherit {
   width: inherit;
 }

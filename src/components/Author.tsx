@@ -5,9 +5,9 @@ import Head from 'next/head'
 import Button from './Button'
 import ContactSection from './ContactSection'
 import Error from '../pages/_error'
-import IdeasCard from './IdeasCard'
 import Layout from './Layout'
 import LoadingSpinner from './LoadingSpinner'
+import PostCard from './PostCard'
 import SnackBar from './SnackBar'
 
 import { AuthorDescription, AuthorPageContent } from '../types/AuthorContent'
@@ -86,7 +86,7 @@ export default function Author({ ideasDescription, author, content, hasMore, err
           key={idea.id}
           className={`m-2 mb-8 shadow-md hover:shadow-lg ${styles.smoothTransition} ${styles.zoomIn} ${styles.round8} ${styles.wInherit}`}
         >
-          <IdeasCard slug={idea.slug} title={idea.title} image={idea.image} description={idea.descriptionText} />
+          <PostCard slug={idea.slug} title={idea.title} image={idea.image} description={idea.descriptionText} />
         </div>
       )),
     [ideas]
@@ -107,7 +107,7 @@ export default function Author({ ideasDescription, author, content, hasMore, err
         <meta name="description" content={`Découvrez tous les articles de ${author.name}`} />
         <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/author/${author.id}`} />
       </Head>
-      <Layout invertColors={false} displayedPage={'/blog'}>
+      <Layout displayedPage={'/blog'}>
         <div className="pt-0 md:pt-25">
           <div
             style={{

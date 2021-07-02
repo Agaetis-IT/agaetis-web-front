@@ -8,12 +8,11 @@ import styles from '../styles/Common.module.css'
 const logoAgaetisOrange = '/images/logo-agaetis-hor-p164-rgb-150.png'
 
 interface Props {
-  invertColors: boolean
   displayedPage?: string
   className?: string
 }
 
-export default function Header({ invertColors, className, displayedPage }: Props) {
+export default function Header({ className, displayedPage }: Props) {
   const [isMenuOpen, setMenuOpen] = useState(false)
   const [position, setPosition] = useState(0)
 
@@ -61,7 +60,7 @@ export default function Header({ invertColors, className, displayedPage }: Props
               />
             </a>
           </Link>
-          <div className="md:hidden w-5 px-3" />
+          <div className="md:hidden pl-5 pr-6" />
           <div className="hidden md:block">
             <NavigationMenu displayedPage={displayedPage} />
           </div>

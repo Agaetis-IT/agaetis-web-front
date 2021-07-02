@@ -56,7 +56,7 @@ export default function contact({ pageContent, errorCode }: Props) {
         <meta name="description" content="Un projet, une idée ? Discutons-en !" />
         <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/contact`} />
       </Head>
-      <Layout invertColors={false}>
+      <Layout>
         <div className="pt-0 md:pt-25">
           <ContactForm
             title={pageContent.title}

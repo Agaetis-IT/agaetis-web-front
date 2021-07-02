@@ -35,7 +35,7 @@ function solutions({ pageContent, errorCode }: Props) {
         />
         <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/sectors`} />
       </Head>
-      <Layout invertColors={false} displayedPage={'/solutions'}>
+      <Layout displayedPage={'/solutions'}>
         <div className="mx-auto px-0">
           <div className="p-0 md:p-12 lg:px-24 lg:p-16 pb-0">
             <div className="p-0 md:px-8 mt-0 md:mt-20">

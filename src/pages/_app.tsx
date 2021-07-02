@@ -44,24 +44,22 @@ export default function MyApp({ Component, pageProps }) {
   const ErrorBoundary = Bugsnag.getPlugin('react')!.createErrorBoundary(React)
 
   return (
-    <>
-      <ErrorBoundary>
-        <Head>
-          <title>Agaetis</title>
-          <meta name="keywords" content="Agaetis, Data science, Web development, Digital Twin" />
-          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-          <meta name="Language" content="fr" />
-          <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
-          <meta name="twitter:card" content="summary_large_image" />
-          <meta name="twitter:site" content="@AgaetisIT" />
-          <link rel="shortcut icon" type="image/ico" href={`${process.env.NEXT_PUBLIC_SITE_URL}/favicon.ico`} />
-          <link rel="preconnect" href="https://wordpress.agaetis.fr" />
-          <link href="https://fonts.googleapis.com/css2?family=Poppins&diplay=swap" rel="stylesheet" />
-          <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet" />
-        </Head>
-        <LoadingComponent color="#ff7f40" startPosition={0.25} stopDelayMs={50} height={3} />
-        <Component {...pageProps} />
-      </ErrorBoundary>
-    </>
+    <ErrorBoundary>
+      <Head>
+        <title>Agaetis</title>
+        <meta name="keywords" content="Agaetis, Data science, Web development, Digital Twin" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="Language" content="fr" />
+        <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@AgaetisIT" />
+        <link rel="shortcut icon" type="image/ico" href={`${process.env.NEXT_PUBLIC_SITE_URL}/favicon.ico`} />
+        <link rel="preconnect" href="https://wordpress.agaetis.fr" />
+        <link href="https://fonts.googleapis.com/css2?family=Poppins&diplay=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet" />
+      </Head>
+      <LoadingComponent color="#ff7f40" startPosition={0.25} stopDelayMs={50} height={3} />
+      <Component {...pageProps} />
+    </ErrorBoundary>
   )
 }

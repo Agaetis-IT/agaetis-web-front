@@ -225,7 +225,7 @@ module.exports = {
       fit: 'fit-content',
     }),
     minHeight: (theme, { breakpoints }) => ({
-      hero: '40rem',
+      hero: '45rem',
       full: '100%',
       screen: '100vh',
       error: '20rem',
@@ -300,6 +300,7 @@ module.exports = {
       '40': '40',
       '50': '50',
       '1000': '1000',
+      'spinner': '9999'
     },
     extend: {
       gridTemplateColumns: {

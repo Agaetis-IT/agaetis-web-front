@@ -13,7 +13,7 @@ export default function Custom500() {
         <meta name="robots" content="noindex,nofollow" />
         <title>Agaetis : Erreur 500</title>
       </Head>
-      <Layout invertColors={true}>
+      <Layout>
         <div className="pt-0 md:pt-25 min-h-screen flex flex-col bg-orange-500">
           <div
             style={{

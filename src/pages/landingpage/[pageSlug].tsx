@@ -57,7 +57,7 @@ export default function Landingpage({ pageContent, errorCode }: Props) {
   }
 
   return (
-    <Layout invertColors={false}>
+    <Layout>
       <div className="pt-0 md:pt-25">
         <div
           style={{

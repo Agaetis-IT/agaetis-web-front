@@ -1,6 +1,6 @@
 import Address from './Address'
-import Button from './Button'
 import BottomNav from './BottomNav'
+import Button from './Button'
 
 import styles from '../styles/Common.module.css'
 const Twitter = '/icons/twitter.png'

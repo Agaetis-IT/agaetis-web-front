@@ -1,23 +1,22 @@
 import { useEffect, useState } from 'react'
-import IdeasContent from '../types/IdeasContent'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 
+import Button from './Button'
+
+import { AuthorLink } from '../types/AuthorContent'
+import { createMarkup } from '../services/textUtilities'
+import IdeasContent from '../types/IdeasContent'
+import Meta from '../types/Meta'
+
+import styles from '../styles/PostContent.module.css'
+import commonStyles from '../styles/Common.module.css'
 const AccessTime = '/icons/access_time-24px.svg'
 const Back = '/icons/Btn_Retour.svg'
-import Link from 'next/link'
-import Button from './Button'
-import { createMarkup } from '../services/textUtilities'
-
 const Twitter = '/icons/twitter.png'
 const Linkedin = '/icons/linkedin.png'
 const Facebook = '/icons/facebook.png'
-import { useRouter } from 'next/router'
-
-import styles from '../styles/IdeaContent.module.css'
-import commonStyles from '../styles/Common.module.css'
-
 const Placeholder = '/images/blog-post-placeholder.jpg'
-import { AuthorLink } from '../types/AuthorContent'
-import Meta from '../types/Meta'
 
 interface Props {
   content: IdeasContent
@@ -51,7 +50,7 @@ function getTopOffset() {
   return floating && window.innerWidth >= 820 ? floating.clientHeight : 0
 }
 
-function IdeaContent({ content, meta }: Props) {
+function PostContent({ content, meta }: Props) {
   const router = useRouter()
   const [location, setLocation] = useState('')
 
@@ -126,14 +125,7 @@ function IdeaContent({ content, meta }: Props) {
         />
       </div>
       <div className={`pb-4 bg-white shadow-md ${styles['md:round8']}`}>
-        <div
-          style={{
-            backgroundImage: `url("${meta.featuredImage ? meta.featuredImage : Placeholder}")`,
-            backgroundPosition: 'center',
-            backgroundSize: 'cover',
-          }}
-          className={`h-80 md:h-100 w-full object-cover ${styles['md:round8top']}`}
-        />
+        <img className={`object-center h-80 md:h-100 w-full object-cover ${styles['md:round8top']}`} src={meta.featuredImage ? meta.featuredImage : Placeholder} alt={content.title} />
         <div className="px-4 md:px-8 text-xs leading-normal text-orange-500 font-semibold flex items-center justify-between py-4">
           <span className="flex items-center">
             <span className="pr-8">
@@ -191,4 +183,4 @@ function IdeaContent({ content, meta }: Props) {
   )
 }
 
-export default IdeaContent
+export default PostContent

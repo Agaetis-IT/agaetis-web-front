@@ -34,7 +34,7 @@ export default function agaetis({ pageContent, errorCode }: Props) {
         <meta name="description" content={"Présentation d'Agaetis, de son histoire et de sa vision"} />
         <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/agaetis`} />
       </Head>
-      <Layout invertColors={false} displayedPage={'/agaetis'}>
+      <Layout displayedPage={'/agaetis'}>
         <div className="pt-0 md:pt-25">
           <div
             style={{

@@ -6,8 +6,8 @@
 }
 
 .quoteL {
-  top: 90px;
-  left: 20px;
+  top: -20px;
+  left: 0px;
 }
 
 .quoteR {
@@ -16,31 +16,20 @@
   transform: rotate(180deg);
 }
 
-.heroTextValeurs {
-  z-index: 800;
-}
-
 @media (min-width: 450px) {
   .quoteL {
-    top: 90px;
+    top: -20px;
     left: calc(20% - 20px);
   }
 
   .quoteR {
-    top: 20px;
+    top: 0px;
     left: calc(80% - 20px);
     transform: rotate(180deg);
   }
 }
 
 @media (min-width: 820px) {
-  .heroText {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-
   .hoverEffect::after {
     content: '';
     display: block;
@@ -61,12 +50,12 @@
     z-index: 1;
   }
   .quoteL {
-    top: -80px;
+    top: -40px;
     left: calc(15% - 50px);
   }
 
   .quoteR {
-    top: -220px;
+    top: 10px;
     left: calc(85% - 30px);
     transform: rotate(180deg);
   }
@@ -74,26 +63,26 @@
 
 @media (min-width: 1200px) {
   .quoteL {
-    top: -80px;
-    left: calc(20% + 20px);
+    top: -40px;
+    left: calc(15% + 20px);
   }
 
   .quoteR {
-    top: -220px;
-    left: calc(75% - 30px);
+    top: 10px;
+    left: calc(80% - 30px);
     transform: rotate(180deg);
   }
 }
 
 @media (min-width: 1400px) {
   .quoteL {
-    top: -80px;
-    left: calc(25% + 20px);
+    top: -40px;
+    left: calc(20% + 20px);
   }
 
   .quoteR {
-    top: -220px;
-    left: calc(70% - 30px);
+    top: 10px;
+    left: calc(75% - 30px);
     transform: rotate(180deg);
   }
 }

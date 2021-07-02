@@ -1,10 +1,12 @@
 import { useState } from 'react'
+import clsx from 'clsx'
+
+import Button from './Button'
+
+import { SectorDesc } from '../types/IndexContent'
 
 import styles from '../styles/HomeSectors.module.css'
-import { SectorDesc } from '../types/IndexContent'
 const arrowR = '/images/right-arrow.svg'
-import clsx from 'clsx'
-import Button from './Button'
 
 interface Props {
   title: string
@@ -45,14 +47,7 @@ export default function HomeSectors({ title, sectors }: Props) {
                     index === openedSector ? styles.sectorHeaderOpen : styles.sectorHeaderClose
                   )}
                 >
-                  <div
-                    style={{
-                      backgroundImage: `url("${sector.image}")`,
-                      backgroundPosition: 'center',
-                      backgroundSize: 'cover',
-                    }}
-                    className={`bg-white h-20 w-20 absolute md:relative md:h-56 md:w-1/2 rounded-full ${styles['md:round8Image']} shadow-md md:shadow-none`}
-                  />
+                  <img className={`bg-white h-20 w-20 absolute md:relative md:h-56 md:w-1/2 rounded-full ${styles['md:round8Image']} shadow-md md:shadow-none object-cover object-center`} src={sector.image} alt={sector.title} />
                   <div
                     className={`bg-white md:bg-none h-20 md:h-56 p-4 w-full md:w-1/2 flex flex-row md:flex-col items-center justify-between md:justify-center ml-10 md:m-0 ${styles['md:round8']} ${styles.sectorHeader}`}
                   >

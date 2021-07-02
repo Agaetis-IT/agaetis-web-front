@@ -9,9 +9,9 @@ import CategoryTab from './CategoryTab'
 import ContactForm from './ContactForm'
 import ContactSection from './ContactSection'
 import Error from '../pages/_error'
-import IdeasCard from './IdeasCard'
 import Layout from './Layout'
 import LoadingSpinner from './LoadingSpinner'
+import PostCard from './PostCard'
 import SearchInput from './SearchInput'
 import SnackBar from './SnackBar'
 
@@ -162,7 +162,7 @@ export default function Blog({
           key={idea.id}
           className={`m-2 mb-8 shadow-md hover:shadow-lg ${styles.smoothTransition} ${styles.zoomIn} ${styles.round8} ${styles.wInherit}`}
         >
-          <IdeasCard slug={idea.slug} title={idea.title} image={idea.image} description={idea.descriptionText} />
+          <PostCard slug={idea.slug} title={idea.title} image={idea.image} description={idea.descriptionText} />
         </div>
       )),
     [ideas]
@@ -188,7 +188,7 @@ export default function Blog({
         <meta name="description" content="Chacun d'entre nous a ses idées et le droit de les défendre" />
         <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/blog`} />
       </Head>
-      <Layout invertColors={false} displayedPage={'/blog'}>
+      <Layout displayedPage={'/blog'}>
         <div className="pt-0 md:pt-25">
           <div
             style={{

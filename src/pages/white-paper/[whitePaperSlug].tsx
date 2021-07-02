@@ -61,7 +61,7 @@ export default function whitePaper({ pageContent, errorCode }: Props) {
         <meta name="description" content={pageContent.description} />
         <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/${pageContent.slug}`} />
       </Head>
-      <Layout invertColors={false}>
+      <Layout>
         <>
           <div className="md:max-w-md mx-auto pt-8 md:px-8">
             <div className="text-xs leading-normal px-4 md:px-0">
