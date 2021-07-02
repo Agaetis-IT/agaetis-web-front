@@ -13,7 +13,7 @@ export default function Layout({ invertColors, children, displayedPage }: Props)
   return (
     <div className="md:p-0 md:mb-0">
       <Header invertColors={invertColors} displayedPage={displayedPage}/>
-      <div className="mt-1 md:mt-0 md:pt-30">
+      <div className="md:pt-30">
         {children}
       </div>
       <Cookies />

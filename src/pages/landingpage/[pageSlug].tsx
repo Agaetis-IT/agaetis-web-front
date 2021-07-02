@@ -58,7 +58,7 @@ export default function Landingpage({ pageContent, errorCode }: Props) {
 
   return (
     <Layout invertColors={false}>
-      <div className="pt-0 md:pt-28">
+      <div className="pt-0 md:pt-25">
         <div
           style={{
             backgroundImage: `url("${Particles}")`,

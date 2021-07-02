@@ -189,7 +189,7 @@ export default function Blog({
         <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/blog`} />
       </Head>
       <Layout invertColors={false} displayedPage={'/blog'}>
-        <div className="pt-0 md:pt-28">
+        <div className="pt-0 md:pt-25">
           <div
             style={{
               backgroundImage: `url("${Particles}")`,

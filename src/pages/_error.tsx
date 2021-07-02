@@ -18,7 +18,7 @@ export default function Error({ statusCode }: Props) {
         <title>Agaetis : Erreur {statusCode}</title>
       </Head>
       <Layout invertColors={true}>
-        <div className="pt-0 md:pt-28 min-h-screen flex flex-col bg-orange-500">
+        <div className="pt-0 md:pt-25 min-h-screen flex flex-col bg-orange-500">
           <div
             style={{
               backgroundImage: `url("${Mask}")`,

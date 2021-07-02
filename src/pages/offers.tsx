@@ -73,7 +73,7 @@ export default function offers({ pageContent, allOffers, errorCode }: Props) {
         <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/agaetis`} />
       </Head>
       <Layout invertColors={false}>
-        <div className="mx-auto pt-0 md:pt-28">
+        <div className="mx-auto pt-0 md:pt-25">
           <div
             style={{
               backgroundImage: `url("${Mask}")`,

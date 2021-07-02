@@ -83,7 +83,7 @@ export default function offer({ pageContent, offers, errorCode }: Props): React.
         <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}${pageContent.slug}`} />
       </Head>
       <Layout invertColors={false}>
-        <div className="mx-auto pt-0 md:pt-28">
+        <div className="mx-auto pt-0 md:pt-25">
           <div
             style={{
               backgroundImage: `url("${Particles}")`,

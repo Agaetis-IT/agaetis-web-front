@@ -108,7 +108,7 @@ export default function Author({ ideasDescription, author, content, hasMore, err
         <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/author/${author.id}`} />
       </Head>
       <Layout invertColors={false} displayedPage={'/blog'}>
-        <div className="pt-0 md:pt-28">
+        <div className="pt-0 md:pt-25">
           <div
             style={{
               backgroundImage: `url("${Particles}")`,

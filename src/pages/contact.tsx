@@ -57,7 +57,7 @@ export default function contact({ pageContent, errorCode }: Props) {
         <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/contact`} />
       </Head>
       <Layout invertColors={false}>
-        <div className="pt-0 md:pt-28">
+        <div className="pt-0 md:pt-25">
           <ContactForm
             title={pageContent.title}
             subText={pageContent.paragraph}

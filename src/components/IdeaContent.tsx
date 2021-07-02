@@ -46,9 +46,9 @@ function formatAuthorList(authors: AuthorLink[]) {
 }
 
 function getTopOffset() {
-  const floating = document.getElementsByClassName('header-2')[0]
+  const floating = document.getElementsByClassName('header-1')[0]
 
-  return floating && !floating.classList.contains('hidden') && window.innerWidth >= 820 ? floating.clientHeight : 0
+  return floating && window.innerWidth >= 820 ? floating.clientHeight : 0
 }
 
 function IdeaContent({ content, meta }: Props) {
