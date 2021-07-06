@@ -6,11 +6,10 @@ import Button from './Button'
 
 import { AuthorLink } from '../types/AuthorContent'
 import { createMarkup } from '../services/textUtilities'
-import IdeasContent from '../types/IdeasContent'
+import PostPageContent from '../types/PostPageContent'
 import Meta from '../types/Meta'
 
 import styles from '../styles/PostContent.module.css'
-import commonStyles from '../styles/Common.module.css'
 const AccessTime = '/icons/access_time-24px.svg'
 const Back = '/icons/Btn_Retour.svg'
 const Twitter = '/icons/twitter.png'
@@ -19,7 +18,7 @@ const Facebook = '/icons/facebook.png'
 const Placeholder = '/images/blog-post-placeholder.jpg'
 
 interface Props {
-  content: IdeasContent
+  content: PostPageContent
   meta: Meta
 }
 
@@ -124,8 +123,8 @@ function PostContent({ content, meta }: Props) {
           dangerouslySetInnerHTML={createMarkup(content.title)}
         />
       </div>
-      <div className={`pb-4 bg-white shadow-md ${styles['md:round8']}`}>
-        <img className={`object-center h-80 md:h-100 w-full object-cover ${styles['md:round8top']}`} src={meta.featuredImage ? meta.featuredImage : Placeholder} alt={content.title} />
+      <div className="pb-4 bg-white shadow-md md:rounded-lg">
+        <img className="object-center h-80 md:h-100 w-full object-cover md:rounded-t-lg" src={meta.featuredImage ? meta.featuredImage : Placeholder} alt={content.title} />
         <div className="px-4 md:px-8 text-xs leading-normal text-orange-500 font-semibold flex items-center justify-between py-4">
           <span className="flex items-center">
             <span className="pr-8">
@@ -139,19 +138,19 @@ function PostContent({ content, meta }: Props) {
           <div className="flex flex-row items-center">
             <Button
               href={`https://www.facebook.com/sharer/sharer.php?u=${location.split('#')[0]}`}
-              className={`w-6 h-6 mr-4 self-center shadow-sm hover:shadow-md bg-white rounded-full ${commonStyles.smoothTransition} p-1`}
+              className="w-6 h-6 mr-4 self-center shadow-sm hover:shadow-md bg-white rounded-full transition-all duration-250 p-1"
             >
               <img src={Facebook} className="w-4 h-4" alt="Facebook" />
             </Button>
             <Button
               href={`https://www.linkedin.com/shareArticle?mini=true&url=${location.split('#')[0]}`}
-              className={`w-6 h-6 mr-4 shadow-sm hover:shadow-md bg-white rounded-full ${commonStyles.smoothTransition} p-1`}
+              className="w-6 h-6 mr-4 shadow-sm hover:shadow-md bg-white rounded-full transition-all duration-250 p-1"
             >
               <img src={Linkedin} className="w-4 h-4" alt="LinkedIn" />
             </Button>
             <Button
               href={`https://twitter.com/intent/tweet?text=${location.split('#')[0]}`}
-              className={`w-6 h-6 shadow-sm hover:shadow-md bg-white rounded-full ${commonStyles.smoothTransition} p-1`}
+              className="w-6 h-6 shadow-sm hover:shadow-md bg-white rounded-full transition-all duration-250 p-1"
             >
               <img src={Twitter} className="w-4 h-4" alt="Twitter" />
             </Button>

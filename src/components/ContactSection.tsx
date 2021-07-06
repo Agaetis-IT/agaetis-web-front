@@ -2,7 +2,6 @@ import Address from './Address'
 import BottomNav from './BottomNav'
 import Button from './Button'
 
-import styles from '../styles/Common.module.css'
 const Twitter = '/icons/twitter.png'
 const Linkedin = '/icons/linkedin.png'
 const Facebook = '/icons/facebook.png'
@@ -59,19 +58,19 @@ export default function ContactSection() {
         <div className="hidden flex-row items-center md:flex">
           <Button
             href="https://fr-fr.facebook.com/AgaetisIT"
-            className={`w-6 h-6 mr-4 self-center shadow-sm hover:shadow-md bg-gray-800 hover:bg-gray-700 rounded-full ${styles.smoothTransition} p-1 text-none`}
+            className="w-6 h-6 mr-4 self-center shadow-sm hover:shadow-md bg-gray-800 hover:bg-gray-700 rounded-full transition-all duration-250 p-1 text-none"
           >
             <img src={Facebook} className="w-4 h-4 filter invert" alt="Facebook" />
           </Button>
           <Button
             href="https://www.linkedin.com/company/agaetis/"
-            className={`w-6 h-6 mr-4 shadow-sm hover:shadow-md bg-gray-800 hover:bg-gray-700 rounded-full ${styles.smoothTransition} p-1 text-none`}
+            className="w-6 h-6 mr-4 shadow-sm hover:shadow-md bg-gray-800 hover:bg-gray-700 rounded-full transition-all duration-250 p-1 text-none"
           >
             <img src={Linkedin} className="w-4 h-4 filter invert" alt="LinkedIn" />
           </Button>
           <Button
             href="https://twitter.com/agaetisit"
-            className={`w-6 h-6 shadow-sm hover:shadow-md bg-gray-800 hover:bg-gray-700 rounded-full ${styles.smoothTransition} p-1 text-none`}
+            className="w-6 h-6 shadow-sm hover:shadow-md bg-gray-800 hover:bg-gray-700 rounded-full transition-all duration-250 p-1 text-none"
           >
             <img src={Twitter} className="w-4 h-4 filter invert" alt="Twitter" />
           </Button>

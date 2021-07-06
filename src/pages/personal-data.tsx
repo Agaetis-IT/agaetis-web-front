@@ -1,5 +1,6 @@
-import Link from 'next/link'
+import Head from 'next/head'
 
+import ContactSection from '../components/ContactSection'
 import Error from './_error'
 import Layout from '../components/Layout'
 
@@ -19,32 +20,38 @@ export default function personalData({ pageContent, errorCode }: Props) {
   }
 
   return (
-    <Layout>
-      <div className="mx-auto px-0">
-        <div className="p-0 md:p-12 lg:px-24 lg:p-16 pb-0">
-          <div className="md:max-w-md mx-auto p-0 md:px-8 mt-0 md:mt-20">
-            <div className="text-xs leading-normal px-4 md:px-0 ">
-              <div className="text-xs leading-normal">
-                <span>
-                  <Link href="/">
-                    <a className="underline text-black">Accueil</a>
-                  </Link>
-                  {' > '} <b dangerouslySetInnerHTML={{ __html: pageContent.title }} />
-                </span>
+    <>
+      <Head>
+        <title>Agaetis : données personnelles</title>
+        <meta property="og:title" content="Agaetis : données personnelles" />
+        <meta property="og:image" content={`${process.env.NEXT_PUBLIC_SITE_URL}/favicon.ico`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:description" content={pageContent.content} />
+        <meta name="description" content={pageContent.content} />
+        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/personal-data`} />
+      </Head>
+      <Layout>
+        <>
+          <div className="mx-auto px-0">
+            <div className="p-0 md:p-12 lg:px-24 lg:p-16 pb-0">
+              <div className="md:max-w-md mx-auto p-0 md:px-8 mt-0 md:mt-20">
+                <div className="text-xs leading-normal px-4 md:px-0">
+                  <h1
+                    className="text-center text-2xl font-bold leading-normal py-8 md:pb-0 md:mt-12"
+                    dangerouslySetInnerHTML={{ __html: pageContent.title }}
+                  />
+                </div>
+                <div
+                  className={`md:max-w-md mx-auto text-justify px-4 md:py-6 md:px-0 md:mt-8 text-sm leading-normal ${styles.personalData}`}
+                  dangerouslySetInnerHTML={{ __html: pageContent.content }}
+                />
               </div>
-              <h1
-                className="text-center text-2xl font-bold leading-normal py-8 md:pb-0 md:mt-12"
-                dangerouslySetInnerHTML={{ __html: pageContent.title }}
-              />
             </div>
-            <div
-              className={`md:max-w-md mx-auto text-justify px-4 md:py-6 md:px-0 md:mt-8 text-sm leading-normal ${styles.personalData}`}
-              dangerouslySetInnerHTML={{ __html: pageContent.content }}
-            />
           </div>
-        </div>
-      </div>
-    </Layout>
+          <ContactSection />
+        </>
+      </Layout>
+    </>
   )
 }
 

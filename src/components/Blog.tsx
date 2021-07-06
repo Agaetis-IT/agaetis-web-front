@@ -15,21 +15,18 @@ import PostCard from './PostCard'
 import SearchInput from './SearchInput'
 import SnackBar from './SnackBar'
 
-import { Category, IdeasDesc, IdeasPageContent, Response } from '../types/IdeasContent'
-import { FormInput } from '../yup/ContactFormValidation'
+import { Category, PostDesc, BlogPageContent, Response } from '../types/PostPageContent'
 import { getIdeasByCategory, getIdeasByPage, getIdeasByTag } from '../services/wordpressService'
-import { PostAPI } from '../models/IdeasAPI'
-import send from '../services/contactService'
+import { PostAPI } from '../models/PostAPI'
 import { slugify } from '../services/textUtilities'
 import WhitePaper from '../types/WhitePaper'
 
 const Particles = '/images/particles-3.svg'
-import styles from '../styles/Common.module.css'
 
 interface Props {
-  ideasDescription: IdeasDesc[]
+  ideasDescription: PostDesc[]
   categories: Category[]
-  content: IdeasPageContent
+  content: BlogPageContent
   whitePapers: WhitePaper[]
   selectedCategory?: string
   tagFilter?: string
@@ -47,24 +44,13 @@ export default function Blog({
   hideSeeMore,
   errorCode,
 }: Props) {
-  const [modalOpenWithError, setModalOpenWithError] = useState<boolean | undefined>(undefined)
   const [postModalOpen, setPostModalOpen] = useState<boolean | undefined>(undefined)
-  const [isSubmited, setIsSubmited] = useState(false)
   const [ideas, setIdeas] = useState(ideasDescription)
   const [searchFilter, setSearchFilter] = useState('')
   const [categoryFilter, setCategoryFilter] = useState(selectedCategory || 'All')
   const [lastPage, setLastPage] = useState(1)
   const [isLoadingPosts, setIsLoadingPosts] = useState(false)
   const [isVisibleSeeMore, setIsVisibleSeeMore] = useState(!hideSeeMore)
-
-  function handleOpenModal(error: boolean) {
-    setModalOpenWithError(error)
-    setIsSubmited(false)
-  }
-
-  function handleCloseModal() {
-    setModalOpenWithError(undefined)
-  }
 
   function handleOpenPostModal() {
     setPostModalOpen(true)
@@ -74,21 +60,11 @@ export default function Blog({
     setPostModalOpen(undefined)
   }
 
-  async function handleSubmit(data: FormInput) {
-    try {
-      setIsSubmited(true)
-      await send(data)
-      handleOpenModal(false)
-    } catch {
-      handleOpenModal(true)
-    }
-  }
-
   async function handleFetchIdeas(reset?: boolean, changedCategory?: string, changedSearchFilter?: string) {
     setIsLoadingPosts(true)
 
     try {
-      let data: IdeasDesc[] = []
+      let data: PostDesc[] = []
       let newData: Response
       const page = reset ? 1 : lastPage + 1
       const catFilter = changedCategory ? changedCategory : categoryFilter
@@ -160,7 +136,7 @@ export default function Blog({
       ideas.map((idea) => (
         <div
           key={idea.id}
-          className={`m-2 mb-8 shadow-md hover:shadow-lg ${styles.smoothTransition} ${styles.zoomIn} ${styles.round8} ${styles.wInherit}`}
+          className="m-2 mb-8 shadow-md hover:shadow-lg transition-all duration-250 transform hover:scale-102 rounded-lg w-inherit"
         >
           <PostCard slug={idea.slug} title={idea.title} image={idea.image} description={idea.descriptionText} />
         </div>
@@ -270,22 +246,12 @@ export default function Blog({
               </div>
             )}
           </div>
-          <ContactForm
-            title="Un sujet vous intéresse ? Une question ? Contactez-nous !"
-            handleSubmit={handleSubmit}
-            isSubmited={isSubmited}
-          />
+          <ContactForm title="Un sujet vous intéresse ? Une question ? Contactez-nous !" />
           <SnackBar
             message="Erreur pendant le chargement des posts"
             isError
             open={postModalOpen}
             onClose={handleClosePostModal}
-          />
-          <SnackBar
-            message={modalOpenWithError ? "Erreur pendant l'envoi du message" : 'Message envoyé'}
-            isError={modalOpenWithError}
-            open={modalOpenWithError}
-            onClose={handleCloseModal}
           />
           <ContactSection />
         </div>

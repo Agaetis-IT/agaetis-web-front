@@ -1,9 +1,9 @@
 import Blog from '../components/Blog'
-import WhitePaper from '../types/WhitePaper'
 
-import { Category } from '../types/IdeasContent'
-import { CategoryAPI, PostAPI } from '../models/IdeasAPI'
+import { Category } from '../types/PostPageContent'
+import { CategoryAPI, PostAPI } from '../models/PostAPI'
 import { getIdeasByPage, getCategories, getIdeasPageContent, getAllWhitePapers } from '../services/wordpressService'
+import WhitePaper from '../types/WhitePaper'
 
 export default Blog
 

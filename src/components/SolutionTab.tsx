@@ -1,10 +1,10 @@
-import clsx from 'clsx'
 import { useState } from 'react'
-
-import { compareTabs, Tab } from '../types/SolutionsContent'
+import clsx from 'clsx'
 
 import Button from './Button'
-import SoluceTabContent from './SoluceTabContent'
+import SolutionTabContent from './SolutionTabContent'
+
+import { compareTabs, Tab } from '../types/SolutionsContent'
 
 interface Props {
   tabs: Tab[]
@@ -38,7 +38,7 @@ function getTabsClassNames(tabIndex: number, currentIndex: number) {
   }
 }
 
-export default function SoluceTab({ tabs }: Props) {
+export default function SolutionTab({ tabs }: Props) {
   const [currentIndex, setCurrentIndex] = useState(0)
 
   function onTabChange(index: number) {
@@ -78,7 +78,7 @@ export default function SoluceTab({ tabs }: Props) {
           </Button>
         </div>
       </div>
-      <SoluceTabContent className="flex flex-col sm:flex-row w-full" content={tabs.sort(compareTabs)[currentIndex]} />
+      <SolutionTabContent className="flex flex-col sm:flex-row w-full" content={tabs.sort(compareTabs)[currentIndex]} />
     </>
   )
 }

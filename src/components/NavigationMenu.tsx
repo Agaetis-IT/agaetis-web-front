@@ -3,7 +3,6 @@ import Link from 'next/link'
 
 import Button from './Button'
 
-import commonStyles from '../styles/Common.module.css'
 import styles from '../styles/NavigationMenu.module.css'
 
 interface Props {
@@ -28,9 +27,8 @@ export default function NavigationMenu({ displayedPage }: Props) {
             <Button
               href={page[1]}
               className={clsx(
-                `text-black ${styles.menuLinkBlackUnderline}`,
-                  displayedPage === page[1] && `${styles.menuLinkUnderlineSelected}`,
-                `block md:inline-block p-2 py-3 md:p-3 md:px-6 text-base font-black leading-normal ${commonStyles.smoothTransition}`
+                `text-black block md:inline-block p-2 py-3 md:p-3 md:px-6 text-base font-black leading-normal transition-all duration-250 ${styles.menuLinkBlackUnderline}`,
+                displayedPage === page[1] && `${styles.menuLinkUnderlineSelected}`
               )}
             >
               {page[0]}
@@ -42,7 +40,7 @@ export default function NavigationMenu({ displayedPage }: Props) {
         <Link href="/contact">
           <Button
             href="/contact"
-            className={`bg-white hover:bg-gray-200 text-orange-500 inline-block px-6 py-2 font-bold leading-none rounded-full uppercase text-base shadow-md hover:shadow-lg ${commonStyles.smoothTransition}`}
+            className="bg-white hover:bg-gray-200 text-orange-500 inline-block px-6 py-2 font-bold leading-none rounded-full uppercase text-base shadow-md hover:shadow-lg transition-all duration-250"
           >
             Contact
           </Button>

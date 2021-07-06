@@ -12,15 +12,14 @@ import SnackBar from './SnackBar'
 
 import { AuthorDescription, AuthorPageContent } from '../types/AuthorContent'
 import { getIdeasByAuthor } from '../services/wordpressService'
-import { IdeasDesc, Response } from '../types/IdeasContent'
-import { PostAPI } from '../models/IdeasAPI'
+import { PostDesc, Response } from '../types/PostPageContent'
+import { PostAPI } from '../models/PostAPI'
 
 const Particles = '/images/particles-3.svg'
 const Linkedin = '/icons/linkedin.png'
-import styles from '../styles/Common.module.css'
 
 interface Props {
-  ideasDescription: IdeasDesc[]
+  ideasDescription: PostDesc[]
   author: AuthorDescription
   content: AuthorPageContent
   hasMore: boolean
@@ -45,7 +44,7 @@ export default function Author({ ideasDescription, author, content, hasMore, err
   async function handleFetchIdeas() {
     setIsLoadingPosts(true)
     const page = lastPage + 1
-    let data: IdeasDesc[] = []
+    let data: PostDesc[] = []
 
     try {
       const newData: Response = await getIdeasByAuthor(author.id.toString(), page)
@@ -84,7 +83,7 @@ export default function Author({ ideasDescription, author, content, hasMore, err
       ideas.map((idea) => (
         <div
           key={idea.id}
-          className={`m-2 mb-8 shadow-md hover:shadow-lg ${styles.smoothTransition} ${styles.zoomIn} ${styles.round8} ${styles.wInherit}`}
+          className="m-2 mb-8 shadow-md hover:shadow-lg transition-all duration-250 transform hover:scale-102 rounded-lg w-inherit"
         >
           <PostCard slug={idea.slug} title={idea.title} image={idea.image} description={idea.descriptionText} />
         </div>
@@ -123,7 +122,7 @@ export default function Author({ ideasDescription, author, content, hasMore, err
                 <div>
                   <div className="mb-8 flex flex-row items-center">
                     <img
-                      className={`${styles.round8} shadow-md`}
+                      className="rounded-lg shadow-md"
                       src={author.avatar}
                       width={96}
                       height={96}
@@ -133,7 +132,7 @@ export default function Author({ ideasDescription, author, content, hasMore, err
                     {author.linkedInLink && (
                       <Button
                         href={author.linkedInLink}
-                        className={`w-6 h-6 ml-4 shadow-sm hover:shadow-md bg-white rounded-full ${styles.smoothTransition} p-1 text-none`}
+                        className="w-6 h-6 ml-4 shadow-sm hover:shadow-md bg-white rounded-full transition-all duration-250 p-1 text-none"
                       >
                         <img src={Linkedin} className="w-4 h-4" alt="Profil LinkedIn" />
                       </Button>

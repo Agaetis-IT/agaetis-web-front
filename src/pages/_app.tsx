@@ -1,11 +1,13 @@
-import '../styles/globals.css'
-import Head from 'next/head'
 import React, { useEffect } from 'react'
-
-import initReactGA, { trackUrl } from '../analytics/analytics'
 import Bugsnag from '@bugsnag/js'
-import initBugsnag from '../bugsnag/bugsnag'
+import Head from 'next/head'
+
 import LoadingComponent from '../components/LoadingComponent'
+
+import initBugsnag from '../bugsnag/bugsnag'
+import initReactGA, { trackUrl } from '../analytics/analytics'
+
+import '../styles/globals.css'
 
 initBugsnag()
 
@@ -20,14 +22,17 @@ declare global {
 export default function MyApp({ Component, pageProps }) {
   useEffect(() => {
     const cookies = localStorage.getItem('cookies')
+
     if (cookies && JSON.parse(cookies)) {
       if (!window.GoogleAnalyticsObject) {
         initReactGA()
       }
       trackUrl()
     }
+
     window.$crisp = []
     window.CRISP_WEBSITE_ID = 'b8ecab4b-de6b-4c95-aa6b-be6f4cc09135'
+
     ;(function () {
       const d = document
       const s = d.createElement('script')
@@ -36,6 +41,7 @@ export default function MyApp({ Component, pageProps }) {
       s.async = true
       d.getElementsByTagName('head')[0].appendChild(s)
     })()
+    
     navigator.serviceWorker
       .getRegistrations()
       .then((registrations) => registrations.map((registration) => registration.unregister()))

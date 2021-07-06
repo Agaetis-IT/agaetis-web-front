@@ -23,12 +23,12 @@ export default function Hero({ hero, values, subtitle }: Props) {
       className="m-0 md:h-screen md:min-h-hero bg-orange-500 flex flex-col justify-center"
     >
       <div className={`flex flex-col p-6 md:p-0 md:my-6 py-16 text-white w-full`}>
-        <div className="relative pb-4 md:pb-16 text-center text-sm md:text-3xl mx-16">
-          <img className={`${styles.quoteL}`} src={Quote} alt="" />
+        <div className="relative pb-4 md:pb-16 text-center text-sm md:text-3xl md:mx-16">
+          <img className="absolute w-12 h-auto -top-5 left-0 xs:left-1/5 md:w-24 md:-top-10 md:left-15/100 xxl:left-1/5" src={Quote} alt="" />
           <p className="inline italic" id="hero-quote">
             La data au service des hommes et du monde de demain !
           </p>
-          <img className={`${styles.quoteR}`} src={Quote} alt="" />
+          <img className="absolute w-12 h-auto top-5 right-0 transform rotate-180 xs:right-1/5 xs:top-0 md:w-24 md:top-2 md:right-15/100 xl:right-1/5 xxl:right-1/4" src={Quote} alt="" />
         </div>
         <div className="bg-white h-px mb-4 w-16 md:mb-0 md:h-0 md:bg-transparent self-center" />
         <div className="flex flex-col md:flex-row justify-center text-white md:mx-16">

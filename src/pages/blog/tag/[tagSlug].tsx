@@ -1,7 +1,6 @@
 import Blog from '../../../components/Blog'
 
-import { Category } from '../../../types/IdeasContent'
-import { TagAPI, PostAPI, CategoryAPI } from '../../../models/IdeasAPI'
+import { Category } from '../../../types/PostPageContent'
 import {
   getCategories,
   getIdeasPageContent,
@@ -9,6 +8,7 @@ import {
   getIdeasByTag,
   getTags,
 } from '../../../services/wordpressService'
+import { TagAPI, PostAPI, CategoryAPI } from '../../../models/PostAPI'
 import WhitePaper from '../../../types/WhitePaper'
 
 export default Blog

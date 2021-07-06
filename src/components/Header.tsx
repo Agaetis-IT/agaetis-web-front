@@ -4,7 +4,6 @@ import Link from 'next/link'
 
 import NavigationMenu from './NavigationMenu'
 
-import styles from '../styles/Common.module.css'
 const logoAgaetisOrange = '/images/logo-agaetis-hor-p164-rgb-150.png'
 
 interface Props {
@@ -39,7 +38,7 @@ export default function Header({ className, displayedPage }: Props) {
   }, [setPosition, position])
 
   return (
-    <header className={clsx(`px-4 py-2 xl:px-32 header-1 w-full md:fixed z-1000 bg-white shadow-md ${styles.smoothTransition}`, position > 500 ? 'md:py-2' : 'md:py-6', className)}>
+    <header className={clsx(`px-4 py-2 xl:px-32 header-1 w-full md:fixed z-1000 bg-white shadow-md transition-all duration-250`, position > 500 ? 'md:py-2' : 'md:py-6', className)}>
       <nav>
         <div className="flex items-center justify-between">
           <button
@@ -54,7 +53,7 @@ export default function Header({ className, displayedPage }: Props) {
           <Link href="/">
             <a className="flex items-center self-center">
               <img
-                className={clsx(styles.smoothTransition, position > 500 && 'md:w-32', 'w-40')}
+                className={clsx('transition-all duration-250', position > 500 && 'md:w-32', 'w-40')}
                 src={logoAgaetisOrange}
                 alt="Logo Agaetis"
               />
@@ -64,7 +63,7 @@ export default function Header({ className, displayedPage }: Props) {
           <div className="hidden md:block">
             <NavigationMenu displayedPage={displayedPage} />
           </div>
-          <div className={clsx('hidden lg:block', styles.smoothTransition, position > 500 && 'md:w-32', 'w-40')} />
+          <div className={clsx('hidden lg:block transition-all duration-250', position > 500 && 'md:w-32', 'w-40')} />
         </div>
         <div className={clsx({ 'hidden': !isMenuOpen })}>
           <NavigationMenu displayedPage={displayedPage} />

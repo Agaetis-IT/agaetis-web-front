@@ -11,51 +11,25 @@ import Error from '../_error'
 import Layout from '../../components/Layout'
 import PostCard from '../../components/PostCard'
 import PostContent from '../../components/PostContent'
-import SnackBar from '../../components/SnackBar'
 
 import { AuthorLink } from '../../types/AuthorContent'
 import { formatPostAuthors } from '../../services/textUtilities'
-import { FormInput } from '../../yup/ContactFormValidation'
 import { getIdeaBySlug, getIdeaMeta, getIdeasByPage } from '../../services/wordpressService'
-import IdeasContent, { IdeasDesc } from '../../types/IdeasContent'
+import PostPageContent, { PostDesc } from '../../types/PostPageContent'
 import Meta, { convertMetaAPItoMeta } from '../../types/Meta'
-import { PostAPI } from '../../models/IdeasAPI'
-import send from '../../services/contactService'
+import { PostAPI } from '../../models/PostAPI'
 
-import styles from '../../styles/Common.module.css'
+const Particles = '/images/particles-3.svg'
 
 interface Props {
-  data: IdeasContent
-  related?: IdeasDesc[]
+  data: PostPageContent
+  related?: PostDesc[]
   meta: Meta
   errorCode?: number
 }
 
-const Particles = '/images/particles-3.svg'
-
 export default function BlogPost({ data, related, meta, errorCode }: Props) {
   const [isOpenedMoreIdeas, setIsOpenedMoreIdeas] = useState(false)
-  const [modalOpenWithError, setModalOpenWithError] = useState<boolean | undefined>(undefined)
-  const [isSubmited, setIsSubmited] = useState(false)
-
-  function handleOpenModal(error: boolean) {
-    setModalOpenWithError(error)
-    setIsSubmited(false)
-  }
-
-  function handleCloseModal() {
-    setModalOpenWithError(undefined)
-  }
-
-  async function handleSubmit(data: FormInput) {
-    try {
-      setIsSubmited(true)
-      await send(data)
-      handleOpenModal(false)
-    } catch {
-      handleOpenModal(true)
-    }
-  }
 
   function handleToggleMoreIdeas() {
     setIsOpenedMoreIdeas(!isOpenedMoreIdeas)
@@ -70,7 +44,7 @@ export default function BlogPost({ data, related, meta, errorCode }: Props) {
       return related.map((idea) => (
         <div
           key={idea.id}
-          className={`m-2 mb-8 shadow-md hover:shadow-lg ${styles.smoothTransition} ${styles.zoomIn} ${styles.round8}`}
+          className="m-2 mb-8 shadow-md hover:shadow-lg transition-all duration-250 transform hover:scale-102 rounded-lg"
         >
           <PostCard slug={idea.slug} title={idea.title} image={idea.image} description={idea.descriptionText} />
         </div>
@@ -89,7 +63,7 @@ export default function BlogPost({ data, related, meta, errorCode }: Props) {
         <meta property="og:description" content={meta.description ? meta.description : data.descriptionText} />
         {meta.featuredImage && <meta property="og:image" content={meta.featuredImage} />}
         <meta name="description" content={meta.description ? meta.description : data.descriptionText} />
-        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/${data.slug}`} />
+        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/blogpost/${data.slug}`} />
         {/*
         // @ts-ignore */}
         <meta name="twitter:label1" value={`Auteur${data.authors.length > 1 ? 's' : ''}`} />
@@ -116,38 +90,25 @@ export default function BlogPost({ data, related, meta, errorCode }: Props) {
           >
             <PostContent content={data} meta={meta} />
             {related && related.length > 0 && (
-              <>
-                <div className="p-8 md:py-8 md:px-0">
-                  <h2 className="text-center">Ces posts peuvent vous interesser</h2>
-
-                  <div className="mt-8 flex flex-col">
-                    {relatedIdeas.slice(0, 5)}
-                    {isOpenedMoreIdeas && relatedIdeas.slice(5)}
-                  </div>
-                  <Button
-                    onClick={handleToggleMoreIdeas}
-                    className={clsx(
-                      related.length < 6 ? 'hidden' : 'flex',
-                      'flex-row justify-center uppercase rounded-full bg-orange-500 text-xss leading-normal py-2 px-6 mt-8 text-white font-semibold mx-auto'
-                    )}
-                  >
-                    {!isOpenedMoreIdeas ? 'Voir plus' : 'Voir moins'}
-                  </Button>
+              <div className="p-8 md:py-8 md:px-0">
+                <h2 className="text-center">Ces posts peuvent vous interesser</h2>
+                <div className="mt-8 flex flex-col">
+                  {relatedIdeas.slice(0, 5)}
+                  {isOpenedMoreIdeas && relatedIdeas.slice(5)}
                 </div>
-              </>
+                <Button
+                  onClick={handleToggleMoreIdeas}
+                  className={clsx(
+                    related.length < 6 ? 'hidden' : 'flex',
+                    'flex-row justify-center uppercase rounded-full bg-orange-500 text-xss leading-normal py-2 px-6 mt-8 text-white font-semibold mx-auto'
+                  )}
+                >
+                  {!isOpenedMoreIdeas ? 'Voir plus' : 'Voir moins'}
+                </Button>
+              </div>
             )}
           </div>
-          <ContactForm
-            title="Un sujet vous intéresse ? Une question ? Contactez-nous !"
-            handleSubmit={handleSubmit}
-            isSubmited={isSubmited}
-          />
-          <SnackBar
-            message={modalOpenWithError ? "Erreur pendant l'envoi du message" : 'Message envoyé'}
-            isError={modalOpenWithError}
-            open={modalOpenWithError}
-            onClose={handleCloseModal}
-          />
+          <ContactForm title="Un sujet vous intéresse ? Une question ? Contactez-nous !" />
           <ContactSection />
         </div>
       </Layout>
@@ -184,9 +145,9 @@ export async function getStaticProps({ params }) {
         })
       }
 
-      if (!!data.acf || !!data.content) {
+      if (data.acf || data.content) {
         const related = []
-        if (!!data.acf) {
+        if (data.acf) {
           for (const idea of data.acf.related_ideas) {
             const data2 = await getIdeaBySlug(idea.post_name)
             related.push(data2)

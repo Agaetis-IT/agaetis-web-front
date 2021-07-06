@@ -1,16 +1,11 @@
-import { useState } from 'react'
-
 import ContactForm from '../../components/ContactForm'
 import ContactSection from '../../components/ContactSection'
 import Error from '../_error'
 import Layout from '../../components/Layout'
-import SnackBar from '../../components/SnackBar'
 
 import { convertAPItoLandingPageContent, LandingPage } from '../../types/OffersContent'
-import { FormInput } from '../../yup/ContactFormValidation'
 import { getAllLandingPages, getLandingPageContent } from '../../services/wordpressService'
 import LandingPageAPI from '../../models/LandingPageAPI'
-import send from '../../services/contactService'
 
 import styles from '../../styles/landingpage.module.css'
 const Particles = '/images/particles-3.svg'
@@ -30,28 +25,6 @@ function setStyles(htmlString: string) {
 }
 
 export default function Landingpage({ pageContent, errorCode }: Props) {
-  const [modalOpenWithError, setModalOpenWithError] = useState<boolean | undefined>(undefined)
-  const [isSubmited, setIsSubmited] = useState(false)
-
-  function handleOpenModal(error: boolean) {
-    setModalOpenWithError(error)
-    setIsSubmited(false)
-  }
-
-  function handleCloseModal() {
-    setModalOpenWithError(undefined)
-  }
-
-  async function handleSubmit(data: FormInput) {
-    try {
-      setIsSubmited(true)
-      await send(data)
-      handleOpenModal(false)
-    } catch {
-      handleOpenModal(true)
-    }
-  }
-
   if (errorCode) {
     return <Error statusCode={errorCode} />
   }
@@ -74,13 +47,7 @@ export default function Landingpage({ pageContent, errorCode }: Props) {
             dangerouslySetInnerHTML={{ __html: setStyles(pageContent.content) }}
           />
         </div>
-        <ContactForm title="Une question ? Contactez-nous !" handleSubmit={handleSubmit} isSubmited={isSubmited} />
-        <SnackBar
-          message={modalOpenWithError ? "Erreur pendant l'envoi du message" : 'Message envoyé'}
-          isError={modalOpenWithError}
-          open={modalOpenWithError}
-          onClose={handleCloseModal}
-        />
+        <ContactForm title="Une question ? Contactez-nous !" />
         <ContactSection />
       </div>
     </Layout>

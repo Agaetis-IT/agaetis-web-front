@@ -12,10 +12,8 @@ import Error from '../_error'
 import Layout from '../../components/Layout'
 import PartnerList from '../../components/PartnerList'
 import RelatedArticlesSection from '../../components/RelatedArticlesSection'
-import SnackBar from '../../components/SnackBar'
 
 import { convertAPItoOfferleaf, OfferContent, OfferLeafContent } from '../../types/OffersContent'
-import { FormInput } from '../../yup/ContactFormValidation'
 import {
   getAllOffers,
   getCategoryOffers,
@@ -24,7 +22,6 @@ import {
   getOfferLeaf,
 } from '../../services/wordpressService'
 import OfferAPI from '../../models/OfferAPI'
-import send from '../../services/contactService'
 
 const Back = '../../../public/icons/Btn_Retour.svg'
 const Particles = '../../../public/images/particles-2.svg'
@@ -37,18 +34,7 @@ interface Props {
 
 export default function offer({ pageContent, offers, errorCode }: Props): React.ReactElement {
   const [selectedOffer, setSelectedOffer] = useState(0)
-  const [modalOpenWithError, setModalOpenWithError] = useState<boolean | undefined>(undefined)
-  const [isSubmited, setIsSubmited] = useState(false)
   const router = useRouter()
-
-  function handleOpenModal(error: boolean) {
-    setModalOpenWithError(error)
-    setIsSubmited(false)
-  }
-
-  function handleCloseModal() {
-    setModalOpenWithError(undefined)
-  }
 
   useEffect(() => {
     const offerId = offers.findIndex((offer) => offer.slug === router.query.offer)
@@ -56,16 +42,6 @@ export default function offer({ pageContent, offers, errorCode }: Props): React.
       setSelectedOffer(offerId)
     }
   }, [offers, router.query.offer])
-
-  async function handleSubmit(data: FormInput) {
-    try {
-      setIsSubmited(true)
-      await send(data)
-      handleOpenModal(false)
-    } catch {
-      handleOpenModal(true)
-    }
-  }
 
   if (errorCode) {
     return <Error statusCode={errorCode} />
@@ -80,7 +56,7 @@ export default function offer({ pageContent, offers, errorCode }: Props): React.
         <meta property="og:type" content="website" />
         <meta property="og:description" content={pageContent.paragraph} />
         <meta name="description" content={pageContent.paragraph} />
-        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}${pageContent.slug}`} />
+        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/offer/${pageContent.slug}`} />
       </Head>
       <Layout>
         <div className="mx-auto pt-0 md:pt-25">
@@ -192,13 +168,7 @@ export default function offer({ pageContent, offers, errorCode }: Props): React.
             />
           )}
 
-          <ContactForm title="Une question ? Contactez-nous !" handleSubmit={handleSubmit} isSubmited={isSubmited} />
-          <SnackBar
-            message={modalOpenWithError ? "Erreur pendant l'envoi du message" : 'Message envoyé'}
-            isError={modalOpenWithError}
-            open={modalOpenWithError}
-            onClose={handleCloseModal}
-          />
+          <ContactForm title="Une question ? Contactez-nous !" />
           <ContactSection />
         </div>
       </Layout>

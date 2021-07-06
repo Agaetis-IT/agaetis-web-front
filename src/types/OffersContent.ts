@@ -1,4 +1,4 @@
-import { PostAPI } from '../models/IdeasAPI'
+import { PostAPI } from '../models/PostAPI'
 import LandingPageAPI from '../models/LandingPageAPI'
 import OfferAPI from '../models/OfferAPI'
 

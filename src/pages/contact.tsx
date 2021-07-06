@@ -1,17 +1,12 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-import { useState } from 'react'
 import Head from 'next/head'
 
 import ContactForm from '../components/ContactForm'
 import ContactSection from '../components/ContactSection'
 import Error from './_error'
 import Layout from '../components/Layout'
-import SnackBar from '../components/SnackBar'
 
 import ContactContent from '../types/ContactContent'
-import { FormInput } from '../yup/ContactFormValidation'
 import { getContactPageContent } from '../services/wordpressService'
-import send from '../services/contactService'
 
 interface Props {
   pageContent: ContactContent
@@ -19,28 +14,6 @@ interface Props {
 }
 
 export default function contact({ pageContent, errorCode }: Props) {
-  const [modalOpenWithError, setModalOpenWithError] = useState<boolean | undefined>(undefined)
-  const [isSubmited, setIsSubmited] = useState(false)
-
-  function handleOpenModal(error: boolean) {
-    setModalOpenWithError(error)
-    setIsSubmited(false)
-  }
-
-  function handleCloseModal() {
-    setModalOpenWithError(undefined)
-  }
-
-  async function handleSubmit(data: FormInput) {
-    try {
-      setIsSubmited(true)
-      await send(data)
-      handleOpenModal(false)
-    } catch {
-      handleOpenModal(true)
-    }
-  }
-
   if (errorCode) {
     return <Error statusCode={errorCode} />
   }
@@ -58,18 +31,7 @@ export default function contact({ pageContent, errorCode }: Props) {
       </Head>
       <Layout>
         <div className="pt-0 md:pt-25">
-          <ContactForm
-            title={pageContent.title}
-            subText={pageContent.paragraph}
-            handleSubmit={handleSubmit}
-            isSubmited={isSubmited}
-          />
-          <SnackBar
-            message={modalOpenWithError ? "Erreur pendant l'envoi du message" : 'Message envoyé'}
-            isError={modalOpenWithError}
-            open={modalOpenWithError}
-            onClose={handleCloseModal}
-          />
+          <ContactForm title={pageContent.title} subText={pageContent.paragraph} />
           <ContactSection />
         </div>
       </Layout>

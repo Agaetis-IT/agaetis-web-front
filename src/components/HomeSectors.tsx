@@ -5,7 +5,6 @@ import Button from './Button'
 
 import { SectorDesc } from '../types/IndexContent'
 
-import styles from '../styles/HomeSectors.module.css'
 const arrowR = '/images/right-arrow.svg'
 
 interface Props {
@@ -43,13 +42,13 @@ export default function HomeSectors({ title, sectors }: Props) {
               >
                 <div
                   className={clsx(
-                    `md:bg-white w-full flex flex-row justify-between shadow-md ${styles.sectorHeader} ${styles['md:round8']}`,
-                    index === openedSector ? styles.sectorHeaderOpen : styles.sectorHeaderClose
+                    'md:bg-white w-full flex flex-row justify-between shadow-md overflow-hidden transition-all duration-500 md:rounded-lg',
+                    index === openedSector ? 'rounded-tr-lg rounded-tl-6xl rounded-bl-6xl' : 'rounded-r-lg rounded-l-6xl'
                   )}
                 >
-                  <img className={`bg-white h-20 w-20 absolute md:relative md:h-56 md:w-1/2 rounded-full ${styles['md:round8Image']} shadow-md md:shadow-none object-cover object-center`} src={sector.image} alt={sector.title} />
+                  <img className="bg-white h-20 w-20 absolute md:relative md:h-56 md:w-1/2 rounded-full md:rounded-l-lg shadow-md md:shadow-none object-cover object-center" src={sector.image} alt={sector.title} />
                   <div
-                    className={`bg-white md:bg-none h-20 md:h-56 p-4 w-full md:w-1/2 flex flex-row md:flex-col items-center justify-between md:justify-center ml-10 md:m-0 ${styles['md:round8']} ${styles.sectorHeader}`}
+                    className="bg-white md:bg-none h-20 md:h-56 p-4 w-full md:w-1/2 flex flex-row md:flex-col items-center justify-between md:justify-center ml-10 md:m-0 md:rounded-lg overflow-hidden transition-all duration-500"
                   >
                     <div className="p-0 ml-8 md:m-0 md:p-4 pt-0">
                       <h3 className="text-gray-800 md:text-black font-bold uppercase text-left text-sm">
@@ -61,8 +60,8 @@ export default function HomeSectors({ title, sectors }: Props) {
                       src={arrowR}
                       alt=""
                       className={clsx(
-                        'block md:hidden',
-                        index === openedSector ? styles.offerSelectedArrow : styles.offerArrow
+                        'block md:hidden transform transition-all duration-500',
+                        index === openedSector ? '-rotate-90' : 'rotate-90'
                       )}
                       width={10}
                       height={10}
@@ -72,8 +71,8 @@ export default function HomeSectors({ title, sectors }: Props) {
               </Button>
               <div
                 className={clsx(
-                  `ml-10 bg-white block md:hidden ${styles.sectorFlyout}`,
-                  index === openedSector ? styles.sectorFlyoutOpen : styles.sectorFlyoutClose
+                  'ml-10 bg-white block md:hidden overflow-hidden transition-all duration-500 rounded-b-lg',
+                  index === openedSector ? 'max-h-50' : 'max-h-0'
                 )}
               >
                 <div className="m-4">

@@ -6,8 +6,6 @@ import PostCard from './PostCard'
 
 import { PostOffer } from '../types/OffersContent'
 
-import styles from '../styles/Common.module.css'
-
 interface Props {
   posts: PostOffer[]
   className?: string
@@ -19,7 +17,7 @@ export default function RelatedArticlesSection({ posts, className }: Props) {
       posts.map((post) => (
         <div
           key={post.slug}
-          className={`m-2 mb-8 shadow-md hover:shadow-lg ${styles.smoothTransition} ${styles.zoomIn} ${styles.round8} ${styles.wInherit}`}
+          className="m-2 mb-8 shadow-md hover:shadow-lg transition-all duration-250 transform hover:scale-102 rounded-lg w-inherit"
         >
           <PostCard slug={post.slug} title={post.title} image={post.image} description={post.description} />
         </div>

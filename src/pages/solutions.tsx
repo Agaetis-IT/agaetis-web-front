@@ -3,7 +3,7 @@ import Head from 'next/head'
 import ContactSection from '../components/ContactSection'
 import Error from './_error'
 import Layout from '../components/Layout'
-import SoluceTab from '../components/SoluceTab'
+import SolutionTab from '../components/SolutionTab'
 
 import { getSolutionsPageContent } from '../services/wordpressService'
 import { SolutionsContent } from '../types/SolutionsContent'
@@ -33,7 +33,7 @@ function solutions({ pageContent, errorCode }: Props) {
           name="description"
           content="Chaque client a des besoins propres, nous leur apportons des solutions sur mesure"
         />
-        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/sectors`} />
+        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/solutions`} />
       </Head>
       <Layout displayedPage={'/solutions'}>
         <div className="mx-auto px-0">
@@ -44,7 +44,7 @@ function solutions({ pageContent, errorCode }: Props) {
               </h2>
             </div>
           </div>
-          <SoluceTab tabs={pageContent.tabs} />
+          <SolutionTab tabs={pageContent.tabs} />
           <ContactSection />
         </div>
       </Layout>

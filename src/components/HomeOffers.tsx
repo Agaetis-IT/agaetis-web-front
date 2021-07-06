@@ -6,8 +6,6 @@ import Button from './Button'
 
 import { OfferDesc } from '../types/OffersContent'
 
-import styles from '../styles/HomeOffers.module.css'
-import commonStyles from '../styles/Common.module.css'
 const arrowR = '/images/right-arrow.svg'
 
 interface Props {
@@ -36,8 +34,8 @@ export default function HomeOffers({ title, offers }: Props) {
               <Button onClick={() => handleOfferChange(index)} className="w-full">
                 <div
                   className={clsx(
-                    `flex items-center justify-between bg-white shadow-md md:shadow-none h-20 ${styles.offerHeader}`,
-                    index === selectedOffer && isOpenedOffer ? styles.offerHeaderOpen : styles.offerHeaderClose
+                    `flex items-center justify-between bg-white shadow-md md:shadow-none h-20 overflow-hidden transition-all duration-500 md:rounded-none`,
+                    index === selectedOffer && isOpenedOffer ? 'rounded-tr-lg rounded-tl-6xl rounded-bl-6xl' : 'rounded-r-lg rounded-l-6xl'
                   )}
                 >
                   <div className="absolute bg-white h-20 w-20 shadow-md md:hidden rounded-full">
@@ -63,8 +61,8 @@ export default function HomeOffers({ title, offers }: Props) {
                     src={arrowR}
                     alt=""
                     className={clsx(
-                      'm-4 block md:hidden',
-                      index === selectedOffer && isOpenedOffer ? styles.offerSelectedArrow : styles.offerArrow
+                      'm-4 block md:hidden transform transition-all duration-500',
+                      index === selectedOffer && isOpenedOffer ? '-rotate-90' : 'rotate-90'
                     )}
                     width={10}
                     height={10}
@@ -73,14 +71,14 @@ export default function HomeOffers({ title, offers }: Props) {
               </Button>
               <div
                 className={clsx(
-                  `bg-gray-800 md:hidden relative ${styles.offerFlyout} ml-10`,
-                  index === selectedOffer && isOpenedOffer ? `block ${styles.offerFlyoutOpen}` : styles.offerFlyoutClose
+                  'block bg-gray-800 md:hidden relative overflow-hidden transition-all duration-500 rounded-b-lg ml-10',
+                  index === selectedOffer && isOpenedOffer ? 'max-h-150' : 'max-h-0'
                 )}
               >
                 <img className="absolute object-cover h-full w-full object-top" src={offer.image} alt={offer.title} />
                 <div
                   style={{ backgroundColor: 'rgba(0,0,0,0.4)' }}
-                  className={`p-4 m-4 ${commonStyles.round8} ${styles.backgroundBlur}`}
+                  className="p-4 m-4 rounded-lg backdrop-filter backdrop-blur-sm"
                 >
                   <p className="text-sm leading-normal text-justify text-white">{offer.offers_description}</p>
                   {offer.related_landingpage && (
@@ -109,7 +107,7 @@ export default function HomeOffers({ title, offers }: Props) {
         <img className="absolute object-cover h-full w-full object-center" src={offers[selectedOffer].image} alt={offers[selectedOffer].title} />
         <div
           style={{ backgroundColor: 'rgba(0,0,0,0.4)' }}
-          className={`p-4 md:m-12 lg:m-16 ${commonStyles.round8} ${styles.backgroundBlur}`}
+          className="p-4 md:m-12 lg:m-16 rounded-lg backdrop-filter backdrop-blur-sm"
         >
           {offers.map((offer, index) => (
             <div key={index} className={clsx({ hidden: selectedOffer != index })}>

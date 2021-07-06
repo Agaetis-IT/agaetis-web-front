@@ -9,7 +9,6 @@ import Layout from '../components/Layout'
 import { AgaetisContent, convertAgaetisAPItoContent } from '../types/AgaetisContent'
 import { getAgaetisContent } from '../services/wordpressService'
 
-import commonStyles from '../styles/Common.module.css'
 import styles from '../styles/agaetis.module.css'
 const Particles = '/images/particles-3.svg'
 
@@ -76,7 +75,7 @@ export default function agaetis({ pageContent, errorCode }: Props) {
           >
             <div
               style={{ backgroundColor: 'rgba(0,0,0,0.4)' }}
-              className={`p-4 ${commonStyles.round8} ${styles.backgroundBlur}`}
+              className="p-4 rounded-lg backdrop-filter backdrop-blur-sm"
             >
               <h2 className="text-lg font-bold mb-4 text-white">{pageContent.numbersTitle}</h2>
               <div className="flex flex-col md:flex-row justify-around p-8">

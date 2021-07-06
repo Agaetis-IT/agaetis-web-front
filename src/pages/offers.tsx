@@ -9,25 +9,12 @@ import ContactForm from '../components/ContactForm'
 import ContactSection from '../components/ContactSection'
 import Error from './_error'
 import Layout from '../components/Layout'
-import SnackBar from '../components/SnackBar'
 
-import { FormInput } from '../yup/ContactFormValidation'
 import { getAllOffers, getCategoryOffers, getOffersPageContent } from '../services/wordpressService'
 import OffersContent, { OfferDesc, convertAPItoOffersContent, OfferLeaf } from '../types/OffersContent'
-import send from '../services/contactService'
 
 const Mask = '../../public/images/hero_mask.svg'
 const Plus = '../../public/icons/squared_plus_white.svg'
-
-function getRotation(selected: boolean, wasSelected: boolean) {
-  if (selected) {
-    return 'rotate45'
-  }
-  if (wasSelected) {
-    return 'rotate0to45'
-  }
-  return ''
-}
 
 interface Props {
   pageContent: OffersContent
@@ -37,28 +24,6 @@ interface Props {
 
 export default function offers({ pageContent, allOffers, errorCode }: Props) {
   const [selectedOffer, setSelectedOffer] = useState(0)
-  const [wasSelected, setWasSelected] = useState(0)
-  const [modalOpenWithError, setModalOpenWithError] = useState<boolean | undefined>(undefined)
-  const [isSubmited, setIsSubmited] = useState(false)
-
-  function handleOpenModal(error: boolean) {
-    setModalOpenWithError(error)
-    setIsSubmited(false)
-  }
-
-  function handleCloseModal() {
-    setModalOpenWithError(undefined)
-  }
-
-  async function handleSubmit(data: FormInput) {
-    try {
-      setIsSubmited(true)
-      await send(data)
-      handleOpenModal(false)
-    } catch {
-      handleOpenModal(true)
-    }
-  }
 
   if (errorCode) {
     return <Error statusCode={errorCode} />
@@ -111,7 +76,6 @@ export default function offers({ pageContent, allOffers, errorCode }: Props) {
                     key={offre.title}
                     className="bg-none md:bg-white flex flex-row md:flex-col justify-between items-center text-white md:text-black p-8 cursor-pointer w-full md:w-1/6 text-center"
                     onClick={() => {
-                      setWasSelected(selectedOffer)
                       setSelectedOffer(index)
                     }}
                   >
@@ -119,8 +83,8 @@ export default function offers({ pageContent, allOffers, errorCode }: Props) {
                     <h2 className="text-sm leading-normal">{offre.title}</h2>
                     <div
                       className={clsx(
-                        'inline-block md:hidden offerIcon',
-                        getRotation(selectedOffer === index, wasSelected === index)
+                        'inline-block md:hidden transition-transform offerIcon',
+                        selectedOffer === index && 'transform rotate-45'
                       )}
                     >
                       <span>+</span>
@@ -152,13 +116,7 @@ export default function offers({ pageContent, allOffers, errorCode }: Props) {
               ))}
             </div>
           </div>
-          <ContactForm title="Une question ? Contactez-nous !" handleSubmit={handleSubmit} isSubmited={isSubmited} />
-          <SnackBar
-            message={modalOpenWithError ? "Erreur pendant l'envoi du message" : 'Message envoyé'}
-            isError={modalOpenWithError}
-            open={modalOpenWithError}
-            onClose={handleCloseModal}
-          />
+          <ContactForm title="Une question ? Contactez-nous !" />
           <ContactSection />
         </div>
       </Layout>

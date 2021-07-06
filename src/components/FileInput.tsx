@@ -75,7 +75,7 @@ export default function FileInput({ className, wrapperClassName, onChange, fileC
         <div className="flex flex-col items-center md:items-left">
           <div
             id="button"
-            className={clsx(`${styles.uploadButton} top-0 cursor-pointer`, className, { 'drag-over': isDraggingOver })}
+            className={clsx(`${styles.uploadButton} w-fit top-0 cursor-pointer`, isDraggingOver ? 'bg-orange-400' : 'bg-orange-500', className)}
           >
             {isLoadingFiles ? (
               <div className="flex flex-row justify-center">

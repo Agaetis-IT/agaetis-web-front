@@ -1,7 +1,7 @@
 import Blog from '../../components/Blog'
 
-import { Category, Response } from '../../types/IdeasContent'
-import { CategoryAPI, PostAPI } from '../../models/IdeasAPI'
+import { Category, Response } from '../../types/PostPageContent'
+import { CategoryAPI, PostAPI } from '../../models/PostAPI'
 import {
   getIdeasByPage,
   getCategories,

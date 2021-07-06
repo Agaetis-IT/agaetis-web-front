@@ -3,8 +3,6 @@ import clsx from 'clsx'
 
 import Button from './Button'
 
-import styles from '../styles/Common.module.css'
-
 export default function Cookies() {
   const [isOpenedCookies, setIsOpenedCookies] = useState(true)
 
@@ -33,13 +31,13 @@ export default function Cookies() {
       <div className="flex mt-4 md:m-0 self-center">
         <Button
           onClick={onRefuseAll}
-          className={`uppercase text-white bg-gray-800 hover:bg-gray-700 py-2 px-6 rounded-full text-xss leading-tight font-semibold self-center shadow-md hover:shadow-lg mr-10 ${styles.smoothTransition}`}
+          className="uppercase text-white bg-gray-800 hover:bg-gray-700 py-2 px-6 rounded-full text-xss leading-tight font-semibold self-center shadow-md hover:shadow-lg mr-10 transition-all duration-250"
         >
           Refuser
         </Button>
         <Button
           onClick={onAcceptAll}
-          className={`uppercase bg-white text-gray-800 py-2 px-6 rounded-full text-xss leading-tight font-semibold self-center shadow-md hover:shadow-lg ${styles.smoothTransition}`}
+          className="uppercase bg-white text-gray-800 py-2 px-6 rounded-full text-xss leading-tight font-semibold self-center shadow-md hover:shadow-lg transition-all duration-250"
         >
           Autoriser
         </Button>

@@ -59,20 +59,11 @@ export default function whitePaper({ pageContent, errorCode }: Props) {
         <meta property="og:type" content="website" />
         <meta property="og:description" content={pageContent.description} />
         <meta name="description" content={pageContent.description} />
-        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/${pageContent.slug}`} />
+        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/white-paper/${pageContent.slug}`} />
       </Head>
       <Layout>
         <>
           <div className="md:max-w-md mx-auto pt-8 md:px-8">
-            <div className="text-xs leading-normal px-4 md:px-0">
-              <span className="underline text-black">
-                <Link href="/">
-                  <a>Accueil</a>
-                </Link>
-              </span>
-              {' > '}
-              <b>{pageContent.title}</b>
-            </div>
             <h1 className="text-center text-2xl leading-normal py-8 md:pb-0">{pageContent.title}</h1>
             <p className="md:max-w-md mx-auto text-center px-4 md:py-6 md:px-0 text-xs leading-normal">
               {pageContent.description}
