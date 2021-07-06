@@ -86,6 +86,7 @@ export default function HomeOffers({ title, offers }: Props) {
                       href={`/landingpages/${
                         offer.related_landingpage!.split('/')[offer.related_landingpage!.split('/').length - 2]
                       }`}
+                      passHref
                     >
                       <Button
                         className="flex flex-row justify-center w-48 bg-white text-orange-500 uppercase mx-auto rounded-full px-6 py-2 mt-8 shadow-md font-semibold text-xs leading-tight"
@@ -119,6 +120,7 @@ export default function HomeOffers({ title, offers }: Props) {
                       offers[selectedOffer].related_landingpage!.split('/').length - 2
                     ]
                   }`}
+                  passHref
                 >
                   <Button
                     className="flex flex-row justify-center w-48 text-orange-500 bg-white uppercase mx-auto rounded-full px-6 py-2 mt-8 shadow-md font-semibold text-xs leading-tight"

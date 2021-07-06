@@ -46,7 +46,7 @@ export default function HomeSectors({ title, sectors }: Props) {
                     index === openedSector ? 'rounded-tr-lg rounded-tl-6xl rounded-bl-6xl' : 'rounded-r-lg rounded-l-6xl'
                   )}
                 >
-                  <img className="bg-white h-20 w-20 absolute md:relative md:h-56 md:w-1/2 rounded-full md:rounded-l-lg shadow-md md:shadow-none object-cover object-center" src={sector.image} alt={sector.title} />
+                  <img className="bg-white h-20 w-20 absolute md:relative md:h-56 md:w-1/2 rounded-full md:rounded-l-lg md:rounded-r-none shadow-md md:shadow-none object-cover object-center" src={sector.image} alt={sector.title} />
                   <div
                     className="bg-white md:bg-none h-20 md:h-56 p-4 w-full md:w-1/2 flex flex-row md:flex-col items-center justify-between md:justify-center ml-10 md:m-0 md:rounded-lg overflow-hidden transition-all duration-500"
                   >

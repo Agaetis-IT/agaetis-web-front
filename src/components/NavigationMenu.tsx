@@ -23,7 +23,7 @@ export default function NavigationMenu({ displayedPage }: Props) {
     >
       <div className="text-xs font-medium leading-normal">
         {pages.map((page) => (
-          <Link key={page[0]} href={page[1]}>
+          <Link key={page[0]} href={page[1]} passHref>
             <Button
               href={page[1]}
               className={clsx(
@@ -37,7 +37,7 @@ export default function NavigationMenu({ displayedPage }: Props) {
         ))}
       </div>
       <div className="md:ml-12 text-base leading-normal font-medium flex justify-center">
-        <Link href="/contact">
+        <Link href="/contact" passHref>
           <Button
             href="/contact"
             className="bg-white hover:bg-gray-200 text-orange-500 inline-block px-6 py-2 font-bold leading-none rounded-full uppercase text-base shadow-md hover:shadow-lg transition-all duration-250"

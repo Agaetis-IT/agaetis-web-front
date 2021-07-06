@@ -109,7 +109,7 @@ function PostContent({ content, meta }: Props) {
     <div className="md:mx-2">
       <div className="p-6 md:p-0">
         <div className="mb-4 w-fit">
-          <Link href="/blog" passHref={true}>
+          <Link href="/blog" passHref>
             <Button>
               <div className="flex flex-row items-center">
                 <img className="mr-4" src={Back} alt="" />
@@ -162,7 +162,7 @@ function PostContent({ content, meta }: Props) {
             <div className="md:my-0 flex flex-row flex-wrap py-4">
               {content.tags.map((tag) => (
                 <span key={tag.name} className="text-xs leading-normal pr-4">
-                  <Link href={`/tags/${tag.slug}`} passHref={true}>
+                  <Link href={`/tags/${tag.slug}`} passHref>
                     <Button className="text-orange-500">
                       <span>#{tag.name}</span>
                     </Button>

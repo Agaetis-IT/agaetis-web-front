@@ -235,7 +235,7 @@ export default function Blog({
                         className="shadow-xl md:w-52 h-40 md:h-32 mx-auto"
                       />
                       <h3 className="text-sm px-3 py-4 leading-normal">{whitePaper.title}</h3>
-                      <Link href={`/white-papers/${whitePaper.slug}`}>
+                      <Link href={`/white-papers/${whitePaper.slug}`} passHref>
                         <Button className="rounded-full uppercase text-white text-xss md:text-cgu leading-normal font-semibold bg-orange-500 px-8 py-3 md:px-6 md:py-2">
                           Télécharger
                         </Button>

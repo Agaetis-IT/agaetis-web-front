@@ -41,7 +41,7 @@ export default function LoadingComponent({ color, startPosition, stopDelayMs, he
       Router.events.off('routeChangeComplete', routeChangeEnd)
       Router.events.off('routeChangeError', routeChangeEnd)
     }
-  }, [Router])
+  }, [routeChangeStart, routeChangeEnd])
 
   return (
     <div className="absolute">

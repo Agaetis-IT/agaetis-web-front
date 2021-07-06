@@ -74,7 +74,7 @@ export default function offer({ pageContent, offers, errorCode }: Props): React.
             </div>
             <p className="text-white py-8 leading-normal text-sm">{pageContent.paragraph}</p>
             <div className="bg-white p-8">
-              <Link href="/offers">
+              <Link href="/offers" passHref>
                 <Button>
                   <div className="flex flex-row items-center mb-8">
                     <img className="mr-4" src={Back} alt="" />
@@ -115,7 +115,7 @@ export default function offer({ pageContent, offers, errorCode }: Props): React.
           </div>
           <div className="block lg:hidden">
             <div className="bg-gray-400 p-4">
-              <Link href="/offers">
+              <Link href="/offers" passHref>
                 <Button>
                   <div className="flex flex-row items-center mb-8">
                     <img className="mr-4 h-8" src={Back} alt="" />

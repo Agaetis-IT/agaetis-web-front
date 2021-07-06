@@ -21,7 +21,7 @@ export default function Button({
   type,
   disabled,
 }: Props) {
-  let ComponentProp = component || (href ? 'a' : 'button')
+  const ComponentProp = component || (href ? 'a' : 'button')
 
   return (
     <ComponentProp

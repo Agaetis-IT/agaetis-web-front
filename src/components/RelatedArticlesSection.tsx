@@ -31,7 +31,7 @@ export default function RelatedArticlesSection({ posts, className }: Props) {
       <div className="mt-8 md:mt-16 pb-8">
         {cards.length ? cards : 'Aucun résultat'}
       </div>
-      <Link href="/blog">
+      <Link href="/blog" passHref>
         <Button className="uppercase rounded-full bg-orange-500 text-xss leading-normal py-2 px-6 text-white font-semibold mx-auto shadow-md">
           Consulter notre blog
         </Button>

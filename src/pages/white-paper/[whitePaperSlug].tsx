@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useState } from 'react'
 import Head from 'next/head'
-import Link from 'next/link'
 
 import Error from '../_error'
 import Layout from '../../components/Layout'

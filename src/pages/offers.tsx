@@ -105,6 +105,7 @@ export default function offers({ pageContent, allOffers, errorCode }: Props) {
                                 pathname: `/offers/${allOffers[selectedOffer].slug}`,
                                 query: { offer: offer.post_name },
                               }}
+                              passHref
                             >
                               <p className="text-center p-4">{offer.post_title}</p>
                             </Link>
