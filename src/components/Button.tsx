@@ -31,8 +31,8 @@ export default function Button({
       onClick={!disabled ? onClick : undefined}
       type={type}
       className={clsx(
-        className,
-        disabled ? 'text-gray-400 cursor-default' : 'cursor-pointer'
+        disabled ? 'cursor-default' : 'cursor-pointer',
+        className
       )}
     >
       {children}

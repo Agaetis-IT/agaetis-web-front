@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import clsx from 'clsx'
 import { FormProvider, useForm } from 'react-hook-form'
 import ReCAPTCHA from 'react-google-recaptcha'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -26,11 +27,12 @@ interface Props {
 export default function ContactForm({ title, subText }: Props) {
   const recaptchaRef = useRef<ReCAPTCHA>(null)
   const [snackBarOpenWithError, setSnackBarOpenWithError] = useState<boolean | undefined>(undefined)
-  const [isSubmited, setIsSubmited] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSuccessfullySubmitted, setIsSuccessfullySubmitted] = useState(false)
 
   function handleOpenModal(error: boolean) {
     setSnackBarOpenWithError(error)
-    setIsSubmited(false)
+    setIsSubmitting(false)
   }
 
   function handleCloseModal() {
@@ -38,10 +40,15 @@ export default function ContactForm({ title, subText }: Props) {
   }
 
   async function handleSubmit(data: FormInput) {
+    if (isSubmitting || isSuccessfullySubmitted) {
+      return
+    }
+
     try {
-      setIsSubmited(true)
+      setIsSubmitting(true)
       await send(data)
       handleOpenModal(false)
+      setIsSuccessfullySubmitted(true)
     } catch {
       handleOpenModal(true)
     }
@@ -183,18 +190,17 @@ export default function ContactForm({ title, subText }: Props) {
               )}
             </div>
             <Button
-              className="flex flex-row justify-center uppercase rounded-full bg-orange-500 text-xss leading-tight py-2 px-6 text-white font-semibold mx-auto shadow-md mt-8"
+              className={clsx('flex flex-row justify-center uppercase rounded-full text-xss leading-tight py-2 px-6 text-white font-semibold mx-auto shadow-md mt-8', isSubmitting || isSuccessfullySubmitted ? 'bg-gray-500' : 'bg-orange-500')}
               type="submit"
-              disabled={isSubmited}
+              disabled={isSubmitting || isSuccessfullySubmitted}
             >
-              {isSubmited ? (
+              {isSubmitting ? (
                 <div className="flex flex-row justify-center">
                   <LoadingSpinner color="#ffffff" size={12} />
                   Envoi en cours
                 </div>
-              ) : (
-                'Envoyer'
-              )}
+              ) : isSuccessfullySubmitted ? 'Envoi effectué' : 'Envoyer'
+              }
             </Button>
           </form>
         </FormProvider>
