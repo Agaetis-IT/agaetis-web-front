@@ -31,7 +31,7 @@ export default function SnackBar({ message, isError, timeoutDuration = 3000, ope
 
   return (
     <div className={clsx('flex flex-row bg-white p-4 rounded-lg shadow-md fixed', styles.snackBarModal)}>
-      {isError ? <img className="w-8 h-8" src={Cross} alt="" /> : <img className="w-8 h-8" src={Tick} alt="" />}
+      <img className="w-8 h-8" src={isError ? Cross : Tick} alt="Statut" />
       <h4 className="self-center block ml-4 text-black">{message}</h4>
     </div>
   )
