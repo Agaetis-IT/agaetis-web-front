@@ -1,7 +1,6 @@
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
-import Image from 'next/image'
 
 import styles from '../styles/Header.module.css'
 import NavigationMenu from './NavigationMenu'
@@ -11,28 +10,11 @@ const logoAgaetisMobile = '/images/logo-agaetis-hor-p164-rgb-150.png'
 
 interface Props {
   invertColors: boolean
+  displayedPage?: string
   className?: string
 }
 
-function getHeaderClass(invertColors: boolean, position: number) {
-  let classname = ''
-  if (invertColors) {
-    if (position > 200) {
-      classname += styles.headerWhite
-    } else {
-      classname += 'hidden'
-    }
-  } else {
-    if (position > 200) {
-      classname += styles.headerWhite
-    } else {
-      classname += 'hidden'
-    }
-  }
-  return classname
-}
-
-export default function Header({ invertColors, className }: Props) {
+export default function Header({ invertColors, className, displayedPage }: Props) {
   const [isMenuOpen, setMenuOpen] = useState(false)
   function handleToggleMenu(): void {
     setMenuOpen(!isMenuOpen)
@@ -69,28 +51,19 @@ export default function Header({ invertColors, className }: Props) {
           <div className="flex items-center flex-shrink-0 text-orange-500 md:text-white">
             <Link href="/">
               <a className="mx-auto md:ml-0 flex items-center">
-                {
-                  <div className={clsx({ 'md:inline': invertColors && position < 200 }, `${styles.logoAgaetis} hidden`)}>
-                    <Image
-                      src={logoAgaetisDesktop}
-                      alt="logo agaetis"
-                      width={1035}
-                      height={330}
-                      quality={100}
-                    />
-                  </div>
-                }
-                {
-                  <div className={clsx(invertColors && position < 200 ? 'md:hidden' : 'inline', position > 200 ? styles.logoSticky : styles.logoAgaetis)}>
-                    <Image
-                      src={logoAgaetisMobile}
-                      alt="logo agaetis"
-                      width={1035}
-                      height={330}
-                      quality={100}
-                    />
-                  </div>
-                }
+                <img
+                  className={clsx({ 'md:inline': invertColors && position < 200 }, `${styles.logoAgaetis} hidden`)}
+                  src={logoAgaetisDesktop}
+                  alt="Logo Agaetis"
+                />
+                <img
+                  className={clsx(
+                    invertColors && position < 200 ? 'md:hidden' : 'inline',
+                    position > 200 ? styles.logoSticky : styles.logoAgaetis
+                  )}
+                  src={logoAgaetisMobile}
+                  alt="Logo Agaetis"
+                />
               </a>
             </Link>
             <button
@@ -104,8 +77,8 @@ export default function Header({ invertColors, className }: Props) {
               <span className="uppercase text-black text-xxs leading-normal pt-1">Menu</span>
             </button>
           </div>
-          <div id="main_nav" className={clsx({ 'hidden md:inline': !isMenuOpen }, 'w-100 mx-auto md:mx-12 lg:mx-auto')}>
-            <NavigationMenu invertColors={invertColors} position={position} />
+          <div id="main_nav" className={clsx({ 'hidden md:inline': !isMenuOpen }, 'mx-auto md:mx-12 lg:mx-auto')}>
+            <NavigationMenu invertColors={invertColors} position={position} displayedPage={displayedPage} />
           </div>
         </nav>
       </header>
@@ -114,7 +87,7 @@ export default function Header({ invertColors, className }: Props) {
           'p-3 md:py-16 header-2',
           'md:right-0 md:left-0 md:absolute md:mx-auto',
           className,
-          getHeaderClass(!!invertColors, position),
+          position > 200 ? styles.headerWhite : 'hidden',
           invertColors && position < 400 && scrollDir == 'UP' ? styles.animationUp : '',
           invertColors && position > 100 && position < 1000 && scrollDir == 'DOWN' ? styles.animationDown : '',
           !invertColors && position < 400 && scrollDir == 'UP' ? styles.animationUp : '',
@@ -125,24 +98,19 @@ export default function Header({ invertColors, className }: Props) {
           <div className="flex items-center flex-shrink-0 text-orange-500 md:text-white">
             <Link href="/">
               <a className="mx-full md:ml-0 flex items-center">
-                <div className={clsx({ 'md:inline': invertColors && position < 200 }, `${styles.logoAgaetis} hidden`)}>
-                  <Image
-                    src={logoAgaetisDesktop}
-                    alt="logo agaetis"
-                    width={1035}
-                    height={330}
-                    quality={100}
-                  />
-                </div>
-                <div className={clsx(invertColors && position < 200 ? 'md:hidden' : 'inline', position > 200 ? styles.logoSticky : styles.logoAgaetis)}>
-                  <Image
-                    src={logoAgaetisMobile}
-                    alt="logo agaetis"
-                    width={1035}
-                    height={330}
-                    quality={100}
-                  />
-                </div>
+                <img
+                  className={clsx({ 'md:inline': invertColors && position < 200 }, `${styles.logoAgaetis} hidden`)}
+                  src={logoAgaetisDesktop}
+                  alt="Logo Agaetis"
+                />
+                <img
+                  className={clsx(
+                    invertColors && position < 200 ? 'md:hidden' : 'inline',
+                    position > 200 ? styles.logoSticky : styles.logoAgaetis
+                  )}
+                  src={logoAgaetisMobile}
+                  alt="Logo Agaetis"
+                />
               </a>
             </Link>
             <button
@@ -156,8 +124,8 @@ export default function Header({ invertColors, className }: Props) {
               <span className="uppercase text-black text-xxs leading-normal pt-1">Menu</span>
             </button>
           </div>
-          <div id="main_nav" className={clsx({ 'hidden md:inline': !isMenuOpen }, 'w-100 mx-auto md:mx-12 lg:mx-auto')}>
-            <NavigationMenu invertColors={invertColors && position < 200} position={position} />
+          <div id="main_nav" className={clsx({ 'hidden md:inline': !isMenuOpen }, 'mx-auto md:mx-12 lg:mx-auto')}>
+            <NavigationMenu invertColors={invertColors && position < 200} position={position} displayedPage={displayedPage} />
           </div>
         </nav>
       </header>

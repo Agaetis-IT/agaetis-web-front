@@ -11,7 +11,6 @@ export default function LoadingBar({ animationDuration, progress, color, height 
   return (
     <div
       className={`${styles.bar} fixed top-0 left-0 w-full`}
-      role="bar"
       style={{
         background: color,
         height: height,

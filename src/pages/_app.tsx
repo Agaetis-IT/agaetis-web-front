@@ -36,7 +36,9 @@ export default function MyApp({ Component, pageProps }) {
       s.async = true
       d.getElementsByTagName('head')[0].appendChild(s)
     })()
-    navigator.serviceWorker.getRegistrations().then((registrations) => registrations.map((registration) => registration.unregister()))
+    navigator.serviceWorker
+      .getRegistrations()
+      .then((registrations) => registrations.map((registration) => registration.unregister()))
   }, [])
 
   const ErrorBoundary = Bugsnag.getPlugin('react')!.createErrorBoundary(React)
@@ -54,10 +56,9 @@ export default function MyApp({ Component, pageProps }) {
           <meta name="twitter:site" content="@AgaetisIT" />
           <link rel="shortcut icon" type="image/ico" href={`${process.env.NEXT_PUBLIC_SITE_URL}/favicon.ico`} />
           <link rel="preconnect" href="https://wordpress.agaetis.fr" />
-          <link href="https://fonts.googleapis.com/css2?family=Poppins" rel="stylesheet"/>
-          <link href="https://fonts.googleapis.com/css2?family=Open+Sans" rel="stylesheet"/>
+          <link href="https://fonts.googleapis.com/css2?family=Poppins&diplay=swap" rel="stylesheet" />
+          <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet" />
         </Head>
-
         <LoadingComponent color="#ff7f40" startPosition={0.25} stopDelayMs={50} height={3} />
         <Component {...pageProps} />
       </ErrorBoundary>

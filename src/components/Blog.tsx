@@ -25,7 +25,6 @@ import styles from '../styles/Common.module.css'
 import Head from 'next/head'
 import SnackBar from './SnackBar'
 import send from '../services/contactService'
-import Image from 'next/image'
 
 interface Props {
   ideasDescription: IdeasDesc[]
@@ -93,9 +92,8 @@ export default function Blog({
       let newData: Response
       const page = reset ? 1 : lastPage + 1
       const catFilter = changedCategory ? changedCategory : categoryFilter
-      const searchBarFilter = (changedSearchFilter || changedSearchFilter === ''
-        ? changedSearchFilter
-        : searchFilter
+      const searchBarFilter = (
+        changedSearchFilter || changedSearchFilter === '' ? changedSearchFilter : searchFilter
       ).toLocaleLowerCase()
 
       if (catFilter != 'All') {
@@ -121,10 +119,11 @@ export default function Blog({
           slug: idea.slug,
           descriptionText: idea.acf.idea_description,
           date: idea.date,
-          image: (idea._embedded['wp:featuredmedia'] &&
-          idea._embedded['wp:featuredmedia'][0] &&
-          idea._embedded['wp:featuredmedia'][0].source_url) ||
-        '',
+          image:
+            (idea._embedded['wp:featuredmedia'] &&
+              idea._embedded['wp:featuredmedia'][0] &&
+              idea._embedded['wp:featuredmedia'][0].source_url) ||
+            '',
         }))
         .filter((idea) => !idea.categories.includes('White-paper') && !idea.categories.includes('Jobs'))
 
@@ -174,7 +173,7 @@ export default function Blog({
     handleFetchIdeas(true, undefined, value)
   }, 600)
 
-  if (!!errorCode) {
+  if (errorCode) {
     return <Error statusCode={404} />
   }
 
@@ -189,20 +188,19 @@ export default function Blog({
         <meta name="description" content="Chacun d'entre nous a ses idées et le droit de les défendre" />
         <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/blog`} />
       </Head>
-      <Layout invertColors={false}>
-        <div className="relative pt-0 md:pt-28">
-          <div className="absolute mt-0 md:mt-28 bg-gray-400 top-0 left-0 right-0 bottom-0 z-back">
-            <Image src={Particles} layout="responsive" height={960} width={1920} quality={100} alt=""/>
-          </div>
-          <div className="p-6 md:p-16 lg:px-32 xl:px-48">
+      <Layout invertColors={false} displayedPage={'/blog'}>
+        <div className="pt-0 md:pt-28">
+          <div
+            style={{
+              backgroundImage: `url("${Particles}")`,
+              backgroundPosition: 'top',
+              backgroundSize: 'contain',
+              backgroundRepeat: 'no-repeat',
+            }}
+            className="p-6 md:p-16 lg:px-32 xl:px-48 bg-gray-400"
+          >
             <div className="mx-1 md:mx-2">
-              <div>
-                <h1
-                  className="text-orange-500 text-2xl leading-normal font-bold"
-                  dangerouslySetInnerHTML={{ __html: content.titre }}
-                />
-                <p className="py-6 text-xl leading-normal my-8 font-medium">{content.description}</p>
-              </div>
+              <h2 className="text-xl leading-normal mb-14 font-medium">{content.description}</h2>
               <SearchInput handleChange={handleSearchChanged} defaultValue={searchFilter} />
             </div>
             <CategoryTab

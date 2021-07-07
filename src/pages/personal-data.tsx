@@ -45,7 +45,7 @@ export default function personalData({ pageContent }: Props) {
 
 export async function getStaticProps() {
   const data = await getPersonalDataContent()
-  
+
   return {
     props: {
       pageContent: {
@@ -53,6 +53,6 @@ export async function getStaticProps() {
         content: data.content.rendered,
       },
     },
-    revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
+    revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
   }
 }

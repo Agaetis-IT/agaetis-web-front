@@ -8,16 +8,33 @@
   text-align: justify;
 }
 
-.landingpageContent h1, .landingpageContent h2, .landingpageContent h3, .landingpageContent h4, .landingpageContent h5, .landingpageContent h6 {
+.landingpageContent h1,
+.landingpageContent h2,
+.landingpageContent h3,
+.landingpageContent h4,
+.landingpageContent h5,
+.landingpageContent h6 {
   font-weight: revert;
   font-size: revert;
 }
 
-.landingpageContent blockquote, .landingpageContent dl, .landingpageContent dd, .landingpageContent h1, .landingpageContent h2, .landingpageContent h3, .landingpageContent h4, .landingpageContent h5, .landingpageContent h6, .landingpageContent hr, .landingpageContent figure, .landingpageContent pre {
+.landingpageContent blockquote,
+.landingpageContent dl,
+.landingpageContent dd,
+.landingpageContent h1,
+.landingpageContent h2,
+.landingpageContent h3,
+.landingpageContent h4,
+.landingpageContent h5,
+.landingpageContent h6,
+.landingpageContent hr,
+.landingpageContent figure,
+.landingpageContent pre {
   margin: revert;
 }
 
-.landingpageContent ol, .landingpageContent ul {
+.landingpageContent ol,
+.landingpageContent ul {
   list-style: revert;
   margin: revert;
   padding: revert;

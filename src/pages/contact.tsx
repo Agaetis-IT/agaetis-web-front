@@ -77,6 +77,6 @@ export async function getStaticProps() {
     props: {
       pageContent: await getContactPageContent(),
     },
-    revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
+    revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
   }
 }

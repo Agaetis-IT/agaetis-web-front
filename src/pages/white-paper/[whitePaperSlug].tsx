@@ -116,8 +116,8 @@ export async function getStaticPaths() {
   return {
     paths: whitePapers.map((whitePaper: WhitePaperAPI) => ({
       params: {
-        whitePaperSlug: whitePaper.slug
-      }
+        whitePaperSlug: whitePaper.slug,
+      },
     })),
     fallback: 'blocking',
   }
@@ -127,9 +127,9 @@ export async function getStaticProps({ params }) {
   const data = await getWhitePaperContent(params.whitePaperSlug)
 
   if (!data.acf) {
-    return { 
+    return {
       notFound: true,
-      revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
+      revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
     }
   }
 
@@ -137,6 +137,6 @@ export async function getStaticProps({ params }) {
     props: {
       pageContent: { ...data.acf, slug: data.slug },
     },
-    revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
+    revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
   }
 }

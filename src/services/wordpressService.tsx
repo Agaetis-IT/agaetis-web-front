@@ -81,16 +81,12 @@ export async function getAllLandingPages() {
 }
 
 export async function getLandingPageContent(offer: string) {
-  const { data } = await axios.get(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/wp-json/agaetis/api/v1/landingpages/${offer}`
-  )
+  const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/wp-json/agaetis/api/v1/landingpages/${offer}`)
   return data
 }
 
 export async function getWhitePaperContent(slug: string) {
-  const { data } = await axios.get(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/wp-json/agaetis/api/v1/white-papers/${slug}`
-  )
+  const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/wp-json/agaetis/api/v1/white-papers/${slug}`)
   return data
 }
 
@@ -110,9 +106,7 @@ export async function getCategoryOffers(slug: string) {
 }
 
 export async function getOfferLeaf(offer: string, slug: string) {
-  const { data } = await axios.get(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/wp-json/agaetis/api/v1/offres/${offer}/${slug}`
-  )
+  const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/wp-json/agaetis/api/v1/offres/${offer}/${slug}`)
   return data
 }
 
@@ -147,9 +141,9 @@ export async function getIdeasByPage(page?: number, search?: string) {
 
 export async function getIdeasByTag(slug: string, category?: string, page?: number, search?: string) {
   const res = await axios.get(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/wp-json/agaetis/api/v1/tags/${slug}?per_page=10${
-      page ? `&page=${page}` : ''
-    }${search ? `&search=${search}` : ''}${category ? `&cat_name=${category}` : ''}`
+    `${process.env.NEXT_PUBLIC_BASE_URL}/wp-json/agaetis/api/v1/tags/${slug}?per_page=10${page ? `&page=${page}` : ''}${
+      search ? `&search=${search}` : ''
+    }${category ? `&cat_name=${category}` : ''}`
   )
   return { data: res.data, pageCount: res.headers['x-wp-totalpages'] }
 }

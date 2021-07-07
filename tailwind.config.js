@@ -155,6 +155,7 @@ module.exports = {
       '56': '14rem',
       '64': '16rem',
       '80': '20rem',
+      '100': '25rem',
       '128': '32rem',
     },
     fontFamily: {
@@ -284,6 +285,7 @@ module.exports = {
       '11/12': '91.666667%',
       full: '100%',
       screen: '100vw',
+      fit: 'fit-content',
     }),
     zIndex: {
       auto: 'auto',

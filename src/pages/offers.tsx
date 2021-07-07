@@ -8,8 +8,8 @@ import Head from 'next/head'
 import Layout from '../components/Layout'
 import { FormInput } from '../yup/ContactFormValidation'
 import ContactSection from '../components/ContactSection'
-const Mask = '/images/hero_mask.svg'
-const Plus = '/icons/squared_plus_white.svg'
+const Mask = '../../public/images/hero_mask.svg'
+const Plus = '../../public/icons/squared_plus_white.svg'
 import clsx from 'clsx'
 import Link from 'next/link'
 import SnackBar from '../components/SnackBar'
@@ -81,7 +81,7 @@ export default function offers({ pageContent, allOffers }: Props) {
               <p className="text-white py-8 leading-normal text-sm">{pageContent.paragraph}</p>
               <div className="mx-auto p-8">
                 <div className="flex flex-row items-center">
-                  <img src={allOffers[selectedOffer].offers_image1} className="block h-16"></img>
+                  <img src={allOffers[selectedOffer].offers_image1} className="block h-16" alt="" />
                   <h2 className="ml-8 text-white">{allOffers[selectedOffer].title}</h2>
                 </div>
                 <p
@@ -93,7 +93,7 @@ export default function offers({ pageContent, allOffers }: Props) {
                   href={`/offers/${allOffers[selectedOffer].slug}?offer=${allOffers[selectedOffer].childrens[0].post_name}`}
                 >
                   <div className="flex flex-row items-center">
-                    En savoir plus <img src={Plus} className="ml-4 h-6" />
+                    En savoir plus <img src={Plus} className="ml-4 h-6" alt="" />
                   </div>
                 </Button>
               </div>
@@ -109,7 +109,7 @@ export default function offers({ pageContent, allOffers }: Props) {
                       setSelectedOffer(index)
                     }}
                   >
-                    <img src={offre.offers_image1} className="h-8 md:h-24"></img>
+                    <img src={offre.offers_image1} className="h-8 md:h-24" alt="" />
                     <h2 className="text-sm leading-normal">{offre.title}</h2>
                     <div
                       className={clsx(
@@ -185,6 +185,6 @@ export async function getStaticProps() {
       pageContent: JSON.parse(JSON.stringify(pageContent)),
       allOffers: allOffersChildrens,
     },
-    revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
+    revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
   }
 }

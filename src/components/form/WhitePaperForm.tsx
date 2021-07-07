@@ -8,7 +8,7 @@ import LoadingSpinner from '../LoadingSpinner'
 
 import CheckBox from '../CheckBox'
 import TextInput from '../TextInput'
-*/
+ */
 import { WhitepaperFormValues } from '../../yup/WhitePaperFormValidation'
 
 interface Props {
@@ -19,7 +19,7 @@ interface Props {
   handleNextStep(values: WhitepaperFormValues, title: string, file: string, token: string): void
 }
 
-export default function WhitePaperForm({}: Props) {
+export default function WhitePaperForm(_: Props) {
   return <></>
 }
 /*

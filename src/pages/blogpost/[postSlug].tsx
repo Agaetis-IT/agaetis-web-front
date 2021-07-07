@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import clsx from 'clsx'
-import { NextPageContext } from 'next'
 import Head from 'next/head'
 import { useMemo, useState } from 'react'
 
@@ -25,7 +24,6 @@ import { PostAPI } from '../../models/IdeasAPI'
 import { AuthorLink } from '../../types/AuthorContent'
 import SnackBar from '../../components/SnackBar'
 import send from '../../services/contactService'
-import Image from 'next/image'
 
 interface Props {
   data: IdeasContent
@@ -64,12 +62,12 @@ export default function BlogPost({ data, related, errorCode, meta }: Props) {
     setIsOpenedMoreIdeas(!isOpenedMoreIdeas)
   }
 
-  if (!!errorCode) {
+  if (errorCode) {
     return <Error statusCode={404} />
   }
 
   const relatedIdeas = useMemo(() => {
-    if (!!related) {
+    if (related) {
       return related.map((idea) => (
         <div
           key={idea.id}
@@ -106,14 +104,19 @@ export default function BlogPost({ data, related, errorCode, meta }: Props) {
         // @ts-ignore */}
         <meta name="twitter:data2" value={`${data.readTime} min.`} />
       </Head>
-      <Layout invertColors={false}>
-        <div className="relative pt-0 md:pt-28">
-          <div className="absolute mt-0 md:mt-28 bg-gray-400 top-0 left-0 right-0 bottom-0 z-back">
-            <Image src={Particles} layout="responsive" height={960} width={1920} quality={100}/>
-          </div>
-          <div className="py-4 md:p-16 lg:px-32 xl:px-48">
+      <Layout invertColors={false} displayedPage={'/blog'}>
+        <div className="pt-0 md:pt-28">
+          <div
+            style={{
+              backgroundImage: `url("${Particles}")`,
+              backgroundPosition: 'top',
+              backgroundSize: 'contain',
+              backgroundRepeat: 'no-repeat',
+            }}
+            className="py-4 md:p-16 lg:px-32 xl:px-48 bg-gray-400"
+          >
             <IdeaContent content={data} meta={meta} />
-            {!!related && related.length > 0 && (
+            {related && related.length > 0 && (
               <>
                 <div className="p-8 md:py-8 md:px-0">
                   <h2 className="text-center">Ces posts peuvent vous interesser</h2>
@@ -159,8 +162,8 @@ export async function getStaticPaths() {
   return {
     paths: posts.data.map((post: PostAPI) => ({
       params: {
-        postSlug: post.slug
-      }
+        postSlug: post.slug,
+      },
     })),
     fallback: 'blocking',
   }
@@ -181,9 +184,9 @@ export async function getStaticProps({ params }) {
       })
     }
 
-    if (!!data.acf || !!data.content) {
+    if (data.acf || data.content) {
       const related = []
-      if (!!data.acf) {
+      if (data.acf) {
         for (const idea of data.acf.related_ideas) {
           const data2 = await getIdeaBySlug(idea.post_name)
           related.push(data2)
@@ -227,21 +230,22 @@ export async function getStaticProps({ params }) {
               categories: data._embedded['wp:term'][0].map((category: { name: string }) => category.name) || [],
               slug: idea.slug || '',
               descriptionText: idea.acf.idea_description || '',
-              image: (idea._embedded['wp:featuredmedia'] &&
-                idea._embedded['wp:featuredmedia'][0] &&
-                idea._embedded['wp:featuredmedia'][0].source_url) ||
-              '',
+              image:
+                (idea._embedded['wp:featuredmedia'] &&
+                  idea._embedded['wp:featuredmedia'][0] &&
+                  idea._embedded['wp:featuredmedia'][0].source_url) ||
+                '',
             }
           }),
           meta: convertMetaAPItoMeta(meta, data._embedded),
         },
-        revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
+        revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
       }
     }
   }
 
   return {
     notFound: true,
-    revalidate: +(process.env.NEXT_PUBLIC_REVALIDATION_DELAY),
+    revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
   }
 }

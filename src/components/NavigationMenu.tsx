@@ -6,10 +6,11 @@ import styles from '../styles/NavigationMenu.module.css'
 
 interface Props {
   invertColors?: boolean
+  displayedPage?: string
   position: number
 }
 
-export default function NavigationMenu({ invertColors, position }: Props) {
+export default function NavigationMenu({ invertColors, position, displayedPage }: Props) {
   const pages = [
     ['Blog', '/blog'],
     ['Agaetis', '/agaetis'],
@@ -19,7 +20,7 @@ export default function NavigationMenu({ invertColors, position }: Props) {
 
   return (
     <div
-      className={`block bg-orange-500 md:bg-transparent flex-grow md:flex-grow-0 md:flex md-flex-shrink-0 md:items-center md:w-100 p-4 md:p-0 ${styles.navMenu}`}
+      className={`block bg-orange-500 md:bg-transparent flex-grow md:flex-grow-0 md:flex md-flex-shrink-0 md:items-center p-4 md:p-0 ${styles.navMenu}`}
     >
       <div className="text-xs font-medium leading-normal md:flex-grow">
         {pages.map((page) => (
@@ -30,6 +31,7 @@ export default function NavigationMenu({ invertColors, position }: Props) {
                 !invertColors || position > 200
                   ? `text-white md:text-black ${styles.menuLinkBlackUnderline}`
                   : `text-white ${styles.menuLinkWhiteUnderline}`,
+                  displayedPage === page[1] && `${styles.menuLinkUnderlineSelected}`,
                 'block md:inline-block p-2 py-3 md:p-3 md:px-6 xl:px-8 text-base leading-normal font-extralight'
               )}
             >

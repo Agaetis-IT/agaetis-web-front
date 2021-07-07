@@ -4,7 +4,7 @@
 }
 
 .fade:after {
-  content: "";
+  content: '';
   text-align: right;
   position: absolute;
   bottom: 0;

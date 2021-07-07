@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import Image from 'next/image'
 import IdeasContent from '../types/IdeasContent'
 
 const AccessTime = '/icons/access_time-24px.svg'
@@ -111,39 +110,37 @@ function IdeaContent({ content, meta }: Props) {
   return (
     <div className="md:mx-2">
       <div className="p-6 md:p-0">
-        <h1 className="text-orange-500 text-2xl leading-normal font-bold">Blog Agaetis</h1>
-        <p
-          className="py-3 md:py-6 text-xl leading-normal my-8 font-medium"
-          dangerouslySetInnerHTML={createMarkup(content.title)}
-        />
-        <div className="my-4 md:my-8">
+        <div className="mb-4 w-fit">
           <Link href="/blog" passHref={true}>
             <Button>
               <div className="flex flex-row items-center">
-                <div className="mr-4 text-none"><Image src={Back} width={52} height={52} layout="fixed" quality={100}/></div>
+                <img className="mr-4" src={Back} alt="" />
                 <span className="text-orange-500 text-xs leading-normal font-semibold">Retour au blog</span>
               </div>
             </Button>
           </Link>
         </div>
+        <p
+          className="md:py-6 text-xl leading-normal mt-4 md:my-4 font-medium"
+          dangerouslySetInnerHTML={createMarkup(content.title)}
+        />
       </div>
       <div className={`pb-4 bg-white shadow-md ${styles['md:round8']}`}>
-        <div className={`relative h-80 md:h-128 w-full object-cover ${styles['md:round8top']}`}>
-          <Image
-            src={meta.featuredImage ? meta.featuredImage : Placeholder}
-            className={styles['md:round8top']}
-            layout="fill"
-            objectFit="cover"
-            quality={100}
-          />
-        </div>
+        <div
+          style={{
+            backgroundImage: `url("${meta.featuredImage ? meta.featuredImage : Placeholder}")`,
+            backgroundPosition: 'center',
+            backgroundSize: 'cover',
+          }}
+          className={`h-80 md:h-100 w-full object-cover ${styles['md:round8top']}`}
+        />
         <div className="px-4 md:px-8 text-xs leading-normal text-orange-500 font-semibold flex items-center justify-between py-4">
           <span className="flex items-center">
             <span className="pr-8">
               {content.date.slice(8, 10)} / {content.date.slice(5, 7)} / {content.date.slice(0, 4)}
             </span>
             <span className="flex items-center pr-8">
-              <Image src={AccessTime} width={15} height={15} alt="read_time" layout="fixed" quality={100}/>
+              <img src={AccessTime} alt="Temps de lecture" width={15} height={15} />
               &nbsp;{content.readTime} min.
             </span>
           </span>
@@ -152,19 +149,19 @@ function IdeaContent({ content, meta }: Props) {
               href={`https://www.facebook.com/sharer/sharer.php?u=${location.split('#')[0]}`}
               className={`w-6 h-6 mr-4 self-center shadow-sm hover:shadow-md bg-white rounded-full ${commonStyles.smoothTransition} p-1`}
             >
-              <Image src={Facebook} className="w-4 h-4" width={24} height={24} quality={100}/>
+              <img src={Facebook} className="w-4 h-4" alt="Facebook" />
             </Button>
             <Button
               href={`https://www.linkedin.com/shareArticle?mini=true&url=${location.split('#')[0]}`}
               className={`w-6 h-6 mr-4 shadow-sm hover:shadow-md bg-white rounded-full ${commonStyles.smoothTransition} p-1`}
             >
-            <Image src={Linkedin} className="w-4 h-4" width={24} height={24} quality={100}/>
+              <img src={Linkedin} className="w-4 h-4" alt="LinkedIn" />
             </Button>
             <Button
               href={`https://twitter.com/intent/tweet?text=${location.split('#')[0]}`}
               className={`w-6 h-6 shadow-sm hover:shadow-md bg-white rounded-full ${commonStyles.smoothTransition} p-1`}
             >
-            <Image src={Twitter} className="w-4 h-4" width={24} height={24} quality={100}/>
+              <img src={Twitter} className="w-4 h-4" alt="Twitter" />
             </Button>
           </div>
         </div>
