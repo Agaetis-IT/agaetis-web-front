@@ -84,7 +84,7 @@ export default function BlogPost({ data, related, meta, errorCode }: Props) {
             style={{
               backgroundImage: `url("${Particles}")`,
               backgroundPosition: 'top',
-              backgroundSize: 'contain',
+              backgroundSize: '100% auto',
               backgroundRepeat: 'no-repeat',
             }}
             className="py-4 md:p-16 lg:px-32 xl:px-48 bg-gray-400"

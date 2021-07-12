@@ -36,7 +36,7 @@ export default function Landingpage({ pageContent, errorCode }: Props) {
           style={{
             backgroundImage: `url("${Particles}")`,
             backgroundPosition: 'top',
-            backgroundSize: 'contain',
+            backgroundSize: '100% auto',
             backgroundRepeat: 'no-repeat',
           }}
           className="p-6 md:p-16 xl:px-32 bg-gray-400"

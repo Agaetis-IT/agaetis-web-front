@@ -55,7 +55,7 @@ export default function agaetis({ pageContent, errorCode }: Props) {
             style={{
               backgroundImage: `url("${Particles}")`,
               backgroundPosition: 'top',
-              backgroundSize: 'contain',
+              backgroundSize: '100% auto',
               backgroundRepeat: 'no-repeat',
             }}
             className="p-6 md:p-16 lg:px-32 xl:px-48 bg-gray-400"

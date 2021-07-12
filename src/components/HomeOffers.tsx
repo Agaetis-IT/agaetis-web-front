@@ -30,7 +30,7 @@ export default function HomeOffers({ title, offers }: Props) {
         </h2>
         <div className="md:mt-12">
           {offers.map((offer, index) => {
-            const relatedPages = offer.related_landingpage!.split('/')
+            const relatedPages = offer.related_landingpage?.split('/')
 
             return (
               <div key={index} className="my-6" id={`offer-${index}`}>
@@ -44,7 +44,7 @@ export default function HomeOffers({ title, offers }: Props) {
                     )}
                   >
                     <div className="absolute bg-white h-20 w-20 shadow-md md:hidden rounded-full">
-                      <img src={offer.offers_image1} alt="Offre" className="rounded-full" />
+                      <img src={offer.offers_image1} alt="Offres" className="rounded-full" />
                     </div>
                     <div className="w-9/10 ml-22 md:ml-0 py-2 md:p-0">
                       <h4 className="text-gray-800 md:text-orange-500 text-xs md:text-sm leading-normal uppercase text-left font-bold">
@@ -64,7 +64,6 @@ export default function HomeOffers({ title, offers }: Props) {
                     </span>
                     <img
                       src={arrowR}
-                      alt=""
                       className={clsx(
                         'm-4 block md:hidden transform transition-all duration-500',
                         index === selectedOffer && isOpenedOffer ? '-rotate-90' : 'rotate-90'
@@ -117,7 +116,7 @@ export default function HomeOffers({ title, offers }: Props) {
           className="p-4 md:m-12 lg:m-16 rounded-lg backdrop-filter backdrop-blur-sm"
         >
           {offers.map((offer, index) => {
-            const relatedPages = offer.related_landingpage!.split('/')
+            const relatedPages = offer.related_landingpage?.split('/')
 
             return (
               <div key={index} className={clsx({ hidden: selectedOffer != index })}>

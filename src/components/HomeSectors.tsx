@@ -62,7 +62,6 @@ export default function HomeSectors({ title, sectors }: Props) {
                     </div>
                     <img
                       src={arrowR}
-                      alt=""
                       className={clsx(
                         'block md:hidden transform transition-all duration-500',
                         index === openedSector ? '-rotate-90' : 'rotate-90'

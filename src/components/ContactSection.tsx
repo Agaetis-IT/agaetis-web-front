@@ -38,7 +38,7 @@ export default function ContactSection() {
         <img
           className="self-center object-contain max-w-xxs h-auto py-4 px-16 md:px-0 md:pr-16 md:mx-0 md:mr-8 mb-4 md:my-0 md:border-white md:border-solid md:border-r"
           src={Logo}
-          alt="Logo"
+          alt="Logo Agaetis"
         />
         <div className="flex flex-col justify-center w-full">
           <BottomNav />

@@ -27,7 +27,6 @@ export default function Hero({ hero, values, subtitle }: Props) {
           <img
             className="absolute w-12 h-auto -top-5 left-0 xs:left-1/5 md:w-24 md:-top-10 md:left-15/100 xxl:left-1/5"
             src={Quote}
-            alt=""
           />
           <p className="inline italic" id="hero-quote">
             La data au service des hommes et du monde de demain !
@@ -35,7 +34,6 @@ export default function Hero({ hero, values, subtitle }: Props) {
           <img
             className="absolute w-12 h-auto top-5 right-0 transform rotate-180 xs:right-1/5 xs:top-0 md:w-24 md:top-2 md:right-15/100 xl:right-1/5 xxl:right-1/4"
             src={Quote}
-            alt=""
           />
         </div>
         <div className="bg-white h-px mb-4 w-16 md:mb-0 md:h-0 md:bg-transparent self-center" />

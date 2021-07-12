@@ -79,7 +79,7 @@ export default function ContactForm({ title, subText }: Props) {
         style={{
           backgroundImage: `url("${Particles}")`,
           backgroundPosition: 'bottom',
-          backgroundSize: 'contain',
+          backgroundSize: '100% auto',
           backgroundRepeat: 'no-repeat',
         }}
         className="p-6 md:p-12 lg:px-24 lg:p-16 bg-gray-400"

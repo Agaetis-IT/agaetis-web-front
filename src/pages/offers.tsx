@@ -52,7 +52,7 @@ export default function offers({ pageContent, allOffers, errorCode }: Props) {
               <p className="text-white py-8 leading-normal text-sm">{pageContent.paragraph}</p>
               <div className="mx-auto p-8">
                 <div className="flex flex-row items-center">
-                  <img src={allOffers[selectedOffer].offers_image1} className="block h-16" />
+                  <img src={allOffers[selectedOffer].offers_image1} className="block h-16" alt={allOffers[selectedOffer].title} />
                   <h2 className="ml-8 text-white">{allOffers[selectedOffer].title}</h2>
                 </div>
                 <p
@@ -79,7 +79,7 @@ export default function offers({ pageContent, allOffers, errorCode }: Props) {
                       setSelectedOffer(index)
                     }}
                   >
-                    <img src={offre.offers_image1} className="h-8 md:h-24" />
+                    <img src={offre.offers_image1} className="h-8 md:h-24" alt={offre.title} />
                     <h2 className="text-sm leading-normal">{offre.title}</h2>
                     <div
                       className={clsx(
