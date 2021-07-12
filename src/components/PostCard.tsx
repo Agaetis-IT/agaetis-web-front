@@ -17,7 +17,11 @@ export default function PostCard({ slug, title, image, description }: Props) {
     <Link href={`/blogpost/${slug}`}>
       <a className="text-black">
         <div className="bg-white sm:flex rounded-lg">
-          <img className="object-cover object-center w-full sm:w-3/10 h-56 rounded-t-lg sm:rounded-l-lg sm:rounded-r-none" src={image ? image : Placeholder} alt={title} />
+          <img
+            className="object-cover object-center w-full sm:w-3/10 h-56 rounded-t-lg sm:rounded-l-lg sm:rounded-r-none"
+            src={image ? image : Placeholder}
+            alt={title}
+          />
           <div className="py-6 px-8 h-56 w-full sm:w-7/10">
             <div className="h-1/3">
               <h3

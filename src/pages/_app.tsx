@@ -32,7 +32,6 @@ export default function MyApp({ Component, pageProps }) {
 
     window.$crisp = []
     window.CRISP_WEBSITE_ID = 'b8ecab4b-de6b-4c95-aa6b-be6f4cc09135'
-
     ;(function () {
       const d = document
       const s = d.createElement('script')
@@ -41,7 +40,7 @@ export default function MyApp({ Component, pageProps }) {
       s.async = true
       d.getElementsByTagName('head')[0].appendChild(s)
     })()
-    
+
     navigator.serviceWorker
       .getRegistrations()
       .then((registrations) => registrations.map((registration) => registration.unregister()))

@@ -76,7 +76,7 @@ export async function getStaticProps() {
   try {
     const { [0]: data, [1]: allOffersData } = await Promise.all([getIndexContent(), getAllOffers()])
 
-    return { 
+    return {
       props: {
         pageContent: JSON.parse(JSON.stringify(convertIndexContentAPItoContentAPI(data))),
         offers: allOffersData.map((offer: OfferAPI) => offer.acf).sort(compareOffer),

@@ -24,9 +24,7 @@ export default function Custom404() {
             }}
             className="mb-8 py-20 flex flex-col flex-auto flex-shrink-0 text-white text-center"
           >
-            <h1 className="text-4xl leading-normal font-semibold">
-              Page introuvable (HTTP 404)
-            </h1>
+            <h1 className="text-4xl leading-normal font-semibold">Page introuvable (HTTP 404)</h1>
             <h2 className="text-sm leading-normal font-normal my-6">La page que vous cherchez n'existe pas ou plus</h2>
             <Button
               href="/"
@@ -36,7 +34,7 @@ export default function Custom404() {
             </Button>
           </div>
           <div className="flex-shrink-0 w-full">
-            <ContactSection/>
+            <ContactSection />
           </div>
         </div>
       </Layout>

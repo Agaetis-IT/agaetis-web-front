@@ -32,11 +32,11 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   try {
     let selectedCategory = ''
-    const { [0]: categories, [1]: content, [2]: whitepapers } = await Promise.all([
-      getCategories(),
-      getIdeasPageContent(),
-      getAllWhitePapers(),
-    ])
+    const {
+      [0]: categories,
+      [1]: content,
+      [2]: whitepapers,
+    } = await Promise.all([getCategories(), getIdeasPageContent(), getAllWhitePapers()])
     let promiseResult: Response
 
     if (!params.categoryName) {
@@ -94,7 +94,7 @@ export async function getStaticProps({ params }) {
         hideSeeMore: promiseResult.pageCount <= 1,
       },
       revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
-    }  
+    }
   } catch (error) {
     return {
       props: {

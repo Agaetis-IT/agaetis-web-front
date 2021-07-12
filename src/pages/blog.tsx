@@ -9,12 +9,12 @@ export default Blog
 
 export async function getStaticProps() {
   try {
-    const { [0]: ideas, [1]: categories, [2]: content, [3]: whitepapers } = await Promise.all([
-      getIdeasByPage(),
-      getCategories(),
-      getIdeasPageContent(),
-      getAllWhitePapers(),
-    ])
+    const {
+      [0]: ideas,
+      [1]: categories,
+      [2]: content,
+      [3]: whitepapers,
+    } = await Promise.all([getIdeasByPage(), getCategories(), getIdeasPageContent(), getAllWhitePapers()])
 
     return {
       props: {

@@ -191,7 +191,10 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   try {
-    const { [0]: data, [1]: offers } = await Promise.all([getOfferContent(params.offerSlug), getCategoryOffers(params.offerSlug)])
+    const { [0]: data, [1]: offers } = await Promise.all([
+      getOfferContent(params.offerSlug),
+      getCategoryOffers(params.offerSlug),
+    ])
     const pageContent = { ...data.acf, slug: data.slug }
 
     if (!data.acf) {
@@ -226,7 +229,7 @@ export async function getStaticProps({ params }) {
         offers: offerChildrens,
       },
       revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
-    }  
+    }
   } catch (error) {
     return {
       props: {

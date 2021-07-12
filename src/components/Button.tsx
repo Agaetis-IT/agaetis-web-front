@@ -11,16 +11,7 @@ interface Props {
   onClick?(e: React.MouseEvent): void
 }
 
-export default function Button({
-  href,
-  htmlFor,
-  children,
-  component,
-  onClick,
-  className,
-  type,
-  disabled,
-}: Props) {
+export default function Button({ href, htmlFor, children, component, onClick, className, type, disabled }: Props) {
   const ComponentProp = component || (href ? 'a' : 'button')
 
   return (
@@ -30,10 +21,7 @@ export default function Button({
       htmlFor={htmlFor}
       onClick={!disabled ? onClick : undefined}
       type={type}
-      className={clsx(
-        disabled ? 'cursor-default' : 'cursor-pointer',
-        className
-      )}
+      className={clsx(disabled ? 'cursor-default' : 'cursor-pointer', className)}
     >
       {children}
     </ComponentProp>

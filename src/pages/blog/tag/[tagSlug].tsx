@@ -28,12 +28,12 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   try {
-    const { [0]: ideas, [1]: categories, [2]: content, [3]: whitepapers } = await Promise.all([
-      getIdeasByTag(params.tagSlug),
-      getCategories(),
-      getIdeasPageContent(),
-      getAllWhitePapers(),
-    ])
+    const {
+      [0]: ideas,
+      [1]: categories,
+      [2]: content,
+      [3]: whitepapers,
+    } = await Promise.all([getIdeasByTag(params.tagSlug), getCategories(), getIdeasPageContent(), getAllWhitePapers()])
 
     content.description = `Découvrez nos articles avec le tag #${params.tagSlug}.`
 
@@ -67,7 +67,7 @@ export async function getStaticProps({ params }) {
         tagFilter: params.tagSlug.charAt(0).toUpperCase() + params.tagSlug.slice(1),
       },
       revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
-    }  
+    }
   } catch (error) {
     return {
       props: {

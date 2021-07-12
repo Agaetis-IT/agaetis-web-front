@@ -124,7 +124,11 @@ function PostContent({ content, meta }: Props) {
         />
       </div>
       <div className="pb-4 bg-white shadow-md md:rounded-lg">
-        <img className="object-center h-80 md:h-100 w-full object-cover md:rounded-t-lg" src={meta.featuredImage ? meta.featuredImage : Placeholder} alt={content.title} />
+        <img
+          className="object-center h-80 md:h-100 w-full object-cover md:rounded-t-lg"
+          src={meta.featuredImage ? meta.featuredImage : Placeholder}
+          alt={content.title}
+        />
         <div className="px-4 md:px-8 text-xs leading-normal text-orange-500 font-semibold flex items-center justify-between py-4">
           <span className="flex items-center">
             <span className="pr-8">

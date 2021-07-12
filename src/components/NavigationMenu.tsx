@@ -19,7 +19,9 @@ export default function NavigationMenu({ displayedPage }: Props) {
 
   return (
     <div
-      className={clsx('block shadow-md md:shadow-none bg-white md:flex flex-shrink-0 md:items-center p-4 md:p-0 z-1000 left-0 right-0 absolute md:relative')}
+      className={clsx(
+        'block shadow-md md:shadow-none bg-white md:flex flex-shrink-0 md:items-center p-4 md:p-0 z-1000 left-0 right-0 absolute md:relative'
+      )}
     >
       <div className="text-xs font-medium leading-normal">
         {pages.map((page) => (

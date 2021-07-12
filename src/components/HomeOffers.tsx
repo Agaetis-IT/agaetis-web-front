@@ -35,7 +35,9 @@ export default function HomeOffers({ title, offers }: Props) {
                 <div
                   className={clsx(
                     `flex items-center justify-between bg-white shadow-md md:shadow-none h-20 overflow-hidden transition-all duration-500 md:rounded-none`,
-                    index === selectedOffer && isOpenedOffer ? 'rounded-tr-lg rounded-tl-6xl rounded-bl-6xl' : 'rounded-r-lg rounded-l-6xl'
+                    index === selectedOffer && isOpenedOffer
+                      ? 'rounded-tr-lg rounded-tl-6xl rounded-bl-6xl'
+                      : 'rounded-r-lg rounded-l-6xl'
                   )}
                 >
                   <div className="absolute bg-white h-20 w-20 shadow-md md:hidden rounded-full">
@@ -105,7 +107,11 @@ export default function HomeOffers({ title, offers }: Props) {
         </div>
       </div>
       <div className="relative hidden md:block bg-gray-800 w-full md:w-1/2">
-        <img className="absolute object-cover h-full w-full object-center" src={offers[selectedOffer].image} alt={offers[selectedOffer].title} />
+        <img
+          className="absolute object-cover h-full w-full object-center"
+          src={offers[selectedOffer].image}
+          alt={offers[selectedOffer].title}
+        />
         <div
           style={{ backgroundColor: 'rgba(0,0,0,0.4)' }}
           className="p-4 md:m-12 lg:m-16 rounded-lg backdrop-filter backdrop-blur-sm"

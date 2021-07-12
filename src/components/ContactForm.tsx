@@ -54,7 +54,6 @@ export default function ContactForm({ title, subText }: Props) {
     }
   }
 
-
   const { register, watch, control, clearErrors, ...otherFormProps } = useForm<FormInput>({
     mode: 'onBlur',
     resolver: yupResolver(footerContactSchema),
@@ -190,7 +189,10 @@ export default function ContactForm({ title, subText }: Props) {
               )}
             </div>
             <Button
-              className={clsx('flex flex-row justify-center uppercase rounded-full text-xss leading-tight py-2 px-6 text-white font-semibold mx-auto shadow-md mt-8', isSubmitting || isSuccessfullySubmitted ? 'bg-gray-500' : 'bg-orange-500')}
+              className={clsx(
+                'flex flex-row justify-center uppercase rounded-full text-xss leading-tight py-2 px-6 text-white font-semibold mx-auto shadow-md mt-8',
+                isSubmitting || isSuccessfullySubmitted ? 'bg-gray-500' : 'bg-orange-500'
+              )}
               type="submit"
               disabled={isSubmitting || isSuccessfullySubmitted}
             >
@@ -199,8 +201,11 @@ export default function ContactForm({ title, subText }: Props) {
                   <LoadingSpinner color="#ffffff" size={12} />
                   Envoi en cours
                 </div>
-              ) : isSuccessfullySubmitted ? 'Envoi effectué' : 'Envoyer'
-              }
+              ) : isSuccessfullySubmitted ? (
+                'Envoi effectué'
+              ) : (
+                'Envoyer'
+              )}
             </Button>
           </form>
         </FormProvider>

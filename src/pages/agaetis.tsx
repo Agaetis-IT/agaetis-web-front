@@ -44,8 +44,12 @@ export default function agaetis({ pageContent, errorCode }: Props) {
             }}
             className="p-6 md:p-16 lg:px-32 xl:px-48"
           >
-            <h1 className={`py-2 md:py-6 text-2xl font-bold leading-normal text-orange-500 ${styles.headerText}`}>{pageContent.title}</h1>
-            <h2 className={`py-2 md:py-6 text-md leading-normal text-white ${styles.headerText}`}>{pageContent.paragraph}</h2>
+            <h1 className={`py-2 md:py-6 text-2xl font-bold leading-normal text-orange-500 ${styles.headerText}`}>
+              {pageContent.title}
+            </h1>
+            <h2 className={`py-2 md:py-6 text-md leading-normal text-white ${styles.headerText}`}>
+              {pageContent.paragraph}
+            </h2>
           </div>
           <div
             style={{
@@ -57,11 +61,7 @@ export default function agaetis({ pageContent, errorCode }: Props) {
             className="p-6 md:p-16 lg:px-32 xl:px-48 bg-gray-400"
           >
             {pageContent.questions.map((question) => (
-              <AgaetisDialog
-                key={question.index}
-                title={question.question}
-                description={question.answer}
-              />
+              <AgaetisDialog key={question.index} title={question.question} description={question.answer} />
             ))}
           </div>
           <div
@@ -80,7 +80,13 @@ export default function agaetis({ pageContent, errorCode }: Props) {
               <h2 className="text-lg font-bold mb-4 text-white">{pageContent.numbersTitle}</h2>
               <div className="flex flex-col md:flex-row justify-around p-8">
                 {pageContent.numbers.map((number, index) => (
-                  <div key={number.index} className={clsx('text-center md:py-0 p-6', index && 'border-white md:border-l md:border-t-0 border-t')}>
+                  <div
+                    key={number.index}
+                    className={clsx(
+                      'text-center md:py-0 p-6',
+                      index && 'border-white md:border-l md:border-t-0 border-t'
+                    )}
+                  >
                     <h3 className="uppercase text-sm font-bold leading-normal text-white">{number.title}</h3>
                     <h3 className="text-5xl font-bold leading-normal text-orange-500 my-2 md:my-4">{number.data}</h3>
                     <p className="text-sm leading-normal text-white">{number.desc}</p>
@@ -100,10 +106,10 @@ export async function getStaticProps() {
   try {
     return {
       props: {
-        pageContent: JSON.parse(JSON.stringify(convertAgaetisAPItoContent(await getAgaetisContent())))
-      }, 
+        pageContent: JSON.parse(JSON.stringify(convertAgaetisAPItoContent(await getAgaetisContent()))),
+      },
       revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
-    }  
+    }
   } catch (error) {
     return {
       props: {

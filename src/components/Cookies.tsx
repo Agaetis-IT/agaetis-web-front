@@ -23,10 +23,14 @@ export default function Cookies() {
 
   return (
     <div
-      className={clsx('bg-gray-800 text-white py-2 px-6 md:px-16 lg:px-32 xl:px-48 flex flex-col md:flex-row justify-center md:justify-between fixed bottom-0 left-0 right-0 z-1000', { hidden: !isOpenedCookies })}
+      className={clsx(
+        'bg-gray-800 text-white py-2 px-6 md:px-16 lg:px-32 xl:px-48 flex flex-col md:flex-row justify-center md:justify-between fixed bottom-0 left-0 right-0 z-1000',
+        { hidden: !isOpenedCookies }
+      )}
     >
       <p className="text-xs self-center max-w-sm leading-normal text-center md:text-left">
-        Ce site utilise des cookies à des fins de mesures d'audience, ainsi que pour améliorer votre expérience de navigation
+        Ce site utilise des cookies à des fins de mesures d'audience, ainsi que pour améliorer votre expérience de
+        navigation
       </p>
       <div className="flex mt-4 md:m-0 self-center">
         <Button

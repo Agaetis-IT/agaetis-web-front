@@ -24,21 +24,26 @@ export default function Hero({ hero, values, subtitle }: Props) {
     >
       <div className={`flex flex-col p-6 md:p-0 md:my-6 py-16 text-white w-full`}>
         <div className="relative pb-4 md:pb-16 text-center text-sm md:text-3xl md:mx-16">
-          <img className="absolute w-12 h-auto -top-5 left-0 xs:left-1/5 md:w-24 md:-top-10 md:left-15/100 xxl:left-1/5" src={Quote} alt="" />
+          <img
+            className="absolute w-12 h-auto -top-5 left-0 xs:left-1/5 md:w-24 md:-top-10 md:left-15/100 xxl:left-1/5"
+            src={Quote}
+            alt=""
+          />
           <p className="inline italic" id="hero-quote">
             La data au service des hommes et du monde de demain !
           </p>
-          <img className="absolute w-12 h-auto top-5 right-0 transform rotate-180 xs:right-1/5 xs:top-0 md:w-24 md:top-2 md:right-15/100 xl:right-1/5 xxl:right-1/4" src={Quote} alt="" />
+          <img
+            className="absolute w-12 h-auto top-5 right-0 transform rotate-180 xs:right-1/5 xs:top-0 md:w-24 md:top-2 md:right-15/100 xl:right-1/5 xxl:right-1/4"
+            src={Quote}
+            alt=""
+          />
         </div>
         <div className="bg-white h-px mb-4 w-16 md:mb-0 md:h-0 md:bg-transparent self-center" />
         <div className="flex flex-col md:flex-row justify-center text-white md:mx-16">
           <div className="self-center md:pr-16 xl:pr-24">
             <h1 className="flex flex-row md:flex-col justify-center pb-4 md:pb-0 md:inline md:mr-auto">
               {values.map((value) => (
-                <div
-                  className={`text-base md:text-6xl leading-tight font-bold ${styles.hoverEffect} px-4`}
-                  key={value}
-                >
+                <div className={`text-base md:text-6xl leading-tight font-bold ${styles.hoverEffect} px-4`} key={value}>
                   {value}
                 </div>
               ))}

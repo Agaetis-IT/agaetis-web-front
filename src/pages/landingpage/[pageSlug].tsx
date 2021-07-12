@@ -85,7 +85,7 @@ export async function getStaticProps({ params }) {
         pageContent,
       },
       revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
-    }  
+    }
   } catch (error) {
     return {
       props: {

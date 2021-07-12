@@ -11,10 +11,8 @@ interface Props {
 export default function Layout({ children, displayedPage }: Props) {
   return (
     <div>
-      <Header displayedPage={displayedPage}/>
-      <div className="md:pt-30">
-        {children}
-      </div>
+      <Header displayedPage={displayedPage} />
+      <div className="md:pt-30">{children}</div>
       <Cookies />
     </div>
   )

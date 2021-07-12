@@ -39,9 +39,7 @@ function solutions({ pageContent, errorCode }: Props) {
         <div className="mx-auto px-0">
           <div className="p-0 md:p-12 lg:px-24 lg:p-16 pb-0">
             <div className="p-0 md:px-8 mt-0 md:mt-20">
-              <h2 className="text-center px-4 md:py-6 md:px-0 text-md leading-normal">
-                {pageContent.description}
-              </h2>
+              <h2 className="text-center px-4 md:py-6 md:px-0 text-md leading-normal">{pageContent.description}</h2>
             </div>
           </div>
           <SolutionTab tabs={pageContent.tabs} />
@@ -54,7 +52,7 @@ function solutions({ pageContent, errorCode }: Props) {
 
 export async function getStaticProps() {
   try {
-    return { 
+    return {
       props: {
         pageContent: JSON.parse(JSON.stringify(await getSolutionsPageContent())),
       },
