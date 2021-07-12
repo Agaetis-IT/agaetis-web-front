@@ -112,7 +112,7 @@ function PostContent({ content, meta }: Props) {
           <Link href="/blog" passHref>
             <Button>
               <div className="flex flex-row items-center">
-                <img className="mr-4" src={Back} alt="" />
+                <img className="mr-4" src={Back} />
                 <span className="text-orange-500 text-xs leading-normal font-semibold">Retour au blog</span>
               </div>
             </Button>
