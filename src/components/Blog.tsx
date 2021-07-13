@@ -215,7 +215,6 @@ export default function Blog({
                 )}
               </Button>
             )}
-
             {false && whitePapers && whitePapers.length > 0 && (
               <div id="whitepapers" className="text-center w-full mx-auto p-6 md:py-12 bg-gray-400 my-8 underline">
                 <h2 className="text-2xl leading-normal mt-4">Livres blancs</h2>
