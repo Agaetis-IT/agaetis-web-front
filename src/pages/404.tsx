@@ -22,13 +22,13 @@ export default function Custom404() {
               backgroundPosition: 'bottom',
               backgroundSize: '100%',
             }}
-            className="mb-8 py-20 flex flex-col flex-auto flex-shrink-0 text-white text-center"
+            className="py-20 flex flex-col flex-auto flex-shrink-0 text-white text-center"
           >
             <h1 className="text-4xl leading-normal font-semibold">Page introuvable (HTTP 404)</h1>
             <h2 className="text-sm leading-normal font-normal my-6">La page que vous cherchez n'existe pas ou plus</h2>
             <Button
               href="/"
-              className="flex flex-row justify-center bg-black text-white py-2 uppercase rounded-full text-xss leading-tight font-semibold w-48 mx-auto"
+              className="flex flex-row justify-center bg-black hover:bg-gray-800 text-white py-2 uppercase rounded-full text-xss leading-tight font-semibold w-48 mx-auto shadow-md hover:shadow-lg transition-all duration-250"
             >
               Retourner à l'accueil
             </Button>

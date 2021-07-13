@@ -330,6 +330,9 @@ module.exports = {
         '1/5': '20%',
         '15/100': '15%',
       },
+      boxShadow: {
+        'md-center': '0 0 6px 1px rgba(0, 0, 0, 0.1), 0 0 4px 1px rgba(0, 0, 0, 0.06)',
+      },
     },
   },
   variants: {

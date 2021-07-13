@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 import NavigationMenu from './NavigationMenu'
 
-const logoAgaetisOrange = '/images/logo-agaetis-hor-p164-rgb-150.png'
+const orangeLogo = '/images/logo-agaetis-hor-p164-rgb-150.png'
 
 interface Props {
   displayedPage?: string
@@ -60,7 +60,7 @@ export default function Header({ className, displayedPage }: Props) {
             <a className="flex items-center self-center">
               <img
                 className={clsx('transition-all duration-250', position > 500 && 'md:w-32', 'w-40')}
-                src={logoAgaetisOrange}
+                src={orangeLogo}
                 alt="Logo Agaetis"
               />
             </a>

@@ -33,7 +33,7 @@ export default function ContactSection() {
   ]
 
   return (
-    <>
+    <div className="shadow-md-center">
       <div className="bg-orange-500 p-6 md:p-16 lg:px-32 xl:px-48 flex flex-col md:flex-row text-white text-center md:text-left">
         <img
           className="self-center object-contain max-w-xxs h-auto py-4 px-16 md:px-0 md:pr-16 md:mx-0 md:mr-8 mb-4 md:my-0 md:border-white md:border-solid md:border-r"
@@ -76,6 +76,6 @@ export default function ContactSection() {
           </Button>
         </div>
       </div>
-    </>
+    </div>
   )
 }

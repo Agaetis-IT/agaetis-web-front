@@ -148,16 +148,16 @@ export default function Author({ ideasDescription, author, content, hasMore, err
             </div>
             {isVisibleSeeMore && (
               <Button
-                className="flex flex-row justify-center uppercase rounded-full bg-orange-500 text-xss leading-normal py-2 px-6 text-white font-semibold mx-auto shadow-md"
+                className="flex flex-row justify-center uppercase rounded-full bg-orange-500 hover:bg-orange-400 text-xss leading-normal py-2 px-6 text-white font-semibold mx-auto shadow-md hover:shadow-lg transition-all duration-250"
                 onClick={() => handleFetchIdeas()}
               >
                 {isLoadingPosts ? (
                   <div className="flex flex-row justify-center">
                     <LoadingSpinner color="#ffffff" size={12} />
-                    Chargement
+                    <span className="leading-tight">Chargement</span>
                   </div>
                 ) : (
-                  'Voir plus'
+                  <span className="leading-tight">Voir plus</span>
                 )}
               </Button>
             )}

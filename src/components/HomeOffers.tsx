@@ -37,16 +37,17 @@ export default function HomeOffers({ title, offers }: Props) {
                 <Button onClick={() => handleOfferChange(index)} className="w-full">
                   <div
                     className={clsx(
-                      `flex items-center justify-between bg-white shadow-md md:shadow-none h-20 overflow-hidden transition-all duration-500 md:rounded-none`,
+                      `flex items-center justify-between bg-white md:rounded-lg shadow-md md:shadow-none h-20 overflow-hidden transition-all duration-500`,
                       index === selectedOffer && isOpenedOffer
                         ? 'rounded-tr-lg rounded-tl-6xl rounded-bl-6xl'
-                        : 'rounded-r-lg rounded-l-6xl'
+                        : 'rounded-r-lg rounded-l-6xl',
+                      index === selectedOffer && 'bg-gray-200'
                     )}
                   >
                     <div className="absolute bg-white h-20 w-20 shadow-md md:hidden rounded-full">
                       <img src={offer.offers_image1} alt="Offres" className="rounded-full" />
                     </div>
-                    <div className="w-9/10 ml-22 md:ml-0 py-2 md:p-0">
+                    <div className="w-9/10 ml-22 md:ml-0 py-2 md:py-0 md:pl-6">
                       <h4 className="text-gray-800 md:text-orange-500 text-xs md:text-sm leading-normal uppercase text-left font-bold">
                         {offer.title}
                       </h4>
@@ -56,7 +57,7 @@ export default function HomeOffers({ title, offers }: Props) {
                     </div>
                     <span
                       className={clsx(
-                        'hidden md:block w-1/10 m-4',
+                        'hidden md:block w-1/10 m-4 transition-all duration-250',
                         index === selectedOffer ? 'text-orange-500 font-bold text-xl' : 'text-gray-500'
                       )}
                     >
@@ -91,7 +92,7 @@ export default function HomeOffers({ title, offers }: Props) {
                         passHref
                       >
                         <Button
-                          className="flex flex-row justify-center w-48 bg-white text-orange-500 uppercase mx-auto rounded-full px-6 py-2 mt-8 shadow-md font-semibold text-xs leading-tight"
+                          className="flex flex-row justify-center w-48 bg-white hover:bg-gray-200 text-orange-500 uppercase mx-auto rounded-full px-6 py-2 mt-8 shadow-md font-semibold text-xs leading-tight hover:shadow-lg transition-all duration-250"
                           href={`/landingpages/${relatedPages[relatedPages.length - 2]}`}
                         >
                           En savoir plus
@@ -127,7 +128,7 @@ export default function HomeOffers({ title, offers }: Props) {
                     passHref
                   >
                     <Button
-                      className="flex flex-row justify-center w-48 text-orange-500 bg-white uppercase mx-auto rounded-full px-6 py-2 mt-8 shadow-md font-semibold text-xs leading-tight"
+                      className="flex flex-row justify-center w-48 text-orange-500 bg-white hover:bg-gray-200 uppercase mx-auto rounded-full px-6 py-2 mt-8 shadow-md font-semibold text-xs leading-tight hover:shadow-lg transition-all duration-250"
                       href={`/landingpages/${relatedPages[relatedPages.length - 2]}`}
                     >
                       En savoir plus

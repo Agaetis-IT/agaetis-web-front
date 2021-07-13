@@ -89,19 +89,19 @@ export default function ContactForm({ title, subText }: Props) {
           <div className="flex flex-row items-center">
             <Button
               href="https://fr-fr.facebook.com/AgaetisIT"
-              className="w-6 h-6 mr-4 self-center shadow-sm hover:shadow-md bg-white rounded-full transition-all duration-250 p-1 text-none"
+              className="w-6 h-6 mr-4 self-center shadow-sm hover:shadow-md bg-white hover:bg-gray-200 rounded-full transition-all duration-250 p-1 text-none"
             >
               <img src={Facebook} className="w-4 h-4" alt="Facebook" />
             </Button>
             <Button
               href="https://www.linkedin.com/company/agaetis/"
-              className="w-6 h-6 mr-4 shadow-sm hover:shadow-md bg-white rounded-full transition-all duration-250 p-1 text-none"
+              className="w-6 h-6 mr-4 shadow-sm hover:shadow-md bg-white hover:bg-gray-200 rounded-full transition-all duration-250 p-1 text-none"
             >
               <img src={Linkedin} className="w-4 h-4" alt="LinkedIn" />
             </Button>
             <Button
               href="https://twitter.com/agaetisit"
-              className="w-6 h-6 shadow-sm hover:shadow-md bg-white rounded-full transition-all duration-250 p-1 text-none"
+              className="w-6 h-6 shadow-sm hover:shadow-md bg-white hover:bg-gray-200 rounded-full transition-all duration-250 p-1 text-none"
             >
               <img src={Twitter} className="w-4 h-4" alt="Twitter" />
             </Button>
@@ -162,7 +162,7 @@ export default function ContactForm({ title, subText }: Props) {
               {...register('attachments')}
               onChange={onAttachmentsChange}
               wrapperClassName="my-8"
-              className="block shadow-md py-2 px-8 rounded-full text-xs leading-tight text-white font-semibold uppercase"
+              className="block shadow-md py-2 px-8 rounded-full text-xs leading-tight text-white font-semibold uppercase hover:shadow-lg transition-all duration-250"
               fileCount={watchAttachments?.length}
               fileNames={watchAttachments?.map((file) => file.fileName)}
             />
@@ -190,8 +190,8 @@ export default function ContactForm({ title, subText }: Props) {
             </div>
             <Button
               className={clsx(
-                'flex flex-row justify-center uppercase rounded-full text-xss leading-tight py-2 px-6 text-white font-semibold mx-auto shadow-md mt-8',
-                isSubmitting || isSuccessfullySubmitted ? 'bg-gray-500' : 'bg-orange-500'
+                'flex flex-row justify-center uppercase rounded-full text-xss leading-tight py-2 px-6 text-white font-semibold mx-auto shadow-md mt-8 hover:shadow-lg transition-all duration-250',
+                isSubmitting || isSuccessfullySubmitted ? 'bg-gray-500' : 'bg-orange-500 hover:bg-orange-400'
               )}
               type="submit"
               disabled={isSubmitting || isSuccessfullySubmitted}

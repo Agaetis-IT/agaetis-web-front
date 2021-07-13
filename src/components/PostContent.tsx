@@ -142,19 +142,19 @@ function PostContent({ content, meta }: Props) {
           <div className="flex flex-row items-center">
             <Button
               href={`https://www.facebook.com/sharer/sharer.php?u=${location.split('#')[0]}`}
-              className="w-6 h-6 mr-4 self-center shadow-sm hover:shadow-md bg-white rounded-full transition-all duration-250 p-1"
+              className="w-6 h-6 mr-4 self-center shadow-sm hover:shadow-md bg-white hover:bg-gray-200 rounded-full transition-all duration-250 p-1"
             >
               <img src={Facebook} className="w-4 h-4" alt="Facebook" />
             </Button>
             <Button
               href={`https://www.linkedin.com/shareArticle?mini=true&url=${location.split('#')[0]}`}
-              className="w-6 h-6 mr-4 shadow-sm hover:shadow-md bg-white rounded-full transition-all duration-250 p-1"
+              className="w-6 h-6 mr-4 shadow-sm hover:shadow-md bg-white hover:bg-gray-200 rounded-full transition-all duration-250 p-1"
             >
               <img src={Linkedin} className="w-4 h-4" alt="LinkedIn" />
             </Button>
             <Button
               href={`https://twitter.com/intent/tweet?text=${location.split('#')[0]}`}
-              className="w-6 h-6 shadow-sm hover:shadow-md bg-white rounded-full transition-all duration-250 p-1"
+              className="w-6 h-6 shadow-sm hover:shadow-md bg-white hover:bg-gray-200 rounded-full transition-all duration-250 p-1"
             >
               <img src={Twitter} className="w-4 h-4" alt="Twitter" />
             </Button>
