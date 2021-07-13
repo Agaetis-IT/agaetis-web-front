@@ -1,4 +1,5 @@
 import clsx from 'clsx'
+
 import { Conviction } from '../types/IndexContent'
 
 interface Props {

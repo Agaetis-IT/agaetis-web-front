@@ -1,8 +1,8 @@
-import { getAllAuthors, getAuthorById, getAuthorPageContent, getIdeasByAuthor } from '../../services/wordpressService'
-import { PostAPI } from '../../models/IdeasAPI'
-
 import Author from '../../components/Author'
+
 import { AuthorAPI } from '../../types/AuthorContent'
+import { getAllAuthors, getAuthorById, getAuthorPageContent, getIdeasByAuthor } from '../../services/wordpressService'
+import { PostAPI } from '../../models/PostAPI'
 
 export async function getStaticPaths() {
   const authors = await getAllAuthors()

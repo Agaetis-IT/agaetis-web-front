@@ -1,7 +1,7 @@
-import { PostAPI } from '../models/IdeasAPI'
+import { PostAPI } from '../models/PostAPI'
 import { AuthorLink } from './AuthorContent'
 
-export interface IdeasDesc {
+export interface PostDesc {
   id: number
   slug: string
   title: string
@@ -12,7 +12,7 @@ export interface IdeasDesc {
   image?: string
 }
 
-export interface RelatedIdeas {
+export interface RelatedPost {
   ID: number
   category: number[]
   post_title: string
@@ -24,13 +24,13 @@ export interface Category {
   categoryName: string
 }
 
-export interface IdeasPageContent {
+export interface BlogPageContent {
   titre: string
   description: string
   white_paper_description: string
 }
 
-export default interface IdeasContent {
+export default interface PostPageContent {
   title: string
   date: string
   authors: AuthorLink[]

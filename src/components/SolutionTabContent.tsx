@@ -7,7 +7,7 @@ interface Props {
   className: string
 }
 
-export default function SoluceTabContent({ content, className }: Props) {
+export default function SolutionTabContent({ content, className }: Props) {
   return (
     <>
       <div className="md:max-w-full mx-auto p-0 md:px-8 xl:px-32">

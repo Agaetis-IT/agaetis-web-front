@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/camelcase */
-
 import SolutionsAPI from '../models/SolutionsAPI'
 
 export interface SolutionsContent {

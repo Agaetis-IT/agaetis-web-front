@@ -147,15 +147,3 @@
   margin-top: 10px;
   text-align: center;
 }
-
-@media (min-width: 820px) {
-  .md\:round8top {
-    border-radius: 8px 8px 0 0;
-  }
-}
-
-@media (min-width: 820px) {
-  .md\:round8 {
-    border-radius: 8px;
-  }
-}

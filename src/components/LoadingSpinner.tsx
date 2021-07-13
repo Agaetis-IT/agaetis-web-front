@@ -1,5 +1,3 @@
-import styles from '../styles/LoadingSpinner.module.css'
-
 interface Props {
   color: string
   size: number
@@ -7,9 +5,9 @@ interface Props {
 
 export default function LoadingSpinner({ color, size }: Props) {
   return (
-    <div className={`${styles.spinner}`}>
+    <div className="mr-1 -mb-spin">
       <div
-        className={`${styles.spinnerIcon} border-2 rounded-full container border-transparent`}
+        className="animate-spin border-2 rounded-full container border-transparent"
         style={{ borderTopColor: color, borderLeftColor: color, width: size, height: size }}
       />
     </div>

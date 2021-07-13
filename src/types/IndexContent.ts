@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/camelcase */
-
 import IndexContentAPI from '../models/IndexAPI'
 
 export default interface IndexContent {

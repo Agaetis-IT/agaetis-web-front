@@ -1,10 +1,7 @@
-import clsx from 'clsx'
 import { useEffect } from 'react'
 
 const Cross = '/images/cross-icon-png-1.png'
 const Tick = '/images/Flat_tick_icon.svg.png'
-
-import styles from '../styles/SnackBar.module.css'
 
 interface Props {
   message: string
@@ -14,7 +11,7 @@ interface Props {
   onClose?: () => void
 }
 
-export default function SnackBar({ message, isError, timeoutDuration = 3000, open, onClose }: Props) {
+export default function SnackBar({ message, isError, timeoutDuration = 7000, open, onClose }: Props) {
   useEffect(() => {
     if (open !== undefined) {
       setTimeout(() => {
@@ -30,8 +27,8 @@ export default function SnackBar({ message, isError, timeoutDuration = 3000, ope
   }
 
   return (
-    <div className={clsx('flex flex-row bg-white p-4 rounded-lg shadow-md fixed', styles.snackBarModal)}>
-      <img className="w-8 h-8" src={isError ? Cross : Tick} alt="Statut" />
+    <div className="flex flex-row bg-white p-4 rounded-lg shadow-md fixed top-24 right-3 ml-3 z-spinner">
+      <img className="w-8 h-8" src={isError ? Cross : Tick} alt={isError ? 'Erreur' : 'Succès'} />
       <h4 className="self-center block ml-4 text-black">{message}</h4>
     </div>
   )

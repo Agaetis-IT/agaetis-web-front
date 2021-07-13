@@ -40,7 +40,7 @@ export default function HomeJoinUs({
               <p className="my-8 text-sm leading-normal text-justify">{joinUsAgaetisDesc}</p>
               <Button
                 href="/agaetis"
-                className="flex flex-row bg-orange-500 text-white rounded-full text-xs leading-normal justify-center font-semibold uppercase px-6 py-2 shadow-md h-fit w-48"
+                className="flex flex-row bg-orange-500 hover:bg-orange-400 text-white rounded-full text-xs leading-normal justify-center font-semibold uppercase px-6 py-2 shadow-md h-fit w-48 hover:shadow-lg transition-all duration-250"
               >
                 En savoir plus
               </Button>
@@ -50,7 +50,7 @@ export default function HomeJoinUs({
               <p className="my-8 text-sm leading-normal text-justify">{joinUsCareerDesc}</p>
               <Button
                 href="/jobs"
-                className="flex flex-row justify-center bg-white text-orange-500 uppercase rounded-full leading-normal px-6 py-2 shadow-md font-semibold text-xs h-fit w-48"
+                className="flex flex-row justify-center bg-white hover:bg-gray-200 text-orange-500 uppercase rounded-full leading-normal px-6 py-2 shadow-md font-semibold text-xs h-fit w-48 hover:shadow-lg transition-all duration-250"
               >
                 Jobs
               </Button>
@@ -65,7 +65,7 @@ export default function HomeJoinUs({
           <img className="h-32 w-32" src={joinUsImageMobile1} alt="Rejoignez-nous" />
           <Button
             href="/agaetis"
-            className="flex flex-row justify-center bg-orange-500 text-white uppercase rounded-full leading-normal px-6 py-2 shadow-md font-semibold text-xs h-fit my-auto w-40 sm:w-48"
+            className="flex flex-row justify-center bg-orange-500 hover:bg-orange-400 text-white uppercase rounded-full leading-normal px-6 py-2 shadow-md font-semibold text-xs h-fit my-auto w-40 sm:w-48 hover:shadow-lg transition-all duration-250"
           >
             En savoir plus
           </Button>
@@ -76,7 +76,7 @@ export default function HomeJoinUs({
           <img className="h-32 w-32" src={joinUsImageMobile2} alt="Rejoignez-nous" />
           <Button
             href="/jobs"
-            className="bg-white text-orange-500 rounded-full text-xs uppercase leading-normal font-semibold px-6 py-2 shadow-md flex flex-row justify-center h-fit my-auto w-40 sm:w-48"
+            className="bg-white hover:bg-gray-200 text-orange-500 rounded-full text-xs uppercase leading-normal font-semibold px-6 py-2 shadow-md flex flex-row justify-center h-fit my-auto w-40 sm:w-48 hover:shadow-lg transition-all duration-250"
           >
             Jobs
           </Button>

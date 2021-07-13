@@ -10,11 +10,6 @@
 
 .uploadButton {
   min-width: 232.63px;
-  width: fit-content;
-}
-
-.uploadButton.dragOver {
-  background-color: #faad63;
 }
 
 .importLegend {

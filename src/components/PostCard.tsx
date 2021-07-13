@@ -1,9 +1,9 @@
 import Link from 'next/link'
-import { createMarkup } from '../services/textUtilities'
-const Placeholder = '/images/blog-post-placeholder.jpg'
 
-import styles from '../styles/IdeasCard.module.css'
-import commonStyles from '../styles/Common.module.css'
+import { createMarkup } from '../services/textUtilities'
+
+import styles from '../styles/PostCard.module.css'
+const Placeholder = '/images/blog-post-placeholder.jpg'
 
 interface Props {
   title: string
@@ -12,18 +12,15 @@ interface Props {
   image?: string
 }
 
-export default function IdeasCard({ slug, title, image, description }: Props) {
+export default function PostCard({ slug, title, image, description }: Props) {
   return (
     <Link href={`/blogpost/${slug}`}>
       <a className="text-black">
-        <div className={`bg-white sm:flex ${commonStyles.round8}`}>
-          <div
-            style={{
-              backgroundImage: `url("${image ? image : Placeholder}")`,
-              backgroundPosition: 'center',
-              backgroundSize: 'cover',
-            }}
-            className={`w-full sm:w-3/10 h-56 ${styles.round8top} ${styles['sm:round8left']}`}
+        <div className="bg-white sm:flex rounded-lg">
+          <img
+            className="object-cover object-center w-full sm:w-3/10 h-56 rounded-t-lg sm:rounded-l-lg sm:rounded-r-none"
+            src={image ? image : Placeholder}
+            alt={title}
           />
           <div className="py-6 px-8 h-56 w-full sm:w-7/10">
             <div className="h-1/3">
@@ -33,7 +30,7 @@ export default function IdeasCard({ slug, title, image, description }: Props) {
               />
             </div>
             <div className="h-1/2">
-              <div className={`h-full overflow-hidden ${styles.fade}`}>
+              <div className={`overflow-hidden relative h-fade ${styles.fade}`}>
                 <p className="text-xs text-justify leading-normal">{description}</p>
               </div>
             </div>

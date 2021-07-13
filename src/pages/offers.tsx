@@ -1,60 +1,32 @@
-import OffersContent, { OfferDesc, convertAPItoOffersContent, OfferLeaf } from '../types/OffersContent'
+/* eslint-disable react-hooks/rules-of-hooks */
 import { useState } from 'react'
-import { getAllOffers, getCategoryOffers, getOffersPageContent } from '../services/wordpressService'
+import clsx from 'clsx'
+import Head from 'next/head'
+import Link from 'next/link'
 
 import Button from '../components/Button'
 import ContactForm from '../components/ContactForm'
-import Head from 'next/head'
-import Layout from '../components/Layout'
-import { FormInput } from '../yup/ContactFormValidation'
 import ContactSection from '../components/ContactSection'
+import Error from './_error'
+import Layout from '../components/Layout'
+
+import { getAllOffers, getCategoryOffers, getOffersPageContent } from '../services/wordpressService'
+import OffersContent, { OfferDesc, convertAPItoOffersContent, OfferLeaf } from '../types/OffersContent'
+
 const Mask = '../../public/images/hero_mask.svg'
 const Plus = '../../public/icons/squared_plus_white.svg'
-import clsx from 'clsx'
-import Link from 'next/link'
-import SnackBar from '../components/SnackBar'
-import send from '../services/contactService'
-
-/* eslint-disable react-hooks/rules-of-hooks */
-
-function getRotation(selected: boolean, wasSelected: boolean) {
-  if (selected) {
-    return 'rotate45'
-  }
-  if (wasSelected) {
-    return 'rotate0to45'
-  }
-  return ''
-}
 
 interface Props {
   pageContent: OffersContent
   allOffers: OfferDesc[]
+  errorCode?: number
 }
 
-export default function offers({ pageContent, allOffers }: Props) {
+export default function offers({ pageContent, allOffers, errorCode }: Props) {
   const [selectedOffer, setSelectedOffer] = useState(0)
-  const [wasSelected, setWasSelected] = useState(0)
-  const [modalOpenWithError, setModalOpenWithError] = useState<boolean | undefined>(undefined)
-  const [isSubmited, setIsSubmited] = useState(false)
 
-  function handleOpenModal(error: boolean) {
-    setModalOpenWithError(error)
-    setIsSubmited(false)
-  }
-
-  function handleCloseModal() {
-    setModalOpenWithError(undefined)
-  }
-
-  async function handleSubmit(data: FormInput) {
-    try {
-      setIsSubmited(true)
-      await send(data)
-      handleOpenModal(false)
-    } catch {
-      handleOpenModal(true)
-    }
+  if (errorCode) {
+    return <Error statusCode={errorCode} />
   }
 
   return (
@@ -65,9 +37,8 @@ export default function offers({ pageContent, allOffers }: Props) {
         <meta name="description" content={"Présentation d'Agaetis, de son histoire et de sa vision"} />
         <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/agaetis`} />
       </Head>
-
-      <Layout invertColors={false}>
-        <div className="mx-auto pt-0 md:pt-28">
+      <Layout>
+        <div className="mx-auto pt-0 md:pt-25">
           <div
             style={{
               backgroundImage: `url("${Mask}")`,
@@ -93,7 +64,7 @@ export default function offers({ pageContent, allOffers }: Props) {
                   href={`/offers/${allOffers[selectedOffer].slug}?offer=${allOffers[selectedOffer].childrens[0].post_name}`}
                 >
                   <div className="flex flex-row items-center">
-                    En savoir plus <img src={Plus} className="ml-4 h-6" alt="Plus" />
+                    En savoir plus <img src={Plus} className="ml-4 h-6" />
                   </div>
                 </Button>
               </div>
@@ -105,7 +76,6 @@ export default function offers({ pageContent, allOffers }: Props) {
                     key={offre.title}
                     className="bg-none md:bg-white flex flex-row md:flex-col justify-between items-center text-white md:text-black p-8 cursor-pointer w-full md:w-1/6 text-center"
                     onClick={() => {
-                      setWasSelected(selectedOffer)
                       setSelectedOffer(index)
                     }}
                   >
@@ -113,8 +83,8 @@ export default function offers({ pageContent, allOffers }: Props) {
                     <h2 className="text-sm leading-normal">{offre.title}</h2>
                     <div
                       className={clsx(
-                        'inline-block md:hidden offerIcon',
-                        getRotation(selectedOffer === index, wasSelected === index)
+                        'inline-block md:hidden transition-transform offerIcon',
+                        selectedOffer === index && 'transform rotate-45'
                       )}
                     >
                       <span>+</span>
@@ -135,6 +105,7 @@ export default function offers({ pageContent, allOffers }: Props) {
                                 pathname: `/offers/${allOffers[selectedOffer].slug}`,
                                 query: { offer: offer.post_name },
                               }}
+                              passHref
                             >
                               <p className="text-center p-4">{offer.post_title}</p>
                             </Link>
@@ -146,13 +117,7 @@ export default function offers({ pageContent, allOffers }: Props) {
               ))}
             </div>
           </div>
-          <ContactForm title="Une question ? Contactez-nous !" handleSubmit={handleSubmit} isSubmited={isSubmited} />
-          <SnackBar
-            message={modalOpenWithError ? "Erreur pendant l'envoi du message" : 'Message envoyé'}
-            isError={modalOpenWithError}
-            open={modalOpenWithError}
-            onClose={handleCloseModal}
-          />
+          <ContactForm title="Une question ? Contactez-nous !" />
           <ContactSection />
         </div>
       </Layout>
@@ -161,30 +126,39 @@ export default function offers({ pageContent, allOffers }: Props) {
 }
 
 export async function getStaticProps() {
-  const { [0]: data, [1]: allOffersData } = await Promise.all([getOffersPageContent(), getAllOffers()])
-  const pageContent = convertAPItoOffersContent(data)
-  const allOffers = allOffersData.map(
-    async (offer: {
-      acf: {
-        title: string
-        paragraph: string
-        offers_description: string
-        offers_image1: string
-        offers_image2: string
+  try {
+    const { [0]: data, [1]: allOffersData } = await Promise.all([getOffersPageContent(), getAllOffers()])
+    const pageContent = convertAPItoOffersContent(data)
+    const allOffers = allOffersData.map(
+      async (offer: {
+        acf: {
+          title: string
+          paragraph: string
+          offers_description: string
+          offers_image1: string
+          offers_image2: string
+        }
+        slug: string
+      }) => {
+        const childrens = await getCategoryOffers(offer.slug)
+        return { ...offer.acf, slug: offer.slug, childrens }
       }
-      slug: string
-    }) => {
-      const childrens = await getCategoryOffers(offer.slug)
-      return { ...offer.acf, slug: offer.slug, childrens }
-    }
-  )
-  const allOffersChildrens = await Promise.all(allOffers)
+    )
+    const allOffersChildrens = await Promise.all(allOffers)
 
-  return {
-    props: {
-      pageContent: JSON.parse(JSON.stringify(pageContent)),
-      allOffers: allOffersChildrens,
-    },
-    revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
+    return {
+      props: {
+        pageContent: JSON.parse(JSON.stringify(pageContent)),
+        allOffers: allOffersChildrens,
+      },
+      revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
+    }
+  } catch (error) {
+    return {
+      props: {
+        errorCode: 500,
+      },
+      revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
+    }
   }
 }

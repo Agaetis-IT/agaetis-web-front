@@ -2,37 +2,35 @@ import clsx from 'clsx'
 import Link from 'next/link'
 
 import Button from './Button'
+
 import styles from '../styles/NavigationMenu.module.css'
 
 interface Props {
-  invertColors?: boolean
   displayedPage?: string
-  position: number
 }
 
-export default function NavigationMenu({ invertColors, position, displayedPage }: Props) {
+export default function NavigationMenu({ displayedPage }: Props) {
   const pages = [
-    ['Blog', '/blog'],
     ['Agaetis', '/agaetis'],
     ['Solutions', '/solutions'],
     ['Jobs', 'https://agaetis.welcomekit.co/'],
+    ['Blog', '/blog'],
   ]
 
   return (
     <div
-      className={`block bg-orange-500 md:bg-transparent flex-grow md:flex-grow-0 md:flex md-flex-shrink-0 md:items-center p-4 md:p-0 ${styles.navMenu}`}
+      className={clsx(
+        'block shadow-md md:shadow-none bg-white md:flex flex-shrink-0 md:items-center p-4 md:p-0 z-1000 left-0 right-0 absolute md:relative'
+      )}
     >
-      <div className="text-xs font-medium leading-normal md:flex-grow">
+      <div className="text-xs font-medium leading-normal">
         {pages.map((page) => (
-          <Link key={page[0]} href={page[1]}>
+          <Link key={page[0]} href={page[1]} passHref>
             <Button
               href={page[1]}
               className={clsx(
-                !invertColors || position > 200
-                  ? `text-white md:text-black ${styles.menuLinkBlackUnderline}`
-                  : `text-white ${styles.menuLinkWhiteUnderline}`,
-                  displayedPage === page[1] && `${styles.menuLinkUnderlineSelected}`,
-                'block md:inline-block p-2 py-3 md:p-3 md:px-6 xl:px-8 text-base leading-normal font-extralight'
+                `text-black block md:inline-block p-2 py-3 md:p-3 md:px-6 text-base font-black leading-normal transition-all duration-250 ${styles.menuLinkBlackUnderline}`,
+                displayedPage === page[1] && `${styles.menuLinkUnderlineSelected}`
               )}
             >
               {page[0]}
@@ -40,24 +38,11 @@ export default function NavigationMenu({ invertColors, position, displayedPage }
           </Link>
         ))}
       </div>
-      <div className="hidden md:inline md:ml-14 xl:mr-8">
-        <Link href="/contact">
+      <div className="md:ml-12 text-base leading-normal font-medium flex justify-center">
+        <Link href="/contact" passHref>
           <Button
             href="/contact"
-            className={clsx(
-              !invertColors || position > 200 ? 'bg-orange-500 text-white' : 'bg-white text-orange-500',
-              'block md:inline-block px-6 py-3 leading-none rounded-full uppercase mt-4 md:mt-0 text-base font-extralight shadow-md'
-            )}
-          >
-            Contact
-          </Button>
-        </Link>
-      </div>
-      <div className="inline md:hidden text-base leading-normal font-medium md:flex-grow">
-        <Link href="/contact">
-          <Button
-            href="/contact"
-            className="block md:inline-block md:mt-0 md:mr-16 md:ml-1 p-2 py-3 md:p-0 text-white text-base leading-normal font-extralight"
+            className="bg-white hover:bg-gray-200 text-orange-500 inline-block px-6 py-2 font-bold leading-none rounded-full uppercase text-base shadow-md hover:shadow-lg transition-all duration-250"
           >
             Contact
           </Button>

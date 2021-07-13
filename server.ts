@@ -6,11 +6,11 @@ import axios from 'axios'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 import { google } from 'googleapis'
-import sha from 'js-sha256'
-import next from 'next'
-import nodemailer from 'nodemailer'
 import http from 'http'
 import logger from 'morgan'
+import next from 'next'
+import nodemailer from 'nodemailer'
+import sha from 'js-sha256'
 
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
@@ -52,59 +52,6 @@ app
       const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}${req.url}`)
       res.set('Content-Type', 'text/xml')
       res.send(data.replace(new RegExp(process.env.NEXT_PUBLIC_BASE_URL!, 'g'), process.env.NEXT_PUBLIC_SITE_URL))
-    })
-
-    /*
-      /:slug : existing ideas url are /:postname, we have to respect this pattern 
-    */
-    server.get('/:slug', (req: Request, res: Response) => {
-      if (
-        [
-          'offers',
-          'solutions',
-          'blog',
-          'agaetis',
-          'white-papers',
-          'contact',
-          'cookies',
-          'personal-data',
-          'mentions-legales',
-          'google80ae36db41235209.html',
-          'robots.txt',
-          'favicon.ico',
-        ].includes(req.params.slug) ||
-        !!req.params.slug.match(/^blog\/.*/) ||
-        !!req.params.slug.match(/^author\/.*/) ||
-        !!req.params.slug.match(/^offers\/.*/)
-      ) {
-        return handle(req, res)
-      } else if (req.params.slug === 'ideas') {
-        res.redirect(301, '/blog')
-      } else if (req.params.slug === 'jobs') {
-        res.redirect(301, 'https://agaetis.welcomekit.co/')
-      }
-
-      res.redirect(301, `/blogpost/${req.params.slug}`)
-    })
-
-    server.get('^/[0-9]{4}/[0-9]{2}/[0-9]{2}/:slug', async (req: Request, res: Response) => {
-      res.redirect(301, `/${req.params.slug}`)
-    })
-
-    server.get('/jobs/:slug', async (_: Request, res: Response) => {
-      res.redirect(301, 'https://agaetis.welcomekit.co/')
-    })
-
-    server.get('/landingpages/:slug', (req: Request, res: Response) => {
-      res.redirect(301, `/landingpage/${req.params.slug}`)
-    })
-
-    server.get('/white-papers/:slug', (req: Request, res: Response) => {
-      res.redirect(301, `/white-paper/${req.params.slug}`)
-    })
-
-    server.get('/tags/:slug', (req: Request, res: Response) => {
-      res.redirect(301, `/blog/tag/${req.params.slug}`)
     })
 
     server.post('/send', json10MBParser, async (req: Request, res: Response) => {
