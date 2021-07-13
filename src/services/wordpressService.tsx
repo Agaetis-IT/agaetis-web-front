@@ -64,7 +64,7 @@ export async function getMentionsLegalesContent() {
 
 export async function getSolutionsPageContent() {
   const { acf } = await getWordpressPageBySlug<{ acf: SolutionsAPI }>('solutions')
-  return convertContentAPItoContent(acf)
+  return acf
 }
 
 export async function getContactPageContent() {

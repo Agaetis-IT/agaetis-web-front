@@ -1,39 +1,17 @@
 import clsx from 'clsx'
 
-import { compareWhyUsSection, Tab } from '../types/SolutionsContent'
+import { compareWhyUsSection, SolutionsContent } from '../types/SolutionsContent'
 
 interface Props {
-  content: Tab
+  content: SolutionsContent
   className: string
+  selected: number
 }
 
-export default function SolutionTabContent({ content, className }: Props) {
+export default function SolutionTabContent({ content, className, selected }: Props) {
   return (
     <>
       <div className="md:max-w-full mx-auto p-0 md:px-8 xl:px-32">
-        <img className="mt-4 shadow-2xl w-full" src={content.solutions_img} alt={content.header} />
-        <div className={clsx(className, 'p-4')}>
-          <div className={clsx('sm:w-1/2 sm:pr-4')}>
-            <h2
-              className="text-xl leading-normal font-semibold py-4 text-center"
-              dangerouslySetInnerHTML={{ __html: content.sections[0].title }}
-            />
-            <p
-              className="text-sm text-justify leading-normal"
-              dangerouslySetInnerHTML={{ __html: content.sections[0].description }}
-            />
-          </div>
-          <div className={clsx('sm:w-1/2 sm:pl-4')}>
-            <h2
-              className="text-xl leading-normal font-semibold py-4 text-center"
-              dangerouslySetInnerHTML={{ __html: content.sections[1].title }}
-            />
-            <p
-              className="text-sm text-justify leading-normal"
-              dangerouslySetInnerHTML={{ __html: content.sections[1].description }}
-            />
-          </div>
-        </div>
         <div>
           <h2 className="text-2xl leading-normal font-semibold py-8 text-center">{content.whyUs.title}</h2>
           <div className="flex flex-col sm:flex-row justify-between">
@@ -50,10 +28,10 @@ export default function SolutionTabContent({ content, className }: Props) {
         </div>
       </div>
       <div className="bg-gray-400 px-4 py-8 my-4">
-        <h2 className="text-2xl leading-normal font-semibold text-center">{content.partnerTitle}</h2>
+        <h2 className="text-2xl leading-normal font-semibold text-center">{content.partnersTitle}</h2>
         <div className="flex flex-row flex-wrap justify-center p-4">
           {content.partners.map((partner) => (
-            <img className="m-2" key={partner} src={partner} alt={partner.slice(partner.lastIndexOf('/') + 1)} />
+            <img className="m-2" key={partner.name} src={partner.image} alt={partner.name} />
           ))}
         </div>
       </div>

@@ -6,7 +6,9 @@ import Layout from '../components/Layout'
 import SolutionTab from '../components/SolutionTab'
 
 import { getSolutionsPageContent } from '../services/wordpressService'
-import { SolutionsContent } from '../types/SolutionsContent'
+import { convertContentAPItoContent, SolutionsContent } from '../types/SolutionsContent'
+
+const Particles = '/images/particles-3.svg'
 
 interface Props {
   pageContent: SolutionsContent
@@ -36,13 +38,33 @@ function solutions({ pageContent, errorCode }: Props) {
         <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/solutions`} />
       </Head>
       <Layout displayedPage={'/solutions'}>
-        <div className="mx-auto px-0">
-          <div className="p-0 md:p-12 lg:px-24 lg:p-16 pb-0">
-            <div className="p-0 md:px-8 mt-0 md:mt-20">
-              <h2 className="text-center px-4 md:py-6 md:px-0 text-md leading-normal">{pageContent.description}</h2>
-            </div>
+        <div className="pt-0 md:pt-25">
+          <div
+            style={{
+              backgroundImage: `url("${Particles}")`,
+              backgroundPosition: 'top',
+              backgroundSize: '100% auto',
+              backgroundRepeat: 'no-repeat',
+            }}
+            className="p-6 md:p-16 lg:px-32 xl:px-48 bg-gray-400"
+          >
+            <h2 className="mx-1 md:mx-2 text-xl leading-normal mb-14 font-medium">{pageContent.description}</h2>
+            {pageContent.phases.map((phase) => (
+              <div className="mx-1 md:mx-2 mb-8 bg-white rounded-lg shadow-md">
+                <h3 className="text-orange-500 font-bold text-2xl mb-4">{phase.header}</h3>
+                <div className="flex flex-row">
+                  <img className="object-contain w-1/3" alt={phase.header} src={phase.solutionImage} />
+                  <div>
+                    <h4 className="text-gray-800 italic mb-2 uppercase font-bold">{pageContent.needTitle}</h4>
+                    <p className="text-sm">{phase.needContent}</p>
+                    <h4 className="text-gray-800 italic mb-2 uppercase font-bold">{pageContent.responseTitle}</h4>
+                    <p className="text-sm">{phase.responseContent}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+            <SolutionTab content={pageContent} />
           </div>
-          <SolutionTab tabs={pageContent.tabs} />
           <ContactSection />
         </div>
       </Layout>
@@ -54,7 +76,7 @@ export async function getStaticProps() {
   try {
     return {
       props: {
-        pageContent: JSON.parse(JSON.stringify(await getSolutionsPageContent())),
+        pageContent: JSON.parse(JSON.stringify(convertContentAPItoContent(await getSolutionsPageContent()))),
       },
       revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
     }
