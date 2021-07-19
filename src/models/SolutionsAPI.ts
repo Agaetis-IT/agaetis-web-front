@@ -5,6 +5,7 @@ export default interface SolutionsAPI {
   responseTitle: string
   whyUs: {
     title: string
+    background: string
     section1: {
       title: string
       description: string

@@ -83,7 +83,7 @@ export default function agaetis({ pageContent, errorCode }: Props) {
                   <div
                     key={number.index}
                     className={clsx(
-                      'text-center md:py-0 p-6',
+                      'text-center md:py-0 p-6 w-full md:w-1/3',
                       index && 'border-white md:border-l md:border-t-0 border-t'
                     )}
                   >

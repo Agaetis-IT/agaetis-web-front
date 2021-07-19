@@ -13,6 +13,7 @@ export interface SolutionsContent {
   phases: Phase[]
   whyUs: {
     title: string
+    background: string
     sections: WhyUsSection[]
   }
 }
@@ -135,6 +136,7 @@ export function convertContentAPItoContent(contentAPI: SolutionsAPI) {
     ).sort(comparePhases),
     whyUs: {
       title: contentAPI.whyUs.title,
+      background: contentAPI.whyUs.background,
       sections: createWhyUsSections(
         contentAPI,
         Object.keys(contentAPI.whyUs).filter((key) => key.match(regexWhyUs))
