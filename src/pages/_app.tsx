@@ -1,15 +1,12 @@
 import React, { useEffect } from 'react'
 import Bugsnag from '@bugsnag/js'
 import Head from 'next/head'
-
-import LoadingComponent from '../components/LoadingComponent'
+import NextNProgress from 'nextjs-progressbar'
 
 import initBugsnag from '../bugsnag/bugsnag'
 import initReactGA, { trackUrl } from '../analytics/analytics'
 
 import '../styles/globals.css'
-
-initBugsnag()
 
 declare global {
   interface Window {
@@ -18,6 +15,8 @@ declare global {
     $crisp: []
   }
 }
+
+initBugsnag()
 
 export default function MyApp({ Component, pageProps }) {
   useEffect(() => {
@@ -61,7 +60,7 @@ export default function MyApp({ Component, pageProps }) {
         <link rel="shortcut icon" type="image/ico" href={`${process.env.NEXT_PUBLIC_SITE_URL}/favicon.ico`} />
         <link rel="preconnect" href="https://wordpress.agaetis.fr" />
       </Head>
-      <LoadingComponent color="#ff7f40" startPosition={0.25} stopDelayMs={50} height={3} />
+      <NextNProgress color="#ff7f40" startPosition={0.25} stopDelayMs={50} height={3} />
       <Component {...pageProps} />
     </ErrorBoundary>
   )
