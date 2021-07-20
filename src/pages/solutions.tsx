@@ -3,6 +3,7 @@ import Head from 'next/head'
 import ContactSection from '../components/ContactSection'
 import Error from './_error'
 import Layout from '../components/Layout'
+import SolutionsCarousel from '../components/SolutionsCarousel'
 
 import { getSolutionsPageContent } from '../services/wordpressService'
 import { compareWhyUsSection, convertContentAPItoContent, SolutionsContent } from '../types/SolutionsContent'
@@ -104,11 +105,7 @@ function solutions({ pageContent, errorCode }: Props) {
               className="p-4 rounded-lg backdrop-filter backdrop-blur-sm"
             >
               <h2 className="text-lg font-bold mb-4 text-white text-center">{pageContent.partnersTitle}</h2>
-              <div className="flex flex-row flex-wrap justify-center p-4">
-                {pageContent.partners.map((partner) => (
-                  <img className="m-2" key={partner.name} src={partner.image} title={partner.name} alt={partner.name} />
-                ))}
-              </div>
+              <SolutionsCarousel partners={pageContent.partners} />
             </div>
           </div>
           <ContactSection />
