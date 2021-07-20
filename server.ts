@@ -1,12 +1,11 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-import express, { Request, Response } from 'express'
+import express, { json, Request, RequestHandler, Response, urlencoded } from 'express'
 import { AttachmentContent } from './src/yup/ContactFormValidation'
 
 import axios from 'axios'
-import bodyParser from 'body-parser'
 import cors from 'cors'
 import { google } from 'googleapis'
-import http from 'http'
+import http, { ServerResponse } from 'http'
 import logger from 'morgan'
 import next from 'next'
 import nodemailer from 'nodemailer'
@@ -42,11 +41,11 @@ app
         ':date[iso] :req[x-real-ip] :method :url :status :res[content-length] - :response-time ms --- from: :referrer'
       )
     )
-    server.use(bodyParser.urlencoded({ extended: true }))
+    server.use(urlencoded({ extended: true }) as RequestHandler)
     server.use(cors())
 
-    const json10MBParser = bodyParser.json({ limit: '11mb' })
-    const jsonParser = bodyParser.json()
+    const json10MBParser = json({ limit: '11mb' }) as RequestHandler
+    const jsonParser = json() as RequestHandler
 
     server.get(/sitemap[a-zA-Z-0-9\/\-_]*.xml/, async (req: Request, res: Response) => {
       const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}${req.url}`)
@@ -56,7 +55,6 @@ app
 
     server.post('/send', json10MBParser, async (req: Request, res: Response) => {
       oAuth2Client.setCredentials({
-        // eslint-disable-next-line @typescript-eslint/camelcase
         refresh_token: process.env.NEXT_GMAIL_REFRESH_TOKEN,
       })
       const captcha = verifyCaptcha(req.body.token)
@@ -123,7 +121,6 @@ app
 
     server.post('/send/white-paper', jsonParser, (req: Request, res: Response) => {
       oAuth2Client.setCredentials({
-        // eslint-disable-next-line @typescript-eslint/camelcase
         refresh_token: process.env.NEXT_GMAIL_REFRESH_TOKEN,
       })
 
@@ -196,7 +193,7 @@ app
     })
 
     server.get('*', (req: Request, res: Response) => {
-      return handle(req, res)
+      return handle(req, res as ServerResponse)
     })
 
     http.createServer(server).listen(5000)
