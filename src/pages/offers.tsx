@@ -32,10 +32,13 @@ export default function offers({ pageContent, allOffers, errorCode }: Props) {
   return (
     <>
       <Head>
-        <title>Agaetis : nos offres</title>
-        <meta property="og:description" content={"Présentation d'Agaetis, de son histoire et de sa vision"} />
-        <meta name="description" content={"Présentation d'Agaetis, de son histoire et de sa vision"} />
-        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/agaetis`} />
+        <title>Agaetis - Nos offres</title>
+        <meta property="og:title" content="Agaetis - Nos offres" />
+        <meta property="og:image" content={`${process.env.NEXT_PUBLIC_SITE_URL}/favicon.ico`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:description" content="Découvrez les offres d'Agaetis pour vos projets et vos besoins" />
+        <meta name="description" content="Découvrez les offres d'Agaetis pour vos projets et vos besoins" />
+        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/offers`} />
       </Head>
       <Layout>
         <div className="mx-auto pt-0 md:pt-25">

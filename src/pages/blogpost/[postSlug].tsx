@@ -57,8 +57,8 @@ export default function BlogPost({ data, related, meta, errorCode }: Props) {
   return (
     <>
       <Head>
-        <title>Agaetis : {data.title}</title>
-        <meta property="og:title" content={`Agaetis : ${data.title}`} />
+        <title>Agaetis - {data.title}</title>
+        <meta property="og:title" content={`Agaetis - ${data.title}`} />
         <meta property="og:type" content="article" />
         <meta property="og:url" content={`${process.env.NEXT_PUBLIC_SITE_URL}/${data.slug}`} />
         <meta property="og:description" content={meta.description ? meta.description : data.descriptionText} />

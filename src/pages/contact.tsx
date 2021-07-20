@@ -21,8 +21,8 @@ export default function contact({ pageContent, errorCode }: Props) {
   return (
     <>
       <Head>
-        <title>Agaetis : contactez-nous</title>
-        <meta property="og:title" content="Agaetis : contactez-nous" />
+        <title>Agaetis  - Contactez-nous</title>
+        <meta property="og:title" content="Agaetis - Contactez-nous" />
         <meta property="og:image" content={`${process.env.NEXT_PUBLIC_SITE_URL}/favicon.ico`} />
         <meta property="og:type" content="website" />
         <meta property="og:description" content="Un projet, une idée ? Discutons-en !" />

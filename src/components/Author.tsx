@@ -98,8 +98,8 @@ export default function Author({ ideasDescription, author, content, hasMore, err
   return (
     <>
       <Head>
-        <title>Agaetis : articles de {author.name}</title>
-        <meta property="og:title" content={`Agaetis : articles de ${author.name}`} />
+        <title>Agaetis - Articles de {author.name}</title>
+        <meta property="og:title" content={`Agaetis - Articles de ${author.name}`} />
         <meta property="og:image" content={`${process.env.NEXT_PUBLIC_SITE_URL}/favicon.ico`} />
         <meta property="og:type" content="website" />
         <meta property="og:description" content={`Découvrez tous les articles de ${author.name}`} />

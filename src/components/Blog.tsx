@@ -156,8 +156,8 @@ export default function Blog({
   return (
     <>
       <Head>
-        <title>Agaetis : nos idées</title>
-        <meta property="og:title" content="Agaetis : nos idées" />
+        <title>Agaetis - Blog</title>
+        <meta property="og:title" content="Agaetis - Blog" />
         <meta property="og:image" content={`${process.env.NEXT_PUBLIC_SITE_URL}/favicon.ico`} />
         <meta property="og:type" content="website" />
         <meta property="og:description" content="Chacun d'entre nous a ses idées et le droit de les défendre" />

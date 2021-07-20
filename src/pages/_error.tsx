@@ -15,7 +15,7 @@ export default function Error({ statusCode }: Props) {
     <>
       <Head>
         <meta name="robots" content="noindex,nofollow" />
-        <title>Agaetis : Erreur {statusCode}</title>
+        <title>Agaetis - Erreur {statusCode}</title>
       </Head>
       <Layout>
         <div className="pt-0 md:pt-25 min-h-screen flex flex-col bg-orange-500">

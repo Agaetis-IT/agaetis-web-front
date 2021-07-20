@@ -11,7 +11,7 @@ export default function Custom404() {
     <>
       <Head>
         <meta name="robots" content="noindex,nofollow" />
-        <title>Agaetis : Erreur 404</title>
+        <title>Agaetis - Erreur 404</title>
       </Head>
       <Layout>
         <div className="pt-0 md:pt-25 min-h-screen flex flex-col bg-orange-500">

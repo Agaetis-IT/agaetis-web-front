@@ -23,8 +23,8 @@ export default function mentionsLegales({ pageContent, errorCode }: Props) {
   return (
     <>
       <Head>
-        <title>Agaetis : mentions légales</title>
-        <meta property="og:title" content="Agaetis : mentions légales" />
+        <title>Agaetis - Mentions légales</title>
+        <meta property="og:title" content="Agaetis - Mentions légales" />
         <meta property="og:image" content={`${process.env.NEXT_PUBLIC_SITE_URL}/favicon.ico`} />
         <meta property="og:type" content="website" />
         <meta property="og:description" content={pageContent.content} />

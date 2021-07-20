@@ -23,8 +23,8 @@ export default function personalData({ pageContent, errorCode }: Props) {
   return (
     <>
       <Head>
-        <title>Agaetis : données personnelles</title>
-        <meta property="og:title" content="Agaetis : données personnelles" />
+        <title>Agaetis - Données personnelles</title>
+        <meta property="og:title" content="Agaetis - Données personnelles" />
         <meta property="og:image" content={`${process.env.NEXT_PUBLIC_SITE_URL}/favicon.ico`} />
         <meta property="og:type" content="website" />
         <meta property="og:description" content={pageContent.content} />
