@@ -64,5 +64,25 @@ export default interface SolutionsAPI {
       name: string
       image: string
     }
+    partner5: {
+      name: string
+      image: string
+    }
+    partner6: {
+      name: string
+      image: string
+    }
+    partner7: {
+      name: string
+      image: string
+    }
+    partner8: {
+      name: string
+      image: string
+    }
+    partner9: {
+      name: string
+      image: string
+    }
   }
 }
