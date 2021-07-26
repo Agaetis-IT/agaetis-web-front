@@ -6,6 +6,8 @@ export interface AgaetisContent {
   questions: Question[]
   chiffres_title: string
   chiffres: Chiffre[]
+  video: string
+  videoTitle: string
 }
 
 interface Question {
@@ -79,6 +81,8 @@ export function convertAgaetisAPItoContent(contentApi: AgaetisContentApi) {
   return {
     title: contentApi.title,
     paragraph: contentApi.paragraph,
+    video: contentApi.video,
+    videoTitle: contentApi.videoTitle,
     chiffres: createChiffreArray(
       contentApi,
       Object.keys(contentApi).filter((key) => key.match(regexChiffres))

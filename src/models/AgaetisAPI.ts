@@ -23,4 +23,6 @@ export interface AgaetisContentApi {
   chiffre3_title: string
   chiffre3_data: string
   chiffre3_description: string
+  video: string
+  videoTitle: string
 }
