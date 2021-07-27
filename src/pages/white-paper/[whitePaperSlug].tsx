@@ -1,18 +1,18 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import Head from 'next/head'
 import { useState } from 'react'
-
-import WhitePaperForm from '../../components/form/WhitePaperForm'
-import Layout from '../../components/Layout'
-import { sendWhitePaper } from '../../services/contactService'
-import { getAllWhitePapers, getWhitePaperContent } from '../../services/wordpressService'
-import WhitePaper from '../../types/WhitePaper'
-import { WhitepaperFormValues } from '../../yup/WhitePaperFormValidation'
-const Logo = '../static/icons/Agaetis - Ico logo - Orange.png'
+import Head from 'next/head'
 
 import Error from '../_error'
-import Link from 'next/link'
+import Layout from '../../components/Layout'
 import SnackBar from '../../components/SnackBar'
+import WhitePaperForm from '../../components/form/WhitePaperForm'
+
+import { getAllWhitePapers, getWhitePaperContent } from '../../services/wordpressService'
+import { sendWhitePaper } from '../../services/contactService'
+import WhitePaper from '../../types/WhitePaper'
+import { WhitepaperFormValues } from '../../yup/WhitePaperFormValidation'
+
+const Logo = '../static/icons/Agaetis - Ico logo - Orange.png'
 
 interface Props {
   pageContent?: WhitePaper
@@ -45,32 +45,24 @@ export default function whitePaper({ pageContent, errorCode }: Props) {
     }
   }
 
-  if (!pageContent) {
-    return <Error statusCode={errorCode!} />
+  if (errorCode) {
+    return <Error statusCode={errorCode} />
   }
+
   return (
     <>
       <Head>
-        <title>Agaetis : {pageContent.title}</title>
-        <meta property="og:title" content={`Agaetis : ${pageContent.title}`} />
+        <title>Agaetis - {pageContent.title}</title>
+        <meta property="og:title" content={`Agaetis - ${pageContent.title}`} />
         <meta property="og:image" content={`${process.env.NEXT_PUBLIC_SITE_URL}/favicon.ico`} />
         <meta property="og:type" content="website" />
         <meta property="og:description" content={pageContent.description} />
         <meta name="description" content={pageContent.description} />
-        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/${pageContent.slug}`} />
+        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/white-paper/${pageContent.slug}`} />
       </Head>
-      <Layout invertColors={false}>
+      <Layout>
         <>
-          <div className="md:max-w-md mx-auto p-0 md:px-8">
-            <div className="text-xs leading-normal px-4 md:px-0">
-              <span className="underline text-black">
-                <Link href="/">
-                  <a>Accueil</a>
-                </Link>
-              </span>
-              {' > '}
-              <b>{pageContent.title}</b>
-            </div>
+          <div className="md:max-w-md mx-auto pt-8 md:px-8">
             <h1 className="text-center text-2xl leading-normal py-8 md:pb-0">{pageContent.title}</h1>
             <p className="md:max-w-md mx-auto text-center px-4 md:py-6 md:px-0 text-xs leading-normal">
               {pageContent.description}
@@ -124,19 +116,28 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const data = await getWhitePaperContent(params.whitePaperSlug)
+  try {
+    const data = await getWhitePaperContent(params.whitePaperSlug)
 
-  if (!data.acf) {
+    if (!data.acf) {
+      return {
+        notFound: true,
+        revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
+      }
+    }
+
     return {
-      notFound: true,
+      props: {
+        pageContent: { ...data.acf, slug: data.slug },
+      },
       revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
     }
-  }
-
-  return {
-    props: {
-      pageContent: { ...data.acf, slug: data.slug },
-    },
-    revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
+  } catch (error) {
+    return {
+      props: {
+        errorCode: 500,
+      },
+      revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
+    }
   }
 }

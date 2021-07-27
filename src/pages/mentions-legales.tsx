@@ -1,58 +1,82 @@
-import Link from 'next/link'
+import Head from 'next/head'
 
+import ContactSection from '../components/ContactSection'
+import Error from './_error'
 import Layout from '../components/Layout'
+
 import { getMentionsLegalesContent } from '../services/wordpressService'
-import MentionsLegalesContent from '../types/MentionsLegalesContent'
+import LegalContent from '../types/LegalContent'
 
 import styles from '../styles/personal-data.module.css'
+const Particles = '/images/particles-3.svg'
 
 interface Props {
-  pageContent: MentionsLegalesContent
+  pageContent: LegalContent
+  errorCode?: number
 }
 
-export default function mentionsLegales({ pageContent }: Props) {
+export default function mentionsLegales({ pageContent, errorCode }: Props) {
+  if (errorCode) {
+    return <Error statusCode={errorCode} />
+  }
+
   return (
-    <Layout invertColors={false}>
-      <>
-        <div className="mx-auto px-0">
-          <div className="p-0 md:p-12 lg:px-24 lg:p-16 pb-0">
-            <div className="md:max-w-md mx-auto p-0 md:px-8 mt-0 md:mt-20">
-              <div className="text-xs leading-normal px-4 md:px-0">
-                <div className="text-xs leading-normal">
-                  <span>
-                    <Link href="/">
-                      <a className="underline text-black">Accueil</a>
-                    </Link>
-                    {' > '} <b dangerouslySetInnerHTML={{ __html: pageContent.title }} />
-                  </span>
-                </div>
-                <h1
-                  className="text-center text-2xl font-bold leading-normal py-8 md:pb-0 md:mt-12"
-                  dangerouslySetInnerHTML={{ __html: pageContent.title }}
-                />
-              </div>
-              <div
-                className={`md:max-w-md mx-auto text-justify px-4 md:py-6 md:px-0 md:mt-8 text-sm leading-normal ${styles.personalData}`}
-                dangerouslySetInnerHTML={{ __html: pageContent.content }}
-              />
-            </div>
+    <>
+      <Head>
+        <title>Agaetis - Mentions légales</title>
+        <meta property="og:title" content="Agaetis - Mentions légales" />
+        <meta property="og:image" content={`${process.env.NEXT_PUBLIC_SITE_URL}/favicon.ico`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:description" content={pageContent.content} />
+        <meta name="description" content={pageContent.content} />
+        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/mentions-legales`} />
+      </Head>
+      <Layout>
+        <div className="pt-0 md:pt-25">
+          <div
+            style={{
+              backgroundImage: `url("${Particles}")`,
+              backgroundPosition: 'top',
+              backgroundSize: '100% auto',
+              backgroundRepeat: 'no-repeat',
+            }}
+            className="p-6 md:p-16 lg:px-32 xl:px-48 bg-gray-400"
+          >
+            <h1
+              className="mx-1 md:mx-2 text-2xl leading-normal mb-14 font-bold text-orange-500"
+              dangerouslySetInnerHTML={{ __html: pageContent.title }}
+            />
+            <div
+              className={`mx-1 md:mx-2 text-justify text-sm leading-normal ${styles.personalData}`}
+              dangerouslySetInnerHTML={{ __html: pageContent.content }}
+            />
           </div>
+          <ContactSection />
         </div>
-      </>
-    </Layout>
+      </Layout>
+    </>
   )
 }
 
 export async function getStaticProps() {
-  const data = await getMentionsLegalesContent()
+  try {
+    const data = await getMentionsLegalesContent()
 
-  return {
-    props: {
-      pageContent: {
-        title: data.title.rendered,
-        content: data.content.rendered,
+    return {
+      props: {
+        pageContent: {
+          title: data.title.rendered,
+          content: data.content.rendered,
+        },
       },
-    },
-    revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
+      revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
+    }
+  } catch (error) {
+    return {
+      props: {
+        errorCode: 500,
+      },
+      revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
+    }
   }
 }

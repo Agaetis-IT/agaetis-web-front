@@ -1,17 +1,14 @@
-import { useState } from 'react'
 import ContactForm from '../../components/ContactForm'
 import ContactSection from '../../components/ContactSection'
 import Error from '../_error'
 import Layout from '../../components/Layout'
-const Particles = '/images/particles-3.svg'
-import { getAllLandingPages, getLandingPageContent } from '../../services/wordpressService'
+
 import { convertAPItoLandingPageContent, LandingPage } from '../../types/OffersContent'
-import { FormInput } from '../../yup/ContactFormValidation'
+import { getAllLandingPages, getLandingPageContent } from '../../services/wordpressService'
+import LandingPageAPI from '../../models/LandingPageAPI'
 
 import styles from '../../styles/landingpage.module.css'
-import SnackBar from '../../components/SnackBar'
-import send from '../../services/contactService'
-import LandingPageAPI from '../../models/LandingPageAPI'
+const Particles = '/images/particles-3.svg'
 
 interface Props {
   pageContent: LandingPage
@@ -28,40 +25,18 @@ function setStyles(htmlString: string) {
 }
 
 export default function Landingpage({ pageContent, errorCode }: Props) {
-  const [modalOpenWithError, setModalOpenWithError] = useState<boolean | undefined>(undefined)
-  const [isSubmited, setIsSubmited] = useState(false)
-
-  function handleOpenModal(error: boolean) {
-    setModalOpenWithError(error)
-    setIsSubmited(false)
-  }
-
-  function handleCloseModal() {
-    setModalOpenWithError(undefined)
-  }
-
-  async function handleSubmit(data: FormInput) {
-    try {
-      setIsSubmited(true)
-      await send(data)
-      handleOpenModal(false)
-    } catch {
-      handleOpenModal(true)
-    }
-  }
-
   if (errorCode) {
-    return <Error statusCode={404} />
+    return <Error statusCode={errorCode} />
   }
 
   return (
-    <Layout invertColors={false}>
-      <div className="pt-0 md:pt-28">
+    <Layout>
+      <div className="pt-0 md:pt-25">
         <div
           style={{
             backgroundImage: `url("${Particles}")`,
             backgroundPosition: 'top',
-            backgroundSize: 'contain',
+            backgroundSize: '100% auto',
             backgroundRepeat: 'no-repeat',
           }}
           className="p-6 md:p-16 xl:px-32 bg-gray-400"
@@ -72,13 +47,7 @@ export default function Landingpage({ pageContent, errorCode }: Props) {
             dangerouslySetInnerHTML={{ __html: setStyles(pageContent.content) }}
           />
         </div>
-        <ContactForm title="Une question ? Contactez-nous !" handleSubmit={handleSubmit} isSubmited={isSubmited} />
-        <SnackBar
-          message={modalOpenWithError ? "Erreur pendant l'envoi du message" : 'Message envoyé'}
-          isError={modalOpenWithError}
-          open={modalOpenWithError}
-          onClose={handleCloseModal}
-        />
+        <ContactForm title="Une question ? Contactez-nous !" />
         <ContactSection />
       </div>
     </Layout>
@@ -99,20 +68,30 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const data = await getLandingPageContent(params.pageSlug)
-  const pageContent = convertAPItoLandingPageContent({ ...data })
+  try {
+    const data = await getLandingPageContent(params.pageSlug)
 
-  if (!data.acf) {
+    if (!data.acf) {
+      return {
+        notFound: true,
+        revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
+      }
+    }
+
+    const pageContent = convertAPItoLandingPageContent({ ...data })
+
     return {
-      notFound: true,
+      props: {
+        pageContent,
+      },
       revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
     }
-  }
-
-  return {
-    props: {
-      pageContent,
-    },
-    revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
+  } catch (error) {
+    return {
+      props: {
+        errorCode: 500,
+      },
+      revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
+    }
   }
 }

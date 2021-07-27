@@ -1,34 +1,32 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import Head from 'next/head'
 import { useMemo, useState } from 'react'
+import Head from 'next/head'
 
 import Button from './Button'
+import ContactSection from './ContactSection'
+import Error from '../pages/_error'
 import Layout from './Layout'
 import LoadingSpinner from './LoadingSpinner'
-import IdeasCard from './IdeasCard'
-import ContactSection from './ContactSection'
+import PostCard from './PostCard'
+import SnackBar from './SnackBar'
 
 import { AuthorDescription, AuthorPageContent } from '../types/AuthorContent'
-import { IdeasDesc, Response } from '../types/IdeasContent'
 import { getIdeasByAuthor } from '../services/wordpressService'
-import { PostAPI } from '../models/IdeasAPI'
+import { PostDesc, Response } from '../types/PostPageContent'
+import { PostAPI } from '../models/PostAPI'
 
 const Particles = '/images/particles-3.svg'
 const Linkedin = '/icons/linkedin.png'
-import Error from '../pages/_error'
-import SnackBar from './SnackBar'
-
-import styles from '../styles/Common.module.css'
 
 interface Props {
-  ideasDescription: IdeasDesc[]
+  ideasDescription: PostDesc[]
   author: AuthorDescription
   content: AuthorPageContent
-  errorCode?: number
   hasMore: boolean
+  errorCode?: number
 }
 
-export default function Author({ ideasDescription, author, content, errorCode, hasMore }: Props) {
+export default function Author({ ideasDescription, author, content, hasMore, errorCode }: Props) {
   const [postModalOpen, setPostModalOpen] = useState<boolean | undefined>(undefined)
   const [ideas, setIdeas] = useState(ideasDescription)
   const [lastPage, setLastPage] = useState(1)
@@ -46,7 +44,7 @@ export default function Author({ ideasDescription, author, content, errorCode, h
   async function handleFetchIdeas() {
     setIsLoadingPosts(true)
     const page = lastPage + 1
-    let data: IdeasDesc[] = []
+    let data: PostDesc[] = []
 
     try {
       const newData: Response = await getIdeasByAuthor(author.id.toString(), page)
@@ -85,31 +83,31 @@ export default function Author({ ideasDescription, author, content, errorCode, h
       ideas.map((idea) => (
         <div
           key={idea.id}
-          className={`m-2 mb-8 shadow-md hover:shadow-lg ${styles.smoothTransition} ${styles.zoomIn} ${styles.round8} ${styles.wInherit}`}
+          className="m-2 mb-8 shadow-md hover:shadow-lg transition-all duration-250 transform hover:scale-102 rounded-lg w-inherit"
         >
-          <IdeasCard slug={idea.slug} title={idea.title} image={idea.image} description={idea.descriptionText} />
+          <PostCard slug={idea.slug} title={idea.title} image={idea.image} description={idea.descriptionText} />
         </div>
       )),
     [ideas]
   )
 
   if (errorCode) {
-    return <Error statusCode={404} />
+    return <Error statusCode={errorCode} />
   }
 
   return (
     <>
       <Head>
-        <title>Agaetis : articles de {author.name}</title>
-        <meta property="og:title" content={`Agaetis : articles de ${author.name}`} />
+        <title>Agaetis - Articles de {author.name}</title>
+        <meta property="og:title" content={`Agaetis - Articles de ${author.name}`} />
         <meta property="og:image" content={`${process.env.NEXT_PUBLIC_SITE_URL}/favicon.ico`} />
         <meta property="og:type" content="website" />
         <meta property="og:description" content={`Découvrez tous les articles de ${author.name}`} />
         <meta name="description" content={`Découvrez tous les articles de ${author.name}`} />
         <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/author/${author.id}`} />
       </Head>
-      <Layout invertColors={false} displayedPage={'/blog'}>
-        <div className="pt-0 md:pt-28">
+      <Layout displayedPage={'/blog'}>
+        <div className="pt-0 md:pt-25">
           <div
             style={{
               backgroundImage: `url("${Particles}")`,
@@ -124,8 +122,8 @@ export default function Author({ ideasDescription, author, content, errorCode, h
                 <div>
                   <div className="mb-8 flex flex-row items-center">
                     <img
-                      className={`${styles.round8} shadow-md`}
-                      src={author.avatar as string}
+                      className="rounded-lg shadow-md"
+                      src={author.avatar}
                       width={96}
                       height={96}
                       alt="Photo de l'auteur"
@@ -134,7 +132,7 @@ export default function Author({ ideasDescription, author, content, errorCode, h
                     {author.linkedInLink && (
                       <Button
                         href={author.linkedInLink}
-                        className={`w-6 h-6 ml-4 shadow-sm hover:shadow-md bg-white rounded-full ${styles.smoothTransition} p-1 text-none`}
+                        className="w-6 h-6 ml-4 shadow-sm hover:shadow-md bg-white rounded-full transition-all duration-250 p-1 text-none"
                       >
                         <img src={Linkedin} className="w-4 h-4" alt="Profil LinkedIn" />
                       </Button>
@@ -150,16 +148,16 @@ export default function Author({ ideasDescription, author, content, errorCode, h
             </div>
             {isVisibleSeeMore && (
               <Button
-                className="flex flex-row justify-center uppercase rounded-full bg-orange-500 text-xss leading-normal py-2 px-6 text-white font-semibold mx-auto shadow-md"
+                className="flex flex-row justify-center uppercase rounded-full bg-orange-500 hover:bg-orange-400 text-xss leading-normal py-2 px-6 text-white font-semibold mx-auto shadow-md hover:shadow-lg transition-all duration-250"
                 onClick={() => handleFetchIdeas()}
               >
                 {isLoadingPosts ? (
                   <div className="flex flex-row justify-center">
                     <LoadingSpinner color="#ffffff" size={12} />
-                    Chargement
+                    <span className="leading-tight">Chargement</span>
                   </div>
                 ) : (
-                  'Voir plus'
+                  <span className="leading-tight">Voir plus</span>
                 )}
               </Button>
             )}

@@ -1,10 +1,12 @@
 import { ChangeEvent, useState } from 'react'
 import clsx from 'clsx'
 
-import styles from '../styles/FileInput.module.css'
-import { AttachmentContent } from '../yup/ContactFormValidation'
 import LoadingSpinner from './LoadingSpinner'
 import SnackBar from './SnackBar'
+
+import { AttachmentContent } from '../yup/ContactFormValidation'
+
+import styles from '../styles/FileInput.module.css'
 
 type Props = {
   className?: string
@@ -29,7 +31,6 @@ function isWithinAcceptableSizeAndCount(files: FileList | null) {
 export default function FileInput({ className, wrapperClassName, onChange, fileCount, fileNames }: Props) {
   const [isLoadingFiles, setIsLoadingFiles] = useState(false)
   const [isOpenenedModal, setOpenModal] = useState<boolean | undefined>(undefined)
-  const [isDraggingOver, setIsDraggingOver] = useState(false)
 
   function handleOpenModal() {
     setOpenModal(true)
@@ -73,7 +74,10 @@ export default function FileInput({ className, wrapperClassName, onChange, fileC
         <div className="flex flex-col items-center md:items-left">
           <div
             id="button"
-            className={clsx(`${styles.uploadButton} top-0 cursor-pointer`, className, { 'drag-over': isDraggingOver })}
+            className={clsx(
+              `${styles.uploadButton} w-fit top-0 cursor-pointer bg-orange-500 hover:bg-orange-400`,
+              className
+            )}
           >
             {isLoadingFiles ? (
               <div className="flex flex-row justify-center">
@@ -96,10 +100,7 @@ export default function FileInput({ className, wrapperClassName, onChange, fileC
           disabled={isLoadingFiles}
           type="file"
           onChange={onChangeHandler}
-          onDragEnter={() => setIsDraggingOver(true)}
-          onDragLeave={() => setIsDraggingOver(false)}
-          onDrop={() => setIsDraggingOver(false)}
-          className={`${styles.hiddenInput} rounded-full absolute top-0 opacity-0 cursor-pointer`}
+          className={`${styles.hiddenInput} rounded-full absolute z-back top-0 opacity-0 cursor-pointer`}
           multiple
           accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,
           .rtf,application/rtf,application/x-rtf,text/richtext,

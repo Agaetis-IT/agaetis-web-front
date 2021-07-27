@@ -1,13 +1,15 @@
 import axios from 'axios'
 
-import { AgaetisContentApi } from '../models/AgaetisAPI'
+import { AgaetisAPI } from '../models/AgaetisAPI'
 import ContactContentApi from '../models/ContactAPI'
-import { IdeasPageContent } from '../types/IdeasContent'
+import { BlogPageContent } from '../types/PostPageContent'
 import IndexContentApi from '../models/IndexAPI'
 import { convertContentAPItoContent } from '../types/SolutionsContent'
 import { OffersPageContent } from '../types/OffersContent'
 import SolutionsAPI from '../models/SolutionsAPI'
 import { AuthorPageContent } from '../types/AuthorContent'
+
+axios.defaults.timeout = 10000
 
 export async function getWordpressPageBySlug<T>(slug: string) {
   const { data } = await axios.get<T>(`${process.env.NEXT_PUBLIC_BASE_URL}/wp-json/agaetis/api/v1/pages/${slug}`)
@@ -20,12 +22,12 @@ export async function getIndexContent() {
 }
 
 export async function getAgaetisContent() {
-  const { acf } = await getWordpressPageBySlug<{ acf: AgaetisContentApi }>('agaetis')
+  const { acf } = await getWordpressPageBySlug<{ acf: AgaetisAPI }>('agaetis')
   return acf
 }
 
 export async function getIdeasPageContent() {
-  const { acf } = await getWordpressPageBySlug<{ acf: IdeasPageContent }>('blog')
+  const { acf } = await getWordpressPageBySlug<{ acf: BlogPageContent }>('blog')
   return acf
 }
 
@@ -62,7 +64,7 @@ export async function getMentionsLegalesContent() {
 
 export async function getSolutionsPageContent() {
   const { acf } = await getWordpressPageBySlug<{ acf: SolutionsAPI }>('solutions')
-  return convertContentAPItoContent(acf)
+  return acf
 }
 
 export async function getContactPageContent() {

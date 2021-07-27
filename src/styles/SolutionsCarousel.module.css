@@ -1,0 +1,6 @@
+.carousel {
+  -webkit-mask-image: linear-gradient(to right, #00000000 , #000000FF 100px),linear-gradient(to left, #00000000 , #000000FF 100px);
+  mask-image: linear-gradient(to right, #00000000 , #000000FF 100px),linear-gradient(to left, #00000000 , #000000FF 100px);
+  -webkit-mask-composite: source-in;
+  mask-composite: source-in;
+}

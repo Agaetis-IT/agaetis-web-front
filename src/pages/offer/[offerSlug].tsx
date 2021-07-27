@@ -1,5 +1,18 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import clsx from 'clsx'
+import Head from 'next/head'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+
+import Button from '../../components/Button'
+import ContactForm from '../../components/ContactForm'
+import ContactSection from '../../components/ContactSection'
+import Error from '../_error'
+import Layout from '../../components/Layout'
+import PartnerList from '../../components/PartnerList'
+import RelatedArticlesSection from '../../components/RelatedArticlesSection'
+
 import { convertAPItoOfferleaf, OfferContent, OfferLeafContent } from '../../types/OffersContent'
 import {
   getAllOffers,
@@ -8,24 +21,10 @@ import {
   getOfferContent,
   getOfferLeaf,
 } from '../../services/wordpressService'
-const Back = '../../../public/icons/Btn_Retour.svg'
-import Error from '../_error'
-import Head from 'next/head'
-import Layout from '../../components/Layout'
-const Particles = '../../../public/images/particles-2.svg'
-import { useState } from 'react'
-import Button from '../../components/Button'
-import clsx from 'clsx'
-import RelatedArticlesSection from '../../components/RelatedArticlesSection'
-import Link from 'next/link'
-import ContactForm from '../../components/ContactForm'
-import ContactSection from '../../components/ContactSection'
-import { FormInput } from '../../yup/ContactFormValidation'
-import { useRouter } from 'next/router'
-import PartnerList from '../../components/PartnerList'
-import SnackBar from '../../components/SnackBar'
-import send from '../../services/contactService'
 import OfferAPI from '../../models/OfferAPI'
+
+const Back = '../../../public/icons/Btn_Retour.svg'
+const Particles = '../../../public/images/particles-2.svg'
 
 interface Props {
   pageContent: OfferContent
@@ -33,20 +32,9 @@ interface Props {
   offers: OfferLeafContent[]
 }
 
-export default function offer({ pageContent, errorCode, offers }: Props): React.ReactElement {
+export default function offer({ pageContent, offers, errorCode }: Props): React.ReactElement {
   const [selectedOffer, setSelectedOffer] = useState(0)
-  const [modalOpenWithError, setModalOpenWithError] = useState<boolean | undefined>(undefined)
-  const [isSubmited, setIsSubmited] = useState(false)
   const router = useRouter()
-
-  function handleOpenModal(error: boolean) {
-    setModalOpenWithError(error)
-    setIsSubmited(false)
-  }
-
-  function handleCloseModal() {
-    setModalOpenWithError(undefined)
-  }
 
   useEffect(() => {
     const offerId = offers.findIndex((offer) => offer.slug === router.query.offer)
@@ -55,33 +43,23 @@ export default function offer({ pageContent, errorCode, offers }: Props): React.
     }
   }, [offers, router.query.offer])
 
-  async function handleSubmit(data: FormInput) {
-    try {
-      setIsSubmited(true)
-      await send(data)
-      handleOpenModal(false)
-    } catch {
-      handleOpenModal(true)
-    }
-  }
-
   if (errorCode) {
-    return <Error statusCode={404} />
+    return <Error statusCode={errorCode} />
   }
 
   return (
     <>
       <Head>
-        <title>Agaetis : {pageContent.title}</title>
-        <meta property="og:title" content={`Agaetis : ${pageContent.title}`} />
+        <title>Agaetis - {pageContent.title}</title>
+        <meta property="og:title" content={`Agaetis - ${pageContent.title}`} />
         <meta property="og:image" content={`${process.env.NEXT_PUBLIC_SITE_URL}/favicon.ico`} />
         <meta property="og:type" content="website" />
         <meta property="og:description" content={pageContent.paragraph} />
         <meta name="description" content={pageContent.paragraph} />
-        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}${pageContent.slug}`} />
+        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/offer/${pageContent.slug}`} />
       </Head>
-      <Layout invertColors={false}>
-        <div className="mx-auto pt-0 md:pt-28">
+      <Layout>
+        <div className="mx-auto pt-0 md:pt-25">
           <div
             style={{
               backgroundImage: `url("${Particles}")`,
@@ -96,7 +74,7 @@ export default function offer({ pageContent, errorCode, offers }: Props): React.
             </div>
             <p className="text-white py-8 leading-normal text-sm">{pageContent.paragraph}</p>
             <div className="bg-white p-8">
-              <Link href="/offers">
+              <Link href="/offers" passHref>
                 <Button>
                   <div className="flex flex-row items-center mb-8">
                     <img className="mr-4" src={Back} alt="Retour" />
@@ -104,7 +82,6 @@ export default function offer({ pageContent, errorCode, offers }: Props): React.
                   </div>
                 </Button>
               </Link>
-
               <div className="flex flex-col lg:flex-row">
                 <div className="w-2/5 border-orange-500 border-r">
                   {offers !== undefined &&
@@ -138,7 +115,7 @@ export default function offer({ pageContent, errorCode, offers }: Props): React.
           </div>
           <div className="block lg:hidden">
             <div className="bg-gray-400 p-4">
-              <Link href="/offers">
+              <Link href="/offers" passHref>
                 <Button>
                   <div className="flex flex-row items-center mb-8">
                     <img className="mr-4 h-8" src={Back} alt="Retour" />
@@ -191,13 +168,7 @@ export default function offer({ pageContent, errorCode, offers }: Props): React.
             />
           )}
 
-          <ContactForm title="Une question ? Contactez-nous !" handleSubmit={handleSubmit} isSubmited={isSubmited} />
-          <SnackBar
-            message={modalOpenWithError ? "Erreur pendant l'envoi du message" : 'Message envoyé'}
-            isError={modalOpenWithError}
-            open={modalOpenWithError}
-            onClose={handleCloseModal}
-          />
+          <ContactForm title="Une question ? Contactez-nous !" />
           <ContactSection />
         </div>
       </Layout>
@@ -219,43 +190,52 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const { [0]: data, [1]: offers } = await Promise.all([
-    getOfferContent(params.offerSlug),
-    getCategoryOffers(params.offerSlug),
-  ])
-  const pageContent = { ...data.acf, slug: data.slug }
+  try {
+    const { [0]: data, [1]: offers } = await Promise.all([
+      getOfferContent(params.offerSlug),
+      getCategoryOffers(params.offerSlug),
+    ])
+    const pageContent = { ...data.acf, slug: data.slug }
 
-  if (!data.acf) {
+    if (!data.acf) {
+      return {
+        notFound: !data.acf,
+        revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
+      }
+    }
+
+    const allOffers = offers.map(
+      async (offer: {
+        acf: {
+          title: string
+          paragraph: string
+          offers_description: string
+        }
+        post_name: string
+      }) => {
+        const { [0]: children, [1]: posts } = await Promise.all([
+          getOfferLeaf(params.offerSlug, offer.post_name),
+          getIdeasByCategory(`_offer-${escape(offer.post_name)}`),
+        ])
+        return convertAPItoOfferleaf(children, posts.data)
+      }
+    )
+
+    const offerChildrens = await Promise.all(allOffers)
+
     return {
-      notFound: !data.acf,
+      props: {
+        pageContent,
+        offers: offerChildrens,
+      },
       revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
     }
-  }
-
-  const allOffers = offers.map(
-    async (offer: {
-      acf: {
-        title: string
-        paragraph: string
-        offers_description: string
-      }
-      post_name: string
-    }) => {
-      const { [0]: children, [1]: posts } = await Promise.all([
-        getOfferLeaf(params.offerSlug, offer.post_name),
-        getIdeasByCategory(`_offer-${escape(offer.post_name)}`),
-      ])
-      return convertAPItoOfferleaf(children, posts.data)
+  } catch (error) {
+    return {
+      props: {
+        errorCode: 500,
+      },
+      revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
     }
-  )
-
-  const offerChildrens = await Promise.all(allOffers)
-
-  return {
-    props: {
-      pageContent,
-      offers: offerChildrens,
-    },
-    revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
   }
 }

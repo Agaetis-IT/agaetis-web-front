@@ -1,26 +1,24 @@
 import { useEffect, useState } from 'react'
-import IdeasContent from '../types/IdeasContent'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 
+import Button from './Button'
+
+import { AuthorLink } from '../types/AuthorContent'
+import { createMarkup } from '../services/textUtilities'
+import PostPageContent from '../types/PostPageContent'
+import Meta from '../types/Meta'
+
+import styles from '../styles/PostContent.module.css'
 const AccessTime = '/icons/access_time-24px.svg'
 const Back = '/icons/Btn_Retour.svg'
-import Link from 'next/link'
-import Button from './Button'
-import { createMarkup } from '../services/textUtilities'
-
 const Twitter = '/icons/twitter.png'
 const Linkedin = '/icons/linkedin.png'
 const Facebook = '/icons/facebook.png'
-import { useRouter } from 'next/router'
-
-import styles from '../styles/IdeaContent.module.css'
-import commonStyles from '../styles/Common.module.css'
-
 const Placeholder = '/images/blog-post-placeholder.jpg'
-import { AuthorLink } from '../types/AuthorContent'
-import Meta from '../types/Meta'
 
 interface Props {
-  content: IdeasContent
+  content: PostPageContent
   meta: Meta
 }
 
@@ -46,12 +44,12 @@ function formatAuthorList(authors: AuthorLink[]) {
 }
 
 function getTopOffset() {
-  const floating = document.getElementsByClassName('header-2')[0]
+  const floating = document.getElementsByClassName('header-1')[0]
 
-  return floating && !floating.classList.contains('hidden') && window.innerWidth >= 820 ? floating.clientHeight : 0
+  return floating && window.innerWidth >= 820 ? floating.clientHeight : 0
 }
 
-function IdeaContent({ content, meta }: Props) {
+function PostContent({ content, meta }: Props) {
   const router = useRouter()
   const [location, setLocation] = useState('')
 
@@ -111,7 +109,7 @@ function IdeaContent({ content, meta }: Props) {
     <div className="md:mx-2">
       <div className="p-6 md:p-0">
         <div className="mb-4 w-fit">
-          <Link href="/blog" passHref={true}>
+          <Link href="/blog" passHref>
             <Button>
               <div className="flex flex-row items-center">
                 <img className="mr-4" src={Back} alt="Retour" />
@@ -125,14 +123,11 @@ function IdeaContent({ content, meta }: Props) {
           dangerouslySetInnerHTML={createMarkup(content.title)}
         />
       </div>
-      <div className={`pb-4 bg-white shadow-md ${styles['md:round8']}`}>
-        <div
-          style={{
-            backgroundImage: `url("${meta.featuredImage ? meta.featuredImage : Placeholder}")`,
-            backgroundPosition: 'center',
-            backgroundSize: 'cover',
-          }}
-          className={`h-80 md:h-100 w-full object-cover ${styles['md:round8top']}`}
+      <div className="pb-4 bg-white shadow-md md:rounded-lg">
+        <img
+          className="object-center h-80 md:h-100 w-full object-cover md:rounded-t-lg"
+          src={meta.featuredImage ? meta.featuredImage : Placeholder}
+          alt={content.title}
         />
         <div className="px-4 md:px-8 text-xs leading-normal text-orange-500 font-semibold flex items-center justify-between py-4">
           <span className="flex items-center">
@@ -147,19 +142,19 @@ function IdeaContent({ content, meta }: Props) {
           <div className="flex flex-row items-center">
             <Button
               href={`https://www.facebook.com/sharer/sharer.php?u=${location.split('#')[0]}`}
-              className={`w-6 h-6 mr-4 self-center shadow-sm hover:shadow-md bg-white rounded-full ${commonStyles.smoothTransition} p-1`}
+              className="w-6 h-6 mr-4 self-center shadow-sm hover:shadow-md bg-white hover:bg-gray-200 rounded-full transition-all duration-250 p-1"
             >
               <img src={Facebook} className="w-4 h-4" alt="Facebook" />
             </Button>
             <Button
               href={`https://www.linkedin.com/shareArticle?mini=true&url=${location.split('#')[0]}`}
-              className={`w-6 h-6 mr-4 shadow-sm hover:shadow-md bg-white rounded-full ${commonStyles.smoothTransition} p-1`}
+              className="w-6 h-6 mr-4 shadow-sm hover:shadow-md bg-white hover:bg-gray-200 rounded-full transition-all duration-250 p-1"
             >
               <img src={Linkedin} className="w-4 h-4" alt="LinkedIn" />
             </Button>
             <Button
               href={`https://twitter.com/intent/tweet?text=${location.split('#')[0]}`}
-              className={`w-6 h-6 shadow-sm hover:shadow-md bg-white rounded-full ${commonStyles.smoothTransition} p-1`}
+              className="w-6 h-6 shadow-sm hover:shadow-md bg-white hover:bg-gray-200 rounded-full transition-all duration-250 p-1"
             >
               <img src={Twitter} className="w-4 h-4" alt="Twitter" />
             </Button>
@@ -171,7 +166,7 @@ function IdeaContent({ content, meta }: Props) {
             <div className="md:my-0 flex flex-row flex-wrap py-4">
               {content.tags.map((tag) => (
                 <span key={tag.name} className="text-xs leading-normal pr-4">
-                  <Link href={`/tags/${tag.slug}`} passHref={true}>
+                  <Link href={`/tags/${tag.slug}`} passHref>
                     <Button className="text-orange-500">
                       <span>#{tag.name}</span>
                     </Button>
@@ -191,4 +186,4 @@ function IdeaContent({ content, meta }: Props) {
   )
 }
 
-export default IdeaContent
+export default PostContent
