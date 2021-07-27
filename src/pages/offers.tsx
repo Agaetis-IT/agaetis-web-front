@@ -67,7 +67,7 @@ export default function offers({ pageContent, allOffers, errorCode }: Props) {
                   href={`/offers/${allOffers[selectedOffer].slug}?offer=${allOffers[selectedOffer].childrens[0].post_name}`}
                 >
                   <div className="flex flex-row items-center">
-                    En savoir plus <img src={Plus} className="ml-4 h-6" />
+                    En savoir plus <img src={Plus} className="ml-4 h-6" alt="Plus" />
                   </div>
                 </Button>
               </div>

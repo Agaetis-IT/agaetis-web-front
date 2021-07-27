@@ -77,7 +77,7 @@ export default function offer({ pageContent, offers, errorCode }: Props): React.
               <Link href="/offers" passHref>
                 <Button>
                   <div className="flex flex-row items-center mb-8">
-                    <img className="mr-4" src={Back} />
+                    <img className="mr-4" src={Back} alt="Retour" />
                     <span className="text-orange-500">Retour aux catégories d'offres</span>
                   </div>
                 </Button>
@@ -118,7 +118,7 @@ export default function offer({ pageContent, offers, errorCode }: Props): React.
               <Link href="/offers" passHref>
                 <Button>
                   <div className="flex flex-row items-center mb-8">
-                    <img className="mr-4 h-8" src={Back} />
+                    <img className="mr-4 h-8" src={Back} alt="Retour" />
                     <span className="text-orange-500">Retour aux catégories d'offres</span>
                   </div>
                 </Button>

@@ -71,6 +71,7 @@ export default function HomeOffers({ title, offers }: Props) {
                       )}
                       width={10}
                       height={10}
+                      alt="Flèche"
                     />
                   </div>
                 </Button>

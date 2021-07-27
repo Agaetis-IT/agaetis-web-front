@@ -68,6 +68,7 @@ export default function HomeSectors({ title, sectors }: Props) {
                       )}
                       width={10}
                       height={10}
+                      alt="Flèche"
                     />
                   </div>
                 </div>
