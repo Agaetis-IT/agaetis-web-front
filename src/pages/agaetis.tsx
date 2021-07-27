@@ -40,6 +40,12 @@ export default function agaetis({ pageContent }: Props) {
                 />
               ))}
             </div>
+            <div>
+              <h2 className="text-2xl font-bold text-orange-500 text-center mb-4">{pageContent.videoTitle}</h2>
+              <video width="576" height="324" controls className="mx-auto">
+                <source src={pageContent.video} type="video/mp4" />
+              </video>
+            </div>
             <div className="mb-8 md:mb-16 md:px-8">
               <h2 className="text-center mt-12 mb-8">{pageContent.chiffres_title}</h2>
               <div className="md:max-w-full mx-auto md:px-8 flex flex-col md:flex-row justify-around bg-gray-400 p-8">
