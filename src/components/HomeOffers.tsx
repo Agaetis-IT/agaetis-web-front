@@ -88,10 +88,7 @@ export default function HomeOffers({ title, offers }: Props) {
                   >
                     <p className="text-sm leading-normal text-justify text-white">{offer.offers_description}</p>
                     {offer.related_landingpage && (
-                      <Link
-                        href={`/landingpages/${relatedPages[relatedPages.length - 2]}`}
-                        passHref
-                      >
+                      <Link href={`/landingpages/${relatedPages[relatedPages.length - 2]}`} passHref>
                         <Button
                           className="flex flex-row justify-center w-48 bg-white hover:bg-gray-200 text-orange-500 uppercase mx-auto rounded-full px-6 py-2 mt-8 shadow-md font-semibold text-xs leading-tight hover:shadow-lg transition-all duration-250"
                           href={`/landingpages/${relatedPages[relatedPages.length - 2]}`}
@@ -124,10 +121,7 @@ export default function HomeOffers({ title, offers }: Props) {
               <div key={index} className={clsx({ hidden: selectedOffer != index })}>
                 <p className="text-sm leading-normal text-justify text-white">{offer.offers_description}</p>
                 {offer.related_landingpage && (
-                  <Link
-                    href={`/landingpages/${relatedPages[relatedPages.length - 2]}`}
-                    passHref
-                  >
+                  <Link href={`/landingpages/${relatedPages[relatedPages.length - 2]}`} passHref>
                     <Button
                       className="flex flex-row justify-center w-48 text-orange-500 bg-white hover:bg-gray-200 uppercase mx-auto rounded-full px-6 py-2 mt-8 shadow-md font-semibold text-xs leading-tight hover:shadow-lg transition-all duration-250"
                       href={`/landingpages/${relatedPages[relatedPages.length - 2]}`}

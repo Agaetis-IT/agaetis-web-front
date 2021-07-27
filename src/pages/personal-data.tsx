@@ -33,26 +33,26 @@ export default function personalData({ pageContent, errorCode }: Props) {
       </Head>
       <Layout>
         <div className="pt-0 md:pt-25">
+          <div
+            style={{
+              backgroundImage: `url("${Particles}")`,
+              backgroundPosition: 'top',
+              backgroundSize: '100% auto',
+              backgroundRepeat: 'no-repeat',
+            }}
+            className="p-6 md:p-16 lg:px-32 xl:px-48 bg-gray-400"
+          >
+            <h1
+              className="mx-1 md:mx-2 text-2xl leading-normal mb-14 font-bold text-orange-500"
+              dangerouslySetInnerHTML={{ __html: pageContent.title }}
+            />
             <div
-              style={{
-                backgroundImage: `url("${Particles}")`,
-                backgroundPosition: 'top',
-                backgroundSize: '100% auto',
-                backgroundRepeat: 'no-repeat',
-              }}
-              className="p-6 md:p-16 lg:px-32 xl:px-48 bg-gray-400"
-            >
-              <h1
-                className="mx-1 md:mx-2 text-2xl leading-normal mb-14 font-bold text-orange-500"
-                dangerouslySetInnerHTML={{ __html: pageContent.title }}
-              />
-              <div
-                className={`mx-1 md:mx-2 text-justify text-sm leading-normal ${styles.personalData}`}
-                dangerouslySetInnerHTML={{ __html: pageContent.content }}
-              />
-            </div>
-            <ContactSection />
+              className={`mx-1 md:mx-2 text-justify text-sm leading-normal ${styles.personalData}`}
+              dangerouslySetInnerHTML={{ __html: pageContent.content }}
+            />
           </div>
+          <ContactSection />
+        </div>
       </Layout>
     </>
   )

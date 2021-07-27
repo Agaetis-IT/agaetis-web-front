@@ -50,11 +50,15 @@ function solutions({ pageContent, errorCode }: Props) {
             className="p-6 md:p-16 lg:px-32 xl:px-48 bg-gray-400"
           >
             <h2 className="mx-1 md:mx-2 text-xl leading-normal mb-14 font-medium">{pageContent.description}</h2>
-            {pageContent.phases.map((phase) => (
-              <div className="mx-1 md:mx-2 mb-8 p-4 md:p-8 bg-white rounded-3xl shadow-md">
+            {pageContent.phases.map((phase, index) => (
+              <div key={index} className="mx-1 md:mx-2 mb-8 p-4 md:p-8 bg-white rounded-3xl shadow-md">
                 <h3 className="text-orange-500 font-bold text-lg md:text-2xl mb-4">{phase.header}</h3>
                 <div className="flex flex-col xl:flex-row xl:items-center">
-                  <img className="object-contain xl:w-3/5 xl:max-h-100 hidden xs:block" alt={phase.header} src={phase.solutionImage} />
+                  <img
+                    className="object-contain xl:w-3/5 xl:max-h-100 hidden xs:block"
+                    alt={phase.header}
+                    src={phase.solutionImage}
+                  />
                   <div className="flex flex-col sm:flex-row xl:flex-col">
                     <div className="mb-2 sm:w-1/2 sm:mr-2 sm:mb-0 xl:w-full xl:mr-0 xl:mb-2">
                       <h4 className="text-gray-800 italic uppercase font-bold">{pageContent.needTitle}</h4>
@@ -68,7 +72,6 @@ function solutions({ pageContent, errorCode }: Props) {
                 </div>
               </div>
             ))}
-            
           </div>
           <div
             style={{
@@ -86,7 +89,9 @@ function solutions({ pageContent, errorCode }: Props) {
               <h2 className="text-lg font-bold mb-4 text-white">{pageContent.whyUs.title}</h2>
               <div className="flex flex-col md:flex-row justify-around p-8">
                 {pageContent.whyUs.sections.sort(compareWhyUsSection).map((section, index) => (
-                  <div key={section.index} className={clsx(
+                  <div
+                    key={section.index}
+                    className={clsx(
                       'text-center md:py-0 p-6 w-full md:w-1/3',
                       index && 'border-white md:border-l md:border-t-0 border-t'
                     )}

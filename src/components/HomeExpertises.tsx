@@ -15,7 +15,11 @@ export default function HomeExpertises({
 }: Props) {
   return (
     <div className="p-4 md:p-12 lg:px-24 lg:p-16">
-      <img className="h-48 block w-1/2 mx-auto md:hidden mt-4 opacity-25" src={expertisesImageMobile} alt="Nos expertises" />
+      <img
+        className="h-48 block w-1/2 mx-auto md:hidden mt-4 opacity-25"
+        src={expertisesImageMobile}
+        alt="Nos expertises"
+      />
       <h2 className="text-orange-500 text-2xl font-semibold text-center md:text-left -mt-24 mb-12 md:m-0">
         {expertisesTitle}
       </h2>

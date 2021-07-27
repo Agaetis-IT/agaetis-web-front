@@ -69,7 +69,7 @@ function createWhyUsSections(contentAPI: SolutionsAPI, keys: string[]) {
           index: parseInt(key[7], 10),
           icon: '',
           title: '',
-          description: ''
+          description: '',
         })
 
         sections.push(newSection)
