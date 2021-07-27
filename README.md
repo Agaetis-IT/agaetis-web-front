@@ -12,10 +12,10 @@ The front-end of the Agaetis website.
 
 Project created with:
 
-- React: 16.8.6
-- NextJS: 8.1.0
-- Typescript: 3.4.3
-- TailwindCSS: 0.7.4
+- React: 17.0.2
+- NextJS: 11.0.1
+- Typescript: 4.3.5
+- TailwindCSS: 2.2.4
 
 ## Installation
 
@@ -30,12 +30,12 @@ yarn install
 ## Usage
 
 ```bash
-yarn dev
+yarn start
 ```
 
-Then visit http://localhost:3000
+Then visit http://localhost:5000
 
-You need an accessible wordpress for the website to work, whose url needs to be added in a `.env` file (on root directory) with `NEXT_APP_BASE_URL`.
+You need an accessible WordPress for the website to work, whose url needs to be added in a `.env` file (on root directory) with `NEXT_APP_BASE_URL`.
 
 ## Change Mail settings
 
