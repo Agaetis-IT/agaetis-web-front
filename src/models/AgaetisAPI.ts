@@ -24,4 +24,6 @@ export interface AgaetisAPI {
   question4: QuestionAPI
   question5: QuestionAPI
   question6: QuestionAPI
+  video: string
+  videoTitle: string
 }

@@ -63,6 +63,12 @@ export default function agaetis({ pageContent, errorCode }: Props) {
             {pageContent.questions.map((question) => (
               <AgaetisDialog key={question.index} title={question.question} description={question.answer} />
             ))}
+            <div>
+              <h2 className="text-2xl font-bold text-orange-500 text-center mb-4">{pageContent.videoTitle}</h2>
+              <video width="576" height="324" controls className="mx-auto">
+                <source src={pageContent.video} type="video/mp4" />
+              </video>
+            </div>
           </div>
           <div
             style={{
