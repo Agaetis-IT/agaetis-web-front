@@ -107,7 +107,7 @@ function PostContent({ content, meta }: Props) {
 
   useEffect(() => {
     setLocation(window.location.href)
-    mediumZoom('[data-zoomable]')
+    mediumZoom('.data-zoomable')
 
     return setAnchorHandlers()
   }, [setAnchorHandlers])
