@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import mediumZoom from 'medium-zoom'
 import { useRouter } from 'next/router'
 
 import Button from './Button'
@@ -41,6 +42,10 @@ function formatAuthorList(authors: AuthorLink[]) {
     i === authors.length - 1 && authors.length > 1 && ' et ',
     formatAuthor(author),
   ])
+}
+
+function wrapImages(content: string) {
+  return content.replace(/(?<=<img[^>]*class="[^"]*)"(?=[^>]*>)/, ' data-zoomable"')
 }
 
 function getTopOffset() {
@@ -102,6 +107,8 @@ function PostContent({ content, meta }: Props) {
 
   useEffect(() => {
     setLocation(window.location.href)
+    mediumZoom('[data-zoomable]')
+
     return setAnchorHandlers()
   }, [setAnchorHandlers])
 
@@ -178,7 +185,7 @@ function PostContent({ content, meta }: Props) {
         </div>
         <div
           id="ideaContent"
-          dangerouslySetInnerHTML={createMarkup(content.content)}
+          dangerouslySetInnerHTML={createMarkup(wrapImages(content.content))}
           className={`${styles.content} px-4 md:px-8 leading-normal text-sm text-justify`}
         />
       </div>
