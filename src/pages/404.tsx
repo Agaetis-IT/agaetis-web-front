@@ -14,7 +14,7 @@ export default function Custom404() {
         <title>Agaetis - Erreur 404</title>
       </Head>
       <Layout>
-        <div className="pt-0md:pt-17 min-h-screen flex flex-col bg-orange-500">
+        <div className="pt-0 md:pt-17 min-h-screen flex flex-col bg-orange-500">
           <div
             style={{
               backgroundImage: `url("${Mask}")`,

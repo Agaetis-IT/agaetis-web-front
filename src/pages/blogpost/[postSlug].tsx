@@ -79,7 +79,7 @@ export default function BlogPost({ data, related, meta, errorCode }: Props) {
         <meta name="twitter:data2" value={`${data.readTime} min.`} />
       </Head>
       <Layout displayedPage={'/blog'}>
-        <div className="pt-0md:pt-17">
+        <div className="pt-0 md:pt-17">
           <div
             style={{
               backgroundImage: `url("${Particles}")`,

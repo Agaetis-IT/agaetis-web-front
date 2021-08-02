@@ -9,9 +9,10 @@ const orangeLogo = '/images/logo-agaetis-hor-p164-rgb-150.png'
 interface Props {
   displayedPage?: string
   className?: string
+  otherColor?: string
 }
 
-export default function Header({ className, displayedPage }: Props) {
+export default function Header({ className, displayedPage, otherColor }: Props) {
   const [isMenuOpen, setMenuOpen] = useState(false)
   const [position, setPosition] = useState(0)
 

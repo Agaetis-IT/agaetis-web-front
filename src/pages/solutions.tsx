@@ -39,7 +39,7 @@ function solutions({ pageContent, errorCode }: Props) {
         <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/solutions`} />
       </Head>
       <Layout displayedPage={'/solutions'}>
-        <div className="pt-0md:pt-17">
+        <div className="pt-0 md:pt-17">
           <div
             style={{
               backgroundImage: `url("${Particles}")`,
