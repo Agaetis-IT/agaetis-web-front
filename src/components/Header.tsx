@@ -5,16 +5,17 @@ import Link from 'next/link'
 import NavigationMenu from './NavigationMenu'
 
 const orangeLogo = '/images/logo-agaetis-hor-p164-rgb-150.png'
+const whiteLogo = '/images/logo-agaetis-hor-white-rgb-150.png'
 
 interface Props {
   displayedPage?: string
-  className?: string
-  otherColor?: string
+  otherColorClass?: string
 }
 
-export default function Header({ className, displayedPage, otherColor }: Props) {
+export default function Header({ displayedPage, otherColorClass }: Props) {
   const [isMenuOpen, setMenuOpen] = useState(false)
   const [position, setPosition] = useState(0)
+  const [width, setWidth] = useState(0)
 
   function handleToggleMenu() {
     setMenuOpen(!isMenuOpen)
@@ -23,6 +24,11 @@ export default function Header({ className, displayedPage, otherColor }: Props) 
   useEffect(() => {
     if (window) {
       setPosition(window.scrollY)
+      setWidth(window.innerWidth)
+    }
+
+    const handleResize = () => {
+      setWidth(window.innerWidth)
     }
 
     const handleScroll = () => {
@@ -31,18 +37,20 @@ export default function Header({ className, displayedPage, otherColor }: Props) 
 
     if (window && document) {
       window.addEventListener('scroll', handleScroll)
+      window.addEventListener('resize', handleResize)
     }
 
     return () => {
       window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('resize', handleResize)
     }
   }, [setPosition, position])
 
   return (
     <header
       className={clsx(
-        'px-4 py-2 xl:px-32 header-1 w-full md:fixed z-1000 bg-white shadow-md transition-all duration-250 md:py-2',
-        className
+        'px-4 py-2 xl:px-32 header-1 w-full md:fixed z-1000 transition-all duration-250 md:py-2',
+        width > 820 && position < 500 && otherColorClass ? otherColorClass : 'bg-white shadow-md'
       )}
     >
       <nav>
@@ -60,19 +68,19 @@ export default function Header({ className, displayedPage, otherColor }: Props) 
             <a className="flex items-center self-center">
               <img
                 className="transition-all duration-250 md:w-32 w-40"
-                src={orangeLogo}
+                src={width > 820 && position < 500 && otherColorClass ? whiteLogo : orangeLogo}
                 alt="Logo Agaetis"
               />
             </a>
           </Link>
           <div className="md:hidden pl-5 pr-6" />
           <div className="hidden md:block">
-            <NavigationMenu displayedPage={displayedPage} />
+            <NavigationMenu displayedPage={displayedPage} otherColorClass={otherColorClass} />
           </div>
           <div className="hidden lg:block transition-all duration-250 md:w-32 w-40" />
         </div>
         <div className={clsx({ hidden: !isMenuOpen })}>
-          <NavigationMenu displayedPage={displayedPage} />
+          <NavigationMenu displayedPage={displayedPage} otherColorClass={otherColorClass} />
         </div>
       </nav>
     </header>

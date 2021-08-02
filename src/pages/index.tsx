@@ -37,7 +37,7 @@ export default function Index({ pageContent, offers, errorCode }: Props) {
         <meta name="description" content={pageContent.hero_subtitle} />
         <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/`} />
       </Head>
-      <Layout>
+      <Layout otherColorClass="bg-orange-500">
         <>
           <Hero
             hero={pageContent.hero_image}
