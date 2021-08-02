@@ -39,7 +39,7 @@ function solutions({ pageContent, errorCode }: Props) {
         <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/solutions`} />
       </Head>
       <Layout displayedPage={'/solutions'}>
-        <div className="pt-0 md:pt-25">
+        <div className="pt-0md:pt-17">
           <div
             style={{
               backgroundImage: `url("${Particles}")`,
@@ -62,11 +62,11 @@ function solutions({ pageContent, errorCode }: Props) {
                   <div className="flex flex-col sm:flex-row xl:flex-col">
                     <div className="mb-8 sm:w-1/2 sm:mr-4 sm:mb-0 xl:w-full xl:mr-0 xl:mb-8">
                       <h4 className="text-gray-800 italic uppercase font-bold">{pageContent.needTitle}</h4>
-                      <p className="text-sm text-justify">{phase.needContent}</p>
+                      <p className="text-xs text-justify">{phase.needContent}</p>
                     </div>
                     <div className="sm:w-1/2 sm:ml-4 xl:w-full xl:ml-0">
                       <h4 className="text-gray-800 italic uppercase font-bold">{pageContent.responseTitle}</h4>
-                      <p className="text-sm text-justify">{phase.responseContent}</p>
+                      <p className="text-xs text-justify">{phase.responseContent}</p>
                     </div>
                   </div>
                 </div>

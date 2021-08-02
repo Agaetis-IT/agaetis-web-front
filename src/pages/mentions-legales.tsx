@@ -32,7 +32,7 @@ export default function mentionsLegales({ pageContent, errorCode }: Props) {
         <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/mentions-legales`} />
       </Head>
       <Layout>
-        <div className="pt-0 md:pt-25">
+        <div className="pt-0md:pt-17">
           <div
             style={{
               backgroundImage: `url("${Particles}")`,

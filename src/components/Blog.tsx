@@ -165,7 +165,7 @@ export default function Blog({
         <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/blog`} />
       </Head>
       <Layout displayedPage={'/blog'}>
-        <div className="pt-0 md:pt-25">
+        <div className="pt-0md:pt-17">
           <div
             style={{
               backgroundImage: `url("${Particles}")`,

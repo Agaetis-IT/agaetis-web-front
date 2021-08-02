@@ -41,7 +41,7 @@ export default function offers({ pageContent, allOffers, errorCode }: Props) {
         <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/offers`} />
       </Head>
       <Layout>
-        <div className="mx-auto pt-0 md:pt-25">
+        <div className="mx-auto pt-0md:pt-17">
           <div
             style={{
               backgroundImage: `url("${Mask}")`,

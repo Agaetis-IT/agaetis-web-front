@@ -32,7 +32,7 @@ export default function personalData({ pageContent, errorCode }: Props) {
         <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/personal-data`} />
       </Head>
       <Layout>
-        <div className="pt-0 md:pt-25">
+        <div className="pt-0md:pt-17">
           <div
             style={{
               backgroundImage: `url("${Particles}")`,

@@ -34,7 +34,7 @@ export default function agaetis({ pageContent, errorCode }: Props) {
         <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/agaetis`} />
       </Head>
       <Layout displayedPage={'/agaetis'}>
-        <div className="pt-0 md:pt-25">
+        <div className="pt-0 md:pt-17">
           <div
             style={{
               backgroundImage: `url("${pageContent.background}")`,
