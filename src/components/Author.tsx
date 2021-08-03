@@ -11,7 +11,7 @@ import PostCard from './PostCard'
 import SnackBar from './SnackBar'
 
 import { AuthorDescription, AuthorPageContent } from '../types/AuthorContent'
-import { getIdeasByAuthor } from '../services/wordpressService'
+import { getPostsByAuthor } from '../services/wordpressService'
 import { PostDesc, Response } from '../types/PostPageContent'
 import { PostAPI } from '../models/PostAPI'
 
@@ -47,7 +47,7 @@ export default function Author({ ideasDescription, author, content, hasMore, err
     let data: PostDesc[] = []
 
     try {
-      const newData: Response = await getIdeasByAuthor(author.id.toString(), page)
+      const newData: Response = await getPostsByAuthor(author.id.toString(), page)
 
       if (newData) {
         data = newData.data

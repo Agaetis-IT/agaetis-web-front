@@ -17,7 +17,7 @@ import { convertAPItoOfferleaf, OfferContent, OfferLeafContent } from '../../typ
 import {
   getAllOffers,
   getCategoryOffers,
-  getIdeasByCategory,
+  getPostsByCategory,
   getOfferContent,
   getOfferLeaf,
 } from '../../services/wordpressService'
@@ -216,7 +216,7 @@ export async function getStaticProps({ params }) {
       }) => {
         const { [0]: children, [1]: posts } = await Promise.all([
           getOfferLeaf(params.offerSlug, offer.post_name),
-          getIdeasByCategory(`_offer-${escape(offer.post_name)}`),
+          getPostsByCategory(`_offer-${escape(offer.post_name)}`),
         ])
         return convertAPItoOfferleaf(children, posts.data)
       }

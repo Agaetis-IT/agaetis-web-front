@@ -15,7 +15,7 @@ import SearchInput from './SearchInput'
 import SnackBar from './SnackBar'
 
 import { Category, PostDesc, BlogPageContent, Response } from '../types/PostPageContent'
-import { getIdeasByCategory, getIdeasByPage, getIdeasByTag } from '../services/wordpressService'
+import { getPostsByCategory, getPostsByPage, getPostsByTag } from '../services/wordpressService'
 import { PostAPI } from '../models/PostAPI'
 import { slugify } from '../services/textUtilities'
 import WhitePaper from '../types/WhitePaper'
@@ -73,15 +73,15 @@ export default function Blog({
 
       if (catFilter != 'All') {
         if (tagFilter) {
-          newData = await getIdeasByTag(tagFilter, slugify(catFilter), page, searchBarFilter)
+          newData = await getPostsByTag(tagFilter, slugify(catFilter), page, searchBarFilter)
         } else {
-          newData = await getIdeasByCategory(slugify(catFilter), page, searchBarFilter)
+          newData = await getPostsByCategory(slugify(catFilter), page, searchBarFilter)
         }
       } else {
         if (tagFilter) {
-          newData = await getIdeasByTag(tagFilter, undefined, page, searchBarFilter)
+          newData = await getPostsByTag(tagFilter, undefined, page, searchBarFilter)
         } else {
-          newData = await getIdeasByPage(page, searchBarFilter)
+          newData = await getPostsByPage(page, searchBarFilter)
         }
       }
 

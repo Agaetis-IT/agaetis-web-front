@@ -2,7 +2,7 @@ import Blog from '../components/Blog'
 
 import { Category } from '../types/PostPageContent'
 import { CategoryAPI, PostAPI } from '../models/PostAPI'
-import { getIdeasByPage, getCategories, getIdeasPageContent, getAllWhitePapers } from '../services/wordpressService'
+import { getPostsByPage, getCategories, getBlogPageContent, getAllWhitePapers } from '../services/wordpressService'
 import WhitePaper from '../types/WhitePaper'
 
 export default Blog
@@ -14,7 +14,7 @@ export async function getStaticProps() {
       [1]: categories,
       [2]: content,
       [3]: whitepapers,
-    } = await Promise.all([getIdeasByPage(), getCategories(), getIdeasPageContent(), getAllWhitePapers()])
+    } = await Promise.all([getPostsByPage(), getCategories(), getBlogPageContent(), getAllWhitePapers()])
 
     return {
       props: {

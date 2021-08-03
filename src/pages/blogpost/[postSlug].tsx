@@ -15,7 +15,7 @@ import PostContent from '../../components/PostContent'
 
 import { AuthorLink } from '../../types/AuthorContent'
 import { formatPostAuthors } from '../../services/textUtilities'
-import { getIdeaBySlug, getIdeaMeta, getIdeasByPage } from '../../services/wordpressService'
+import { getPostBySlug, getPostMeta, getPostsByPage } from '../../services/wordpressService'
 import PostPageContent, { PostDesc } from '../../types/PostPageContent'
 import Meta, { convertMetaAPItoMeta } from '../../types/Meta'
 import { PostAPI } from '../../models/PostAPI'
@@ -110,7 +110,7 @@ export default function BlogPost({ data, related, meta, errorCode }: Props) {
 }
 
 export async function getStaticPaths() {
-  const posts = await getIdeasByPage()
+  const posts = await getPostsByPage()
 
   return {
     paths: posts.data.map((post: PostAPI) => ({
@@ -125,8 +125,8 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   try {
     const { [0]: data, [1]: meta } = await Promise.all([
-      getIdeaBySlug(escape(params.postSlug)),
-      getIdeaMeta(escape(params.postSlug)),
+      getPostBySlug(escape(params.postSlug)),
+      getPostMeta(escape(params.postSlug)),
     ])
 
     if (data !== '{"errorCode":404}') {
@@ -142,7 +142,7 @@ export async function getStaticProps({ params }) {
         const related = []
         if (data.acf) {
           for (const idea of data.acf.related_ideas) {
-            const data2 = await getIdeaBySlug(idea.post_name)
+            const data2 = await getPostBySlug(idea.post_name)
             related.push(data2)
           }
 
