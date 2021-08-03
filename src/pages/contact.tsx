@@ -23,6 +23,7 @@ export default function contact({ pageContent, errorCode }: Props) {
       <Head>
         <title>Agaetis - Contactez-nous</title>
         <meta property="og:title" content="Agaetis - Contactez-nous" />
+        <meta property="og:url" content={`${process.env.NEXT_PUBLIC_SITE_URL}/contact`} />
         <meta property="og:image" content={`${process.env.NEXT_PUBLIC_SITE_URL}/favicon.ico`} />
         <meta property="og:type" content="website" />
         <meta property="og:description" content="Un projet, une idée ? Discutons-en !" />
@@ -31,7 +32,7 @@ export default function contact({ pageContent, errorCode }: Props) {
       </Head>
       <Layout>
         <div className="pt-0 md:pt-17">
-          <ContactForm title={pageContent.title} subText={pageContent.paragraph} />
+          <ContactForm title={pageContent.title} subText={pageContent.paragraph} isPage/>
           <ContactSection />
         </div>
       </Layout>

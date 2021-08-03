@@ -157,6 +157,7 @@ export default function Blog({
       <Head>
         <title>Agaetis - Blog</title>
         <meta property="og:title" content="Agaetis - Blog" />
+        <meta property="og:url" content={`${process.env.NEXT_PUBLIC_SITE_URL}/blog`} />
         <meta property="og:image" content={`${process.env.NEXT_PUBLIC_SITE_URL}/favicon.ico`} />
         <meta property="og:type" content="website" />
         <meta property="og:description" content="Chacun d'entre nous a ses idées et le droit de les défendre" />
@@ -175,7 +176,7 @@ export default function Blog({
             className="p-6 md:p-16 lg:px-32 xl:px-48 bg-gray-400"
           >
             <div className="mx-1 md:mx-2">
-              <h2 className="text-xl leading-normal mb-14 font-medium">{content.description}</h2>
+              <h1 className="text-xl leading-normal mb-14 font-medium">{content.description}</h1>
               <SearchInput handleChange={handleSearchChanged} defaultValue={searchFilter} />
             </div>
             <CategoryTab

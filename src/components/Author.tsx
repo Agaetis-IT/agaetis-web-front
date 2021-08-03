@@ -100,6 +100,7 @@ export default function Author({ ideasDescription, author, content, hasMore, err
       <Head>
         <title>Agaetis - Articles de {author.name}</title>
         <meta property="og:title" content={`Agaetis - Articles de ${author.name}`} />
+        <meta property="og:url" content={`${process.env.NEXT_PUBLIC_SITE_URL}/author/${author.id}`} />
         <meta property="og:image" content={`${process.env.NEXT_PUBLIC_SITE_URL}/favicon.ico`} />
         <meta property="og:type" content="website" />
         <meta property="og:description" content={`Découvrez tous les articles de ${author.name}`} />
@@ -130,7 +131,7 @@ export default function Author({ ideasDescription, author, content, hasMore, err
                       alt={`Photo de l'auteur ${author.name}`}
                       loading="lazy"
                     />
-                    <p className="ml-4 text-xl leading-normal font-semibold">{author.name}</p>
+                    <h1 className="ml-4 text-xl leading-normal font-semibold">{author.name}</h1>
                     {author.linkedInLink && (
                       <Button
                         href={author.linkedInLink}

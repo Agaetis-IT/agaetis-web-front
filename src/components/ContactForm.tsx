@@ -22,9 +22,10 @@ const Particles = '/images/particles-3-mirror.svg'
 interface Props {
   title: string
   subText?: string
+  isPage?: boolean
 }
 
-export default function ContactForm({ title, subText }: Props) {
+export default function ContactForm({ title, subText, isPage }: Props) {
   const recaptchaRef = useRef<ReCAPTCHA>(null)
   const [snackBarOpenWithError, setSnackBarOpenWithError] = useState<boolean | undefined>(undefined)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -73,6 +74,8 @@ export default function ContactForm({ title, subText }: Props) {
     clearErrors()
   }, [clearErrors])
 
+  let ComponentProp: React.ElementType = isPage ? 'h1' : 'h2'
+
   return (
     <>
       <div
@@ -85,7 +88,7 @@ export default function ContactForm({ title, subText }: Props) {
         className="p-6 md:p-12 lg:px-24 lg:p-16 bg-gray-400"
       >
         <div className="flex flex-col md:flex-row justify-between mb-8">
-          <h2 className="text-orange-500 text-2xl font-bold leading-normal mb-4 md:mb-0">{title}</h2>
+          <ComponentProp className="text-orange-500 text-2xl font-bold leading-normal mb-4 md:mb-0">{title}</ComponentProp>
           <div className="flex flex-row items-center">
             <Button
               href="https://fr-fr.facebook.com/AgaetisIT"

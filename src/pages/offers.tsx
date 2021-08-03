@@ -34,6 +34,7 @@ export default function offers({ pageContent, allOffers, errorCode }: Props) {
       <Head>
         <title>Agaetis - Nos offres</title>
         <meta property="og:title" content="Agaetis - Nos offres" />
+        <meta property="og:url" content={`${process.env.NEXT_PUBLIC_SITE_URL}/offers`} />
         <meta property="og:image" content={`${process.env.NEXT_PUBLIC_SITE_URL}/favicon.ico`} />
         <meta property="og:type" content="website" />
         <meta property="og:description" content="Découvrez les offres d'Agaetis pour vos projets et vos besoins" />

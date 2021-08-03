@@ -118,10 +118,7 @@ function PostContent({ content, meta }: Props) {
             </Button>
           </Link>
         </div>
-        <p
-          className="md:py-6 text-xl leading-normal mt-4 md:my-4 font-medium"
-          dangerouslySetInnerHTML={createMarkup(content.title)}
-        />
+        <h1 className="md:py-6 text-xl leading-normal mt-4 md:my-4 font-medium">{content.title}</h1>
       </div>
       <div className="pb-4 bg-white shadow-md md:rounded-lg">
         <img

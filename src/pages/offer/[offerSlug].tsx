@@ -52,6 +52,7 @@ export default function offer({ pageContent, offers, errorCode }: Props): React.
       <Head>
         <title>Agaetis - {pageContent.title}</title>
         <meta property="og:title" content={`Agaetis - ${pageContent.title}`} />
+        <meta property="og:url" content={`${process.env.NEXT_PUBLIC_SITE_URL}/offer/${pageContent.slug}`} />
         <meta property="og:image" content={`${process.env.NEXT_PUBLIC_SITE_URL}/favicon.ico`} />
         <meta property="og:type" content="website" />
         <meta property="og:description" content={pageContent.paragraph} />

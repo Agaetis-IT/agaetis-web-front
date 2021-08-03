@@ -27,6 +27,7 @@ export default function agaetis({ pageContent, errorCode }: Props) {
       <Head>
         <title>Agaetis - Histoire et vision</title>
         <meta property="og:title" content="Agaetis - Histoire et vision" />
+        <meta property="og:url" content={`${process.env.NEXT_PUBLIC_SITE_URL}/agaetis`} />
         <meta property="og:image" content={`${process.env.NEXT_PUBLIC_SITE_URL}/favicon.ico`} />
         <meta property="og:type" content="website" />
         <meta property="og:description" content={"Présentation d'Agaetis, de son histoire et de sa vision"} />

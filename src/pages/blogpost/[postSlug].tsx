@@ -60,23 +60,15 @@ export default function BlogPost({ data, related, meta, errorCode }: Props) {
         <title>Agaetis - {data.title}</title>
         <meta property="og:title" content={`Agaetis - ${data.title}`} />
         <meta property="og:type" content="article" />
-        <meta property="og:url" content={`${process.env.NEXT_PUBLIC_SITE_URL}/${data.slug}`} />
+        <meta property="og:url" content={`${process.env.NEXT_PUBLIC_SITE_URL}/blogpost/${data.slug}`} />
         <meta property="og:description" content={meta.description ? meta.description : data.descriptionText} />
-        {meta.featuredImage && <meta property="og:image" content={meta.featuredImage} />}
+        <meta property="og:image" content={meta.featuredImage || `${process.env.NEXT_PUBLIC_SITE_URL}/public${Particles}`} />
         <meta name="description" content={meta.description ? meta.description : data.descriptionText} />
         <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/blogpost/${data.slug}`} />
-        {/*
-        // @ts-ignore */}
-        <meta name="twitter:label1" value={`Auteur${data.authors.length > 1 ? 's' : ''}`} />
-        {/*
-        // @ts-ignore */}
-        <meta name="twitter:data1" value={`${formatPostAuthors(data.authors.map((author) => author.name))}`} />
-        {/*
-        // @ts-ignore */}
-        <meta name="twitter:label2" value="Temps de lecture" />
-        {/*
-        // @ts-ignore */}
-        <meta name="twitter:data2" value={`${data.readTime} min.`} />
+        <meta name="twitter:label1" content={`Auteur${data.authors.length > 1 ? 's' : ''}`} />
+        <meta name="twitter:data1" content={`${formatPostAuthors(data.authors.map((author) => author.name))}`} />
+        <meta name="twitter:label2" content="Temps de lecture" />
+        <meta name="twitter:data2" content={`${data.readTime} min.`} />
       </Head>
       <Layout displayedPage={'/blog'}>
         <div className="pt-0 md:pt-17">

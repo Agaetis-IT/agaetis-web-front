@@ -26,6 +26,7 @@ function solutions({ pageContent, errorCode }: Props) {
       <Head>
         <title>Agaetis - Nos solutions</title>
         <meta property="og:title" content="Agaetis - Nos solutions" />
+        <meta property="og:url" content={`${process.env.NEXT_PUBLIC_SITE_URL}/solutions`} />
         <meta property="og:image" content={`${process.env.NEXT_PUBLIC_SITE_URL}/favicon.ico`} />
         <meta property="og:type" content="website" />
         <meta
@@ -49,10 +50,10 @@ function solutions({ pageContent, errorCode }: Props) {
             }}
             className="p-6 md:p-16 lg:px-32 xl:px-48 bg-gray-400"
           >
-            <h2 className="mx-1 md:mx-2 text-xl leading-normal mb-14 font-medium">{pageContent.description}</h2>
+            <h1 className="mx-1 md:mx-2 text-xl leading-normal mb-14 font-medium">{pageContent.description}</h1>
             {pageContent.phases.map((phase, index) => (
               <div key={index} className="mx-1 md:mx-2 mb-8 p-4 md:p-8 bg-white rounded-3xl shadow-md">
-                <h3 className="text-orange-500 font-bold text-lg md:text-2xl mb-4">{phase.header}</h3>
+                <h2 className="text-orange-500 font-bold text-lg md:text-2xl mb-4">{phase.header}</h2>
                 <div className="flex flex-col xl:flex-row xl:items-center">
                   <img
                     className="object-contain xl:w-3/5 xl:max-h-100 hidden xs:block"
@@ -63,11 +64,11 @@ function solutions({ pageContent, errorCode }: Props) {
                   />
                   <div className="flex flex-col sm:flex-row xl:flex-col">
                     <div className="mb-8 sm:w-1/2 sm:mr-4 sm:mb-0 xl:w-full xl:mr-0 xl:mb-8">
-                      <h4 className="text-gray-800 italic uppercase font-bold">{pageContent.needTitle}</h4>
+                      <h3 className="text-gray-800 italic uppercase font-bold">{pageContent.needTitle}</h3>
                       <p className="text-xs text-justify">{phase.needContent}</p>
                     </div>
                     <div className="sm:w-1/2 sm:ml-4 xl:w-full xl:ml-0">
-                      <h4 className="text-gray-800 italic uppercase font-bold">{pageContent.responseTitle}</h4>
+                      <h3 className="text-gray-800 italic uppercase font-bold">{pageContent.responseTitle}</h3>
                       <p className="text-xs text-justify">{phase.responseContent}</p>
                     </div>
                   </div>
