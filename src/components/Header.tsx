@@ -69,7 +69,11 @@ export default function Header({ displayedPage, otherColorClass }: Props) {
               <img
                 className="transition-all duration-250 md:w-32 w-40"
                 src={width > 820 && position < 500 && otherColorClass ? whiteLogo : orangeLogo}
+                title="Agaetis"
                 alt="Logo Agaetis"
+                width={1035}
+                height={330}
+                loading="eager"
               />
             </a>
           </Link>

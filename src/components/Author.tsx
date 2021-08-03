@@ -126,7 +126,9 @@ export default function Author({ ideasDescription, author, content, hasMore, err
                       src={author.avatar}
                       width={96}
                       height={96}
-                      alt="Photo de l'auteur"
+                      title={`Photo de l'auteur ${author.name}`}
+                      alt={`Photo de l'auteur ${author.name}`}
+                      loading="lazy"
                     />
                     <p className="ml-4 text-xl leading-normal font-semibold">{author.name}</p>
                     {author.linkedInLink && (
@@ -134,7 +136,7 @@ export default function Author({ ideasDescription, author, content, hasMore, err
                         href={author.linkedInLink}
                         className="w-6 h-6 ml-4 shadow-sm hover:shadow-md bg-white rounded-full transition-all duration-250 p-1 text-none"
                       >
-                        <img src={Linkedin} className="w-4 h-4" alt="Profil LinkedIn" />
+                        <img src={Linkedin} className="w-4 h-4" title="Profil LinkedIn" alt="Profil LinkedIn" width={16} height={16} loading="lazy" />
                       </Button>
                     )}
                   </div>

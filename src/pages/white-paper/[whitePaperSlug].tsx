@@ -12,8 +12,6 @@ import { sendWhitePaper } from '../../services/contactService'
 import WhitePaper from '../../types/WhitePaper'
 import { WhitepaperFormValues } from '../../yup/WhitePaperFormValidation'
 
-const Logo = '../static/icons/Agaetis - Ico logo - Orange.png'
-
 interface Props {
   pageContent?: WhitePaper
   errorCode?: number
@@ -71,11 +69,13 @@ export default function whitePaper({ pageContent, errorCode }: Props) {
           <img
             className="md:max-w-lg flex shadow-xl justify-center mx-auto my-4 p-0"
             src={pageContent.image}
+            title={pageContent.title}
             alt={pageContent.title}
+            width={96}
+            height={96}
+            loading="eager"
           />
           <div className="md:max-w-lg mx-auto mb-8 px-4">
-            <img src={Logo} className="bg-img-left-wp" alt="Logo Agaetis" />
-            <img src={Logo} className="bg-img-right-wp" alt="Logo Agaetis" />
             <div className=" md:px-12 flex flex-col justify-center">
               <WhitePaperForm
                 title={pageContent.title}

@@ -112,7 +112,7 @@ function PostContent({ content, meta }: Props) {
           <Link href="/blog" passHref>
             <Button>
               <div className="flex flex-row items-center">
-                <img className="mr-4" src={Back} alt="Retour" />
+                <img className="mr-4" src={Back} title="Retour" alt="Retour" width={52} height={52} loading="eager" />
                 <span className="text-orange-500 text-xs leading-normal font-semibold">Retour au blog</span>
               </div>
             </Button>
@@ -127,7 +127,11 @@ function PostContent({ content, meta }: Props) {
         <img
           className="object-center h-80 md:h-100 w-full object-cover md:rounded-t-lg"
           src={meta.featuredImage ? meta.featuredImage : Placeholder}
+          title={content.title}
           alt={content.title}
+          width={400}
+          height={400}
+          loading="eager"
         />
         <div className="px-4 md:px-8 text-xs leading-normal text-orange-500 font-semibold flex items-center justify-between py-4">
           <span className="flex items-center">
@@ -135,7 +139,7 @@ function PostContent({ content, meta }: Props) {
               {content.date.slice(8, 10)} / {content.date.slice(5, 7)} / {content.date.slice(0, 4)}
             </span>
             <span className="flex items-center pr-8">
-              <img src={AccessTime} alt="Temps de lecture" width={15} height={15} />
+              <img src={AccessTime} title="Temps de leture" alt="Temps de lecture" width={15} height={15} loading="eager" />
               &nbsp;{content.readTime} min.
             </span>
           </span>
@@ -144,19 +148,19 @@ function PostContent({ content, meta }: Props) {
               href={`https://www.facebook.com/sharer/sharer.php?u=${location.split('#')[0]}`}
               className="w-6 h-6 mr-4 self-center shadow-sm hover:shadow-md bg-white hover:bg-gray-200 rounded-full transition-all duration-250 p-1"
             >
-              <img src={Facebook} className="w-4 h-4" alt="Facebook" />
+              <img src={Facebook} className="w-4 h-4" title="Partager sur Facebook" alt="Facebook" width={16} height={16} loading="eager" />
             </Button>
             <Button
               href={`https://www.linkedin.com/shareArticle?mini=true&url=${location.split('#')[0]}`}
               className="w-6 h-6 mr-4 shadow-sm hover:shadow-md bg-white hover:bg-gray-200 rounded-full transition-all duration-250 p-1"
             >
-              <img src={Linkedin} className="w-4 h-4" alt="LinkedIn" />
+              <img src={Linkedin} className="w-4 h-4" title="Partager sur LinkedIn" alt="LinkedIn" width={16} height={16} loading="eager" />
             </Button>
             <Button
               href={`https://twitter.com/intent/tweet?text=${location.split('#')[0]}`}
               className="w-6 h-6 shadow-sm hover:shadow-md bg-white hover:bg-gray-200 rounded-full transition-all duration-250 p-1"
             >
-              <img src={Twitter} className="w-4 h-4" alt="Twitter" />
+              <img src={Twitter} className="w-4 h-4" title="Partager sur Twitter" alt="Twitter" width={16} height={16} loading="eager" />
             </Button>
           </div>
         </div>

@@ -20,7 +20,11 @@ export default function PostCard({ slug, title, image, description }: Props) {
           <img
             className="object-cover object-center w-full sm:w-3/10 h-56 rounded-t-lg sm:rounded-l-lg sm:rounded-r-none"
             src={image ? image : Placeholder}
+            title={title}
             alt={title}
+            width={300}
+            height={224}
+            loading="lazy"
           />
           <div className="py-6 px-8 h-56 w-full sm:w-7/10">
             <div className="h-1/3">

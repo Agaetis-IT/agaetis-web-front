@@ -30,6 +30,7 @@ export default function Index({ pageContent, offers, errorCode }: Props) {
     <>
       <Head>
         <title>Agaetis</title>
+        <meta property="og:url" content={`${process.env.NEXT_PUBLIC_SITE_URL}/`} />
         <meta property="og:title" content="Agaetis" />
         <meta property="og:image" content={`${process.env.NEXT_PUBLIC_SITE_URL}/favicon.ico`} />
         <meta property="og:type" content="website" />
