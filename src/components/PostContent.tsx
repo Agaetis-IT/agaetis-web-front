@@ -5,7 +5,6 @@ import { useRouter } from 'next/router'
 import Button from './Button'
 
 import { AuthorLink } from '../types/AuthorContent'
-import { createMarkup } from '../services/textUtilities'
 import PostPageContent from '../types/PostPageContent'
 import Meta from '../types/Meta'
 
@@ -20,6 +19,10 @@ const Placeholder = '/images/blog-post-placeholder.jpg'
 interface Props {
   content: PostPageContent
   meta: Meta
+}
+
+function createMarkup(content: string) {
+  return { __html: content }
 }
 
 function formatAuthor(author: AuthorLink) {
