@@ -51,8 +51,8 @@ function solutions({ pageContent, errorCode }: Props) {
             className="p-6 md:p-16 lg:px-32 xl:px-48 bg-gray-400"
           >
             <h1 className="mx-1 md:mx-2 text-xl leading-normal mb-14 font-medium">{pageContent.description}</h1>
-            {pageContent.phases.map((phase, index) => (
-              <div key={index} className="mx-1 md:mx-2 mb-8 p-4 md:p-8 bg-white rounded-3xl shadow-md">
+            {pageContent.phases.map((phase) => (
+              <div key={phase.header} className="mx-1 md:mx-2 mb-8 p-4 md:p-8 bg-white rounded-3xl shadow-md">
                 <h2 className="text-orange-500 font-bold text-lg md:text-2xl mb-4">{phase.header}</h2>
                 <div className="flex flex-col xl:flex-row xl:items-center">
                   <img
@@ -60,7 +60,7 @@ function solutions({ pageContent, errorCode }: Props) {
                     title={phase.header}
                     alt={phase.header}
                     src={phase.solutionImage}
-                    width={400} height={400} loading="lazy"
+                    width={1500} height={400} loading="lazy"
                   />
                   <div className="flex flex-col sm:flex-row xl:flex-col">
                     <div className="mb-8 sm:w-1/2 sm:mr-4 sm:mb-0 xl:w-full xl:mr-0 xl:mb-8">
@@ -93,7 +93,7 @@ function solutions({ pageContent, errorCode }: Props) {
               <div className="flex flex-col md:flex-row justify-around p-8">
                 {pageContent.whyUs.sections.sort(compareWhyUsSection).map((section, index) => (
                   <div
-                    key={section.index}
+                    key={section.title}
                     className={clsx(
                       'text-center md:py-0 p-6 w-full md:w-1/3',
                       index && 'border-white md:border-l md:border-t-0 border-t'
