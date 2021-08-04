@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import Button from './Button'
 
 import { AuthorLink } from '../types/AuthorContent'
+import { fixWordPressString } from '../services/textUtilities'
 import PostPageContent from '../types/PostPageContent'
 import Meta from '../types/Meta'
 
@@ -121,7 +122,7 @@ function PostContent({ content, meta }: Props) {
             </Button>
           </Link>
         </div>
-        <h1 className="md:py-6 text-xl leading-normal mt-4 md:my-4 font-medium">{content.title}</h1>
+        <h1 className="md:py-6 text-xl leading-normal mt-4 md:my-4 font-medium">{fixWordPressString(content.title)}</h1>
       </div>
       <div className="pb-4 bg-white shadow-md md:rounded-lg">
         <img

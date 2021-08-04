@@ -14,7 +14,7 @@ import PostCard from '../../components/PostCard'
 import PostContent from '../../components/PostContent'
 
 import { AuthorLink } from '../../types/AuthorContent'
-import { formatPostAuthors } from '../../services/textUtilities'
+import { fixWordPressString, formatPostAuthors } from '../../services/textUtilities'
 import { getPostBySlug, getPostMeta, getPostsByPage } from '../../services/wordpressService'
 import PostPageContent, { PostDesc } from '../../types/PostPageContent'
 import Meta, { convertMetaAPItoMeta } from '../../types/Meta'
@@ -57,8 +57,8 @@ export default function BlogPost({ data, related, meta, errorCode }: Props) {
   return (
     <>
       <Head>
-        <title>Agaetis - {data.title}</title>
-        <meta property="og:title" content={`Agaetis - ${data.title}`} />
+        <title>Agaetis - {fixWordPressString(data.title)}</title>
+        <meta property="og:title" content={`Agaetis - ${fixWordPressString(data.title)}`} />
         <meta property="og:type" content="article" />
         <meta property="og:url" content={`${process.env.NEXT_PUBLIC_SITE_URL}/blogpost/${data.slug}`} />
         <meta property="og:description" content={meta.description ? meta.description : data.descriptionText} />

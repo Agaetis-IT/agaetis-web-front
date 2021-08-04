@@ -1,5 +1,7 @@
 import Link from 'next/link'
 
+import { fixWordPressString } from '../services/textUtilities'
+
 import styles from '../styles/PostCard.module.css'
 const Placeholder = '/images/blog-post-placeholder.jpg'
 
@@ -26,7 +28,7 @@ export default function PostCard({ slug, title, image, description }: Props) {
           />
           <div className="py-6 px-8 h-56 w-full sm:w-7/10">
             <div className="h-1/3">
-              <h2 className="font-semibold text-xs md:text-base leading-normal">{title}</h2>
+              <h2 className="font-semibold text-xs md:text-base leading-normal">{fixWordPressString(title)}</h2>
             </div>
             <div className="h-1/2">
               <div className={`overflow-hidden relative h-fade ${styles.fade}`}>

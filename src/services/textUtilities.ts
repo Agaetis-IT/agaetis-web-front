@@ -18,3 +18,9 @@ export function slugify(s: string) {
 export function formatPostAuthors(names: string[]) {
   return names.join(', ').replace(/, (?=[^,]*$)/, ' et ')
 }
+
+export function fixWordPressString(content: string) {
+  return content.replace(/&#(\d+);/g, function(_, dec) {
+    return String.fromCharCode(dec)
+  })
+}
