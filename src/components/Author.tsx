@@ -137,7 +137,15 @@ export default function Author({ ideasDescription, author, content, hasMore, err
                         href={author.linkedInLink}
                         className="w-6 h-6 ml-4 shadow-sm hover:shadow-md bg-white rounded-full transition-all duration-250 p-1 text-none"
                       >
-                        <img src={Linkedin} className="w-4 h-4" title="Profil LinkedIn" alt="Profil LinkedIn" width={16} height={16} loading="lazy" />
+                        <img
+                          src={Linkedin}
+                          className="w-4 h-4"
+                          title="Profil LinkedIn"
+                          alt="Profil LinkedIn"
+                          width={16}
+                          height={16}
+                          loading="lazy"
+                        />
                       </Button>
                     )}
                   </div>

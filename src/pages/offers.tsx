@@ -76,7 +76,16 @@ export default function offers({ pageContent, allOffers, errorCode }: Props) {
                   href={`/offers/${allOffers[selectedOffer].slug}?offer=${allOffers[selectedOffer].childrens[0].post_name}`}
                 >
                   <div className="flex flex-row items-center">
-                    En savoir plus <img src={Plus} className="ml-4 h-6" title="Plus" alt="Plus" width={24} height={24} loading="eager" />
+                    En savoir plus{' '}
+                    <img
+                      src={Plus}
+                      className="ml-4 h-6"
+                      title="Plus"
+                      alt="Plus"
+                      width={24}
+                      height={24}
+                      loading="eager"
+                    />
                   </div>
                 </Button>
               </div>
@@ -91,7 +100,15 @@ export default function offers({ pageContent, allOffers, errorCode }: Props) {
                       setSelectedOffer(index)
                     }}
                   >
-                    <img src={offre.offers_image1} className="h-8 md:h-24" title={offre.title} alt={offre.title} width={96} height={96} loading="eager" />
+                    <img
+                      src={offre.offers_image1}
+                      className="h-8 md:h-24"
+                      title={offre.title}
+                      alt={offre.title}
+                      width={96}
+                      height={96}
+                      loading="eager"
+                    />
                     <h2 className="text-sm leading-normal">{offre.title}</h2>
                     <div
                       className={clsx(

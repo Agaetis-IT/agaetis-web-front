@@ -70,7 +70,15 @@ export default function offer({ pageContent, offers, errorCode }: Props): React.
             className="bg-gray-900 p-0 md:p-12 lg:px-24 lg:p-16 hidden lg:block shadow-none md:shadow-md"
           >
             <div className="flex flex-row items-center">
-              <img src={pageContent.offers_image1} className="block h-16" title={pageContent.title} alt={pageContent.title} width={64} height={64} loading="eager" />
+              <img
+                src={pageContent.offers_image1}
+                className="block h-16"
+                title={pageContent.title}
+                alt={pageContent.title}
+                width={64}
+                height={64}
+                loading="eager"
+              />
               <h1 className="text-white text-2xl leading-normal ml-8">{pageContent.title}</h1>
             </div>
             <p className="text-white py-8 leading-normal text-sm">{pageContent.paragraph}</p>
@@ -78,7 +86,15 @@ export default function offer({ pageContent, offers, errorCode }: Props): React.
               <Link href="/offers" passHref>
                 <Button>
                   <div className="flex flex-row items-center mb-8">
-                    <img className="mr-4" src={Back} title="Retour" alt="Retour" width={52} height={52} loading="eager" />
+                    <img
+                      className="mr-4"
+                      src={Back}
+                      title="Retour"
+                      alt="Retour"
+                      width={52}
+                      height={52}
+                      loading="eager"
+                    />
                     <span className="text-orange-500">Retour aux catégories d'offres</span>
                   </div>
                 </Button>
@@ -119,13 +135,29 @@ export default function offer({ pageContent, offers, errorCode }: Props): React.
               <Link href="/offers" passHref>
                 <Button>
                   <div className="flex flex-row items-center mb-8">
-                    <img className="mr-4 h-8" src={Back} title="Retour" alt="Retour" width={52} height={52} loading="eager" />
+                    <img
+                      className="mr-4 h-8"
+                      src={Back}
+                      title="Retour"
+                      alt="Retour"
+                      width={52}
+                      height={52}
+                      loading="eager"
+                    />
                     <span className="text-orange-500">Retour aux catégories d'offres</span>
                   </div>
                 </Button>
               </Link>
               <div className="flex flex-row items-center mt-0 md:mt-20">
-                <img src={pageContent.offers_image1} className="block h-12" title={pageContent.title} alt={pageContent.title} width={48} height={48} loading="eager" />
+                <img
+                  src={pageContent.offers_image1}
+                  className="block h-12"
+                  title={pageContent.title}
+                  alt={pageContent.title}
+                  width={48}
+                  height={48}
+                  loading="eager"
+                />
                 <h1 className="text-black text-2xl leading-normal ml-8">{pageContent.title}</h1>
               </div>
               <div>

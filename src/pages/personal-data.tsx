@@ -28,8 +28,14 @@ export default function personalData({ pageContent, errorCode }: Props) {
         <meta property="og:url" content={`${process.env.NEXT_PUBLIC_SITE_URL}/personal-data`} />
         <meta property="og:image" content={`${process.env.NEXT_PUBLIC_SITE_URL}/favicon.ico`} />
         <meta property="og:type" content="website" />
-        <meta property="og:description" content="Consultez ici la politique de traitement des données personnelles de ce site." />
-        <meta name="description" content="Consultez ici la politique de traitement des données personnelles de ce site." />
+        <meta
+          property="og:description"
+          content="Consultez ici la politique de traitement des données personnelles de ce site."
+        />
+        <meta
+          name="description"
+          content="Consultez ici la politique de traitement des données personnelles de ce site."
+        />
         <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/personal-data`} />
       </Head>
       <Layout>

@@ -88,25 +88,51 @@ export default function ContactForm({ title, subText, isPage }: Props) {
         className="p-6 md:p-12 lg:px-24 lg:p-16 bg-gray-400"
       >
         <div className="flex flex-col md:flex-row justify-between mb-8">
-          <ComponentProp className="text-orange-500 text-2xl font-bold leading-normal mb-4 md:mb-0">{title}</ComponentProp>
+          <ComponentProp className="text-orange-500 text-2xl font-bold leading-normal mb-4 md:mb-0">
+            {title}
+          </ComponentProp>
           <div className="flex flex-row items-center">
             <Button
               href="https://fr-fr.facebook.com/AgaetisIT"
               className="w-6 h-6 mr-4 self-center shadow-sm hover:shadow-md bg-white hover:bg-gray-200 rounded-full transition-all duration-250 p-1 text-none"
             >
-              <img src={Facebook} className="w-4 h-4" title="Retrouvez-nous sur Facebook" alt="Facebook" width={16} height={16} loading="lazy" />
+              <img
+                src={Facebook}
+                className="w-4 h-4"
+                title="Retrouvez-nous sur Facebook"
+                alt="Facebook"
+                width={16}
+                height={16}
+                loading="lazy"
+              />
             </Button>
             <Button
               href="https://www.linkedin.com/company/agaetis/"
               className="w-6 h-6 mr-4 shadow-sm hover:shadow-md bg-white hover:bg-gray-200 rounded-full transition-all duration-250 p-1 text-none"
             >
-              <img src={Linkedin} className="w-4 h-4" title="Retrouvez-nous sur LinkedIn" alt="LinkedIn" width={16} height={16} loading="lazy" />
+              <img
+                src={Linkedin}
+                className="w-4 h-4"
+                title="Retrouvez-nous sur LinkedIn"
+                alt="LinkedIn"
+                width={16}
+                height={16}
+                loading="lazy"
+              />
             </Button>
             <Button
               href="https://twitter.com/agaetisit"
               className="w-6 h-6 shadow-sm hover:shadow-md bg-white hover:bg-gray-200 rounded-full transition-all duration-250 p-1 text-none"
             >
-              <img src={Twitter} className="w-4 h-4" title="Retrouvez-nous sur Twitter" alt="Twitter" width={16} height={16} loading="lazy" />
+              <img
+                src={Twitter}
+                className="w-4 h-4"
+                title="Retrouvez-nous sur Twitter"
+                alt="Twitter"
+                width={16}
+                height={16}
+                loading="lazy"
+              />
             </Button>
           </div>
         </div>

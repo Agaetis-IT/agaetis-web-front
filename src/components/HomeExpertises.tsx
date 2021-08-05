@@ -27,12 +27,28 @@ export default function HomeExpertises({
       <h2 className="text-orange-500 text-2xl font-semibold text-center md:text-left -mt-24 mb-12 md:m-0">
         {expertisesTitle}
       </h2>
-      <img className="hidden md:block md:mt-12" src={expertisesImageDesktop} title="Nos expertises" alt="Nos expertises" width={1550} height={750} loading="lazy" />
+      <img
+        className="hidden md:block md:mt-12"
+        src={expertisesImageDesktop}
+        title="Nos expertises"
+        alt="Nos expertises"
+        width={1550}
+        height={750}
+        loading="lazy"
+      />
       <div className="block md:hidden">
         {expertises.map((e, index) => (
           <div key={e.title} className="flex flex-col">
             <div className="flex flex-row py-4">
-              <img className="h-16 w-16" src={e.logo} title={e.title} alt={e.title} width={64} height={64} loading="lazy" />
+              <img
+                className="h-16 w-16"
+                src={e.logo}
+                title={e.title}
+                alt={e.title}
+                width={64}
+                height={64}
+                loading="lazy"
+              />
               <div className="self-center pl-2">
                 <h3 className="text-orange-500 font-bold pb-1 uppercase text-sm leading-normal">{e.title}</h3>
                 <p className="text-gray-700 text-xs leading-normal font-bold italic">
