@@ -41,7 +41,7 @@ module.exports = {
         permanent: true,
       },
       {
-        source: '/:slug((?!.*(?:_next|images|icons|ideas|tags|offer|landingpage|white-paper|author|offers|solutions|blog|agaetis|white-papers|contact|jobs|cookies|personal-data|mentions-legales|google80ae36db41235209\.html|robots\.txt|favicon\.ico)).*)',
+        source: '/:slug((?!(?:_next/|images/|icons/|ideas/|tags/|offer/|landingpage/|white-paper/|author/|offers$|solutions$|blog$|blog/|blogpost/|agaetis$|white-papers/|contact$|jobs$|cookies$|personal-data$|mentions-legales$|google80ae36db41235209\\.html$|robots\\.txt$|favicon\\.ico$)).*)',
         destination: '/blogpost/:slug',
         permanent: true,
       },

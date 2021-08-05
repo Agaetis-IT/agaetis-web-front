@@ -57,10 +57,12 @@ export default function MyApp({ Component, pageProps }) {
         <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@AgaetisIT" />
+        <meta name="theme-color" content="#ff7f40" />
+        <link rel="apple-touch-icon" type="image/png" href={`${process.env.NEXT_PUBLIC_SITE_URL}/icons/agaetis-orange-logo-ico.png`} />
         <link rel="shortcut icon" type="image/ico" href={`${process.env.NEXT_PUBLIC_SITE_URL}/favicon.ico`} />
         <link rel="preconnect" href="https://wordpress.agaetis.fr" />
       </Head>
-      <NextNProgress color="#ff7f40" startPosition={0.25} stopDelayMs={50} height={3} />
+      <NextNProgress color="#dd6b20" startPosition={0.25} stopDelayMs={50} height={3} />
       <Component {...pageProps} />
     </ErrorBoundary>
   )

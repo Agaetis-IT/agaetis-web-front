@@ -30,6 +30,7 @@ export default function Index({ pageContent, offers, errorCode }: Props) {
     <>
       <Head>
         <title>Agaetis</title>
+        <meta property="og:url" content={`${process.env.NEXT_PUBLIC_SITE_URL}/`} />
         <meta property="og:title" content="Agaetis" />
         <meta property="og:image" content={`${process.env.NEXT_PUBLIC_SITE_URL}/favicon.ico`} />
         <meta property="og:type" content="website" />
@@ -37,7 +38,7 @@ export default function Index({ pageContent, offers, errorCode }: Props) {
         <meta name="description" content={pageContent.hero_subtitle} />
         <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/`} />
       </Head>
-      <Layout>
+      <Layout otherColorClass="bg-orange-500">
         <>
           <Hero
             hero={pageContent.hero_image}

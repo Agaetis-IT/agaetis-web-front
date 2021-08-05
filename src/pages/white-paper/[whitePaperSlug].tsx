@@ -12,8 +12,6 @@ import { sendWhitePaper } from '../../services/contactService'
 import WhitePaper from '../../types/WhitePaper'
 import { WhitepaperFormValues } from '../../yup/WhitePaperFormValidation'
 
-const Logo = '../static/icons/Agaetis - Ico logo - Orange.png'
-
 interface Props {
   pageContent?: WhitePaper
   errorCode?: number
@@ -54,6 +52,7 @@ export default function whitePaper({ pageContent, errorCode }: Props) {
       <Head>
         <title>Agaetis - {pageContent.title}</title>
         <meta property="og:title" content={`Agaetis - ${pageContent.title}`} />
+        <meta property="og:url" content={`${process.env.NEXT_PUBLIC_SITE_URL}/white-paper/${pageContent.slug}`} />
         <meta property="og:image" content={`${process.env.NEXT_PUBLIC_SITE_URL}/favicon.ico`} />
         <meta property="og:type" content="website" />
         <meta property="og:description" content={pageContent.description} />
@@ -71,11 +70,13 @@ export default function whitePaper({ pageContent, errorCode }: Props) {
           <img
             className="md:max-w-lg flex shadow-xl justify-center mx-auto my-4 p-0"
             src={pageContent.image}
+            title={pageContent.title}
             alt={pageContent.title}
+            width={96}
+            height={96}
+            loading="eager"
           />
           <div className="md:max-w-lg mx-auto mb-8 px-4">
-            <img src={Logo} className="bg-img-left-wp" alt="Logo Agaetis" />
-            <img src={Logo} className="bg-img-right-wp" alt="Logo Agaetis" />
             <div className=" md:px-12 flex flex-col justify-center">
               <WhitePaperForm
                 title={pageContent.title}

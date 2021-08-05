@@ -11,7 +11,7 @@ import PostCard from './PostCard'
 import SnackBar from './SnackBar'
 
 import { AuthorDescription, AuthorPageContent } from '../types/AuthorContent'
-import { getIdeasByAuthor } from '../services/wordpressService'
+import { getPostsByAuthor } from '../services/wordpressService'
 import { PostDesc, Response } from '../types/PostPageContent'
 import { PostAPI } from '../models/PostAPI'
 
@@ -47,7 +47,7 @@ export default function Author({ ideasDescription, author, content, hasMore, err
     let data: PostDesc[] = []
 
     try {
-      const newData: Response = await getIdeasByAuthor(author.id.toString(), page)
+      const newData: Response = await getPostsByAuthor(author.id.toString(), page)
 
       if (newData) {
         data = newData.data
@@ -100,6 +100,7 @@ export default function Author({ ideasDescription, author, content, hasMore, err
       <Head>
         <title>Agaetis - Articles de {author.name}</title>
         <meta property="og:title" content={`Agaetis - Articles de ${author.name}`} />
+        <meta property="og:url" content={`${process.env.NEXT_PUBLIC_SITE_URL}/author/${author.id}`} />
         <meta property="og:image" content={`${process.env.NEXT_PUBLIC_SITE_URL}/favicon.ico`} />
         <meta property="og:type" content="website" />
         <meta property="og:description" content={`Découvrez tous les articles de ${author.name}`} />
@@ -107,7 +108,7 @@ export default function Author({ ideasDescription, author, content, hasMore, err
         <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/author/${author.id}`} />
       </Head>
       <Layout displayedPage={'/blog'}>
-        <div className="pt-0 md:pt-25">
+        <div className="pt-0 md:pt-17">
           <div
             style={{
               backgroundImage: `url("${Particles}")`,
@@ -126,15 +127,17 @@ export default function Author({ ideasDescription, author, content, hasMore, err
                       src={author.avatar}
                       width={96}
                       height={96}
-                      alt="Photo de l'auteur"
+                      title={`Photo de l'auteur ${author.name}`}
+                      alt={`Photo de l'auteur ${author.name}`}
+                      loading="lazy"
                     />
-                    <p className="ml-4 text-xl leading-normal font-semibold">{author.name}</p>
+                    <h1 className="ml-4 text-xl leading-normal font-semibold">{author.name}</h1>
                     {author.linkedInLink && (
                       <Button
                         href={author.linkedInLink}
                         className="w-6 h-6 ml-4 shadow-sm hover:shadow-md bg-white rounded-full transition-all duration-250 p-1 text-none"
                       >
-                        <img src={Linkedin} className="w-4 h-4" alt="Profil LinkedIn" />
+                        <img src={Linkedin} className="w-4 h-4" title="Profil LinkedIn" alt="Profil LinkedIn" width={16} height={16} loading="lazy" />
                       </Button>
                     )}
                   </div>

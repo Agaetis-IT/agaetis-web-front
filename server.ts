@@ -48,9 +48,16 @@ app
     const jsonParser = json() as RequestHandler
 
     server.get(/sitemap[a-zA-Z-0-9\/\-_]*.xml/, async (req: Request, res: Response) => {
-      const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}${req.url}`)
+      let { data } = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}${req.url}`)
       res.set('Content-Type', 'text/xml')
-      res.send(data.replace(new RegExp(process.env.NEXT_PUBLIC_BASE_URL!, 'g'), process.env.NEXT_PUBLIC_SITE_URL))
+
+      if (req.url.includes('-pt-post-')) {
+        data = data.replace(new RegExp(process.env.NEXT_PUBLIC_BASE_URL!, 'g'), `${process.env.NEXT_PUBLIC_SITE_URL}/blogpost`)
+      } else {
+        data = data.replace(new RegExp(process.env.NEXT_PUBLIC_BASE_URL!, 'g'), process.env.NEXT_PUBLIC_SITE_URL)
+      }
+
+      res.send(data)
     })
 
     server.post('/send', json10MBParser, async (req: Request, res: Response) => {

@@ -13,8 +13,8 @@ export default function Custom500() {
         <meta name="robots" content="noindex,nofollow" />
         <title>Agaetis - Erreur 500</title>
       </Head>
-      <Layout>
-        <div className="pt-0 md:pt-25 min-h-screen flex flex-col bg-orange-500">
+      <Layout otherColorClass="bg-orange-500">
+        <div className="pt-0 md:pt-17 min-h-screen flex flex-col bg-orange-500">
           <div
             style={{
               backgroundImage: `url("${Mask}")`,

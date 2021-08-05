@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import clsx from 'clsx'
 import Link from 'next/link'
 
@@ -7,9 +8,13 @@ import styles from '../styles/NavigationMenu.module.css'
 
 interface Props {
   displayedPage?: string
+  otherColorClass?: string
 }
 
-export default function NavigationMenu({ displayedPage }: Props) {
+export default function NavigationMenu({ displayedPage, otherColorClass }: Props) {
+  const [position, setPosition] = useState(0)
+  const [width, setWidth] = useState(0)
+
   const pages = [
     ['Agaetis', '/agaetis'],
     ['Solutions', '/solutions'],
@@ -17,10 +22,36 @@ export default function NavigationMenu({ displayedPage }: Props) {
     ['Blog', '/blog'],
   ]
 
+  useEffect(() => {
+    if (window) {
+      setPosition(window.scrollY)
+      setWidth(window.innerWidth)
+    }
+
+    const handleResize = () => {
+      setWidth(window.innerWidth)
+    }
+
+    const handleScroll = () => {
+      setPosition(window.scrollY)
+    }
+
+    if (window && document) {
+      window.addEventListener('scroll', handleScroll)
+      window.addEventListener('resize', handleResize)
+    }
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [setPosition, position])
+
   return (
     <div
       className={clsx(
-        'block shadow-md md:shadow-none bg-white md:flex flex-shrink-0 md:items-center p-4 md:p-0 z-1000 left-0 right-0 absolute md:relative'
+        'block shadow-md md:shadow-none md:flex flex-shrink-0 md:items-center p-4 md:p-0 z-1000 left-0 right-0 absolute md:relative',
+        width < 820 && 'bg-white'
       )}
     >
       <div className="text-xs font-medium leading-normal">
@@ -29,8 +60,9 @@ export default function NavigationMenu({ displayedPage }: Props) {
             <Button
               href={page[1]}
               className={clsx(
-                `text-black block md:inline-block p-2 py-3 md:p-3 md:px-6 text-base font-black leading-normal transition-all duration-250 ${styles.menuLinkBlackUnderline}`,
-                displayedPage === page[1] && `${styles.menuLinkUnderlineSelected}`
+                `block md:inline-block p-2 py-3 md:p-3 md:px-6 text-base font-black leading-normal transition-all duration-250 ${styles.menuLinkUnderline}`,
+                displayedPage === page[1] && styles.menuLinkUnderlineSelected,
+                width > 820 && position < 500 && otherColorClass ? `text-white ${styles.menuLinkWhiteUnderline}` : `text-black ${styles.menuLinkBlackUnderline}`
               )}
             >
               {page[0]}

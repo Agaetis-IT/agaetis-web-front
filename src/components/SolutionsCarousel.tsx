@@ -29,6 +29,7 @@ export default function SolutionsCarousel({ partners }: Props) {
               src={partner.image}
               title={partner.name}
               alt={partner.name}
+              loading="lazy"
             />
           </li>
         ))}

@@ -3,9 +3,9 @@ import Blog from '../../../components/Blog'
 import { Category } from '../../../types/PostPageContent'
 import {
   getCategories,
-  getIdeasPageContent,
+  getBlogPageContent,
   getAllWhitePapers,
-  getIdeasByTag,
+  getPostsByTag,
   getTags,
 } from '../../../services/wordpressService'
 import { TagAPI, PostAPI, CategoryAPI } from '../../../models/PostAPI'
@@ -33,7 +33,7 @@ export async function getStaticProps({ params }) {
       [1]: categories,
       [2]: content,
       [3]: whitepapers,
-    } = await Promise.all([getIdeasByTag(params.tagSlug), getCategories(), getIdeasPageContent(), getAllWhitePapers()])
+    } = await Promise.all([getPostsByTag(params.tagSlug), getCategories(), getBlogPageContent(), getAllWhitePapers()])
 
     content.description = `Découvrez nos articles avec le tag #${params.tagSlug}.`
 

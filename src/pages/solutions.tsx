@@ -26,6 +26,7 @@ function solutions({ pageContent, errorCode }: Props) {
       <Head>
         <title>Agaetis - Nos solutions</title>
         <meta property="og:title" content="Agaetis - Nos solutions" />
+        <meta property="og:url" content={`${process.env.NEXT_PUBLIC_SITE_URL}/solutions`} />
         <meta property="og:image" content={`${process.env.NEXT_PUBLIC_SITE_URL}/favicon.ico`} />
         <meta property="og:type" content="website" />
         <meta
@@ -39,7 +40,7 @@ function solutions({ pageContent, errorCode }: Props) {
         <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/solutions`} />
       </Head>
       <Layout displayedPage={'/solutions'}>
-        <div className="pt-0 md:pt-25">
+        <div className="pt-0 md:pt-17">
           <div
             style={{
               backgroundImage: `url("${Particles}")`,
@@ -49,24 +50,26 @@ function solutions({ pageContent, errorCode }: Props) {
             }}
             className="p-6 md:p-16 lg:px-32 xl:px-48 bg-gray-400"
           >
-            <h2 className="mx-1 md:mx-2 text-xl leading-normal mb-14 font-medium">{pageContent.description}</h2>
-            {pageContent.phases.map((phase, index) => (
-              <div key={index} className="mx-1 md:mx-2 mb-8 p-4 md:p-8 bg-white rounded-3xl shadow-md">
-                <h3 className="text-orange-500 font-bold text-lg md:text-2xl mb-4">{phase.header}</h3>
+            <h1 className="mx-1 md:mx-2 text-xl leading-normal mb-14 font-medium">{pageContent.description}</h1>
+            {pageContent.phases.map((phase) => (
+              <div key={phase.header} className="mx-1 md:mx-2 mb-8 p-4 md:p-8 bg-white rounded-3xl shadow-md">
+                <h2 className="text-orange-500 font-bold text-lg md:text-2xl mb-4">{phase.header}</h2>
                 <div className="flex flex-col xl:flex-row xl:items-center">
                   <img
                     className="object-contain xl:w-3/5 xl:max-h-100 hidden xs:block"
+                    title={phase.header}
                     alt={phase.header}
                     src={phase.solutionImage}
+                    width={1500} height={400} loading="lazy"
                   />
                   <div className="flex flex-col sm:flex-row xl:flex-col">
-                    <div className="mb-2 sm:w-1/2 sm:mr-2 sm:mb-0 xl:w-full xl:mr-0 xl:mb-2">
-                      <h4 className="text-gray-800 italic uppercase font-bold">{pageContent.needTitle}</h4>
-                      <p className="text-sm text-justify">{phase.needContent}</p>
+                    <div className="mb-8 sm:w-1/2 sm:mr-4 sm:mb-0 xl:w-full xl:mr-0 xl:mb-8">
+                      <h3 className="text-gray-800 italic uppercase font-bold">{pageContent.needTitle}</h3>
+                      <p className="text-xs text-justify">{phase.needContent}</p>
                     </div>
-                    <div className="sm:w-1/2 sm:ml-2 xl:w-full xl:ml-0">
-                      <h4 className="text-gray-800 italic uppercase font-bold">{pageContent.responseTitle}</h4>
-                      <p className="text-sm text-justify">{phase.responseContent}</p>
+                    <div className="sm:w-1/2 sm:ml-4 xl:w-full xl:ml-0">
+                      <h3 className="text-gray-800 italic uppercase font-bold">{pageContent.responseTitle}</h3>
+                      <p className="text-xs text-justify">{phase.responseContent}</p>
                     </div>
                   </div>
                 </div>
@@ -90,13 +93,13 @@ function solutions({ pageContent, errorCode }: Props) {
               <div className="flex flex-col md:flex-row justify-around p-8">
                 {pageContent.whyUs.sections.sort(compareWhyUsSection).map((section, index) => (
                   <div
-                    key={section.index}
+                    key={section.title}
                     className={clsx(
                       'text-center md:py-0 p-6 w-full md:w-1/3',
                       index && 'border-white md:border-l md:border-t-0 border-t'
                     )}
                   >
-                    <img className="w-24 h-24 mx-auto text-center mb-4" src={section.icon} alt={section.title} />
+                    <img className="w-24 h-24 mx-auto text-center mb-4" src={section.icon} title={section.title} alt={section.title} width={96} height={96} loading="lazy" />
                     <div>
                       <h3 className="uppercase text-sm font-bold leading-normal text-white">{section.title}</h3>
                       <p className="text-sm leading-normal text-white">{section.description}</p>
