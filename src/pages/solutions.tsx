@@ -60,7 +60,9 @@ function solutions({ pageContent, errorCode }: Props) {
                     title={phase.header}
                     alt={phase.header}
                     src={phase.solutionImage}
-                    width={1500} height={400} loading="lazy"
+                    width={1500}
+                    height={400}
+                    loading="lazy"
                   />
                   <div className="flex flex-col sm:flex-row xl:flex-col">
                     <div className="mb-8 sm:w-1/2 sm:mr-4 sm:mb-0 xl:w-full xl:mr-0 xl:mb-8">
@@ -99,7 +101,15 @@ function solutions({ pageContent, errorCode }: Props) {
                       index && 'border-white md:border-l md:border-t-0 border-t'
                     )}
                   >
-                    <img className="w-24 h-24 mx-auto text-center mb-4" src={section.icon} title={section.title} alt={section.title} width={96} height={96} loading="lazy" />
+                    <img
+                      className="w-24 h-24 mx-auto text-center mb-4"
+                      src={section.icon}
+                      title={section.title}
+                      alt={section.title}
+                      width={96}
+                      height={96}
+                      loading="lazy"
+                    />
                     <div>
                       <h3 className="uppercase text-sm font-bold leading-normal text-white">{section.title}</h3>
                       <p className="text-sm leading-normal text-white">{section.description}</p>

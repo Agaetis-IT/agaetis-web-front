@@ -62,7 +62,9 @@ export default function NavigationMenu({ displayedPage, otherColorClass }: Props
               className={clsx(
                 `block md:inline-block p-2 py-3 md:p-3 md:px-6 text-base font-black leading-normal transition-all duration-250 ${styles.menuLinkUnderline}`,
                 displayedPage === page[1] && styles.menuLinkUnderlineSelected,
-                width > 820 && position < 500 && otherColorClass ? `text-white ${styles.menuLinkWhiteUnderline}` : `text-black ${styles.menuLinkBlackUnderline}`
+                width > 820 && position < 500 && otherColorClass
+                  ? `text-white ${styles.menuLinkWhiteUnderline}`
+                  : `text-black ${styles.menuLinkBlackUnderline}`
               )}
             >
               {page[0]}

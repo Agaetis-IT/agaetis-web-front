@@ -58,7 +58,11 @@ export default function MyApp({ Component, pageProps }) {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@AgaetisIT" />
         <meta name="theme-color" content="#ff7f40" />
-        <link rel="apple-touch-icon" type="image/png" href={`${process.env.NEXT_PUBLIC_SITE_URL}/icons/agaetis-orange-logo-ico.png`} />
+        <link
+          rel="apple-touch-icon"
+          type="image/png"
+          href={`${process.env.NEXT_PUBLIC_SITE_URL}/icons/agaetis-orange-logo-ico.png`}
+        />
         <link rel="shortcut icon" type="image/ico" href={`${process.env.NEXT_PUBLIC_SITE_URL}/favicon.ico`} />
         <link rel="preconnect" href="https://wordpress.agaetis.fr" />
       </Head>

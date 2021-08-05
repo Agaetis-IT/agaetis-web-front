@@ -32,7 +32,7 @@ export default function contact({ pageContent, errorCode }: Props) {
       </Head>
       <Layout>
         <div className="pt-0 md:pt-17">
-          <ContactForm title={pageContent.title} subText={pageContent.paragraph} isPage/>
+          <ContactForm title={pageContent.title} subText={pageContent.paragraph} isPage />
           <ContactSection />
         </div>
       </Layout>

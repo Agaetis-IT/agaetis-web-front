@@ -62,7 +62,10 @@ export default function BlogPost({ data, related, meta, errorCode }: Props) {
         <meta property="og:type" content="article" />
         <meta property="og:url" content={`${process.env.NEXT_PUBLIC_SITE_URL}/blogpost/${data.slug}`} />
         <meta property="og:description" content={meta.description ? meta.description : data.descriptionText} />
-        <meta property="og:image" content={meta.featuredImage || `${process.env.NEXT_PUBLIC_SITE_URL}/public${Particles}`} />
+        <meta
+          property="og:image"
+          content={meta.featuredImage || `${process.env.NEXT_PUBLIC_SITE_URL}/public${Particles}`}
+        />
         <meta name="description" content={meta.description ? meta.description : data.descriptionText} />
         <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/blogpost/${data.slug}`} />
         <meta name="twitter:label1" content={`Auteur${data.authors.length > 1 ? 's' : ''}`} />
