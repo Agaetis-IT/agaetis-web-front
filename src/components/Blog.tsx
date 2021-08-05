@@ -215,35 +215,6 @@ export default function Blog({
                 )}
               </Button>
             )}
-            {/* {whitePapers && whitePapers.length > 0 && (
-              <div id="whitepapers" className="text-center w-full mx-auto p-6 md:py-12 bg-gray-400 my-8 underline">
-                <h2 className="text-2xl leading-normal mt-4">Livres blancs</h2>
-                <p className="text-sm md:max-w-md md:px-20 py-4 mx-auto leading-normal">
-                  {content.white_paper_description}
-                </p>
-                <div className="my-4 md:my-8 flex flex-col md:flex-row justify-center md:max-w-md mx-auto">
-                  {whitePapers.map((whitePaper) => (
-                    <div key={whitePaper.title} className="mb-4 md:m-0">
-                      <div
-                        style={{
-                          background: whitePaper.miniature ? 'url(' + whitePaper.miniature + ')' : '#333F48',
-                          backgroundSize: 'cover',
-                          backgroundPosition: 'center',
-                          backgroundRepeat: 'no-repeat',
-                        }}
-                        className="shadow-xl md:w-52 h-40 md:h-32 mx-auto"
-                      />
-                      <h3 className="text-sm px-3 py-4 leading-normal">{whitePaper.title}</h3>
-                      <Link href={`/white-papers/${whitePaper.slug}`} passHref>
-                        <Button className="rounded-full uppercase text-white text-xss md:text-cgu leading-normal font-semibold bg-orange-500 px-8 py-3 md:px-6 md:py-2">
-                          Télécharger
-                        </Button>
-                      </Link>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )} */}
           </div>
           <ContactForm title="Un sujet vous intéresse ? Une question ? Contactez-nous !" />
           <SnackBar

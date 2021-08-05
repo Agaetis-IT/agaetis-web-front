@@ -6,4 +6,4 @@ Allow: /blogpost/*
 Allow: /landingpage/*
 
 
-Sitemap: http://agaetis.fr/sitemap.xml
+Sitemap: https://agaetis.fr/sitemap.xml
