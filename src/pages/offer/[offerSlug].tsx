@@ -104,7 +104,7 @@ export default function offer({ pageContent, offers, errorCode }: Props): React.
                   {offers !== undefined &&
                     offers.map((offer, index) => (
                       <Button
-                        key={offer.title}
+                        key={offer?.title}
                         onClick={() => {
                           setSelectedOffer(index)
                         }}
@@ -113,18 +113,18 @@ export default function offer({ pageContent, offers, errorCode }: Props): React.
                           { 'text-white bg-orange-500': selectedOffer === index }
                         )}
                       >
-                        <div dangerouslySetInnerHTML={{ __html: offer.title }} />
+                        <div dangerouslySetInnerHTML={{ __html: offer?.title }} />
                       </Button>
                     ))}
                 </div>
                 <div className="w-3/5 my-8 pl-8">
                   <h2
                     className="text-2xl leading-normal text-orange-500 mb-8"
-                    dangerouslySetInnerHTML={{ __html: offers[selectedOffer].title }}
+                    dangerouslySetInnerHTML={{ __html: offers[selectedOffer]?.title }}
                   />
                   <div
                     className="text-sm leading-normal"
-                    dangerouslySetInnerHTML={{ __html: offers[selectedOffer].description }}
+                    dangerouslySetInnerHTML={{ __html: offers[selectedOffer]?.description }}
                   />
                 </div>
               </div>
@@ -164,7 +164,7 @@ export default function offer({ pageContent, offers, errorCode }: Props): React.
                 {offers !== undefined &&
                   offers.map((offer, index) => (
                     <Button
-                      key={offer.title}
+                      key={offer?.title}
                       onClick={() => {
                         setSelectedOffer(index)
                       }}
@@ -173,7 +173,7 @@ export default function offer({ pageContent, offers, errorCode }: Props): React.
                         { 'text-white bg-orange-500': selectedOffer === index }
                       )}
                     >
-                      <div dangerouslySetInnerHTML={{ __html: offer.title }} />
+                      <div dangerouslySetInnerHTML={{ __html: offer?.title }} />
                     </Button>
                   ))}
               </div>
@@ -182,22 +182,22 @@ export default function offer({ pageContent, offers, errorCode }: Props): React.
               <div>
                 <h2
                   className="text-2xl leading-normal text-white mb-8"
-                  dangerouslySetInnerHTML={{ __html: offers[selectedOffer].title }}
+                  dangerouslySetInnerHTML={{ __html: offers[selectedOffer]?.title }}
                 />
                 <div
                   className="text-sm leading-normal text-justify text-white"
-                  dangerouslySetInnerHTML={{ __html: offers[selectedOffer].description }}
+                  dangerouslySetInnerHTML={{ __html: offers[selectedOffer]?.description }}
                 />
               </div>
             </div>
           </div>
-          {offers[selectedOffer].partners.length > 0 && (
-            <PartnerList partners={offers[selectedOffer].partners} className="p-4 md:p-12 lg:px-24 lg:p-16" />
+          {offers[selectedOffer]?.partners.length > 0 && (
+            <PartnerList partners={offers[selectedOffer]?.partners} className="p-4 md:p-12 lg:px-24 lg:p-16" />
           )}
-          {offers[selectedOffer].posts.length > 0 && (
+          {offers[selectedOffer]?.posts.length > 0 && (
             <RelatedArticlesSection
               className="bg-gray-400 p-4 md:p-12 lg:px-24 lg:p-16 pb-2"
-              posts={offers[selectedOffer].posts}
+              posts={offers[selectedOffer]?.posts}
             />
           )}
 

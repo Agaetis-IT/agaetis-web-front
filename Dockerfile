@@ -6,12 +6,14 @@ FROM node:14-alpine
 WORKDIR /app
 
 COPY . .
-
+RUN pwd
+RUN ls -al
 # Install deps
 RUN npm i -g typescript && \
     yarn install --ignore-scripts --non-interactive --frozen-lockfile && \
     yarn build
-
+RUN pwd
+RUN ls -al
 FROM node:14-alpine
 WORKDIR /home/node
 # Override the base log level (info).
