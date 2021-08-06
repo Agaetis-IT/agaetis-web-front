@@ -132,7 +132,7 @@ export default function Blog({
 
   const cards = useMemo(
     () =>
-      ideas.map((idea) => (
+      ideas?.map((idea) => (
         <div
           key={idea.id}
           className="m-2 mb-8 shadow-md hover:shadow-lg transition-all duration-250 transform hover:scale-102 rounded-lg w-inherit"

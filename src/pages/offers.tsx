@@ -73,7 +73,7 @@ export default function offers({ pageContent, allOffers, errorCode }: Props) {
                 />
                 <Button
                   className="text-sm leading-normal flex flex-row justify-center font-semibold text-white"
-                  href={`/offers/${allOffers[selectedOffer].slug}?offer=${allOffers[selectedOffer].childrens[0].post_name}`}
+                  href={`/offers/${allOffers[selectedOffer].slug}?offer=${allOffers[selectedOffer].childrens[0]?.post_name}`}
                 >
                   <div className="flex flex-row items-center">
                     En savoir plus{' '}

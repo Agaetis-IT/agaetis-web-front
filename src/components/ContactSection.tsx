@@ -50,7 +50,7 @@ export default function ContactSection() {
           <div className="flex flex-col md:flex-row justify-between font-extralight mb-4">
             {addresses.map((address, index) => (
               <div key={index}>
-                {index > 0 && <div className="h-px md:hidden w-10 bg-white mb-4 self-center" />}
+                {index > 0 && <div className="h-px md:hidden w-10 bg-white mb-4 self-center mx-auto" />}
                 <Address key={address.agency} {...address} />
               </div>
             ))}

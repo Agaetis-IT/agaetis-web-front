@@ -28,7 +28,7 @@ export default function HomeExpertises({
         {expertisesTitle}
       </h2>
       <img
-        className="hidden md:block md:mt-12"
+        className="hidden md:block md:mt-12 mx-auto"
         src={expertisesImageDesktop}
         title="Nos expertises"
         alt="Nos expertises"
