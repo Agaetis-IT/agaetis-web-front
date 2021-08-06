@@ -129,14 +129,14 @@ export default function offers({ pageContent, allOffers, errorCode }: Props) {
                         {allOffers[selectedOffer].childrens.length > 0 &&
                           allOffers[selectedOffer].childrens.map((offer: OfferLeaf) => (
                             <Link
-                              key={offer.post_title}
+                              key={offer?.post_title}
                               href={{
                                 pathname: `/offers/${allOffers[selectedOffer].slug}`,
-                                query: { offer: offer.post_name },
+                                query: { offer: offer?.post_name },
                               }}
                               passHref
                             >
-                              <p className="text-center p-4">{offer.post_title}</p>
+                              <p className="text-center p-4">{offer?.post_title}</p>
                             </Link>
                           ))}
                       </div>

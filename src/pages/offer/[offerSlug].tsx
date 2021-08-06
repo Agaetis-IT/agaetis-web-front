@@ -50,14 +50,14 @@ export default function offer({ pageContent, offers, errorCode }: Props): React.
   return (
     <>
       <Head>
-        <title>Agaetis - {pageContent.title}</title>
-        <meta property="og:title" content={`Agaetis - ${pageContent.title}`} />
-        <meta property="og:url" content={`${process.env.NEXT_PUBLIC_SITE_URL}/offer/${pageContent.slug}`} />
+        <title>Agaetis - {pageContent?.title}</title>
+        <meta property="og:title" content={`Agaetis - ${pageContent?.title}`} />
+        <meta property="og:url" content={`${process.env.NEXT_PUBLIC_SITE_URL}/offer/${pageContent?.slug}`} />
         <meta property="og:image" content={`${process.env.NEXT_PUBLIC_SITE_URL}/favicon.ico`} />
         <meta property="og:type" content="website" />
-        <meta property="og:description" content={pageContent.paragraph} />
-        <meta name="description" content={pageContent.paragraph} />
-        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/offer/${pageContent.slug}`} />
+        <meta property="og:description" content={pageContent?.paragraph} />
+        <meta name="description" content={pageContent?.paragraph} />
+        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/offer/${pageContent?.slug}`} />
       </Head>
       <Layout>
         <div className="mx-auto pt-0 md:pt-17">
@@ -71,17 +71,17 @@ export default function offer({ pageContent, offers, errorCode }: Props): React.
           >
             <div className="flex flex-row items-center">
               <img
-                src={pageContent.offers_image1}
+                src={pageContent?.offers_image1}
                 className="block h-16"
-                title={pageContent.title}
-                alt={pageContent.title}
+                title={pageContent?.title}
+                alt={pageContent?.title}
                 width={64}
                 height={64}
                 loading="eager"
               />
-              <h1 className="text-white text-2xl leading-normal ml-8">{pageContent.title}</h1>
+              <h1 className="text-white text-2xl leading-normal ml-8">{pageContent?.title}</h1>
             </div>
-            <p className="text-white py-8 leading-normal text-sm">{pageContent.paragraph}</p>
+            <p className="text-white py-8 leading-normal text-sm">{pageContent?.paragraph}</p>
             <div className="bg-white p-8">
               <Link href="/offers" passHref>
                 <Button>
@@ -150,15 +150,15 @@ export default function offer({ pageContent, offers, errorCode }: Props): React.
               </Link>
               <div className="flex flex-row items-center mt-0 md:mt-20">
                 <img
-                  src={pageContent.offers_image1}
+                  src={pageContent?.offers_image1}
                   className="block h-12"
-                  title={pageContent.title}
-                  alt={pageContent.title}
+                  title={pageContent?.title}
+                  alt={pageContent?.title}
                   width={48}
                   height={48}
                   loading="eager"
                 />
-                <h1 className="text-black text-2xl leading-normal ml-8">{pageContent.title}</h1>
+                <h1 className="text-black text-2xl leading-normal ml-8">{pageContent?.title}</h1>
               </div>
               <div>
                 {offers !== undefined &&
@@ -232,7 +232,7 @@ export async function getStaticProps({ params }) {
 
     if (!data.acf) {
       return {
-        notFound: !data.acf,
+        notFound: true,
         revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
       }
     }
