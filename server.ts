@@ -48,7 +48,7 @@ app
     const jsonParser = json() as RequestHandler
 
     server.get(/sitemap[a-zA-Z-0-9\/\-_]*.xml/, async (req: Request, res: Response) => {
-      console.log('Sitemap request')
+      console.log('Sitemap request' + `${process.env.NEXT_PUBLIC_BASE_URL}${req.url}`)
       let { data } = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}${req.url}`)
       console.log('Sitemap downloaded')
       res.set('Content-Type', 'text/xml')
