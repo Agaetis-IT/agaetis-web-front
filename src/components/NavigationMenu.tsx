@@ -1,37 +1,70 @@
+import { useEffect, useState } from 'react'
 import clsx from 'clsx'
 import Link from 'next/link'
-import React from 'react'
-import { useTranslation } from 'react-i18next'
 
 import Button from './Button'
-import './NavigationMenu.css'
+
+import styles from '../styles/NavigationMenu.module.css'
 
 interface Props {
-  invertColors?: boolean
-  position: number
+  displayedPage?: string
+  otherColorClass?: string
 }
 
-export default function NavigationMenu({ invertColors, position }: Props) {
-  const { t } = useTranslation()
+export default function NavigationMenu({ displayedPage, otherColorClass }: Props) {
+  const [position, setPosition] = useState(0)
+  const [width, setWidth] = useState(0)
+
   const pages = [
-    ['Blog', '/blog'],
     ['Agaetis', '/agaetis'],
     ['Solutions', '/solutions'],
-    ['Jobs', '/jobs'],
+    ['Jobs', 'https://agaetis.welcomekit.co/'],
+    ['Blog', '/blog'],
   ]
 
+  useEffect(() => {
+    if (window) {
+      setPosition(window.scrollY)
+      setWidth(window.innerWidth)
+    }
+
+    const handleResize = () => {
+      setWidth(window.innerWidth)
+    }
+
+    const handleScroll = () => {
+      setPosition(window.scrollY)
+    }
+
+    if (window && document) {
+      window.addEventListener('scroll', handleScroll)
+      window.addEventListener('resize', handleResize)
+    }
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [setPosition, position])
+
   return (
-    <div className="block bg-orange md:bg-transparent flex-grow md:flex-no-grow md:flex md-flex-no-shrink md:items-center md:w-100 p-4 md:p-0 nav-menu">
-      <div className="text-xs font-medium md:flex-grow">
+    <div
+      className={clsx(
+        'block shadow-md md:shadow-none md:flex flex-shrink-0 md:items-center p-4 md:p-0 z-1000 left-0 right-0 absolute md:relative',
+        width < 820 && 'bg-white'
+      )}
+    >
+      <div className="text-xs font-medium leading-normal">
         {pages.map((page) => (
-          <Link key={page[0]} href={page[1]}>
+          <Link key={page[0]} href={page[1]} passHref>
             <Button
               href={page[1]}
               className={clsx(
-                !invertColors || position > 200
-                  ? 'text-white md:text-black menu-link-black-underline'
-                  : 'text-white menu-link-white-underline',
-                'block md:inline-block p-2 py-3 md:p-3 md:px-6 xl:px-8 text-base font-thin'
+                `block md:inline-block p-2 py-3 md:p-3 md:px-6 text-base font-black leading-normal transition-all duration-250 ${styles.menuLinkUnderline}`,
+                displayedPage === page[1] && styles.menuLinkUnderlineSelected,
+                width > 820 && position < 500 && otherColorClass
+                  ? `text-white ${styles.menuLinkWhiteUnderline}`
+                  : `text-black ${styles.menuLinkBlackUnderline}`
               )}
             >
               {page[0]}
@@ -39,26 +72,13 @@ export default function NavigationMenu({ invertColors, position }: Props) {
           </Link>
         ))}
       </div>
-      <div className="hidden md:inline md:ml-14 xl:mr-8">
-        <Link href="/contact">
+      <div className="md:ml-12 text-base leading-normal font-medium flex justify-center">
+        <Link href="/contact" passHref>
           <Button
             href="/contact"
-            className={clsx(
-              !invertColors || position > 200 ? 'bg-orange text-white' : 'bg-white text-orange',
-              'block md:inline-block px-6 py-3 leading-none rounded-full uppercase mt-4 md:mt-0  text-base font-thin shadow-md'
-            )}
+            className="bg-white hover:bg-gray-200 text-orange-500 inline-block px-6 py-2 font-bold leading-none rounded-full uppercase text-base shadow-md hover:shadow-lg transition-all duration-250"
           >
-            {t('navigation.contact')}
-          </Button>
-        </Link>
-      </div>
-      <div className="inline md:hidden text-base font-medium md:flex-grow">
-        <Link href="/contact">
-          <Button
-            href="/contact"
-            className="block md:inline-block block md:mt-0 md:mr-16 md:ml-1 p-2 py-3 md:p-0 text-white text-base font-thin"
-          >
-            {t('navigation.contact')}
+            Contact
           </Button>
         </Link>
       </div>

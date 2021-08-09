@@ -1,27 +1,33 @@
 import Head from 'next/head'
-import Link from 'next/link'
-import React from 'react'
+
 import ContactSection from '../components/ContactSection'
-
+import Error from './_error'
 import Layout from '../components/Layout'
-import SoluceTab from '../components/SoluceTab'
-import publicRuntimeConfig from '../config/env.config'
-import { getSolutionsPageContent } from '../Services/wordpressService'
-import { SolutionsContent } from '../types/SolutionsContent'
+import SolutionsCarousel from '../components/SolutionsCarousel'
 
-import './solutions.css'
+import { getSolutionsPageContent } from '../services/wordpressService'
+import { compareWhyUsSection, convertContentAPItoContent, SolutionsContent } from '../types/SolutionsContent'
+import clsx from 'clsx'
+
+const Particles = '/images/particles-3.svg'
 
 interface Props {
   pageContent: SolutionsContent
+  errorCode?: number
 }
 
-function solutions({ pageContent }: Props) {
+function solutions({ pageContent, errorCode }: Props) {
+  if (errorCode) {
+    return <Error statusCode={errorCode} />
+  }
+
   return (
     <>
       <Head>
-        <title>Agaetis : secteurs d'activités</title>
-        <meta property="og:title" content="Agaetis : solutions" />
-        <meta property="og:image" content={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/favicon.ico`} />
+        <title>Agaetis - Nos solutions</title>
+        <meta property="og:title" content="Agaetis - Nos solutions" />
+        <meta property="og:url" content={`${process.env.NEXT_PUBLIC_SITE_URL}/solutions`} />
+        <meta property="og:image" content={`${process.env.NEXT_PUBLIC_SITE_URL}/favicon.ico`} />
         <meta property="og:type" content="website" />
         <meta
           property="og:description"
@@ -31,38 +37,118 @@ function solutions({ pageContent }: Props) {
           name="description"
           content="Chaque client a des besoins propres, nous leur apportons des solutions sur mesure"
         />
-        <link rel="canonical" href={`${publicRuntimeConfig.NEXT_APP_SITE_URL}/sectors`} />
+        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/solutions`} />
       </Head>
-      <Layout invertColors={false}>
-        <div className="mx-auto px-0">
-          <div className=" p-0 md:p-12 lg:px-24 lg:p-16 pb-0">
-            <div className="md:max-w-md mx-auto p-0 md:px-8 mt-0 md:mt-20">
-              <div className="text-xs px-4 md:px-0">
-                <span>
-                  <Link href="/">
-                    <a className="text-underline text-black">Accueil</a>
-                  </Link>
-                  {' > '}
-                  <b>Solutions</b>
-                </span>
+      <Layout displayedPage={'/solutions'}>
+        <div className="pt-0 md:pt-17">
+          <div
+            style={{
+              backgroundImage: `url("${Particles}")`,
+              backgroundPosition: 'top',
+              backgroundSize: '100% auto',
+              backgroundRepeat: 'no-repeat',
+            }}
+            className="p-6 md:p-16 lg:px-32 xl:px-48 bg-gray-400"
+          >
+            <h1 className="mx-1 md:mx-2 text-xl leading-normal mb-14 font-medium">{pageContent.description}</h1>
+            {pageContent.phases.map((phase) => (
+              <div key={phase.header} className="mx-1 md:mx-2 mb-8 p-4 md:p-8 bg-white rounded-3xl shadow-md">
+                <h2 className="text-orange-500 font-bold text-lg md:text-2xl mb-4">{phase.header}</h2>
+                <div className="flex flex-col xl:flex-row xl:items-center">
+                  <img
+                    className="object-contain xl:w-3/5 xl:max-h-100 hidden xs:block"
+                    title={phase.header}
+                    alt={phase.header}
+                    src={phase.solutionImage}
+                    width={1500}
+                    height={400}
+                    loading="lazy"
+                  />
+                  <div className="flex flex-col sm:flex-row xl:flex-col">
+                    <div className="mb-8 sm:w-1/2 sm:mr-4 sm:mb-0 xl:w-full xl:mr-0 xl:mb-8">
+                      <h3 className="text-gray-800 italic uppercase font-bold">{pageContent.needTitle}</h3>
+                      <p className="text-xs text-justify">{phase.needContent}</p>
+                    </div>
+                    <div className="sm:w-1/2 sm:ml-4 xl:w-full xl:ml-0">
+                      <h3 className="text-gray-800 italic uppercase font-bold">{pageContent.responseTitle}</h3>
+                      <p className="text-xs text-justify">{phase.responseContent}</p>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <h1 className="text-center text-3xl py-8 md:pb-0 md:mt-12">{pageContent.title}</h1>
-              <p className="md:max-w-md mx-auto text-center px-4 md:py-6 md:px-0 text-sm leading-normal">
-                {pageContent.description}
-              </p>
+            ))}
+          </div>
+          <div
+            style={{
+              backgroundImage: `url("${pageContent.whyUs.background}")`,
+              backgroundPosition: 'top',
+              backgroundSize: 'cover',
+              backgroundRepeat: 'no-repeat',
+            }}
+            className="p-6 md:p-16 lg:px-32 xl:px-48"
+          >
+            <div
+              style={{ backgroundColor: 'rgba(0,0,0,0.4)' }}
+              className="p-4 rounded-lg backdrop-filter backdrop-blur-sm mb-8"
+            >
+              <h2 className="text-lg font-bold mb-4 text-white">{pageContent.whyUs.title}</h2>
+              <div className="flex flex-col md:flex-row justify-around p-8">
+                {pageContent.whyUs.sections.sort(compareWhyUsSection).map((section, index) => (
+                  <div
+                    key={section.title}
+                    className={clsx(
+                      'text-center md:py-0 p-6 w-full md:w-1/3',
+                      index && 'border-white md:border-l md:border-t-0 border-t'
+                    )}
+                  >
+                    <img
+                      className="w-24 h-24 mx-auto text-center mb-4"
+                      src={section.icon}
+                      title={section.title}
+                      alt={section.title}
+                      width={96}
+                      height={96}
+                      loading="lazy"
+                    />
+                    <div>
+                      <h3 className="uppercase text-sm font-bold leading-normal text-white">{section.title}</h3>
+                      <p className="text-sm leading-normal text-white">{section.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div
+              style={{ backgroundColor: 'rgba(0,0,0,0.4)' }}
+              className="p-4 rounded-lg backdrop-filter backdrop-blur-sm"
+            >
+              <h2 className="text-lg font-bold mb-4 text-white text-center">{pageContent.partnersTitle}</h2>
+              <SolutionsCarousel partners={pageContent.partners} />
             </div>
           </div>
-          <SoluceTab tabs={pageContent.tabs} />
-          <ContactSection></ContactSection>
+          <ContactSection />
         </div>
       </Layout>
     </>
   )
 }
 
-solutions.getInitialProps = async () => {
-  const pageContent = await getSolutionsPageContent()
-  return { pageContent }
+export async function getStaticProps() {
+  try {
+    return {
+      props: {
+        pageContent: JSON.parse(JSON.stringify(convertContentAPItoContent(await getSolutionsPageContent()))),
+      },
+      revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
+    }
+  } catch (error) {
+    return {
+      props: {
+        errorCode: 500,
+      },
+      revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
+    }
+  }
 }
 
 export default solutions

@@ -1,31 +1,46 @@
-const withTypescript = require('@zeit/next-typescript')
-const withCSS = require('@zeit/next-css')
-const withPurgeCSS = require('next-purgecss')
-const withImages = require('next-images')
-const withPWA = require('next-pwa')
-
-require('dotenv').config()
-
-const publicRuntimeConfig = Object.keys(process.env).reduce((acc, key) => {
-  if (key.startsWith('NEXT_APP_')) {
-    return { ...acc, [key]: process.env[key] }
+module.exports = {
+  async redirects() {
+    return [
+      {
+        source: '/ideas',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/jobs',
+        destination: 'https://agaetis.welcomekit.co/',
+        permanent: true,
+      },
+      {
+        source: '/(\\d{4})/(\\d{2})/(\\d{2})/:slug',
+        destination: '/:slug',
+        permanent: true,
+      },
+      {
+        source: '/jobs/:slug',
+        destination: 'https://agaetis.welcomekit.co/',
+        permanent: true,
+      },
+      {
+        source: '/landingpages/:slug',
+        destination: '/landingpage/:slug',
+        permanent: true,
+      },
+      {
+        source: '/white-papers/:slug',
+        destination: '/white-paper/:slug',
+        permanent: true,
+      },
+      {
+        source: '/tags/:slug',
+        destination: '/blog/tag/:slug',
+        permanent: true,
+      },
+      {
+        source: '/:slug((?!(?:$|_next/|images/|icons/|ideas/|tags/|offer/|landingpage/|white-paper/|author/|offers$|solutions$|blog$|blog/|blogpost/|agaetis$|white-papers/|contact$|jobs$|cookies$|personal-data$|mentions-legales$|google80ae36db41235209\\.html$|robots\\.txt$|favicon\\.ico$)).*)',
+        destination: '/blogpost/:slug',
+        permanent: true,
+      },
+    ]
   }
-  return acc
-}, {})
-
-module.exports = withPWA(
-  withCSS(
-    withTypescript(
-      withPurgeCSS(
-        withImages({
-          publicRuntimeConfig,
-          pwa: {
-            disable: process.env.NODE_ENV !== 'production',
-            dest: 'public',
-            swSrc: 'service-worker.js',
-          }
-        })
-      )
-    )
-  )
-)
+}

@@ -1,8 +1,0 @@
-User-agent: *
-Allow: /*
-Allow: /ideas/*
-Allow: /jobs/*
-Allow: /white-papers/*
-
-
-Sitemap: http://agaetis.fr/sitemap.xml

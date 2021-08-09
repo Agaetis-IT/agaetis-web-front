@@ -1,9 +1,10 @@
 import Head from 'next/head'
-import Link from 'next/link'
-import React from 'react'
 
 import Button from '../components/Button'
+import ContactSection from '../components/ContactSection'
 import Layout from '../components/Layout'
+
+const Mask = '/images/hero_mask.svg'
 
 interface Props {
   statusCode: number
@@ -14,33 +15,34 @@ export default function Error({ statusCode }: Props) {
     <>
       <Head>
         <meta name="robots" content="noindex,nofollow" />
-        <title>Agaetis : Erreur 404</title>
+        <title>Agaetis - Erreur {statusCode}</title>
       </Head>
-      <Layout invertColors={false}>
-        <>
-          <div className="md:max-w-md flex flex-col mx-auto ">
-            <div className=" text-xs px-4 mt-32">
-              <span>
-                <Link href="/">
-                  <a className="text-underline">Accueil</a>
-                </Link>
-
-                {' > '}
-                <b>Page introuvable</b>
-              </span>
-            </div>
-          </div>
-          <div className="my-8 flex flex-col mx-auto bg-orange text-white text-center p-20">
-            <h1 className="text-4xl font-semibold ">Page introuvable ({statusCode ? statusCode : 404})</h1>
-            <h2 className="text-sm font-normal my-6">La page que vous cherchez n'existe pas ou plus</h2>
+      <Layout otherColorClass="bg-orange-500">
+        <div className="pt-0 md:pt-17 min-h-screen flex flex-col bg-orange-500">
+          <div
+            style={{
+              backgroundImage: `url("${Mask}")`,
+              backgroundRepeat: 'no-repeat',
+              backgroundPosition: 'bottom',
+              backgroundSize: '100%',
+            }}
+            className="py-20 flex flex-col flex-auto flex-shrink-0 text-white text-center"
+          >
+            <h1 className="text-4xl leading-normal font-semibold">Erreur serveur (HTTP {statusCode})</h1>
+            <h2 className="text-sm leading-normal font-normal my-6">
+              Une erreur s'est produite sur le serveur, veuillez réessayer ultérieurement
+            </h2>
             <Button
               href="/"
-              className="flex flex-row justify-center bg-black text-white py-3 uppercase rounded-full text-xss font-semibold w-48 mx-auto"
+              className="flex flex-row justify-center bg-black hover:bg-gray-800 text-white py-2 uppercase rounded-full text-xss leading-tight font-semibold w-48 mx-auto shadow-md hover:shadow-lg transition-all duration-250"
             >
               Retourner à l'accueil
             </Button>
           </div>
-        </>
+          <div className="flex-shrink-0 w-full">
+            <ContactSection />
+          </div>
+        </div>
       </Layout>
     </>
   )

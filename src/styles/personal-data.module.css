@@ -1,0 +1,15 @@
+.personalData h3,
+.personalData p,
+.personalData ul li {
+  margin: 10px 0;
+}
+
+.personalData h1,
+.personalData h2,
+.personalData h3,
+.personalData h4,
+.personalData h5,
+.personalData h6 {
+  font-size: revert;
+  font-weight: revert;
+}

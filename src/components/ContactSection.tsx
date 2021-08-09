@@ -1,56 +1,108 @@
-import React from 'react'
-
-import './ContactSection.css'
-import BottomNav from './BottomNav'
 import Address from './Address'
-import { LazyLoadImage } from 'react-lazy-load-image-component'
-import Logo from '../static/images/logo-agaetis-vert.png'
-import { useTranslation } from 'react-i18next'
+import BottomNav from './BottomNav'
+import Button from './Button'
+
+const Twitter = '/icons/twitter.png'
+const Linkedin = '/icons/linkedin.png'
+const Facebook = '/icons/facebook.png'
+const Logo = '/images/logo-agaetis-vert.png'
 
 export default function ContactSection() {
-  const { t } = useTranslation()
   const addresses = [
     {
-      agency: t('footer.clermont'),
-      address: t('footer.clermont-address'),
-      zipcode: t('footer.clermont-zipcode'),
-      city: t('footer.clermont-city'),
-      tel: t('footer.clermont-tel'),
+      agency: 'Clermont-Ferrand',
+      address: '9, allée Evariste Galois',
+      zipcode: '63170',
+      city: 'Aubière',
+      tel: '04 73 35 47 51',
     },
     {
-      agency: t('footer.paris'),
-      address: t('footer.paris-address'),
-      zipcode: t('footer.paris-zipcode'),
-      city: t('footer.paris-city'),
-      tel: t('footer.paris-tel'),
+      agency: 'Paris',
+      address: '21, rue de la banque',
+      zipcode: '75002',
+      city: 'Paris',
+      tel: '01 44 63 53 13',
     },
     {
-      agency: t('footer.lyon'),
-      address: t('footer.lyon-address'),
-      zipcode: t('footer.lyon-zipcode'),
-      city: t('footer.lyon-city'),
-      tel: t('footer.lyon-tel'),
+      agency: 'Lyon',
+      address: '52, Quai Rambaud',
+      zipcode: '69002',
+      city: 'Lyon',
+      tel: '',
     },
   ]
 
   return (
-    <div className="bg-orange py-8 flex flex-col md:flex-row justify-center text-white text-center md:text-left">
-      <div className="max-w-xxs py-4 px-16 md:px-0 md:pr-16 mx-auto md:mx-0 md:mr-8 mb-4 md:my-0 vert-line flex flex-col justify-center ">
-        {
-          // eslint-disable-next-line
-          // @ts-ignore-next-line
-          <LazyLoadImage effect="blur" src={Logo}></LazyLoadImage>
-        }
-      </div>
-
-      <div className="flex flex-col justify-center">
-        <h4 className="text-white my-4  mb-4 uppercase text-sm">Nos adresses</h4>
-        <div className="flex flex-col md:flex-row justify-center font-thin mb-4">
-          {addresses.map((address) => (
-            <Address key={address.agency} {...address} />
-          ))}
+    <div className="shadow-md-center">
+      <div className="bg-orange-500 p-6 md:p-16 lg:px-32 xl:px-48 flex flex-col md:flex-row text-white text-center md:text-left">
+        <img
+          className="self-center object-contain max-w-xxs h-auto py-4 px-16 md:px-0 md:pr-16 md:mx-0 md:mr-8 mb-4 md:my-0 md:border-white md:border-solid md:border-r"
+          src={Logo}
+          title="Agaetis"
+          alt="Logo Agaetis"
+          width={1129}
+          height={728}
+          loading="lazy"
+        />
+        <div className="flex flex-col justify-center w-full">
+          <BottomNav />
+          <span className="text-white my-4 mb-4 uppercase text-sm font-bold leading-normal">Nos adresses</span>
+          <div className="flex flex-col md:flex-row justify-between font-extralight mb-4">
+            {addresses.map((address, index) => (
+              <div key={index}>
+                {index > 0 && <div className="h-px md:hidden w-10 bg-white mb-4 self-center mx-auto" />}
+                <Address key={address.agency} {...address} />
+              </div>
+            ))}
+          </div>
         </div>
-        <BottomNav></BottomNav>
+      </div>
+      <div className="bg-gray-800 text-white py-2 px-6 md:px-16 lg:px-32 xl:px-48 flex justify-center md:justify-between">
+        <span className="text-cgu self-center">© {new Date().getFullYear()} Agaetis - Tous droits réservés</span>
+        <div className="hidden flex-row items-center md:flex">
+          <Button
+            href="https://fr-fr.facebook.com/AgaetisIT"
+            className="w-6 h-6 mr-4 self-center shadow-sm hover:shadow-md bg-gray-800 hover:bg-gray-700 rounded-full transition-all duration-250 p-1 text-none"
+          >
+            <img
+              src={Facebook}
+              className="w-4 h-4 filter invert"
+              title="Retrouvez-nous sur Facebook"
+              alt="Facebook"
+              width={16}
+              height={16}
+              loading="lazy"
+            />
+          </Button>
+          <Button
+            href="https://www.linkedin.com/company/agaetis/"
+            className="w-6 h-6 mr-4 shadow-sm hover:shadow-md bg-gray-800 hover:bg-gray-700 rounded-full transition-all duration-250 p-1 text-none"
+          >
+            <img
+              src={Linkedin}
+              className="w-4 h-4 filter invert"
+              title="Retrouvez-nous sur LinkedIn"
+              alt="LinkedIn"
+              width={16}
+              height={16}
+              loading="lazy"
+            />
+          </Button>
+          <Button
+            href="https://twitter.com/agaetisit"
+            className="w-6 h-6 shadow-sm hover:shadow-md bg-gray-800 hover:bg-gray-700 rounded-full transition-all duration-250 p-1 text-none"
+          >
+            <img
+              src={Twitter}
+              className="w-4 h-4 filter invert"
+              title="Retrouvez-nous sur Twitter"
+              alt="Twitter"
+              width={16}
+              height={16}
+              loading="lazy"
+            />
+          </Button>
+        </div>
       </div>
     </div>
   )

@@ -1,27 +1,20 @@
-import React from 'react'
-
 import '../config/yupConfig'
-import '../i18n'
 
-import './Common.css'
 import Cookies from './Cookies'
 import Header from './Header'
-import clsx from 'clsx'
 
 interface Props {
-  invertColors: boolean
   children?: string | React.ReactElement
+  displayedPage?: string
+  otherColorClass?: string
 }
 
-export default function Layout({ invertColors, children }: Props) {
+export default function Layout({ children, displayedPage, otherColorClass }: Props) {
   return (
-    <div className=" md:p-0  md:mb-0">
-      <Header invertColors={invertColors} />
-      <div className={clsx('mt-1 md:mt-0', { 'md:pt-30': true })}>
-        <div>{children}</div>
-      </div>
-
-      <Cookies className="cookie-fixed" />
+    <div>
+      <Header displayedPage={displayedPage} otherColorClass={otherColorClass} />
+      <div className="md:pt-30">{children}</div>
+      <Cookies />
     </div>
   )
 }

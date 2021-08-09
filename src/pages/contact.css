@@ -1,8 +1,0 @@
-.reverseText {
-  direction: rtl;
-}
-
-.list::before {
-  display: inline;
-  content: '1. ';
-}

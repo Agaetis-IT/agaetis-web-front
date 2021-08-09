@@ -1,0 +1,35 @@
+.menuLinkUnderline::after {
+  position: relative;
+  left: 0;
+  content: '';
+  margin-top: 2px;
+  display: block;
+  transition: width 0.2s ease-out;
+  background-color: none;
+  width: 0px;
+  height: 2px;
+  text-align: center;
+}
+
+.menuLinkBlackUnderline::after {
+  background-color: black;
+}
+
+.menuLinkWhiteUnderline::after {
+  background-color: white;
+}
+
+.menuLinkUnderline:hover::after,
+.menuLinkUnderlineSelected::after {
+  width: 100%;
+}
+
+@media (min-width: 820px) {
+  .menuLinkBlackUnderline::after {
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+  }
+}

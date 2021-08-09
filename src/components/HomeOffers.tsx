@@ -1,11 +1,12 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
+import clsx from 'clsx'
+import Link from 'next/link'
+
 import Button from './Button'
 
-import './HomeOffers.css'
-import arrowR from '../static/images/right-arrow.svg'
-import clsx from 'clsx'
 import { OfferDesc } from '../types/OffersContent'
-import Link from 'next/link'
+
+const arrowR = '/images/right-arrow.svg'
 
 interface Props {
   title: string
@@ -14,130 +15,145 @@ interface Props {
 
 export default function HomeOffers({ title, offers }: Props) {
   const [selectedOffer, setSelectedOffer] = useState(0)
+  const [isOpenedOffer, setIsOpenedOffer] = useState(false)
+
   const handleOfferChange = (index: number) => {
+    setIsOpenedOffer((isOpened) => (selectedOffer !== index ? true : !isOpened))
     setSelectedOffer(index)
-
-    if (window && document && document.body.getBoundingClientRect().width < 800) {
-      window.setTimeout(() => {
-        if (document.getElementById(`offer-${index}`)) {
-          document.getElementById(`offer-${index}`)!.scrollIntoView({ behavior: 'smooth' })
-        }
-      })
-    }
   }
+
   return (
-    <div className="flex flex-col md:flex-row">
-      <div className="home-offers-left p-0 md:p-12 lg:px-24 lg:p-16">
-        <h2 className="mt-8 mb-4 md:my-0 text-orange text-center md:text-left">{title}</h2>
-        <ul className="md:my-12">
-          {offers.map((offer, index) => (
-            <li key={index} className="my-0 md:my-6" id={`offer-${index}`}>
-              <div className="p-4 md:p-0">
-                <span className="flex flex-row justify-between">
-                  <Button onClick={() => handleOfferChange(index)}>
-                    <h4 className="text-orange text-sm uppercase">{offer.title}</h4>
-                  </Button>
-                  <Button
-                    className="block md:hidden text-orange mx-2"
-                    onClick={() => {
-                      handleOfferChange(index)
-                    }}
+    <div className="flex flex-col md:flex-row my-8 bg-gray-800 md:bg-white md:my-0 shadow-md">
+      <div className="w-full md:w-1/2 p-4 md:p-12 lg:px-24 lg:p-16">
+        <h2 className="mt-2 md:mt-0 text-white md:text-orange-500 font-bold text-2xl text-center md:text-left">
+          {title}
+        </h2>
+        <div className="md:mt-12">
+          {offers.map((offer, index) => {
+            const relatedPages = offer.related_landingpage?.split('/')
+
+            return (
+              <div key={index} className="my-6" id={`offer-${index}`}>
+                <Button onClick={() => handleOfferChange(index)} className="w-full">
+                  <div
+                    className={clsx(
+                      `flex items-center justify-between bg-white md:rounded-lg shadow-md md:shadow-none h-20 overflow-hidden transition-all duration-500`,
+                      index === selectedOffer && isOpenedOffer
+                        ? 'rounded-tr-lg rounded-tl-6xl rounded-bl-6xl'
+                        : 'rounded-r-lg rounded-l-6xl',
+                      index === selectedOffer && 'bg-gray-200'
+                    )}
                   >
+                    <div className="absolute bg-white h-20 w-20 shadow-md md:hidden rounded-full">
+                      <img
+                        src={offer.offers_image1}
+                        title={`Offre ${offer.title}`}
+                        alt={`Offre ${offer.title}`}
+                        className="rounded-full"
+                        width={80}
+                        height={80}
+                        loading="lazy"
+                      />
+                    </div>
+                    <div className="w-9/10 ml-22 md:ml-0 py-2 md:py-0 md:pl-6">
+                      <h3 className="text-gray-800 md:text-orange-500 text-xs md:text-sm leading-normal uppercase text-left font-bold">
+                        {offer.title}
+                      </h3>
+                      <p className="text-cgu md:text-xs italic text-gray-500 md:text-black text-left leading-tight my-1">
+                        {offer.short_desc}
+                      </p>
+                    </div>
+                    <span
+                      className={clsx(
+                        'hidden md:block w-1/10 m-4 transition-all duration-250',
+                        index === selectedOffer ? 'text-orange-500 font-bold text-xl' : 'text-gray-500'
+                      )}
+                    >
+                      {'>'}
+                    </span>
                     <img
-                      style={{ width: 10, height: 10 }}
                       src={arrowR}
-                      alt="arrow"
-                      className={clsx(index === selectedOffer ? 'offer-selected-arrow' : 'offer-arrow')}
+                      className={clsx(
+                        'm-4 block md:hidden transform transition-all duration-500',
+                        index === selectedOffer && isOpenedOffer ? '-rotate-90' : 'rotate-90'
+                      )}
+                      width={10}
+                      height={10}
+                      alt="Flèche"
+                      loading="lazy"
                     />
-                  </Button>
-                </span>
-
-                <p className="text-xs my-1">{offer.short_desc}</p>
-              </div>
-              {index !== selectedOffer && <hr className="block md:hidden separator mx-4" />}
-
-              <div
-                style={{
-                  backgroundImage: `url(${offers[selectedOffer].image})`,
-                  backgroundPosition: 'center',
-                  backgroundSize: 'cover',
-                }}
-                className={clsx('md:hidden home-offers-right  p-4', index === selectedOffer ? 'block' : 'hidden')}
-              >
-                <div style={{ backgroundColor: 'rgba(0,0,0,0.5)' }} className="p-4">
-                  <ul>
-                    {offers.map((offer, index) => (
-                      <li key={index} className={clsx({ hidden: selectedOffer != index }, 'my-4')}>
-                        <h3 className="text-orange">{offer.title}</h3>
-                        <p className="text-sm leading-normal text-justify text-white py-8">
-                          {offer.offers_description}
-                        </p>
-                        {offers[selectedOffer].related_landingpage && (
-                          <Link
-                            href={`/landingpages/${
-                              offers[selectedOffer].related_landingpage!.split('/')[
-                                offers[selectedOffer].related_landingpage!.split('/').length - 2
-                              ]
-                            }`}
-                          >
-                            <Button
-                              className="flex flex-row justify-center w-40 bg-orange text-white mx-auto rounded-full px-4 py-2 mt-4"
-                              href={`/landingpages/${
-                                offers[selectedOffer].related_landingpage!.split('/')[
-                                  offers[selectedOffer].related_landingpage!.split('/').length - 2
-                                ]
-                              }`}
-                            >
-                              En savoir plus
-                            </Button>
-                          </Link>
-                        )}
-                      </li>
-                    ))}
-                  </ul>
+                  </div>
+                </Button>
+                <div
+                  className={clsx(
+                    'block bg-gray-800 md:hidden relative overflow-hidden transition-all duration-500 rounded-b-lg ml-10',
+                    index === selectedOffer && isOpenedOffer ? 'max-h-150' : 'max-h-0'
+                  )}
+                >
+                  <img
+                    className="absolute object-cover h-full w-full object-top"
+                    src={offer.image}
+                    title={offer.title}
+                    alt={offer.title}
+                    width={800}
+                    height={600}
+                    loading="lazy"
+                  />
+                  <div
+                    style={{ backgroundColor: 'rgba(0,0,0,0.4)' }}
+                    className="p-4 m-4 rounded-lg backdrop-filter backdrop-blur-sm"
+                  >
+                    <p className="text-sm leading-normal text-justify text-white">{offer.offers_description}</p>
+                    {offer.related_landingpage && (
+                      <Link href={`/landingpages/${relatedPages[relatedPages.length - 2]}`} passHref>
+                        <Button
+                          className="flex flex-row justify-center w-48 bg-white hover:bg-gray-200 text-orange-500 uppercase mx-auto rounded-full px-6 py-2 mt-8 shadow-md font-semibold text-xs leading-tight hover:shadow-lg transition-all duration-250"
+                          href={`/landingpages/${relatedPages[relatedPages.length - 2]}`}
+                        >
+                          En savoir plus
+                        </Button>
+                      </Link>
+                    )}
+                  </div>
                 </div>
               </div>
-            </li>
-          ))}
-        </ul>
+            )
+          })}
+        </div>
       </div>
-      <div
-        style={{
-          backgroundImage: `url(${offers[selectedOffer].image})`,
-          backgroundPosition: 'center',
-          backgroundSize: 'cover',
-        }}
-        className="hidden md:block  bg-grey-darker home-offers-right md:p-12 lg:p-16 "
-      >
-        <div style={{ backgroundColor: 'rgba(0,0,0,0.3)' }} className="p-4">
-          <ul>
-            {offers.map((offer, index) => (
-              <li key={index} className={clsx({ hidden: selectedOffer != index }, 'my-4')}>
-                <h3 className="text-orange">{offer.title}</h3>
-                <p className="text-sm leading-normal text-justify text-white py-8 pb-4">{offer.offers_description}</p>
-                {offers[selectedOffer].related_landingpage && (
-                  <Link
-                    href={`/landingpages/${
-                      offers[selectedOffer].related_landingpage!.split('/')[
-                        offers[selectedOffer].related_landingpage!.split('/').length - 2
-                      ]
-                    }`}
-                  >
+      <div className="relative hidden md:block bg-gray-800 w-full md:w-1/2">
+        <img
+          className="absolute object-cover h-full w-full object-center"
+          src={offers[selectedOffer].image}
+          title={offers[selectedOffer].title}
+          alt={offers[selectedOffer].title}
+          width={2000}
+          height={2000}
+          loading="lazy"
+        />
+        <div
+          style={{ backgroundColor: 'rgba(0,0,0,0.4)' }}
+          className="p-4 md:m-12 lg:m-16 rounded-lg backdrop-filter backdrop-blur-sm"
+        >
+          {offers.map((offer, index) => {
+            const relatedPages = offer.related_landingpage?.split('/')
+
+            return (
+              <div key={index} className={clsx({ hidden: selectedOffer != index })}>
+                <p className="text-sm leading-normal text-justify text-white">{offer.offers_description}</p>
+                {offer.related_landingpage && (
+                  <Link href={`/landingpages/${relatedPages[relatedPages.length - 2]}`} passHref>
                     <Button
-                      className="flex flex-row justify-center w-40 bg-orange text-white mx-auto rounded-full px-4 py-2 mt-4"
-                      href={`/landingpages/${
-                        offers[selectedOffer].related_landingpage!.split('/')[
-                          offers[selectedOffer].related_landingpage!.split('/').length - 2
-                        ]
-                      }`}
+                      className="flex flex-row justify-center w-48 text-orange-500 bg-white hover:bg-gray-200 uppercase mx-auto rounded-full px-6 py-2 mt-8 shadow-md font-semibold text-xs leading-tight hover:shadow-lg transition-all duration-250"
+                      href={`/landingpages/${relatedPages[relatedPages.length - 2]}`}
                     >
                       En savoir plus
                     </Button>
                   </Link>
                 )}
-              </li>
-            ))}
-          </ul>
+              </div>
+            )
+          })}
         </div>
       </div>
     </div>

@@ -1,51 +1,83 @@
-import Link from 'next/link'
-import React from 'react'
+import Head from 'next/head'
 
+import ContactSection from '../components/ContactSection'
+import Error from './_error'
 import Layout from '../components/Layout'
-import { getMentionsLegalesContent } from '../Services/wordpressService'
-import MentionsLegalesContent from '../types/MentionsLegalesContent'
 
-import './personal-data.css'
+import { getMentionsLegalesContent } from '../services/wordpressService'
+import LegalContent from '../types/LegalContent'
+
+import styles from '../styles/personal-data.module.css'
+const Particles = '/images/particles-3.svg'
 
 interface Props {
-  pageContent: MentionsLegalesContent
+  pageContent: LegalContent
+  errorCode?: number
 }
 
-export default function mentionsLegales({ pageContent }: Props) {
+export default function mentionsLegales({ pageContent, errorCode }: Props) {
+  if (errorCode) {
+    return <Error statusCode={errorCode} />
+  }
+
   return (
-    <Layout invertColors={false}>
-      <>
-        <div className="md:max-w-md mx-auto px-0 md:px-8">
-          <div className="text-xs px-4 md:px-0">
-            <div className="text-xs">
-              <span>
-                <Link href="/">
-                  <a className="text-underline text-black">Accueil</a>
-                </Link>
-                {' > '} <b dangerouslySetInnerHTML={{ __html: pageContent.title }} />
-              </span>
-            </div>
+    <>
+      <Head>
+        <title>Agaetis - Mentions légales</title>
+        <meta property="og:title" content="Agaetis - Mentions légales" />
+        <meta property="og:url" content={`${process.env.NEXT_PUBLIC_SITE_URL}/mentions-legales`} />
+        <meta property="og:image" content={`${process.env.NEXT_PUBLIC_SITE_URL}/favicon.ico`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:description" content="Consultez ici les mentions légales de ce site." />
+        <meta name="description" content="Consultez ici les mentions légales de ce site." />
+        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/mentions-legales`} />
+      </Head>
+      <Layout>
+        <div className="pt-0 md:pt-17">
+          <div
+            style={{
+              backgroundImage: `url("${Particles}")`,
+              backgroundPosition: 'top',
+              backgroundSize: '100% auto',
+              backgroundRepeat: 'no-repeat',
+            }}
+            className="p-6 md:p-16 lg:px-32 xl:px-48 bg-gray-400"
+          >
             <h1
-              className="text-center text-2xl py-8 md:pb-0 md:mt-12"
+              className="mx-1 md:mx-2 text-2xl leading-normal mb-14 font-bold text-orange-500"
               dangerouslySetInnerHTML={{ __html: pageContent.title }}
             />
             <div
-              className="md:max-w-md mx-auto text-justify px-4 md:py-6 md:px-0 md:mt-8 text-sm leading-normal personal-data"
+              className={`mx-1 md:mx-2 text-justify text-sm leading-normal ${styles.personalData}`}
               dangerouslySetInnerHTML={{ __html: pageContent.content }}
             />
           </div>
+          <ContactSection />
         </div>
-      </>
-    </Layout>
+      </Layout>
+    </>
   )
 }
 
-mentionsLegales.getInitialProps = async () => {
-  const data = await getMentionsLegalesContent()
-  return {
-    pageContent: {
-      title: data.title.rendered,
-      content: data.content.rendered,
-    },
+export async function getStaticProps() {
+  try {
+    const data = await getMentionsLegalesContent()
+
+    return {
+      props: {
+        pageContent: {
+          title: data.title.rendered,
+          content: data.content.rendered,
+        },
+      },
+      revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
+    }
+  } catch (error) {
+    return {
+      props: {
+        errorCode: 500,
+      },
+      revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
+    }
   }
 }

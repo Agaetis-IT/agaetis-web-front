@@ -1,9 +1,7 @@
 import reactGA from 'react-ga'
 
-import publicRuntimeConfig from '../config/env.config'
-
 export default function initReactGA() {
-  reactGA.initialize(publicRuntimeConfig.NEXT_APP_GOOGLE_ANALYTICS_KEY, {
+  reactGA.initialize(process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_KEY, {
     debug: false,
   })
 }

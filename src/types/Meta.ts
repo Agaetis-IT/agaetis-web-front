@@ -8,12 +8,14 @@ export default interface Meta {
 }
 
 export function convertMetaAPItoMeta(contentAPI: MetaAPI, embeddedData?: any) {
+  const featuredImage =
+    embeddedData &&
+    embeddedData['wp:featuredmedia'] &&
+    embeddedData['wp:featuredmedia'][0] &&
+    embeddedData['wp:featuredmedia'][0].source_url
+
   return {
-    description: contentAPI._aioseop_description,
-    featuredImage:
-      embeddedData &&
-      embeddedData['wp:featuredmedia'] &&
-      embeddedData['wp:featuredmedia'][0] &&
-      embeddedData['wp:featuredmedia'][0].source_url,
+    description: contentAPI._aioseop_description ? contentAPI._aioseop_description : null,
+    featuredImage: featuredImage ? featuredImage : null,
   }
 }

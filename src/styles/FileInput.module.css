@@ -1,0 +1,17 @@
+.hiddenInput {
+  height: 29px;
+  width: 232.63px;
+}
+
+.hiddenInput::-webkit-file-upload-button,
+.hiddenInput::-ms-browse {
+  cursor: pointer;
+}
+
+.uploadButton {
+  min-width: 232.63px;
+}
+
+.importLegend {
+  width: 232.63px;
+}

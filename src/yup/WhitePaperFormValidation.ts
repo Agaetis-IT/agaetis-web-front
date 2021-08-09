@@ -19,9 +19,7 @@ export const whitePaperInitialValues = {
 export const whitePaperSchema = Yup.object().shape({
   firstName: Yup.string().required(),
   lastName: Yup.string().required(),
-  email: Yup.string()
-    .email("L'email saisi n'est pas valide")
-    .required(),
+  email: Yup.string().email("L'email saisi n'est pas valide").required(),
   company: Yup.string().required(),
   cgu: Yup.bool().oneOf(
     [true],

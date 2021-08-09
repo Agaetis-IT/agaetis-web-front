@@ -1,4 +1,5 @@
-import { PostAPI } from '../models/IdeasAPI'
+import { PostAPI } from '../models/PostAPI'
+import LandingPageAPI from '../models/LandingPageAPI'
 import OfferAPI from '../models/OfferAPI'
 
 export default interface OffersContent {
@@ -38,11 +39,6 @@ export interface OfferContent {
 export interface OfferLeaf {
   post_title: string
   post_name: string
-}
-
-interface LandingPageAPI {
-  content: { rendered: string }
-  title: { rendered: string }
 }
 
 export interface LandingPage {
@@ -105,7 +101,11 @@ export function convertAPItoOfferleaf(contentApi: OfferAPI, posts: PostAPI[]) {
       return {
         title: post.title.rendered,
         slug: post.slug,
-        image: post.acf.idea_image,
+        image:
+          (post._embedded['wp:featuredmedia'] &&
+            post._embedded['wp:featuredmedia'][0] &&
+            post._embedded['wp:featuredmedia'][0].source_url) ||
+          '',
         description: post.acf.idea_description,
       }
     }),

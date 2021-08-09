@@ -1,153 +1,250 @@
+import { useState, useEffect, useRef } from 'react'
 import clsx from 'clsx'
-import React, { useState } from 'react'
+import { FormProvider, useForm } from 'react-hook-form'
+import ReCAPTCHA from 'react-google-recaptcha'
+import { yupResolver } from '@hookform/resolvers/yup'
 
-import send from '../Services/contactService'
-import FormValues, { defaultValues } from '../types/ContactFormValues'
+import Button from './Button'
+import CheckBox from './CheckBox'
+import FileInput from './FileInput'
+import LoadingSpinner from './LoadingSpinner'
+import SnackBar from '../components/SnackBar'
+import TextInput from './TextInput'
 
-import ContactMessage from './ContactMessage'
-import Step1 from './form/Step1'
-import Step2 from './form/Step2'
-import Step3 from './form/Step3'
-const stepHeaderClassNames =
-  'text-xs uppercase text-center py-4 md:inline border border-white font-semibold self-center md:w-1/3 cursor-pointer'
+import { AttachmentContent, footerContactSchema, FormInput } from '../yup/ContactFormValidation'
+import send from '../services/contactService'
 
-function getHeadersClassNames(index: number, currentIndex: number) {
-  if (index === 0) {
-    if (currentIndex === 0) {
-      return 'text-white w-2/3 bg-blue'
-    }
-    if (currentIndex === 1) {
-      return 'w-1/6 text-blue md:text-dark-grey whitespace-no-wrap overflow-hidden px-4 bg-blue'
-    }
-    return 'text-dark-grey hidden bg-blue'
-  } else if (index === 1) {
-    if (currentIndex === 1) {
-      return 'text-white w-2/3 bg-blue'
-    } else if (currentIndex === 0) {
-      return 'w-1/3 text-dark-grey whitespace-no-wrap overflow-hidden px-4 bg-light-grey'
-    }
-    return 'w-1/3 text-dark-grey whitespace-no-wrap overflow-hidden px-4 bg-blue reverseText'
-  } else {
-    if (currentIndex === 2) {
-      return 'bg-blue text-white w-2/3'
-    }
-    if (currentIndex === 1) {
-      return 'bg-light-grey text-dark-grey w-1/6 whitespace-no-wrap overflow-hidden px-4'
-    }
-    return 'bg-light-grey text-dark-grey hidden'
-  }
+const Twitter = '/icons/twitter.png'
+const Linkedin = '/icons/linkedin.png'
+const Facebook = '/icons/facebook.png'
+const Particles = '/images/particles-3-mirror.svg'
+
+interface Props {
+  title: string
+  subText?: string
+  isPage?: boolean
 }
 
-export default function ContactTab() {
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [isOpenenedModal, setOpenModal] = useState(false)
-  const [isError, setIsError] = useState(true)
-  const [formValues, setFormValues] = useState(defaultValues)
-  const [isSubmitted, setIsSubmitted] = useState(false)
-  function handleNext(values: FormValues) {
-    setFormValues(values)
-    setCurrentIndex(currentIndex + 1)
-  }
+export default function ContactForm({ title, subText, isPage }: Props) {
+  const recaptchaRef = useRef<ReCAPTCHA>(null)
+  const [snackBarOpenWithError, setSnackBarOpenWithError] = useState<boolean | undefined>(undefined)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSuccessfullySubmitted, setIsSuccessfullySubmitted] = useState(false)
 
   function handleOpenModal(error: boolean) {
-    setIsError(error)
-    setCurrentIndex(0)
-    setOpenModal(true)
-    setIsSubmitted(false)
-    setTimeout(() => {
-      setOpenModal(false)
-    }, 3000)
+    setSnackBarOpenWithError(error)
+    setIsSubmitting(false)
   }
 
-  async function handleSubmit(values: FormValues, token: string) {
-    setIsSubmitted(true)
-    if (
-      values &&
-      values.firstName &&
-      values.lastName &&
-      values.email &&
-      values.message &&
-      values.company &&
-      values.objet &&
-      values.phone &&
-      values.cgu &&
-      token
-    ) {
-      try {
-        await send(
-          values.firstName + ' ' + values.lastName,
-          values.objet,
-          values.email,
-          values.company,
-          values.message,
-          values.phone,
-          new Date(),
-          token
-        )
-        handleOpenModal(false)
-      } catch {
-        handleOpenModal(true)
-      }
-    } else {
+  function handleCloseModal() {
+    setSnackBarOpenWithError(undefined)
+  }
+
+  async function handleSubmit(data: FormInput) {
+    if (isSubmitting || isSuccessfullySubmitted) {
+      return
+    }
+
+    try {
+      setIsSubmitting(true)
+      await send(data)
+      handleOpenModal(false)
+      setIsSuccessfullySubmitted(true)
+    } catch {
       handleOpenModal(true)
     }
   }
 
+  const { register, watch, control, clearErrors, ...otherFormProps } = useForm<FormInput>({
+    mode: 'onBlur',
+    resolver: yupResolver(footerContactSchema),
+  })
+
+  const onCaptchaChange = (value: string | null) => {
+    otherFormProps.setValue('captcha', value, { shouldValidate: true })
+  }
+
+  const onAttachmentsChange = (value: AttachmentContent[]) => {
+    otherFormProps.setValue('attachments', value)
+  }
+
+  const watchAttachments = watch('attachments', [])
+
+  useEffect(() => {
+    clearErrors()
+  }, [clearErrors])
+
+  const ComponentProp: React.ElementType = isPage ? 'h1' : 'h2'
+
   return (
-    <div>
-      <div className="flex flex-row md:max-w-lg mx-auto">
-        <div
-          className={clsx(getHeadersClassNames(0, currentIndex), stepHeaderClassNames)}
-          onClick={() => {
-            if (currentIndex > 0) {
-              setCurrentIndex(0)
-            }
-          }}
-        >
-          Votre profil
+    <>
+      <div
+        style={{
+          backgroundImage: `url("${Particles}")`,
+          backgroundPosition: 'bottom',
+          backgroundSize: '100% auto',
+          backgroundRepeat: 'no-repeat',
+        }}
+        className="p-6 md:p-12 lg:px-24 lg:p-16 bg-gray-400"
+      >
+        <div className="flex flex-col md:flex-row justify-between mb-8">
+          <ComponentProp className="text-orange-500 text-2xl font-bold leading-normal mb-4 md:mb-0">
+            {title}
+          </ComponentProp>
+          <div className="flex flex-row items-center">
+            <Button
+              href="https://fr-fr.facebook.com/AgaetisIT"
+              className="w-6 h-6 mr-4 self-center shadow-sm hover:shadow-md bg-white hover:bg-gray-200 rounded-full transition-all duration-250 p-1 text-none"
+            >
+              <img
+                src={Facebook}
+                className="w-4 h-4"
+                title="Retrouvez-nous sur Facebook"
+                alt="Facebook"
+                width={16}
+                height={16}
+                loading="lazy"
+              />
+            </Button>
+            <Button
+              href="https://www.linkedin.com/company/agaetis/"
+              className="w-6 h-6 mr-4 shadow-sm hover:shadow-md bg-white hover:bg-gray-200 rounded-full transition-all duration-250 p-1 text-none"
+            >
+              <img
+                src={Linkedin}
+                className="w-4 h-4"
+                title="Retrouvez-nous sur LinkedIn"
+                alt="LinkedIn"
+                width={16}
+                height={16}
+                loading="lazy"
+              />
+            </Button>
+            <Button
+              href="https://twitter.com/agaetisit"
+              className="w-6 h-6 shadow-sm hover:shadow-md bg-white hover:bg-gray-200 rounded-full transition-all duration-250 p-1 text-none"
+            >
+              <img
+                src={Twitter}
+                className="w-4 h-4"
+                title="Retrouvez-nous sur Twitter"
+                alt="Twitter"
+                width={16}
+                height={16}
+                loading="lazy"
+              />
+            </Button>
+          </div>
         </div>
-        <div
-          className={clsx(getHeadersClassNames(1, currentIndex), stepHeaderClassNames)}
-          onClick={() => {
-            if (currentIndex > 1) {
-              setCurrentIndex(1)
-            }
-          }}
-        >
-          Vos coordonnées
-        </div>
-        <div className={clsx(getHeadersClassNames(2, currentIndex), stepHeaderClassNames)}>Votre message</div>
+        {subText && (
+          <div className="mb-8">
+            <p className="text-sm leading-normal" dangerouslySetInnerHTML={{ __html: subText }} />
+          </div>
+        )}
+        <FormProvider register={register} watch={watch} control={control} clearErrors={clearErrors} {...otherFormProps}>
+          <form onSubmit={otherFormProps.handleSubmit(handleSubmit)}>
+            <div className="flex flex-col md:flex-row justify-between">
+              <TextInput
+                wrapperClassName="w-full md:w-1/5"
+                className="appearance-none rounded-full text-xs p-3 shadow-md text-orange-500 placeholder-orange-400 font-semibold leading-tight"
+                name="lastname"
+                label="Nom"
+                type="input"
+              />
+              <TextInput
+                wrapperClassName="w-full md:w-1/5 mt-8 md:mt-0"
+                className="appearance-none rounded-full text-xs p-3 shadow-md text-orange-500 placeholder-orange-400 font-semibold leading-tight"
+                name="firstname"
+                label="Prénom"
+                type="input"
+              />
+              <TextInput
+                wrapperClassName="w-full md:w-1/5 mt-8 md:mt-0"
+                className="appearance-none rounded-full text-xs p-3 shadow-md text-orange-500 placeholder-orange-400 font-semibold leading-tight"
+                name="mail"
+                label="Mail"
+                type="input"
+              />
+              <TextInput
+                wrapperClassName="w-full md:w-1/5 mt-8 md:mt-0"
+                className="appearance-none rounded-full text-xs p-3 shadow-md text-orange-500 placeholder-orange-400 font-semibold leading-tight"
+                name="phone"
+                label="Téléphone"
+                type="input"
+              />
+            </div>
+            <TextInput
+              wrapperClassName="my-8"
+              className="appearance-none rounded-full text-xs p-3 shadow-md text-orange-500 placeholder-orange-400 font-semibold leading-tight"
+              name="subject"
+              label="Sujet de votre demande"
+              type="input"
+            />
+            <TextInput
+              wrapperClassName="my-8"
+              className={`appearance-none w-full text-xs p-3 shadow-md text-orange-500 placeholder-orange-400 font-semibold leading-tight block h-48 rounded-3xl`}
+              name="message"
+              label="Détails de votre demande"
+              type="textarea"
+            />
+            <FileInput
+              {...register('attachments')}
+              onChange={onAttachmentsChange}
+              wrapperClassName="my-8"
+              className="block shadow-md py-2 px-8 rounded-full text-xs leading-tight text-white font-semibold uppercase hover:shadow-lg transition-all duration-250"
+              fileCount={watchAttachments?.length}
+              fileNames={watchAttachments?.map((file) => file.fileName)}
+            />
+            <CheckBox
+              wrapperClassName="my-8"
+              boxClassName="shadow-md"
+              labelClassName="text-xs text-orange-500 font-semibold leading-tight text-justify"
+              name="cgu"
+              label="En soumettant ce formulaire et conformément à la politique de traitement des données personnelles, j'accepte
+              que les informations saisies soient exploitées afin d'être contacté par les équipes d'Agaetis."
+            />
+            <div className="flex flex-col justify-center items-center">
+              <ReCAPTCHA
+                {...register('captcha')}
+                ref={recaptchaRef}
+                size="normal"
+                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_KEY}
+                onChange={onCaptchaChange}
+              />
+              {otherFormProps.formState.errors.captcha && (
+                <p className="text-xs leading-normal text-red-500 text-center pt-2">
+                  {otherFormProps.formState.errors.captcha.message}
+                </p>
+              )}
+            </div>
+            <Button
+              className={clsx(
+                'flex flex-row justify-center uppercase rounded-full text-xss leading-tight py-2 px-6 text-white font-semibold mx-auto shadow-md mt-8 hover:shadow-lg transition-all duration-250',
+                isSubmitting || isSuccessfullySubmitted ? 'bg-gray-500' : 'bg-orange-500 hover:bg-orange-400'
+              )}
+              type="submit"
+              disabled={isSubmitting || isSuccessfullySubmitted}
+            >
+              {isSubmitting ? (
+                <div className="flex flex-row justify-center">
+                  <LoadingSpinner color="#ffffff" size={12} />
+                  Envoi en cours
+                </div>
+              ) : isSuccessfullySubmitted ? (
+                'Envoi effectué'
+              ) : (
+                'Envoyer'
+              )}
+            </Button>
+          </form>
+        </FormProvider>
       </div>
-      <div className="border border-white md:max-w-lg mx-auto ">
-        <div className="bg-light-grey py-8 md:p-12 flex flex-col justify-center">
-          <h2 className={clsx({ hidden: currentIndex !== 0 }, 'text-center text-lg md:text-2xl md:mt-0')}>
-            Votre demande concerne...
-          </h2>
-          <h2 className={clsx({ hidden: currentIndex !== 1 }, 'text-center text-lg md:text-2xl md:mt-0')}>
-            Saisissez vos coordonnées :
-          </h2>
-          <h2 className={clsx({ hidden: currentIndex !== 2 }, 'text-center text-lg md:text-2xl md:mt-0')}>
-            Saisissez votre message :
-          </h2>
-          <Step1
-            className={clsx(currentIndex === 0 ? 'flex flex-col' : 'hidden')}
-            handleNextStep={handleNext}
-            formValues={formValues}
-          />
-          <Step2
-            className={clsx(currentIndex === 1 ? 'flex flex-col' : 'hidden', 'px-4 md:px-0')}
-            handleNextStep={handleNext}
-            formValues={formValues}
-          />
-          <Step3
-            className={clsx(currentIndex === 2 ? 'flex flex-col' : 'hidden', 'px-4 md:px-0')}
-            handleNextStep={handleSubmit}
-            formValues={formValues}
-            isSubmitted={isSubmitted}
-          />
-          {isOpenenedModal && <ContactMessage error={isError} />}
-        </div>
-      </div>
-    </div>
+      <SnackBar
+        message={snackBarOpenWithError ? "Erreur pendant l'envoi du message" : 'Message envoyé'}
+        isError={snackBarOpenWithError}
+        open={snackBarOpenWithError}
+        onClose={handleCloseModal}
+      />
+    </>
   )
 }
