@@ -73,7 +73,7 @@ export default function offers({ pageContent, allOffers, errorCode }: Props) {
                 />
                 <Button
                   className="text-sm leading-normal flex flex-row justify-center font-semibold text-white"
-                  href={`/offers/${allOffers[selectedOffer].slug}?offer=${allOffers[selectedOffer].childrens[0]?.post_name}`}
+                  href={`/offers/${allOffers[selectedOffer].slug}?offer=${allOffers[selectedOffer].childrens[0].post_name}`}
                 >
                   <div className="flex flex-row items-center">
                     En savoir plus{' '}
@@ -129,14 +129,14 @@ export default function offers({ pageContent, allOffers, errorCode }: Props) {
                         {allOffers[selectedOffer].childrens.length > 0 &&
                           allOffers[selectedOffer].childrens.map((offer: OfferLeaf) => (
                             <Link
-                              key={offer?.post_title}
+                              key={offer.post_title}
                               href={{
                                 pathname: `/offers/${allOffers[selectedOffer].slug}`,
-                                query: { offer: offer?.post_name },
+                                query: { offer: offer.post_name },
                               }}
                               passHref
                             >
-                              <p className="text-center p-4">{offer?.post_title}</p>
+                              <p className="text-center p-4">{offer.post_title}</p>
                             </Link>
                           ))}
                       </div>
@@ -155,6 +155,10 @@ export default function offers({ pageContent, allOffers, errorCode }: Props) {
 }
 
 export async function getStaticProps() {
+  return {
+    notFound: true,
+  }
+
   try {
     const { [0]: data, [1]: allOffersData } = await Promise.all([getOffersPageContent(), getAllOffers()])
     const pageContent = convertAPItoOffersContent(data)
