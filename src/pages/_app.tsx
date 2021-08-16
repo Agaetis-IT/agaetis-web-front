@@ -6,6 +6,7 @@ import NextNProgress from 'nextjs-progressbar'
 import initBugsnag from '../bugsnag/bugsnag'
 import initReactGA, { trackUrl } from '../analytics/analytics'
 
+import 'tocbot/src/scss/tocbot.scss'
 import '../styles/globals.css'
 
 declare global {
