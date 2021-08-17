@@ -4,6 +4,7 @@ export default interface IndexAPI {
   heroSubtitle: string
   heroImage: string
   offersTitle: string
+  offers: Offer[]
   sectorsTitle: string
   sectors: Sector[]
   convictionsTitle: string
@@ -13,6 +14,15 @@ export default interface IndexAPI {
   expertisesImageDesktop: string
   expertisesImageMobile: string
   joinUs: JoinUs
+}
+
+export interface Offer {
+  title: string
+  shortDescription: string
+  description: string
+  image: string
+  icon: string
+  relatedLandingPage?: string
 }
 
 export interface Sector {

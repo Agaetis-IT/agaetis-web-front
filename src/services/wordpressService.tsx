@@ -3,7 +3,7 @@ import axios from 'axios'
 import { AgaetisAPI } from '../models/AgaetisAPI'
 import ContactAPI from '../models/ContactAPI'
 import { BlogAPI } from '../models/BlogAPI'
-import IndexContentApi from '../models/IndexAPI'
+import IndexAPI from '../models/IndexAPI'
 import { OffersPageContent } from '../types/OffersContent'
 import SolutionsAPI from '../models/SolutionsAPI'
 import { AuthorPageAPI } from '../models/AuthorAPI'
@@ -16,7 +16,7 @@ export async function getWordpressPageBySlug<T>(slug: string) {
 }
 
 export async function getIndexContent() {
-  const { acf } = await getWordpressPageBySlug<{ acf: IndexContentApi }>('index')
+  const { acf } = await getWordpressPageBySlug<{ acf: IndexAPI }>('index')
   return acf
 }
 

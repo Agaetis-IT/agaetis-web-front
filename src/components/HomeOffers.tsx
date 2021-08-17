@@ -4,13 +4,13 @@ import Link from 'next/link'
 
 import Button from './Button'
 
-import { OfferDesc } from '../types/OffersContent'
+import { Offer } from '../models/IndexAPI'
 
 const arrowR = '/images/right-arrow.svg'
 
 interface Props {
   title: string
-  offers: OfferDesc[]
+  offers: Offer[]
 }
 
 export default function HomeOffers({ title, offers }: Props) {
@@ -30,7 +30,7 @@ export default function HomeOffers({ title, offers }: Props) {
         </h2>
         <div className="md:mt-12">
           {offers.map((offer, index) => {
-            const relatedPages = offer.related_landingpage?.split('/')
+            const relatedPages = offer.relatedLandingPage?.split('/')
 
             return (
               <div key={index} className="my-6" id={`offer-${index}`}>
@@ -46,7 +46,7 @@ export default function HomeOffers({ title, offers }: Props) {
                   >
                     <div className="absolute bg-white h-20 w-20 shadow-md md:hidden rounded-full">
                       <img
-                        src={offer.offers_image1}
+                        src={offer.icon}
                         title={`Offre ${offer.title}`}
                         alt={`Offre ${offer.title}`}
                         className="rounded-full"
@@ -60,7 +60,7 @@ export default function HomeOffers({ title, offers }: Props) {
                         {offer.title}
                       </h3>
                       <p className="text-cgu md:text-xs italic text-gray-500 md:text-black text-left leading-tight my-1">
-                        {offer.short_desc}
+                        {offer.shortDescription}
                       </p>
                     </div>
                     <span
@@ -103,8 +103,8 @@ export default function HomeOffers({ title, offers }: Props) {
                     style={{ backgroundColor: 'rgba(0,0,0,0.4)' }}
                     className="p-4 m-4 rounded-lg backdrop-filter backdrop-blur-sm"
                   >
-                    <p className="text-sm leading-normal text-justify text-white">{offer.offers_description}</p>
-                    {offer.related_landingpage && (
+                    <p className="text-sm leading-normal text-justify text-white">{offer.description}</p>
+                    {offer.relatedLandingPage && (
                       <Link href={`/landingpages/${relatedPages[relatedPages.length - 2]}`} passHref>
                         <Button
                           className="flex flex-row justify-center w-48 bg-white hover:bg-gray-200 text-orange-500 uppercase mx-auto rounded-full px-6 py-2 mt-8 shadow-md font-semibold text-xs leading-tight hover:shadow-lg transition-all duration-250"
@@ -136,12 +136,12 @@ export default function HomeOffers({ title, offers }: Props) {
           className="p-4 md:m-12 lg:m-16 rounded-lg backdrop-filter backdrop-blur-sm"
         >
           {offers.map((offer, index) => {
-            const relatedPages = offer.related_landingpage?.split('/')
+            const relatedPages = offer.relatedLandingPage?.split('/')
 
             return (
               <div key={index} className={clsx({ hidden: selectedOffer != index })}>
-                <p className="text-sm leading-normal text-justify text-white">{offer.offers_description}</p>
-                {offer.related_landingpage && (
+                <p className="text-sm leading-normal text-justify text-white">{offer.description}</p>
+                {offer.relatedLandingPage && (
                   <Link href={`/landingpages/${relatedPages[relatedPages.length - 2]}`} passHref>
                     <Button
                       className="flex flex-row justify-center w-48 text-orange-500 bg-white hover:bg-gray-200 uppercase mx-auto rounded-full px-6 py-2 mt-8 shadow-md font-semibold text-xs leading-tight hover:shadow-lg transition-all duration-250"

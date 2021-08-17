@@ -10,18 +10,15 @@ import HomeOffers from '../components/HomeOffers'
 import HomeSectors from '../components/HomeSectors'
 import Layout from '../components/Layout'
 
-import { compareOffer, OfferDesc } from '../types/OffersContent'
-import { getAllOffers, getIndexContent } from '../services/wordpressService'
+import { getIndexContent } from '../services/wordpressService'
 import IndexAPI from '../models/IndexAPI'
-import OfferAPI from '../models/OfferAPI'
 
 interface Props {
   pageContent: IndexAPI
-  offers: OfferDesc[]
   errorCode?: number
 }
 
-export default function Index({ pageContent, offers, errorCode }: Props) {
+export default function Index({ pageContent, errorCode }: Props) {
   if (errorCode) {
     return <Error statusCode={errorCode} />
   }
@@ -47,7 +44,7 @@ export default function Index({ pageContent, offers, errorCode }: Props) {
             subtitle={pageContent.heroSubtitle}
           />
           <div className="sm:px-0">
-            {offers && <HomeOffers offers={offers} title={pageContent.offersTitle} />}
+            {pageContent.offers && <HomeOffers offers={pageContent.offers} title={pageContent.offersTitle} />}
             <HomeSectors sectors={pageContent.sectors} title={pageContent.sectorsTitle} />
             <HomeExpertises
               expertisesTitle={pageContent.expertisesTitle}
@@ -67,12 +64,11 @@ export default function Index({ pageContent, offers, errorCode }: Props) {
 
 export async function getStaticProps() {
   try {
-    const { [0]: data, [1]: allOffersData } = await Promise.all([getIndexContent(), getAllOffers()])
+    const data = await getIndexContent()
 
     return {
       props: {
         pageContent: data,
-        offers: allOffersData.map((offer: OfferAPI) => offer.acf).sort(compareOffer),
       },
       revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
     }
