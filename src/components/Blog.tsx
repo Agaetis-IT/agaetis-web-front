@@ -14,7 +14,8 @@ import PostCard from './PostCard'
 import SearchInput from './SearchInput'
 import SnackBar from './SnackBar'
 
-import { Category, PostDesc, BlogPageContent, Response } from '../types/PostPageContent'
+import { BlogAPI } from '../models/BlogAPI'
+import { Category, PostDesc, Response } from '../types/PostPageContent'
 import { getPostsByCategory, getPostsByPage, getPostsByTag } from '../services/wordpressService'
 import { PostAPI } from '../models/PostAPI'
 import { slugify } from '../services/textUtilities'
@@ -25,7 +26,7 @@ const Particles = '/images/particles-3.svg'
 interface Props {
   ideasDescription: PostDesc[]
   categories: Category[]
-  content: BlogPageContent
+  content: BlogAPI
   whitePapers: WhitePaper[]
   selectedCategory?: string
   tagFilter?: string

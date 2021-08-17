@@ -4,7 +4,6 @@ export interface PostAPI {
   slug: string
   date: string
   acf: {
-    idea_image: string
     idea_description: string
     coAuthor: [{ data: { display_name: string } }]
   }

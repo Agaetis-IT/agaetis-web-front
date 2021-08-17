@@ -13,7 +13,7 @@ import Layout from '../../components/Layout'
 import PostCard from '../../components/PostCard'
 import PostContent from '../../components/PostContent'
 
-import { AuthorLink } from '../../types/AuthorContent'
+import { AuthorLink } from '../../models/AuthorAPI'
 import { fixWordPressString, formatPostAuthors } from '../../services/textUtilities'
 import { getPostBySlug, getPostMeta, getPostsByPage } from '../../services/wordpressService'
 import PostPageContent, { PostDesc } from '../../types/PostPageContent'
@@ -163,7 +163,10 @@ export async function getStaticProps({ params }) {
           props: {
             data: {
               title: data.title.rendered || '',
-              imageUrl: data.acf.idea_image || '',
+              imageUrl: (data._embedded['wp:featuredmedia'] &&
+                data._embedded['wp:featuredmedia'][0] &&
+                data._embedded['wp:featuredmedia'][0].source_url) ||
+              '',
               date: data.date || '',
               authors: authors || [],
               categories: data._embedded['wp:term'][0].map((category: { name: string }) => category.name) || [],

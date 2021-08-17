@@ -1,6 +1,6 @@
 import Author from '../../components/Author'
 
-import { AuthorAPI } from '../../types/AuthorContent'
+import { AuthorAPI } from '../../models/AuthorAPI'
 import { getAllAuthors, getAuthorById, getAuthorPageContent, getPostsByAuthor } from '../../services/wordpressService'
 import { PostAPI } from '../../models/PostAPI'
 

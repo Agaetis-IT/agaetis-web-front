@@ -1,12 +1,12 @@
 import axios from 'axios'
 
 import { AgaetisAPI } from '../models/AgaetisAPI'
-import ContactContentApi from '../models/ContactAPI'
-import { BlogPageContent } from '../types/PostPageContent'
+import ContactAPI from '../models/ContactAPI'
+import { BlogAPI } from '../models/BlogAPI'
 import IndexContentApi from '../models/IndexAPI'
 import { OffersPageContent } from '../types/OffersContent'
 import SolutionsAPI from '../models/SolutionsAPI'
-import { AuthorPageContent } from '../types/AuthorContent'
+import { AuthorPageAPI } from '../models/AuthorAPI'
 
 axios.defaults.timeout = 10000
 
@@ -26,12 +26,12 @@ export async function getAgaetisContent() {
 }
 
 export async function getBlogPageContent() {
-  const { acf } = await getWordpressPageBySlug<{ acf: BlogPageContent }>('blog')
+  const { acf } = await getWordpressPageBySlug<{ acf: BlogAPI }>('blog')
   return acf
 }
 
 export async function getAuthorPageContent() {
-  const { acf } = await getWordpressPageBySlug<{ acf: AuthorPageContent }>('author')
+  const { acf } = await getWordpressPageBySlug<{ acf: AuthorPageAPI }>('author')
   return acf
 }
 
@@ -67,7 +67,7 @@ export async function getSolutionsPageContent() {
 }
 
 export async function getContactPageContent() {
-  const { acf } = await getWordpressPageBySlug<{ acf: ContactContentApi }>('contact')
+  const { acf } = await getWordpressPageBySlug<{ acf: ContactAPI }>('contact')
   return acf
 }
 

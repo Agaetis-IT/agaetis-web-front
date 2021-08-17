@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 
 import Button from './Button'
 
-import { AuthorLink } from '../types/AuthorContent'
+import { AuthorLink } from '../models/AuthorAPI'
 import { fixWordPressString } from '../services/textUtilities'
 import PostPageContent from '../types/PostPageContent'
 import Meta from '../types/Meta'

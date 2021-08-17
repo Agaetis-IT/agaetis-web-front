@@ -10,7 +10,7 @@ import LoadingSpinner from './LoadingSpinner'
 import PostCard from './PostCard'
 import SnackBar from './SnackBar'
 
-import { AuthorDescription, AuthorPageContent } from '../types/AuthorContent'
+import { AuthorDescription, AuthorPageAPI } from '../models/AuthorAPI'
 import { getPostsByAuthor } from '../services/wordpressService'
 import { PostDesc, Response } from '../types/PostPageContent'
 import { PostAPI } from '../models/PostAPI'
@@ -21,7 +21,7 @@ const Linkedin = '/icons/linkedin.png'
 interface Props {
   ideasDescription: PostDesc[]
   author: AuthorDescription
-  content: AuthorPageContent
+  content: AuthorPageAPI
   hasMore: boolean
   errorCode?: number
 }
@@ -151,7 +151,7 @@ export default function Author({ ideasDescription, author, content, hasMore, err
                   </div>
                   {author.descriptionText && <p className="py-2 my-4">{author.descriptionText}</p>}
                 </div>
-                <h2 className="py-6 text-xl leading-normal mt-4 font-medium">{content.posts_description}</h2>
+                <h2 className="py-6 text-xl leading-normal mt-4 font-medium">{content.postsDescription}</h2>
               </div>
             </div>
             <div className="flex flex-row flex-wrap mt-2 w-full justify-center">

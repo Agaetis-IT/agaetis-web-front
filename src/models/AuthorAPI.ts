@@ -1,6 +1,5 @@
-export interface AuthorPageContent {
-  titre: string
-  posts_description: string
+export interface AuthorPageAPI {
+  postsDescription: string
 }
 
 export interface AuthorLink {

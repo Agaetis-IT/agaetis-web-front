@@ -1,4 +1,4 @@
-export default interface IndexContentAPI {
+export default interface IndexAPI {
   hero_valeurs: string
   hero_subtitle: string
   hero_image: string

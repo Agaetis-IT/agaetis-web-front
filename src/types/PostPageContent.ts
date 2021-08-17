@@ -1,5 +1,5 @@
 import { PostAPI } from '../models/PostAPI'
-import { AuthorLink } from './AuthorContent'
+import { AuthorLink } from '../models/AuthorAPI'
 
 export interface PostDesc {
   id: number
@@ -22,12 +22,6 @@ export interface RelatedPost {
 export interface Category {
   categoryId: number
   categoryName: string
-}
-
-export interface BlogPageContent {
-  titre: string
-  description: string
-  white_paper_description: string
 }
 
 export default interface PostPageContent {

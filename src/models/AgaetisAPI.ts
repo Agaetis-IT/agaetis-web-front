@@ -15,15 +15,8 @@ export interface AgaetisAPI {
   paragraph: string
   numbersTitle: string
   numbersBack: string
-  number1: NumberAPI
-  number2: NumberAPI
-  number3: NumberAPI
-  question1: QuestionAPI
-  question2: QuestionAPI
-  question3: QuestionAPI
-  question4: QuestionAPI
-  question5: QuestionAPI
-  question6: QuestionAPI
+  numbers: NumberAPI[]
+  questions: QuestionAPI[]
   video: string
   videoTitle: string
 }

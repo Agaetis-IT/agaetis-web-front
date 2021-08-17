@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/camelcase */
-import IndexContentAPI from '../models/IndexAPI'
+import IndexAPI from '../models/IndexAPI'
 
 export default interface IndexContent {
   hero_valeurs: string
@@ -56,7 +55,7 @@ export interface Expertise {
   logo: string
 }
 
-function createOfferArray(contentApi: IndexContentAPI, keys: string[]) {
+function createOfferArray(contentApi: IndexAPI, keys: string[]) {
   const offers: OfferDesc[] = []
   keys.forEach((key) => {
     const offerIndex = offers.findIndex((offer) => offer.index === parseInt(key[11], 10))
@@ -87,7 +86,7 @@ function createOfferArray(contentApi: IndexContentAPI, keys: string[]) {
   return offers
 }
 
-function createSectorArray(contentApi: IndexContentAPI, keys: string[]) {
+function createSectorArray(contentApi: IndexAPI, keys: string[]) {
   const sectors: SectorDesc[] = []
   keys.forEach((key) => {
     const sectorIndex = sectors.findIndex((sector) => sector.index === parseInt(key.slice(8, 10), 10))
@@ -112,7 +111,7 @@ function createSectorArray(contentApi: IndexContentAPI, keys: string[]) {
   return sectors
 }
 
-function createConvictionArray(contentApi: IndexContentAPI, keys: string[]) {
+function createConvictionArray(contentApi: IndexAPI, keys: string[]) {
   const convictions: Conviction[] = []
   keys.forEach((key) => {
     const convictionIndex = convictions.findIndex((conviction) => conviction.index === parseInt(key[11], 10))
@@ -137,7 +136,7 @@ function createConvictionArray(contentApi: IndexContentAPI, keys: string[]) {
   return convictions
 }
 
-function createExpertiseArray(contentApi: IndexContentAPI, keys: string[]) {
+function createExpertiseArray(contentApi: IndexAPI, keys: string[]) {
   const expertises: Expertise[] = []
 
   keys.forEach((key) => {
@@ -163,7 +162,7 @@ function createExpertiseArray(contentApi: IndexContentAPI, keys: string[]) {
   return expertises
 }
 
-export function convertIndexContentAPItoContentAPI(contentApi: IndexContentAPI) {
+export function convertIndexContentAPItoContentAPI(contentApi: IndexAPI) {
   const regexOffer = /cat_offres_[0-9]*/g
   const regexSector = /secteur_[0-9][0-9]*/g
   const regexConviction = /conviction_[0-9]*/g

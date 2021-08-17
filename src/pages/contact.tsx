@@ -5,11 +5,11 @@ import ContactSection from '../components/ContactSection'
 import Error from './_error'
 import Layout from '../components/Layout'
 
-import ContactContent from '../types/ContactContent'
+import ContactAPI from '../models/ContactAPI'
 import { getContactPageContent } from '../services/wordpressService'
 
 interface Props {
-  pageContent: ContactContent
+  pageContent: ContactAPI
   errorCode?: number
 }
 
