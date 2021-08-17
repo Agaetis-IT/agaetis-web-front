@@ -1,4 +1,4 @@
-import { Expertise } from '../types/IndexContent'
+import { Expertise } from '../models/IndexAPI'
 
 interface Props {
   expertisesTitle: string

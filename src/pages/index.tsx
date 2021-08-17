@@ -12,11 +12,11 @@ import Layout from '../components/Layout'
 
 import { compareOffer, OfferDesc } from '../types/OffersContent'
 import { getAllOffers, getIndexContent } from '../services/wordpressService'
-import IndexContent, { convertIndexContentAPItoContentAPI } from '../types/IndexContent'
+import IndexAPI from '../models/IndexAPI'
 import OfferAPI from '../models/OfferAPI'
 
 interface Props {
-  pageContent: IndexContent
+  pageContent: IndexAPI
   offers: OfferDesc[]
   errorCode?: number
 }
@@ -34,37 +34,29 @@ export default function Index({ pageContent, offers, errorCode }: Props) {
         <meta property="og:title" content="Agaetis" />
         <meta property="og:image" content={`${process.env.NEXT_PUBLIC_SITE_URL}/favicon.ico`} />
         <meta property="og:type" content="website" />
-        <meta property="og:description" content={pageContent.hero_subtitle} />
-        <meta name="description" content={pageContent.hero_subtitle} />
+        <meta property="og:description" content={pageContent.heroSubtitle} />
+        <meta name="description" content={pageContent.heroSubtitle} />
         <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/`} />
       </Head>
       <Layout otherColorClass="bg-orange-500">
         <>
           <Hero
-            hero={pageContent.hero_image}
-            values={pageContent.hero_valeurs.split(' ')}
-            subtitle={pageContent.hero_subtitle}
+            hero={pageContent.heroImage}
+            quote={pageContent.heroQuote}
+            values={pageContent.heroValues.split(' ')}
+            subtitle={pageContent.heroSubtitle}
           />
           <div className="sm:px-0">
-            {offers && <HomeOffers offers={offers} title={pageContent.offres_title} />}
-            <HomeSectors sectors={pageContent.secteurs} title={pageContent.secteurs_title} />
+            {offers && <HomeOffers offers={offers} title={pageContent.offersTitle} />}
+            <HomeSectors sectors={pageContent.sectors} title={pageContent.sectorsTitle} />
             <HomeExpertises
-              expertisesTitle={pageContent.expertises_title}
-              expertisesImageDesktop={pageContent.expertises_image_desktop}
-              expertisesImageMobile={pageContent.expertises_image_mobile}
+              expertisesTitle={pageContent.expertisesTitle}
+              expertisesImageDesktop={pageContent.expertisesImageDesktop}
+              expertisesImageMobile={pageContent.expertisesImageMobile}
               expertises={pageContent.expertises}
             />
-            <HomeConvictions convictions={pageContent.convictions} title={pageContent.convictions_title} />
-            <HomeJoinUs
-              joinUsAgaetisTitle={pageContent.joinUs_agaetis_title}
-              joinUsAgaetisDesc={pageContent.joinUs_agaetis_desc}
-              joinUsCareerTitle={pageContent.joinUs_carreer_title}
-              joinUsCareerDesc={pageContent.joinUs_carreer_desc}
-              joinUsHuman={pageContent.joinUs_human}
-              joinUsImageDesktop={pageContent.joinUs_image_desktop}
-              joinUsImageMobile1={pageContent.joinUs_image_mobile_1}
-              joinUsImageMobile2={pageContent.joinUs_image_mobile_2}
-            />
+            <HomeConvictions convictions={pageContent.convictions} title={pageContent.convictionsTitle} />
+            <HomeJoinUs joinUs={pageContent.joinUs}/>
           </div>
           <ContactSection />
         </>
@@ -79,7 +71,7 @@ export async function getStaticProps() {
 
     return {
       props: {
-        pageContent: JSON.parse(JSON.stringify(convertIndexContentAPItoContentAPI(data))),
+        pageContent: data,
         offers: allOffersData.map((offer: OfferAPI) => offer.acf).sort(compareOffer),
       },
       revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,

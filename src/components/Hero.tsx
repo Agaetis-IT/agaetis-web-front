@@ -1,5 +1,6 @@
 interface Props {
   hero: string
+  quote: string
   values: string[]
   subtitle: string
 }
@@ -12,7 +13,7 @@ function convertToMultiline(text: string) {
   return text.replace(/\n/g, '</br>')
 }
 
-export default function Hero({ hero, values, subtitle }: Props) {
+export default function Hero({ hero, quote, values, subtitle }: Props) {
   return (
     <div
       style={{
@@ -32,9 +33,7 @@ export default function Hero({ hero, values, subtitle }: Props) {
             height={143}
             loading="eager"
           />
-          <p className="inline italic" id="hero-quote">
-            La data au service des hommes et du monde de demain !
-          </p>
+          <p className="inline italic">{quote}</p>
           <img
             className="absolute w-12 h-auto top-5 right-0 transform rotate-180 xs:right-1/5 xs:top-0 md:w-24 md:top-2 md:right-15/100 xl:right-1/5 xxl:right-1/4"
             src={Quote}
