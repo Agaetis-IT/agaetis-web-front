@@ -10,7 +10,7 @@ import HomeOffers from '../components/HomeOffers'
 import HomeSectors from '../components/HomeSectors'
 import Layout from '../components/Layout'
 
-import { getIndexContent } from '../services/wordpressService'
+import getIndexContent from '../services/wordpressService'
 import IndexAPI from '../models/IndexAPI'
 
 interface Props {

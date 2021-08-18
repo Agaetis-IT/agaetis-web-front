@@ -2,8 +2,7 @@ import Blog from '../components/Blog'
 
 import { Category } from '../types/PostPageContent'
 import { CategoryAPI, PostAPI } from '../models/PostAPI'
-import { getPostsByPage, getCategories, getBlogPageContent, getAllWhitePapers } from '../services/wordpressService'
-import WhitePaper from '../types/WhitePaper'
+import { getPostsByPage, getCategories, getBlogPageContent } from '../services/wordpressService'
 
 export default Blog
 
@@ -13,8 +12,7 @@ export async function getStaticProps() {
       [0]: ideas,
       [1]: categories,
       [2]: content,
-      [3]: whitepapers,
-    } = await Promise.all([getPostsByPage(), getCategories(), getBlogPageContent(), getAllWhitePapers()])
+    } = await Promise.all([getPostsByPage(), getCategories(), getBlogPageContent()])
 
     return {
       props: {
@@ -23,7 +21,7 @@ export async function getStaticProps() {
           title: idea.title.rendered,
           categories: idea._embedded['wp:term'][0].map((category: { name: string }) => category.name),
           slug: idea.slug,
-          descriptionText: idea.acf.idea_description,
+          descriptionText: idea.acf.description,
           date: idea.date,
           image:
             (idea._embedded['wp:featuredmedia'] &&
@@ -31,13 +29,6 @@ export async function getStaticProps() {
               idea._embedded['wp:featuredmedia'][0].source_url) ||
             '',
         })),
-        whitePapers:
-          whitepapers && whitepapers.length > 0
-            ? whitepapers.map((whitepaper: { slug: string; acf: WhitePaper }) => ({
-                slug: whitepaper.slug,
-                ...whitepaper.acf,
-              }))
-            : [],
         content,
         categories: categories
           .map((category: CategoryAPI) => ({ categoryId: category.id, categoryName: category.name }))

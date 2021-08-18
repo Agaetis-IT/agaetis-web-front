@@ -144,13 +144,13 @@ export async function getStaticProps({ params }) {
       if (data.acf || data.content) {
         const related = []
         if (data.acf) {
-          for (const idea of data.acf.related_ideas) {
+          for (const idea of data.acf.related) {
             const data2 = await getPostBySlug(idea.post_name)
             related.push(data2)
           }
 
-          if (data.acf.co_author) {
-            for (const auth of data.acf.co_author) {
+          if (data.acf.coAuthors) {
+            for (const auth of data.acf.coAuthors) {
               authors.push({
                 id: auth.ID,
                 name: auth.data.display_name,
@@ -172,7 +172,7 @@ export async function getStaticProps({ params }) {
               categories: data._embedded['wp:term'][0].map((category: { name: string }) => category.name) || [],
               content: data.content.rendered || '',
               slug: data.slug || '',
-              descriptionText: data.acf.idea_description || '',
+              descriptionText: data.acf.description || '',
               tags:
                 data._embedded['wp:term'][1].map((tag: { name: string; slug: string }) => {
                   return { name: tag.name, slug: tag.slug }
@@ -189,7 +189,7 @@ export async function getStaticProps({ params }) {
                 date: idea.date || '',
                 categories: data._embedded['wp:term'][0].map((category: { name: string }) => category.name) || [],
                 slug: idea.slug || '',
-                descriptionText: idea.acf.idea_description || '',
+                descriptionText: idea.acf.description || '',
                 image:
                   (idea._embedded['wp:featuredmedia'] &&
                     idea._embedded['wp:featuredmedia'][0] &&

@@ -19,7 +19,6 @@ import { Category, PostDesc, Response } from '../types/PostPageContent'
 import { getPostsByCategory, getPostsByPage, getPostsByTag } from '../services/wordpressService'
 import { PostAPI } from '../models/PostAPI'
 import { slugify } from '../services/textUtilities'
-import WhitePaper from '../types/WhitePaper'
 
 const Particles = '/images/particles-3.svg'
 
@@ -27,7 +26,6 @@ interface Props {
   ideasDescription: PostDesc[]
   categories: Category[]
   content: BlogAPI
-  whitePapers: WhitePaper[]
   selectedCategory?: string
   tagFilter?: string
   hideSeeMore?: boolean
@@ -36,7 +34,6 @@ interface Props {
 
 export default function Blog({
   ideasDescription,
-  whitePapers,
   categories,
   content,
   selectedCategory,
@@ -93,7 +90,7 @@ export default function Blog({
           categories: idea._embedded['wp:term'][0].map((category: { name: string }) => category.name),
           tags: [],
           slug: idea.slug,
-          descriptionText: idea.acf.idea_description,
+          descriptionText: idea.acf.description,
           date: idea.date,
           image:
             (idea._embedded['wp:featuredmedia'] &&
@@ -200,10 +197,7 @@ export default function Blog({
             </div>
             {isVisibleSeeMore && (
               <Button
-                className={clsx(
-                  'flex flex-row justify-center uppercase rounded-full bg-orange-500 hover:bg-orange-400 text-xss leading-normal py-2 px-6 text-white font-semibold mx-auto shadow-md hover:shadow-lg transition-all duration-250',
-                  { 'mb-8': whitePapers.length < 2 }
-                )}
+                className="flex flex-row justify-center uppercase rounded-full bg-orange-500 hover:bg-orange-400 text-xss leading-normal py-2 px-6 text-white font-semibold mx-auto shadow-md hover:shadow-lg transition-all duration-250 mb-8"
                 onClick={() => handleFetchIdeas()}
               >
                 {isLoadingPosts ? (

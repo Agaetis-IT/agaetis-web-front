@@ -5,7 +5,7 @@ import ContactSection from '../../components/ContactSection'
 import Error from '../_error'
 import Layout from '../../components/Layout'
 
-import { convertAPItoLandingPageContent, LandingPage } from '../../types/OffersContent'
+import { convertAPItoLandingPageContent, LandingPage } from '../../types/LandingPageContent'
 import { getAllLandingPages, getLandingPageContent } from '../../services/wordpressService'
 import LandingPageAPI from '../../models/LandingPageAPI'
 

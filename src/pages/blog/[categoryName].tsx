@@ -6,11 +6,9 @@ import {
   getPostsByPage,
   getCategories,
   getBlogPageContent,
-  getAllWhitePapers,
   getPostsByCategory,
 } from '../../services/wordpressService'
 import { slugify } from '../../services/textUtilities'
-import WhitePaper from '../../types/WhitePaper'
 
 export default Blog
 
@@ -35,8 +33,7 @@ export async function getStaticProps({ params }) {
     const {
       [0]: categories,
       [1]: content,
-      [2]: whitepapers,
-    } = await Promise.all([getCategories(), getBlogPageContent(), getAllWhitePapers()])
+    } = await Promise.all([getCategories(), getBlogPageContent()])
     let promiseResult: Response
 
     if (!params.categoryName) {
@@ -71,7 +68,7 @@ export async function getStaticProps({ params }) {
           categories: idea._embedded['wp:term'][0].map((category: { name: string }) => category.name),
           tags: [],
           slug: idea.slug,
-          descriptionText: idea.acf.idea_description,
+          descriptionText: idea.acf.description,
           date: idea.date,
           image:
             (idea._embedded['wp:featuredmedia'] &&
@@ -79,13 +76,6 @@ export async function getStaticProps({ params }) {
               idea._embedded['wp:featuredmedia'][0].source_url) ||
             '',
         })),
-        whitePapers:
-          whitepapers && whitepapers.length > 0
-            ? whitepapers.map((whitepaper: { slug: string; acf: WhitePaper }) => ({
-                slug: whitepaper.slug,
-                ...whitepaper.acf,
-              }))
-            : [],
         content,
         categories: categories
           .map((category: CategoryAPI) => ({ categoryId: category.id, categoryName: category.name }))

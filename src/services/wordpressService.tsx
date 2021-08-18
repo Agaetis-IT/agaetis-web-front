@@ -4,7 +4,6 @@ import { AgaetisAPI } from '../models/AgaetisAPI'
 import ContactAPI from '../models/ContactAPI'
 import { BlogAPI } from '../models/BlogAPI'
 import IndexAPI from '../models/IndexAPI'
-import { OffersPageContent } from '../types/OffersContent'
 import SolutionsAPI from '../models/SolutionsAPI'
 import { AuthorPageAPI } from '../models/AuthorAPI'
 
@@ -15,7 +14,7 @@ export async function getWordpressPageBySlug<T>(slug: string) {
   return data
 }
 
-export async function getIndexContent() {
+export default async function getIndexContent() {
   const { acf } = await getWordpressPageBySlug<{ acf: IndexAPI }>('index')
   return acf
 }
@@ -35,10 +34,10 @@ export async function getAuthorPageContent() {
   return acf
 }
 
-export async function getOffersPageContent() {
+/* export async function getOffersPageContent() {
   const { acf } = await getWordpressPageBySlug<{ acf: OffersPageContent }>('offers')
   return acf
-}
+} */
 
 export async function getPostMeta(slug: string) {
   const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/wp-json/agaetis/api/v1/meta/${slug}`)
@@ -71,10 +70,10 @@ export async function getContactPageContent() {
   return acf
 }
 
-export async function getOfferContent(slug: string) {
+/* export async function getOfferContent(slug: string) {
   const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/wp-json/agaetis/api/v1/offres/${slug}`)
   return data
-}
+} */
 
 export async function getAllLandingPages() {
   const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/wp-json/agaetis/api/v1/landingpages`)
@@ -86,30 +85,30 @@ export async function getLandingPageContent(offer: string) {
   return data
 }
 
-export async function getWhitePaperContent(slug: string) {
+/* export async function getWhitePaperContent(slug: string) {
   const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/wp-json/agaetis/api/v1/white-papers/${slug}`)
   return data
-}
+} */
 
-export async function getAllWhitePapers() {
+/* export async function getAllWhitePapers() {
   const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/wp-json/agaetis/api/v1/white-paper`)
   return data
-}
+} */
 
-export async function getAllOffers() {
+/* export async function getAllOffers() {
   const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/wp-json/agaetis/api/v1/offres`)
   return data
-}
+} */
 
-export async function getCategoryOffers(slug: string) {
+/* export async function getCategoryOffers(slug: string) {
   const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/wp-json/agaetis/api/v1/cat/${slug}`)
   return data
-}
+} */
 
-export async function getOfferLeaf(offer: string, slug: string) {
+/* export async function getOfferLeaf(offer: string, slug: string) {
   const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/wp-json/agaetis/api/v1/offres/${offer}/${slug}`)
   return data
-}
+} */
 
 export async function getCategories() {
   const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/wp-json/wp/v2/categories?per_page=100`)
@@ -176,5 +175,3 @@ export async function getAllAuthors() {
   const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/wp-json/wp/v2/users`)
   return data
 }
-
-export default { getIndexContent }

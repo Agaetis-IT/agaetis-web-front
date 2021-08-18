@@ -12,13 +12,6 @@ export interface PostDesc {
   image?: string
 }
 
-export interface RelatedPost {
-  ID: number
-  category: number[]
-  post_title: string
-  post_excerpt: string
-}
-
 export interface Category {
   categoryId: number
   categoryName: string

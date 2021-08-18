@@ -57,7 +57,7 @@ export default function Author({ ideasDescription, author, content, hasMore, err
             categories: idea._embedded['wp:term'][0].map((category: { name: string }) => category.name),
             tags: [],
             slug: idea.slug,
-            descriptionText: idea.acf.idea_description,
+            descriptionText: idea.acf.description,
             date: idea.date,
             image:
               (idea._embedded['wp:featuredmedia'] &&
