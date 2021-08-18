@@ -6,83 +6,29 @@ export default interface SolutionsAPI {
   whyUs: {
     title: string
     background: string
-    section1: {
-      title: string
-      description: string
-      icon: string
-    }
-    section2: {
-      title: string
-      description: string
-      icon: string
-    }
-    section3: {
-      title: string
-      description: string
-      icon: string
-    }
+    sections: WhyUsSection[]
   }
-  phase1: {
-    header: string
-    solutionImage: string
-    needContent: string
-    responseContent: string
-  }
-  phase2: {
-    header: string
-    solutionImage: string
-    needContent: string
-    responseContent: string
-  }
-  phase3: {
-    header: string
-    solutionImage: string
-    needContent: string
-    responseContent: string
-  }
-  phase4: {
-    header: string
-    solutionImage: string
-    needContent: string
-    responseContent: string
-  }
+  phases: Phase[]
   partners: {
     title: string
-    partner1: {
-      name: string
-      image: string
-    }
-    partner2: {
-      name: string
-      image: string
-    }
-    partner3: {
-      name: string
-      image: string
-    }
-    partner4: {
-      name: string
-      image: string
-    }
-    partner5: {
-      name: string
-      image: string
-    }
-    partner6: {
-      name: string
-      image: string
-    }
-    partner7: {
-      name: string
-      image: string
-    }
-    partner8: {
-      name: string
-      image: string
-    }
-    partner9: {
-      name: string
-      image: string
-    }
+    partners: Partner[]
   }
+}
+
+interface Partner {
+  name: string
+  image: string
+}
+
+interface Phase {
+  header: string
+  solutionImage: string
+  needContent: string
+  responseContent: string
+}
+
+interface WhyUsSection {
+  title: string
+  description: string
+  icon: string
 }
