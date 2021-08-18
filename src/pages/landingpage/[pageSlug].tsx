@@ -85,8 +85,8 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   try {
     const data = await getLandingPageContent(params.pageSlug)
-    
-    if (data == '{\"errorCode\":404}') {
+
+    if (data === '{"errorCode":404}') {
       return {
         notFound: true,
         revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,

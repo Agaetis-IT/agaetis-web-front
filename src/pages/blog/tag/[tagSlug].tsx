@@ -1,12 +1,7 @@
 import Blog from '../../../components/Blog'
 
 import { Category } from '../../../types/PostPageContent'
-import {
-  getCategories,
-  getBlogPageContent,
-  getPostsByTag,
-  getTags,
-} from '../../../services/wordpressService'
+import { getCategories, getBlogPageContent, getPostsByTag, getTags } from '../../../services/wordpressService'
 import { TagAPI, PostAPI, CategoryAPI } from '../../../models/PostAPI'
 
 export default Blog
@@ -41,7 +36,7 @@ export async function getStaticProps({ params }) {
           title: idea.title.rendered,
           categories: idea._embedded['wp:term'][0].map((category: { name: string }) => category.name),
           slug: idea.slug,
-          descriptionText: idea.acf.description,
+          descriptionText: idea.acf.description || '',
           date: idea.date,
           image:
             (idea._embedded['wp:featuredmedia'] &&

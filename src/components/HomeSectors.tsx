@@ -31,7 +31,9 @@ export default function HomeSectors({ title, sectors }: Props) {
               className={clsx({
                 'mb-8':
                   index !==
-                  sectors.filter((sector) => sector.title != '' && sector.description != '' && sector.image != '').length - 1,
+                  sectors.filter((sector) => sector.title != '' && sector.description != '' && sector.image != '')
+                    .length -
+                    1,
               })}
             >
               <Button

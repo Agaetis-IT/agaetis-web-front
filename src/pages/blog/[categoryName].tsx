@@ -2,12 +2,7 @@ import Blog from '../../components/Blog'
 
 import { Category, Response } from '../../types/PostPageContent'
 import { CategoryAPI, PostAPI } from '../../models/PostAPI'
-import {
-  getPostsByPage,
-  getCategories,
-  getBlogPageContent,
-  getPostsByCategory,
-} from '../../services/wordpressService'
+import { getPostsByPage, getCategories, getBlogPageContent, getPostsByCategory } from '../../services/wordpressService'
 import { slugify } from '../../services/textUtilities'
 
 export default Blog
@@ -30,10 +25,7 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   try {
     let selectedCategory = ''
-    const {
-      [0]: categories,
-      [1]: content,
-    } = await Promise.all([getCategories(), getBlogPageContent()])
+    const { [0]: categories, [1]: content } = await Promise.all([getCategories(), getBlogPageContent()])
     let promiseResult: Response
 
     if (!params.categoryName) {
@@ -68,7 +60,7 @@ export async function getStaticProps({ params }) {
           categories: idea._embedded['wp:term'][0].map((category: { name: string }) => category.name),
           tags: [],
           slug: idea.slug,
-          descriptionText: idea.acf.description,
+          descriptionText: idea.acf.description || '',
           date: idea.date,
           image:
             (idea._embedded['wp:featuredmedia'] &&

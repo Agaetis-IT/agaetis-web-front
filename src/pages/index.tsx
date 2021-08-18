@@ -53,7 +53,7 @@ export default function Index({ pageContent, errorCode }: Props) {
               expertises={pageContent.expertises}
             />
             <HomeConvictions convictions={pageContent.convictions} title={pageContent.convictionsTitle} />
-            <HomeJoinUs joinUs={pageContent.joinUs}/>
+            <HomeJoinUs joinUs={pageContent.joinUs} />
           </div>
           <ContactSection />
         </>

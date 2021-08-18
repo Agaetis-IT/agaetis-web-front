@@ -32,7 +32,7 @@ export async function getStaticProps({ params }) {
           title: idea.title.rendered,
           tags: [],
           slug: idea.slug,
-          descriptionText: idea.acf.description,
+          descriptionText: idea.acf.description || '',
           date: idea.date,
           image:
             (idea._embedded['wp:featuredmedia'] &&

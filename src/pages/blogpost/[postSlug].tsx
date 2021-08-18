@@ -59,10 +59,7 @@ export default function BlogPost({ data, related, errorCode }: Props) {
         <meta property="og:type" content="article" />
         <meta property="og:url" content={`${process.env.NEXT_PUBLIC_SITE_URL}/blogpost/${data.slug}`} />
         <meta property="og:description" content={data.descriptionText} />
-        <meta
-          property="og:image"
-          content={data.imageUrl || `${process.env.NEXT_PUBLIC_SITE_URL}/public${Particles}`}
-        />
+        <meta property="og:image" content={data.imageUrl || `${process.env.NEXT_PUBLIC_SITE_URL}/public${Particles}`} />
         <meta name="description" content={data.descriptionText} />
         <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/blogpost/${data.slug}`} />
         <meta name="twitter:label1" content={`Auteur${data.authors.length > 1 ? 's' : ''}`} />
@@ -157,10 +154,11 @@ export async function getStaticProps({ params }) {
           props: {
             data: {
               title: data.title.rendered || '',
-              imageUrl: (data._embedded['wp:featuredmedia'] &&
-                data._embedded['wp:featuredmedia'][0] &&
-                data._embedded['wp:featuredmedia'][0].source_url) ||
-              '',
+              imageUrl:
+                (data._embedded['wp:featuredmedia'] &&
+                  data._embedded['wp:featuredmedia'][0] &&
+                  data._embedded['wp:featuredmedia'][0].source_url) ||
+                '',
               date: data.date || '',
               authors: authors || [],
               categories: data._embedded['wp:term'][0].map((category: { name: string }) => category.name) || [],

@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useState } from 'react'
-import clsx from 'clsx'
 import Head from 'next/head'
 import { useDebouncedCallback } from 'use-debounce'
 
