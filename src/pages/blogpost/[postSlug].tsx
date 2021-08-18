@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { useMemo, useState } from 'react'
 import clsx from 'clsx'
 import { escape } from 'querystring'
@@ -15,9 +14,8 @@ import PostContent from '../../components/PostContent'
 
 import { AuthorLink } from '../../models/AuthorAPI'
 import { fixWordPressString, formatPostAuthors } from '../../services/textUtilities'
-import { getPostBySlug, getPostMeta, getPostsByPage } from '../../services/wordpressService'
+import { getPostBySlug, getPostsByPage } from '../../services/wordpressService'
 import PostPageContent, { PostDesc } from '../../types/PostPageContent'
-import Meta, { convertMetaAPItoMeta } from '../../types/Meta'
 import { PostAPI } from '../../models/PostAPI'
 
 const Particles = '/images/particles-3.svg'
@@ -25,11 +23,10 @@ const Particles = '/images/particles-3.svg'
 interface Props {
   data: PostPageContent
   related?: PostDesc[]
-  meta: Meta
   errorCode?: number
 }
 
-export default function BlogPost({ data, related, meta, errorCode }: Props) {
+export default function BlogPost({ data, related, errorCode }: Props) {
   const [isOpenedMoreIdeas, setIsOpenedMoreIdeas] = useState(false)
 
   function handleToggleMoreIdeas() {
@@ -61,12 +58,12 @@ export default function BlogPost({ data, related, meta, errorCode }: Props) {
         <meta property="og:title" content={`Agaetis - ${fixWordPressString(data.title)}`} />
         <meta property="og:type" content="article" />
         <meta property="og:url" content={`${process.env.NEXT_PUBLIC_SITE_URL}/blogpost/${data.slug}`} />
-        <meta property="og:description" content={meta.description ? meta.description : data.descriptionText} />
+        <meta property="og:description" content={data.descriptionText} />
         <meta
           property="og:image"
-          content={meta.featuredImage || `${process.env.NEXT_PUBLIC_SITE_URL}/public${Particles}`}
+          content={data.imageUrl || `${process.env.NEXT_PUBLIC_SITE_URL}/public${Particles}`}
         />
-        <meta name="description" content={meta.description ? meta.description : data.descriptionText} />
+        <meta name="description" content={data.descriptionText} />
         <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/blogpost/${data.slug}`} />
         <meta name="twitter:label1" content={`Auteur${data.authors.length > 1 ? 's' : ''}`} />
         <meta name="twitter:data1" content={`${formatPostAuthors(data.authors.map((author) => author.name))}`} />
@@ -84,7 +81,7 @@ export default function BlogPost({ data, related, meta, errorCode }: Props) {
             }}
             className="py-4 md:p-16 lg:px-32 xl:px-48 bg-gray-400"
           >
-            <PostContent content={data} meta={meta} />
+            <PostContent content={data} />
             {related && related.length > 0 && (
               <div className="p-8 md:py-8 md:px-0">
                 <h2 className="text-center">Ces posts peuvent vous interesser</h2>
@@ -127,10 +124,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   try {
-    const { [0]: data, [1]: meta } = await Promise.all([
-      getPostBySlug(escape(params.postSlug)),
-      getPostMeta(escape(params.postSlug)),
-    ])
+    const data = await getPostBySlug(escape(params.postSlug))
 
     if (data !== '{"errorCode":404}') {
       const authors: AuthorLink[] = []
@@ -197,7 +191,6 @@ export async function getStaticProps({ params }) {
                   '',
               }
             }),
-            meta: convertMetaAPItoMeta(meta, data._embedded),
           },
           revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
         }

@@ -7,7 +7,6 @@ import Button from './Button'
 import { AuthorLink } from '../models/AuthorAPI'
 import { fixWordPressString } from '../services/textUtilities'
 import PostPageContent from '../types/PostPageContent'
-import Meta from '../types/Meta'
 
 import styles from '../styles/PostContent.module.css'
 const AccessTime = '/icons/access_time-24px.svg'
@@ -19,7 +18,6 @@ const Placeholder = '/images/blog-post-placeholder.jpg'
 
 interface Props {
   content: PostPageContent
-  meta: Meta
 }
 
 function createMarkup(content: string) {
@@ -53,7 +51,7 @@ function getTopOffset() {
   return floating && window.innerWidth >= 820 ? floating.clientHeight : 0
 }
 
-function PostContent({ content, meta }: Props) {
+function PostContent({ content }: Props) {
   const router = useRouter()
   const [location, setLocation] = useState('')
 
@@ -127,7 +125,7 @@ function PostContent({ content, meta }: Props) {
       <div className="pb-4 bg-white shadow-md md:rounded-lg">
         <img
           className="object-center h-80 md:h-100 w-full object-cover md:rounded-t-lg"
-          src={meta.featuredImage ? meta.featuredImage : Placeholder}
+          src={content.imageUrl || Placeholder}
           title={content.title}
           alt={content.title}
           width={400}

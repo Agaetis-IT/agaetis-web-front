@@ -21,7 +21,7 @@ export async function getStaticProps() {
           title: idea.title.rendered,
           categories: idea._embedded['wp:term'][0].map((category: { name: string }) => category.name),
           slug: idea.slug,
-          descriptionText: idea.acf.description,
+          descriptionText: idea.acf.description || '',
           date: idea.date,
           image:
             (idea._embedded['wp:featuredmedia'] &&
