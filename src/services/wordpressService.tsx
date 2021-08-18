@@ -39,11 +39,6 @@ export async function getAuthorPageContent() {
   return acf
 } */
 
-export async function getPostMeta(slug: string) {
-  const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/wp-json/agaetis/api/v1/meta/${slug}`)
-  return data
-}
-
 export async function getPersonalDataContent() {
   const data = await getWordpressPageBySlug<{ title: { rendered: string }; content: { rendered: string } }>(
     'personal-data'
