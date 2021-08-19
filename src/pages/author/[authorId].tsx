@@ -42,7 +42,6 @@ export async function getStaticProps({ params }) {
       revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
     }
   } catch {
-    console.log('fail')
     return {
       notFound: true,
       revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
