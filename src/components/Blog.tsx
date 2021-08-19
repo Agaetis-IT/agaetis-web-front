@@ -14,7 +14,7 @@ import SearchInput from './SearchInput'
 import SnackBar from './SnackBar'
 
 import { BlogAPI } from '../models/BlogAPI'
-import { Category, PostDesc, Response } from '../types/PostPageContent'
+import { Category, convertPostAPIToCardContent, PostCardContent, Response } from '../types/PostPageContent'
 import { getPostsByCategory, getPostsByPage, getPostsByTag } from '../services/wordpressService'
 import { PostAPI } from '../models/PostAPI'
 import { slugify } from '../services/textUtilities'
@@ -22,7 +22,7 @@ import { slugify } from '../services/textUtilities'
 const Particles = '/images/particles-3.svg'
 
 interface Props {
-  ideasDescription: PostDesc[]
+  postsDescription: PostCardContent[]
   categories: Category[]
   content: BlogAPI
   selectedCategory?: string
@@ -32,7 +32,7 @@ interface Props {
 }
 
 export default function Blog({
-  ideasDescription,
+  postsDescription,
   categories,
   content,
   selectedCategory,
@@ -41,7 +41,7 @@ export default function Blog({
   errorCode,
 }: Props) {
   const [postModalOpen, setPostModalOpen] = useState<boolean | undefined>(undefined)
-  const [ideas, setIdeas] = useState(ideasDescription)
+  const [posts, setPosts] = useState(postsDescription)
   const [searchFilter, setSearchFilter] = useState('')
   const [categoryFilter, setCategoryFilter] = useState(selectedCategory || 'All')
   const [lastPage, setLastPage] = useState(1)
@@ -56,11 +56,11 @@ export default function Blog({
     setPostModalOpen(undefined)
   }
 
-  async function handleFetchIdeas(reset?: boolean, changedCategory?: string, changedSearchFilter?: string) {
+  async function handleFetchposts(reset?: boolean, changedCategory?: string, changedSearchFilter?: string) {
     setIsLoadingPosts(true)
 
     try {
-      let data: PostDesc[] = []
+      let data: PostCardContent[] = []
       let newData: Response
       const page = reset ? 1 : lastPage + 1
       const catFilter = changedCategory ? changedCategory : categoryFilter
@@ -83,21 +83,7 @@ export default function Blog({
       }
 
       data = newData.data
-        .map((idea: PostAPI) => ({
-          id: idea.id,
-          title: idea.title.rendered,
-          categories: idea._embedded['wp:term'][0].map((category: { name: string }) => category.name),
-          tags: [],
-          slug: idea.slug,
-          descriptionText: idea.acf.description,
-          date: idea.date,
-          image:
-            (idea._embedded['wp:featuredmedia'] &&
-              idea._embedded['wp:featuredmedia'][0] &&
-              idea._embedded['wp:featuredmedia'][0].source_url) ||
-            '',
-        }))
-        .filter((idea) => !idea.categories.includes('White-paper') && !idea.categories.includes('Jobs'))
+        .map((post: PostAPI) => convertPostAPIToCardContent(post))
 
       if (newData.pageCount > page) {
         setIsVisibleSeeMore(true)
@@ -106,7 +92,7 @@ export default function Blog({
       }
 
       setLastPage(page)
-      setIdeas(reset ? data : ideas.concat(data))
+      setPosts(reset ? data : posts.concat(data))
     } catch (error) {
       handleOpenPostModal()
     }
@@ -117,32 +103,32 @@ export default function Blog({
   function handleFilterChange(category: string) {
     setCategoryFilter(category)
     if (!tagFilter) window.history.replaceState({}, '', `/blog${category === 'All' ? '' : '/' + slugify(category)}`)
-    handleFetchIdeas(true, category)
+    handleFetchposts(true, category)
   }
 
   useEffect(() => {
-    setIdeas(ideasDescription)
+    setPosts(postsDescription)
     setCategoryFilter(selectedCategory || 'All')
     setSearchFilter('')
     setIsVisibleSeeMore(!hideSeeMore)
-  }, [ideasDescription, hideSeeMore, selectedCategory])
+  }, [postsDescription, hideSeeMore, selectedCategory])
 
   const cards = useMemo(
     () =>
-      ideas?.map((idea) => (
+      posts?.map((post) => (
         <div
-          key={idea.id}
+          key={post.id}
           className="m-2 mb-8 shadow-md hover:shadow-lg transition-all duration-250 transform hover:scale-102 rounded-lg w-inherit"
         >
-          <PostCard slug={idea.slug} title={idea.title} image={idea.image} description={idea.descriptionText} />
+          <PostCard slug={post.slug} title={post.title} image={post.image} description={post.descriptionText} />
         </div>
       )),
-    [ideas]
+    [posts]
   )
 
   const handleSearchChanged = useDebouncedCallback((value: string) => {
     setSearchFilter(value)
-    handleFetchIdeas(true, undefined, value)
+    handleFetchposts(true, undefined, value)
   }, 600)
 
   if (errorCode) {
@@ -177,9 +163,7 @@ export default function Blog({
               <SearchInput handleChange={handleSearchChanged} defaultValue={searchFilter} />
             </div>
             <CategoryTab
-              categories={categories.filter(
-                (category) => category.categoryName !== 'Jobs' && category.categoryName !== 'White-paper'
-              )}
+              categories={categories}
               categoryFilter={categoryFilter}
               handleFilterChange={handleFilterChange}
             />
@@ -192,12 +176,12 @@ export default function Blog({
               <div className="invisible">-</div>
             )}
             <div className="flex flex-row flex-wrap mt-2 w-full justify-center">
-              {cards.length ? cards : 'Aucun résultat'}
+              {cards && cards.length ? cards : 'Aucun résultat'}
             </div>
             {isVisibleSeeMore && (
               <Button
                 className="flex flex-row justify-center uppercase rounded-full bg-orange-500 hover:bg-orange-400 text-xss leading-normal py-2 px-6 text-white font-semibold mx-auto shadow-md hover:shadow-lg transition-all duration-250 mb-8"
-                onClick={() => handleFetchIdeas()}
+                onClick={() => handleFetchposts()}
               >
                 {isLoadingPosts ? (
                   <div className="flex flex-row justify-center">

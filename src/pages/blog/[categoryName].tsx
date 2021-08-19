@@ -1,6 +1,6 @@
 import Blog from '../../components/Blog'
 
-import { Category, Response } from '../../types/PostPageContent'
+import { convertPostAPIToCardContent, Response } from '../../types/PostPageContent'
 import { CategoryAPI, PostAPI } from '../../models/PostAPI'
 import { getPostsByPage, getCategories, getBlogPageContent, getPostsByCategory } from '../../services/wordpressService'
 import { slugify } from '../../services/textUtilities'
@@ -16,8 +16,7 @@ export async function getStaticPaths() {
         params: {
           categoryName: slugify(category.name),
         },
-      }))
-      .filter((path: { params: { categoryName: string } }) => !path.params.categoryName.includes('offer-')),
+      })),
     fallback: 'blocking',
   }
 }
@@ -33,12 +32,11 @@ export async function getStaticProps({ params }) {
     } else {
       const names = categories
         .map((category: CategoryAPI) => slugify(category.name))
-        .filter((name: string) => !name.includes('_offer-'))
 
       if (!names.includes(params.categoryName)) {
         return {
           props: {
-            ideasDescription: [],
+            postsDescription: [],
             whitePapers: [],
             categories: [],
             content: null,
@@ -54,24 +52,10 @@ export async function getStaticProps({ params }) {
 
     return {
       props: {
-        ideasDescription: promiseResult.data.map((idea: PostAPI) => ({
-          id: idea.id,
-          title: idea.title.rendered,
-          categories: idea._embedded['wp:term'][0].map((category: { name: string }) => category.name),
-          tags: [],
-          slug: idea.slug,
-          descriptionText: idea.acf.description || '',
-          date: idea.date,
-          image:
-            (idea._embedded['wp:featuredmedia'] &&
-              idea._embedded['wp:featuredmedia'][0] &&
-              idea._embedded['wp:featuredmedia'][0].source_url) ||
-            '',
-        })),
+        postsDescription: promiseResult.data.map((post: PostAPI) => convertPostAPIToCardContent(post)),
         content,
         categories: categories
-          .map((category: CategoryAPI) => ({ categoryId: category.id, categoryName: category.name }))
-          .filter((category: Category) => !category.categoryName.includes('_offer-')),
+          .map((category: CategoryAPI) => ({ categoryId: category.id, categoryName: category.name })),
         selectedCategory: selectedCategory,
         hideSeeMore: promiseResult.pageCount <= 1,
       },

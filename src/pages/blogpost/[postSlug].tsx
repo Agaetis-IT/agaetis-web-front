@@ -15,36 +15,36 @@ import PostContent from '../../components/PostContent'
 import { AuthorLink } from '../../models/AuthorAPI'
 import { fixWordPressString, formatPostAuthors } from '../../services/textUtilities'
 import { getPostBySlug, getPostsByPage } from '../../services/wordpressService'
-import PostPageContent, { PostDesc } from '../../types/PostPageContent'
+import PostPageContent, { convertPostAPIToCardContent, PostCardContent } from '../../types/PostPageContent'
 import { PostAPI } from '../../models/PostAPI'
 
 const Particles = '/images/particles-3.svg'
 
 interface Props {
   data: PostPageContent
-  related?: PostDesc[]
+  related?: PostCardContent[]
   errorCode?: number
 }
 
 export default function BlogPost({ data, related, errorCode }: Props) {
-  const [isOpenedMoreIdeas, setIsOpenedMoreIdeas] = useState(false)
+  const [isOpenedMoreposts, setIsOpenedMoreposts] = useState(false)
 
-  function handleToggleMoreIdeas() {
-    setIsOpenedMoreIdeas(!isOpenedMoreIdeas)
+  function handleToggleMoreposts() {
+    setIsOpenedMoreposts(!isOpenedMoreposts)
   }
 
   if (errorCode) {
     return <Error statusCode={errorCode} />
   }
 
-  const relatedIdeas = useMemo(() => {
+  const relatedposts = useMemo(() => {
     if (related) {
-      return related.map((idea) => (
+      return related.map((post) => (
         <div
-          key={idea.id}
+          key={post.id}
           className="m-2 mb-8 shadow-md hover:shadow-lg transition-all duration-250 transform hover:scale-102 rounded-lg"
         >
-          <PostCard slug={idea.slug} title={idea.title} image={idea.image} description={idea.descriptionText} />
+          <PostCard slug={post.slug} title={post.title} image={post.image} description={post.descriptionText} />
         </div>
       ))
     }
@@ -83,17 +83,17 @@ export default function BlogPost({ data, related, errorCode }: Props) {
               <div className="p-8 md:py-8 md:px-0">
                 <h2 className="text-center">Ces posts peuvent vous interesser</h2>
                 <div className="mt-8 flex flex-col">
-                  {relatedIdeas.slice(0, 5)}
-                  {isOpenedMoreIdeas && relatedIdeas.slice(5)}
+                  {relatedposts.slice(0, 5)}
+                  {isOpenedMoreposts && relatedposts.slice(5)}
                 </div>
                 <Button
-                  onClick={handleToggleMoreIdeas}
+                  onClick={handleToggleMoreposts}
                   className={clsx(
                     related.length < 6 ? 'hidden' : 'flex',
                     'flex-row justify-center uppercase rounded-full bg-orange-500 hover:bg-orange-400 text-xss leading-normal py-2 px-6 mt-8 text-white font-semibold mx-auto shadow-md hover:shadow-lg transition-all duration-250'
                   )}
                 >
-                  {!isOpenedMoreIdeas ? 'Voir plus' : 'Voir moins'}
+                  {!isOpenedMoreposts ? 'Voir plus' : 'Voir moins'}
                 </Button>
               </div>
             )}
@@ -135,8 +135,8 @@ export async function getStaticProps({ params }) {
       if (data.acf || data.content) {
         const related = []
         if (data.acf) {
-          for (const idea of data.acf.related) {
-            const data2 = await getPostBySlug(idea.post_name)
+          for (const post of data.acf.related) {
+            const data2 = await getPostBySlug(post.post_name)
             related.push(data2)
           }
 
@@ -174,21 +174,7 @@ export async function getStaticProps({ params }) {
                   ? Math.floor(data.content.rendered.split(' ').length / 275)
                   : '1',
             },
-            related: related.map((idea: PostAPI) => {
-              return {
-                title: idea.title.rendered || '',
-                id: idea.id || '',
-                date: idea.date || '',
-                categories: data._embedded['wp:term'][0].map((category: { name: string }) => category.name) || [],
-                slug: idea.slug || '',
-                descriptionText: idea.acf.description || '',
-                image:
-                  (idea._embedded['wp:featuredmedia'] &&
-                    idea._embedded['wp:featuredmedia'][0] &&
-                    idea._embedded['wp:featuredmedia'][0].source_url) ||
-                  '',
-              }
-            }),
+            related: related.map((post: PostAPI) => convertPostAPIToCardContent(post)),
           },
           revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
         }

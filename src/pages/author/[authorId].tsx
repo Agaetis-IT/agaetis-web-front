@@ -1,6 +1,7 @@
 import Author from '../../components/Author'
 
 import { AuthorAPI } from '../../models/AuthorAPI'
+import { convertPostAPIToCardContent } from '../../types/PostPageContent'
 import { getAllAuthors, getAuthorById, getAuthorPageContent, getPostsByAuthor } from '../../services/wordpressService'
 import { PostAPI } from '../../models/PostAPI'
 
@@ -27,19 +28,7 @@ export async function getStaticProps({ params }) {
 
     return {
       props: {
-        ideasDescription: posts.data.map((idea: PostAPI) => ({
-          id: idea.id,
-          title: idea.title.rendered,
-          tags: [],
-          slug: idea.slug,
-          descriptionText: idea.acf.description || '',
-          date: idea.date,
-          image:
-            (idea._embedded['wp:featuredmedia'] &&
-              idea._embedded['wp:featuredmedia'][0] &&
-              idea._embedded['wp:featuredmedia'][0].source_url) ||
-            '',
-        })),
+        postsDescription: posts.data.map((post: PostAPI) => convertPostAPIToCardContent(post)),
         author: {
           id: author.id,
           name: author.name,
@@ -53,6 +42,7 @@ export async function getStaticProps({ params }) {
       revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
     }
   } catch {
+    console.log('fail')
     return {
       notFound: true,
       revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,

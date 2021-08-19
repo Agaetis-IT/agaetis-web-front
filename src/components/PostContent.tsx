@@ -81,7 +81,7 @@ function PostContent({ content }: Props) {
       })
     }
 
-    const contentTag: HTMLElement = document.getElementById('ideaContent')
+    const contentTag: HTMLElement = document.getElementById('postContent')
 
     if (contentTag) {
       for (const anchor of Array.from(contentTag.getElementsByTagName('a'))) {
@@ -211,7 +211,7 @@ function PostContent({ content }: Props) {
           )}
         </div>
         <div
-          id="ideaContent"
+          id="postContent"
           dangerouslySetInnerHTML={createMarkup(content.content)}
           className={`${styles.content} px-4 md:px-8 leading-normal text-sm text-justify`}
         />
