@@ -45,7 +45,7 @@ function formatAuthorList(authors: AuthorLink[]) {
 }
 
 function wrapImages(content: string) {
-  return content.replace(/(?<=<img[^>]*class="[^"]*)"(?=[^>]*>)/, ' data-zoomable"')
+  return content.replace(/(?<=<img[^>]*class="[^"]*)"(?=[^>]*>)/g, ' data-zoomable"')
 }
 
 function getTopOffset() {
@@ -107,7 +107,7 @@ function PostContent({ content, meta }: Props) {
 
   useEffect(() => {
     setLocation(window.location.href)
-    mediumZoom('.data-zoomable')
+    mediumZoom('.data-zoomable', { margin: 25 })
 
     return setAnchorHandlers()
   }, [setAnchorHandlers])
