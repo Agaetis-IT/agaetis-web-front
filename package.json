@@ -47,7 +47,6 @@
     "react-ga": "^3.3.0",
     "react-google-recaptcha": "^2.1.0",
     "react-hook-form": "^7.11.1",
-    "sass": "^1.37.5",
     "tailwindcss": "^2.2.4",
     "tocbot": "^4.13.0",
     "use-debounce": "^7.0.0",
