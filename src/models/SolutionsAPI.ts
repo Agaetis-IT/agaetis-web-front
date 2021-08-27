@@ -1,5 +1,4 @@
 export default interface SolutionsAPI {
-  titre: string
   description: string
   needTitle: string
   responseTitle: string
