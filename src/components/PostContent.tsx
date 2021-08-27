@@ -21,7 +21,7 @@ interface Props {
 }
 
 function createMarkup(content: string) {
-  return { __html: content }
+  return { __html: content.replaceAll('has-text-align-center', styles.center) }
 }
 
 function formatAuthor(author: AuthorLink) {
