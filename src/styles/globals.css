@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer base {
+  .is-active-link::before {
+    background-color: #ff7f40;
+  }
+
   html,
   body {
     padding: 0;
@@ -49,5 +53,10 @@
 
   [type='textarea'] {
     -webkit-appearance: none;
+  }
+
+  .medium-zoom-overlay,
+  .medium-zoom-image--opened {
+    z-index: 99999;
   }
 }

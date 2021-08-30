@@ -1,7 +1,11 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
+import dynamic from 'next/dynamic'
 import clsx from 'clsx'
 import { FormProvider, useForm } from 'react-hook-form'
-import ReCAPTCHA from 'react-google-recaptcha'
+const ReCAPTCHA = dynamic(
+  () => import('react-google-recaptcha'),
+  { loading: () => <p>Chargement du ReCAPTCHA...</p> }
+)
 import { yupResolver } from '@hookform/resolvers/yup'
 
 import Button from './Button'
@@ -26,7 +30,6 @@ interface Props {
 }
 
 export default function ContactForm({ title, subText, isPage }: Props) {
-  const recaptchaRef = useRef<ReCAPTCHA>(null)
   const [snackBarOpenWithError, setSnackBarOpenWithError] = useState<boolean | undefined>(undefined)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSuccessfullySubmitted, setIsSuccessfullySubmitted] = useState(false)
@@ -206,7 +209,6 @@ export default function ContactForm({ title, subText, isPage }: Props) {
             <div className="flex flex-col justify-center items-center">
               <ReCAPTCHA
                 {...register('captcha')}
-                ref={recaptchaRef}
                 size="normal"
                 sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_KEY}
                 onChange={onCaptchaChange}

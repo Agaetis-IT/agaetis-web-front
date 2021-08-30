@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import mediumZoom from 'medium-zoom'
+import tocbot from 'tocbot'
 import { useRouter } from 'next/router'
 
 import Button from './Button'
@@ -45,6 +47,10 @@ function formatAuthorList(authors: AuthorLink[]) {
   ])
 }
 
+function wrapImages(content: string) {
+  return content.replace(/(?<=<img) (?=[^>]*>)/g, ' data-zoomable ')
+}
+
 function getTopOffset() {
   const floating = document.getElementsByClassName('header-1')[0]
 
@@ -71,7 +77,7 @@ function PostContent({ content }: Props) {
   }
 
   const setAnchorHandlers = () => {
-    if (router.asPath.includes('#')) {
+    if (router.asPath.includes('#') && document.getElementsByName(router.asPath.split('#')[1]).length > 0) {
       window.scroll({
         top:
           document.getElementsByName(router.asPath.split('#')[1])[0].getBoundingClientRect().top -
@@ -104,6 +110,16 @@ function PostContent({ content }: Props) {
 
   useEffect(() => {
     setLocation(window.location.href)
+    mediumZoom('[data-zoomable]', { margin: 25 })
+    tocbot.init({
+      tocSelector: '.toc',
+      includeTitleTags: false,
+      contentSelector: '#ideaContent',
+      headingSelector: 'h2, h3, h4',
+      headingsOffset: 68,
+      scrollSmoothOffset: -68,
+    })
+
     return setAnchorHandlers()
   }, [setAnchorHandlers])
 
@@ -210,11 +226,14 @@ function PostContent({ content }: Props) {
             </div>
           )}
         </div>
-        <div
-          id="postContent"
-          dangerouslySetInnerHTML={createMarkup(content.content)}
-          className={`${styles.content} px-4 md:px-8 leading-normal text-sm text-justify`}
-        />
+        <div className="flex px-4 md:px-8">
+          <nav className="toc w-1/4 mr-4 sticky top-4 md:top-20 h-fit sm:block hidden"></nav>
+          <article
+            id="postContent"
+            dangerouslySetInnerHTML={createMarkup(wrapImages(content.content))}
+            className={`${styles.content} px-4 md:px-8 leading-normal text-sm text-justify w-full sm:w-3/4`}
+          />
+        </div>
       </div>
     </div>
   )
