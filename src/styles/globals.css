@@ -54,4 +54,9 @@
   [type='textarea'] {
     -webkit-appearance: none;
   }
+
+  .medium-zoom-overlay,
+  .medium-zoom-image--opened {
+    z-index: 99999;
+  }
 }

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import mediumZoom from 'medium-zoom'
 import tocbot from 'tocbot'
 import { useRouter } from 'next/router'
 
@@ -46,6 +47,10 @@ function formatAuthorList(authors: AuthorLink[]) {
     i === authors.length - 1 && authors.length > 1 && ' et ',
     formatAuthor(author),
   ])
+}
+
+function wrapImages(content: string) {
+  return content.replace(/(?<=<img) (?=[^>]*>)/g, ' data-zoomable ')
 }
 
 function getTopOffset() {
@@ -107,6 +112,7 @@ function PostContent({ content, meta }: Props) {
 
   useEffect(() => {
     setLocation(window.location.href)
+    mediumZoom('[data-zoomable]', { margin: 25 })
     tocbot.init({
       tocSelector: '.toc',
       includeTitleTags: false,
@@ -226,8 +232,8 @@ function PostContent({ content, meta }: Props) {
           <nav className="toc w-1/4 mr-4 sticky top-4 md:top-20 h-fit sm:block hidden"></nav>
           <article
             id="ideaContent"
-            dangerouslySetInnerHTML={createMarkup(content.content)}
-            className={`${styles.content} leading-normal text-sm text-justify w-full sm:w-3/4`}
+            dangerouslySetInnerHTML={createMarkup(wrapImages(content.content))}
+            className={`${styles.content} px-4 md:px-8 leading-normal text-sm text-justify w-full sm:w-3/4`}
           />
         </div>
       </div>
