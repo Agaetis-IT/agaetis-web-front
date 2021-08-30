@@ -6,10 +6,9 @@ import { useRouter } from 'next/router'
 
 import Button from './Button'
 
-import { AuthorLink } from '../types/AuthorContent'
+import { AuthorLink } from '../models/AuthorAPI'
 import { fixWordPressString } from '../services/textUtilities'
 import PostPageContent from '../types/PostPageContent'
-import Meta from '../types/Meta'
 
 import styles from '../styles/PostContent.module.css'
 const AccessTime = '/icons/access_time-24px.svg'
@@ -21,11 +20,10 @@ const Placeholder = '/images/blog-post-placeholder.jpg'
 
 interface Props {
   content: PostPageContent
-  meta: Meta
 }
 
 function createMarkup(content: string) {
-  return { __html: content }
+  return { __html: content.replace(/has-text-align-center/g, styles.center) }
 }
 
 function formatAuthor(author: AuthorLink) {
@@ -59,7 +57,7 @@ function getTopOffset() {
   return floating && window.innerWidth >= 820 ? floating.clientHeight : 0
 }
 
-function PostContent({ content, meta }: Props) {
+function PostContent({ content }: Props) {
   const router = useRouter()
   const [location, setLocation] = useState('')
 
@@ -89,7 +87,7 @@ function PostContent({ content, meta }: Props) {
       })
     }
 
-    const contentTag: HTMLElement = document.getElementById('ideaContent')
+    const contentTag: HTMLElement = document.getElementById('postContent')
 
     if (contentTag) {
       for (const anchor of Array.from(contentTag.getElementsByTagName('a'))) {
@@ -143,7 +141,7 @@ function PostContent({ content, meta }: Props) {
       <div className="pb-4 bg-white shadow-md md:rounded-lg">
         <img
           className="object-center h-80 md:h-100 w-full object-cover md:rounded-t-lg"
-          src={meta.featuredImage ? meta.featuredImage : Placeholder}
+          src={content.imageUrl || Placeholder}
           title={content.title}
           alt={content.title}
           width={400}
@@ -231,7 +229,7 @@ function PostContent({ content, meta }: Props) {
         <div className="flex px-4 md:px-8">
           <nav className="toc w-1/4 mr-4 sticky top-4 md:top-20 h-fit sm:block hidden"></nav>
           <article
-            id="ideaContent"
+            id="postContent"
             dangerouslySetInnerHTML={createMarkup(wrapImages(content.content))}
             className={`${styles.content} px-4 md:px-8 leading-normal text-sm text-justify w-full sm:w-3/4`}
           />

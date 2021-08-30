@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { useMemo, useState } from 'react'
 import clsx from 'clsx'
 import { escape } from 'querystring'
@@ -13,41 +12,39 @@ import Layout from '../../components/Layout'
 import PostCard from '../../components/PostCard'
 import PostContent from '../../components/PostContent'
 
-import { AuthorLink } from '../../types/AuthorContent'
+import { AuthorLink } from '../../models/AuthorAPI'
 import { fixWordPressString, formatPostAuthors } from '../../services/textUtilities'
-import { getPostBySlug, getPostMeta, getPostsByPage } from '../../services/wordpressService'
-import PostPageContent, { PostDesc } from '../../types/PostPageContent'
-import Meta, { convertMetaAPItoMeta } from '../../types/Meta'
+import { getPostBySlug, getPostsByPage } from '../../services/wordpressService'
+import PostPageContent, { convertPostAPIToCardContent, PostCardContent } from '../../types/PostPageContent'
 import { PostAPI } from '../../models/PostAPI'
 
 const Particles = '/images/particles-3.svg'
 
 interface Props {
   data: PostPageContent
-  related?: PostDesc[]
-  meta: Meta
+  related?: PostCardContent[]
   errorCode?: number
 }
 
-export default function BlogPost({ data, related, meta, errorCode }: Props) {
-  const [isOpenedMoreIdeas, setIsOpenedMoreIdeas] = useState(false)
+export default function BlogPost({ data, related, errorCode }: Props) {
+  const [isOpenedMorePosts, setIsOpenedMorePosts] = useState(false)
 
-  function handleToggleMoreIdeas() {
-    setIsOpenedMoreIdeas(!isOpenedMoreIdeas)
+  function handleToggleMorePosts() {
+    setIsOpenedMorePosts(!isOpenedMorePosts)
   }
 
   if (errorCode) {
     return <Error statusCode={errorCode} />
   }
 
-  const relatedIdeas = useMemo(() => {
+  const relatedPosts = useMemo(() => {
     if (related) {
-      return related.map((idea) => (
+      return related.map((post) => (
         <div
-          key={idea.id}
+          key={post.id}
           className="m-2 mb-8 shadow-md hover:shadow-lg transition-all duration-250 transform hover:scale-102 rounded-lg"
         >
-          <PostCard slug={idea.slug} title={idea.title} image={idea.image} description={idea.descriptionText} />
+          <PostCard slug={post.slug} title={post.title} image={post.image} description={post.descriptionText} />
         </div>
       ))
     }
@@ -61,12 +58,9 @@ export default function BlogPost({ data, related, meta, errorCode }: Props) {
         <meta property="og:title" content={`Agaetis - ${fixWordPressString(data.title)}`} />
         <meta property="og:type" content="article" />
         <meta property="og:url" content={`${process.env.NEXT_PUBLIC_SITE_URL}/blogpost/${data.slug}`} />
-        <meta property="og:description" content={meta.description ? meta.description : data.descriptionText} />
-        <meta
-          property="og:image"
-          content={meta.featuredImage || `${process.env.NEXT_PUBLIC_SITE_URL}/public${Particles}`}
-        />
-        <meta name="description" content={meta.description ? meta.description : data.descriptionText} />
+        <meta property="og:description" content={data.descriptionText} />
+        <meta property="og:image" content={data.imageUrl || `${process.env.NEXT_PUBLIC_SITE_URL}/public${Particles}`} />
+        <meta name="description" content={data.descriptionText} />
         <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/blogpost/${data.slug}`} />
         <meta name="twitter:label1" content={`Auteur${data.authors.length > 1 ? 's' : ''}`} />
         <meta name="twitter:data1" content={`${formatPostAuthors(data.authors.map((author) => author.name))}`} />
@@ -84,22 +78,22 @@ export default function BlogPost({ data, related, meta, errorCode }: Props) {
             }}
             className="py-4 md:p-16 lg:px-32 xl:px-48 bg-gray-400"
           >
-            <PostContent content={data} meta={meta} />
+            <PostContent content={data} />
             {related && related.length > 0 && (
               <div className="p-8 md:py-8 md:px-0">
                 <h2 className="text-center">Ces posts peuvent vous interesser</h2>
                 <div className="mt-8 flex flex-col">
-                  {relatedIdeas.slice(0, 5)}
-                  {isOpenedMoreIdeas && relatedIdeas.slice(5)}
+                  {relatedPosts.slice(0, 5)}
+                  {isOpenedMorePosts && relatedPosts.slice(5)}
                 </div>
                 <Button
-                  onClick={handleToggleMoreIdeas}
+                  onClick={handleToggleMorePosts}
                   className={clsx(
                     related.length < 6 ? 'hidden' : 'flex',
                     'flex-row justify-center uppercase rounded-full bg-orange-500 hover:bg-orange-400 text-xss leading-normal py-2 px-6 mt-8 text-white font-semibold mx-auto shadow-md hover:shadow-lg transition-all duration-250'
                   )}
                 >
-                  {!isOpenedMoreIdeas ? 'Voir plus' : 'Voir moins'}
+                  {!isOpenedMorePosts ? 'Voir plus' : 'Voir moins'}
                 </Button>
               </div>
             )}
@@ -127,10 +121,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   try {
-    const { [0]: data, [1]: meta } = await Promise.all([
-      getPostBySlug(escape(params.postSlug)),
-      getPostMeta(escape(params.postSlug)),
-    ])
+    const data = await getPostBySlug(escape(params.postSlug))
 
     if (data !== '{"errorCode":404}') {
       const authors: AuthorLink[] = []
@@ -144,13 +135,13 @@ export async function getStaticProps({ params }) {
       if (data.acf || data.content) {
         const related = []
         if (data.acf) {
-          for (const idea of data.acf.related_ideas) {
-            const data2 = await getPostBySlug(idea.post_name)
+          for (const post of data.acf.related) {
+            const data2 = await getPostBySlug(post.post_name)
             related.push(data2)
           }
 
-          if (data.acf.co_author) {
-            for (const auth of data.acf.co_author) {
+          if (data.acf.coAuthors) {
+            for (const auth of data.acf.coAuthors) {
               authors.push({
                 id: auth.ID,
                 name: auth.data.display_name,
@@ -163,13 +154,17 @@ export async function getStaticProps({ params }) {
           props: {
             data: {
               title: data.title.rendered || '',
-              imageUrl: data.acf.idea_image || '',
+              imageUrl:
+                (data._embedded['wp:featuredmedia'] &&
+                  data._embedded['wp:featuredmedia'][0] &&
+                  data._embedded['wp:featuredmedia'][0].source_url) ||
+                '',
               date: data.date || '',
               authors: authors || [],
               categories: data._embedded['wp:term'][0].map((category: { name: string }) => category.name) || [],
               content: data.content.rendered || '',
               slug: data.slug || '',
-              descriptionText: data.acf.idea_description || '',
+              descriptionText: data.acf.description || '',
               tags:
                 data._embedded['wp:term'][1].map((tag: { name: string; slug: string }) => {
                   return { name: tag.name, slug: tag.slug }
@@ -179,22 +174,7 @@ export async function getStaticProps({ params }) {
                   ? Math.floor(data.content.rendered.split(' ').length / 275)
                   : '1',
             },
-            related: related.map((idea: PostAPI) => {
-              return {
-                title: idea.title.rendered || '',
-                id: idea.id || '',
-                date: idea.date || '',
-                categories: data._embedded['wp:term'][0].map((category: { name: string }) => category.name) || [],
-                slug: idea.slug || '',
-                descriptionText: idea.acf.idea_description || '',
-                image:
-                  (idea._embedded['wp:featuredmedia'] &&
-                    idea._embedded['wp:featuredmedia'][0] &&
-                    idea._embedded['wp:featuredmedia'][0].source_url) ||
-                  '',
-              }
-            }),
-            meta: convertMetaAPItoMeta(meta, data._embedded),
+            related: related.map((post: PostAPI) => convertPostAPIToCardContent(post)),
           },
           revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
         }

@@ -6,14 +6,14 @@ import ContactSection from '../components/ContactSection'
 import Error from './_error'
 import Layout from '../components/Layout'
 
-import { AgaetisContent, convertAgaetisAPItoContent } from '../types/AgaetisContent'
+import { AgaetisAPI } from '../models/AgaetisAPI'
 import { getAgaetisContent } from '../services/wordpressService'
 
 import styles from '../styles/agaetis.module.css'
 const Particles = '/images/particles-3.svg'
 
 interface Props {
-  pageContent: AgaetisContent
+  pageContent: AgaetisAPI
   errorCode?: number
 }
 
@@ -62,7 +62,7 @@ export default function agaetis({ pageContent, errorCode }: Props) {
             className="p-6 md:p-16 lg:px-32 xl:px-48 bg-gray-400"
           >
             {pageContent.questions.map((question) => (
-              <AgaetisDialog key={question.index} title={question.question} description={question.answer} />
+              <AgaetisDialog key={question.question} title={question.question} description={question.answer} />
             ))}
             <div>
               <h2 className="text-2xl font-bold text-orange-500 text-center mb-4">{pageContent.videoTitle}</h2>
@@ -73,7 +73,7 @@ export default function agaetis({ pageContent, errorCode }: Props) {
           </div>
           <div
             style={{
-              backgroundImage: `url("${pageContent.numbersBackground}")`,
+              backgroundImage: `url("${pageContent.numbersBack}")`,
               backgroundPosition: 'top',
               backgroundSize: 'cover',
               backgroundRepeat: 'no-repeat',
@@ -88,7 +88,7 @@ export default function agaetis({ pageContent, errorCode }: Props) {
               <div className="flex flex-col md:flex-row justify-around p-8">
                 {pageContent.numbers.map((number, index) => (
                   <div
-                    key={number.index}
+                    key={number.title}
                     className={clsx(
                       'text-center md:py-0 p-6 w-full md:w-1/3',
                       index && 'border-white md:border-l md:border-t-0 border-t'
@@ -96,7 +96,7 @@ export default function agaetis({ pageContent, errorCode }: Props) {
                   >
                     <h3 className="uppercase text-sm font-bold leading-normal text-white">{number.title}</h3>
                     <h3 className="text-5xl font-bold leading-normal text-orange-500 my-2 md:my-4">{number.data}</h3>
-                    <p className="text-sm leading-normal text-white">{number.desc}</p>
+                    <p className="text-sm leading-normal text-white">{number.description}</p>
                   </div>
                 ))}
               </div>
@@ -113,7 +113,7 @@ export async function getStaticProps() {
   try {
     return {
       props: {
-        pageContent: JSON.parse(JSON.stringify(convertAgaetisAPItoContent(await getAgaetisContent()))),
+        pageContent: await getAgaetisContent(),
       },
       revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
     }

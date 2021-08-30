@@ -10,25 +10,25 @@ import LoadingSpinner from './LoadingSpinner'
 import PostCard from './PostCard'
 import SnackBar from './SnackBar'
 
-import { AuthorDescription, AuthorPageContent } from '../types/AuthorContent'
+import { AuthorDescription, AuthorPageAPI } from '../models/AuthorAPI'
+import { convertPostAPIToCardContent, PostCardContent, Response } from '../types/PostPageContent'
 import { getPostsByAuthor } from '../services/wordpressService'
-import { PostDesc, Response } from '../types/PostPageContent'
 import { PostAPI } from '../models/PostAPI'
 
 const Particles = '/images/particles-3.svg'
 const Linkedin = '/icons/linkedin.png'
 
 interface Props {
-  ideasDescription: PostDesc[]
+  postsDescription: PostCardContent[]
   author: AuthorDescription
-  content: AuthorPageContent
+  content: AuthorPageAPI
   hasMore: boolean
   errorCode?: number
 }
 
-export default function Author({ ideasDescription, author, content, hasMore, errorCode }: Props) {
+export default function Author({ postsDescription, author, content, hasMore, errorCode }: Props) {
   const [postModalOpen, setPostModalOpen] = useState<boolean | undefined>(undefined)
-  const [ideas, setIdeas] = useState(ideasDescription)
+  const [posts, setPosts] = useState(postsDescription)
   const [lastPage, setLastPage] = useState(1)
   const [isLoadingPosts, setIsLoadingPosts] = useState(false)
   const [isVisibleSeeMore, setIsVisibleSeeMore] = useState(hasMore)
@@ -41,35 +41,21 @@ export default function Author({ ideasDescription, author, content, hasMore, err
     setPostModalOpen(undefined)
   }
 
-  async function handleFetchIdeas() {
+  async function handleFetchPosts() {
     setIsLoadingPosts(true)
     const page = lastPage + 1
-    let data: PostDesc[] = []
+    let data: PostCardContent[] = []
 
     try {
       const newData: Response = await getPostsByAuthor(author.id.toString(), page)
 
       if (newData) {
         data = newData.data
-          .map((idea: PostAPI) => ({
-            id: idea.id,
-            title: idea.title.rendered,
-            categories: idea._embedded['wp:term'][0].map((category: { name: string }) => category.name),
-            tags: [],
-            slug: idea.slug,
-            descriptionText: idea.acf.idea_description,
-            date: idea.date,
-            image:
-              (idea._embedded['wp:featuredmedia'] &&
-                idea._embedded['wp:featuredmedia'][0] &&
-                idea._embedded['wp:featuredmedia'][0].source_url) ||
-              '',
-          }))
-          .filter((idea) => !idea.categories.includes('White-paper') && !idea.categories.includes('Jobs'))
+          .map((post: PostAPI) => convertPostAPIToCardContent(post))
 
         setIsVisibleSeeMore(newData.pageCount > page)
         setLastPage(page)
-        setIdeas(ideas.concat(data))
+        setPosts(posts.concat(data))
       }
     } catch (error) {
       handleOpenPostModal()
@@ -80,15 +66,15 @@ export default function Author({ ideasDescription, author, content, hasMore, err
 
   const cards = useMemo(
     () =>
-      ideas.map((idea) => (
+      posts.map((post) => (
         <div
-          key={idea.id}
+          key={post.id}
           className="m-2 mb-8 shadow-md hover:shadow-lg transition-all duration-250 transform hover:scale-102 rounded-lg w-inherit"
         >
-          <PostCard slug={idea.slug} title={idea.title} image={idea.image} description={idea.descriptionText} />
+          <PostCard slug={post.slug} title={post.title} image={post.image} description={post.descriptionText} />
         </div>
       )),
-    [ideas]
+    [posts]
   )
 
   if (errorCode) {
@@ -151,16 +137,16 @@ export default function Author({ ideasDescription, author, content, hasMore, err
                   </div>
                   {author.descriptionText && <p className="py-2 my-4">{author.descriptionText}</p>}
                 </div>
-                <h2 className="py-6 text-xl leading-normal mt-4 font-medium">{content.posts_description}</h2>
+                <h2 className="py-6 text-xl leading-normal mt-4 font-medium">{content.postsDescription}</h2>
               </div>
             </div>
             <div className="flex flex-row flex-wrap mt-2 w-full justify-center">
-              {cards.length ? cards : 'Aucun résultat'}
+              {cards && cards.length ? cards : 'Aucun résultat'}
             </div>
             {isVisibleSeeMore && (
               <Button
                 className="flex flex-row justify-center uppercase rounded-full bg-orange-500 hover:bg-orange-400 text-xss leading-normal py-2 px-6 text-white font-semibold mx-auto shadow-md hover:shadow-lg transition-all duration-250"
-                onClick={() => handleFetchIdeas()}
+                onClick={() => handleFetchPosts()}
               >
                 {isLoadingPosts ? (
                   <div className="flex flex-row justify-center">

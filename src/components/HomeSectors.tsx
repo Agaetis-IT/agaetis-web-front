@@ -3,13 +3,13 @@ import clsx from 'clsx'
 
 import Button from './Button'
 
-import { SectorDesc } from '../types/IndexContent'
+import { Sector } from '../models/IndexAPI'
 
 const arrowR = '/images/right-arrow.svg'
 
 interface Props {
   title: string
-  sectors: SectorDesc[]
+  sectors: Sector[]
 }
 
 export default function HomeSectors({ title, sectors }: Props) {
@@ -24,14 +24,16 @@ export default function HomeSectors({ title, sectors }: Props) {
       <h2 className="mt-2 mb-6 md:my-0 text-orange-500 font-semibold text-2xl text-center md:text-left">{title}</h2>
       <div className="mb-6 md:mt-12">
         {sectors
-          .filter((sector) => sector.title != '' && sector.desc != '' && sector.image != '')
+          .filter((sector) => sector.title != '' && sector.description != '' && sector.image != '')
           .map((sector, index) => (
             <div
               key={sector.title}
               className={clsx({
                 'mb-8':
                   index !==
-                  sectors.filter((sector) => sector.title != '' && sector.desc != '' && sector.image != '').length - 1,
+                  sectors.filter((sector) => sector.title != '' && sector.description != '' && sector.image != '')
+                    .length -
+                    1,
               })}
             >
               <Button
@@ -62,7 +64,7 @@ export default function HomeSectors({ title, sectors }: Props) {
                       <h3 className="text-gray-800 md:text-black font-bold uppercase text-left text-sm">
                         {sector.title}
                       </h3>
-                      <p className="text-xs text-justify leading-normal py-4 hidden md:block">{sector.desc}</p>
+                      <p className="text-xs text-justify leading-normal py-4 hidden md:block">{sector.description}</p>
                     </div>
                     <img
                       src={arrowR}
@@ -85,7 +87,7 @@ export default function HomeSectors({ title, sectors }: Props) {
                 )}
               >
                 <div className="m-4">
-                  <p className="text-xs text-justify leading-normal">{sector.desc}</p>
+                  <p className="text-xs text-justify leading-normal">{sector.description}</p>
                 </div>
               </div>
             </div>

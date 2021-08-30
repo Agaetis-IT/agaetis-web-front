@@ -32,6 +32,21 @@ module.exports = {
         permanent: true,
       },
       {
+        source: '/white-paper/:slug',
+        destination: '/400',
+        permanent: false,
+      },
+      {
+        source: '/offers',
+        destination: '/400',
+        permanent: false,
+      },
+      {
+        source: '/offer/:slug',
+        destination: '/400',
+        permanent: false,
+      },
+      {
         source: '/tags/:slug',
         destination: '/blog/tag/:slug',
         permanent: true,

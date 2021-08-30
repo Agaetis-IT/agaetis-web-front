@@ -20,7 +20,9 @@ export function formatPostAuthors(names: string[]) {
 }
 
 export function fixWordPressString(content: string) {
-  return content.replace(/&#(\d+);/g, function (_, dec) {
+  content = content.replace(/&#(\d+);/g, function (_, dec) {
     return String.fromCharCode(dec)
   })
+
+  return content.replace(/&rsquo;/g, "'")
 }

@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 
-import { Conviction } from '../types/IndexContent'
+import { Conviction } from '../models/IndexAPI'
 
 interface Props {
   title: string
@@ -31,7 +31,7 @@ export default function HomeConvictions({ title, convictions }: Props) {
             />
             <span className={clsx(index % 2 === 0 ? 'pl-4' : 'pr-4', 'flex flex-col justify-center md:px-8')}>
               <h3 className="uppercase font-semibold mb-2 md:mb-4 text-base leading-normal">{conviction.title}</h3>
-              <p className="text-xs md:text-sm leading-tight">{conviction.desc}</p>
+              <p className="text-xs md:text-sm leading-tight">{conviction.description}</p>
             </span>
           </div>
         ))}
