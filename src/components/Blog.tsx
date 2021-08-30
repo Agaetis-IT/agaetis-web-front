@@ -56,7 +56,7 @@ export default function Blog({
     setPostModalOpen(undefined)
   }
 
-  async function handleFetchposts(reset?: boolean, changedCategory?: string, changedSearchFilter?: string) {
+  async function handleFetchPosts(reset?: boolean, changedCategory?: string, changedSearchFilter?: string) {
     setIsLoadingPosts(true)
 
     try {
@@ -103,7 +103,7 @@ export default function Blog({
   function handleFilterChange(category: string) {
     setCategoryFilter(category)
     if (!tagFilter) window.history.replaceState({}, '', `/blog${category === 'All' ? '' : '/' + slugify(category)}`)
-    handleFetchposts(true, category)
+    handleFetchPosts(true, category)
   }
 
   useEffect(() => {
@@ -128,7 +128,7 @@ export default function Blog({
 
   const handleSearchChanged = useDebouncedCallback((value: string) => {
     setSearchFilter(value)
-    handleFetchposts(true, undefined, value)
+    handleFetchPosts(true, undefined, value)
   }, 600)
 
   if (errorCode) {
@@ -181,7 +181,7 @@ export default function Blog({
             {isVisibleSeeMore && (
               <Button
                 className="flex flex-row justify-center uppercase rounded-full bg-orange-500 hover:bg-orange-400 text-xss leading-normal py-2 px-6 text-white font-semibold mx-auto shadow-md hover:shadow-lg transition-all duration-250 mb-8"
-                onClick={() => handleFetchposts()}
+                onClick={() => handleFetchPosts()}
               >
                 {isLoadingPosts ? (
                   <div className="flex flex-row justify-center">

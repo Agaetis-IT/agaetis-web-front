@@ -41,7 +41,7 @@ export default function Author({ postsDescription, author, content, hasMore, err
     setPostModalOpen(undefined)
   }
 
-  async function handleFetchposts() {
+  async function handleFetchPosts() {
     setIsLoadingPosts(true)
     const page = lastPage + 1
     let data: PostCardContent[] = []
@@ -146,7 +146,7 @@ export default function Author({ postsDescription, author, content, hasMore, err
             {isVisibleSeeMore && (
               <Button
                 className="flex flex-row justify-center uppercase rounded-full bg-orange-500 hover:bg-orange-400 text-xss leading-normal py-2 px-6 text-white font-semibold mx-auto shadow-md hover:shadow-lg transition-all duration-250"
-                onClick={() => handleFetchposts()}
+                onClick={() => handleFetchPosts()}
               >
                 {isLoadingPosts ? (
                   <div className="flex flex-row justify-center">

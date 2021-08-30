@@ -27,17 +27,17 @@ interface Props {
 }
 
 export default function BlogPost({ data, related, errorCode }: Props) {
-  const [isOpenedMoreposts, setIsOpenedMoreposts] = useState(false)
+  const [isOpenedMorePosts, setIsOpenedMorePosts] = useState(false)
 
-  function handleToggleMoreposts() {
-    setIsOpenedMoreposts(!isOpenedMoreposts)
+  function handleToggleMorePosts() {
+    setIsOpenedMorePosts(!isOpenedMorePosts)
   }
 
   if (errorCode) {
     return <Error statusCode={errorCode} />
   }
 
-  const relatedposts = useMemo(() => {
+  const relatedPosts = useMemo(() => {
     if (related) {
       return related.map((post) => (
         <div
@@ -83,17 +83,17 @@ export default function BlogPost({ data, related, errorCode }: Props) {
               <div className="p-8 md:py-8 md:px-0">
                 <h2 className="text-center">Ces posts peuvent vous interesser</h2>
                 <div className="mt-8 flex flex-col">
-                  {relatedposts.slice(0, 5)}
-                  {isOpenedMoreposts && relatedposts.slice(5)}
+                  {relatedPosts.slice(0, 5)}
+                  {isOpenedMorePosts && relatedPosts.slice(5)}
                 </div>
                 <Button
-                  onClick={handleToggleMoreposts}
+                  onClick={handleToggleMorePosts}
                   className={clsx(
                     related.length < 6 ? 'hidden' : 'flex',
                     'flex-row justify-center uppercase rounded-full bg-orange-500 hover:bg-orange-400 text-xss leading-normal py-2 px-6 mt-8 text-white font-semibold mx-auto shadow-md hover:shadow-lg transition-all duration-250'
                   )}
                 >
-                  {!isOpenedMoreposts ? 'Voir plus' : 'Voir moins'}
+                  {!isOpenedMorePosts ? 'Voir plus' : 'Voir moins'}
                 </Button>
               </div>
             )}
