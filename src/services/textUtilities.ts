@@ -1,7 +1,3 @@
-export function createMarkup(content: string) {
-  return { __html: content }
-}
-
 export function slugify(s: string) {
   const a = 'àáâäæãåāăąçćčđďèéêëēėęěğǵḧîïíīįìłḿñńǹňôöòóœøōõőṕŕřßśšşșťțûüùúūǘůűųẃẍÿýžźż·/_,:;'
   const b = 'aaaaaaaaaacccddeeeeeeeegghiiiiiilmnnnnoooooooooprrsssssttuuuuuuuuuwxyyzzz------'
@@ -21,4 +17,10 @@ export function slugify(s: string) {
 
 export function formatPostAuthors(names: string[]) {
   return names.join(', ').replace(/, (?=[^,]*$)/, ' et ')
+}
+
+export function fixWordPressString(content: string) {
+  return content.replace(/&#(\d+);/g, function (_, dec) {
+    return String.fromCharCode(dec)
+  })
 }

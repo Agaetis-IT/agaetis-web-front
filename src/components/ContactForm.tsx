@@ -1,7 +1,11 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
+import dynamic from 'next/dynamic'
 import clsx from 'clsx'
 import { FormProvider, useForm } from 'react-hook-form'
-import ReCAPTCHA from 'react-google-recaptcha'
+const ReCAPTCHA = dynamic(
+  () => import('react-google-recaptcha'),
+  { loading: () => <p>Chargement du ReCAPTCHA...</p> }
+)
 import { yupResolver } from '@hookform/resolvers/yup'
 
 import Button from './Button'
@@ -22,10 +26,10 @@ const Particles = '/images/particles-3-mirror.svg'
 interface Props {
   title: string
   subText?: string
+  isPage?: boolean
 }
 
-export default function ContactForm({ title, subText }: Props) {
-  const recaptchaRef = useRef<ReCAPTCHA>(null)
+export default function ContactForm({ title, subText, isPage }: Props) {
   const [snackBarOpenWithError, setSnackBarOpenWithError] = useState<boolean | undefined>(undefined)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSuccessfullySubmitted, setIsSuccessfullySubmitted] = useState(false)
@@ -73,6 +77,8 @@ export default function ContactForm({ title, subText }: Props) {
     clearErrors()
   }, [clearErrors])
 
+  const ComponentProp: React.ElementType = isPage ? 'h1' : 'h2'
+
   return (
     <>
       <div
@@ -85,25 +91,51 @@ export default function ContactForm({ title, subText }: Props) {
         className="p-6 md:p-12 lg:px-24 lg:p-16 bg-gray-400"
       >
         <div className="flex flex-col md:flex-row justify-between mb-8">
-          <h2 className="text-orange-500 text-2xl font-bold leading-normal mb-4 md:mb-0">{title}</h2>
+          <ComponentProp className="text-orange-500 text-2xl font-bold leading-normal mb-4 md:mb-0">
+            {title}
+          </ComponentProp>
           <div className="flex flex-row items-center">
             <Button
               href="https://fr-fr.facebook.com/AgaetisIT"
               className="w-6 h-6 mr-4 self-center shadow-sm hover:shadow-md bg-white hover:bg-gray-200 rounded-full transition-all duration-250 p-1 text-none"
             >
-              <img src={Facebook} className="w-4 h-4" alt="Facebook" />
+              <img
+                src={Facebook}
+                className="w-4 h-4"
+                title="Retrouvez-nous sur Facebook"
+                alt="Facebook"
+                width={16}
+                height={16}
+                loading="lazy"
+              />
             </Button>
             <Button
               href="https://www.linkedin.com/company/agaetis/"
               className="w-6 h-6 mr-4 shadow-sm hover:shadow-md bg-white hover:bg-gray-200 rounded-full transition-all duration-250 p-1 text-none"
             >
-              <img src={Linkedin} className="w-4 h-4" alt="LinkedIn" />
+              <img
+                src={Linkedin}
+                className="w-4 h-4"
+                title="Retrouvez-nous sur LinkedIn"
+                alt="LinkedIn"
+                width={16}
+                height={16}
+                loading="lazy"
+              />
             </Button>
             <Button
               href="https://twitter.com/agaetisit"
               className="w-6 h-6 shadow-sm hover:shadow-md bg-white hover:bg-gray-200 rounded-full transition-all duration-250 p-1 text-none"
             >
-              <img src={Twitter} className="w-4 h-4" alt="Twitter" />
+              <img
+                src={Twitter}
+                className="w-4 h-4"
+                title="Retrouvez-nous sur Twitter"
+                alt="Twitter"
+                width={16}
+                height={16}
+                loading="lazy"
+              />
             </Button>
           </div>
         </div>
@@ -177,7 +209,6 @@ export default function ContactForm({ title, subText }: Props) {
             <div className="flex flex-col justify-center items-center">
               <ReCAPTCHA
                 {...register('captcha')}
-                ref={recaptchaRef}
                 size="normal"
                 sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_KEY}
                 onChange={onCaptchaChange}

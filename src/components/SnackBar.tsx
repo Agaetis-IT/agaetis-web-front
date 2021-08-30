@@ -28,7 +28,15 @@ export default function SnackBar({ message, isError, timeoutDuration = 7000, ope
 
   return (
     <div className="flex flex-row bg-white p-4 rounded-lg shadow-md fixed top-24 right-3 ml-3 z-spinner">
-      <img className="w-8 h-8" src={isError ? Cross : Tick} alt={isError ? 'Erreur' : 'Succès'} />
+      <img
+        className="w-8 h-8"
+        src={isError ? Cross : Tick}
+        title={isError ? 'Erreur' : 'Succès'}
+        alt={isError ? 'Erreur' : 'Succès'}
+        width={32}
+        height={32}
+        loading="eager"
+      />
       <h4 className="self-center block ml-4 text-black">{message}</h4>
     </div>
   )

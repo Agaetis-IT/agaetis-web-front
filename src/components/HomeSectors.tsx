@@ -51,7 +51,11 @@ export default function HomeSectors({ title, sectors }: Props) {
                   <img
                     className="bg-white h-20 w-20 absolute md:relative md:h-56 md:w-1/2 rounded-full md:rounded-l-lg md:rounded-r-none shadow-md md:shadow-none object-cover object-center"
                     src={sector.image}
+                    title={sector.title}
                     alt={sector.title}
+                    width={80}
+                    height={80}
+                    loading="lazy"
                   />
                   <div className="bg-white md:bg-none h-20 md:h-56 p-4 w-full md:w-1/2 flex flex-row md:flex-col items-center justify-between md:justify-center ml-10 md:m-0 md:rounded-lg overflow-hidden transition-all duration-500">
                     <div className="p-0 ml-8 md:m-0 md:p-4 pt-0">
@@ -69,6 +73,7 @@ export default function HomeSectors({ title, sectors }: Props) {
                       width={10}
                       height={10}
                       alt="Flèche"
+                      loading="lazy"
                     />
                   </div>
                 </div>

@@ -45,12 +45,20 @@ export default function HomeOffers({ title, offers }: Props) {
                     )}
                   >
                     <div className="absolute bg-white h-20 w-20 shadow-md md:hidden rounded-full">
-                      <img src={offer.offers_image1} alt="Offres" className="rounded-full" />
+                      <img
+                        src={offer.offers_image1}
+                        title={`Offre ${offer.title}`}
+                        alt={`Offre ${offer.title}`}
+                        className="rounded-full"
+                        width={80}
+                        height={80}
+                        loading="lazy"
+                      />
                     </div>
                     <div className="w-9/10 ml-22 md:ml-0 py-2 md:py-0 md:pl-6">
-                      <h4 className="text-gray-800 md:text-orange-500 text-xs md:text-sm leading-normal uppercase text-left font-bold">
+                      <h3 className="text-gray-800 md:text-orange-500 text-xs md:text-sm leading-normal uppercase text-left font-bold">
                         {offer.title}
-                      </h4>
+                      </h3>
                       <p className="text-cgu md:text-xs italic text-gray-500 md:text-black text-left leading-tight my-1">
                         {offer.short_desc}
                       </p>
@@ -72,6 +80,7 @@ export default function HomeOffers({ title, offers }: Props) {
                       width={10}
                       height={10}
                       alt="Flèche"
+                      loading="lazy"
                     />
                   </div>
                 </Button>
@@ -81,7 +90,15 @@ export default function HomeOffers({ title, offers }: Props) {
                     index === selectedOffer && isOpenedOffer ? 'max-h-150' : 'max-h-0'
                   )}
                 >
-                  <img className="absolute object-cover h-full w-full object-top" src={offer.image} alt={offer.title} />
+                  <img
+                    className="absolute object-cover h-full w-full object-top"
+                    src={offer.image}
+                    title={offer.title}
+                    alt={offer.title}
+                    width={800}
+                    height={600}
+                    loading="lazy"
+                  />
                   <div
                     style={{ backgroundColor: 'rgba(0,0,0,0.4)' }}
                     className="p-4 m-4 rounded-lg backdrop-filter backdrop-blur-sm"
@@ -108,7 +125,11 @@ export default function HomeOffers({ title, offers }: Props) {
         <img
           className="absolute object-cover h-full w-full object-center"
           src={offers[selectedOffer].image}
+          title={offers[selectedOffer].title}
           alt={offers[selectedOffer].title}
+          width={2000}
+          height={2000}
+          loading="lazy"
         />
         <div
           style={{ backgroundColor: 'rgba(0,0,0,0.4)' }}

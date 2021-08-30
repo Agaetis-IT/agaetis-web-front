@@ -1,7 +1,7 @@
 import Author from '../../components/Author'
 
 import { AuthorAPI } from '../../types/AuthorContent'
-import { getAllAuthors, getAuthorById, getAuthorPageContent, getIdeasByAuthor } from '../../services/wordpressService'
+import { getAllAuthors, getAuthorById, getAuthorPageContent, getPostsByAuthor } from '../../services/wordpressService'
 import { PostAPI } from '../../models/PostAPI'
 
 export async function getStaticPaths() {
@@ -23,7 +23,7 @@ export async function getStaticProps({ params }) {
       [0]: author,
       [1]: content,
       [2]: posts,
-    } = await Promise.all([getAuthorById(params.authorId), getAuthorPageContent(), getIdeasByAuthor(params.authorId)])
+    } = await Promise.all([getAuthorById(params.authorId), getAuthorPageContent(), getPostsByAuthor(params.authorId)])
 
     return {
       props: {

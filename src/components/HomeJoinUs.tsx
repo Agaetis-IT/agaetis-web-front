@@ -24,7 +24,15 @@ export default function HomeJoinUs({
   return (
     <>
       <div className="hidden p-16 lg:px-24 lg:p-16 md:flex flex-row">
-        <img className="my-auto w-1/3" src={joinUsImageDesktop} alt="Rejoignez-nous" />
+        <img
+          className="my-auto w-1/3"
+          src={joinUsImageDesktop}
+          title="Rejoignez-nous !"
+          alt="Rejoignez-nous !"
+          width={560}
+          height={445}
+          loading="lazy"
+        />
         <div
           style={{
             backgroundImage: `url("${joinUsHuman}")`,
@@ -62,7 +70,15 @@ export default function HomeJoinUs({
         <h2 className="text-orange-500 font-bold text-2xl text-center mt-2 mb-6">{joinUsAgaetisTitle}</h2>
         <p className="mb-8 text-sm leading-normal text-justify">{joinUsAgaetisDesc}</p>
         <div className="flex flex-row-reverse justify-between sm:justify-around mb-8">
-          <img className="h-32 w-32" src={joinUsImageMobile1} alt="Rejoignez-nous" />
+          <img
+            className="h-32 w-32"
+            src={joinUsImageMobile1}
+            title="Rejoignez-nous !"
+            alt="Rejoignez-nous !"
+            width={320}
+            height={320}
+            loading="lazy"
+          />
           <Button
             href="/agaetis"
             className="flex flex-row justify-center bg-orange-500 hover:bg-orange-400 text-white uppercase rounded-full leading-normal px-6 py-2 shadow-md font-semibold text-xs h-fit my-auto w-40 sm:w-48 hover:shadow-lg transition-all duration-250"
@@ -73,7 +89,15 @@ export default function HomeJoinUs({
         <h2 className="text-orange-500 font-bold text-2xl text-center mt-2 mb-6">{joinUsCareerTitle}</h2>
         <p className="mb-8 text-sm leading-normal text-justify">{joinUsCareerDesc}</p>
         <div className="flex flex-row justify-between sm:justify-around mb-8">
-          <img className="h-32 w-32" src={joinUsImageMobile2} alt="Rejoignez-nous" />
+          <img
+            className="h-32 w-32"
+            src={joinUsImageMobile2}
+            title="Rejoignez-nous !"
+            alt="Rejoignez-nous !"
+            width={360}
+            height={360}
+            loading="lazy"
+          />
           <Button
             href="/jobs"
             className="bg-white hover:bg-gray-200 text-orange-500 rounded-full text-xs uppercase leading-normal font-semibold px-6 py-2 shadow-md flex flex-row justify-center h-fit my-auto w-40 sm:w-48 hover:shadow-lg transition-all duration-250"

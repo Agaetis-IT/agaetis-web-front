@@ -25,14 +25,21 @@ export default function personalData({ pageContent, errorCode }: Props) {
       <Head>
         <title>Agaetis - Données personnelles</title>
         <meta property="og:title" content="Agaetis - Données personnelles" />
+        <meta property="og:url" content={`${process.env.NEXT_PUBLIC_SITE_URL}/personal-data`} />
         <meta property="og:image" content={`${process.env.NEXT_PUBLIC_SITE_URL}/favicon.ico`} />
         <meta property="og:type" content="website" />
-        <meta property="og:description" content={pageContent.content} />
-        <meta name="description" content={pageContent.content} />
+        <meta
+          property="og:description"
+          content="Consultez ici la politique de traitement des données personnelles de ce site."
+        />
+        <meta
+          name="description"
+          content="Consultez ici la politique de traitement des données personnelles de ce site."
+        />
         <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/personal-data`} />
       </Head>
       <Layout>
-        <div className="pt-0 md:pt-25">
+        <div className="pt-0 md:pt-17">
           <div
             style={{
               backgroundImage: `url("${Particles}")`,

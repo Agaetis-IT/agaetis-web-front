@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import clsx from 'clsx'
 import Head from 'next/head'
-import Link from 'next/link'
 import { useDebouncedCallback } from 'use-debounce'
 
 import Button from './Button'
@@ -16,7 +15,7 @@ import SearchInput from './SearchInput'
 import SnackBar from './SnackBar'
 
 import { Category, PostDesc, BlogPageContent, Response } from '../types/PostPageContent'
-import { getIdeasByCategory, getIdeasByPage, getIdeasByTag } from '../services/wordpressService'
+import { getPostsByCategory, getPostsByPage, getPostsByTag } from '../services/wordpressService'
 import { PostAPI } from '../models/PostAPI'
 import { slugify } from '../services/textUtilities'
 import WhitePaper from '../types/WhitePaper'
@@ -74,15 +73,15 @@ export default function Blog({
 
       if (catFilter != 'All') {
         if (tagFilter) {
-          newData = await getIdeasByTag(tagFilter, slugify(catFilter), page, searchBarFilter)
+          newData = await getPostsByTag(tagFilter, slugify(catFilter), page, searchBarFilter)
         } else {
-          newData = await getIdeasByCategory(slugify(catFilter), page, searchBarFilter)
+          newData = await getPostsByCategory(slugify(catFilter), page, searchBarFilter)
         }
       } else {
         if (tagFilter) {
-          newData = await getIdeasByTag(tagFilter, undefined, page, searchBarFilter)
+          newData = await getPostsByTag(tagFilter, undefined, page, searchBarFilter)
         } else {
-          newData = await getIdeasByPage(page, searchBarFilter)
+          newData = await getPostsByPage(page, searchBarFilter)
         }
       }
 
@@ -133,7 +132,7 @@ export default function Blog({
 
   const cards = useMemo(
     () =>
-      ideas.map((idea) => (
+      ideas?.map((idea) => (
         <div
           key={idea.id}
           className="m-2 mb-8 shadow-md hover:shadow-lg transition-all duration-250 transform hover:scale-102 rounded-lg w-inherit"
@@ -158,6 +157,7 @@ export default function Blog({
       <Head>
         <title>Agaetis - Blog</title>
         <meta property="og:title" content="Agaetis - Blog" />
+        <meta property="og:url" content={`${process.env.NEXT_PUBLIC_SITE_URL}/blog`} />
         <meta property="og:image" content={`${process.env.NEXT_PUBLIC_SITE_URL}/favicon.ico`} />
         <meta property="og:type" content="website" />
         <meta property="og:description" content="Chacun d'entre nous a ses idées et le droit de les défendre" />
@@ -165,7 +165,7 @@ export default function Blog({
         <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/blog`} />
       </Head>
       <Layout displayedPage={'/blog'}>
-        <div className="pt-0 md:pt-25">
+        <div className="pt-0 md:pt-17">
           <div
             style={{
               backgroundImage: `url("${Particles}")`,
@@ -176,7 +176,7 @@ export default function Blog({
             className="p-6 md:p-16 lg:px-32 xl:px-48 bg-gray-400"
           >
             <div className="mx-1 md:mx-2">
-              <h2 className="text-xl leading-normal mb-14 font-medium">{content.description}</h2>
+              <h1 className="text-xl leading-normal mb-14 font-medium">{content.description}</h1>
               <SearchInput handleChange={handleSearchChanged} defaultValue={searchFilter} />
             </div>
             <CategoryTab
@@ -214,35 +214,6 @@ export default function Blog({
                   <span className="leading-tight">Voir plus</span>
                 )}
               </Button>
-            )}
-            {false && whitePapers && whitePapers.length > 0 && (
-              <div id="whitepapers" className="text-center w-full mx-auto p-6 md:py-12 bg-gray-400 my-8 underline">
-                <h2 className="text-2xl leading-normal mt-4">Livres blancs</h2>
-                <p className="text-sm md:max-w-md md:px-20 py-4 mx-auto leading-normal">
-                  {content.white_paper_description}
-                </p>
-                <div className="my-4 md:my-8 flex flex-col md:flex-row justify-center md:max-w-md mx-auto">
-                  {whitePapers.map((whitePaper) => (
-                    <div key={whitePaper.title} className="mb-4 md:m-0">
-                      <div
-                        style={{
-                          background: whitePaper.miniature ? 'url(' + whitePaper.miniature + ')' : '#333F48',
-                          backgroundSize: 'cover',
-                          backgroundPosition: 'center',
-                          backgroundRepeat: 'no-repeat',
-                        }}
-                        className="shadow-xl md:w-52 h-40 md:h-32 mx-auto"
-                      />
-                      <h3 className="text-sm px-3 py-4 leading-normal">{whitePaper.title}</h3>
-                      <Link href={`/white-papers/${whitePaper.slug}`} passHref>
-                        <Button className="rounded-full uppercase text-white text-xss md:text-cgu leading-normal font-semibold bg-orange-500 px-8 py-3 md:px-6 md:py-2">
-                          Télécharger
-                        </Button>
-                      </Link>
-                    </div>
-                  ))}
-                </div>
-              </div>
             )}
           </div>
           <ContactForm title="Un sujet vous intéresse ? Une question ? Contactez-nous !" />

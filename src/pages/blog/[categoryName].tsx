@@ -3,11 +3,11 @@ import Blog from '../../components/Blog'
 import { Category, Response } from '../../types/PostPageContent'
 import { CategoryAPI, PostAPI } from '../../models/PostAPI'
 import {
-  getIdeasByPage,
+  getPostsByPage,
   getCategories,
-  getIdeasPageContent,
+  getBlogPageContent,
   getAllWhitePapers,
-  getIdeasByCategory,
+  getPostsByCategory,
 } from '../../services/wordpressService'
 import { slugify } from '../../services/textUtilities'
 import WhitePaper from '../../types/WhitePaper'
@@ -36,11 +36,11 @@ export async function getStaticProps({ params }) {
       [0]: categories,
       [1]: content,
       [2]: whitepapers,
-    } = await Promise.all([getCategories(), getIdeasPageContent(), getAllWhitePapers()])
+    } = await Promise.all([getCategories(), getBlogPageContent(), getAllWhitePapers()])
     let promiseResult: Response
 
     if (!params.categoryName) {
-      promiseResult = await getIdeasByPage()
+      promiseResult = await getPostsByPage()
     } else {
       const names = categories
         .map((category: CategoryAPI) => slugify(category.name))
@@ -60,7 +60,7 @@ export async function getStaticProps({ params }) {
       }
 
       selectedCategory = categories.filter((category: CategoryAPI) => category.slug == params.categoryName)[0].slug
-      promiseResult = await getIdeasByCategory(selectedCategory)
+      promiseResult = await getPostsByCategory(selectedCategory)
     }
 
     return {

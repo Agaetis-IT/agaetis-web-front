@@ -12,10 +12,10 @@ The front-end of the Agaetis website.
 
 Project created with:
 
-- React 17
-- NextJS 10.2
-- Typescript 4.2.4
-- TailwindCSS 2.1
+- React: 17.0.2
+- NextJS: 11.0.1
+- Typescript: 4.3.5
+- TailwindCSS: 2.2.4
 
 ## Installation
 
@@ -30,7 +30,7 @@ yarn install
 ## Usage
 
 ```bash
-yarn dev
+yarn start
 ```
 
 Then visit http://localhost:5000

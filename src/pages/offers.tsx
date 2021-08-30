@@ -34,6 +34,7 @@ export default function offers({ pageContent, allOffers, errorCode }: Props) {
       <Head>
         <title>Agaetis - Nos offres</title>
         <meta property="og:title" content="Agaetis - Nos offres" />
+        <meta property="og:url" content={`${process.env.NEXT_PUBLIC_SITE_URL}/offers`} />
         <meta property="og:image" content={`${process.env.NEXT_PUBLIC_SITE_URL}/favicon.ico`} />
         <meta property="og:type" content="website" />
         <meta property="og:description" content="Découvrez les offres d'Agaetis pour vos projets et vos besoins" />
@@ -41,7 +42,7 @@ export default function offers({ pageContent, allOffers, errorCode }: Props) {
         <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/offers`} />
       </Head>
       <Layout>
-        <div className="mx-auto pt-0 md:pt-25">
+        <div className="mx-auto pt-0 md:pt-17">
           <div
             style={{
               backgroundImage: `url("${Mask}")`,
@@ -58,7 +59,11 @@ export default function offers({ pageContent, allOffers, errorCode }: Props) {
                   <img
                     src={allOffers[selectedOffer].offers_image1}
                     className="block h-16"
+                    title={allOffers[selectedOffer].title}
                     alt={allOffers[selectedOffer].title}
+                    width={64}
+                    height={64}
+                    loading="eager"
                   />
                   <h2 className="ml-8 text-white">{allOffers[selectedOffer].title}</h2>
                 </div>
@@ -71,7 +76,16 @@ export default function offers({ pageContent, allOffers, errorCode }: Props) {
                   href={`/offers/${allOffers[selectedOffer].slug}?offer=${allOffers[selectedOffer].childrens[0].post_name}`}
                 >
                   <div className="flex flex-row items-center">
-                    En savoir plus <img src={Plus} className="ml-4 h-6" alt="Plus" />
+                    En savoir plus{' '}
+                    <img
+                      src={Plus}
+                      className="ml-4 h-6"
+                      title="Plus"
+                      alt="Plus"
+                      width={24}
+                      height={24}
+                      loading="eager"
+                    />
                   </div>
                 </Button>
               </div>
@@ -86,7 +100,15 @@ export default function offers({ pageContent, allOffers, errorCode }: Props) {
                       setSelectedOffer(index)
                     }}
                   >
-                    <img src={offre.offers_image1} className="h-8 md:h-24" alt={offre.title} />
+                    <img
+                      src={offre.offers_image1}
+                      className="h-8 md:h-24"
+                      title={offre.title}
+                      alt={offre.title}
+                      width={96}
+                      height={96}
+                      loading="eager"
+                    />
                     <h2 className="text-sm leading-normal">{offre.title}</h2>
                     <div
                       className={clsx(
@@ -133,6 +155,10 @@ export default function offers({ pageContent, allOffers, errorCode }: Props) {
 }
 
 export async function getStaticProps() {
+  return {
+    notFound: true,
+  }
+
   try {
     const { [0]: data, [1]: allOffersData } = await Promise.all([getOffersPageContent(), getAllOffers()])
     const pageContent = convertAPItoOffersContent(data)

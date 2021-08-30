@@ -89,7 +89,7 @@
 
 .content pre {
   font-size: 1.2em;
-  white-space: pre-wrap;
+  overflow: auto;
 }
 
 .content table,

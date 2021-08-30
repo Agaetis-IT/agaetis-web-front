@@ -17,7 +17,7 @@ import { convertAPItoOfferleaf, OfferContent, OfferLeafContent } from '../../typ
 import {
   getAllOffers,
   getCategoryOffers,
-  getIdeasByCategory,
+  getPostsByCategory,
   getOfferContent,
   getOfferLeaf,
 } from '../../services/wordpressService'
@@ -52,6 +52,7 @@ export default function offer({ pageContent, offers, errorCode }: Props): React.
       <Head>
         <title>Agaetis - {pageContent.title}</title>
         <meta property="og:title" content={`Agaetis - ${pageContent.title}`} />
+        <meta property="og:url" content={`${process.env.NEXT_PUBLIC_SITE_URL}/offer/${pageContent.slug}`} />
         <meta property="og:image" content={`${process.env.NEXT_PUBLIC_SITE_URL}/favicon.ico`} />
         <meta property="og:type" content="website" />
         <meta property="og:description" content={pageContent.paragraph} />
@@ -59,7 +60,7 @@ export default function offer({ pageContent, offers, errorCode }: Props): React.
         <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/offer/${pageContent.slug}`} />
       </Head>
       <Layout>
-        <div className="mx-auto pt-0 md:pt-25">
+        <div className="mx-auto pt-0 md:pt-17">
           <div
             style={{
               backgroundImage: `url("${Particles}")`,
@@ -69,7 +70,15 @@ export default function offer({ pageContent, offers, errorCode }: Props): React.
             className="bg-gray-900 p-0 md:p-12 lg:px-24 lg:p-16 hidden lg:block shadow-none md:shadow-md"
           >
             <div className="flex flex-row items-center">
-              <img src={pageContent.offers_image1} className="block h-16" alt={pageContent.title} />
+              <img
+                src={pageContent.offers_image1}
+                className="block h-16"
+                title={pageContent.title}
+                alt={pageContent.title}
+                width={64}
+                height={64}
+                loading="eager"
+              />
               <h1 className="text-white text-2xl leading-normal ml-8">{pageContent.title}</h1>
             </div>
             <p className="text-white py-8 leading-normal text-sm">{pageContent.paragraph}</p>
@@ -77,7 +86,15 @@ export default function offer({ pageContent, offers, errorCode }: Props): React.
               <Link href="/offers" passHref>
                 <Button>
                   <div className="flex flex-row items-center mb-8">
-                    <img className="mr-4" src={Back} alt="Retour" />
+                    <img
+                      className="mr-4"
+                      src={Back}
+                      title="Retour"
+                      alt="Retour"
+                      width={52}
+                      height={52}
+                      loading="eager"
+                    />
                     <span className="text-orange-500">Retour aux catégories d'offres</span>
                   </div>
                 </Button>
@@ -118,13 +135,29 @@ export default function offer({ pageContent, offers, errorCode }: Props): React.
               <Link href="/offers" passHref>
                 <Button>
                   <div className="flex flex-row items-center mb-8">
-                    <img className="mr-4 h-8" src={Back} alt="Retour" />
+                    <img
+                      className="mr-4 h-8"
+                      src={Back}
+                      title="Retour"
+                      alt="Retour"
+                      width={52}
+                      height={52}
+                      loading="eager"
+                    />
                     <span className="text-orange-500">Retour aux catégories d'offres</span>
                   </div>
                 </Button>
               </Link>
               <div className="flex flex-row items-center mt-0 md:mt-20">
-                <img src={pageContent.offers_image1} className="block h-12" alt={pageContent.title} />
+                <img
+                  src={pageContent.offers_image1}
+                  className="block h-12"
+                  title={pageContent.title}
+                  alt={pageContent.title}
+                  width={48}
+                  height={48}
+                  loading="eager"
+                />
                 <h1 className="text-black text-2xl leading-normal ml-8">{pageContent.title}</h1>
               </div>
               <div>
@@ -177,6 +210,11 @@ export default function offer({ pageContent, offers, errorCode }: Props): React.
 }
 
 export async function getStaticPaths() {
+  return {
+    paths: [],
+    fallback: 'blocking',
+  }
+
   const offers = await getAllOffers()
 
   return {
@@ -190,6 +228,10 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
+  return {
+    notFound: true,
+  }
+
   try {
     const { [0]: data, [1]: offers } = await Promise.all([
       getOfferContent(params.offerSlug),
@@ -199,7 +241,7 @@ export async function getStaticProps({ params }) {
 
     if (!data.acf) {
       return {
-        notFound: !data.acf,
+        notFound: true,
         revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
       }
     }
@@ -215,7 +257,7 @@ export async function getStaticProps({ params }) {
       }) => {
         const { [0]: children, [1]: posts } = await Promise.all([
           getOfferLeaf(params.offerSlug, offer.post_name),
-          getIdeasByCategory(`_offer-${escape(offer.post_name)}`),
+          getPostsByCategory(`_offer-${escape(offer.post_name)}`),
         ])
         return convertAPItoOfferleaf(children, posts.data)
       }
