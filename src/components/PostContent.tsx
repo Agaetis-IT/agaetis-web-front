@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import clsx from 'clsx'
 import Link from 'next/link'
 import mediumZoom from 'medium-zoom'
 import tocbot from 'tocbot'
@@ -227,11 +228,11 @@ function PostContent({ content }: Props) {
           )}
         </div>
         <div className="flex px-4 md:px-8">
-          <nav className="toc w-1/4 mr-4 sticky top-4 md:top-20 h-fit sm:block hidden"></nav>
+          <nav id="toc" className={clsx('toc w-1/4 mr-4 sticky top-4 md:top-20 h-fit hidden', document.getElementById('toc').children.length && 'sm:block')} />
           <article
             id="postContent"
             dangerouslySetInnerHTML={createMarkup(wrapImages(content.content))}
-            className={`${styles.content} px-4 md:px-8 leading-normal text-sm text-justify w-full sm:w-3/4`}
+            className={clsx(styles.content, 'px-4 md:px-8 leading-normal text-sm text-justify w-full', document.getElementById('toc').children.length && 'sm:w-3/4')}
           />
         </div>
       </div>

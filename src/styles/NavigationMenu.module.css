@@ -25,7 +25,8 @@
 }
 
 @media (min-width: 820px) {
-  .menuLinkBlackUnderline::after {
+  .menuLinkBlackUnderline::after,
+  .menuLinkWhiteUnderline::after {
     left: 50%;
     -webkit-transform: translateX(-50%);
     -moz-transform: translateX(-50%);
