@@ -3,10 +3,6 @@
 @tailwind utilities;
 
 @layer base {
-  .is-active-link::before {
-    background-color: #ff7f40;
-  }
-
   html,
   body {
     padding: 0;

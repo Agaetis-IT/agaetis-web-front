@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import clsx from 'clsx'
 import Link from 'next/link'
 import mediumZoom from 'medium-zoom'
@@ -78,7 +78,7 @@ function PostContent({ content }: Props) {
     }
   }
 
-  const setAnchorHandlers = () => {
+  const setAnchorHandlers = useCallback(() => {
     if (router.asPath.includes('#') && document.getElementsByName(router.asPath.split('#')[1]).length > 0) {
       window.scroll({
         top:
@@ -108,7 +108,7 @@ function PostContent({ content }: Props) {
     }
 
     return undefined
-  }
+  }, [router])
 
   useEffect(() => {
     setLocation(window.location.href)
@@ -120,6 +120,7 @@ function PostContent({ content }: Props) {
       headingSelector: 'h2, h3, h4',
       headingsOffset: 68,
       scrollSmoothOffset: -68,
+      activeLinkClass: styles.activeLink,
       headingLabelCallback: (str: string) => {
         setIsTOCVisible(true)
 
