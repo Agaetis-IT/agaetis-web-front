@@ -50,8 +50,7 @@ export default function Author({ postsDescription, author, content, hasMore, err
       const newData: Response = await getPostsByAuthor(author.id.toString(), page)
 
       if (newData) {
-        data = newData.data
-          .map((post: PostAPI) => convertPostAPIToCardContent(post))
+        data = newData.data.map((post: PostAPI) => convertPostAPIToCardContent(post))
 
         setIsVisibleSeeMore(newData.pageCount > page)
         setLastPage(page)

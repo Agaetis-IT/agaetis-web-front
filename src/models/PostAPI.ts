@@ -1,5 +1,5 @@
 export interface PostAPI {
-  id: number
+  id: string
   title: { rendered: string }
   slug: string
   date: string

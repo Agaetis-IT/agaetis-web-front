@@ -11,12 +11,11 @@ export async function getStaticPaths() {
   const categories = await getCategories()
 
   return {
-    paths: categories
-      .map((category: CategoryAPI) => ({
-        params: {
-          categoryName: slugify(category.name),
-        },
-      })),
+    paths: categories.map((category: CategoryAPI) => ({
+      params: {
+        categoryName: slugify(category.name),
+      },
+    })),
     fallback: 'blocking',
   }
 }
@@ -30,8 +29,7 @@ export async function getStaticProps({ params }) {
     if (!params.categoryName) {
       promiseResult = await getPostsByPage()
     } else {
-      const names = categories
-        .map((category: CategoryAPI) => slugify(category.name))
+      const names = categories.map((category: CategoryAPI) => slugify(category.name))
 
       if (!names.includes(params.categoryName)) {
         return {
@@ -54,8 +52,10 @@ export async function getStaticProps({ params }) {
       props: {
         postsDescription: promiseResult.data.map((post: PostAPI) => convertPostAPIToCardContent(post)),
         content,
-        categories: categories
-          .map((category: CategoryAPI) => ({ categoryId: category.id, categoryName: category.name })),
+        categories: categories.map((category: CategoryAPI) => ({
+          categoryId: category.id,
+          categoryName: category.name,
+        })),
         selectedCategory: selectedCategory,
         hideSeeMore: promiseResult.pageCount <= 1,
       },

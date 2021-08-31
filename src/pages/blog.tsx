@@ -18,8 +18,10 @@ export async function getStaticProps() {
       props: {
         postsDescription: posts.data.map((post: PostAPI) => convertPostAPIToCardContent(post)),
         content,
-        categories: categories
-          .map((category: CategoryAPI) => ({ categoryId: category.id, categoryName: category.name })),
+        categories: categories.map((category: CategoryAPI) => ({
+          categoryId: category.id,
+          categoryName: category.name,
+        })),
         hideSeeMore: posts.pageCount == 1,
         tagFilter: null,
       },

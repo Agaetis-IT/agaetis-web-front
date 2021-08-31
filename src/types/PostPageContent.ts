@@ -2,7 +2,7 @@ import { PostAPI } from '../models/PostAPI'
 import { AuthorLink } from '../models/AuthorAPI'
 
 export interface PostCardContent {
-  id: number
+  id: string
   slug: string
   title: string
   categories: string[]

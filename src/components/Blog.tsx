@@ -82,8 +82,7 @@ export default function Blog({
         }
       }
 
-      data = newData.data
-        .map((post: PostAPI) => convertPostAPIToCardContent(post))
+      data = newData.data.map((post: PostAPI) => convertPostAPIToCardContent(post))
 
       if (newData.pageCount > page) {
         setIsVisibleSeeMore(true)

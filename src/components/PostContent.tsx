@@ -61,6 +61,7 @@ function getTopOffset() {
 function PostContent({ content }: Props) {
   const router = useRouter()
   const [location, setLocation] = useState('')
+  const [isTOCVisible, setIsTOCVisible] = useState(false)
 
   const handleAnchorClick = (e: MouseEvent) => {
     e.stopPropagation()
@@ -115,10 +116,15 @@ function PostContent({ content }: Props) {
     tocbot.init({
       tocSelector: '.toc',
       includeTitleTags: false,
-      contentSelector: '#ideaContent',
+      contentSelector: '#postContent',
       headingSelector: 'h2, h3, h4',
       headingsOffset: 68,
       scrollSmoothOffset: -68,
+      headingLabelCallback: (str: string) => {
+        setIsTOCVisible(true)
+
+        return str
+      },
     })
 
     return setAnchorHandlers()
@@ -227,12 +233,19 @@ function PostContent({ content }: Props) {
             </div>
           )}
         </div>
-        <div className="flex px-4 md:px-8">
-          <nav id="toc" className={clsx('toc w-1/4 mr-4 sticky top-4 md:top-20 h-fit hidden', document.getElementById('toc').children.length && 'sm:block')} />
+        <div className="flex px-4">
+          <nav
+            id="toc"
+            className={clsx('toc w-1/4 mr-4 sticky top-4 md:top-20 h-fit hidden', isTOCVisible && 'sm:block')}
+          />
           <article
             id="postContent"
             dangerouslySetInnerHTML={createMarkup(wrapImages(content.content))}
-            className={clsx(styles.content, 'px-4 md:px-8 leading-normal text-sm text-justify w-full', document.getElementById('toc').children.length && 'sm:w-3/4')}
+            className={clsx(
+              styles.content,
+              'px-4 leading-normal text-sm text-justify w-full',
+              isTOCVisible && 'sm:w-3/4'
+            )}
           />
         </div>
       </div>
