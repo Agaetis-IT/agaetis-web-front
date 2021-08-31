@@ -8,7 +8,7 @@ import { useRouter } from 'next/router'
 import Button from './Button'
 
 import { AuthorLink } from '../models/AuthorAPI'
-import { fixWordPressString } from '../services/textUtilities'
+import { fixWordPressString, slugify } from '../services/textUtilities'
 import PostPageContent from '../types/PostPageContent'
 
 import styles from '../styles/PostContent.module.css'
@@ -46,6 +46,10 @@ function formatAuthorList(authors: AuthorLink[]) {
     i === authors.length - 1 && authors.length > 1 && ' et ',
     formatAuthor(author),
   ])
+}
+
+function addIdAttributes(content: string) {
+  return content.replace(/(?<=<h)([123456])(?!.*id=".*)(?=[^>]*>(.*)<\/h[123456]>)/g, (_, headingLevel, title) => `${headingLevel} id="${slugify(title)}"`)
 }
 
 function wrapImages(content: string) {
@@ -114,7 +118,7 @@ function PostContent({ content }: Props) {
     setLocation(window.location.href)
     mediumZoom('[data-zoomable]', { margin: 25 })
     tocbot.init({
-      tocSelector: '.toc',
+      tocSelector: '#toc',
       includeTitleTags: false,
       contentSelector: '#postContent',
       headingSelector: 'h2, h3, h4',
@@ -235,13 +239,13 @@ function PostContent({ content }: Props) {
           )}
         </div>
         <div className="flex px-4">
-          <nav
-            id="toc"
-            className={clsx('toc w-1/4 mr-4 sticky top-4 md:top-20 h-fit hidden', isTOCVisible && 'sm:block')}
-          />
+          <div className={clsx('hidden w-1/4 mt-8 h-fit sticky top-4 md:top-20', isTOCVisible && 'sm:block')}>
+            <span className="text-sm text-gray-800 font-bold">SOMMAIRE</span>
+            <nav id="toc" className="toc mt-4" />
+          </div>
           <article
             id="postContent"
-            dangerouslySetInnerHTML={createMarkup(wrapImages(content.content))}
+            dangerouslySetInnerHTML={createMarkup(wrapImages(addIdAttributes(content.content)))}
             className={clsx(
               styles.content,
               'px-4 leading-normal text-sm text-justify w-full',
