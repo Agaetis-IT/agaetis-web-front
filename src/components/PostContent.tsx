@@ -65,7 +65,7 @@ function getTopOffset() {
 function PostContent({ content }: Props) {
   const router = useRouter()
   const [location, setLocation] = useState('')
-  const [isTOCVisible, setIsTOCVisible] = useState(false)
+  const [isTocVisible, setIsTocVisible] = useState(false)
 
   const handleAnchorClick = (e: MouseEvent) => {
     e.stopPropagation()
@@ -121,12 +121,12 @@ function PostContent({ content }: Props) {
       tocSelector: '#toc',
       includeTitleTags: false,
       contentSelector: '#postContent',
-      headingSelector: 'h2, h3, h4',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
       headingsOffset: 68,
       scrollSmoothOffset: -68,
       activeLinkClass: styles.activeLink,
       headingLabelCallback: (str: string) => {
-        setIsTOCVisible(true)
+        setIsTocVisible(true)
 
         return str
       },
@@ -239,7 +239,7 @@ function PostContent({ content }: Props) {
           )}
         </div>
         <div className="flex px-4">
-          <div className={clsx('hidden w-1/4 mt-8 h-fit sticky top-4 md:top-20', isTOCVisible && 'sm:block')}>
+          <div className={clsx('hidden w-1/4 mt-8 h-fit sticky top-4 md:top-20', isTocVisible && 'sm:block')}>
             <span className="text-sm text-gray-800 font-bold">SOMMAIRE</span>
             <nav id="toc" className="toc mt-4" />
           </div>
@@ -249,7 +249,7 @@ function PostContent({ content }: Props) {
             className={clsx(
               styles.content,
               'px-4 leading-normal text-sm text-justify w-full',
-              isTOCVisible && 'sm:w-3/4'
+              isTocVisible && 'sm:w-3/4'
             )}
           />
         </div>
