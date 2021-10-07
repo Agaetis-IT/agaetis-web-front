@@ -78,7 +78,7 @@ export default function NavigationMenu({ displayedPage, otherColorClass }: Props
             href="/contact"
             className={clsx(
               'block md:inline-block md:bg-white md:hover:bg-gray-200 text-orange-500 px-2 py-3 md:py-2 md:px-6 text-base font-black md:font-bold leading-normal md:leading-none md:rounded-full md:shadow-md md:hover:shadow-lg uppercase transition-all duration-250',
-              displayedPage === "/contact" && styles.menuLinkUnderlineSelected,
+              displayedPage === '/contact' && styles.menuLinkUnderlineSelected,
               width <= 820 && `${styles.menuLinkOrangeUnderline} ${styles.menuLinkUnderline}`
             )}
           >
