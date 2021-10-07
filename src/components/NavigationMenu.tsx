@@ -54,7 +54,7 @@ export default function NavigationMenu({ displayedPage, otherColorClass }: Props
         width < 820 && 'bg-white'
       )}
     >
-      <div className="text-xs font-medium leading-normal">
+      <div className="font-medium leading-normal">
         {pages.map((page) => (
           <Link key={page[0]} href={page[1]} passHref>
             <Button
@@ -72,11 +72,15 @@ export default function NavigationMenu({ displayedPage, otherColorClass }: Props
           </Link>
         ))}
       </div>
-      <div className="md:ml-12 text-base leading-normal font-medium flex justify-center">
+      <div className="md:ml-12 leading-normal font-medium md:flex md:justify-center">
         <Link href="/contact" passHref>
           <Button
             href="/contact"
-            className="bg-white hover:bg-gray-200 text-orange-500 inline-block px-6 py-2 font-bold leading-none rounded-full uppercase text-base shadow-md hover:shadow-lg transition-all duration-250"
+            className={clsx(
+              'block md:inline-block md:bg-white md:hover:bg-gray-200 text-orange-500 px-2 py-3 md:py-2 md:px-6 text-base font-black md:font-bold leading-normal md:leading-none md:rounded-full md:shadow-md md:hover:shadow-lg uppercase transition-all duration-250',
+              displayedPage === "/contact" && styles.menuLinkUnderlineSelected,
+              width <= 820 && `${styles.menuLinkOrangeUnderline} ${styles.menuLinkUnderline}`
+            )}
           >
             Contact
           </Button>

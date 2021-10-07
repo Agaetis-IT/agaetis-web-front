@@ -19,6 +19,10 @@
   background-color: white;
 }
 
+.menuLinkOrangeUnderline::after {
+  background-color: #ff7f40;
+}
+
 .menuLinkUnderline:hover::after,
 .menuLinkUnderlineSelected::after {
   width: 100%;
