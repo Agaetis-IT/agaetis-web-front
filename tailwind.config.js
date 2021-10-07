@@ -1,6 +1,9 @@
 module.exports = {
   //mode: 'jit',
-  purge: ['./src/pages/**/*.{js,ts,jsx,tsx}', './src/components/**/*.{js,ts,jsx,tsx}'],
+  purge: {
+    content: ['./src/pages/**/*.{js,ts,jsx,tsx}', './src/components/**/*.{js,ts,jsx,tsx}'],
+    safelist: ['medium-zoom-overlay', 'medium-zoom-image--opened'],
+  },
   darkMode: false, // or 'media' or 'class'
   theme: {
     screens: {
