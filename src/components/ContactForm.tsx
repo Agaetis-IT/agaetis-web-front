@@ -3,9 +3,7 @@ import dynamic from 'next/dynamic'
 import clsx from 'clsx'
 import { FormProvider, useForm } from 'react-hook-form'
 const ReCAPTCHA = dynamic(() => import('react-google-recaptcha'), {
-  loading: function Placeholder() {
-    return <p>Chargement du ReCAPTCHA...</p>
-  },
+  loading: () => <p>Chargement du ReCAPTCHA...</p>,
 })
 import { yupResolver } from '@hookform/resolvers/yup'
 
