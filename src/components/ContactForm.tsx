@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import dynamic from 'next/dynamic'
 import clsx from 'clsx'
 import { FormProvider, useForm } from 'react-hook-form'
+import useInView from 'react-cool-inview'
 const ReCAPTCHA = dynamic(() => import('react-google-recaptcha'), {
   loading: () => <p>Chargement du ReCAPTCHA...</p>,
 })
@@ -32,6 +33,9 @@ export default function ContactForm({ title, subText, isPage }: Props) {
   const [snackBarOpenWithError, setSnackBarOpenWithError] = useState<boolean | undefined>(undefined)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSuccessfullySubmitted, setIsSuccessfullySubmitted] = useState(false)
+  const { observe, inView } = useInView({
+    onEnter: ({ unobserve }) => unobserve()
+  })
 
   function handleOpenModal(error: boolean) {
     setSnackBarOpenWithError(error)
@@ -205,13 +209,13 @@ export default function ContactForm({ title, subText, isPage }: Props) {
               label="En soumettant ce formulaire et conformément à la politique de traitement des données personnelles, j'accepte
               que les informations saisies soient exploitées afin d'être contacté par les équipes d'Agaetis."
             />
-            <div className="flex flex-col justify-center items-center">
-              <ReCAPTCHA
+            <div className="flex flex-col justify-center items-center" ref={observe}>
+              {inView && <ReCAPTCHA
                 {...register('captcha')}
                 size="normal"
                 sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_KEY}
                 onChange={onCaptchaChange}
-              />
+              />}
               {otherFormProps.formState.errors.captcha && (
                 <p className="text-xs leading-normal text-red-500 text-center pt-2">
                   {otherFormProps.formState.errors.captcha.message}
