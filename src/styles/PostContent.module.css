@@ -41,6 +41,11 @@
   cursor: revert;
 }
 
+.content a:visited {
+  color: rgb(126, 0, 243);
+  cursor: revert;
+}
+
 .content,
 .content p {
   margin: 10px 0px;
