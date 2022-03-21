@@ -4,7 +4,9 @@ import clsx from 'clsx'
 import { FormProvider, useForm } from 'react-hook-form'
 import useInView from 'react-cool-inview'
 const ReCAPTCHA = dynamic(() => import('react-google-recaptcha'), {
-  loading: () => <p>Chargement du ReCAPTCHA...</p>,
+  loading: function Placeholder() {
+    return <p>Chargement du ReCAPTCHA...</p>
+  },
 })
 import { yupResolver } from '@hookform/resolvers/yup'
 
