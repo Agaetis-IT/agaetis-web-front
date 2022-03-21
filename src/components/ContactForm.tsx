@@ -34,7 +34,7 @@ export default function ContactForm({ title, subText, isPage }: Props) {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSuccessfullySubmitted, setIsSuccessfullySubmitted] = useState(false)
   const { observe, inView } = useInView({
-    onEnter: ({ unobserve }) => unobserve()
+    onEnter: ({ unobserve }) => unobserve(),
   })
 
   function handleOpenModal(error: boolean) {
@@ -210,12 +210,14 @@ export default function ContactForm({ title, subText, isPage }: Props) {
               que les informations saisies soient exploitées afin d'être contacté par les équipes d'Agaetis."
             />
             <div className="flex flex-col justify-center items-center" ref={observe}>
-              {inView && <ReCAPTCHA
-                {...register('captcha')}
-                size="normal"
-                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_KEY}
-                onChange={onCaptchaChange}
-              />}
+              {inView && (
+                <ReCAPTCHA
+                  {...register('captcha')}
+                  size="normal"
+                  sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_KEY}
+                  onChange={onCaptchaChange}
+                />
+              )}
               {otherFormProps.formState.errors.captcha && (
                 <p className="text-xs leading-normal text-red-500 text-center pt-2">
                   {otherFormProps.formState.errors.captcha.message}
