@@ -50,13 +50,13 @@ function formatAuthorList(authors: AuthorLink[]) {
 
 function addIdAttributes(content: string) {
   return content.replace(
-    /(?<=<h)([123456])(?!.*id=".*)(?=[^>]*>(.*)<\/h[123456]>)/g,
-    (_, headingLevel, title) => `${headingLevel} id="${slugify(title)}"`
+    /<h([123456])(?!.*id=".*)(?=[^>]*>(.*)<\/h[123456]>)/g,
+    (_, headingLevel, title) => `<h${headingLevel} id="${slugify(title)}"`
   )
 }
 
 function wrapImages(content: string) {
-  return content.replace(/(?<=<img) (?=[^>]*>)/g, ' data-zoomable ')
+  return content.replace(/<img/g, '<img data-zoomable')
 }
 
 function getTopOffset() {
