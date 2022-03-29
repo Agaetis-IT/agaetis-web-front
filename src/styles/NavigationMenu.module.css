@@ -19,13 +19,18 @@
   background-color: white;
 }
 
+.menuLinkOrangeUnderline::after {
+  background-color: #ff7f40;
+}
+
 .menuLinkUnderline:hover::after,
 .menuLinkUnderlineSelected::after {
   width: 100%;
 }
 
 @media (min-width: 820px) {
-  .menuLinkBlackUnderline::after {
+  .menuLinkBlackUnderline::after,
+  .menuLinkWhiteUnderline::after {
     left: 50%;
     -webkit-transform: translateX(-50%);
     -moz-transform: translateX(-50%);

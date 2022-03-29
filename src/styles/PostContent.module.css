@@ -1,5 +1,13 @@
-.content {
-  z-index: 2;
+.activeLink {
+  font-weight: 700;
+}
+
+.activeLink::before {
+  background-color: #ff7f40;
+}
+
+.center {
+  text-align: center;
 }
 
 .content h1,
@@ -30,6 +38,11 @@
 
 .content a {
   color: revert;
+  cursor: revert;
+}
+
+.content a:visited {
+  color: rgb(126, 0, 243);
   cursor: revert;
 }
 
@@ -107,7 +120,6 @@
 .content img {
   display: block;
   margin: 0 auto;
-  padding: 20px 0;
 }
 
 .content ol,

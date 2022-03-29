@@ -1,3 +1,4 @@
+import clsx from 'clsx'
 import Head from 'next/head'
 
 import ContactSection from '../components/ContactSection'
@@ -6,13 +7,12 @@ import Layout from '../components/Layout'
 import SolutionsCarousel from '../components/SolutionsCarousel'
 
 import { getSolutionsPageContent } from '../services/wordpressService'
-import { compareWhyUsSection, convertContentAPItoContent, SolutionsContent } from '../types/SolutionsContent'
-import clsx from 'clsx'
+import SolutionsAPI from '../models/SolutionsAPI'
 
 const Particles = '/images/particles-3.svg'
 
 interface Props {
-  pageContent: SolutionsContent
+  pageContent: SolutionsAPI
   errorCode?: number
 }
 
@@ -93,7 +93,7 @@ function solutions({ pageContent, errorCode }: Props) {
             >
               <h2 className="text-lg font-bold mb-4 text-white">{pageContent.whyUs.title}</h2>
               <div className="flex flex-col md:flex-row justify-around p-8">
-                {pageContent.whyUs.sections.sort(compareWhyUsSection).map((section, index) => (
+                {pageContent.whyUs.sections.map((section, index) => (
                   <div
                     key={section.title}
                     className={clsx(
@@ -122,8 +122,8 @@ function solutions({ pageContent, errorCode }: Props) {
               style={{ backgroundColor: 'rgba(0,0,0,0.4)' }}
               className="p-4 rounded-lg backdrop-filter backdrop-blur-sm"
             >
-              <h2 className="text-lg font-bold mb-4 text-white text-center">{pageContent.partnersTitle}</h2>
-              <SolutionsCarousel partners={pageContent.partners} />
+              <h2 className="text-lg font-bold mb-4 text-white text-center">{pageContent.partners.title}</h2>
+              <SolutionsCarousel partners={pageContent.partners.partners} />
             </div>
           </div>
           <ContactSection />
@@ -137,7 +137,7 @@ export async function getStaticProps() {
   try {
     return {
       props: {
-        pageContent: JSON.parse(JSON.stringify(convertContentAPItoContent(await getSolutionsPageContent()))),
+        pageContent: await getSolutionsPageContent(),
       },
       revalidate: +process.env.NEXT_PUBLIC_REVALIDATION_DELAY,
     }

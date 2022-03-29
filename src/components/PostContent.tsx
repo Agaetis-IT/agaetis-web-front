@@ -1,13 +1,15 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
+import clsx from 'clsx'
 import Link from 'next/link'
+import mediumZoom from 'medium-zoom'
+import tocbot from 'tocbot'
 import { useRouter } from 'next/router'
 
 import Button from './Button'
 
-import { AuthorLink } from '../types/AuthorContent'
-import { fixWordPressString } from '../services/textUtilities'
+import { AuthorLink } from '../models/AuthorAPI'
+import { fixWordPressString, slugify } from '../services/textUtilities'
 import PostPageContent from '../types/PostPageContent'
-import Meta from '../types/Meta'
 
 import styles from '../styles/PostContent.module.css'
 const AccessTime = '/icons/access_time-24px.svg'
@@ -19,11 +21,10 @@ const Placeholder = '/images/blog-post-placeholder.jpg'
 
 interface Props {
   content: PostPageContent
-  meta: Meta
 }
 
 function createMarkup(content: string) {
-  return { __html: content }
+  return { __html: content.replace(/has-text-align-center/g, styles.center) }
 }
 
 function formatAuthor(author: AuthorLink) {
@@ -47,15 +48,27 @@ function formatAuthorList(authors: AuthorLink[]) {
   ])
 }
 
+function addIdAttributes(content: string) {
+  return content.replace(
+    /<h([123456])(?!.*id=".*)(?=[^>]*>(.*)<\/h[123456]>)/g,
+    (_, headingLevel, title) => `<h${headingLevel} id="${slugify(title)}"`
+  )
+}
+
+function wrapImages(content: string) {
+  return content.replace(/<img/g, '<img data-zoomable')
+}
+
 function getTopOffset() {
   const floating = document.getElementsByClassName('header-1')[0]
 
   return floating && window.innerWidth >= 820 ? floating.clientHeight : 0
 }
 
-function PostContent({ content, meta }: Props) {
+function PostContent({ content }: Props) {
   const router = useRouter()
   const [location, setLocation] = useState('')
+  const [isTocVisible, setIsTocVisible] = useState(false)
 
   const handleAnchorClick = (e: MouseEvent) => {
     e.stopPropagation()
@@ -72,8 +85,8 @@ function PostContent({ content, meta }: Props) {
     }
   }
 
-  const setAnchorHandlers = () => {
-    if (router.asPath.includes('#')) {
+  const setAnchorHandlers = useCallback(() => {
+    if (router.asPath.includes('#') && document.getElementsByName(router.asPath.split('#')[1]).length > 0) {
       window.scroll({
         top:
           document.getElementsByName(router.asPath.split('#')[1])[0].getBoundingClientRect().top -
@@ -83,7 +96,7 @@ function PostContent({ content, meta }: Props) {
       })
     }
 
-    const contentTag: HTMLElement = document.getElementById('ideaContent')
+    const contentTag: HTMLElement = document.getElementById('postContent')
 
     if (contentTag) {
       for (const anchor of Array.from(contentTag.getElementsByTagName('a'))) {
@@ -102,10 +115,26 @@ function PostContent({ content, meta }: Props) {
     }
 
     return undefined
-  }
+  }, [router])
 
   useEffect(() => {
     setLocation(window.location.href)
+    mediumZoom('[data-zoomable]', { margin: 25 })
+    tocbot.init({
+      tocSelector: '#toc',
+      includeTitleTags: false,
+      contentSelector: '#postContent',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      headingsOffset: 68,
+      scrollSmoothOffset: -68,
+      activeLinkClass: styles.activeLink,
+      headingLabelCallback: (str: string) => {
+        setIsTocVisible(true)
+
+        return str
+      },
+    })
+
     return setAnchorHandlers()
   }, [setAnchorHandlers])
 
@@ -127,7 +156,7 @@ function PostContent({ content, meta }: Props) {
       <div className="pb-4 bg-white shadow-md md:rounded-lg">
         <img
           className="object-center h-80 md:h-100 w-full object-cover md:rounded-t-lg"
-          src={meta.featuredImage ? meta.featuredImage : Placeholder}
+          src={content.imageUrl || Placeholder}
           title={content.title}
           alt={content.title}
           width={400}
@@ -212,11 +241,21 @@ function PostContent({ content, meta }: Props) {
             </div>
           )}
         </div>
-        <div
-          id="ideaContent"
-          dangerouslySetInnerHTML={createMarkup(content.content)}
-          className={`${styles.content} px-4 md:px-8 leading-normal text-sm text-justify`}
-        />
+        <div className="flex px-4">
+          <div className={clsx('hidden w-1/4 mt-8 h-fit sticky top-4 md:top-20', isTocVisible && 'sm:block')}>
+            <span className="text-sm text-gray-800 font-bold">SOMMAIRE</span>
+            <nav id="toc" className="toc mt-4" />
+          </div>
+          <article
+            id="postContent"
+            dangerouslySetInnerHTML={createMarkup(wrapImages(addIdAttributes(content.content)))}
+            className={clsx(
+              styles.content,
+              'px-4 leading-normal text-sm text-justify w-full',
+              isTocVisible && 'sm:w-3/4'
+            )}
+          />
+        </div>
       </div>
     </div>
   )

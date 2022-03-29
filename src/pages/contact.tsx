@@ -5,11 +5,11 @@ import ContactSection from '../components/ContactSection'
 import Error from './_error'
 import Layout from '../components/Layout'
 
-import ContactContent from '../types/ContactContent'
+import ContactAPI from '../models/ContactAPI'
 import { getContactPageContent } from '../services/wordpressService'
 
 interface Props {
-  pageContent: ContactContent
+  pageContent: ContactAPI
   errorCode?: number
 }
 
@@ -30,7 +30,7 @@ export default function contact({ pageContent, errorCode }: Props) {
         <meta name="description" content="Un projet, une idée ? Discutons-en !" />
         <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}/contact`} />
       </Head>
-      <Layout>
+      <Layout displayedPage={'/contact'}>
         <div className="pt-0 md:pt-17">
           <ContactForm title={pageContent.title} subText={pageContent.paragraph} isPage />
           <ContactSection />

@@ -1,12 +1,11 @@
 export interface PostAPI {
-  id: number
+  id: string
   title: { rendered: string }
   slug: string
   date: string
   acf: {
-    idea_image: string
-    idea_description: string
-    coAuthor: [{ data: { display_name: string } }]
+    description: string
+    coAuthors: [{ data: { display_name: string } }]
   }
   _embedded: {
     'wp:featuredmedia': [

@@ -1,4 +1,4 @@
-export default interface ContactContentApi {
+export default interface ContactAPI {
   title: string
   paragraph: string
 }

@@ -1,16 +1,9 @@
 import Blog from '../../components/Blog'
 
-import { Category, Response } from '../../types/PostPageContent'
+import { convertPostAPIToCardContent, Response } from '../../types/PostPageContent'
 import { CategoryAPI, PostAPI } from '../../models/PostAPI'
-import {
-  getPostsByPage,
-  getCategories,
-  getBlogPageContent,
-  getAllWhitePapers,
-  getPostsByCategory,
-} from '../../services/wordpressService'
+import { getPostsByPage, getCategories, getBlogPageContent, getPostsByCategory } from '../../services/wordpressService'
 import { slugify } from '../../services/textUtilities'
-import WhitePaper from '../../types/WhitePaper'
 
 export default Blog
 
@@ -18,13 +11,11 @@ export async function getStaticPaths() {
   const categories = await getCategories()
 
   return {
-    paths: categories
-      .map((category: CategoryAPI) => ({
-        params: {
-          categoryName: slugify(category.name),
-        },
-      }))
-      .filter((path: { params: { categoryName: string } }) => !path.params.categoryName.includes('offer-')),
+    paths: categories.map((category: CategoryAPI) => ({
+      params: {
+        categoryName: slugify(category.name),
+      },
+    })),
     fallback: 'blocking',
   }
 }
@@ -32,24 +23,18 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   try {
     let selectedCategory = ''
-    const {
-      [0]: categories,
-      [1]: content,
-      [2]: whitepapers,
-    } = await Promise.all([getCategories(), getBlogPageContent(), getAllWhitePapers()])
+    const { [0]: categories, [1]: content } = await Promise.all([getCategories(), getBlogPageContent()])
     let promiseResult: Response
 
     if (!params.categoryName) {
       promiseResult = await getPostsByPage()
     } else {
-      const names = categories
-        .map((category: CategoryAPI) => slugify(category.name))
-        .filter((name: string) => !name.includes('_offer-'))
+      const names = categories.map((category: CategoryAPI) => slugify(category.name))
 
       if (!names.includes(params.categoryName)) {
         return {
           props: {
-            ideasDescription: [],
+            postsDescription: [],
             whitePapers: [],
             categories: [],
             content: null,
@@ -65,31 +50,12 @@ export async function getStaticProps({ params }) {
 
     return {
       props: {
-        ideasDescription: promiseResult.data.map((idea: PostAPI) => ({
-          id: idea.id,
-          title: idea.title.rendered,
-          categories: idea._embedded['wp:term'][0].map((category: { name: string }) => category.name),
-          tags: [],
-          slug: idea.slug,
-          descriptionText: idea.acf.idea_description,
-          date: idea.date,
-          image:
-            (idea._embedded['wp:featuredmedia'] &&
-              idea._embedded['wp:featuredmedia'][0] &&
-              idea._embedded['wp:featuredmedia'][0].source_url) ||
-            '',
-        })),
-        whitePapers:
-          whitepapers && whitepapers.length > 0
-            ? whitepapers.map((whitepaper: { slug: string; acf: WhitePaper }) => ({
-                slug: whitepaper.slug,
-                ...whitepaper.acf,
-              }))
-            : [],
+        postsDescription: promiseResult.data.map((post: PostAPI) => convertPostAPIToCardContent(post)),
         content,
-        categories: categories
-          .map((category: CategoryAPI) => ({ categoryId: category.id, categoryName: category.name }))
-          .filter((category: Category) => !category.categoryName.includes('_offer-')),
+        categories: categories.map((category: CategoryAPI) => ({
+          categoryId: category.id,
+          categoryName: category.name,
+        })),
         selectedCategory: selectedCategory,
         hideSeeMore: promiseResult.pageCount <= 1,
       },

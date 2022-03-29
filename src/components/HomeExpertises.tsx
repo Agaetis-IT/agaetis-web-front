@@ -1,4 +1,4 @@
-import { Expertise } from '../types/IndexContent'
+import { Expertise } from '../models/IndexAPI'
 
 interface Props {
   expertisesTitle: string
@@ -52,7 +52,7 @@ export default function HomeExpertises({
               <div className="self-center pl-2">
                 <h3 className="text-orange-500 font-bold pb-1 uppercase text-sm leading-normal">{e.title}</h3>
                 <p className="text-gray-700 text-xs leading-normal font-bold italic">
-                  {e.items.split(',').join(' - ')}
+                  {e.items?.split(',').join(' - ')}
                 </p>
               </div>
             </div>
